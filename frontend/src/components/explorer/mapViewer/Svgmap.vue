@@ -150,6 +150,7 @@ export default {
         this.errorMessage = messages.mapNotFound;
         return;
       }
+      this.errorMessage = '';
       this.$store.dispatch('maps/setLoading', true);
       const payload = { model: this.model.short_name, svgName: this.mapData.svgs[0].filename };
       await this.$store.dispatch('maps/getSvgMap', payload);
