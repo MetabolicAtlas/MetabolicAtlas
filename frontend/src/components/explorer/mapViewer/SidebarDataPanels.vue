@@ -139,7 +139,7 @@
 <script>
 import { mapState } from 'vuex';
 import { capitalize, reformatStringToLink, reformatChemicalReactionHTML } from '@/helpers/utils';
-import { chemicalFormula } from '@/helpers/chemical-formatters';
+import { default as chemicalFormula } from '@/helpers/chemical-formatters';
 import { default as messages } from '@/helpers/messages';
 
 export default {

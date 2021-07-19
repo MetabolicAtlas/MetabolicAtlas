@@ -15,7 +15,7 @@ CALL apoc.when(
   'MATCH (g:Gene${m} {id: comp.id})-[${v}]-(gs:GeneState)'
   +	'RETURN {id: g.id, name: gs.name, type: compType} as component',
   'MATCH (cm:CompartmentalizedMetabolite${m} {id: comp.id})-[${v}]-(:Metabolite)-[${v}]-(ms:MetaboliteState)'
-  + ' RETURN {id: cm.id, name: ms.name, type: compType} as component',
+  + ' RETURN {id: cm.id, name: ms.name, formula: ms.formula, charge: ms.charge, type: compType} as component',
   {comp:comp, compType:compType})
 YIELD value as v
 
