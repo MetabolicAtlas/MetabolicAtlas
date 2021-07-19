@@ -1,14 +1,18 @@
 <template>
-  <div class="svgbox p-0 m-0">
-    <div v-if="errorMessage" class="columns is-centered">
-      <div class="column is-half has-text-centered">
-        <p class="notification has-background-danger-light" style="margin-top: 30%;" v-html="errorMessage"></p>
+  <div class="viewer-container">
+    <div class="svgbox p-0 m-0">
+      <div v-if="errorMessage" class="columns is-centered">
+        <div class="column is-half has-text-centered">
+          <p class="notification has-background-danger-light" style="margin-top: 30%;" v-html="errorMessage"></p>
+        </div>
       </div>
+      <MapLoader />
+      <div id="svg-wrapper" v-html="svgContent">
+      </div>
+      <div id="tooltip" ref="tooltip"></div>
     </div>
-    <MapLoader />
-    <div id="svg-wrapper" v-html="svgContent">
-    </div>
-    <MapControls wrapper-elem-selector=".svgbox" :is-fullscreen="isFullscreen"
+
+    <MapControls wrapper-elem-selector=".viewer-container" :is-fullscreen="isFullscreen"
                  :zoom-in="zoomIn" :zoom-out="zoomOut"
                  :toggle-full-screen="toggleFullscreen" :toggle-genes="toggleGenes"
                  :toggle-subsystems="toggleSubsystems" :download-canvas="downloadCanvas" />
@@ -16,7 +20,6 @@
                :fullscreen="isFullscreen"
                @searchOnMap="searchIDsOnMap" @centerViewOn="centerElementOnSVG"
                @unHighlightAll="unHighlight" />
-    <div id="tooltip" ref="tooltip"></div>
   </div>
 </template>
 
@@ -541,6 +544,14 @@ export default {
 </script>
 
 <style lang="scss">
+
+.viewer-container {
+  width: 100%;
+  height: 100%;
+  @media screen and (max-width: $tablet) {
+    height: $viewer-height;
+  }
+}
 
 .met, .rea, .enz {
   .shape, .lbl {
