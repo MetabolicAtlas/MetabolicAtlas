@@ -2,7 +2,6 @@
 
 import interactionPartnersApi from '@/api/interactionPartners';
 import randomComponentsApi from '@/api/randomComponents';
-import { default as chemicalFormula } from '@/helpers/chemical-formatters';
 import { constructCompartmentStr } from '@/helpers/utils';
 
 const data = {
@@ -15,20 +14,6 @@ const data = {
 const getters = {
   component: state => state.interactionPartners.component || {},
   reactions: state => state.interactionPartners.reactions || [],
-  title: (state, _getters) => {
-    const { type, id, name, formula, charge } = _getters.component;
-
-    if (type === 'metabolite' && ((!name && formula) || /\d/.test(name))) {
-      // IF type is metabolite
-      // AND (
-      //  name does not exist AND formula does
-      //  OR name contains a number
-      // )
-      return chemicalFormula(formula, charge);
-    }
-
-    return name || id;
-  },
   reactionsSet: (state, _getters) => new Set(_getters.reactions.map(r => r.id)),
   componentName: (state, _getters) => _getters.component.name || _getters.component.id,
 };
