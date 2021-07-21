@@ -147,6 +147,7 @@ export default {
     async init() {
       this.$refs.mapsearch.reset();
       if (this.mapData.svgs.length === 0) {
+        this.$store.dispatch('maps/clearSvgMap');
         this.errorMessage = messages.mapNotFound;
         return;
       }
