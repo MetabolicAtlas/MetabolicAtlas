@@ -56,7 +56,7 @@
         <template v-else-if="mainNodeID && !componentNotFound">
           <div class="container is-fullhd columns">
             <div class="column is-8">
-              <h3 class="title is-3 m-0" v-html="`${messages.interPartName} for ${title}`"></h3>
+              <h3 class="title is-3 m-0" v-html="`${messages.interPartName} for ${componentName}`"></h3>
             </div>
           </div>
           <div v-show="showGraphContextMenu && showNetworkGraph" id="contextMenuGraph" ref="contextMenuGraph">
@@ -414,7 +414,6 @@ export default {
     ...mapGetters({
       component: 'interactionPartners/component',
       reactions: 'interactionPartners/reactions',
-      title: 'interactionPartners/title',
       reactionSet: 'interactionPartners/reactionsSet',
       componentName: 'interactionPartners/componentName',
     }),

@@ -69,7 +69,7 @@
 import axios from 'axios';
 import { mapState } from 'vuex';
 import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout';
-import { chemicalFormula } from '@/helpers/chemical-formatters';
+import { default as chemicalFormula } from '@/helpers/chemical-formatters';
 import { generateSocialMetaTags, reformatTableKey } from '@/helpers/utils';
 
 export default {
