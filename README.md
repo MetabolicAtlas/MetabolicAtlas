@@ -1,3 +1,4 @@
+[![DOI](https://zenodo.org/badge/53664497.svg)](https://zenodo.org/badge/latestdoi/53664497)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4276/badge)](https://bestpractices.coreinfrastructure.org/projects/4276)
 
 Welcome to the codebase for the Metabolic Atlas project.  
