@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { reformatTableKey } from '../../../helpers/utils';
+import { reformatTableKey } from '@/helpers/utils';
 
 export default {
   name: 'ExtIdTable',

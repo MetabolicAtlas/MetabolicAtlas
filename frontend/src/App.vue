@@ -140,7 +140,7 @@ import { mapState } from 'vuex';
 import ErrorPanel from '@/components/shared/ErrorPanel';
 import GemSearch from '@/components/explorer/gemBrowser/GemSearch';
 import { default as messages } from '@/helpers/messages';
-import { isCookiePolicyAccepted, acceptCookiePolicy } from './helpers/store';
+import { isCookiePolicyAccepted, acceptCookiePolicy } from '@/helpers/store';
 
 export default {
   name: 'App',

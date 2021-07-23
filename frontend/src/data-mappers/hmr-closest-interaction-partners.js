@@ -1,4 +1,3 @@
-// import { default as getLink } from '../helpers/component-link';
 import Vue from 'vue';
 
 export default function (c, reactions, relms, rrels, rcomp, rsub) {
