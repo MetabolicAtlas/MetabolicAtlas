@@ -17,7 +17,7 @@
 
           Metabolic Atlas is intended to be used for applications in metabolomics, clinical chemistry, biomarker discovery and general education. In short, the vision is to create a one-stop-shop for everything metabolism related, starting with <a href="https://www.sysbio.se/labs/nielsen/#publications">the publications of the Nielsen lab</a>.<br><br>
 
-          The development of Metabolic Atlas is led by <a href="https://nbis.se/about/staff/mihail-anton" target="_blank">Mihail Anton</a>, with team members Pierre-Etienne Cholley and Shan Huang. Past and more detailed contributions are <a href="https://github.com/SysBioChalmers/MetabolicAtlas/graphs/contributors" target="_blank">shown on GitHub</a>. For versions and release notes of the software behind Metabolic Atlas, <a href="https://github.com/SysBioChalmers/MetabolicAtlas/releases" target="_blank">check the GitHub page</a> or <a href='https://zenodo.org/badge/latestdoi/53664497' target='_blank'>Zenodo</a>. The integrated models are also available on GitHub, check our <router-link :to="{ name: 'gems' }">GEM Repository</router-link> for links to those.<br><br>
+          The development of Metabolic Atlas is led by <a href="https://nbis.se/about/staff/mihail-anton" target="_blank">Mihail Anton</a>, with team members Pierre-Etienne Cholley and Shan Huang. Past and more detailed contributions are <a href="https://github.com/SysBioChalmers/MetabolicAtlas/graphs/contributors" target="_blank">shown on GitHub</a>. For versions and release notes of the software behind Metabolic Atlas, <a href="https://github.com/SysBioChalmers/MetabolicAtlas/releases" target="_blank">check the GitHub page</a> or <a href="https://zenodo.org/badge/latestdoi/53664497" target="_blank">Zenodo</a>. The integrated models are also available on GitHub, check our <router-link :to="{ name: 'gems' }">GEM Repository</router-link> for links to those.<br><br>
 
           <p>Metabolic Atlas would not be possible without the following excellent Elixir resources: <a href="https://proteinatlas.org" target="_blank">The Human Protein Atlas</a>, <a href="https://www.ensembl.org/" target="_blank">Ensembl</a>, <a href="https://www.uniprot.org" target="_blank">UniProt</a>, <a href="https://europepmc.org" target="_blank">Europe PMC</a>, <a href="https://identifiers.org" target="_blank">Identifiers.org</a>, <a href="https://www.ebi.ac.uk/chebi" target="_blank">ChEBi</a> and other essential sources of information: <a href="http://www.genome.jp/kegg/" target="_blank">KEGG: Kyoto Encyclopedia of Genes and Genomes</a>,  <a href="http://www.hmdb.ca/" target="_blank">The Human Metabolome Database</a>, <a href="https://www.metanetx.org" target="_blank">MetaNetX</a>, <a href="http://bigg.ucsd.edu" target="_blank">BiGG</a>, <a href="https://www.ncbi.nlm.nih.gov" target="_blank">NCBI</a>.
           </p>
@@ -35,22 +35,38 @@
           <img width="100%" alt="The SysBio group 2019" src="../assets/group_19.jpg">
           <center><a href="https://sysbio.se" target="_blank">The SysBio group 2019</a></center>
           <br><br>
-          <h4 class="title is-4">Scientific Advisors</h4>
-          <nav id="advisors" class="level">
-            <div v-for="advisor in advisors" :key="advisor.name" class="level-left">
-              <a :href="advisor.url" target="_blank">
-                <span class="level-item">
-                  <figure class="image is-64x64">
-                    <img class="is-rounded" :alt="advisor.name" :src="advisor.img" />
-                  </figure>
-                  {{ advisor.name }}
-                </span>
-              </a>
-            </div>
-          </nav>
-          <br>
           <h4 class="title is-4">Contact</h4>
           <p>For any questions, comments or suggestions please email us at <a href="mailto:">contact [at] metabolicatlas [dot] org</a>.</p>
+        </div>
+      </div>
+      <br>
+      <h3 class="title is-3">Scientific Advisors</h3>
+      <div class="columns is-multiline">
+        <div v-for="advisor in advisors" :key="advisor.name" class="column is-half-tablet is-one-third-desktop">
+          <div class="card card-fullheight">
+            <div class="card-content">
+              <div class="media">
+                <div class="media-left">
+                  <figure class="image is-64x64">
+                    <img :alt="advisor.name" :src="advisor.img" />
+                  </figure>
+                </div>
+                <div class="media-content">
+                  <p class="title is-4">{{ advisor.name }}</p>
+                  <p class="subtitle is-6 pt-2">
+                    <a :href="advisor.orcid" target="_blank">
+                      <img class="image is-16x16 is-inline" alt="orcid" src="../assets/orcid.gif" />
+                    </a>
+                    <a :href="advisor.linkedin" target="_blank">
+                      <span class="icon pl-3"><i class="fa fa-linkedin-square fa-lg"></i></span>
+                    </a>
+                  </p>
+                </div>
+              </div>
+              <div class="content" v-html="advisor.content">
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <br>
@@ -115,11 +131,27 @@ export default {
         {
           name: 'Prof. Jens Nielsen',
           img: require('../assets/pic-jens.jpg'),
-          url: 'https://www.sysbio.se/labs/nielsen/',
+          orcid: 'https://orcid.org/0000-0002-9955-6003',
+          linkedin: 'https://www.linkedin.com/in/jens-nielsen-57a207181/',
+          content: '<a href="https://bii.dk/team/jens-nielsen" target="_blank">CEO at BioInnovation Institute</a> and <a href="https://www.sysbio.se/labs/nielsen/" target="_blank">Prof. of Systems and Synthetic Biology at Chalmers University of Technology</a>',
         }, {
           name: 'Dr. Jonathan Robinson',
           img: require('../assets/pic-jon.jpg'),
-          url: 'https://nbis.se/about/staff/jonathan-robinson/',
+          orcid: 'https://orcid.org/0000-0001-8567-5960',
+          linkedin: 'https://www.linkedin.com/in/jonathanrob/',
+          content: '<a href="https://jonathanrob.github.io/" target="_blank">Scientific Data Developer at BioInnovation Institute</a>',
+        }, {
+          name: 'Dr. Hao Wang',
+          img: require('../assets/pic-hao.jpg'),
+          orcid: 'https://orcid.org/0000-0001-7475-0136',
+          linkedin: 'https://www.linkedin.com/in/hao-wang-9a66ba30/',
+          content: 'Researcher at Chalmers University of Technology',
+        }, {
+          name: 'Dr. Rui Benfeitas',
+          img: require('../assets/pic-rui.jpg'),
+          orcid: 'https://orcid.org/0000-0001-7972-0083',
+          linkedin: 'https://www.linkedin.com/in/ruibenfeitas/',
+          content: '<a href="https://www.benfeitas.net" target="_blank">Senior Bioinformatician at NBIS, SciLifeLab</a>',
         },
       ],
       news,
@@ -128,14 +160,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-#advisors{
-  figure {
-    margin: 0 1rem 0 0;
-  }
-  .level-item {
-    justify-content: flex-start;
-    margin: 0 4rem 0 0;
-  }
-}
-</style>
+<style lang="scss"></style>
