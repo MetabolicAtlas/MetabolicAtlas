@@ -1,5 +1,32 @@
 {
+  "2021": [
+    {
+      "date": "2021-07-20",
+      "title": "Metabolic Atlas 2.0",
+      "text": "We are excited to announce official release of Metabolic Atlas 2.0 together with the publication of <a href='https: //doi.org/10.1073/pnas.2102344118' target='_blank'><i>Genome-scale metabolic network reconstruction of model animals as a platform for translational research</i></a> 🎉  </br> Visually, the development efforts have alternated between implementing specific features, for example a highly performant and more lightweight 3D viewer, and a dynamic comparison between models, and implementing incremental improvements to the user experience, for example a faster way to search, random suggestions for the Interaction Partners, and a new home page layout. Moreover, a sleuth of bugs, some introduced by the new technology stack, have been fixed.</br> Content-wise, this 2.0 release integrates 5 new GEMs next to the updated Human-GEM and Yeast-GEM, bringing the total to 7 integrated models. With this, new IDs for reactions and metabolites have been created for 6 of these models. These new IDs have been updated on the manually created 2D maps, replacing the previous IDs.</br> More details can be found <a href='https: //github.com/SysBioChalmers/MetabolicAtlas/releases/tag/2.0' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/badge/latestdoi/53664497' target='_blank'>on Zenodo</a>."
+    },
+    {
+      "date": "2021-04-23",
+      "title": "Metabolic Atlas was presented in an NBIS course",
+      "text": "<b>Metabolic Atlas</b> was presented in the <a href='https://nbisweden.github.io/workshop_omics_integration/schedule.html' target='_blank'>Omics Integration and Systems Biology</a> course given by <a href='https://nbis.se' target='_blank'>NBIS</a>, with <a href='https://zenodo.org/record/4896710' target='_blank'>materials available on Zenodo</a>."
+    }
+  ],
   "2020": [
+    {
+      "date": "2020-10-15",
+      "title": "Metabolic Atlas was presented in a workshop",
+      "text": "A poster of <b>Metabolic Atlas</b> was presented in the <a href='https://mbm.systemsbiology.se/#program' target='_blank'>Workshop on Modelling in Biology and Medicine</a> in Gothenburg, Sweden."
+    },
+    {
+      "date": "2020-10-09",
+      "title": "Metabolic Atlas was presented in an NBIS course",
+      "text": "<b>Metabolic Atlas</b> was presented in the Omics Integration and Systems Biology course given by <a href='https://nbis.se' target='_blank'>NBIS</a>, with <a href='https://zenodo.org/record/4084627' target='_blank'>materials available on Zenodo</a>."
+    },
+    {
+      "date": "2020-06-10",
+      "title": "Metabolic Atlas at Elixir All Hands",
+      "text": "A <a href='https://f1000research.com/posters/9-561' target='_blank'> poster of <b>Metabolic Atlas</b></a> has been shown at the virtual <a href='https://elixir-europe.org/events/elixir-all-hands-2020' target='_blank'>Elixir All Hands</a>."
+    },
     {
       "date": "2020-04-27",
       "title": "Metabolic Atlas 1.7 brings Map Viewer improvements",
@@ -8,7 +35,7 @@
     {
       "date": "2020-03-23",
       "title": "Metabolic Atlas 1.6",
-      "text": "<b>Metabolic Atlas 1.6</b> is out. This release contains many user interface improvements, documentation updates and correction of typos. More details can be found <a href='https: //github.com/SysBioChalmers/MetabolicAtlas/releases/tag/1.6' target='_blank'>on GitHub</a>."
+      "text": "<b>Metabolic Atlas 1.6</b> is out, in connection with the publication of the research article <a href='https://doi.org/10.1126/scisignal.aaz1482' target=_blank'><i>An atlas of human metabolism</i></a>, and the <a href='https://www.chalmers.se/en/departments/bio/news/Pages/The-next-generation-of-human-metabolic-modelling.aspx' target='_blank'>press release at Chalmers University</a>. This release contains many user interface improvements, documentation updates and correction of typos. More details can be found <a href='https: //github.com/SysBioChalmers/MetabolicAtlas/releases/tag/1.6' target='_blank'>on GitHub</a>."
     },
     {
       "date": "2020-02-07",
@@ -19,7 +46,7 @@
   "2019": [
     {
       "date": "2019-09-11",
-      "title": "Metabolic Atlas was presented in a course given by NBIS",
+      "title": "Metabolic Atlas was presented in an NBIS course",
       "text": "<b>Metabolic Atlas</b> was presented in the <a href='https: //www.scilifelab.se/events/omics-integration-and-systems-biology/' target='_blank'>Omics Integration and Systems Biology</a> course given by <a href='https://nbis.se' target='_blank'>NBIS</a>."
     },
     {
