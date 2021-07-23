@@ -73,8 +73,8 @@
                   <tr v-if="el.date">
                     <td>{{ el.date }}</td>
                     <td class="pl-3">
-                      <router-link :to="{ name: 'about', hash: `#${el.hash}` }">
-                        {{ el.text }}
+                      <router-link :to="{ name: 'about', hash: `#${el.date}` }">
+                        {{ el.title }}
                       </router-link>
                     </td>
                   </tr>
@@ -177,6 +177,7 @@
 
 <script>
 import { default as messages } from '../helpers/messages';
+import { default as newsItems } from '@/content/news';
 
 /* eslint-disable global-require */
 export default {
@@ -255,8 +256,8 @@ export default {
           route: { name: 'about' },
           icon: 'users' },
       ],
-      newsItems: [
-        { date: '2020.04.27',
+      newsItems:
+        Object.values(newsItems).reverse().flat(1).slice(0, 12),
           hash: '27-April-2020',
           text: 'Metabolic Atlas 1.7 brings Map Viewer improvements' },
         { date: '2020.03.23',
