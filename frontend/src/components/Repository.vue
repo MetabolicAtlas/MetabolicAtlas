@@ -147,7 +147,7 @@ import { VueGoodTable } from 'vue-good-table';
 import 'vue-good-table/dist/vue-good-table.css';
 import Loader from '@/components/Loader';
 import References from '@/components/shared/References';
-import { default as messages } from '@/helpers/messages';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'Repository',

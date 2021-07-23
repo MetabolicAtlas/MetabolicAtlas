@@ -139,7 +139,7 @@ import axios from 'axios';
 import { mapState } from 'vuex';
 import ErrorPanel from '@/components/shared/ErrorPanel';
 import GemSearch from '@/components/explorer/gemBrowser/GemSearch';
-import { default as messages } from '@/helpers/messages';
+import { default as messages } from '@/content/messages';
 import { isCookiePolicyAccepted, acceptCookiePolicy } from '@/helpers/store';
 
 export default {

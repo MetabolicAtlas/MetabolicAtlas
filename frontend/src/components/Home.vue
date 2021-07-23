@@ -176,7 +176,7 @@
 </template>
 
 <script>
-import { default as messages } from '../helpers/messages';
+import { default as messages } from '@/content/messages';
 import { default as newsItems } from '@/content/news';
 
 /* eslint-disable global-require */
@@ -258,33 +258,6 @@ export default {
       ],
       newsItems:
         Object.values(newsItems).reverse().flat(1).slice(0, 12),
-          hash: '27-April-2020',
-          text: 'Metabolic Atlas 1.7 brings Map Viewer improvements' },
-        { date: '2020.03.23',
-          hash: '23-March-2020',
-          text: 'Metabolic Atlas 1.6' },
-        { date: '2020.02.07',
-          hash: '7-February-2020',
-          text: 'Metabolic Atlas 1.5 updates both integrated models' },
-        { date: '2019.09.11',
-          hash: '11-September-2019',
-          text: 'Metabolic Atlas was presented in a course given by NBIS' },
-        { date: '2019.09.05',
-          hash: '5-September-2019',
-          text: 'Metabolic Atlas 1.4 enables gene expression comparison' },
-        { date: '2019.08.01',
-          hash: '1-August-2019',
-          text: 'Metabolic Atlas 1.3' },
-        { date: '2019.06.25',
-          hash: '25-June-2019',
-          text: 'Metabolic Atlas is upgraded to 1.2 with Human-GEM updated to v1.1' },
-        { date: '2019.05.29',
-          hash: '29-May-2019',
-          text: 'Metabolic Atlas is upgraded to 1.1' },
-        { date: '2019.05.17',
-          hash: '17-May-2019',
-          text: 'Metabolic Atlas is publicly available as 1.0' },
-      ],
     };
   },
 };

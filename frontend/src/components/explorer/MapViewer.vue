@@ -107,7 +107,7 @@ import NotFound from '@/components/NotFound';
 import SidebarDataPanels from '@/components/explorer/mapViewer/SidebarDataPanels.vue';
 import Svgmap from '@/components/explorer/mapViewer/Svgmap';
 import ThreeDViewer from '@/components/explorer/mapViewer/ThreeDviewer';
-import { default as messages } from '@/helpers/messages';
+import { default as messages } from '@/content/messages';
 import { default as EventBus } from '@/event-bus';
 
 export default {

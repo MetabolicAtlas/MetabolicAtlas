@@ -289,7 +289,7 @@ import { default as changeGraphStyle } from '@/graph-stylers/hmr-closest-interac
 import { default as convertGraphML } from '@/helpers/graph-ml-converter';
 
 import { getSingleRNAExpressionColor } from '@/expression-sources/hpa';
-import { default as messages } from '@/helpers/messages';
+import { default as messages } from '@/content/messages';
 
 
 export default {

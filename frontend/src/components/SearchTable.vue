@@ -174,7 +174,7 @@ import ExportTSV from '@/components/shared/ExportTSV';
 import 'vue-good-table/dist/vue-good-table.css';
 import { default as chemicalFormula } from '@/helpers/chemical-formatters';
 import { sortResults } from '@/helpers/utils';
-import { default as messages } from '../helpers/messages';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'SearchTable',
