@@ -3,13 +3,13 @@
     <table class="table">
       <thead>
         <tr>
-          <th></th>
-          <th v-for="cn in columnNames" :key="cn">{{ cn }}</th>
+          <th class="has-nowrap"></th>
+          <th class="has-nowrap" v-for="cn in columnNames" :key="cn">{{ cn }}</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(rn, i) in rowNames" :key="rn + i">
-          <th>{{ rn }}</th>
+          <th class="has-nowrap">{{ rn }}</th>
           <td v-for="(cn, j) in columnNames" :key="cn + j" :class="{selected: isSelectedCell(i, j)}">
             <div>
               <span v-for="(type, k) in types" :key="cn + j + type"

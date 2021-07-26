@@ -71,7 +71,7 @@
                 <template v-for="el in newsItems">
                   <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
                   <tr v-if="el.date">
-                    <td>{{ el.date }}</td>
+                    <td class="has-nowrap">{{ el.date }}</td>
                     <td class="pl-3">
                       <router-link :to="{ name: 'about', hash: `#${el.date}` }">
                         {{ el.title }}

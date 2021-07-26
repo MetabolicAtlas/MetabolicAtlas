@@ -431,5 +431,8 @@ span.sc {
   width: 100%;
   height: 3px;
 }
+.has-nowrap {
+  white-space: nowrap;
+}
 
 </style>
