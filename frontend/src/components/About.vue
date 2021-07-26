@@ -144,7 +144,7 @@ export default {
           img: require('../assets/pic-jon.jpg'),
           orcid: 'https://orcid.org/0000-0001-8567-5960',
           linkedin: 'https://www.linkedin.com/in/jonathanrob/',
-          content: '<a href="https://jonathanrob.github.io/" target="_blank">Scientific Data Developer at BioInnovation Institute</a>',
+          content: '<a href="https://bii.dk/team/jonathan-robinson/" target="_blank">Scientific Data Developer at BioInnovation Institute</a>',
         }, {
           name: 'Dr. Hao Wang',
           img: require('../assets/pic-hao.jpg'),
