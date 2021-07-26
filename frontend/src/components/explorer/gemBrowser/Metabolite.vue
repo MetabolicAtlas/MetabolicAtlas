@@ -53,12 +53,16 @@
       </table>
     </template>
     <template v-slot:chebi>
-      <div v-if="chebiImageLink"
+      <div v-if="metabolite.externalDbs && metabolite.externalDbs.ChEBI"
            class="column is-3-widescreen is-2-desktop is-full-tablet has-text-centered px-2">
         <a :href="metabolite.externalDbs.ChEBI[0].url" target="_blank">
-          <img id="chebi-img" :src="chebiImageLink" class="hoverable" />
+          <img id="chebi-img"
+               :src="`https://www.ebi.ac.uk/chebi/displayImage.do?defaultImage=true&imageIndex=0&chebiId=${metabolite.externalDbs.ChEBI[0].id.slice(6)}&dimensions=400`"
+               class="hoverable"
+               onerror="this.onerror=null;this.parentElement.parentElement.style.display='none';" />
           <a :href="metabolite.externalDbs.ChEBI[0].url" target="_blank" style="display: block;">
-            {{ metabolite.name }} via ChEBI</a>
+            {{ metabolite.name }} via ChEBI
+          </a>
         </a>
       </div>
     </template>
@@ -66,7 +70,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import { mapState } from 'vuex';
 import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout';
 import { default as chemicalFormula } from '@/helpers/chemical-formatters';
@@ -92,7 +95,6 @@ export default {
         { name: 'compartment' },
       ],
       activePanel: 'table',
-      chebiImageLink: null,
     };
   },
   computed: {
@@ -129,14 +131,6 @@ export default {
   },
   methods: {
     async handleCallback() {
-      if (this.metabolite.externalDbs.ChEBI) {
-        const link = `https://www.ebi.ac.uk/chebi/displayImage.do?defaultImage=true&imageIndex=0&chebiId=${this.metabolite.externalDbs.ChEBI[0].id.slice(6)}`;
-        const { data } = await axios.get(link);
-        if (data !== '') {
-          this.chebiImageLink = `${link}&dimensions=400`;
-        }
-      }
-
       try {
         const payload = { model: this.model, id: this.metaboliteId };
         await this.$store.dispatch('metabolites/getRelatedMetabolites', payload);
