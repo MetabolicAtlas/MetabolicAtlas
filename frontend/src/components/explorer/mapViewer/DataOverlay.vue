@@ -173,10 +173,10 @@ export default {
       return this.HPATissues.length !== 0 && this.tissue2 !== 'None';
     },
     isSelectedCustomtissue1() {
-      return !this.disabledCustomSelectData && !(NOFILELOADED, 'None').includes(this.customTissue1);
+      return !this.disabledCustomSelectData && ![NOFILELOADED, 'None'].includes(this.customTissue1);
     },
     isSelectedCustomtissue2() {
-      return !this.disabledCustomSelectData && !(NOFILELOADED, 'None').includes(this.customTissue2);
+      return !this.disabledCustomSelectData && ![NOFILELOADED, 'None'].includes(this.customTissue2);
     },
     isSelectedTissue1() {
       return this.isSelectedHPAtissue1 || this.isSelectedCustomtissue1;
