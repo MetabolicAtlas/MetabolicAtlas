@@ -139,8 +139,8 @@ import axios from 'axios';
 import { mapState } from 'vuex';
 import ErrorPanel from '@/components/shared/ErrorPanel';
 import GemSearch from '@/components/explorer/gemBrowser/GemSearch';
-import { default as messages } from '@/helpers/messages';
-import { isCookiePolicyAccepted, acceptCookiePolicy } from './helpers/store';
+import { default as messages } from '@/content/messages';
+import { isCookiePolicyAccepted, acceptCookiePolicy } from '@/helpers/store';
 
 export default {
   name: 'App',
@@ -430,6 +430,9 @@ span.sc {
   left: 0;
   width: 100%;
   height: 3px;
+}
+.has-nowrap {
+  white-space: nowrap;
 }
 
 </style>

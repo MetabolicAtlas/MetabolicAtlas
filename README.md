@@ -1,8 +1,11 @@
+[![DOI](https://zenodo.org/badge/53664497.svg)](https://zenodo.org/badge/latestdoi/53664497)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4276/badge)](https://bestpractices.coreinfrastructure.org/projects/4276)
 
 Welcome to the codebase for the Metabolic Atlas project.  
 If you use *Metabolic Atlas* in your scientific work, please cite:
-> Robinson, Jonathan L., et al. "An atlas of human metabolism." *Science Signaling* 13.624 (2020) [doi:10.1126/scisignal.aaz1482 ](https://doi.org/10.1126/scisignal.aaz1482 )
+> Wang, H., et al, 2021. _Genome-scale metabolic network reconstruction of model animals as a platform for translational research_. PNAS 118 [doi:10.1073/pnas.2102344118](https://doi.org/10.1073/pnas.2102344118)
+>
+> Robinson, J., et al, 2020. _An atlas of human metabolism_. Science Signaling 13 [doi:10.1126/scisignal.aaz1482 ](https://doi.org/10.1126/scisignal.aaz1482)
 
 
 ## Get started

@@ -51,14 +51,7 @@ bh_unicode_properties.cache
 GitHub.sublime-settings
 
 # local env files
-.env.local
-.env.*.local
-.env
-*.env
-
-static/
-
-*.pyc
+.env*
 node_modules/
 
 # Log files

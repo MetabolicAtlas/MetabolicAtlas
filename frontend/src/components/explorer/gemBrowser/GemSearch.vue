@@ -83,7 +83,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex';
 import $ from 'jquery';
-import { default as messages } from '@/helpers/messages';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'GemSearch',

@@ -34,7 +34,7 @@ import MapControls from '@/components/explorer/mapViewer/MapControls';
 import MapLoader from '@/components/explorer/mapViewer/MapLoader';
 import MapSearch from '@/components/explorer/mapViewer/MapSearch';
 import { default as EventBus } from '@/event-bus';
-import { default as messages } from '@/helpers/messages';
+import { default as messages } from '@/content/messages';
 import { reformatChemicalReactionHTML } from '@/helpers/utils';
 
 export default {

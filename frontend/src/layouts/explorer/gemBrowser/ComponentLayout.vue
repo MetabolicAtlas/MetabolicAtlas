@@ -63,7 +63,7 @@ import ExtIdTable from '@/components/explorer/gemBrowser/ExtIdTable';
 import ReactionTable from '@/components/explorer/gemBrowser/ReactionTable';
 import GemContact from '@/components/shared/GemContact';
 import References from '@/components/shared/References';
-import { default as messages } from '@/helpers/messages';
+import { default as messages } from '@/content/messages';
 
 export default {
   components: {

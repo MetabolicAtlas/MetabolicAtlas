@@ -27,7 +27,7 @@ import { default as EventBus } from '@/event-bus';
 import MapControls from '@/components/explorer/mapViewer/MapControls';
 import MapLoader from '@/components/explorer/mapViewer/MapLoader';
 import MapSearch from '@/components/explorer/mapViewer/MapSearch';
-import { default as messages } from '@/helpers/messages';
+import { default as messages } from '@/content/messages';
 import { default as colorToRGBArray } from '@/helpers/colors';
 
 const NODE_TEXTURES = [

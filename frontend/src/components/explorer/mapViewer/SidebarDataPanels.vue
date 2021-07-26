@@ -128,7 +128,7 @@
         <header class="card-header is-clickable">
           <p class="card-header-title is-inline is-unselectable has-text-weight-normal">
             This {{ selectionData.type }} does not exist in {{ model.short_name }}.
-            Email us at contact@metabolicatlas.org
+            Email us at <a href="mailto:contact@metabolicatlas.org">contact [at] metabolicatlas [dot] org</a>.
           </p>
         </header>
       </div>
@@ -140,7 +140,7 @@
 import { mapState } from 'vuex';
 import { capitalize, reformatStringToLink, reformatChemicalReactionHTML } from '@/helpers/utils';
 import { default as chemicalFormula } from '@/helpers/chemical-formatters';
-import { default as messages } from '@/helpers/messages';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'SidebarDataPanels',

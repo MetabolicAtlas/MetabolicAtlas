@@ -86,7 +86,7 @@
 <script>
 import { mapState } from 'vuex';
 import Tile from '@/components/explorer/gemBrowser/Tile';
-import { default as messages } from '@/helpers/messages';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'GemBrowser',
