@@ -56,6 +56,7 @@ export default {
       controller: null,
       isFullscreen: false,
       searchedNodesOnMap: [],
+      currentLevels: {},
     };
   },
   computed: {
@@ -74,7 +75,6 @@ export default {
   },
   watch: {
     async currentMap() {
-      this.resetNetwork();
       await this.loadNetwork();
     },
     dataOverlayPanelVisible() {
@@ -88,6 +88,9 @@ export default {
   },
   async mounted() {
     await this.loadNetwork();
+  },
+  beforeDestroy() {
+    this.resetNetwork();
   },
   methods: {
     async loadNetwork() {
@@ -120,6 +123,7 @@ export default {
     },
     async renderNetwork(customizedNetwork) {
       this.resetNetwork();
+
       this.controller = MetAtlasViewer('viewer3d');
 
       const graphData = customizedNetwork || this.network;
@@ -177,6 +181,13 @@ export default {
       }
     },
     async applyColorsAndRenderNetwork(levels) {
+      if (this.currentLevels === levels
+          || (this.currentLevels === {} && Object.keys(levels).length > 0)
+      ) {
+        return;
+      }
+      this.currentLevels = levels;
+
       const nodes = this.network.nodes.map((node) => {
         let color = colorToRGBArray('#9df');
 
@@ -219,8 +230,10 @@ export default {
       this.$store.dispatch('maps/setCoords', payload);
     },
     resetNetwork() {
-      const viewer = document.getElementById('viewer3d');
-      viewer.innerHTML = '';
+      if (this.controller) {
+        this.controller.dispose();
+        this.controller = null;
+      }
     },
     zoomIn() {
       this.zoomBy(50);
