@@ -124,6 +124,11 @@ export default {
       return 'uracil, SULT1A3, ATP => cAMP + PPi, subsystem or compartment';
     },
   },
+  watch: {
+    model(m) {
+      this.searchModel = m;
+    },
+  },
   async created() {
     await this.getIntegratedModelList();
   },
@@ -138,7 +143,6 @@ export default {
         this.$router.replace({ params: { model: modelKey } });
       }
       this.$store.dispatch('models/selectModel', modelKey);
-      this.searchModel = this.models[modelKey];
     },
     async handleModelChange(e) {
       e.preventDefault();
