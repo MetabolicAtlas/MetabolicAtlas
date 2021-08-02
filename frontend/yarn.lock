@@ -735,10 +735,10 @@
     cssnano-preset-default "^4.0.0"
     postcss "^7.0.0"
 
-"@metabolicatlas/3d-network-viewer@^0.1.14":
-  version "0.1.14"
-  resolved "https://registry.yarnpkg.com/@metabolicatlas/3d-network-viewer/-/3d-network-viewer-0.1.14.tgz#b5ffb6be2fb0f758a378889c418de866c7d7f729"
-  integrity sha512-0lKs6lLOidzANRGVCBBKjHKoHJW/HOpc1qXCo4gVO1hmrAHV5dGwB9jLZtaEs09sIOiM4n85dwIt3ls9DjGe+g==
+"@metabolicatlas/3d-network-viewer@^0.1.18":
+  version "0.1.18"
+  resolved "https://registry.yarnpkg.com/@metabolicatlas/3d-network-viewer/-/3d-network-viewer-0.1.18.tgz#2c58510d82bd05631fd2076217623c28032c2962"
+  integrity sha512-RqFZq/iEbs4ISaC3IoYz7flHPq7RVXcf+PLveYJw7MCOhAQ5A/rJBF5l6daGo1FXOdpeYwioULjl5p6kZ+PfrQ==
   dependencies:
     three "^0.126.0"
 
