@@ -123,7 +123,6 @@ export default {
     },
     async renderNetwork(customizedNetwork) {
       this.resetNetwork();
-
       this.controller = MetAtlasViewer('viewer3d');
 
       const graphData = customizedNetwork || this.network;
