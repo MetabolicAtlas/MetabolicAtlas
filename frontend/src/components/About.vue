@@ -65,6 +65,9 @@
                     <a :href="advisor.linkedin" target="_blank">
                       <span class="icon pl-3"><i class="fa fa-linkedin-square fa-lg"></i></span>
                     </a>
+                    <a v-if="advisor.github" :href="advisor.github" target="_blank">
+                      <span class="icon pl-4 has-text-black-bis"><i class="fa fa-lg fa-github"></i></span>
+                    </a>
                   </p>
                 </div>
               </div>
@@ -143,19 +146,22 @@ export default {
           name: 'Dr. Jonathan Robinson',
           img: require('../assets/pic-jon.jpg'),
           orcid: 'https://orcid.org/0000-0001-8567-5960',
-          linkedin: 'https://www.linkedin.com/in/jonathanrob/',
-          content: '<a href="https://bii.dk/team/jonathan-robinson/" target="_blank">Scientific Data Developer at BioInnovation Institute</a>',
+          linkedin: 'https://www.linkedin.com/in/jonathanrob',
+          github: 'https://github.com/JonathanRob',
+          content: '<a href="https://bii.dk/team/jonathan-robinson" target="_blank">Scientific Data Developer at BioInnovation Institute</a>',
         }, {
           name: 'Dr. Hao Wang',
           img: require('../assets/pic-hao.jpg'),
           orcid: 'https://orcid.org/0000-0001-7475-0136',
-          linkedin: 'https://www.linkedin.com/in/hao-wang-9a66ba30/',
-          content: 'Researcher at Chalmers University of Technology',
+          linkedin: 'https://www.linkedin.com/in/hao-wang-9a66ba30',
+          github: 'https://github.com/Hao-Chalmers',
+          content: '<a href="https://github.com/Hao-Chalmers" target="_blank">Researcher at Chalmers University of Technology</a>',
         }, {
           name: 'Dr. Rui Benfeitas',
           img: require('../assets/pic-rui.jpg'),
           orcid: 'https://orcid.org/0000-0001-7972-0083',
           linkedin: 'https://www.linkedin.com/in/ruibenfeitas/',
+          github: 'https://github.com/Benfeitas',
           content: '<a href="https://www.benfeitas.net" target="_blank">Senior Bioinformatician at NBIS, SciLifeLab</a>',
         },
       ],
