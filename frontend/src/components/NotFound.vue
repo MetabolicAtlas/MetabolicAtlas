@@ -4,6 +4,7 @@
       <template v-if="type">
         <p class="title is-size-5">
           <span class="is-capitalized">{{ type }}</span><code>{{ componentId }}</code>not found
+          <template v-if="type !== 'model'">in<code>{{ model.short_name }}</code></template>
         </p>
         <p v-if="type === 'model'">{{ messages.modelNotFound }}</p>
         <p v-else>
@@ -32,6 +33,7 @@
 </template>
 <script>
 
+import { mapState } from 'vuex';
 import { default as messages } from '@/content/messages';
 
 export default {
@@ -44,6 +46,11 @@ export default {
     return {
       messages,
     };
+  },
+  computed: {
+    ...mapState({
+      model: state => state.models.model,
+    }),
   },
 };
 
