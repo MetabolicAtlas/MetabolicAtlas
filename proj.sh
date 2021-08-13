@@ -6,7 +6,7 @@ function generate-data {
   echo 'Data generation started.'
   source .env && yarn --cwd $DATA_GENERATOR_PATH start $DATA_FILES_PATH "$@"
   /bin/cp -rf $DATA_GENERATOR_PATH/data/* neo4j/import
-  /bin/cp  -f $DATA_GENERATOR_PATH/data/hpaRna.json api/src/data/ # this line should be removed after HPA data is included in the dataOverlay folder
+  /bin/cp  -f $DATA_GENERATOR_PATH/data/hpaRna.json api/src/data/
   /bin/cp -rf $DATA_GENERATOR_PATH/data/dataOverlay api/
   /bin/cp  -f $DATA_FILES_PATH/integrated-models/integratedModels.json api/src/data/
   /bin/cp  -f $DATA_FILES_PATH/gemsRepository.json api/src/data/
