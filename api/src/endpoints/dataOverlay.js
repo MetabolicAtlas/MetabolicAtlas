@@ -21,7 +21,7 @@ routes.get('/:model/:dataType/:filename', async (req, res) => {
   const { model, dataType, filename } = req.params;
   try {
     const dataSourceFile = readFileSync(
-      `/project/dataOverlay/${model}/${dataType}/${filename}`,
+      `./dataOverlay/${model}/${dataType}/${filename}`,
       'utf8',
     );
     res.setHeader('Content-Type', 'text/tsv');
