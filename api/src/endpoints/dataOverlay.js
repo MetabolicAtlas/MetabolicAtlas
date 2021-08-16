@@ -7,7 +7,7 @@ routes.get('/:model', async (req, res) => {
   const { model } = req.params;
   try {
     const indexJson = readFileSync(
-      `/project/dataOverlay/${model}/index.json`,
+      `./dataOverlay/${model}/index.json`,
       'utf8',
     );
     res.json(JSON.parse(indexJson));
