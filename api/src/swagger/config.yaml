@@ -172,7 +172,7 @@ paths:
         in: "path"
         required: true
         type: "string"
-        description: "the metabolite ID, e.g. **m01587m**"
+        description: "the metabolite ID, e.g. **MAM01587m**"
       - name: "model"
         in: "query"
         required: true
@@ -197,7 +197,7 @@ paths:
         in: "path"
         required: true
         type: "string"
-        description: "the metabolite ID, e.g. **m01587m**"
+        description: "the metabolite ID, e.g. **MAM01587m**"
       - name: "model"
         in: "query"
         required: true
@@ -224,7 +224,7 @@ paths:
         in: "path"
         required: true
         type: "string"
-        description: "the metabolite ID, e.g. **m01587m**"
+        description: "the metabolite ID, e.g. **MAM01587m**"
       - name: "model"
         in: "query"
         required: true
@@ -249,7 +249,7 @@ paths:
         in: "path"
         required: true
         type: "string"
-        description: "the reaction ID, e.g. **HMR_3000**"
+        description: "the reaction ID, e.g. **MAR03000**"
       - name: "model"
         in: "query"
         required: true
@@ -276,7 +276,7 @@ paths:
         in: "path"
         required: true
         type: "string"
-        description: "the reaction ID, e.g. **HMR_3000**"
+        description: "the reaction ID, e.g. **MAR03000**"
       - name: "model"
         in: "query"
         required: true
@@ -354,7 +354,7 @@ paths:
         in: "path"
         required: true
         type: "string"
-        description: "the gene ID, e.g. **ENSG00000196502** or the metabolite ID, e.g. **slfcys_c**"
+        description: "the gene ID, e.g. **ENSG00000196502** or the metabolite ID, e.g. **MAM03933c**"
       - name: "model"
         in: "path"
         required: true
