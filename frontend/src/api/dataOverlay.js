@@ -7,9 +7,9 @@ const fetchIndex = async (model) => {
 
 const fetchFile = async ({ model, type, filename }) => {
   const { data } = await axios.get(
-    `/data-overlay/${model}/${type}/${filename}`,
+    `/data-overlay/${model}/${type}/${filename}`
   );
-  return data;
+  return new Blob([data]);
 };
 
 export default { fetchIndex, fetchFile };
