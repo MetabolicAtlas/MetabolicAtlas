@@ -1,5 +1,5 @@
 import dataOverlayApi from '@/api/dataOverlay';
-import { parseFile } from '@/helpers/dataOverlay';
+import parseFile from '@/helpers/dataOverlay';
 
 const data = {
   index: {},
