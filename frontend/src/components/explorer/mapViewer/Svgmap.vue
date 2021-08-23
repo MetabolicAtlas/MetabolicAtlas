@@ -33,7 +33,6 @@ import { debounce } from 'vue-debounce';
 import MapControls from '@/components/explorer/mapViewer/MapControls';
 import MapLoader from '@/components/explorer/mapViewer/MapLoader';
 import MapSearch from '@/components/explorer/mapViewer/MapSearch';
-import { default as EventBus } from '@/event-bus';
 import { default as messages } from '@/content/messages';
 import { reformatChemicalReactionHTML } from '@/helpers/utils';
 
@@ -75,7 +74,7 @@ export default {
 
       selectedItemHistory: {},
 
-      HPARNAlevels: {}, // enz id as key, [current tissue level, color] as value
+      levels: {}, // enz id as key, [current tissue level, color] as value
       defaultGeneColor: '#feb',
       messages,
 
@@ -91,22 +90,29 @@ export default {
       coords: state => state.maps.coords,
       selectedElementId: state => state.maps.selectedElementId,
       searchTerm: state => state.maps.searchTerm,
+      dataSource: state => state.dataOverlay.currentDataSource,
+      tissue: state => state.dataOverlay.tissue,
     }),
     ...mapGetters({
       selectIds: 'maps/selectIds',
+      computedLevels: 'dataOverlay/computedLevels',
     }),
   },
   watch: {
     async mapData() {
       await this.init();
     },
+    tissue() {
+      this.applyLevelsOnMap();
+    },
     svgContent: 'loadSvgPanzoom',
   },
   created() {
-    EventBus.$off('apply2DHPARNAlevels');
-    EventBus.$on('apply2DHPARNAlevels', (levels) => {
-      this.applyHPARNAlevelsOnMap(levels);
-    });
+    // TODO: use levels from store, and use watch
+    // EventBus.$off('apply2DHPARNAlevels');
+    // EventBus.$on('apply2DHPARNAlevels', (levels) => {
+    //   this.applyHPARNAlevelsOnMap(levels);
+    // });
     this.updateURLCoord = debounce(this.updateURLCoord, 150);
   },
   async mounted() {
@@ -116,18 +122,13 @@ export default {
         await self.selectElement($(this));
       });
     });
+    // TODO: remove log function
     $('#svg-wrapper').on('mouseover', '.enz', function f(e) {
       const id = $(this).attr('class').split(' ')[1].trim();
-      if (id in self.HPARNAlevels) {
-        if (self.HPARNAlevels[id].length === 2) {
-          self.$refs.tooltip.innerHTML = `RNA log<sub>2</sub>(TPM+1): ${self.HPARNAlevels[id][1]}`;
-        } else {
-          self.$refs.tooltip.innerHTML = `RNA log<sub>2</sub>(TPM<sub>T1</sub>+1): ${self.HPARNAlevels[id][2]}<br>`;
-          self.$refs.tooltip.innerHTML += `RNA log<sub>2</sub>(TPM<sub>T2</sub>+1): ${self.HPARNAlevels[id][3]}<br>`;
-          self.$refs.tooltip.innerHTML += `RNA log<sub>2</sub>(TPM ratio): ${self.HPARNAlevels[id][1]}<br>`;
-        }
-      } else if (Object.keys(self.HPARNAlevels).length !== 0) {
-        self.$refs.tooltip.innerHTML = `RNA log<sub>2</sub>(TPM+1): ${self.HPARNAlevels['n/a'][1]}`;
+      if (id in self.levels) {
+        self.$refs.tooltip.innerHTML = self.levels[id][1]; // eslint-disable-line prefer-destructuring
+      } else if (Object.keys(self.levels).length !== 0) {
+        self.$refs.tooltip.innerHTML = self.levels['n/a'][1]; // eslint-disable-line prefer-destructuring
       } else {
         return;
       }
@@ -329,21 +330,23 @@ export default {
       });
       FileSaver.saveAs(blob, `${this.mapData.id}.svg`);
     },
-    applyHPARNAlevelsOnMap(RNAlevels) {
-      this.HPARNAlevels = RNAlevels;
-      if (Object.keys(this.HPARNAlevels).length === 0) {
-        $('#svg-wrapper .enz .shape').attr('fill', this.defaultGeneColor);
+    // TODO: rename so it's not HPA specific
+    applyLevelsOnMap() {
+      this.levels = this.computedLevels;
+      if (Object.keys(this.levels).length === 0) {
+        // TODO: add metabolite color
+        $('#svg-wrapper .shape').attr('fill', this.defaultGeneColor);
         return;
       }
 
-      const allGenes = $('#svg-wrapper .enz');
-      Object.values(allGenes).forEach((oneEnz) => {
+      const allComponents = $('#svg-wrapper, #svg-wrapper .met');
+      Object.values(allComponents).forEach((node) => {
         try {
-          const ID = oneEnz.classList[1];
-          if (this.HPARNAlevels[ID] !== undefined) {
-            oneEnz.children[0].setAttribute('fill', this.HPARNAlevels[ID][0]); // 0 is the float value, 1 the color hex
+          const ID = node.classList[1];
+          if (this.levels[ID] !== undefined) {
+            node.children[0].setAttribute('fill', this.levels[ID][0]); // 0 is the float value, 1 the color hex
           } else {
-            oneEnz.children[0].setAttribute('fill', this.HPARNAlevels['n/a'][0]);
+            node.children[0].setAttribute('fill', this.levels['n/a'][0]);
           }
         } catch {
           // .values() returns the prop 'length', we don't want that
@@ -352,11 +355,12 @@ export default {
       });
 
       // update cached selected elements
-      Object.keys(this.selectedItemHistory).filter(id => this.HPARNAlevels[id] !== undefined)
+      Object.keys(this.selectedItemHistory).filter(id => this.levels[id] !== undefined)
         .forEach((ID) => {
-          this.selectedItemHistory[ID].rnaLvl = this.HPARNAlevels[ID];
+          this.selectedItemHistory[ID].rnaLvl = this.levels[ID];
         });
-      EventBus.$emit('loadRNAComplete', true, '');
+      // TODO: use store
+      // EventBus.$emit('loadRNAComplete', true, '');
     },
     searchIDsOnMap(ids) {
       this.unHighlight(this.searchedElemsHL, 'schhl');

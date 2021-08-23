@@ -1,19 +1,11 @@
 <template>
-  <div v-if="mode === 'single'">
-    <RNALegend></RNALegend>
-  </div>
-  <div v-else-if="mode === 'comparison'">
-    <RNALegend text="log<sub>2</sub>(TPM<sub>T2</sub>+1 / TPM<sub>T1</sub>+1)" left-value="-5"
-               right-value="5"
-               :gradient="`${multipleColors}`" natext="n/a"></RNALegend>
-  </div>
-  <div v-else>
-  </div>
+  <RNALegend></RNALegend>
 </template>
 
 <script>
+// TODO: consider moving most of the data processing logic into store module
+// and removing this file completely
 import { mapGetters, mapState } from 'vuex';
-import { default as EventBus } from '@/event-bus';
 import RNALegend from '@/components/explorer/mapViewer/RNALegend.vue';
 import { getSingleRNAExpressionColor, getComparisonRNAExpressionColor, multipleColors } from '@/expression-sources/hpa';
 
@@ -28,15 +20,12 @@ export default {
   },
   data() {
     return {
-      errorMessage: '',
       tissue1Source: '',
-      tissue2Source: '',
       dim: null,
 
       customTissues: [],
       customRNALevels: {},
       firstRNAlevels: {},
-      secondRNAlevels: {},
 
       computedRNAlevels: {}, // enz id as key, current tissue level as value
       multipleColors,
@@ -47,122 +36,42 @@ export default {
       model: state => state.models.model,
       showing2D: state => state.maps.showing2D,
       tissue1: state => state.maps.tissue1,
-      tissue2: state => state.maps.tissue2,
       rnaLevels: state => state.humanProteinAtlas.levels,
     }),
     ...mapGetters({
       HPATissues: 'humanProteinAtlas/HPATissues',
     }),
-    mode() {
-      if (this.tissue1 !== 'None' && this.tissue2 !== 'None') {
-        return 'comparison';
-      } if (this.tissue1 !== 'None' || this.tissue2 !== 'None') {
-        return 'single';
-      }
-      return 'inactive';
-    },
   },
   async created() {
-    EventBus.$off('selectTissues');
-    EventBus.$off('selectFirstTissue');
-    EventBus.$off('selectSecondTissue');
-    EventBus.$off('unselectFirstTissue');
-    EventBus.$off('unselectSecondTissue');
-    EventBus.$off('loadCustomGeneExpData');
-
-    EventBus.$on('selectTissues', async (tissue1, tissue1Source, tissue2, tissue2Source, dim) => {
-      if (!tissue1) {
-        EventBus.$emit('unselectFirstTissue', true);
-        if (tissue2) {
-          EventBus.$emit('selectSecondTissue', tissue2, tissue2Source, dim);
-        } else {
-          EventBus.$emit('unselectSecondTissue');
-        }
-      } else if (!tissue2) {
-        EventBus.$emit('unselectSecondTissue', true);
-        EventBus.$emit('selectFirstTissue', tissue1, tissue1Source, dim);
-      } else {
-        await this.selectFirstTissue(tissue1, tissue1Source, dim, true);
-        await this.selectSecondTissue(tissue2, tissue2Source, dim);
-      }
-    });
-
-    EventBus.$on('selectFirstTissue', async (tissue, tissueSource, dim, skipCompute = false) => {
-      await this.selectFirstTissue(tissue, tissueSource, dim, skipCompute);
-    });
-
-    EventBus.$on('selectSecondTissue', async (tissue, tissueSource, dim, skipCompute = false) => {
-      await this.selectSecondTissue(tissue, tissueSource, dim, skipCompute);
-    });
-
-    EventBus.$on('unselectFirstTissue', (skipCompute) => {
-      this.$store.dispatch('maps/setTissue1', 'None');
-      this.tissue1Source = '';
-      this.firstRNAlevels = {};
-      if (!skipCompute) {
-        this.computeRNAlevels();
-      }
-    });
-
-    EventBus.$on('unselectSecondTissue', (skipCompute) => {
-      this.$store.dispatch('maps/setTissue2', 'None');
-      this.tissue2Source = '';
-      this.secondRNAlevels = {};
-      if (!skipCompute) {
-        this.computeRNAlevels();
-      }
-    });
-
-    EventBus.$on('loadCustomGeneExpData', (file) => {
-      this.loadCustomRNAlevels(file);
-    });
     await this.getRnaLevels();
   },
   methods: {
-    selectFirstTissue(tissue, tissueSource, dim, skipCompute = false) {
-      this.dim = dim;
-      this.$store.dispatch('maps/setTissue1', tissue);
-      this.tissue1Source = tissueSource;
-      if (tissueSource === 'HPA') {
-        this.parseHPARNAlevels(tissue, 0, skipCompute ? null : this.computeRNAlevels);
-      } else {
-        this.parseCustomRNAlevels(tissue, 0, skipCompute ? null : this.computeRNAlevels);
-      }
-      this.$emit('firstTissueSelected', tissue);
-    },
-    selectSecondTissue(tissue, tissueSource, dim, skipCompute = false) {
-      this.dim = dim;
-      this.$store.dispatch('maps/setTissue2', tissue);
-      this.tissue2Dource = tissueSource;
-      if (tissueSource === 'HPA') {
-        this.parseHPARNAlevels(tissue, 1, skipCompute ? null : this.computeRNAlevels);
-      } else {
-        this.parseCustomRNAlevels(tissue, 1, skipCompute ? null : this.computeRNAlevels);
-      }
-      this.$emit('secondTissueSelected', tissue);
-    },
     async getRnaLevels() {
+      // TODO: use new data overlay endpoint 
+      // params: model, data source type (transcriptomics), data source file name
       await this.$store.dispatch('humanProteinAtlas/getLevels');
     },
-    parseHPARNAlevels(tissue, index, callback) {
-      const RNAlevels = {};
-      const tissueIndex = this.HPATissues.indexOf(tissue);
-      this.$store.dispatch(`maps/setTissue${index + 1}`, tissue);
+    // TODO: consider moving following function to src/store/modules
+    // parseHPARNAlevels(tissue, index, callback) {
+    //   const RNAlevels = {};
+    //   const tissueIndex = this.HPATissues.indexOf(tissue);
+    //   // this.$store.dispatch(`maps/setTissue${index + 1}`, tissue);
 
-      Object.keys(this.rnaLevels).forEach((enzID) => {
-        RNAlevels[enzID] = this.rnaLevels[enzID][tissueIndex];
-      });
-      RNAlevels['n/a'] = 'n/a';
-      if (index === 0) {
-        this.firstRNAlevels = RNAlevels;
-      } else {
-        this.secondRNAlevels = RNAlevels;
-      }
-      if (callback) {
-        callback();
-      }
-    },
+    //   Object.keys(this.rnaLevels).forEach((enzID) => {
+    //     RNAlevels[enzID] = this.rnaLevels[enzID][tissueIndex];
+    //   });
+    //   RNAlevels['n/a'] = 'n/a';
+    //   if (index === 0) {
+    //     this.firstRNAlevels = RNAlevels;
+    //   } else {
+    //     this.secondRNAlevels = RNAlevels;
+    //   }
+    //   if (callback) {
+    //     callback();
+    //   }
+    // },
     loadCustomRNAlevels(file) {
+      // TODO: replace usages of emit with store
       // get the tissues / columns and the series
       this.$emit('loadingCustomFile');
       const reader = new FileReader();

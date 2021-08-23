@@ -23,7 +23,6 @@
 <script>
 import { mapGetters, mapState } from 'vuex';
 import { MetAtlasViewer } from '@metabolicatlas/3d-network-viewer';
-import { default as EventBus } from '@/event-bus';
 import MapControls from '@/components/explorer/mapViewer/MapControls';
 import MapLoader from '@/components/explorer/mapViewer/MapLoader';
 import MapSearch from '@/components/explorer/mapViewer/MapSearch';
@@ -83,8 +82,9 @@ export default {
     },
   },
   created() {
-    EventBus.$off('apply3DHPARNAlevels');
-    EventBus.$on('apply3DHPARNAlevels', this.applyColorsAndRenderNetwork);
+    // TODO: use vue store and watch
+    // EventBus.$off('apply3DHPARNAlevels');
+    // EventBus.$on('apply3DHPARNAlevels', this.applyColorsAndRenderNetwork);
   },
   async mounted() {
     await this.loadNetwork();

@@ -44,15 +44,16 @@
     </div>
     <div class="card my-3">
       <div class="card-content py-2 p-3">
-        <div class="has-text-centered title is-size-6">Data 1</div>
-        <div v-if="dataSourcesAvailable" class="control">
-          <p>RNA levels from <a href="https://www.proteinatlas.org" target="_blank">proteinAtlas.org</a></p>
+        <div class="has-text-centered title is-size-6">Data</div>
+        <!-- TODO: add select for data sources and remove RNA specific stuff -->
+        <div v-if="dataSource" class="control">
+          <p>Levels from <a :href="dataSource.link" target="_blank">{{ dataSource.name }}</a></p>
           <div class="select is-fullwidth">
-            <select :disabled="disabledRNAlvl" @change="(e) => setFirstTissue('HPA', e.target.value)">
+            <select :disabled="disabledRNAlvl" @change="(e) => setFirstTissue(dataSource.name, e.target.value)">
               <option>None</option>
-              <option v-for="tissue in HPATissues" :key="tissue"
-                      :selected="tissue === tissue1"
-                      class="is-clickable is-capitalized">{{ tissue }}</option>
+              <option v-for="t in dataSource.tissues" :key="t"
+                      :selected="t === tissue"
+                      class="is-clickable is-capitalized">{{ t }}</option>
             </select>
           </div>
         </div>
@@ -71,57 +72,22 @@
         </div>
       </div>
     </div>
-    <div class="card my-3">
-      <div class="card-content py-2 p-3">
-        <div class="has-text-centered title is-size-6">Data 2 (for comparison)</div>
-        <div v-if="dataSourcesAvailable" class="control">
-          <p>RNA levels from <a href="https://www.proteinatlas.org" target="_blank">proteinAtlas.org</a></p>
-          <div class="select is-fullwidth">
-            <select :disabled="disabledRNAlvl" @change="(e) => setSecondTissue('HPA', e.target.value)">
-              <option>None</option>
-              <option v-for="tissue in HPATissues" :key="tissue"
-                      :selected="tissue === tissue2"
-                      class="is-clickable is-capitalized">{{ tissue }}</option>
-            </select>
-          </div>
-        </div>
-        <div>{{ dataSourcesAvailable ? 'Or uploaded data' : 'RNA levels from uploaded data' }}</div>
-        <div class="control">
-          <div class="select is-fullwidth">
-            <select
-              v-model="customTissue2"
-              :disabled="disabledCustomSelectData"
-              @change="(e) => setSecondTissue('custom', e.target.value)">
-              <option v-if="!disabledCustomSelectData">None</option>
-              <option v-for="tissue in customTissues"
-                      :key="tissue"
-                      class="is-clickable is-capitalized">{{ tissue }}</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
-    <RNAexpression class="my-3"
-                   :map-type="mapType"
-                   :map-name="mapName"
-                   @loadedCustomLevels="setCustomTissues($event)"
-                   @errorCustomFile="handleErrorCustomFile($event)" />
+    <RNALegend class="my-3" />
   </div>
 </template>
 
 <script>
 
-import { mapGetters, mapState } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 import $ from 'jquery';
-import RNAexpression from '@/components/explorer/mapViewer/RNAexpression.vue';
-import { default as EventBus } from '@/event-bus';
+import RNALegend from '@/components/explorer/mapViewer/RNALegend.vue';
 
 const NOFILELOADED = 'No file loaded';
 
 export default {
   name: 'DataOverlay',
   components: {
-    RNAexpression,
+    RNALegend,
   },
   props: {
     mapType: String,
@@ -136,10 +102,8 @@ export default {
       customTissues: [NOFILELOADED],
 
       customTissue1: NOFILELOADED,
-      customTissue2: NOFILELOADED,
 
       tissue1Source: '',
-      tissue2Source: '',
 
       customFileName: '',
       showFileLoader: true,
@@ -154,14 +118,15 @@ export default {
       showing2D: state => state.maps.showing2D,
       dataOverlayPanelVisible: state => state.maps.dataOverlayPanelVisible,
       tissue1: state => state.maps.tissue1,
-      tissue2: state => state.maps.tissue2,
       mapLoaded: state => !state.maps.loading,
+      dataSource: state => state.dataOverlay.currentDataSource,
+      tissue: state => state.dataOverlay.tissue,
     }),
     ...mapGetters({
       HPATissues: 'humanProteinAtlas/HPATissues',
     }),
     disabledRNAlvl() {
-      return !this.mapName || this.HPATissues.length === 0;
+      return !this.mapName || !this.dataSource || this.dataSource.tissues.length === 0;
     },
     disabledCustomSelectData() {
       return this.customTissues.length === 1 && this.customTissues[0] === NOFILELOADED;
@@ -169,30 +134,15 @@ export default {
     isSelectedHPAtissue1() {
       return this.HPATissues.length !== 0 && this.tissue1 !== 'None';
     },
-    isSelectedHPAtissue2() {
-      return this.HPATissues.length !== 0 && this.tissue2 !== 'None';
-    },
     isSelectedCustomtissue1() {
       return !this.disabledCustomSelectData && ![NOFILELOADED, 'None'].includes(this.customTissue1);
-    },
-    isSelectedCustomtissue2() {
-      return !this.disabledCustomSelectData && ![NOFILELOADED, 'None'].includes(this.customTissue2);
     },
     isSelectedTissue1() {
       return this.isSelectedHPAtissue1 || this.isSelectedCustomtissue1;
     },
-    isSelectedTissue2() {
-      return this.isSelectedHPAtissue2 || this.isSelectedCustomtissue2;
-    },
     selectedTissue1() {
       if (this.isSelectedTissue1) {
         return this.isSelectedHPAtissue1 ? this.tissue1 : this.customTissue1;
-      }
-      return '';
-    },
-    selectedTissue2() {
-      if (this.isSelectedTissue2) {
-        return this.isSelectedHPAtissue2 ? this.tissue2 : this.customTissue2;
       }
       return '';
     },
@@ -204,19 +154,25 @@ export default {
     mapLoaded: 'reloadGeneExpressionData',
     HPATissues: 'reloadGeneExpressionData',
   },
-  created() {
-    EventBus.$on('loadedCustomExpressionData', (info) => {
-      this.customTissue1 = 'None';
-      this.customTissue2 = 'None';
-      this.customFileInfo = info;
-    });
+  async created() {
+    // TODO
+    await this.getDataSourcesIndex(this.model.short_name);
+    // TODO: use store/data/props
+    // EventBus.$on('loadedCustomExpressionData', (info) => {
+    //   this.customTissue1 = 'None';
+    //   this.customFileInfo = info;
+    // });
 
-    EventBus.$off('loadingCustomFile');
-    EventBus.$on('loadingCustomFile', () => {
-      this.showFileLoader = true;
-    });
+    // EventBus.$off('loadingCustomFile');
+    // EventBus.$on('loadingCustomFile', () => {
+    //   this.showFileLoader = true;
+    // });
   },
   methods: {
+    ...mapActions({
+      getDataSourcesIndex: 'dataOverlay/getIndex',
+      setTissue: 'dataOverlay/setTissue',
+    }),
     reloadGeneExpressionData() {
       if (this.mapLoaded && this.HPATissues.length > 0) {
         // check if tissues are provided in the URL
@@ -224,7 +180,7 @@ export default {
           return;
         }
 
-        const { g1, g2 } = this.$route.query;
+        const { g1 } = this.$route.query;
 
         if (g1 !== 'None' && !this.HPATissues.includes(g1)) {
           this.$store.dispatch('maps/setTissue1', 'None');
@@ -232,14 +188,9 @@ export default {
           this.setFirstTissue('HPA', g1);
         }
 
-        if (g2 !== 'None' && !this.HPATissues.includes(g2)) {
-          this.$store.dispatch('maps/setTissue2', 'None');
-        } else {
-          this.setSecondTissue('HPA', g2);
-        }
-
-        if (this.isSelectedTissue1 || this.isSelectedTissue2) {
-          EventBus.$emit('selectTissues', this.selectedTissue1, this.tissue1Source, this.selectedTissue2, this.tissue2Source, this.dim);
+        if (this.isSelectedTissue1) {
+          // TODO: use store
+          // EventBus.$emit('selectTissues', this.selectedTissue1, this.tissue1Source, this.dim);
         }
       }
     },
@@ -249,7 +200,8 @@ export default {
         this.errorCustomFile = false;
         this.errorCustomFileMsg = '';
         this.customFileInfo = '';
-        EventBus.$emit('loadCustomGeneExpData', e.target.files[0]);
+        // TODO: use store
+        // EventBus.$emit('loadCustomGeneExpData', e.target.files[0]);
         $('.file-input')[0].value = '';
       } else {
         this.customFileName = '';
@@ -258,7 +210,6 @@ export default {
     setCustomTissues(info) {
       this.customTissues = info.tissues;
       this.customTissue1 = 'None';
-      this.customTissue2 = 'None';
       this.customFileInfo = `Entries found: ${info.entries} - Series loaded: ${info.series}`;
       this.showFileLoader = false;
     },
@@ -268,19 +219,9 @@ export default {
       } else if (source === 'custom' && this.isSelectedHPAtissue1) {
         this.$store.dispatch('maps/setTissue1', 'None');
       }
-      this.$store.dispatch('maps/setTissue1', tissue);
-      this.loadRNAlevelsTissue1(this.selectedTissue1, source);
+      // this.$store.dispatch('maps/setTissue1', tissue);
+      this.setTissue(tissue);
       this.tissue1Source = source;
-    },
-    setSecondTissue(source, tissue) {
-      if (source === 'HPA' && this.isSelectedCustomtissue2) {
-        this.clearCustomTissue2Selection();
-      } else if (source === 'custom' && this.isSelectedHPAtissue2) {
-        this.$store.dispatch('maps/setTissue2', 'None');
-      }
-      this.$store.dispatch('maps/setTissue2', tissue);
-      this.loadRNAlevelsTissue2(this.selectedTissue2, source);
-      this.tissue2Source = source;
     },
     clearCustomTissue1Selection() {
       if (this.disabledCustomSelectData) {
@@ -289,36 +230,13 @@ export default {
         this.customTissue1 = 'None';
       }
     },
-    clearCustomTissue2Selection() {
-      if (this.disabledCustomSelectData) {
-        this.customTissue2 = NOFILELOADED;
-      } else {
-        this.customTissue2 = 'None';
-      }
-    },
-    loadRNAlevelsTissue1(tissue, source) {
-      if (!tissue) {
-        EventBus.$emit('unselectFirstTissue');
-        this.$store.dispatch('maps/setTissue1', 'None');
-      } else {
-        EventBus.$emit('selectFirstTissue', tissue, source, this.dim);
-      }
-    },
-    loadRNAlevelsTissue2(tissue, source) {
-      if (!tissue) {
-        EventBus.$emit('unselectSecondTissue');
-        this.$store.dispatch('maps/setTissue2', 'None');
-      } else {
-        EventBus.$emit('selectSecondTissue', tissue, source, this.dim);
-      }
-    },
     unloadUploadedFile() {
       this.customFileName = '';
       this.customTissues = [NOFILELOADED];
       this.customTissue1 = NOFILELOADED;
-      this.customTissue2 = NOFILELOADED;
-      if (this.isSelectedTissue1 || this.isSelectedTissue2) {
-        EventBus.$emit('selectTissues', this.selectedTissue1, this.tissue1Source, this.selectedTissue2, this.tissue2Source, this.dim);
+      if (this.isSelectedTissue1) {
+        // TODO: use store
+        // EventBus.$emit('selectTissues', this.selectedTissue1, this.tissue1Source, this.dim);
       }
     },
     handleErrorCustomFile(errorMsg) {
