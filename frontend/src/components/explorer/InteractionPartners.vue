@@ -288,7 +288,7 @@ import { default as changeGraphStyle } from '@/graph-stylers/hmr-closest-interac
 
 import { default as convertGraphML } from '@/helpers/graph-ml-converter';
 
-import { getSingleRNAExpressionColor } from '@/expression-sources/hpa';
+import { getSingleExpressionColor } from '@/helpers/expressionSources';
 import { default as messages } from '@/content/messages';
 
 
@@ -974,7 +974,7 @@ export default {
             const tissue = this.tissues[j];
             let level = Math.log2(levelsArray[j] + 1);
             level = Math.round((level + 0.00001) * 100) / 100;
-            this.rawElms[geneID].expressionLvl.HPA.RNA[tissue] = getSingleRNAExpressionColor(level);
+            this.rawElms[geneID].expressionLvl.HPA.RNA[tissue] = getSingleExpressionColor(level);
           }
         }
         this.overlay.HPA = {};
