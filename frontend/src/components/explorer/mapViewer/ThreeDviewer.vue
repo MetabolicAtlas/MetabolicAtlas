@@ -216,7 +216,7 @@ export default {
         if (node.g === 'm') {
           node.n = node.id; // eslint-disable-line
 
-          if (this.componentType === 'metabolite' || Object.keys(this.computedLevels).length > 0) {
+          if (this.componentType === 'metabolite' && Object.keys(this.computedLevels).length > 0) {
             const partialID = node.id.split('-')[0];
             const key = this.computedLevels[partialID] !== undefined ? partialID : 'n/a';
             color = colorToRGBArray(this.computedLevels[key][0]);

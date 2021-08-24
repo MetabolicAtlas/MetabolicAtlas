@@ -45,7 +45,28 @@
     <div class="card my-3">
       <div class="card-content py-2 p-3">
         <div class="has-text-centered title is-size-6">Data</div>
-        <!-- TODO: add select for data sources and remove RNA specific stuff -->
+        <div v-if="Object.keys(dataSourcesIndex).length > 0" class="control">
+          <p>Select data type</p>
+          <div class="select is-fullwidth">
+            <select @change="handleDataTypeSelect">
+              <option v-for="type in Object.keys(dataSourcesIndex)" :key="type"
+                      :selected="type === dataType.name"
+                      :value="type"
+                      class="is-clickable is-capitalized">{{ type }}</option>
+            </select>
+          </div>
+        </div>
+        <div v-if="Object.keys(dataSourcesIndex).length > 0" class="control">
+          <p>Select data source</p>
+          <div class="select is-fullwidth">
+            <select @change="handleDataSourceSelect">
+              <option v-for="s in dataSourcesIndex[dataType.name]" :key="s.filename"
+                      :selected="dataSource && s.filename === dataSource.filename"
+                      :value="s.filename"
+                      class="is-clickable is-capitalized">{{ s.name }}</option>
+            </select>
+          </div>
+        </div>
         <div v-if="dataSource" class="control">
           <p>Levels from <a :href="dataSource.link" target="_blank">{{ dataSource.name }}</a></p>
           <div class="select is-fullwidth">
@@ -119,6 +140,8 @@ export default {
       dataOverlayPanelVisible: state => state.maps.dataOverlayPanelVisible,
       tissue1: state => state.maps.tissue1,
       mapLoaded: state => !state.maps.loading,
+      dataSourcesIndex: state => state.dataOverlay.index,
+      dataType: state => state.dataOverlay.currentDataType,
       dataSource: state => state.dataOverlay.currentDataSource,
       tissue: state => state.dataOverlay.tissue,
     }),
@@ -168,8 +191,27 @@ export default {
   methods: {
     ...mapActions({
       getDataSourcesIndex: 'dataOverlay/getIndex',
+      setCurrentDataType: 'dataOverlay/setCurrentDataType',
+      getDataSource: 'dataOverlay/getDataSource',
       setTissue: 'dataOverlay/setTissue',
     }),
+    async handleDataTypeSelect(e) {
+      const payload = {
+        model: this.model.short_name,
+        type: e.target.value,
+      };
+
+      await this.setCurrentDataType(payload);
+    },
+    async handleDataSourceSelect(e) {
+      const payload = {
+        model: this.model.short_name,
+        type: this.dataType.name,
+        filename: e.target.value,
+      };
+
+      await this.getDataSource(payload);
+    },
     reloadGeneExpressionData() {
       if (this.mapLoaded && this.HPATissues.length > 0) {
         // check if tissues are provided in the URL

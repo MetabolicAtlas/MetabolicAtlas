@@ -4,7 +4,7 @@ import { getSingleExpressionColor } from '@/helpers/expressionSources';
 
 const data = {
   index: {},
-  // currentDataSource: { dataType, name, link, lastUpdated, entriesCount, levels, tissues, computedLevels }
+  currentDataType: null,
   currentDataSource: null,
   tissue: 'None',
 };
@@ -30,15 +30,9 @@ const getters = {
 
     return computedLevels;
   },
-  componentClassName: state => state.currentDataSource
-    && state.currentDataSource.dataType
-    && state.currentDataSource.dataType.className,
-  componentDefaultColor: state => state.currentDataSource
-    && state.currentDataSource.dataType
-    && state.currentDataSource.dataType.defaultColor,
-  componentType: state => state.currentDataSource
-    && state.currentDataSource.dataType
-    && state.currentDataSource.dataType.componentType,
+  componentClassName: state => state.currentDataType && state.currentDataType.className,
+  componentDefaultColor: state => state.currentDataType && state.currentDataType.defaultColor,
+  componentType: state => state.currentDataType && state.currentDataType.componentType,
 };
 
 const actions = {
@@ -46,26 +40,37 @@ const actions = {
     const index = await dataOverlayApi.fetchIndex(model);
     commit('setIndex', index);
 
-    const [type, dataSources] = Object.entries(index)[0];
-    const { filename } = dataSources[0];
+    const dataType = {
+      model,
+      type: Object.keys(index)[0],
+    };
+    await dispatch('setCurrentDataType', dataType);
+  },
+  async setCurrentDataType({ commit, dispatch, state }, { model, type }) {
+    const currentDataType = {
+      name: type,
+      ...DATA_TYPES_COMPONENTS[type],
+    };
+    commit('setCurrentDataType', currentDataType);
+
+    const { filename } = state.index[type][0];
     await dispatch('getDataSource', { model, type, filename });
   },
-  async getDataSource({ commit }, { model, type, filename }) {
+  async getDataSource({ commit, dispatch }, { model, type, filename }) {
     try {
+      dispatch('setTissue', 'None');
+
       const file = await dataOverlayApi.fetchFile({
         model,
         type,
         filename,
       });
       const dataSource = await parseFile(file);
-      const { name, link, lastUpdated } = data.index[type].find(
+      const metadata = data.index[type].find(
         m => m.filename === filename
       );
       commit('setCurrentDataSource', {
-        dataType: DATA_TYPES_COMPONENTS[type],
-        name,
-        link,
-        lastUpdated,
+        ...metadata,
         ...dataSource,
       });
     } catch (e) {
@@ -82,6 +87,9 @@ const actions = {
 const mutations = {
   setIndex: (state, index) => {
     state.index = index;
+  },
+  setCurrentDataType: (state, currentDataType) => {
+    state.currentDataType = currentDataType;
   },
   setCurrentDataSource: (state, currentDataSource) => {
     state.currentDataSource = currentDataSource;
