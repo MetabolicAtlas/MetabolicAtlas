@@ -1,3 +1,16 @@
+const DATA_TYPES_COMPONENTS = {
+  transcriptomics: {
+    componentType: 'gene',
+    className: 'enz',
+    defaultColor: '#feb',
+  },
+  metabolomics: {
+    componentType: 'metabolite',
+    className: 'met',
+    defaultColor: '#9df',
+  },
+};
+
 /*
  * @param { Blob } file
  *
@@ -73,4 +86,4 @@ const parseFile = async (file) => {
   };
 };
 
-export default parseFile;
+export { DATA_TYPES_COMPONENTS, parseFile };

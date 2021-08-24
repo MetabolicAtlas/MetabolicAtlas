@@ -2,7 +2,7 @@
   <div id="dataOverlayBox"
        class="column is-one-fifth-widescreen is-one-quarter-desktop
          is-one-quarter-tablet has-background-lightgray">
-    <div class="title is-size-4 has-text-centered">Gene expression data</div>
+    <div class="title is-size-4 has-text-centered">Expression data</div>
     <div class="has-text-centered"
          title="Load a TSV file with gene IDs and TPM values.
          More information can be found in the documentation.">
@@ -57,7 +57,7 @@
             </select>
           </div>
         </div>
-        <p>{{ dataSourcesAvailable ? 'Or uploaded data' : 'RNA levels from uploaded data' }}</p>
+        <p>{{ dataSource ? 'Or uploaded data' : 'Levels from uploaded data' }}</p>
         <div class="control">
           <div class="select is-fullwidth">
             <select
@@ -145,9 +145,6 @@ export default {
         return this.isSelectedHPAtissue1 ? this.tissue1 : this.customTissue1;
       }
       return '';
-    },
-    dataSourcesAvailable() {
-      return this.model.short_name === 'Human-GEM';
     },
   },
   watch: {

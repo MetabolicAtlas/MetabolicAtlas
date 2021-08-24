@@ -1,10 +1,11 @@
 import dataOverlayApi from '@/api/dataOverlay';
-import parseFile from '@/helpers/dataOverlay';
+import { DATA_TYPES_COMPONENTS, parseFile } from '@/helpers/dataOverlay';
 import { getSingleExpressionColor } from '@/helpers/expressionSources';
 
 const data = {
   index: {},
-  currentDataSource: null, // { name, link, lastUpdated, entriesCount, levels, tissues, computedLevels }
+  // currentDataSource: { dataType, name, link, lastUpdated, entriesCount, levels, tissues, computedLevels }
+  currentDataSource: null,
   tissue: 'None',
 };
 
@@ -15,13 +16,13 @@ const getters = {
       currentDataSource: { levels },
     } = state;
 
+    if (tissue === 'None') {
+      return {};
+    }
+
     const computedLevels = {
       'n/a': [getSingleExpressionColor(NaN), 'n/a'],
     };
-
-    if (tissue === 'None') {
-      return computedLevels;
-    }
 
     Object.keys(levels[tissue]).forEach((id) => {
       const val = Math.round((levels[tissue][id] + 0.00001) * 100) / 100;
@@ -30,6 +31,12 @@ const getters = {
 
     return computedLevels;
   },
+  componentClassName: state => state.currentDataSource
+    && state.currentDataSource.dataType
+    && state.currentDataSource.dataType.className,
+  componentDefaultColor: state => state.currentDataSource
+    && state.currentDataSource.dataType
+    && state.currentDataSource.dataType.defaultColor,
 };
 
 const actions = {
@@ -53,6 +60,7 @@ const actions = {
         m => m.filename === filename
       );
       commit('setCurrentDataSource', {
+        dataType: DATA_TYPES_COMPONENTS[type],
         name,
         link,
         lastUpdated,

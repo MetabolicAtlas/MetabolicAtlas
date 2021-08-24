@@ -74,8 +74,6 @@ export default {
 
       selectedItemHistory: {},
 
-      levels: {}, // enz id as key, [current tissue level, color] as value
-      defaultGeneColor: '#feb',
       messages,
 
       initialLoadWithParams: true,
@@ -96,6 +94,8 @@ export default {
     ...mapGetters({
       selectIds: 'maps/selectIds',
       computedLevels: 'dataOverlay/computedLevels',
+      componentClassName: 'dataOverlay/componentClassName',
+      componentDefaultColor: 'dataOverlay/componentDefaultColor',
     }),
   },
   watch: {
@@ -123,12 +123,12 @@ export default {
       });
     });
     // TODO: remove log function
-    $('#svg-wrapper').on('mouseover', '.enz', function f(e) {
+    $('#svg-wrapper').on('mouseover', `.${self.componentClassName}`, function f(e) {
       const id = $(this).attr('class').split(' ')[1].trim();
-      if (id in self.levels) {
-        self.$refs.tooltip.innerHTML = self.levels[id][1]; // eslint-disable-line prefer-destructuring
-      } else if (Object.keys(self.levels).length !== 0) {
-        self.$refs.tooltip.innerHTML = self.levels['n/a'][1]; // eslint-disable-line prefer-destructuring
+      if (id in self.computedLevels) {
+        self.$refs.tooltip.innerHTML = self.computedLevels[id][1]; // eslint-disable-line prefer-destructuring
+      } else if (Object.keys(self.computedLevels).length !== 0) {
+        self.$refs.tooltip.innerHTML = self.computedLevels['n/a'][1]; // eslint-disable-line prefer-destructuring
       } else {
         return;
       }
@@ -136,7 +136,7 @@ export default {
       self.$refs.tooltip.style.left = `${(e.pageX - $('.svgbox').first().offset().left) + 15}px`;
       self.$refs.tooltip.style.display = 'block';
     });
-    $('#svg-wrapper').on('mouseout', '.enz', () => {
+    $('#svg-wrapper').on('mouseout', `.${self.componentClassName}`, () => {
       self.$refs.tooltip.innerHTML = '';
       self.$refs.tooltip.style.display = 'none';
     });
@@ -332,21 +332,20 @@ export default {
     },
     // TODO: rename so it's not HPA specific
     applyLevelsOnMap() {
-      this.levels = this.computedLevels;
-      if (Object.keys(this.levels).length === 0) {
+      if (Object.keys(this.computedLevels).length === 0) {
         // TODO: add metabolite color
-        $('#svg-wrapper .shape').attr('fill', this.defaultGeneColor);
+        $(`#svg-wrapper .${this.componentClassName} .shape`).attr('fill', this.componentDefaultColor);
         return;
       }
 
-      const allComponents = $('#svg-wrapper, #svg-wrapper .met');
+      const allComponents = $(`#svg-wrapper .${this.componentClassName}`);
       Object.values(allComponents).forEach((node) => {
         try {
           const ID = node.classList[1];
-          if (this.levels[ID] !== undefined) {
-            node.children[0].setAttribute('fill', this.levels[ID][0]); // 0 is the float value, 1 the color hex
+          if (this.computedLevels[ID] !== undefined) {
+            node.children[0].setAttribute('fill', this.computedLevels[ID][0]); // 0 is the float value, 1 the color hex
           } else {
-            node.children[0].setAttribute('fill', this.levels['n/a'][0]);
+            node.children[0].setAttribute('fill', this.computedLevels['n/a'][0]);
           }
         } catch {
           // .values() returns the prop 'length', we don't want that
@@ -355,9 +354,9 @@ export default {
       });
 
       // update cached selected elements
-      Object.keys(this.selectedItemHistory).filter(id => this.levels[id] !== undefined)
+      Object.keys(this.selectedItemHistory).filter(id => this.computedLevels[id] !== undefined)
         .forEach((ID) => {
-          this.selectedItemHistory[ID].rnaLvl = this.levels[ID];
+          this.selectedItemHistory[ID].rnaLvl = this.computedLevels[ID];
         });
       // TODO: use store
       // EventBus.$emit('loadRNAComplete', true, '');
