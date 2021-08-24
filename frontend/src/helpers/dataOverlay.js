@@ -1,13 +1,16 @@
+const DEFAULT_GENE_COLOR = '#feb';
+const DEFAULT_METABOLITE_COLOR = '#9df';
+
 const DATA_TYPES_COMPONENTS = {
   transcriptomics: {
     componentType: 'gene',
     className: 'enz',
-    defaultColor: '#feb',
+    defaultColor: DEFAULT_GENE_COLOR,
   },
   metabolomics: {
     componentType: 'metabolite',
     className: 'met',
-    defaultColor: '#9df',
+    defaultColor: DEFAULT_METABOLITE_COLOR,
   },
 };
 
@@ -86,4 +89,9 @@ const parseFile = async (file) => {
   };
 };
 
-export { DATA_TYPES_COMPONENTS, parseFile };
+export {
+  DEFAULT_GENE_COLOR,
+  DEFAULT_METABOLITE_COLOR,
+  DATA_TYPES_COMPONENTS,
+  parseFile,
+};

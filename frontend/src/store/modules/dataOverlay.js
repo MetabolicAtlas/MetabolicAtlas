@@ -11,14 +11,13 @@ const data = {
 
 const getters = {
   computedLevels: (state) => {
-    const {
-      tissue,
-      currentDataSource: { levels },
-    } = state;
+    const { tissue, currentDataSource } = state;
 
-    if (tissue === 'None') {
+    if (!currentDataSource || tissue === 'None') {
       return {};
     }
+
+    const { levels } = currentDataSource;
 
     const computedLevels = {
       'n/a': [getSingleExpressionColor(NaN), 'n/a'],
@@ -37,6 +36,9 @@ const getters = {
   componentDefaultColor: state => state.currentDataSource
     && state.currentDataSource.dataType
     && state.currentDataSource.dataType.defaultColor,
+  componentType: state => state.currentDataSource
+    && state.currentDataSource.dataType
+    && state.currentDataSource.dataType.componentType,
 };
 
 const actions = {
