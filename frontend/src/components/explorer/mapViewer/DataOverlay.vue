@@ -4,9 +4,9 @@
          is-one-quarter-tablet has-background-lightgray">
     <div class="title is-size-4 has-text-centered">Expression data</div>
     <div class="has-text-centered"
-         title="Load a TSV file with gene IDs and TPM values.
+         title="Load a TSV file with IDs and TPM values.
          More information can be found in the documentation.">
-      Load custom gene expression
+      Load custom expression
       <span class="has-nowrap">
         data
         <router-link :to="{ name: 'documentation', hash: '#Data-overlay'}">
