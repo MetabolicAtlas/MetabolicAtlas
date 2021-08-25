@@ -78,21 +78,23 @@
             </select>
           </div>
         </div>
-        <p>{{ dataSource ? 'Or uploaded data' : 'Levels from uploaded data' }}</p>
-        <div class="control">
-          <div class="select is-fullwidth">
-            <select
-              :value="customTissue"
-              :disabled="!customDataSource"
-              @change="(e) => setCustomTissue(e.target.value)">
-              <template v-if="customDataSource">
-                <option>None</option>
-                <option v-for="tissue in customDataSource.tissues" :key="tissue"
-                        class="is-clickable is-capitalized">{{ tissue }}</option>
-              </template>
-            </select>
+        <template v-if="customDataSource">
+          <p>{{ dataSource ? 'Or uploaded data' : 'Levels from uploaded data' }}</p>
+          <div class="control">
+            <div class="select is-fullwidth">
+              <select
+                :value="customTissue"
+                :disabled="!customDataSource"
+                @change="(e) => setCustomTissue(e.target.value)">
+                <template v-if="customDataSource">
+                  <option>None</option>
+                  <option v-for="tissue in customDataSource.tissues" :key="tissue"
+                          class="is-clickable is-capitalized">{{ tissue }}</option>
+                </template>
+              </select>
+            </div>
           </div>
-        </div>
+        </template>
       </div>
     </div>
     <RNALegend class="my-3" />
@@ -118,8 +120,6 @@ export default {
   },
   data() {
     return {
-      errorMessage: '',
-
       showLvlCardContent: true,
       customFileName: '',
       showFileLoader: true,
