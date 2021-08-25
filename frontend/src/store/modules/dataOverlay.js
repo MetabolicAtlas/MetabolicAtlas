@@ -6,25 +6,33 @@ const data = {
   index: {},
   currentDataType: null,
   currentDataSource: null,
+  customDataSource: null,
+  customTissue: 'None',
   tissue: 'None',
 };
 
 const getters = {
   computedLevels: (state) => {
-    const { tissue, currentDataSource } = state;
+    const { tissue, currentDataSource, customDataSource, customTissue } = state;
+    let t;
+    let l;
 
-    if (!currentDataSource || tissue === 'None') {
+    if (customDataSource && customTissue !== 'None') {
+      t = customTissue;
+      l = customDataSource.levels;
+    } else if (currentDataSource && tissue !== 'None') {
+      t = tissue;
+      l = currentDataSource.levels;
+    } else {
       return {};
     }
-
-    const { levels } = currentDataSource;
 
     const computedLevels = {
       'n/a': [getSingleExpressionColor(NaN), 'n/a'],
     };
 
-    Object.keys(levels[tissue]).forEach((id) => {
-      const val = Math.round((levels[tissue][id] + 0.00001) * 100) / 100;
+    Object.keys(l[t]).forEach((id) => {
+      const val = Math.round((l[t][id] + 0.00001) * 100) / 100;
       computedLevels[id] = [getSingleExpressionColor(val), val];
     });
 
@@ -79,8 +87,21 @@ const actions = {
       commit('setCurrentDataSource', null);
     }
   },
-  setTissue({ commit }, tissue) {
+  setTissue({ commit, dispatch }, tissue) {
+    if (tissue !== 'None') {
+      dispatch('setCustomTissue', 'None');
+    }
     commit('setTissue', tissue);
+  },
+  setCustomDataSource({ commit, dispatch }, dataSource) {
+    commit('setCustomDataSource', dataSource);
+    dispatch('setCustomTissue', 'None');
+  },
+  setCustomTissue({ commit, dispatch }, tissue) {
+    if (tissue !== 'None') {
+      dispatch('setTissue', 'None');
+    }
+    commit('setCustomTissue', tissue);
   },
 };
 
@@ -96,6 +117,12 @@ const mutations = {
   },
   setTissue: (state, tissue) => {
     state.tissue = tissue;
+  },
+  setCustomDataSource: (state, customDataSource) => {
+    state.customDataSource = customDataSource;
+  },
+  setCustomTissue: (state, customTissue) => {
+    state.customTissue = customTissue;
   },
 };
 

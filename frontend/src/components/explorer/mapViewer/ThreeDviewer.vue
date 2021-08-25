@@ -70,6 +70,7 @@ export default {
       coords: state => state.maps.coords,
       dataOverlayPanelVisible: state => state.maps.dataOverlayPanelVisible,
       tissue: state => state.dataOverlay.tissue,
+      customTissue: state => state.dataOverlay.customTissue,
     }),
     ...mapGetters({
       queryParams: 'maps/queryParams',
@@ -86,14 +87,12 @@ export default {
       // this is needed by the 3D viewer to update its size
       window.dispatchEvent(new Event('resize'));
     },
-    tissue() {
-      this.applyColorsAndRenderNetwork();
+    async tissue() {
+      await this.applyColorsAndRenderNetwork();
     },
-  },
-  created() {
-    // TODO: use vue store and watch
-    // EventBus.$off('apply3DHPARNAlevels');
-    // EventBus.$on('apply3DHPARNAlevels', this.applyColorsAndRenderNetwork);
+    async customTissue() {
+      await this.applyColorsAndRenderNetwork();
+    },
   },
   async mounted() {
     await this.loadNetwork();

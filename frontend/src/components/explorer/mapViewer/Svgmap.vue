@@ -90,6 +90,7 @@ export default {
       searchTerm: state => state.maps.searchTerm,
       dataSource: state => state.dataOverlay.currentDataSource,
       tissue: state => state.dataOverlay.tissue,
+      customTissue: state => state.dataOverlay.customTissue,
     }),
     ...mapGetters({
       selectIds: 'maps/selectIds',
@@ -105,14 +106,12 @@ export default {
     tissue() {
       this.applyLevelsOnMap();
     },
+    customTissue() {
+      this.applyLevelsOnMap();
+    },
     svgContent: 'loadSvgPanzoom',
   },
   created() {
-    // TODO: use levels from store, and use watch
-    // EventBus.$off('apply2DHPARNAlevels');
-    // EventBus.$on('apply2DHPARNAlevels', (levels) => {
-    //   this.applyHPARNAlevelsOnMap(levels);
-    // });
     this.updateURLCoord = debounce(this.updateURLCoord, 150);
   },
   async mounted() {
@@ -122,7 +121,6 @@ export default {
         await self.selectElement($(this));
       });
     });
-    // TODO: remove log function
     $('#svg-wrapper').on('mouseover', `.${self.componentClassName}`, function f(e) {
       const id = $(this).attr('class').split(' ')[1].trim();
       if (id in self.computedLevels) {
@@ -330,10 +328,8 @@ export default {
       });
       FileSaver.saveAs(blob, `${this.mapData.id}.svg`);
     },
-    // TODO: rename so it's not HPA specific
     applyLevelsOnMap() {
       if (Object.keys(this.computedLevels).length === 0) {
-        // TODO: add metabolite color
         $(`#svg-wrapper .${this.componentClassName} .shape`).attr('fill', this.componentDefaultColor);
         return;
       }
@@ -358,8 +354,6 @@ export default {
         .forEach((ID) => {
           this.selectedItemHistory[ID].rnaLvl = this.computedLevels[ID];
         });
-      // TODO: use store
-      // EventBus.$emit('loadRNAComplete', true, '');
     },
     searchIDsOnMap(ids) {
       this.unHighlight(this.searchedElemsHL, 'schhl');
@@ -500,7 +494,6 @@ export default {
           id,
         };
         await this.$store.dispatch('maps/getSelectedElement', payload);
-        // TODO: consider refactoring more of this block into Vuex
         selectionData.data = this.selectedElement;
         this.selectedItemHistory[id] = selectionData.data;
         this.$emit('updatePanelSelectionData', selectionData);

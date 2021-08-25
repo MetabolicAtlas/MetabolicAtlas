@@ -161,16 +161,6 @@ export default {
     this.handleQueryParamsWatch = debounce(this.handleQueryParamsWatch, 100);
     window.onpopstate = this.handleQueryParamsWatch();
 
-    // TODO: use store
-    // EventBus.$off('loadRNAComplete');
-    // EventBus.$on('loadRNAComplete', (isSuccess, errorMessage) => {
-    //   if (!isSuccess) {
-    //     this.showMessage(errorMessage);
-    //     EventBus.$emit('unselectFirstTissue');
-    //     EventBus.$emit('unselectSecondTissue');
-    //   }
-    // });
-
     if (!this.model || this.model.short_name !== this.$route.params.model) {
       const modelSelectionSuccessful = await this.$store.dispatch('models/selectModel', this.$route.params.model);
       if (!modelSelectionSuccessful) {
