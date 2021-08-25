@@ -51,7 +51,6 @@ const getters = {
     search: state.searchTerm,
     coords: Object.values(state.coords).map(c => Math.round((c + Number.EPSILON) * 100) / 100).join(','),
     g1: state.tissue1,
-    g2: state.tissue2,
   }),
 };
 
@@ -164,10 +163,10 @@ const actions = {
     commit('setBackgroundColor', color);
   },
 
-  initFromQueryParams({ commit }, { dim, panel, coords, sel, search, g1, g2 }) {
+  initFromQueryParams({ commit }, { dim, panel, coords, sel, search, g1 }) {
     // TODO: handle errors
     commit('setShowing2D', dim !== '3d');
-    commit('setDataOverlayPanelVisible', !!(panel === '1' || g1 || g2));
+    commit('setDataOverlayPanelVisible', !!(panel === '1' || g1));
     commit('setSelectedElementId', sel);
     commit('setSearchTerm', search);
 
@@ -185,10 +184,6 @@ const actions = {
 
     if (g1 && g1.length > 0) {
       commit('setTissue1', g1);
-    }
-
-    if (g2 && g2.length > 0) {
-      commit('setTissue2', g2);
     }
   },
 
@@ -222,10 +217,6 @@ const actions = {
 
     if (!paramsToKeep.includes('g1')) {
       commit('setTissue1', null);
-    }
-
-    if (!paramsToKeep.includes('g2')) {
-      commit('setTissue2', null);
     }
   },
 };
