@@ -14,18 +14,23 @@
         </router-link>
       </span>
     </div>
-    <DataOverlayValidation @getFileName="getFileName($event)" @errorCustomFile="handleErrorCustomFile($event)" />
-    <div v-if="customFileName" id="fileNameBox" class="mb-4">
-      <div v-show="!showFileLoader" class="tags has-addons is-centered"
+    <DataOverlayValidation @getFileName="getFileName($event)" @errorCustomFile="handleErrorCustomFile" />
+    <div v-if="customFileName" id="fileNameBox" class="mb-0">
+      <div v-show="!showFileLoader" class="tags has-addons is-centered mb-0"
            :title="errorCustomFileMsg ? errorCustomFileMsg : customFileInfo">
         <span class="tag" :class="errorCustomFileMsg ? 'is-danger' : 'is-success'">
-          <div class="is-size-6"> {{errorCustomFileMsg ? errorCustomFileMsg : customFileName }}</div>
+          <div class="is-size-6"> {{ customFileName }}</div>
         </span>
         <a class="tag is-delete" title="Unload file" @click="unloadUploadedFile()"></a>
       </div>
       <div v-show="showFileLoader" class="has-text-centered">
         <a class="button is-small is-loading"></a>
       </div>
+    </div>
+    <div v-if="errorCustomFileMsg" class="card mb-4">
+       <div class="notification is-danger is-half is-offset-one-quarter has-text-centered">
+          {{ errorCustomFileMsg }}
+        </div>
     </div>
     <div class="card my-3">
       <div class="card-content py-2 p-3">
@@ -295,6 +300,7 @@ export default {
     },
     unloadUploadedFile() {
       this.customFileName = '';
+      this.errorCustomFileMsg = '';
       this.customTissues = [NOFILELOADED];
       this.customTissue1 = NOFILELOADED;
       this.customTissue2 = NOFILELOADED;
@@ -302,8 +308,8 @@ export default {
         EventBus.$emit('selectTissues', this.selectedTissue1, this.tissue1Source, this.selectedTissue2, this.tissue2Source, this.dim);
       }
     },
-    handleErrorCustomFile(errorMsg) {
-      this.customFileName = true;
+    handleErrorCustomFile(errorMsg, name) {
+      this.customFileName = name;
       this.errorCustomFileMsg = errorMsg;
       this.showFileLoader = false;
     },

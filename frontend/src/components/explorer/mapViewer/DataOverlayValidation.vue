@@ -21,7 +21,7 @@ export default {
     validateFile(e) {
       if (e.target.files.length !== 0) {
         if (e.target.files[0].type !== 'text/tab-separated-values') {
-          this.$emit('errorCustomFile', 'Error: expected TSV file');
+          this.$emit('errorCustomFile', 'Error: expected TSV file', e.target.files[0].name);
           return;
         }
         let errors = '';
@@ -50,7 +50,7 @@ export default {
             errors += 'Error: invalid TSV format, file should contain at least two columns and two rows';
           }
           if (errors !== '') {
-            this.$emit('errorCustomFile', errors);
+            this.$emit('errorCustomFile', errors, e.target.files[0].name);
           } else {
             this.$emit('getFileName', e.target.files[0]);
           }
