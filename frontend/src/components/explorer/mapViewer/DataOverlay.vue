@@ -14,27 +14,12 @@
         </router-link>
       </span>
     </div>
-    <div class="file is-centered mb-2">
-      <label class="file-label">
-        <input class="file-input"
-               type="file"
-               name="resume"
-               @change="getFileName">
-        <span class="file-cta">
-          <span class="file-icon">
-            <i class="fa fa-upload"></i>
-          </span>
-          <span class="file-label">
-            Choose a file
-          </span>
-        </span>
-      </label>
-    </div>
+    <DataOverlayValidation @getFileName="getFileName($event)" @errorCustomFile="handleErrorCustomFile($event)" />
     <div v-if="customFileName" id="fileNameBox" class="mb-4">
       <div v-show="!showFileLoader" class="tags has-addons is-centered"
-           :title="errorCustomFile ? errorCustomFileMsg : customFileInfo">
-        <span class="tag" :class="errorCustomFile ? 'is-danger' : 'is-success'">
-          <div class="is-size-6">{{ customFileName }}</div>
+           :title="errorCustomFileMsg ? errorCustomFileMsg : customFileInfo">
+        <span class="tag" :class="errorCustomFileMsg ? 'is-danger' : 'is-success'">
+          <div class="is-size-6"> {{errorCustomFileMsg ? errorCustomFileMsg : customFileName }}</div>
         </span>
         <a class="tag is-delete" title="Unload file" @click="unloadUploadedFile()"></a>
       </div>
@@ -114,6 +99,7 @@
 import { mapGetters, mapState } from 'vuex';
 import $ from 'jquery';
 import RNAexpression from '@/components/explorer/mapViewer/RNAexpression.vue';
+import DataOverlayValidation from '@/components/explorer/mapViewer/DataOverlayValidation.vue';
 import { default as EventBus } from '@/event-bus';
 
 const NOFILELOADED = 'No file loaded';
@@ -122,6 +108,7 @@ export default {
   name: 'DataOverlay',
   components: {
     RNAexpression,
+    DataOverlayValidation,
   },
   props: {
     mapType: String,
@@ -143,7 +130,6 @@ export default {
 
       customFileName: '',
       showFileLoader: true,
-      errorCustomFile: false,
       errorCustomFileMsg: '',
       customFileInfo: '',
     };
@@ -243,17 +229,12 @@ export default {
         }
       }
     },
-    getFileName(e) {
-      if (e.target.files.length !== 0) {
-        this.customFileName = e.target.files[0].name;
-        this.errorCustomFile = false;
-        this.errorCustomFileMsg = '';
-        this.customFileInfo = '';
-        EventBus.$emit('loadCustomGeneExpData', e.target.files[0]);
-        $('.file-input')[0].value = '';
-      } else {
-        this.customFileName = '';
-      }
+    getFileName(file) {
+      this.customFileName = file.name;
+      this.errorCustomFileMsg = '';
+      this.customFileInfo = '';
+      EventBus.$emit('loadCustomGeneExpData', file);
+      $('.file-input')[0].value = '';
     },
     setCustomTissues(info) {
       this.customTissues = info.tissues;
@@ -322,7 +303,7 @@ export default {
       }
     },
     handleErrorCustomFile(errorMsg) {
-      this.errorCustomFile = true;
+      this.customFileName = true;
       this.errorCustomFileMsg = errorMsg;
       this.showFileLoader = false;
     },

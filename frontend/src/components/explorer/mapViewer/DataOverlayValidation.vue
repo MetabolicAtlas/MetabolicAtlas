@@ -52,7 +52,7 @@ export default {
           if (errors !== '') {
             this.$emit('errorCustomFile', errors);
           } else {
-            console.log(evt.target.result);
+            this.$emit('getFileName', e.target.files[0]);
           }
         };
         reader.readAsText(e.target.files[0]);
