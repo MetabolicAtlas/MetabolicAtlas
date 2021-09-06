@@ -22,7 +22,6 @@ import {
   getComparisonOverview,
   getComparisonDetails,
   getComponentsForExternalDb,
-  getSvgThumbnail,
 } from 'neo4j/index';
 
 const neo4jRoutes = express.Router();
@@ -133,22 +132,6 @@ neo4jRoutes.get('/external-db/:dbName/:externalId', async (req, res) => {
   try {
     const result = await getComponentsForExternalDb({ dbName, externalId });
     res.json(result);
-  } catch (e) {
-    if (e.message === '404') {
-      return res.sendStatus(404);
-    }
-
-    res.status(400).send(e.message);
-  }
-});
-
-neo4jRoutes.get('/svg-thumbnail/:svgName', async (req, res) => {
-  const { svgName } = req.params;
-  const { model } = req.query;
-
-  try {
-    const svgThumbnail = await getSvgThumbnail(svgName, model);
-    res.json(svgThumbnail);
   } catch (e) {
     if (e.message === '404') {
       return res.sendStatus(404);

@@ -4,13 +4,6 @@ import parseParams from 'neo4j/shared/helper';
 import fs from 'fs';
 import readline from 'readline';
 
-const getSvgThumbnail = async (svgName, modelShortName) => {
-  const svgFile = `/project/svg/${modelShortName}/${svgName}.svg`;
-  const svg = fs.readFileSync(svgFile, { encoding: 'utf8', flag: 'r' });
-  const svgThumbnail = svg;
-  return { svgThumbnail };
-};
-
 const mapReactionIdSet = async (map, modelShortName) => {
   const rl = readline.createInterface({
       input: fs.createReadStream(`/project/svg/${modelShortName}/${map.filename}`),
@@ -131,4 +124,4 @@ RETURN [n in COLLECT(DISTINCT(
 
   return querySingleResult(statement);
 };
-export { getMapsListing, mapSearch, getSvgThumbnail };
+export { getMapsListing, mapSearch };
