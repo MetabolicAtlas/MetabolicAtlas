@@ -1,6 +1,9 @@
 import express from 'express';
 import fs from 'fs';
 import getSvgThumbnail from 'utils/2d-map';
+import models from 'data/integratedModels.json';
+
+const VALID_MODELS = models.map((m) => m.short_name);
 
 const routes = express.Router();
 const sharp = require('sharp');
@@ -10,6 +13,10 @@ routes.get('/:svgName', async (req, res) => {
   const { model, version, width } = req.query;
 
   try {
+    if (!VALID_MODELS.includes(model)) {
+      throw new Error(`Invalid model provided: ${model}.`);
+    }
+
     const min_w = 100;
     const max_w = 600;
     var w_thumb = 400;
