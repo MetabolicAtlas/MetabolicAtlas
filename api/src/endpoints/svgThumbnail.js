@@ -7,22 +7,22 @@ const sharp = require('sharp');
 
 routes.get('/:svgName', async (req, res) => {
   const { svgName } = req.params;
-  const { model } = req.query;
+  const { model, version, width } = req.query;
 
   try {
     const min_w = 100;
     const max_w = 600;
     var w_thumb = 400;
-    const isnum = /^\d+$/.test(req.query.width);
+    const isnum = /^\d+$/.test(width);
     if (!isnum) {
       res.status(400).send('Error! The value of width should an integer, but \''
-        + req.query.width + '\' is given!' );
+        + width + '\' is given!' );
     } else {
-      w_thumb =  parseInt(req.query.width) || 400;
+      w_thumb =  parseInt(width) || 400;
       if (w_thumb < min_w || w_thumb > max_w){
         res.status(400).send('Error! The value of width should be between '
           + min_w + ' and ' + max_w
-          + ' but \'' + req.query.width + '\' is given!' );
+          + ' but \'' + width + '\' is given!' );
       }
     }
     const svgThumbnail = await getSvgThumbnail(svgName, w_thumb, model)
