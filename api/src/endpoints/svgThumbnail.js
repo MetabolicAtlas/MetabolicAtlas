@@ -4,7 +4,6 @@ import getSvgThumbnail from 'utils/2d-map';
 
 const routes = express.Router();
 const sharp = require('sharp');
-let HPA_JSON = null;
 
 routes.get('/:svgName', async (req, res) => {
   const { svgName } = req.params;

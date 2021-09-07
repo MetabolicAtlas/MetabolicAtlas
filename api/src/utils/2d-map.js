@@ -11,11 +11,9 @@ const getSvgThumbnail = async (svgName, model) => {
     .png()
     .toBuffer()
     .then(function(info) {
-      console.log(info)
       return info
     })
     .catch(function(err) {
-      console.log(err)
     });
   return svgThumbnail;
 };
