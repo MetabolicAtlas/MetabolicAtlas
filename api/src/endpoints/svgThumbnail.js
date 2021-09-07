@@ -12,6 +12,7 @@ routes.get('/:svgName', async (req, res) => {
 
   try {
     const svgThumbnail = await getSvgThumbnail(svgName, model)
+    res.type('png')
     res.send(svgThumbnail);
   } catch (e) {
     if (e.message === '404') {
