@@ -1,8 +1,7 @@
 import fs from 'fs';
 const sharp = require('sharp');
 
-const w_thumb = 400;
-const getSvgThumbnail = async (svgName, model) => {
+const getSvgThumbnail = async (svgName, w_thumb, model) => {
   const sharp = require('sharp');
   const svgFile = `/project/svg/${model}/${svgName}.svg`;
   const svgThumbnail = await sharp(svgFile)
