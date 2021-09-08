@@ -12,6 +12,11 @@ const data = {
 };
 
 const getters = {
+  queryParams: state => ({
+    datatype: state.currentDataType ? state.currentDataType.name : 'None',
+    datasource: state.currentDataSource ? state.currentDataSource.filename : 'None',
+    tissue: state.tissue,
+  }),
   computedLevels: (state) => {
     const { tissue, currentDataSource, customDataSource, customTissue } = state;
     let t;
@@ -44,15 +49,16 @@ const getters = {
 };
 
 const actions = {
-  async getIndex({ commit, dispatch }, model) {
+  async getIndex({ commit/* , dispatch */ }, model) {
     const index = await dataOverlayApi.fetchIndex(model);
+
     commit('setIndex', index);
 
-    const dataType = {
+    /* const dataType = {
       model,
       type: Object.keys(index)[0],
     };
-    await dispatch('setCurrentDataType', dataType);
+    await dispatch('setCurrentDataType', dataType); */
   },
   async setCurrentDataType({ commit, dispatch, state }, { model, type }) {
     const currentDataType = {

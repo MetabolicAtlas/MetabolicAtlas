@@ -148,8 +148,12 @@ export default {
       mapsListing: state => state.maps.mapsListing,
     }),
     ...mapGetters({
-      queryParams: 'maps/queryParams',
+      mapQueryParams: 'maps/queryParams',
+      dataOverlayQueryParams: 'dataOverlay/queryParams',
     }),
+    queryParams() {
+      return { ...this.mapQueryParams, ...this.dataOverlayQueryParams };
+    },
   },
   watch: {
     '$route.params': 'loadMapFromParams',
@@ -197,7 +201,6 @@ export default {
       }
 
       const queryString = Object.entries(newQuery).map(e => e.join('=')).join('&');
-
       const payload = [{}, null, `${this.$route.path}?${queryString}`];
       if (newQuery.dim === this.$route.query.dim || (newQuery.dim && !this.$route.query.dim)) {
         history.replaceState(...payload); // eslint-disable-line no-restricted-globals

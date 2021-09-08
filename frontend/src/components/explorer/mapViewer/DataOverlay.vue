@@ -147,6 +147,11 @@ export default {
   },
   async created() {
     await this.getDataSourcesIndex(this.model.short_name);
+    const datatype = this.validDataTypeInQuery() ? this.$route.query.datatype : Object.keys(this.dataSourcesIndex)[0];
+    await this.setCurrentDataType({
+      model: this.model.short_name,
+      type: datatype,
+    });
   },
   methods: {
     ...mapActions({
@@ -202,6 +207,9 @@ export default {
       this.errorCustomFile = true;
       this.errorCustomFileMsg = errorMsg;
       this.showFileLoader = false;
+    },
+    validDataTypeInQuery() {
+      return this.$route.query.datatype && Object.keys(this.dataSourcesIndex).indexOf(this.$route.query.datatype) > -1;
     },
   },
 };
