@@ -47,7 +47,7 @@
         <div class="has-text-centered title is-size-6">Data</div>
         <div v-if="Object.keys(dataSourcesIndex).length > 0" class="control">
           <p>Select data type</p>
-          <div class="select is-fullwidth">
+          <div v-if="dataType" class="select is-fullwidth">
             <select @change="handleDataTypeSelect">
               <option v-for="type in Object.keys(dataSourcesIndex)" :key="type"
                       :selected="type === dataType.name"
@@ -58,7 +58,7 @@
         </div>
         <div v-if="Object.keys(dataSourcesIndex).length > 0" class="control">
           <p>Select data source</p>
-          <div class="select is-fullwidth">
+          <div v-if="dataType" class="select is-fullwidth">
             <select @change="handleDataSourceSelect">
               <option v-for="s in dataSourcesIndex[dataType.name]" :key="s.filename"
                       :selected="dataSource && s.filename === dataSource.filename"
