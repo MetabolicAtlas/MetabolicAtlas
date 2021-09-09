@@ -159,6 +159,8 @@ export default {
       type: datatype,
       filename: datasource,
     });
+    const tissue = this.validDataSourceTissueInQuery() ? this.$route.query.tissue : 'None';
+    await this.setTissue(tissue);
   },
   methods: {
     ...mapActions({
@@ -221,10 +223,17 @@ export default {
     validDataSourceInQuery() {
       return (
         this.$route.query.datasource && // eslint-disable-line operator-linebreak
-        this.dataType.name && // eslint-disable-line operator-linebreak
+        this.dataType && // eslint-disable-line operator-linebreak
         this.dataSourcesIndex[this.dataType.name]
           .map(e => e.filename)
           .indexOf(this.$route.query.datasource) > -1
+      );
+    },
+    validDataSourceTissueInQuery() {
+      return (
+        this.$route.query.tissue && // eslint-disable-line operator-linebreak
+        this.dataSource && // eslint-disable-line operator-linebreak
+        this.dataSource.tissues.indexOf(this.$route.query.tissue) > -1
       );
     },
   },

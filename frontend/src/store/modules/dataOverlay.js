@@ -71,9 +71,9 @@ const actions = {
     console.log('FILENAME', filename);
     await dispatch('getDataSource', { model, type, filename }); */
   },
-  async getDataSource({ commit, dispatch }, { model, type, filename }) {
+  async getDataSource({ commit/* , dispatch */ }, { model, type, filename }) {
     try {
-      dispatch('setTissue', 'None');
+      // dispatch('setTissue', 'None');
 
       const file = await dataOverlayApi.fetchFile({
         model,
@@ -94,10 +94,10 @@ const actions = {
       commit('setCurrentDataSource', null);
     }
   },
-  setTissue({ commit, dispatch }, tissue) {
-    if (tissue !== 'None') {
+  setTissue({ commit/* , dispatch */ }, tissue) {
+    /* if (tissue !== 'None') {
       dispatch('setCustomTissue', 'None');
-    }
+    } */
     commit('setTissue', tissue);
   },
   setCustomDataSource({ commit, dispatch }, dataSource) {
