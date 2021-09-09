@@ -49,31 +49,28 @@ const getters = {
 };
 
 const actions = {
-  async getIndex({ commit/* , dispatch */ }, model) {
+  async getIndex({ commit }, model) {
     const index = await dataOverlayApi.fetchIndex(model);
 
     commit('setIndex', index);
-
-    /* const dataType = {
-      model,
-      type: Object.keys(index)[0],
-    };
-    await dispatch('setCurrentDataType', dataType); */
   },
-  async setCurrentDataType({ commit/* , dispatch, state */ }, {/*  model, */ type }) {
+  async setCurrentDataType({ commit, dispatch, state }, { model, type, propagate }) {
     const currentDataType = {
       name: type,
       ...DATA_TYPES_COMPONENTS[type],
     };
     commit('setCurrentDataType', currentDataType);
 
-    /* const { filename } = state.index[type][0];
-    console.log('FILENAME', filename);
-    await dispatch('getDataSource', { model, type, filename }); */
+    if (propagate) {
+      const { filename } = state.index[type][0];
+      await dispatch('getDataSource', { model, type, filename, propagate });
+    }
   },
-  async getDataSource({ commit/* , dispatch */ }, { model, type, filename }) {
+  async getDataSource({ commit, dispatch }, { model, type, filename, propagate }) {
     try {
-      // dispatch('setTissue', 'None');
+      if (propagate) {
+        dispatch('setTissue', 'None');
+      }
 
       const file = await dataOverlayApi.fetchFile({
         model,
@@ -94,10 +91,10 @@ const actions = {
       commit('setCurrentDataSource', null);
     }
   },
-  setTissue({ commit/* , dispatch */ }, tissue) {
-    /* if (tissue !== 'None') {
+  setTissue({ commit, dispatch }, tissue) {
+    if (tissue !== 'None') {
       dispatch('setCustomTissue', 'None');
-    } */
+    }
     commit('setTissue', tissue);
   },
   setCustomDataSource({ commit, dispatch }, dataSource) {

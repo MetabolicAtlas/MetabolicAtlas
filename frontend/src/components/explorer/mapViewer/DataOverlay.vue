@@ -151,6 +151,7 @@ export default {
     await this.setCurrentDataType({
       model: this.model.short_name,
       type: datatype,
+      propagate: false,
     });
     const datasource = this.validDataSourceInQuery() ? this.$route.query.datasource
       : this.dataSourcesIndex[this.dataType.name][0].filename;
@@ -158,6 +159,8 @@ export default {
       model: this.model.short_name,
       type: datatype,
       filename: datasource,
+      propagate: false,
+
     });
     const tissue = this.validDataSourceTissueInQuery() ? this.$route.query.tissue : 'None';
     await this.setTissue(tissue);
@@ -175,6 +178,7 @@ export default {
       const payload = {
         model: this.model.short_name,
         type: e.target.value,
+        propagate: true,
       };
 
       await this.setCurrentDataType(payload);
@@ -184,6 +188,7 @@ export default {
         model: this.model.short_name,
         type: this.dataType.name,
         filename: e.target.value,
+        propagate: true,
       };
 
       await this.getDataSource(payload);

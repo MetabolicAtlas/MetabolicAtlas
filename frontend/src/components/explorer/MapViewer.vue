@@ -189,14 +189,14 @@ export default {
     dimensionalState(showing2D) {
       return showing2D ? '2d' : '3d';
     },
-    handleQueryParamsWatch(newQuery, oldQuery) {
-      if (newQuery && !this.$route.params.map_id) {
-        const payload = [{}, null, `${this.$route.path}?dim=${newQuery.dim}`];
-        history.replaceState(...payload); // eslint-disable-line no-restricted-globals
+    handleQueryParamsWatch(newQuery, oldQuery) { // eslint-disable-line no-unused-vars
+      if (!newQuery) {
         return;
       }
 
-      if (JSON.stringify(newQuery) === JSON.stringify(oldQuery)) {
+      if (newQuery && !this.$route.params.map_id) {
+        const payload = [{}, null, `${this.$route.path}?dim=${newQuery.dim}`];
+        history.replaceState(...payload); // eslint-disable-line no-restricted-globals
         return;
       }
 
