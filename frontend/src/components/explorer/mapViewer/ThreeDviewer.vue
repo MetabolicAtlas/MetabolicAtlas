@@ -69,8 +69,8 @@ export default {
       backgroundColor: state => state.maps.backgroundColor,
       coords: state => state.maps.coords,
       dataOverlayPanelVisible: state => state.maps.dataOverlayPanelVisible,
-      tissue: state => state.dataOverlay.tissue,
-      customTissue: state => state.dataOverlay.customTissue,
+      dataSet: state => state.dataOverlay.dataSet,
+      customDataSet: state => state.dataOverlay.customDataSet,
     }),
     ...mapGetters({
       queryParams: 'maps/queryParams',
@@ -87,10 +87,10 @@ export default {
       // this is needed by the 3D viewer to update its size
       window.dispatchEvent(new Event('resize'));
     },
-    async tissue() {
+    async dataSet() {
       await this.applyColorsAndRenderNetwork();
     },
-    async customTissue() {
+    async customDataSet() {
       await this.applyColorsAndRenderNetwork();
     },
   },

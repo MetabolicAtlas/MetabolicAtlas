@@ -7,7 +7,6 @@ const routeQueryEntries = [
   { name: 'coord', regexp: COORD_REGEXP, default: '0,0,0,0,0,0' },
   { name: 'sel', regexp: null, default: '' },
   { name: 'search', regexp: null, default: '' },
-  { name: 'g1', regexp: null, default: '' },
 ];
 
 const roundValue = value => Math.round((value + 0.00001) * 1000) / 1000;
@@ -30,11 +29,6 @@ const setRouteForSel = ({ route, id }) => ({
 
 const setRouteForSearch = ({ route, searchTerm }) => ({
   query: { ...route.query, search: searchTerm },
-  params: { ...route.params, reload: false },
-});
-
-const setRouteForGeneExp1 = ({ route, tissue }) => ({
-  query: { ...route.query, g1: tissue },
   params: { ...route.params, reload: false },
 });
 
@@ -101,7 +95,6 @@ export {
   setRouteForDim,
   setRouteForSel,
   setRouteForSearch,
-  setRouteForGeneExp1,
   setRouteForCoord,
   setRouteForOverlay,
   setDefaultQuery,

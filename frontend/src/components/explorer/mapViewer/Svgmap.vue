@@ -89,8 +89,8 @@ export default {
       selectedElementId: state => state.maps.selectedElementId,
       searchTerm: state => state.maps.searchTerm,
       dataSource: state => state.dataOverlay.currentDataSource,
-      tissue: state => state.dataOverlay.tissue,
-      customTissue: state => state.dataOverlay.customTissue,
+      dataSet: state => state.dataOverlay.dataSet,
+      customDataSet: state => state.dataOverlay.customDataSet,
     }),
     ...mapGetters({
       selectIds: 'maps/selectIds',
@@ -103,10 +103,10 @@ export default {
     async mapData() {
       await this.init();
     },
-    tissue() {
+    dataSet() {
       this.applyLevelsOnMap();
     },
-    customTissue() {
+    customDataSet() {
       this.applyLevelsOnMap();
     },
     svgContent: 'loadSvgPanzoom',

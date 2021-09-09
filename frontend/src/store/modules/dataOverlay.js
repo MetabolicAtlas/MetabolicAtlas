@@ -7,26 +7,26 @@ const data = {
   currentDataType: null,
   currentDataSource: null,
   customDataSource: null,
-  customTissue: 'None',
-  tissue: 'None',
+  customDataSet: 'None',
+  dataSet: 'None',
 };
 
 const getters = {
   queryParams: state => ({
     datatype: state.currentDataType ? state.currentDataType.name : 'None',
     datasource: state.currentDataSource ? state.currentDataSource.filename : 'None',
-    tissue: state.tissue,
+    dataSet: state.dataSet,
   }),
   computedLevels: (state) => {
-    const { tissue, currentDataSource, customDataSource, customTissue } = state;
+    const { dataSet, currentDataSource, customDataSource, customDataSet } = state;
     let t;
     let l;
 
-    if (customDataSource && customTissue !== 'None') {
-      t = customTissue;
+    if (customDataSource && customDataSet !== 'None') {
+      t = customDataSet;
       l = customDataSource.levels;
-    } else if (currentDataSource && tissue !== 'None') {
-      t = tissue;
+    } else if (currentDataSource && dataSet !== 'None') {
+      t = dataSet;
       l = currentDataSource.levels;
     } else {
       return {};
@@ -69,7 +69,7 @@ const actions = {
   async getDataSource({ commit, dispatch }, { model, type, filename, propagate }) {
     try {
       if (propagate) {
-        dispatch('setTissue', 'None');
+        dispatch('setDataSet', 'None');
       }
 
       const file = await dataOverlayApi.fetchFile({
@@ -91,21 +91,21 @@ const actions = {
       commit('setCurrentDataSource', null);
     }
   },
-  setTissue({ commit, dispatch }, tissue) {
-    if (tissue !== 'None') {
-      dispatch('setCustomTissue', 'None');
+  setDataSet({ commit, dispatch }, dataSet) {
+    if (dataSet !== 'None') {
+      dispatch('setCustomDataSet', 'None');
     }
-    commit('setTissue', tissue);
+    commit('setDataSet', dataSet);
   },
   setCustomDataSource({ commit, dispatch }, dataSource) {
     commit('setCustomDataSource', dataSource);
-    dispatch('setCustomTissue', 'None');
+    dispatch('setCustomDataSet', 'None');
   },
-  setCustomTissue({ commit, dispatch }, tissue) {
-    if (tissue !== 'None') {
-      dispatch('setTissue', 'None');
+  setCustomDataSet({ commit, dispatch }, dataSet) {
+    if (dataSet !== 'None') {
+      dispatch('setDataSet', 'None');
     }
-    commit('setCustomTissue', tissue);
+    commit('setCustomDataSet', dataSet);
   },
 };
 
@@ -119,14 +119,14 @@ const mutations = {
   setCurrentDataSource: (state, currentDataSource) => {
     state.currentDataSource = currentDataSource;
   },
-  setTissue: (state, tissue) => {
-    state.tissue = tissue;
+  setDataSet: (state, dataSet) => {
+    state.dataSet = dataSet;
   },
   setCustomDataSource: (state, customDataSource) => {
     state.customDataSource = customDataSource;
   },
-  setCustomTissue: (state, customTissue) => {
-    state.customTissue = customTissue;
+  setCustomDataSet: (state, customDataSet) => {
+    state.customDataSet = customDataSet;
   },
 };
 

@@ -25,25 +25,25 @@ const DATA_TYPES_COMPONENTS = {
  * }
  */
 const parseFile = async (file) => {
-  let tissues = [];
+  let dataSets = [];
   const levels = { 'n/a': 'n/a' };
 
   const text = await file.text();
 
   const lines = text.split(/\r?\n/);
   let indexLine = 1;
-  // fetch Tissue
+  // fetch data set
   if (lines[0].split('\t').length !== 1) {
     const arrLine = lines[0].split('\t');
     const v = Number(arrLine[1]);
     if (Number.isNaN(v)) {
-      tissues = lines[0].split('\t');
-      tissues.shift();
+      dataSets = lines[0].split('\t');
+      dataSets.shift();
       lines.shift();
     } else {
-      tissues = [];
+      dataSets = [];
       for (let i = 1; i < arrLine.length; i += 1) {
-        tissues.push(`serie${i}`);
+        dataSets.push(`serie${i}`);
       }
     }
   } else {
@@ -51,13 +51,13 @@ const parseFile = async (file) => {
   }
 
   // parse lines
-  // make tissues key;
-  for (let i = 0; i < tissues.length; i += 1) {
-    const tissue = tissues[i];
-    if (tissue in levels) {
-      throw new Error(`Error: duplicated column '${tissue}'.`);
+  // make dataSets key;
+  for (let i = 0; i < dataSets.length; i += 1) {
+    const dataSet = dataSets[i];
+    if (dataSet in levels) {
+      throw new Error(`Error: duplicated column '${dataSet}'.`);
     }
-    levels[tissue] = {};
+    levels[dataSet] = {};
   }
 
   let entriesCount = 0;
@@ -65,7 +65,7 @@ const parseFile = async (file) => {
     const line = lines[k];
     if (line) {
       const arrLine = line.split('\t');
-      if (arrLine.length !== tissues.length + 1) {
+      if (arrLine.length !== dataSets.length + 1) {
         throw new Error(`Error: invalid number of values line ${indexLine}.`);
       }
       for (let i = 1; i < arrLine.length; i += 1) {
@@ -74,7 +74,7 @@ const parseFile = async (file) => {
           if (Number.isNaN(v)) {
             throw new Error(`Error: invalid value line ${indexLine}.`);
           }
-          levels[tissues[i - 1]][arrLine[0]] = v;
+          levels[dataSets[i - 1]][arrLine[0]] = v;
         }
       }
       entriesCount += 1;
@@ -84,7 +84,7 @@ const parseFile = async (file) => {
 
   return {
     levels,
-    tissues,
+    dataSets,
     entriesCount,
   };
 };

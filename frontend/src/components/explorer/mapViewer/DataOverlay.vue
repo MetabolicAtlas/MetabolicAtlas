@@ -70,10 +70,10 @@
         <div v-if="dataSource" class="control">
           <p>Levels from <a :href="dataSource.link" target="_blank">{{ dataSource.name }}</a></p>
           <div class="select is-fullwidth">
-            <select :disabled="levelsDisabled" @change="(e) => setTissue(e.target.value)">
+            <select :disabled="levelsDisabled" @change="(e) => setDataSet(e.target.value)">
               <option>None</option>
-              <option v-for="t in dataSource.tissues" :key="t"
-                      :selected="t === tissue"
+              <option v-for="t in dataSource.dataSets" :key="t"
+                      :selected="t === dataSet"
                       class="is-clickable is-capitalized">{{ t }}</option>
             </select>
           </div>
@@ -83,13 +83,13 @@
           <div class="control">
             <div class="select is-fullwidth">
               <select
-                :value="customTissue"
+                :value="customDataSet"
                 :disabled="!customDataSource"
-                @change="(e) => setCustomTissue(e.target.value)">
+                @change="(e) => setCustomDataSet(e.target.value)">
                 <template v-if="customDataSource">
                   <option>None</option>
-                  <option v-for="tissue in customDataSource.tissues" :key="tissue"
-                          class="is-clickable is-capitalized">{{ tissue }}</option>
+                  <option v-for="dataSet in customDataSource.dataSets" :key="dataSet"
+                          class="is-clickable is-capitalized">{{ dataSet }}</option>
                 </template>
               </select>
             </div>
@@ -137,12 +137,12 @@ export default {
       dataSourcesIndex: state => state.dataOverlay.index,
       dataType: state => state.dataOverlay.currentDataType,
       dataSource: state => state.dataOverlay.currentDataSource,
-      tissue: state => state.dataOverlay.tissue,
+      dataSet: state => state.dataOverlay.dataSet,
       customDataSource: state => state.dataOverlay.customDataSource,
-      customTissue: state => state.dataOverlay.customTissue,
+      customDataSet: state => state.dataOverlay.customDataSet,
     }),
     levelsDisabled() {
-      return !this.mapName || !this.dataSource || this.dataSource.tissues.length === 0;
+      return !this.mapName || !this.dataSource || this.dataSource.dataSets.length === 0;
     },
   },
   async created() {
@@ -162,17 +162,17 @@ export default {
       propagate: false,
 
     });
-    const tissue = this.validDataSourceTissueInQuery() ? this.$route.query.tissue : 'None';
-    await this.setTissue(tissue);
+    const dataSet = this.validDataSourceDataSetInQuery() ? this.$route.query.dataSet : 'None';
+    await this.setDataSet(dataSet);
   },
   methods: {
     ...mapActions({
       getDataSourcesIndex: 'dataOverlay/getIndex',
       setCurrentDataType: 'dataOverlay/setCurrentDataType',
       getDataSource: 'dataOverlay/getDataSource',
-      setTissue: 'dataOverlay/setTissue',
+      setDataSet: 'dataOverlay/setDataSet',
       setCustomDataSource: 'dataOverlay/setCustomDataSource',
-      setCustomTissue: 'dataOverlay/setCustomTissue',
+      setCustomDataSet: 'dataOverlay/setCustomDataSet',
     }),
     async handleDataTypeSelect(e) {
       const payload = {
@@ -203,7 +203,7 @@ export default {
         try {
           const dataSource = await parseFile(e.target.files[0]);
           this.setCustomDataSource(dataSource);
-          this.customFileInfo = `Entries found: ${dataSource.entriesCount} - Series loaded: ${dataSource.tissues.length}`;
+          this.customFileInfo = `Entries found: ${dataSource.entriesCount} - Series loaded: ${dataSource.dataSets.length}`;
           this.showFileLoader = false;
         } catch ({ message }) {
           this.handleErrorCustomFile(message);
@@ -234,11 +234,11 @@ export default {
           .indexOf(this.$route.query.datasource) > -1
       );
     },
-    validDataSourceTissueInQuery() {
+    validDataSourceDataSetInQuery() {
       return (
-        this.$route.query.tissue && // eslint-disable-line operator-linebreak
+        this.$route.query.dataSet && // eslint-disable-line operator-linebreak
         this.dataSource && // eslint-disable-line operator-linebreak
-        this.dataSource.tissues.indexOf(this.$route.query.tissue) > -1
+        this.dataSource.dataSets.indexOf(this.$route.query.dataSet) > -1
       );
     },
   },
