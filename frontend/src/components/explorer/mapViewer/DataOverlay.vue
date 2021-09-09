@@ -152,6 +152,13 @@ export default {
       model: this.model.short_name,
       type: datatype,
     });
+    const datasource = this.validDataSourceInQuery() ? this.$route.query.datasource
+      : this.dataSourcesIndex[this.dataType.name][0].filename;
+    await this.getDataSource({
+      model: this.model.short_name,
+      type: datatype,
+      filename: datasource,
+    });
   },
   methods: {
     ...mapActions({
@@ -210,6 +217,15 @@ export default {
     },
     validDataTypeInQuery() {
       return this.$route.query.datatype && Object.keys(this.dataSourcesIndex).indexOf(this.$route.query.datatype) > -1;
+    },
+    validDataSourceInQuery() {
+      return (
+        this.$route.query.datasource && // eslint-disable-line operator-linebreak
+        this.dataType.name && // eslint-disable-line operator-linebreak
+        this.dataSourcesIndex[this.dataType.name]
+          .map(e => e.filename)
+          .indexOf(this.$route.query.datasource) > -1
+      );
     },
   },
 };

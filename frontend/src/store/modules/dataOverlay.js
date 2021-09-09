@@ -60,15 +60,16 @@ const actions = {
     };
     await dispatch('setCurrentDataType', dataType); */
   },
-  async setCurrentDataType({ commit, dispatch, state }, { model, type }) {
+  async setCurrentDataType({ commit/* , dispatch, state */ }, {/*  model, */ type }) {
     const currentDataType = {
       name: type,
       ...DATA_TYPES_COMPONENTS[type],
     };
     commit('setCurrentDataType', currentDataType);
 
-    const { filename } = state.index[type][0];
-    await dispatch('getDataSource', { model, type, filename });
+    /* const { filename } = state.index[type][0];
+    console.log('FILENAME', filename);
+    await dispatch('getDataSource', { model, type, filename }); */
   },
   async getDataSource({ commit, dispatch }, { model, type, filename }) {
     try {
