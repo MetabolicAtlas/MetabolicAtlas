@@ -10,7 +10,6 @@
       </p>
       <ul class="is-flex-direction-column is-align-items-flex-start mb-4 ml-5">
         <li v-for="c in components" :key="c.id + c.model + c.version" class="my-1">
-          {{ c.componentType }}
           <span class="tag is-light is-medium">
             <router-link :to="{ name: c.componentType.toLowerCase(), params: { model:
               c.model, id: c.id } }">
