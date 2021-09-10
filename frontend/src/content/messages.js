@@ -10,4 +10,9 @@ export default {
   gemBrowserName: 'GEM Browser',
   interPartName: 'Interaction Partners',
   fileSaveError: 'There was a problem saving the file. Please try using a different browser or contact us at <a href="mailto:contact@metabolicatlas.org">contact@metabolicatlas.org</a>.',
+  noTSVfile: 'expected TSV file',
+  invalidTSV: 'invalid TSV format, file should contain at least two columns and two rows',
+  columnNameLength: 'Column names should have max length of 20 characters',
+  idNameLenght: 'Id:s should have max length of 20 characters',
+  levelsRange: 'is not a number between 0 and 1',
 };
