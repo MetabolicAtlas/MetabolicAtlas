@@ -11,7 +11,7 @@
 
       <ul class="is-flex-direction-column is-align-items-flex-start mb-4 ml-5">
         <li v-for="(components, model) in compGroupedByModel" :key="model" class="my-1">
-          {{ model }}
+          {{ model }} {{ components[0].version }}
           <ul class="is-flex-direction-column is-align-items-flex-start mb-4 ml-5">
             <li v-for="c in components" :key="c.id + c.model + c.version" class="my-1">
               <span class="tag is-light is-medium">
