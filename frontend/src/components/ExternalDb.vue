@@ -71,4 +71,7 @@ export default {
 ul {
   list-style: disc outside none;
 }
+ul ul {
+  list-style: circle outside none;
+}
 </style>
