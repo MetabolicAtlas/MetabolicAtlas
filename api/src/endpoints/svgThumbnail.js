@@ -22,7 +22,7 @@ routes.get('/:svgName', async (req, res) => {
     if (!isnum) {
       throw new Error(`Invalid width provided: ${width}. It should be an integer between ${min_w} and ${max_w}.`);
     } else {
-      w_thumb =  parseInt(width) || 400;
+      w_thumb =  parseInt(width);
       if (w_thumb < min_w || w_thumb > max_w){
         throw new Error(`Invalid width provided: ${width}. It should be between ${min_w} and ${max_w}.`);
       }
