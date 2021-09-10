@@ -1,4 +1,3 @@
-import fs from 'fs';
 const sharp = require('sharp');
 
 const getSvgThumbnail = async (svgName, w_thumb, model) => {

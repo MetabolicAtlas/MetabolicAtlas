@@ -1,12 +1,10 @@
 import express from 'express';
-import fs from 'fs';
 import getSvgThumbnail from 'utils/2d-map';
 import models from 'data/integratedModels.json';
 
 const VALID_MODELS = models.map((m) => m.short_name);
 
 const routes = express.Router();
-const sharp = require('sharp');
 
 routes.get('/:svgName', async (req, res) => {
   const { svgName } = req.params;
