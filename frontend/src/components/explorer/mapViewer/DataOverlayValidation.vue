@@ -30,9 +30,10 @@ export default {
         const reader = new FileReader();
         reader.onloadend = (evt) => {
           const lines = evt.target.result.split(/\r?\n/);
+          const header = lines[0].split('\t');
           // No further checks if invalid TSV format
-          if (lines[0].split('\t').length !== 1 && lines.length > 2) {
-            lines[0].split('\t').forEach((name) => {
+          if (header.length !== 1 && lines.length > 2) {
+            header.forEach((name) => {
               if (name.length > 20) {
                 errors += `Error: ${messages.columnNameLength}, ${name} has ${name.length}\n`;
               }
