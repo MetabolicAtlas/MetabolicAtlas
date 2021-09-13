@@ -31,6 +31,9 @@ export default {
         reader.onloadend = (evt) => {
           const lines = evt.target.result.split(/\r?\n/);
           const header = lines[0].split('\t');
+          if (header[0] !== 'id') {
+            errors += `Error: ${messages.noIDColumn}. First column should not be ${header[0]}\n`;
+          }
           // No further checks if invalid TSV format
           if (header.length !== 1 && lines.length > 2) {
             header.forEach((name) => {
