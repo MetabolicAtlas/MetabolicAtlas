@@ -15,8 +15,8 @@
       </span>
     </div>
     <DataOverlayValidation @getFileName="getFileName($event)" @errorCustomFile="handleErrorCustomFile" />
-    <div v-if="customFileName" id="fileNameBox" class="mb-0">
-      <div v-show="!showFileLoader" class="tags has-addons is-centered mb-0"
+    <div v-if="customFileName" class="mb-0">
+      <div id="fileNameBox" v-show="!showFileLoader" class="tags has-addons is-centered mb-0"
            :title="errorCustomFileMsg ? errorCustomFileMsg : customFileInfo">
         <span class="tag" :class="errorCustomFileMsg ? 'is-danger' : 'is-success'">
           <div class="is-size-6"> {{ customFileName }}</div>
@@ -325,15 +325,15 @@ export default {
 }
 
 #fileNameBox {
-  span.tag {
-    width: 90%;
-    cursor: help;
-      > div {
-      white-space: nowrap;
+  display: flex;
+  flex-wrap: nowrap;
+  > span.tag {
+    margin-left: 0px;
+    width: 100%;
+    overflow: hidden;
+    > div {
       overflow: hidden;
-      max-width: 250px;
       text-overflow: ellipsis;
-      cursor: help;
     }
   }
 }
