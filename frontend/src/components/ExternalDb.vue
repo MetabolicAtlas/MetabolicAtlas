@@ -47,14 +47,12 @@ export default {
         r[a.model] = r[a.model] || [];
         r[a.model].push(a);
         return r;
-      }, Object.create(null));
+      }, {});
       const orderedRst = Object.keys(result).sort().reduce(
         (obj, key) => { // eslint-disable-next-line
           obj[key] = result[key];
           return obj;
-        },
-        {}
-      );
+        }, {});
       return orderedRst;
     },
   },
