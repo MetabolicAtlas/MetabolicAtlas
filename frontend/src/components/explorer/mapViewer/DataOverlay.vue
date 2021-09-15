@@ -27,8 +27,8 @@
       </div>
     </div>
     <div v-if="errorCustomFileMsg" class="card mb-4">
-      <div class="notification is-danger is-half is-offset-one-quarter
-       has-text-centered" v-html="customErrorMessage()">
+      <div id="customFileError" class="notification is-danger is-half is-offset-one-quarter"
+      v-html="customErrorMessage()">
       </div>
     </div>
     <div class="card my-3">
@@ -341,7 +341,6 @@ export default {
 }
 
 #customFileError {
-  white-space: pre-line;
-  word-break: break-word;
+  word-wrap: break-word;
 }
 </style>
