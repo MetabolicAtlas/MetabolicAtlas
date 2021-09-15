@@ -26,9 +26,9 @@
         <a class="button is-small is-loading"></a>
       </div>
     </div>
-    <div v-if="errorCustomFileMsg" class="card mb-4">
-      <div id="customFileError" class="notification is-danger is-half is-offset-one-quarter"
-      v-html="customErrorMessage()">
+    <div v-if="errorCustomFileMsg" id="customFileError" class="card mb-4">
+      <div class="notification is-danger is-half is-offset-one-quarter"
+           v-html="customErrorMessage()">
       </div>
     </div>
     <div class="card my-3">
@@ -341,6 +341,11 @@ export default {
 }
 
 #customFileError {
+  max-height:30%;
+  overflow-y: scroll;
+  background-color: #F46036;
+  scrollbar-color: rgba(123,123,121, 0.8) #F46036;
   word-wrap: break-word;
 }
+
 </style>
