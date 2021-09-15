@@ -26,36 +26,36 @@ export default {
           this.$emit('errorCustomFile', `Error: ${messages.noTSVfile}`, e.target.files[0].name);
           return;
         }
-        let errors = '';
+        const errors = [];
         const reader = new FileReader();
         reader.onloadend = (evt) => {
           const lines = evt.target.result.split(/\r?\n/);
           const header = lines[0].split('\t');
           if (header[0] !== 'id') {
-            errors += `Error: ${messages.noIDColumn}. First column should not be ${header[0]}\n`;
+            errors.push(`Error: ${messages.noIDColumn}. First column should not be ${header[0]}`);
           }
           // No further checks if invalid TSV format
           if (header.length !== 1 && lines.length > 2) {
             header.forEach((name) => {
               if (name.length > 20) {
-                errors += `Error: ${messages.columnNameLength}, ${name} has ${name.length}\n`;
+                errors.push(`Error: ${messages.columnNameLength}, ${name} has ${name.length}`);
               }
             });
             lines.slice(1).forEach((line) => {
               const columnValues = line.split('\t');
               if (columnValues[0].length > 20) {
-                errors += `Error: ${messages.idNameLenght}, ${columnValues[0]} has ${columnValues[0].length}\n`;
+                errors.push(`Error: ${messages.idNameLenght}, ${columnValues[0]} has ${columnValues[0].length}`);
               }
               columnValues.slice(1).forEach((value) => {
                 if (Number.isNaN(Number(value)) || value < 0 || value > 1) {
-                  errors += `Error: ${value} ${messages.levelsRange}\n`;
+                  errors.push(`Error: ${value} ${messages.levelsRange}`);
                 }
               });
             });
           } else {
-            errors += `Error: ${messages.invalidTSV}`;
+            errors.push(`Error: ${messages.invalidTSV}`);
           }
-          if (errors !== '') {
+          if (errors.length > 0) {
             this.$emit('errorCustomFile', errors, e.target.files[0].name);
           } else {
             this.$emit('getFileName', e.target.files[0]);
