@@ -28,7 +28,7 @@
       </div>
     </div>
     <div v-if="errorCustomFileMsg" class="card mb-4">
-       <div class="notification is-danger is-half is-offset-one-quarter has-text-centered">
+       <div id="customFileError" class="notification is-danger is-half is-offset-one-quarter has-text-centered">
           {{ errorCustomFileMsg }}
         </div>
     </div>
@@ -336,5 +336,10 @@ export default {
       text-overflow: ellipsis;
     }
   }
+}
+
+#customFileError {
+  white-space: pre-line;
+  word-break: break-word;
 }
 </style>
