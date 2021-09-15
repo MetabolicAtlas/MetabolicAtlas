@@ -16,7 +16,7 @@
     </div>
     <DataOverlayValidation @getFileName="getFileName($event)" @errorCustomFile="handleErrorCustomFile" />
     <div v-if="customFileName" class="mb-0">
-      <div id="fileNameBox" v-show="!showFileLoader" class="tags has-addons is-centered mb-0">
+      <div v-show="!showFileLoader" id="fileNameBox" class="tags has-addons is-centered mb-0">
         <span class="tag" :class="errorCustomFileMsg ? 'is-danger' : 'is-success'">
           <div class="is-size-6"> {{ customFileName }}</div>
         </span>
@@ -27,9 +27,9 @@
       </div>
     </div>
     <div v-if="errorCustomFileMsg" class="card mb-4">
-       <div v-html="customErrorMessage()" class="notification is-danger is-half is-offset-one-quarter
-       has-text-centered">
-        </div>
+      <div class="notification is-danger is-half is-offset-one-quarter
+       has-text-centered" v-html="customErrorMessage()">
+      </div>
     </div>
     <div class="card my-3">
       <div class="card-content py-2 p-3">
