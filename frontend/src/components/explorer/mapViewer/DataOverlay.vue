@@ -27,7 +27,7 @@
       </div>
     </div>
     <div v-if="errorCustomFileMsg" id="customFileError" class="card mb-4">
-      <div class="notification is-danger is-half is-offset-one-quarter"
+      <div class="notification p-3 is-danger is-half is-offset-one-quarter"
            v-html="customErrorMessage()">
       </div>
     </div>
