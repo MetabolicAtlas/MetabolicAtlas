@@ -24,7 +24,7 @@ export default {
     validateFile(e) {
       if (e.target.files.length !== 0) {
         if (e.target.files[0].type !== 'text/tab-separated-values') {
-          this.$emit('errorCustomFile', `Error: ${messages.noTSVfile}`, e.target.files[0].name);
+          this.$emit('errorCustomFile', [`Error: ${messages.noTSVfile}`], e.target.files[0].name);
           return;
         }
         const errors = [];
