@@ -7,8 +7,10 @@
       <p class="my-3">
         This database identifier is associated with the following Metabolic Atlas
         {{ components.length === 1 ? 'component' : 'components' }}:
+        <template v-if="externalDb.url">
+          <br>(please visit <a :href="externalDb.url" target="_blank">{{ externalDb.url }}</a> for more detailes)
+        </template>
       </p>
-
       <ul class="is-flex-direction-column is-align-items-flex-start mb-4 ml-5">
         <li v-for="(components, model) in compGroupedByModel" :key="model" class="my-1">
           {{ model }} {{ components[0].version }}
@@ -24,10 +26,6 @@
           </ul>
         </li>
       </ul>
-
-      <p v-if="externalDb.url">
-        For more details, visit <a :href="externalDb.url" target="_blank"> {{ externalDb.url }} </a>.
-      </p>
     </div>
   </section>
 </template>
