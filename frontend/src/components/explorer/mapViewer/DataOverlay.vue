@@ -341,7 +341,7 @@ export default {
 }
 
 #customFileError {
-  max-height:30%;
+  max-height: 30%;
   overflow-y: scroll;
   background-color: #F46036;
   scrollbar-color: rgba(123,123,121, 0.8) #F46036;
