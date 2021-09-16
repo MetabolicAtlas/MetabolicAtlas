@@ -1,7 +1,7 @@
 <template>
   <div class="file is-centered mb-2">
     <label class="file-label">
-      <input id="anId" class="file-input" type="file" name="resume" @change="validateFile"
+      <input class="file-input" type="file" @change="validateFile"
              @click="$event.target.value = ''">
       <span class="file-cta">
         <span class="file-icon">
