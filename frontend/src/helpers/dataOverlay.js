@@ -14,16 +14,6 @@ const DATA_TYPES_COMPONENTS = {
   },
 };
 
-/*
- * @param { Blob } file
- *
- * @example
- * try {
- *   const data = await parseCustomFile(file);
- * } catch (e) {
- *   console.error(e)
- * }
- */
 const parseFile = async (file) => {
   let dataSets = [];
   const levels = { 'n/a': 'n/a' };
