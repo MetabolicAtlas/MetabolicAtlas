@@ -86,8 +86,7 @@ const actions = {
         ...dataSource,
       });
     } catch (e) {
-      console.error(e);
-      // TODO: handle e
+      console.error(e); // eslint-disable-line no-console
       commit('setCurrentDataSource', null);
     }
   },
