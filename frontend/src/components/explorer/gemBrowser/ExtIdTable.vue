@@ -9,12 +9,7 @@
             <td>
               <template v-for="(el, index) in externalDbs[k]">
                 <template v-if="index !== 0">{{ '; ' }}</template>
-                <template v-if="el.url">
-                  <a :key="el.id" :href="`${el.url}`" target="_blank">{{ el.id }}</a>
-                </template>
-                <template v-else>
-                  {{ el.id }}
-                </template>
+                <a :key="el.id" :href="`/identifier/${k}/${el.id}`" target="_blank">{{ el.id }}</a>
               </template>
             </td>
           </tr>

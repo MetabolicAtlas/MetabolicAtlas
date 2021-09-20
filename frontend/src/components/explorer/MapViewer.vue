@@ -108,7 +108,6 @@ import SidebarDataPanels from '@/components/explorer/mapViewer/SidebarDataPanels
 import Svgmap from '@/components/explorer/mapViewer/Svgmap';
 import ThreeDViewer from '@/components/explorer/mapViewer/ThreeDviewer';
 import { default as messages } from '@/content/messages';
-import { default as EventBus } from '@/event-bus';
 
 export default {
   name: 'MapViewer',
@@ -149,8 +148,12 @@ export default {
       mapsListing: state => state.maps.mapsListing,
     }),
     ...mapGetters({
-      queryParams: 'maps/queryParams',
+      mapQueryParams: 'maps/queryParams',
+      dataOverlayQueryParams: 'dataOverlay/queryParams',
     }),
+    queryParams() {
+      return { ...this.mapQueryParams, ...this.dataOverlayQueryParams };
+    },
   },
   watch: {
     '$route.params': 'loadMapFromParams',
@@ -162,14 +165,6 @@ export default {
     this.handleQueryParamsWatch = debounce(this.handleQueryParamsWatch, 100);
     window.onpopstate = this.handleQueryParamsWatch();
 
-    EventBus.$off('loadRNAComplete');
-    EventBus.$on('loadRNAComplete', (isSuccess, errorMessage) => {
-      if (!isSuccess) {
-        this.showMessage(errorMessage);
-        EventBus.$emit('unselectFirstTissue');
-        EventBus.$emit('unselectSecondTissue');
-      }
-    });
     if (!this.model || this.model.short_name !== this.$route.params.model) {
       const modelSelectionSuccessful = await this.$store.dispatch('models/selectModel', this.$route.params.model);
       if (!modelSelectionSuccessful) {
@@ -194,19 +189,18 @@ export default {
     dimensionalState(showing2D) {
       return showing2D ? '2d' : '3d';
     },
-    handleQueryParamsWatch(newQuery, oldQuery) {
+    handleQueryParamsWatch(newQuery, oldQuery) { // eslint-disable-line no-unused-vars
+      if (!newQuery) {
+        return;
+      }
+
       if (newQuery && !this.$route.params.map_id) {
         const payload = [{}, null, `${this.$route.path}?dim=${newQuery.dim}`];
         history.replaceState(...payload); // eslint-disable-line no-restricted-globals
         return;
       }
 
-      if (JSON.stringify(newQuery) === JSON.stringify(oldQuery)) {
-        return;
-      }
-
       const queryString = Object.entries(newQuery).map(e => e.join('=')).join('&');
-
       const payload = [{}, null, `${this.$route.path}?${queryString}`];
       if (newQuery.dim === this.$route.query.dim || (newQuery.dim && !this.$route.query.dim)) {
         history.replaceState(...payload); // eslint-disable-line no-restricted-globals

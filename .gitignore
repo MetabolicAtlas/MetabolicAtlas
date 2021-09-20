@@ -86,3 +86,6 @@ svg/
 
 # data folder in API
 api/src/data/*.json
+
+# dataOverlay folder in API
+api/dataOverlay

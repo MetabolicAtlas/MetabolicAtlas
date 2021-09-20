@@ -6,7 +6,6 @@ import vueDebounce from 'vue-debounce';
 import NProgress from 'nprogress';
 import App from '@/App';
 import router from '@/router';
-import { default as EventBus } from '@/event-bus';
 import store from './store';
 import linkHandlerMixin from './mixins/linkHandler';
 
@@ -34,6 +33,5 @@ new Vue({ // eslint-disable-line no-new
   el: '#app',
   router,
   store,
-  EventBus,
   render: h => h(App),
 });

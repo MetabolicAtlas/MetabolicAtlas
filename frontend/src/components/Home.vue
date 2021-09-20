@@ -224,7 +224,7 @@ export default {
           img: require('../assets/analyze.jpg'),
           route: { name: 'viewer',
             params: { model: 'Human-GEM', type: 'compartment', map_id: 'endoplasmic_reticulum' },
-            query: { dim: '2d', panel: '1', g1: 'skin 1', g2: 'testis', coords: '-7222.7,-4501.6,0.97,0,0,0' } },
+            query: { dim: '2d', panel: '1', coords: '-7222.7,-4501.6,0.97,0,0,0' } },
           icon: 'tasks' },
       ],
       features2: [

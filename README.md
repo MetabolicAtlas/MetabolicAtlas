@@ -18,13 +18,13 @@ If you want to try out the latest features of MetabolicAtlas, change the branch 
 Apart from the current repository, two additional repositories are required in
 order to deploy Metabolic Atlas locally, they are
 
-* [neo4j-data-generation](https://github.com/MetabolicAtlas/neo4j-data-generation): for generating neo4j database
+* [data-generation](https://github.com/MetabolicAtlas/data-generation): for generating neo4j database
 * [data-files](https://github.com/MetabolicAtlas/data-files): contains all the data necessary data (integrated models, maps, FTP repository) using Git LFS
 
 Clone the three required repositories by 
 
     git clone https://github.com/MetabolicAtlas/MetabolicAtlas
-    git clone https://github.com/MetabolicAtlas/neo4j-data-generation
+    git clone https://github.com/MetabolicAtlas/data-generation
     git clone https://github.com/MetabolicAtlas/data-files && pushd data-files; git lfs pull; popd
 
 
@@ -40,7 +40,7 @@ The content of the file `.env` that has just been copied from `.env.sample` is s
 CERTBOT_EMAIL=
 SERVER_NAME=localhost
 DATA_FILES_PATH=../data-files
-DATA_GENERATOR_PATH=../neo4j-data-generation
+DATA_GENERATOR_PATH=../data-generation
 
 NEO4J_USERNAME=neo4j
 NEO4J_PASSWORD=password-unhackable

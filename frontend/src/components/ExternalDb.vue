@@ -7,22 +7,25 @@
       <p class="my-3">
         This database identifier is associated with the following Metabolic Atlas
         {{ components.length === 1 ? 'component' : 'components' }}:
+        <template v-if="externalDb.url">
+          <br>(visit <a :href="externalDb.url" target="_blank">{{ externalDb.url }}</a> for more detailes)
+        </template>
       </p>
       <ul class="is-flex-direction-column is-align-items-flex-start mb-4 ml-5">
-        <li v-for="c in components" :key="c.id + c.model + c.version" class="my-1">
-          {{ c.componentType }}
-          <span class="tag is-light is-medium">
-            <router-link :to="{ name: c.componentType.toLowerCase(), params: { model:
-              c.model, id: c.id } }">
-              {{ c.id }}
-            </router-link>
-          </span>
-          from {{ c.model }} {{ c.version }}
+        <li v-for="(components, model) in compGroupedByModel" :key="model" class="my-1">
+          {{ model }} {{ components[0].version }}
+          <ul class="is-flex-direction-column is-align-items-flex-start mb-4 ml-5">
+            <li v-for="c in components" :key="c.id + c.model + c.version" class="my-1">
+              <span class="tag is-light is-medium">
+                <router-link :to="{ name: c.componentType.toLowerCase(), params: { model:
+                  c.model, id: c.id } }">
+                  {{ c.id }}
+                </router-link>
+              </span>
+            </li>
+          </ul>
         </li>
       </ul>
-      <p v-if="externalDb.url">
-        For more details, visit <a :href="externalDb.url" target="_blank"> {{ externalDb.url }} </a>.
-      </p>
     </div>
   </section>
 </template>
@@ -37,6 +40,19 @@ export default {
       components: state => state.externalDb.components,
       externalDb: state => state.externalDb.externalDb,
     }),
+    compGroupedByModel() {
+      const result = this.components.reduce((r, a) => { // eslint-disable-next-line
+        r[a.model] = r[a.model] || [];
+        r[a.model].push(a);
+        return r;
+      }, {});
+      const orderedRst = Object.keys(result).sort().reduce(
+        (obj, key) => { // eslint-disable-next-line
+          obj[key] = result[key];
+          return obj;
+        }, {});
+      return orderedRst;
+    },
   },
   async beforeMount() {
     await this.$store.dispatch('externalDb/getComponentsForExternalDb', {
@@ -50,5 +66,8 @@ export default {
 <style lang="scss" scoped>
 ul {
   list-style: disc outside none;
+}
+ul ul {
+  list-style: circle outside none;
 }
 </style>

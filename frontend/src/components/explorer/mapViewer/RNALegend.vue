@@ -1,7 +1,6 @@
 <template>
   <div class="card is-unselectable">
     <div class="card-content p-3">
-      <div class="title is-6 has-text-centered" v-html="text"></div>
       <div class="columns is-gapless" style="margin-bottom: 10px;">
         <div class="column is-narrow">{{ leftValue }}&nbsp;</div>
         <div class="column">
@@ -23,15 +22,11 @@
 
 <script>
 
-import { singleColors, notDetectedColor } from '@/expression-sources/hpa';
+import { singleColors, notDetectedColor } from '@/helpers/expressionSources';
 
 export default {
   name: 'RNALegend',
   props: {
-    text: {
-      type: String,
-      default: 'log<sub>2</sub>(TPM+1)',
-    },
     gradient: {
       type: String,
       default: `${singleColors}`,
@@ -42,7 +37,7 @@ export default {
     },
     rightValue: {
       type: String,
-      default: '7+',
+      default: '1',
     },
     nacolor: {
       type: String,
