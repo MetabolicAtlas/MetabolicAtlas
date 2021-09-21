@@ -1,5 +1,5 @@
 <template>
-  <div id="comparison-details" class="card">
+  <div id="comparison-details" class="card p-0">
     <header class="card-header">
       <p class="card-header-title">
         Comparing&nbsp;
@@ -112,10 +112,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .card {
-    padding: 0;
-  }
-
   .compared-models:last-of-type {
     margin-right: -0.25em;
   }

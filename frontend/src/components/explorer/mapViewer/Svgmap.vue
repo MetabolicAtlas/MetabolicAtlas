@@ -12,13 +12,19 @@
       <div id="tooltip" ref="tooltip"></div>
     </div>
 
-    <MapControls wrapper-elem-selector=".viewer-container" :is-fullscreen="isFullscreen"
-                 :zoom-in="zoomIn" :zoom-out="zoomOut"
-                 :toggle-full-screen="toggleFullscreen" :toggle-genes="toggleGenes"
-                 :toggle-subsystems="toggleSubsystems" :download-canvas="downloadCanvas" />
-    <MapSearch ref="mapsearch" :matches="searchedNodesOnMap"
+    <MapControls wrapper-elem-selector=".viewer-container"
+                 :is-fullscreen="isFullscreen"
+                 :zoom-in="zoomIn"
+                 :zoom-out="zoomOut"
+                 :toggle-full-screen="toggleFullscreen"
+                 :toggle-genes="toggleGenes"
+                 :toggle-subsystems="toggleSubsystems"
+                 :download-canvas="downloadCanvas" />
+    <MapSearch ref="mapsearch"
+               :matches="searchedNodesOnMap"
                :fullscreen="isFullscreen"
-               @searchOnMap="searchIDsOnMap" @centerViewOn="centerElementOnSVG"
+               @searchOnMap="searchIDsOnMap"
+               @centerViewOn="centerElementOnSVG"
                @unHighlightAll="unHighlight" />
   </div>
 </template>
