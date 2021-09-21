@@ -35,6 +35,14 @@ export default {
           if (header[0] !== 'id') {
             errors.push(`Error: ${messages.noIDColumn}. First column should not be ${header[0]}`);
           }
+          const colTitles = [];
+          header.forEach((colTitle) => {
+            if (colTitles.indexOf(colTitle) > -1) {
+              errors.push(`Error: ${messages.duplicateColName} ${colTitle}`);
+            } else {
+              colTitles.push(colTitle);
+            }
+          });
           // No further checks if invalid TSV format
           if (header.length !== 1 && lines.length > 2) {
             header.forEach((name) => {
@@ -42,16 +50,21 @@ export default {
                 errors.push(`Error: ${messages.columnNameLength}, ${name} has ${name.length}`);
               }
             });
-            lines.slice(1).forEach((line) => {
-              const columnValues = line.split('\t');
-              if (columnValues[0].length > 20) {
-                errors.push(`Error: ${messages.idNameLenght}, ${columnValues[0]} has ${columnValues[0].length}`);
-              }
-              columnValues.slice(1).forEach((value) => {
-                if (Number.isNaN(Number(value)) || value < 0 || value > 1) {
-                  errors.push(`Error: ${value} ${messages.levelsRange}`);
+            lines.slice(1).forEach((line, pos) => {
+              if (line.length > 0) {
+                const columnValues = line.split('\t');
+                if (columnValues.length !== header.length) {
+                  errors.push(`Error: ${messages.numOfValues} line ${pos}`);
                 }
-              });
+                if (columnValues[0].length > 20) {
+                  errors.push(`Error: ${messages.idNameLenght}, ${columnValues[0]} has ${columnValues[0].length}`);
+                }
+                columnValues.slice(1).forEach((value) => {
+                  if (Number.isNaN(Number(value)) || value < 0 || value > 1) {
+                    errors.push(`Error: ${value} ${messages.levelsRange}`);
+                  }
+                });
+              }
             });
           } else {
             errors.push(`Error: ${messages.invalidTSV}`);

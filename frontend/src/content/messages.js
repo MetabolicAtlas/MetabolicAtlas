@@ -13,7 +13,9 @@ export default {
   noTSVfile: 'expected TSV file',
   invalidTSV: 'invalid TSV format, file should contain at least two columns and two rows',
   noIDColumn: 'invalid TSV format, file must contain an ID column',
+  duplicateColName: 'duplicate column name',
   columnNameLength: 'Column names should have max length of 20 characters',
   idNameLenght: 'Id:s should have max length of 20 characters',
+  numOfValues: 'invalid number of values',
   levelsRange: 'is not a number between 0 and 1',
 };

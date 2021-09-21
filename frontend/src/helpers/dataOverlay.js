@@ -21,32 +21,24 @@ const parseFile = async (file) => {
   const text = await file.text();
 
   const lines = text.split(/\r?\n/);
-  let indexLine = 1;
   // fetch data set
-  if (lines[0].split('\t').length !== 1) {
-    const arrLine = lines[0].split('\t');
-    const v = Number(arrLine[1]);
-    if (Number.isNaN(v)) {
-      dataSets = lines[0].split('\t');
-      dataSets.shift();
-      lines.shift();
-    } else {
-      dataSets = [];
-      for (let i = 1; i < arrLine.length; i += 1) {
-        dataSets.push(`serie${i}`);
-      }
-    }
+  const header = lines[0].split('\t');
+  const val = Number(header[1]);
+  if (Number.isNaN(val)) {
+    dataSets = lines[0].split('\t');
+    dataSets.shift();
+    lines.shift();
   } else {
-    throw new Error('Invalid TSV format, expect at least two columns.');
+    dataSets = [];
+    for (let i = 1; i < header.length; i += 1) {
+      dataSets.push(`serie${i}`);
+    }
   }
 
   // parse lines
   // make dataSets key;
   for (let i = 0; i < dataSets.length; i += 1) {
     const dataSet = dataSets[i];
-    if (dataSet in levels) {
-      throw new Error(`Error: duplicated column '${dataSet}'.`);
-    }
     levels[dataSet] = {};
   }
 
@@ -55,21 +47,14 @@ const parseFile = async (file) => {
     const line = lines[k];
     if (line) {
       const arrLine = line.split('\t');
-      if (arrLine.length !== dataSets.length + 1) {
-        throw new Error(`Error: invalid number of values line ${indexLine}.`);
-      }
       for (let i = 1; i < arrLine.length; i += 1) {
         if (arrLine[i]) {
           const v = Number(arrLine[i]);
-          if (Number.isNaN(v)) {
-            throw new Error(`Error: invalid value line ${indexLine}.`);
-          }
           levels[dataSets[i - 1]][arrLine[0]] = v;
         }
       }
       entriesCount += 1;
     }
-    indexLine += 1;
   }
 
   return {
