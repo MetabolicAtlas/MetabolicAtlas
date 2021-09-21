@@ -14,32 +14,21 @@
         </router-link>
       </span>
     </div>
-    <div class="file is-centered mb-2">
-      <label class="file-label">
-        <input class="file-input"
-               type="file"
-               name="resume"
-               @change="getFileName">
-        <span class="file-cta">
-          <span class="file-icon">
-            <i class="fa fa-upload"></i>
-          </span>
-          <span class="file-label">
-            Choose a file
-          </span>
-        </span>
-      </label>
-    </div>
-    <div v-if="customFileName" id="fileNameBox" class="mb-4">
-      <div v-show="!showFileLoader" class="tags has-addons is-centered"
-           :title="errorCustomFile ? errorCustomFileMsg : customFileInfo">
-        <span class="tag" :class="errorCustomFile ? 'is-danger' : 'is-success'">
-          <div class="is-size-6">{{ customFileName }}</div>
+    <DataOverlayValidation @getFileName="getFileName($event)" @errorCustomFile="handleErrorCustomFile" />
+    <div v-if="customFileName" class="mb-0">
+      <div v-show="!showFileLoader" id="fileNameBox" class="tags has-addons is-centered mb-0">
+        <span class="tag" :class="errorCustomFileMsg ? 'is-danger' : 'is-success'">
+          <div class="is-size-6"> {{ customFileName }}</div>
         </span>
         <a class="tag is-delete" title="Unload file" @click="unloadUploadedFile()"></a>
       </div>
       <div v-show="showFileLoader" class="has-text-centered">
         <a class="button is-small is-loading"></a>
+      </div>
+    </div>
+    <div v-if="errorCustomFileMsg" id="customFileError" class="card mb-4">
+      <div class="notification p-3 is-danger is-half is-offset-one-quarter"
+           v-html="customErrorMessage()">
       </div>
     </div>
     <div class="card my-3">
@@ -104,13 +93,14 @@
 <script>
 
 import { mapActions, mapState } from 'vuex';
-import $ from 'jquery';
+import DataOverlayValidation from '@/components/explorer/mapViewer/DataOverlayValidation.vue';
 import RNALegend from '@/components/explorer/mapViewer/RNALegend.vue';
 import { parseFile } from '@/helpers/dataOverlay';
 
 export default {
   name: 'DataOverlay',
   components: {
+    DataOverlayValidation,
     RNALegend,
   },
   props: {
@@ -123,7 +113,6 @@ export default {
       showLvlCardContent: true,
       customFileName: '',
       showFileLoader: true,
-      errorCustomFile: false,
       errorCustomFileMsg: '',
       customFileInfo: '',
     };
@@ -193,34 +182,31 @@ export default {
 
       await this.getDataSource(payload);
     },
-    async getFileName(e) {
-      if (e.target.files.length !== 0) {
-        this.customFileName = e.target.files[0].name;
-        this.errorCustomFile = false;
-        this.errorCustomFileMsg = '';
-        this.customFileInfo = '';
-
-        try {
-          const dataSource = await parseFile(e.target.files[0]);
-          this.setCustomDataSource(dataSource);
-          this.customFileInfo = `Entries found: ${dataSource.entriesCount} - Series loaded: ${dataSource.dataSets.length}`;
-          this.showFileLoader = false;
-        } catch ({ message }) {
-          this.handleErrorCustomFile(message);
-        }
-        $('.file-input')[0].value = '';
-      } else {
-        this.customFileName = '';
+    async getFileName(file) {
+      this.customFileName = file.name;
+      this.errorCustomFileMsg = '';
+      this.customFileInfo = '';
+      try {
+        const dataSource = await parseFile(file);
+        this.setCustomDataSource(dataSource);
+        this.customFileInfo = `Entries found: ${dataSource.entriesCount} - Series loaded: ${dataSource.dataSets.length}`;
+        this.showFileLoader = false;
+      } catch ({ message }) {
+        this.handleErrorCustomFile(message);
       }
     },
     unloadUploadedFile() {
       this.customFileName = '';
+      this.errorCustomFileMsg = '';
       this.setCustomDataSource(null);
     },
-    handleErrorCustomFile(errorMsg) {
-      this.errorCustomFile = true;
+    handleErrorCustomFile(errorMsg, name) {
+      this.customFileName = name;
       this.errorCustomFileMsg = errorMsg;
       this.showFileLoader = false;
+    },
+    customErrorMessage() {
+      return this.errorCustomFileMsg.join('<br>');
     },
     validDataTypeInQuery() {
       return this.$route.query.datatype && Object.keys(this.dataSourcesIndex).indexOf(this.$route.query.datatype) > -1;
@@ -253,16 +239,25 @@ export default {
 }
 
 #fileNameBox {
-  span.tag {
-    width: 90%;
-    cursor: help;
-      > div {
-      white-space: nowrap;
+  display: flex;
+  flex-wrap: nowrap;
+  > span.tag {
+    margin-left: 0px;
+    width: 100%;
+    overflow: hidden;
+    > div {
       overflow: hidden;
-      max-width: 250px;
       text-overflow: ellipsis;
-      cursor: help;
     }
   }
 }
+
+#customFileError {
+  max-height: 30%;
+  overflow-y: scroll;
+  background-color: #F46036;
+  scrollbar-color: rgba(123,123,121, 0.8) #F46036;
+  word-wrap: break-word;
+}
+
 </style>
