@@ -10,7 +10,7 @@
       <table class="table maps-table">
         <tbody class="has-text-left">
           <tr v-for="component in mapsAvailable" :key="component.id">
-            <td> {{ component.customName }} </td>
+            <td style="word-break: break-word;"> {{ component.customName }} </td>
             <td v-if="component.svgMaps.length===0"> </td>
             <td v-else-if="component.svgMaps.length===1">
               <button class="button is-outlined is-small link-button"
