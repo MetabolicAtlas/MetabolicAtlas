@@ -30,7 +30,7 @@
               <a href="/api/v2" target="_blank">API</a></p>
           </div>
           <slot v-if="isMetabolite" name="chebi" />
-          <div class="column is-3-widescreen is-3-desktop is-half-tablet has-text-centered" style="min-width: 350px;">
+          <div class="column is-3-widescreen is-4-desktop is-6-tablet has-text-centered">
             <router-link v-if="interactionPartner" class="button is-info is-fullwidth is-outlined"
                          :to="{
                            name: 'interaction',
