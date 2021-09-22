@@ -435,4 +435,8 @@ span.sc {
   white-space: nowrap;
 }
 
+.break-word {
+  word-break: break-word;
+}
+
 </style>

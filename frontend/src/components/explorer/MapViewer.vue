@@ -14,7 +14,7 @@
         <div id="mapSidebar" ref="mapSidebar"
              class="column is-one-fifth-widescreen is-one-quarter-desktop
                     is-one-quarter-tablet has-background-lightgray om-2 pt-0
-                    fixed-height-desktop scrollable"
+                    fixed-height-desktop scrollable break-word"
              v-on="sidebarLayoutReset ? { scroll: () => handleSidebarScroll() } : {}">
           <div id="mapSidebar__header" class="has-background-lightgray pt-3">
             <div class="buttons has-addons is-centered padding-mobile m-0"
@@ -277,8 +277,6 @@ export default {
 #mapViewerContainer {
 
   #mapSidebar {
-    word-wrap: break-word;
-
     &__header {
       @media screen and (min-width: $tablet) {
         position: sticky;
