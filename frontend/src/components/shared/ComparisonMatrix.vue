@@ -16,7 +16,7 @@
             <div>
               <span v-for="(type, k) in types" :key="cn + j + type"
                     :style="{backgroundColor: colors[k]}"
-                    class="px-2 py-3"
+                    class="px-3 py-2"
                     @click="handleSelectCell(i, j)">
                 {{ matrix[i][j][type] }}
               </span>
