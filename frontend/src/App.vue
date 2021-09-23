@@ -437,6 +437,10 @@ span.sc {
 
 .break-word {
   word-break: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
 }
 
 </style>
