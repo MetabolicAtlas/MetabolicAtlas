@@ -26,7 +26,7 @@
         <span v-show="showSearchCharAlert" class="has-text-info icon is-right" style="width: 270px">
           Type at least 2 characters
         </span>
-        <span id="clear-search-icon" class="icon is-medium is-right has-text-grey-dark" @click="handleClearSearch()">
+        <span id="clear-search-icon" class="icon is-medium is-right has-text-grey-dark is-clickable" @click="handleClearSearch()">
           <i class="fa fa-times-circle" />
         </span>
       </p>
@@ -261,7 +261,6 @@ export default {
   }
 
   #clear-search-icon {
-    cursor: pointer;
     pointer-events: auto;
   }
 

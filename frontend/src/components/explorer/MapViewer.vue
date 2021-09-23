@@ -54,7 +54,7 @@
         <div v-if="!currentMap"
              class="column is-unselectable om-1 fixed-height-mobile p-0 m-0">
           <NotFound v-if="mapNotFound" type="map" :component-id="$route.params.map_id"></NotFound>
-          <p v-else class="is-size-5 has-text-centered" style="padding: 10%;">
+          <p v-else class="is-size-5 has-text-centered py-6 my-6">
             <a @click="showingMapListing = true">Show the map list and choose a compartment or subsystem map</a>
           </p>
         </div>
@@ -70,7 +70,8 @@
           <ErrorPanel :message="loadMapErrorMessage" @hideErrorPanel="loadMapErrorMessage=''" />
         </div>
         <div id="dataOverlayBar"
-             class="column is-narrow has-text-white is-unselectable is-hidden-mobile fixed-height-desktop p-1"
+             class="column is-clickable is-narrow has-text-white
+                    is-unselectable is-hidden-mobile fixed-height-desktop p-1"
              :class="{'px-0 py-0': dataOverlayPanelVisible }"
              title="Click to show the data overlay panel"
              @click="$store.dispatch('maps/toggleDataOverlayPanelVisible')">
@@ -368,7 +369,6 @@ export default {
   display: flex;
   align-items: center;
   background: $primary;
-  cursor: pointer;
   line-height: 17px;
   &:hover{
     background: $primary-light;

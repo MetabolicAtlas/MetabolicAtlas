@@ -1,7 +1,7 @@
 <template>
   <div class="card is-unselectable">
     <div class="card-content p-3">
-      <div class="columns is-gapless" style="margin-bottom: 10px;">
+      <div class="columns is-gapless mb-1">
         <div class="column is-narrow">{{ leftValue }}&nbsp;</div>
         <div class="column">
           <div :style="{ 'height': '20px',
