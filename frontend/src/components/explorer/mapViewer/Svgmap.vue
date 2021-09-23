@@ -36,6 +36,7 @@ import MapSearch from '@/components/explorer/mapViewer/MapSearch';
 import { default as messages } from '@/content/messages';
 import { reformatChemicalReactionHTML } from '@/helpers/utils';
 import { DATA_TYPES_COMPONENTS } from '@/helpers/dataOverlay';
+import mobileScrollToTop from '@/helpers/mapViewer.js';
 
 export default {
   name: 'Svgmap',
@@ -258,10 +259,7 @@ export default {
         return;
       }
 
-      if (window.scrollY > 0) {
-        // for optimal SVG positioning, the calculation expects window.scrollY to be 0
-        window.scrollTo(0, 0);
-      }
+      mobileScrollToTop();
 
       this.initialLoadWithParams = !!this.$route.query.coords;
 
