@@ -114,9 +114,9 @@ export default {
     };
   },
   methods: {
-    async handleCallback() {
+    async handleCallback(model, id) {
       try {
-        const payload = { model: this.model, id: this.rId };
+        const payload = { model, id };
         await this.$store.dispatch('reactions/getRelatedReactionsForReaction', payload);
       } catch {
         this.$store.dispatch('reactions/clearRelatedReactions');

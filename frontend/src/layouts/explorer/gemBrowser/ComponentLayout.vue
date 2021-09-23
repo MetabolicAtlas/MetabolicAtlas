@@ -126,7 +126,7 @@ export default {
         await this.$store.dispatch(this.queryComponentAction, payload);
         this.componentNotFound = false;
         if (this.$listeners && this.$listeners.handleCallback) {
-          this.$emit('handleCallback');
+          this.$emit('handleCallback', this.model, this.componentId);
         }
         this.showLoaderMessage = '';
       } catch {

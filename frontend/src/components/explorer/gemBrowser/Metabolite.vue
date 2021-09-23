@@ -130,9 +130,9 @@ export default {
     };
   },
   methods: {
-    async handleCallback() {
+    async handleCallback(model, id) {
       try {
-        const payload = { model: this.model, id: this.metaboliteId };
+        const payload = { model, id };
         await this.$store.dispatch('metabolites/getRelatedMetabolites', payload);
       } catch {
         this.$store.dispatch('metabolites/clearRelatedMetabolites');
