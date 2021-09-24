@@ -309,7 +309,7 @@ OPTIONAL MATCH (node)-[${v}]-(parentNode:${model})
 WHERE node:${model} OR parentNode:${model}
 WITH DISTINCT(
 	CASE
-		WHEN EXISTS(node.id) THEN { id: node.id, labels: labelList, score: score }
+		WHEN EXISTS(node.id) AND NOT EXISTS(node.externalId) THEN { id: node.id, labels: labelList, score: score }
 		ELSE { id: parentNode.id, labels: LABELS(parentNode), score: score }
 	END
 ) as r 
@@ -334,7 +334,6 @@ LIMIT ${limit}
   }, {});
 
   const ids = Object.assign({}, ...Object.keys(uniqueIds).map(c => ({ [c]: Array.from(uniqueIds[c]) })));
-
   const [
     compartmentalizedMetabolites,
     metabolites,
