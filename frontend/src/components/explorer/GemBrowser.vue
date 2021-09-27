@@ -31,7 +31,7 @@
               <br>
             </div>
           </div>
-          <div v-if="tileComponents" id="gem-browser-tiles" class="tile is-ancestor">
+          <div v-if="tileComponents" id="gem-browser-tiles" class="tile is-ancestor break-word">
             <div class="tile">
               <div class="tile is-vertical is-9">
                 <div class="tile">
@@ -127,7 +127,6 @@ export default {
 <style lang="scss">
 
 #gem-browser-tiles {
-  word-wrap: anywhere;
   .tile.is-child {
     ul {
       list-style-type: disc;

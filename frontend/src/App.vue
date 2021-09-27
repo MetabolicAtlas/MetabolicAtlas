@@ -435,4 +435,10 @@ span.sc {
   white-space: nowrap;
 }
 
+.break-word {
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
 </style>
