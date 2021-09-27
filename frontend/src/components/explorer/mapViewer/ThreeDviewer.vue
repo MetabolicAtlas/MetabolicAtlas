@@ -29,7 +29,6 @@ import MapSearch from '@/components/explorer/mapViewer/MapSearch';
 import { default as messages } from '@/content/messages';
 import { default as colorToRGBArray } from '@/helpers/colors';
 import { DEFAULT_GENE_COLOR, DEFAULT_METABOLITE_COLOR } from '@/helpers/dataOverlay';
-import mobileScrollToTop from '@/helpers/mapViewer.js';
 
 const NODE_TEXTURES = [
   { group: 'e', sprite: '/sprite_round.png' },
@@ -82,7 +81,6 @@ export default {
   },
   watch: {
     async currentMap() {
-      mobileScrollToTop();
       await this.loadNetwork();
     },
     dataOverlayPanelVisible() {

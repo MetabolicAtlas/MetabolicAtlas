@@ -33,6 +33,8 @@
 
 <script>
 import { mapState } from 'vuex';
+import mobileScrollToTop from '@/helpers/mapViewer.js';
+
 
 export default {
   name: 'MapsListing',
@@ -48,6 +50,7 @@ export default {
   },
   methods: {
     changeToMap(newMapId) {
+      mobileScrollToTop();
       this.$router.push({ params: { map_id: newMapId }, query: { dim: this.showing2D ? '2d' : '3d' } });
     },
   },
