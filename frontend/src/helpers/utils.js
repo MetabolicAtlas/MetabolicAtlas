@@ -84,7 +84,11 @@ export function reformatChemicalReactionHTML(reaction, noLink = false, model = '
   return `${reactants} ${equationSign(reaction.reversible)} ${products}`;
 }
 
-export function sortResults(a, b, searchTermString) {
+export function sortResultsScore(a, b) {
+  return b.score - a.score;
+}
+
+export function sortResultsSearchTerm(a, b, searchTermString) {
   let matchSizeDiffA = 100;
   let matchedStringA = '';
   Object.values(a).forEach((v) => {

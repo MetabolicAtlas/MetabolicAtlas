@@ -173,7 +173,7 @@ import Loader from '@/components/Loader';
 import ExportTSV from '@/components/shared/ExportTSV';
 import 'vue-good-table/dist/vue-good-table.css';
 import { default as chemicalFormula } from '@/helpers/chemical-formatters';
-import { sortResults } from '@/helpers/utils';
+import { sortResultsScore, sortResultsSearchTerm } from '@/helpers/utils';
 import { default as messages } from '@/content/messages';
 
 export default {
@@ -497,8 +497,8 @@ export default {
       // store choice only once in a dict
       Object.keys(this.searchResults).forEach((componentType) => {
         const compoList = this.searchResults[componentType];
-        // sort
-        compoList.sort((a, b) => this.sortResults(a, b, this.searchedTerm));
+        compoList.sort((a, b) => sortResultsScore(a, b));
+        compoList.sort((a, b) => sortResultsSearchTerm(a, b, this.searchedTerm));
         compoList.forEach((el) => { // e.g. results list for metabolites
           if (componentType === 'metabolite') {
             Object.keys(filterTypeDropdown[componentType]).forEach((field) => {
@@ -673,7 +673,7 @@ export default {
       return `${header.join('\t')}\n${tsvContent}`;
     },
     chemicalFormula,
-    sortResults,
+    sortResultsScore,
   },
 };
 
