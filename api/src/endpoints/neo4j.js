@@ -22,6 +22,7 @@ import {
   getComparisonOverview,
   getComparisonDetails,
   getComponentsForExternalDb,
+  getComponentsForMetAtlasId,
 } from 'neo4j/index';
 
 const neo4jRoutes = express.Router();
@@ -131,6 +132,21 @@ neo4jRoutes.get('/external-db/:dbName/:externalId', async (req, res) => {
 
   try {
     const result = await getComponentsForExternalDb({ dbName, externalId });
+    res.json(result);
+  } catch (e) {
+    if (e.message === '404') {
+      return res.sendStatus(404);
+    }
+
+    res.status(400).send(e.message);
+  }
+});
+
+neo4jRoutes.get('/MetabolicAtlas/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await getComponentsForMetAtlasId({ id });
     res.json(result);
   } catch (e) {
     if (e.message === '404') {
