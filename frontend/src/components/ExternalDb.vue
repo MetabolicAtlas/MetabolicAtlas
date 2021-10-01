@@ -2,7 +2,7 @@
   <section class="section extended-section">
     <div v-if="externalDb" class="container is-fullhd">
       <h3 class="title is-3 mb-2">
-        {{ externalDb.dbName }} {{ components[0].componentType }} {{ externalDb.externalId }}
+        {{ dbNameToDisplay }} {{ components[0].componentType }} {{ externalDb.externalId }}
       </h3>
       <p class="my-3">
         This database identifier is associated with the following Metabolic Atlas
@@ -52,6 +52,9 @@ export default {
           return obj;
         }, {});
       return orderedRst;
+    },
+    dbNameToDisplay() {
+      return this.externalDb.dbName.replace('MetabolicAtlas', 'Metabolic Atlas');
     },
   },
   async beforeMount() {
