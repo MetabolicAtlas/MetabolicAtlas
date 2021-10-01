@@ -497,6 +497,13 @@ export default {
       // store choice only once in a dict
       Object.keys(this.searchResults).forEach((componentType) => {
         const compoList = this.searchResults[componentType];
+        /* Sorted twice as sortResultsSearchTerm does not catch cases when
+        this.searchResult contains nodes that was returned because they have a relationship
+        with a node where searchedTerm is part of a property, not because they have that property themselves.
+        (e.g. when searching for matches for external id:s). Thus they need to be sorted by their score.
+        Unfortunately, one can not rely only to sorting on score, as the scores return by neo4j in some cases
+        are not 100% as desired (e.g, searching for 'POLR3F' and gene POLR2A has a higher score than gene POLR3F)
+        */
         compoList.sort((a, b) => sortResultsScore(a, b));
         compoList.sort((a, b) => sortResultsSearchTerm(a, b, this.searchedTerm));
         compoList.forEach((el) => { // e.g. results list for metabolites
