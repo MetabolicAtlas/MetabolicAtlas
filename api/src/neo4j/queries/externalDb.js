@@ -8,12 +8,12 @@ RETURN { externalDb: properties(db), components: COLLECT({ component: c, version
   if (dbName === 'MetabolicAtlas') {
     statement = `
 MATCH (r:Reaction {id: '${externalId}'})-[v]-(c)
-RETURN { metAtlasId: properties(r), components: COLLECT(DISTINCT({component: r, version: type(v)}))}
+RETURN { externalDb: properties(r), components: COLLECT(DISTINCT({component: r, version: type(v)}))}
 
 UNION
 
 MATCH (r:CompartmentalizedMetabolite {id: '${externalId}'})-[v]-(c)
-RETURN { metAtlasId: properties(r), components: COLLECT(DISTINCT({component: r, version: type(v)}))}
+RETURN { externalDb: properties(r), components: COLLECT(DISTINCT({component: r, version: type(v)}))}
 
 `;
   }
@@ -32,6 +32,12 @@ RETURN { metAtlasId: properties(r), components: COLLECT(DISTINCT({component: r, 
       version: version.replace('V', '').replace(/_/g, '.'),
     };
   });
+
+  if (dbName === 'MetabolicAtlas') {
+    externalDb.dbName = 'MetabolicAtlas';
+    externalDb.externalId = externalDb.id;
+  }
+
 
   return { components, externalDb };
 };
