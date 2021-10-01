@@ -27,14 +27,24 @@
         </li>
       </ul>
     </div>
+    <div v-else>
+      <p class="notification has-background-danger-light" style="margin-top: 5%;" v-html="errorMessage"></p>
+    </div>
   </section>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'ExternalDb',
+  data() {
+    return {
+      errorMessage: '',
+      messages,
+    };
+  },
   computed: {
     ...mapState({
       components: state => state.externalDb.components,
@@ -58,10 +68,18 @@ export default {
     },
   },
   async beforeMount() {
-    await this.$store.dispatch('externalDb/getComponentsForExternalDb', {
-      dbName: this.$route.params.dbName,
-      externalId: this.$route.params.identifierId,
-    });
+    try {
+      await this.$store.dispatch('externalDb/getComponentsForExternalDb', {
+        dbName: this.$route.params.dbName,
+        externalId: this.$route.params.identifierId,
+      });
+    } catch {
+      const regex = /^MA[MR]/;
+      const found = this.$route.params.identifierId.match(regex);
+      if (this.externalDb == null && found != null) {
+        this.errorMessage = messages.maIDNotFound;
+      }
+    }
   },
 };
 </script>
