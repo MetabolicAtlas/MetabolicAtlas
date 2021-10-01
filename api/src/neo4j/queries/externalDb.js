@@ -1,7 +1,7 @@
 import querySingleResult from 'neo4j/queryHandlers/single';
 
 const getComponentsForExternalDb = async ({ dbName, externalId }) => {
-  var statement = `
+  let statement = `
 MATCH (db:ExternalDb {dbName: '${dbName}', externalId: '${externalId}'})-[v]-(c)
 RETURN { externalDb: properties(db), components: COLLECT({ component: c, version: type(v) }) }
 `;
