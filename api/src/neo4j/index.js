@@ -25,7 +25,6 @@ import {
   getComparisonDetails,
 } from 'neo4j/queries/compare';
 import getComponentsForExternalDb from 'neo4j/queries/externalDb';
-import getComponentsForMetAtlasId from 'neo4j/queries/metAtlasId';
 
 export {
   getCompartment,
@@ -50,5 +49,4 @@ export {
   getComparisonOverview,
   getComparisonDetails,
   getComponentsForExternalDb,
-  getComponentsForMetAtlasId,
 };
