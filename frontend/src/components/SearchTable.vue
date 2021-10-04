@@ -498,7 +498,7 @@ export default {
       Object.keys(this.searchResults).forEach((componentType) => {
         const compoList = this.searchResults[componentType];
         /* Sorted twice as sortResultsSearchTerm does not catch cases when
-        this.searchResult contains nodes that was returned because they have a relationship
+        this.searchResult contains nodes that were returned because they have a relationship
         with a node where searchedTerm is part of a property, not because they have that property themselves.
         (e.g. when searching for matches for external id:s). Thus they need to be sorted by their score.
         Unfortunately, one can not rely only to sorting on score, as the scores return by neo4j in some cases
