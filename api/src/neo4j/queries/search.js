@@ -352,26 +352,29 @@ LIMIT ${limit}
     fetchCompartments({ ids: ids["Compartment"], model, version: v, includeCounts: true }),
   ]);
 
-  const resObj = {compartmentalizedMetabolites,
+  const resObj = {
+    compartmentalizedMetabolites,
     metabolites,
     genes,
     reactions,
     subsystems,
-    compartments}
-    const resWithScore = {};
-    for (const [component, result] of Object.entries(resObj)) {
-        if (result) {
-            resWithScore[component] = result.map(obj => {
-                    const objWithScore = {
-                        ...obj,
-                        score: idsToScore[obj.id]
-                    }
-                    return objWithScore;
-                })
-        } else {
-            resWithScore[component] = []
-        }
+    compartments
+  };
+
+  const resWithScore = {};
+  for (const [component, result] of Object.entries(resObj)) {
+    if (result) {
+      resWithScore[component] = result.map(obj => {
+        const objWithScore = {
+          ...obj,
+          score: idsToScore[obj.id]
+        };
+        return objWithScore;
+      });
+    } else {
+      resWithScore[component] = [];
     }
+  }
 
   return {
     metabolite: [...resWithScore.compartmentalizedMetabolites, ...resWithScore.metabolites],
