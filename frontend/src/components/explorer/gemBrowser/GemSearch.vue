@@ -32,7 +32,7 @@
       </p>
     </div>
     <div v-show="showResults && searchTermString.length > 1" id="searchResults" ref="searchResults">
-      <div v-show="searchResults.length !== 0 && !showLoader"
+      <div v-show="!noResult && !showLoader"
            class="notification is-large is-unselectable has-text-centered is-clickable py-1 mb-1"
            @mousedown="globalSearch()">
         Limited to 50 results per type. Click <span class="pseudoLink"> here </span> to search all integrated GEMs
@@ -68,13 +68,22 @@
         <a class="button is-primary is-inverted is-outlined is-large is-loading"></a>
       </div>
       <div v-show="!showLoader && noResult" class="has-text-centered notification m-0">
-        {{ messages.searchNoResult }}
+        <div> No matches found in {{ model.short_name }} </div>
         <div v-if="notFoundSuggestions.length !== 0">
           Do you mean:&nbsp;
           <template v-for="v in notFoundSuggestions">
             <a :key="v" class="suggestions has-text-link" @click.prevent="searchDebounce(v)">{{ v }}</a>&nbsp;
           </template>?
         </div>
+        Click
+        <router-link class="globalSearchLink"
+                     :to="{
+                       name: 'search',
+                       query: { term: searchTermString }
+                     }">
+          here
+        </router-link>
+        to search all integrated GEMs
       </div>
     </div>
   </div>
@@ -274,8 +283,9 @@ export default {
     border-top: 0;
     z-index: 30;
 
-    .pseudoLink{
+    .globalSearchLink{
       color: $link;
+      text-decoration: none;
     }
 
     .resList {
