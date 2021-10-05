@@ -75,10 +75,12 @@ export default {
         externalId: this.$route.params.identifierId,
       });
     } catch {
-      const regex = /^MA[MR]/;
-      const found = this.$route.params.identifierId.match(regex);
-      if (this.externalDb == null && found != null) {
-        this.errorMessage = messages.maIDNotFound;
+      if (this.$route.params.dbName === 'MetabolicAtlas') {
+        const regex = /^MA[MR]/;
+        const found = this.$route.params.identifierId.match(regex);
+        if (this.externalDb == null && found != null) {
+          this.errorMessage = messages.maIDNotFound;
+        }
       }
     }
   },
