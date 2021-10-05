@@ -7,12 +7,12 @@ RETURN { externalDb: properties(db), components: COLLECT({ component: c, version
 `;
   if (dbName === 'MetabolicAtlas') {
     statement = `
-MATCH (r:Reaction {id: '${externalId}'})-[v]-(c)
+MATCH (r:Reaction {id: '${externalId}'})-[v]-()
 RETURN { externalDb: properties(r), components: COLLECT(DISTINCT({component: r, version: type(v)}))}
 
 UNION
 
-MATCH (r:CompartmentalizedMetabolite {id: '${externalId}'})-[v]-(c)
+MATCH (r:CompartmentalizedMetabolite {id: '${externalId}'})-[v]-()
 RETURN { externalDb: properties(r), components: COLLECT(DISTINCT({component: r, version: type(v)}))}
 
 `;
