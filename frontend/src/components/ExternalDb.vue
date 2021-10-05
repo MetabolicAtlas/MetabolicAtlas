@@ -28,8 +28,7 @@
       </ul>
     </div>
     <div v-else>
-      <p v-if="errorMessage" class="notification has-background-danger-light"
-         style="margin-top: 5%;" v-html="errorMessage"></p>
+      <p v-if="errorMessage" class="notification has-background-danger-light mt-6" v-html="errorMessage"></p>
     </div>
   </section>
 </template>
