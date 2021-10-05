@@ -2,7 +2,7 @@
   <section class="section extended-section">
     <div v-if="externalDb" class="container is-fullhd">
       <h3 class="title is-3 mb-2">
-        {{ externalDb.dbName }} {{ components[0].componentType }} {{ externalDb.externalId }}
+        {{ dbNameToDisplay }} {{ components[0].componentType }} {{ externalDb.externalId }}
       </h3>
       <p class="my-3">
         <template v-if="externalDb.url">
@@ -27,14 +27,24 @@
         </li>
       </ul>
     </div>
+    <div v-else class="container">
+      <p v-if="errorMessage" class="notification has-background-danger-light mt-6" v-html="errorMessage"></p>
+    </div>
   </section>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'ExternalDb',
+  data() {
+    return {
+      errorMessage: '',
+      messages,
+    };
+  },
   computed: {
     ...mapState({
       components: state => state.externalDb.components,
@@ -53,12 +63,25 @@ export default {
         }, {});
       return orderedRst;
     },
+    dbNameToDisplay() {
+      return this.externalDb.dbName.replace('MetabolicAtlas', 'Metabolic Atlas');
+    },
   },
   async beforeMount() {
-    await this.$store.dispatch('externalDb/getComponentsForExternalDb', {
-      dbName: this.$route.params.dbName,
-      externalId: this.$route.params.identifierId,
-    });
+    try {
+      await this.$store.dispatch('externalDb/getComponentsForExternalDb', {
+        dbName: this.$route.params.dbName,
+        externalId: this.$route.params.identifierId,
+      });
+    } catch {
+      if (this.$route.params.dbName === 'MetabolicAtlas') {
+        const regex = /^MA[MR]/;
+        const found = this.$route.params.identifierId.match(regex);
+        if (this.externalDb == null && found != null) {
+          this.errorMessage = messages.maIDNotFound;
+        }
+      }
+    }
   },
 };
 </script>
