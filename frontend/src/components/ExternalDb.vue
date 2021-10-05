@@ -27,7 +27,7 @@
         </li>
       </ul>
     </div>
-    <div v-else>
+    <div v-else class="container">
       <p v-if="errorMessage" class="notification has-background-danger-light mt-6" v-html="errorMessage"></p>
     </div>
   </section>
