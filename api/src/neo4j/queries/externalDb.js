@@ -34,7 +34,7 @@ RETURN { externalDb: properties(r), components: COLLECT(DISTINCT({component: r, 
   });
 
   if (dbName === 'MetabolicAtlas') {
-    externalDb.dbName = 'MetabolicAtlas';
+    externalDb.dbName = dbName;
     externalDb.externalId = externalDb.id;
   }
 
