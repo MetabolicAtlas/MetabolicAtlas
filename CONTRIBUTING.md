@@ -22,7 +22,7 @@ To get started with running the project on your local development machine, pleas
 
 ### Creating a branch
 
-Once you have the project running locally. Create a new branch based on the `develop` branch. The branch name should start with `feat/` or `fix/` and have a relatively short dash-separated name, for example `feat/contribution-guidelines`.
+Once you have the project running locally. Create a new branch based on the `develop` branch. The branch name should start with `feat/` or `fix/` (inspired by the semantic commit messages) and have a relatively short dash-separated name, for example `feat/contribution-guidelines`.
 
 ### Adding a commit
 
