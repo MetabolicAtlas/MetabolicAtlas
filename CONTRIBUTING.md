@@ -2,7 +2,7 @@
 
 Thank you for taking your time in contributing to Metabolic Atlas!
 
-In this guide you will get overview of the contribution workflow from opening an issue, creating a PR, reviewing, and merging the PR.
+In this guide you will get overview of the contribution workflow from opening an issue, creating a PR (Pull Request), reviewing, and merging the PR.
 
 ## Creating a new issue
 
@@ -22,13 +22,13 @@ To get started with running the project on your local development machine, pleas
 
 ### Creating a branch
 
-Once you have the project running locally. Create a new branch based on the `develop` branch. The branch name should start with `feat/` or `fix/` (inspired by the semantic commit messages) and have a relatively short dash-separated name, for example `feat/contribution-guidelines`.
+Once you have the project running locally. Create a new branch based on the `develop` branch. The branch name should start with `feat/` or `fix/` (inspired by the [Semantic Commit Messages](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716)) and have a relatively short dash-separated name, for example `feat/contribution-guidelines`.
 
 ### Adding a commit
 
 When you are ready to commit the changes, please write a commit message based on [Semantic Commit Messages](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716). For example: `docs: add contribution guidelines`.
 
-### Creating a PR (Pull Request)
+### Creating a PR
 
 1. When you are finished with the changes, [initiate a new PR](https://github.com/MetabolicAtlas/MetabolicAtlas/compare) from your branch with `develop` as the base branch.
 2. The PR title should also follow the style of Semantic Commit Messages, for example `docs: add contribution guidelines`.
@@ -46,9 +46,9 @@ When you are ready to commit the changes, please write a commit message based on
 
 ### Merging a PR
 
-After you have created the PR, merging is initially appears as blocked. Please wait for at least two Core Team members have approved your PR, at which point you can click the "Merge pull request" button on the PR page. Once you have merged the PR, please delete the feature branch.
+After you have created the PR, merging initially appears as blocked. Please wait until at least two Core Team members have approved your PR, at which point you can click the "Merge pull request" button on the PR page. Once you have merged the PR, please delete the feature branch.
 
-If any reviewer requests changes to your PR, please resolve the changed with new commits if possible. Once you are done, go to the PR page and re-request reviews from the relevant reviewers.
+If any reviewer requests changes to your PR, please resolve the changes with new commits if possible. Once you are done, go to the PR page and re-request reviews from the relevant reviewers.
 
 ### Reviewing a PR
 
