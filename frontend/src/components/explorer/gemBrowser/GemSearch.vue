@@ -75,15 +75,15 @@
             <a :key="v" class="suggestions has-text-link" @click.prevent="searchDebounce(v)">{{ v }}</a>&nbsp;
           </template>?
         </div>
-        Click
-        <router-link class="globalSearchLink"
-                     :to="{
-                       name: 'search',
-                       query: { term: searchTermString }
-                     }">
-          here
-        </router-link>
-        to search all integrated GEMs
+        <button class="button is-primary is-rounded globalSearchLink my-2">
+          <router-link style="text-decoration: none;"
+                       :to="{
+                         name: 'search',
+                         query: { term: searchTermString }
+                       }">
+            Search all integrated GEMs
+          </router-link>
+        </button>
       </div>
     </div>
   </div>
@@ -284,7 +284,6 @@ export default {
     z-index: 30;
 
     .globalSearchLink{
-      color: $link;
       text-decoration: none;
     }
 
