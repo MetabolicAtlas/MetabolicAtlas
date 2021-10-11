@@ -54,7 +54,7 @@ If any reviewer requests changes to your PR, please resolve the changes with new
 
 In an effort to prevent PRs from being ignored, a PR should not take longer than 2 weeks to be resolved (merged or rejected). If there has been no activity after 2 weeks, please feel free to ping the reviewers by adding a new message on the PR page.
 
-When reviewing a PR, please add comments (include suggestions if possible) to the accompanying changed files. Try to be thorough and include all of the comments in a single review session instead of sprinkling comments and feedback over different periods of time, this makes it much easier for the PR author to address the potential changes.
+When reviewing a PR, please add comments (include suggestions if possible) to the accompanying changed files. Try to be thorough and include all of the comments in a single review session instead of sprinkling comments and feedback over different periods of time. This makes it much easier for the PR author to address the potential changes.
 
 ### Your PR is merged!
 
