@@ -75,8 +75,8 @@
             <a :key="v" class="suggestions has-text-link" @click.prevent="searchDebounce(v)">{{ v }}</a>&nbsp;
           </template>?
         </div>
-        <button class="button is-primary is-rounded globalSearchLink my-2">
-          <router-link style="text-decoration: none;"
+        <button class="button is-primary is-rounded my-2">
+          <router-link class="globalSearchLink"
                        :to="{
                          name: 'search',
                          query: { term: searchTermString }
