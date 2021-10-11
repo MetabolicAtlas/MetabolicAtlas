@@ -8,7 +8,7 @@
       <transition name="fade">
         <div v-show="!showGemSearch" id="navbarContainer" class="container is-fullhd">
           <div class="navbar-brand">
-            <router-link id="nav-img" class="navbar-item" :to="{ name: 'home' }" active-class=""
+            <router-link class="navbar-item" :to="{ name: 'home' }" active-class=""
                          @click.native="isMobileMenu = false">
               <img src="/img/logo.png" />
             </router-link>
