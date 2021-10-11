@@ -90,6 +90,17 @@ Given successful deployment, the frontend should be accessible at: `http://local
 * To deploy the project: `deploy-stack`
 * To (re-)import the Neo4j database: `import-db`
 
+### A note to Unix/Linux users
+
+When rebuilding the stack, you might have to change the ownership of the directory `node4j`:
+```
+sudo chown -R <user> neo4j
+```
+Replace `<user>` with your user name.
+The ownership will be automatically be reset when running the project, so you will
+have to repeat this step for every rebuild.
+
+
 ## Licenses
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FMetabolicAtlas%2FMetabolicAtlas.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FMetabolicAtlas%2FMetabolicAtlas?ref=badge_large)
