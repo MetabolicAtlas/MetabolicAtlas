@@ -37,10 +37,8 @@ cp .env.sample .env
 ```
 and modify this `.env` file.
 
-The content of the file `.env` that has just been copied from `.env.sample` is
-shown below. Make sure the paths for `DATA_FILES_PATH` and
-`DATA_GENERATOR_PATH` are correct for your setup, eg. the paths to where you have
-downloaded the repositories `data-files` and `data-genertion`.
+The content of the file `.env` that has just been copied from `.env.sample` is shown below. Make sure the paths for `DATA_FILES_PATH` and `DATA_GENERATOR_PATH` are correct for your setup,
+eg. the paths to where you have downloaded the repositories `data-files` and `data-generation`.
 
 
 ```
