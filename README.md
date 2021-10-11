@@ -92,7 +92,7 @@ Given successful deployment, the frontend should be accessible at: `http://local
 
 ### A note to Unix/Linux users
 
-When rebuilding the stack, you might have to change the ownership of the directory `node4j`:
+When rebuilding the stack, you might have to change the ownership of the directory `neo4j`:
 ```
 sudo chown -R <user> neo4j
 ```
