@@ -68,7 +68,7 @@
         <a class="button is-primary is-inverted is-outlined is-large is-loading"></a>
       </div>
       <div v-show="!showLoader && noResult" class="has-text-centered notification m-0">
-        <div> No matches found in {{ model.short_name }} </div>
+        <div> No matches found in {{ searchModel.short_name }} </div>
         <div v-if="notFoundSuggestions.length !== 0">
           Do you mean:&nbsp;
           <template v-for="v in notFoundSuggestions">
