@@ -28,13 +28,18 @@ Clone the three required repositories by
     git clone https://github.com/MetabolicAtlas/data-files && pushd data-files; git lfs pull; popd
 
 
+Go to the repository `data-generation` and follow the
+[instructions](https://github.com/MetabolicAtlas/data-generation#readme) on how to generate the data files required by MetabolicAtlas.
+
 In the folder `MetabolicAtlas` that has been cloned, add a `.env` file based on the `.env.sample` file:
 ```bash
 cp .env.sample .env
 ```
 and modify this `.env` file.
 
-The content of the file `.env` that has just been copied from `.env.sample` is shown below. Make sure the paths for `DATA_FILES_PATH` and `DATA_GENERATOR_PATH` are correct for your setup.
+The content of the file `.env` that has just been copied from `.env.sample` is shown below. Make sure the paths for `DATA_FILES_PATH` and `DATA_GENERATOR_PATH` are correct for your setup,
+eg. the paths to where you have downloaded the repositories `data-files` and `data-generation`.
+
 
 ```
 CERTBOT_EMAIL=
@@ -82,6 +87,17 @@ Given successful deployment, the frontend should be accessible at: `http://local
 * To display real-time logs: `logs [container-name: frontend/api/nginx/neo4j/ftp]`
 * To deploy the project: `deploy-stack`
 * To (re-)import the Neo4j database: `import-db`
+
+### A note to Unix/Linux users
+
+When rebuilding the stack, you might have to change the ownership of the directory `neo4j`:
+```
+sudo chown -R <user> neo4j
+```
+Replace `<user>` with your user name.
+The ownership will be automatically reset when running the project, so you will
+have to repeat this step for every rebuild.
+
 
 ## Licenses
 
