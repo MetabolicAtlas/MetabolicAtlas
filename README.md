@@ -95,7 +95,7 @@ When rebuilding the stack, you might have to change the ownership of the directo
 sudo chown -R <user> neo4j
 ```
 Replace `<user>` with your user name.
-The ownership will be automatically be reset when running the project, so you will
+The ownership will be automatically reset when running the project, so you will
 have to repeat this step for every rebuild.
 
 
