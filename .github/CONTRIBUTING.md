@@ -48,13 +48,15 @@ When you are ready to commit the changes, please write a commit message based on
 
 After you have created the PR, merging initially appears as blocked. Please wait until at least two Core Team members have approved your PR, at which point you can click the "Merge pull request" button on the PR page. Once you have merged the PR, please delete the feature branch.
 
-If any reviewer requests changes to your PR, please resolve the changes with new commits if possible. Once you are done, go to the PR page and re-request reviews from the relevant reviewers.
+If any reviewer requests changes to your PR, please resolve the changes with new commits if possible. Once you are done, go to the PR page and re-request reviews from the relevant reviewers. **It is the PR author's responsibility to merge the PR.**
 
 ### Reviewing a PR
 
 In an effort to prevent PRs from being ignored, a PR should not take longer than 2 weeks to be resolved (merged or rejected). If there has been no activity after 2 weeks, please feel free to ping the reviewers by adding a new message on the PR page.
 
-When reviewing a PR, please add comments (include suggestions if possible) to the accompanying changed files. Try to be thorough and include all of the comments in a single review session instead of sprinkling comments and feedback over different periods of time. This makes it much easier for the PR author to address the potential changes.
+When reviewing a PR, please add [suggestions](https://docs.github.com/en/github/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/incorporating-feedback-in-your-pull-request#applying-a-suggested-change) and/or comments to the accompanying changed files. Try to be thorough and include all of the comments in a single review session instead of sprinkling comments and feedback over different periods of time. This makes it much easier for the PR author to address the potential changes.
+
+If you have added a suggestion and/or feedback, please resolve it as soon as possible after the PR author has addressed it. \*\*It is the reviewer's responsibility to resolve suggestions/comments."
 
 ### Your PR is merged!
 
