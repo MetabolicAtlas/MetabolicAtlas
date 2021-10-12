@@ -56,7 +56,7 @@ In an effort to prevent PRs from being ignored, a PR should not take longer than
 
 When reviewing a PR, please add [suggestions](https://docs.github.com/en/github/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/incorporating-feedback-in-your-pull-request#applying-a-suggested-change) and/or comments to the accompanying changed files. Try to be thorough and include all of the comments in a single review session instead of sprinkling comments and feedback over different periods of time. This makes it much easier for the PR author to address the potential changes.
 
-If you have added a suggestion and/or feedback, please resolve it as soon as possible after the PR author has addressed it. \*\*It is the reviewer's responsibility to resolve suggestions/comments."
+If you have added a suggestion and/or feedback, please resolve it as soon as possible after the PR author has addressed it. **It is the reviewer's responsibility to resolve suggestions/comments.**
 
 ### Your PR is merged!
 
