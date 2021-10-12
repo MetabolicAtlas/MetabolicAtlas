@@ -364,13 +364,10 @@ LIMIT ${limit}
   const resWithScore = {};
   for (const [component, result] of Object.entries(resObj)) {
     if (result) {
-      resWithScore[component] = result.map(obj => {
-        const objWithScore = {
-          ...obj,
-          score: idsToScore[obj.id]
-        };
-        return objWithScore;
-      });
+      resWithScore[component] = result.map(obj => ({
+        ...obj,
+        score: idsToScore[obj.id]
+      }));
     } else {
       resWithScore[component] = [];
     }
