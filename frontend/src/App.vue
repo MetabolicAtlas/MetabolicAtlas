@@ -306,7 +306,7 @@ html {
 }
 
 #navbarContainer {
-  @media screen and (min-width: $desktop) and (max-width: 1620px) {
+  @media screen and (min-width: $desktop) and (max-width: $fullhd + $navbar-margin-threshold) {
     margin-left: 50px;
   }
   @media screen  and (max-width: $desktop) {
