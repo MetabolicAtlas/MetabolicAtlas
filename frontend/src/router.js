@@ -22,6 +22,16 @@ import ExternalDb from '@/components/ExternalDb';
 
 Vue.use(VueRouter);
 
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(...args) {
+  return originalPush.call(this, ...args)
+    .catch((err) => {
+      if (err.name !== 'NavigationDuplicated') {
+        throw err;
+      }
+    });
+};
+
 const routes = [
   { path: '/', name: 'home', component: Home },
   { path: '/search', name: 'search', component: SearchTable },
