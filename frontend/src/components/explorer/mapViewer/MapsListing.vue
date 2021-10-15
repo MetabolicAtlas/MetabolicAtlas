@@ -51,7 +51,12 @@ export default {
   methods: {
     changeToMap(newMapId) {
       mobileScrollToTop();
-      this.$router.push({ params: { map_id: newMapId }, query: { dim: this.showing2D ? '2d' : '3d' } });
+      const oldMapId = this.$router.currentRoute.params.map_id;
+      const oldDim = this.$router.currentRoute.query.dim;
+      const newDim = this.showing2D ? '2d' : '3d';
+      if (oldMapId !== newMapId || oldDim !== newDim) {
+        this.$router.push({ params: { map_id: newMapId }, query: { dim: this.showing2D ? '2d' : '3d' } });
+      }
     },
   },
 };
