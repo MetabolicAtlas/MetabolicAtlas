@@ -55,7 +55,7 @@ export default {
       const oldDim = this.$router.currentRoute.query.dim;
       const newDim = this.showing2D ? '2d' : '3d';
       if (oldMapId !== newMapId || oldDim !== newDim) {
-        this.$router.push({ params: { map_id: newMapId }, query: { dim: this.showing2D ? '2d' : '3d' } });
+        this.$router.push({ params: { map_id: newMapId }, query: { dim: newDim } });
       }
     },
   },
