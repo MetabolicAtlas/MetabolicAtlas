@@ -41,11 +41,6 @@ CALL apoc.cypher.run("
   UNION
   
   MATCH (:Compartment${m} {id: $cid})-[${v}]-(:CompartmentalizedMetabolite)-[${v}]-(r:Reaction)
-  RETURN { id: $cid, reactionCount: COUNT(DISTINCT(r)) } as data
-  
-  UNION
-
-  MATCH (:Compartment${m} {id: $cid})-[${v}]-(:CompartmentalizedMetabolite)-[${v}]-(r:Reaction)
   RETURN { id: $cid, reactionList: COLLECT(DISTINCT(r.id)) } as data
   
   UNION
@@ -64,11 +59,6 @@ CALL apoc.cypher.run("
   MATCH (ss:SubsystemState)-[${v}]-(s:Subsystem {id: $sid})
   RETURN ss { id: $sid, .* } as data
   
-  UNION
-  
-  MATCH (:Subsystem${m} {id: $sid})-[${v}]-(r:Reaction)
-  RETURN { id: $sid, reactionCount: COUNT(DISTINCT(r)) } as data
-
   UNION
   
   MATCH (:Subsystem${m} {id: $sid})-[${v}]-(r:Reaction)
