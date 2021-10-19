@@ -11,12 +11,19 @@
            class="card-content p-4">
         <template v-if="currentMap.mapReactionIdSet.length == 1">
           Please note that {{ missingReactionList.length }}
-          of the reactions in the {{ currentMap.type }} are not shown on the map.
+          of the reactions in the {{ currentMap.type }} are not shown on the
         </template>
         <template v-else>
           Please note that {{ missingReactionList.length }} of the reactions in the
-          {{ currentMap.type }} are not shown on any of the {{ currentMap.name }} maps.
+          {{ currentMap.type }} are not shown on any of the {{ currentMap.name }}
         </template>
+        <span class="p-0 has-nowrap">
+          map
+          <router-link :to="{ name: 'documentation', hash: '#2D-Viewer'}">
+            <span class="icon"><i class="fa fa-info-circle"></i></span>
+          </router-link>
+          .
+        </span>
         <a @click="$emit('update:showModal', true)"> See comparison </a>
       </div>
       <footer v-if="currentMap.type !== 'custom'" class="card-footer sidebarCardHover">
