@@ -277,10 +277,6 @@ export default {
     border-top: 0;
     z-index: 30;
 
-    .globalSearchLink{
-      text-decoration: none;
-    }
-
     .resList {
         max-height: 22rem;
         overflow-y: auto;
