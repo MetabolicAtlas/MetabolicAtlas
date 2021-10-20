@@ -18,7 +18,7 @@ Attach screenshot if relevant
 ### Testing
 Please delete options that are not relevant.
 - A certain branch in other repos is needed
-- A rebuild is needed to due new dependencies
+- A rebuild is needed due to new dependencies
 - Relative url that can be reused both for production and local testing
 - Instructions on how to test
 
