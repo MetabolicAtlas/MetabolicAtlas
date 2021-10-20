@@ -19,7 +19,7 @@ Attach screenshot if relevant
 Please delete options that are not relevant.
 - A certain branch in other repos is needed
 - A rebuild is needed due to new dependencies
-- Relative url that can be reused both for production and local testing
+- Relative urls that can be reused both for production and local testing
 - Instructions on how to test
 
 
