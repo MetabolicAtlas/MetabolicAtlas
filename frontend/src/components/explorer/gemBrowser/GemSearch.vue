@@ -75,14 +75,8 @@
             <a :key="v" class="suggestions has-text-link" @click.prevent="searchDebounce(v)">{{ v }}</a>&nbsp;
           </template>?
         </div>
-        <button class="button is-primary is-rounded my-2">
-          <router-link class="globalSearchLink"
-                       :to="{
-                         name: 'search',
-                         query: { term: searchTermString }
-                       }">
-            Search all integrated GEMs
-          </router-link>
+        <button class="button is-primary is-rounded my-2" @click="globalSearch()">
+          Search all integrated GEMs
         </button>
       </div>
     </div>
@@ -282,10 +276,6 @@ export default {
     border: 1px solid lightgray;
     border-top: 0;
     z-index: 30;
-
-    .globalSearchLink{
-      text-decoration: none;
-    }
 
     .resList {
         max-height: 22rem;
