@@ -24,4 +24,4 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots/videos to help explain your problem.
 
 **Additional context**
-Add any other context about the problem here, e.g. if only on certain browser or device.
+Add any other context about the problem here, e.g. if only applicable on certain browsers or devices.
