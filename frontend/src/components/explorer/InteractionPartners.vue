@@ -198,10 +198,7 @@
                 <br>
                 <div class="card ">
                   <div class="card-content py-2 p-3">
-                    <template v-if="disableExpLvlMessage">
-                      {{ disableExpLvlMessage }}
-                    </template>
-                    <DataOverlay v-else :map-name="mainNodeID" position="relative" class="has-background-white" />
+                    <DataOverlay :map-name="mainNodeID" position="relative" class="has-background-white" />
                   </div>
                 </div>
                 <br>
@@ -309,7 +306,6 @@ export default {
       selectedSample: '',
 
       overlay: {},
-      disableExpLvlMessage: '', // msg if not provided with the model or no gene
 
       reactionHL: null,
       compartmentHL: '',
@@ -345,9 +341,9 @@ export default {
       ],
 
       nodeDisplayParams: {
-        geneExpSource: false,
-        geneExpType: false,
-        geneExpSample: false,
+        expSource: false,
+        expType: false,
+        expSample: false,
         geneNodeShape: 'rectangle',
         geneNodeColor: {
           hex: '#9F0500',
@@ -414,49 +410,7 @@ export default {
   },
   watch: {
     '$route.params': 'setup',
-    dataSet() {
-      const isValid = this.currentDataSource.levels[[this.dataSet]];
-
-      if (isValid) {
-        const { dataSets } = this.currentDataSource;
-        const genes = Object.keys(this.rawElms).filter(el => this.rawElms[el].type === 'gene');
-        const geneIds = genes.map(k => this.rawElms[k].id);
-        const s = this.currentDataSource.name;
-        const t = this.currentDataType.componentType;
-
-        for (let i = 0; i < geneIds.length; i += 1) {
-          const geneID = geneIds[i];
-
-          if (!this.rawElms[geneID].expressionLvl[s]) {
-            this.rawElms[geneID].expressionLvl[s] = {};
-          }
-
-          if (!this.rawElms[geneID].expressionLvl[s][t]) {
-            this.rawElms[geneID].expressionLvl[s][t] = {};
-          }
-
-          for (let j = 0; j < dataSets.length; j += 1) {
-            const d = dataSets[j];
-            const levels = this.currentDataSource.levels[d];
-            let level = levels[geneID];
-            level = Math.round((level + 0.00001) * 100) / 100;
-
-            this.rawElms[geneID].expressionLvl[s][t][d] = getSingleExpressionColor(level);
-          }
-        }
-
-        this.nodeDisplayParams.geneExpSource = s;
-        this.nodeDisplayParams.geneExpType = t;
-        this.nodeDisplayParams.geneExpSample = this.dataSet;
-
-        this.overlay[s] = {};
-        this.overlay[s][t] = true;
-      } else {
-        this.resetGeneExpression();
-      }
-
-      setTimeout(this.redrawGraph, 0);
-    },
+    dataSet: 'applyLevels',
   },
   async beforeMount() {
     if (!this.model || this.model.short_name !== this.$route.params.model) {
@@ -528,7 +482,6 @@ export default {
         this.expandedIds = [];
         this.expandedIds.push(this.component.id);
 
-        this.disableExpLvlMessage = '';
         this.resetGeneExpression();
 
         this.nodeCount = Object.keys(this.rawElms).length;
@@ -541,11 +494,6 @@ export default {
         this.largeNetworkGraph = false;
         this.showNetworkGraph = true;
         this.errorMessage = '';
-
-        if (!this.disableExpLvlMessage
-          && Object.values(this.rawElms).filter(e => e.type === 'gene').length === 0) {
-          this.disableExpLvlMessage = 'Unavailable, the graph contains only metabolites';
-        }
 
         // The set time out wrapper enforces this happens last.
         setTimeout(() => {
@@ -604,12 +552,6 @@ export default {
         this.showNetworkGraph = true;
         this.errorMessage = '';
 
-        if (this.disableExpLvlMessage === 'Unavailable, no genes on the graph'
-          && Object.values(this.rawElms).filter(e => e.type === 'gene').length !== 0) {
-          // genes have been added with the expanded network
-          this.disableExpLvlMessage = '';
-        }
-
         // The set time out wrapper enforces this happens last.
         setTimeout(() => {
           this.constructGraph(this.rawElms, this.rawRels);
@@ -625,6 +567,50 @@ export default {
       } finally {
         this.loading = false;
       }
+    },
+    applyLevels() {
+      const isValid = this.currentDataSource.levels[[this.dataSet]];
+
+      if (isValid) {
+        const { dataSets } = this.currentDataSource;
+        const componentIds = Object.keys(this.rawElms)
+          .filter(el => this.rawElms[el].type === this.currentDataType.componentType)
+          .map(k => this.rawElms[k].id);
+        const s = this.currentDataSource.name;
+        const t = this.currentDataType.componentType;
+
+        for (let i = 0; i < componentIds.length; i += 1) {
+          const componentID = componentIds[i];
+
+          if (!this.rawElms[componentID].expressionLvl[s]) {
+            this.rawElms[componentID].expressionLvl[s] = {};
+          }
+
+          if (!this.rawElms[componentID].expressionLvl[s][t]) {
+            this.rawElms[componentID].expressionLvl[s][t] = {};
+          }
+
+          for (let j = 0; j < dataSets.length; j += 1) {
+            const d = dataSets[j];
+            const levels = this.currentDataSource.levels[d];
+            let level = levels[componentID];
+            level = Math.round((level + 0.00001) * 100) / 100;
+
+            this.rawElms[componentID].expressionLvl[s][t][d] = getSingleExpressionColor(level);
+          }
+        }
+
+        this.nodeDisplayParams.expSource = s;
+        this.nodeDisplayParams.expType = t;
+        this.nodeDisplayParams.expSample = this.dataSet;
+
+        this.overlay[s] = {};
+        this.overlay[s][t] = true;
+      } else {
+        this.resetGeneExpression();
+      }
+
+      setTimeout(this.redrawGraph, 0);
     },
     isCompartmentSubsystemHLDisabled() {
       return ((this.compartmentHL === '' && this.subsystemHL === '')
@@ -655,7 +641,7 @@ export default {
       this.showColorPickerMeta = false;
     },
     applyOptionPanelColor(nodeType) {
-      if (nodeType === 'gene' && this.nodeDisplayParams.geneExpSample) {
+      if (nodeType === 'gene' && this.nodeDisplayParams.expSample) {
         // expression lvl are active
         return;
       }
@@ -910,9 +896,9 @@ export default {
     },
     resetGeneExpression() {
       this.selectedSample = '';
-      this.nodeDisplayParams.geneExpSource = false;
-      this.nodeDisplayParams.geneExpType = false;
-      this.nodeDisplayParams.geneExpSample = false;
+      this.nodeDisplayParams.expSource = false;
+      this.nodeDisplayParams.expType = false;
+      this.nodeDisplayParams.expSample = false;
       this.overlay = {};
     },
     toggleGeneColorPicker() {
