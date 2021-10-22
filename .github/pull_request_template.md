@@ -27,7 +27,7 @@ Please delete options that are not relevant.
 If relevant, specify questions or related information
 
 # Checklist:
-- [ ] My code follows the style guidelines of this project
+- [ ] My code follows the [style guidelines](https://github.com/NBISweden/development-guidelines)
 - [ ] I have performed a self-review of my own code
 - [ ] I have commented my code, particularly in hard-to-understand areas
 - [ ] I have made corresponding changes to the documentation
