@@ -27,6 +27,7 @@ Please delete options that are not relevant.
 If relevant, specify questions or related information
 
 # Checklist:
+Please delete options that are not relevant.
 - [ ] My code follows the [style guidelines](https://github.com/NBISweden/development-guidelines)
 - [ ] I have performed a self-review of my own code
 - [ ] I have commented my code, particularly in hard-to-understand areas
