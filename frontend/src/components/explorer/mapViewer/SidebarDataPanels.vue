@@ -11,11 +11,11 @@
            class="card-content p-4">
         <template v-if="currentMap.mapReactionIdSet.length == 1">
           Please note that {{ missingReactionList.length }}
-          of the reactions in the {{ currentMap.type }} are not shown on the map.
+          of the reactions in the {{ currentMap.type }} are not shown on the map
         </template>
         <template v-else>
           Please note that {{ missingReactionList.length }} of the reactions in the
-          {{ currentMap.type }} are not shown on any of the {{ currentMap.name }} maps.
+          {{ currentMap.type }} are not shown on any of the {{ currentMap.name }} maps
         </template>
         <span class="p-0 has-nowrap">
           <router-link :to="{ name: 'documentation', hash: '#2D-Viewer'}">
