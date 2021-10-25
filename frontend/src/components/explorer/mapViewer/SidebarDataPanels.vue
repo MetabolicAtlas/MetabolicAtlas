@@ -22,7 +22,7 @@
             <span class="icon"><i class="fa fa-info-circle"></i></span>
           </router-link>
         </span>
-        <br>For details <a @click="$emit('update:showModal', true)">see the comparison</a>.
+        <br>For details <a @click="$emit('update:showModal', true)">see the comparison</a>
       </div>
       <footer v-if="currentMap.type !== 'custom'" class="card-footer sidebarCardHover">
         <router-link class="p-0 is-info is-outlined card-footer-item has-text-centered"
