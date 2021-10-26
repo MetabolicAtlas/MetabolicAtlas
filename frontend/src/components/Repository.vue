@@ -1,8 +1,7 @@
 <template>
   <section class="section extended-section">
     <div class="container is-fullhd">
-      <div v-if="errorMessage">
-        {{ errorMessage }}
+      <div v-if="errorMessage" v-html="errorMessage">
       </div>
       <div v-else>
         <h3 id="Integrated-models" class="title is-3">Integrated models</h3>

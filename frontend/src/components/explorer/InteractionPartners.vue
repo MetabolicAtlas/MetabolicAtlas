@@ -2,8 +2,8 @@
   <div class="section extended-section">
     <div class="container is-fullhd">
       <div v-if="errorMessage">
-        <div class="column notification is-danger is-half is-offset-one-quarter has-text-centered">
-          {{ errorMessage }}
+        <div class="column notification is-danger is-half is-offset-one-quarter has-text-centered"
+             v-html="errorMessage">
         </div>
       </div>
       <div v-else class="interaction-partners">
