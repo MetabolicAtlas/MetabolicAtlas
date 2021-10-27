@@ -166,42 +166,40 @@
                   </div>
                 </div>
                 <div id="cy" ref="cy" class="card p0">
+                  <div id="dropdownMenuExport" class="dropdown">
+                    <div class="dropdown-trigger">
+                      <a v-show="showNetworkGraph" class="button is-white" aria-haspopup="true"
+                         aria-controls="dropdown-menu" @click="showMenuExport=!showMenuExport">
+                        <span class="icon is-large"><i class="fa fa-download"></i></span>
+                        <span>Export</span>
+                        <span class="icon is-large"><i class="fa fa-caret-down"></i></span>
+                      </a>
+                    </div>
+                    <div v-show="showMenuExport" id="dropdown-menu"
+                         class="dropdown-menu" role="menu"
+                         @mouseleave="showMenuExport = false">
+                      <div class="dropdown-content">
+                        <a class="dropdown-item" @click="exportGraphml">
+                          Graphml
+                        </a>
+                        <a class="dropdown-item" @click="exportPNG">
+                          PNG
+                        </a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </template>
             <div class="column">
+              <sidebar id="sidebar" class="mb-2"
+                       :selected-elm="clickedElm" :show-ip-button="clickedElmId !== mainNodeID" />
               <template v-if="showNetworkGraph">
-                <div id="dropdownMenuExport" class="dropdown">
-                  <div class="dropdown-trigger">
-                    <a v-show="showNetworkGraph" class="button is-primary is-outlined" aria-haspopup="true"
-                       aria-controls="dropdown-menu" @click="showMenuExport=!showMenuExport">
-                      <span class="icon is-large"><i class="fa fa-download"></i></span>
-                      <span>Export graph</span>
-                      <span class="icon is-large"><i class="fa fa-caret-down"></i></span>
-                    </a>
-                  </div>
-                  <div v-show="showMenuExport" id="dropdown-menu"
-                       class="dropdown-menu" role="menu"
-                       @mouseleave="showMenuExport = false">
-                    <div class="dropdown-content">
-                      <a class="dropdown-item" @click="exportGraphml">
-                        Graphml
-                      </a>
-                      <a class="dropdown-item" @click="exportPNG">
-                        PNG
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <br>
-                <sidebar id="sidebar" :selected-elm="clickedElm" :show-ip-button="clickedElmId !== mainNodeID" />
-                <br>
-                <div class="card ">
+                <div class="card mb-2">
                   <div class="card-content py-2 p-3">
                     <DataOverlay :map-name="mainNodeID" position="relative" class="has-background-white" />
                   </div>
                 </div>
-                <br>
                 <div v-if="compartmentList.length !== 0 || subsystemList.length != 0" class="card">
                   <header class="card-header">
                     <p class="card-header-title">
@@ -930,6 +928,7 @@ export default {
     margin: auto;
     width: 100%;
     height: 100%;
+    position: relative;
   }
 
   #sidebar {
@@ -938,6 +937,11 @@ export default {
   }
 
   #dropdownMenuExport {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+
     .dropdown-menu {
       display: block;
     }
