@@ -21,6 +21,7 @@ YIELD value as v
 
 WITH v.component as component
 MATCH (${m} {id: component.id})-[${v}]-(r:Reaction)
+WITH component, r LIMIT 50
 
 CALL apoc.cypher.run("
   MATCH (:Reaction${m} {id: $rid})-[${v}]-(cm:CompartmentalizedMetabolite)
