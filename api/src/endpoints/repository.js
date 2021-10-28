@@ -9,6 +9,23 @@ import {
 
 const routes = express.Router();
 
+const addCountToModel = async (model) => {
+  const { apiName, apiVersion } = model;
+
+  const [gene_count, reaction_count, metabolite_count] = await Promise.all([
+    getGeneCount(apiName, apiVersion),
+    getReactionCount(apiName, apiVersion),
+    getMetaboliteCount(apiName, apiVersion),
+  ]);
+
+  return {
+    ...model,
+    gene_count,
+    reaction_count,
+    metabolite_count,
+  };
+};
+
 routes.get('/integrated_models', async (req, res) => {
   try {
     const models = integratedGemsRepoJson.map(model => ({
@@ -17,13 +34,8 @@ routes.get('/integrated_models', async (req, res) => {
       apiVersion: model.version.split('.').join('_'),
     }));
 
-    for ( const model of models ){
-      model.gene_count = await getGeneCount(model.apiName, model.apiVersion);
-      model.reaction_count = await getReactionCount(model.apiName, model.apiVersion);
-      model.metabolite_count = await getMetaboliteCount(model.apiName, model.apiVersion);
-    }
-
-    res.json(models);
+    const modelsWithCount = await Promise.all(models.map(m => addCountToModel(m)));
+    res.json(modelsWithCount);
   } catch (e) {
     res.status(400).send(e.message);
   }
