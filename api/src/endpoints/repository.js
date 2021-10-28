@@ -1,8 +1,30 @@
 import express from 'express';
 import gemsRepoJson from 'data/gemsRepository.json';
 import integratedGemsRepoJson from 'data/integratedModels.json';
+import {
+  getGeneCount,
+  getReactionCount,
+  getMetaboliteCount,
+} from 'neo4j/index';
 
 const routes = express.Router();
+
+const addCountToModel = async (model) => {
+  const { apiName, apiVersion } = model;
+
+  const [gene_count, reaction_count, metabolite_count] = await Promise.all([
+    getGeneCount(apiName, apiVersion),
+    getReactionCount(apiName, apiVersion),
+    getMetaboliteCount(apiName, apiVersion),
+  ]);
+
+  return {
+    ...model,
+    gene_count,
+    reaction_count,
+    metabolite_count,
+  };
+};
 
 routes.get('/integrated_models', async (req, res) => {
   try {
@@ -12,7 +34,8 @@ routes.get('/integrated_models', async (req, res) => {
       apiVersion: model.version.split('.').join('_'),
     }));
 
-    res.json(models);
+    const modelsWithCount = await Promise.all(models.map(m => addCountToModel(m)));
+    res.json(modelsWithCount);
   } catch (e) {
     res.status(400).send(e.message);
   }
