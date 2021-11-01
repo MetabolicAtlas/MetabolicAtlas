@@ -1,7 +1,7 @@
 <template>
   <div id="dataOverlayBox"
-       class="column is-one-fifth-widescreen is-one-quarter-desktop
-         is-one-quarter-tablet has-background-lightgray">
+       :class="{ 'is-one-fifth-widescreen is-one-quarter-desktop is-one-quarter-tablet': position === 'absolute'}"
+       class="column has-background-lightgray">
     <div class="title is-size-4 has-text-centered">Expression data</div>
     <div class="has-text-centered"
          title="Load a TSV file with IDs and TPM values.
@@ -107,6 +107,10 @@ export default {
     mapType: String,
     mapName: String,
     dim: String,
+    position: {
+      type: String,
+      default: 'absolute',
+    },
   },
   data() {
     return {
@@ -232,11 +236,6 @@ export default {
 </script>
 
 <style lang="scss">
-@media screen and (min-width: $tablet) {
-  #dataOverlayBox {
-    margin-right: -1rem;
-  }
-}
 
 #fileNameBox {
   display: flex;
