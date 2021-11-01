@@ -5,8 +5,7 @@
     </div>
     <div v-else class="column table-template">
       <h4 class="subtitle is-4">Reactions</h4>
-      <div v-if="errorMessage" class="notification is-danger" v-html="errorMessage">
-      </div>
+      <div v-if="errorMessage" class="notification is-danger" v-html="errorMessage" />
       <p v-if="relatedMetCount" class="control field">
         <button class="button" @click="toggleExpandAllCompartment">
           {{ !expandAllCompartment ? "See reactions from all compartments" : "Restrict to current compartment" }}

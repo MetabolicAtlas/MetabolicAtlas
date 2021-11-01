@@ -2,8 +2,7 @@
   <div class="viewer-container">
     <div v-if="errorMessage" class="columns is-centered">
       <div class="column notification is-danger is-half is-offset-one-quarter has-text-centered"
-           v-html="errorMessage">
-      </div>
+           v-html="errorMessage" />
     </div>
     <div v-else id="viewer3d"></div>
     <MapControls wrapper-elem-selector=".viewer-container" :is-fullscreen="isFullscreen"
