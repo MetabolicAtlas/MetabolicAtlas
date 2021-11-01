@@ -944,6 +944,7 @@ export default {
 
     .dropdown-menu {
       display: block;
+      min-width: unset;
     }
   }
 
