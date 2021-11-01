@@ -3,7 +3,8 @@
     <div id="mapViewerContainer" class="columns ordered-mobile m-0">
       <template v-if="errorMessage">
         <div class="column is-danger is-half is-offset-one-quarter">
-          <div class="notification is-danger is-danger has-text-centered">{{ errorMessage }}</div>
+          <div class="notification is-danger is-danger has-text-centered"
+               v-html="errorMessage" />
         </div>
       </template>
       <template v-else>
