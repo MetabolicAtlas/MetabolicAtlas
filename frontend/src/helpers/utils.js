@@ -53,6 +53,9 @@ const sortByName = metabolites => [...metabolites].sort((a, b) => ((a.name > b.n
 /** Get the compartement from a reactant or product */
 const getCompartment = ({ fullName }) => fullName.match(/\[[a-z]{1,3}\]/)[0];
 
+/** Extract the compartements from the full names,
+  * discard duplicates and return as a string  */
+const uniqueCompartments = xs => Array.from(new Set(xs.map(r => getCompartment(r)))).join(' + ');
 
 
 /** Create  the compartements for the summary, as used in Equation and Related Reactions */
@@ -60,11 +63,6 @@ export const formatCompartmentStr = (reaction) => {
   const reactants = reaction.metabolites.filter(m => m.outgoing);
   const products = reaction.metabolites.filter(m => !m.outgoing);
 
-  /** Extract the compartements from the full names,
-    * discard duplicates and return as a string  */
-  function uniqueCompartments(xs) {
-    return Array.from(new Set(xs.map(r => getCompartment(r)))).join(' + ');
-  }
   const reactantsCompartments = uniqueCompartments(reactants);
   const productsCompartments = uniqueCompartments(products);
 
