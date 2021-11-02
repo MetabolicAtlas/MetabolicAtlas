@@ -71,7 +71,7 @@ export const formatCompartmentStr = (reaction) => {
   /** Extract the compartements from the full names, discard
     * duplicates and return as a string  */
   function uniqueCompartments(xs) {
-    return Array.from(new Set(xs.map(r => r.fullName.match(/\[.*\]/)))).join(' + ');
+    return Array.from(new Set(xs.map(r => r.fullName.match(/\[.*\]/)[0]))).join(' + ');
   }
   const reactantsCompartments = uniqueCompartments(reactants);
   const productsCompartments = uniqueCompartments(products);
