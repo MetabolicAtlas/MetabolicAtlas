@@ -92,11 +92,15 @@ export function reformatChemicalReactionHTML(reaction, noLink = false, model = '
   const type = 'metabolite';
   function formatReactionElement(x) {
     if (!addComp) {
-      return `${Math.abs(x.stoichiometry) !== 1 ? x.stoichiometry : ''} ${noLink ? x.name : buildCustomLink({ model, type, id: x.id, cssClass: x.id === sourceMet ? 'cms' : undefined, title: x.name })}`;
+      return `${Math.abs(x.stoichiometry) !== 1 ? x.stoichiometry : ''}
+              ${noLink ? x.name : buildCustomLink({ model, type, id: x.id, cssClass: x.id === sourceMet ? 'cms' : undefined, title: x.name })}`;
     }
     const regex = /.+\[([a-z]{1,3})\]$/;
     const match = regex.exec(x.fullName);
-    return `${Math.abs(x.stoichiometry !== 1) ? x.stoichiometry : ''} ${noLink ? x.name : buildCustomLink({ model, type, id: x.id, cssClass: x.id === sourceMet ? 'cms' : undefined, title: x.name })}<span class="sc" title="${x.compartment}">${match[1]}</span>`;
+    return `${Math.abs(x.stoichiometry !== 1) ? x.stoichiometry : ''}
+            ${noLink ? x.name : buildCustomLink({ model, type, id: x.id, cssClass: x.id === sourceMet ? 'cms' : undefined, title: x.name })}
+            <span title="${x.compartment}">[ ${match[1]} ] </span>
+            `;
   }
 
   const reactants = sortByName(reaction.reactants).map(formatReactionElement).join(' + ');
