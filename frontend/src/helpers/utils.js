@@ -101,7 +101,7 @@ export function reformatChemicalReactionHTML(reaction, noLink = false, model = '
     const match = regex.exec(x.fullName);
     return `${Math.abs(x.stoichiometry !== 1) ? x.stoichiometry : ''}
             ${noLink ? x.name : buildCustomLink({ model, type, id: x.id, cssClass: x.id === sourceMet ? 'cms' : undefined, title: x.name })}
-            <span title="${x.compartment}">[ ${match[1]} ] </span>
+            <span title="${x.compartment}">[${match[1]}] </span>
             `;
   }
 
