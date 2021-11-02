@@ -62,12 +62,33 @@ export function getChemicalReaction(reaction) {
 
 const sortByName = metabolites => [...metabolites].sort((a, b) => ((a.name > b.name) ? 1 : -1));
 
+
+/** Create  the compartements for the summary, as used in Equation and Related Reactions */
+export const formatCompartmentStr = (reaction) => {
+  const reactants = reaction.metabolites.filter(m => m.outgoing);
+  const products = reaction.metabolites.filter(m => !m.outgoing);
+
+  function fix(xs) {
+    return Array.from(new Set(xs.map(r => r.fullName.match(/\[.*\]/)))).join(' + ');
+  }
+  const reactantsCompartments = fix(reactants);
+  const productsCompartments = fix(products);
+
+  if (reactantsCompartments === productsCompartments) {
+    return reactantsCompartments;
+  }
+  return `${reactantsCompartments} ${equationSign(reaction.reversible)} ${productsCompartments}`;
+};
+
+
 // TODO: consider using an object as param
-export function reformatChemicalReactionHTML(reaction, noLink = false, model = 'human-gem', sourceMet = '') {
+export function reformatChemicalReactionHTML(reaction, noLink = false, model = 'human-gem',
+  sourceMet = '', comp = false, addSummary = false) {
   if (reaction === null) {
     return '';
   }
-  const addComp = reaction.compartment_str.includes('=>');
+  // if comp is true, override other test
+  const addComp = comp || reaction.compartment_str.includes('=>');
   const type = 'metabolite';
   function formatReactionElement(x) {
     if (!addComp) {
@@ -80,8 +101,9 @@ export function reformatChemicalReactionHTML(reaction, noLink = false, model = '
 
   const reactants = sortByName(reaction.reactants).map(formatReactionElement).join(' + ');
   const products = sortByName(reaction.products).map(formatReactionElement).join(' + ');
+  const summary = addSummary ? ` : ${formatCompartmentStr(reaction)}` : '';
 
-  return `${reactants} ${equationSign(reaction.reversible)} ${products}`;
+  return `${reactants} ${equationSign(reaction.reversible)} ${products}${summary}`;
 }
 
 export function sortResultsScore(a, b) {
