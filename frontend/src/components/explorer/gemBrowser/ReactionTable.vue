@@ -82,7 +82,7 @@ import { mapState } from 'vuex';
 import Loader from '@/components/Loader';
 import { default as compare } from '@/helpers/compare';
 import ExportTSV from '@/components/shared/ExportTSV';
-import { idfy, reformatChemicalReactionHTML, getChemicalReaction } from '@/helpers/utils';
+import { idfy, reformatChemicalReactionHTML } from '@/helpers/utils';
 
 export default {
   name: 'ReactionTable',
@@ -216,7 +216,7 @@ export default {
       tsvContent += this.sortedReactions.map((r) => {
         const arr = [];
         arr.push(r.id);
-        arr.push(getChemicalReaction(r));
+        arr.push(reformatChemicalReactionHTML(r, true, undefined, '', true, true, false));
         arr.push(r.genes.map(g => g.name || g.id).join('; '));
         if (this.showCP) {
           arr.push(r.cp);

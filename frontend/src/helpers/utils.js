@@ -47,18 +47,6 @@ export function getSimpleEquation(reaction) {
   return `${reactants} ${equationSign(reaction.reversible)} ${products}`;
 }
 
-export function getChemicalReaction(reaction) {
-  if (reaction === null) {
-    return '';
-  }
-  const reactants = reaction.reactants.map(
-    x => `${x.stoichiometry !== 1 ? `${x.stoichiometry} ` : ''}${x.fullName}`
-  ).join(' + ');
-  const products = reaction.products.map(
-    x => `${x.stoichiometry !== 1 ? `${x.stoichiometry} ` : ''}${x.fullName}`
-  ).join(' + ');
-  return `${reactants} ${equationSign(reaction.reversible)} ${products}`;
-}
 
 const sortByName = metabolites => [...metabolites].sort((a, b) => ((a.name > b.name) ? 1 : -1));
 
