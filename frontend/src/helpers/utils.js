@@ -51,7 +51,8 @@ export function getSimpleEquation(reaction) {
 const sortByName = metabolites => [...metabolites].sort((a, b) => ((a.name > b.name) ? 1 : -1));
 
 /** Get the compartement from a reactant or product */
-const getCompartment = component => component.fullName.match(/\[[a-z]{1,3}\]/)[0];
+const getCompartment = ({ fullName }) => fullName.match(/\[[a-z]{1,3}\]/)[0];
+
 
 
 /** Create  the compartements for the summary, as used in Equation and Related Reactions */
