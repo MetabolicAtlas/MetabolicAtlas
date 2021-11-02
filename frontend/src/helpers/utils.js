@@ -68,11 +68,13 @@ export const formatCompartmentStr = (reaction) => {
   const reactants = reaction.metabolites.filter(m => m.outgoing);
   const products = reaction.metabolites.filter(m => !m.outgoing);
 
-  function fix(xs) {
+  /** Extract the compartements from the full names, discard
+    * duplicates and return as a string  */
+  function uniqueCompartments(xs) {
     return Array.from(new Set(xs.map(r => r.fullName.match(/\[.*\]/)))).join(' + ');
   }
-  const reactantsCompartments = fix(reactants);
-  const productsCompartments = fix(products);
+  const reactantsCompartments = uniqueCompartments(reactants);
+  const productsCompartments = uniqueCompartments(products);
 
   if (reactantsCompartments === productsCompartments) {
     return reactantsCompartments;
