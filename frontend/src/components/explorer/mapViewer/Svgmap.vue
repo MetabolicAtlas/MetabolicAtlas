@@ -158,6 +158,7 @@ export default {
       if (this.mapData.svgs.length === 0) {
         this.$store.dispatch('maps/clearSvgMap');
         this.errorMessage = messages.mapNotFound;
+        this.$store.dispatch('maps/setLoading', false);
         return;
       }
       this.errorMessage = '';

@@ -218,7 +218,7 @@ export default {
         for (let i = 0; i < categories.length; i += 1) {
           for (let j = 0; j < items[i].length; j += 1) {
             const item = items[i][j];
-            if (this.showing2D) {
+            if (this.showing2D && item.svgs.length > 0) {
               for (let k = 0; k < item.svgs.length; k += 1) {
                 if (item.svgs[k].id === id) {
                   this.currentMap = { ...item };
