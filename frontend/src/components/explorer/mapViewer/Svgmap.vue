@@ -468,7 +468,6 @@ export default {
       }
 
       const selectionData = { type, data: null, error: false };
-
       this.unHighlight(this.selectedElemsHL, 'selhl');
       if (!element.hasClass('subsystem')) {
         // HL all nodes type but subsystems

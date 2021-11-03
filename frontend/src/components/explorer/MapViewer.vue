@@ -235,9 +235,11 @@ export default {
               this.currentMap = item;
               this.currentMap.type = categories[i].slice(0, -1);
               this.mapNotFound = false;
-              this.currentMap.mapReactionIdSet = item.svgs;
-              this.setMapReactionList();
-              this.setMissingReactionList();
+              if (item.svgs.length > 0) {
+                this.currentMap.mapReactionIdSet = item.svgs;
+                this.setMapReactionList();
+                this.setMissingReactionList();
+              }
               return;
             }
             this.mapNotFound = true;
