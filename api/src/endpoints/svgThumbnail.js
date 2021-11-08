@@ -11,13 +11,9 @@ function getDimension(dimensionString) {
   const minDim = 100;
   const maxDim = 600;
   if(dimensionString){
-    if (!/^\d+$/.test(dimensionString)) {
+    var myDimension = parseInt(dimensionString) || null;
+    if (!/^\d+$/.test(dimensionString) || myDimension < minDim || myDimension > maxDim) {
       throw new Error(`Invalid dimension provided: ${dimensionString}. The width and/or height parameters should be an integer between ${minDim} and ${maxDim}.`);
-    } else {
-      var myDimension = parseInt(dimensionString) || null;
-      if ((myDimension < minDim || myDimension > maxDim)){
-        throw new Error(`Invalid dimension provided: ${dimensionString}. The width and/or height parameters should be an integer between ${minDim} and ${maxDim}.`);
-      }
     }
   }
   return myDimension || null;
