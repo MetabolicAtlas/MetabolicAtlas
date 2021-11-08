@@ -7,7 +7,7 @@ const VALID_MODELS = models.map((m) => m.short_name);
 
 const routes = express.Router();
 
-function validateDimension(dimensionString) {
+function getDimension(dimensionString) {
   const minDim = 100;
   const maxDim = 600;
   if(dimensionString){
@@ -35,8 +35,8 @@ routes.get('/:svgName', async (req, res) => {
       throw new Error(`2D map does not exist for ${svgName} in ${model}.`);
     }
     const resizeParams = {
-      width: validateDimension(width),
-      height: validateDimension(height),
+      width: getDimension(width),
+      height: getDimension(height),
       fit: 'inside',
     };
     const svgThumbnail = await getSvgThumbnail(svgName, resizeParams, model)
