@@ -220,7 +220,8 @@ export default {
         arr.push(r.id);
 
         arr.push(
-          reformatChemicalReactionHTML({ reaction: r, noLink: true, model: undefined, comp: true, html: false }));
+          reformatChemicalReactionHTML({ reaction: r, noLink: true, model: undefined, comp: true, html: false })
+        );
         arr.push(r.genes.map(g => g.name || g.id).join('; '));
         if (this.showCP) {
           arr.push(r.cp);

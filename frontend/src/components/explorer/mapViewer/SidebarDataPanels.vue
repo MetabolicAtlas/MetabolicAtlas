@@ -100,7 +100,8 @@
                 <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
                 <p><span class="has-text-weight-bold" v-html="capitalize(item.display || item.name) + ':'"></span><br>
                   <span v-html="reformatChemicalReactionHTML(
-                    { reaction: selectionData.data, model: model.short_name })"></span>
+                    { reaction: selectionData.data, model: model.short_name })">
+                  </span>
                 </p>
               </template>
               <template v-else-if="item.name === 'formula'">
