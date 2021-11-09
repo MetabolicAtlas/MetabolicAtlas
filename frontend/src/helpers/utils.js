@@ -53,6 +53,7 @@ const sortByName = metabolites => [...metabolites].sort((a, b) => ((a.name > b.n
 /** Get the compartement from a reactant or product */
 const getCompartment = ({ fullName }) => fullName.match(/\[[a-z]{1,3}\]/)[0];
 
+
 /** Extract the compartements from the full names,
   * discard duplicates and return as a string  */
 const uniqueCompartments = xs => Array.from(new Set(xs.map(r => getCompartment(r)))).join(' + ');
@@ -82,14 +83,16 @@ export function reformatChemicalReactionHTML({ reaction, model, noLink = false, 
   const addComp = comp || reaction.compartment_str.includes('=>');
   const type = 'metabolite';
   const stoichiometry = x => (Math.abs(x.stoichiometry) !== 1 ? `${x.stoichiometry} ` : '');
+  const getComponentName = x => (noLink ? x.name : buildCustomLink({ model, type, id: x.id, cssClass: x.id === sourceMet ? 'cms' : undefined, title: x.name }));
+
   function formatReactionElement(x) {
     if (!addComp) {
-      return `${stoichiometry(x)}${noLink ? x.name : buildCustomLink({ model, type, id: x.id, cssClass: x.id === sourceMet ? 'cms' : undefined, title: x.name })}`;
+      return `${stoichiometry(x)}${getComponentName(x)}`;
     }
 
     const compStr = html ? `<span title="${x.compartment}">${getCompartment(x)}</span>` : getCompartment(x);
 
-    return `${stoichiometry(x)}${noLink ? x.name : buildCustomLink({ model, type, id: x.id, cssClass: x.id === sourceMet ? 'cms' : undefined, title: x.name })} ${compStr}`;
+    return `${stoichiometry(x)}${getComponentName(x)} ${compStr}`;
   }
 
   const reactants = sortByName(reaction.reactants).map(formatReactionElement).join(' + ');
