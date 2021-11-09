@@ -56,7 +56,7 @@
                 {{ rr.id }}
               </router-link>:&nbsp;
               <span v-html="reformatChemicalReactionHTML(
-                {reaction: rr, noLink : true, model : model.short_name, comp : true, addSummary: true})"></span>
+                {reaction: rr, noLink : true, model : model.short_name, comp : true})"></span>
             </span>
           </td>
         </tr>
@@ -122,7 +122,7 @@ export default {
       }
     },
     reformatEquation() {
-      return reformatChemicalReactionHTML({ reaction: this.reaction, model: this.model.short_name, comp: true, addSummary: true });
+      return reformatChemicalReactionHTML({ reaction: this.reaction, model: this.model.short_name, comp: true });
     },
 
     reformatGenes() {

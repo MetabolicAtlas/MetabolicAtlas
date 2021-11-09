@@ -47,7 +47,7 @@
               </td>
               <td v-html="
                 reformatChemicalReactionHTML({ reaction: r, model: model.short_name, sourceMet: selectedElmId,
-                                               comp: true, addSummary: true })" />
+                                               comp: true })" />
               <td>
                 <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key max-len -->
                 <template v-for="(m, index) in r.genes">{{ index == 0 ? '' : ', ' }}<a :class="{'cms' : sourceName === m.name }" :href="`/explore/${model.short_name}/gem-browser/gene/${m.id}`" @click="handleRouterClick">{{ m.name || m.id }}</a>
@@ -220,7 +220,7 @@ export default {
         arr.push(r.id);
 
         arr.push(
-          reformatChemicalReactionHTML({ reaction: r, noLink: true, model: undefined, comp: true, html: false, addSummary: true }));
+          reformatChemicalReactionHTML({ reaction: r, noLink: true, model: undefined, comp: true, html: false }));
         arr.push(r.genes.map(g => g.name || g.id).join('; '));
         if (this.showCP) {
           arr.push(r.cp);
