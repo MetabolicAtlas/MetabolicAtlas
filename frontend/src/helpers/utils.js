@@ -73,9 +73,8 @@ export const formatCompartmentStr = (reaction) => {
 };
 
 
-// TODO: consider using an object as param
-export function reformatChemicalReactionHTML(reaction, noLink = false, model = 'human-gem',
-  sourceMet = '', comp = false, addSummary = false, html = true) {
+export function reformatChemicalReactionHTML({ reaction, model, noLink = false, sourceMet = '', comp = false,
+  addSummary = false, html = true }) {
   if (reaction === null) {
     return '';
   }
