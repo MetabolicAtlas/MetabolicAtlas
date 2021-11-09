@@ -51,13 +51,13 @@
         <tr v-if="relatedReactions.length !== 0">
           <td class="td-key has-background-primary has-text-white-bis">Related reaction(s)</td>
           <td>
-            <span v-for="rr in relatedReactions" :key="rr.id">
+            <p v-for="rr in relatedReactions" :key="rr.id">
               <router-link :to="{ name: 'reaction', params: { model: model.short_name, id: rr.id } }">
                 {{ rr.id }}
               </router-link>:&nbsp;
               <span v-html="reformatChemicalReactionHTML(
-                {reaction: rr, noLink : true, model : model.short_name, comp : true})"></span>
-            </span>
+                {reaction: rr, noLink : true, model : model.short_name, comp : true})"/>
+            </p>
           </td>
         </tr>
       </table>
