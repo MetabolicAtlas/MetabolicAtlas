@@ -33,7 +33,7 @@ routes.get('/:svgName', async (req, res) => {
     const resizeParams = {
       width: getDimension(width),
       height: getDimension(height),
-      fit: 'inside',
+      fit: 'cover',
     };
     const svgThumbnail = await getSvgThumbnail(svgName, resizeParams, model)
     res.type('png')
