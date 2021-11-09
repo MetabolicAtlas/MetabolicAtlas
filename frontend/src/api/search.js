@@ -20,7 +20,7 @@ const search = async ({ searchTerm, model, version, limit }) => {
         products: r.metabolites.filter(m => !m.outgoing),
       })).map(r => ({
         ...r,
-        equation: reformatChemicalReactionHTML(r, true, model.short_name),
+        equation: reformatChemicalReactionHTML({ reaction: r, noLink: true, model: model.short_name }),
       })),
     };
 
