@@ -83,7 +83,9 @@ export function reformatChemicalReactionHTML({ reaction, model, noLink = false, 
   const addComp = comp || reaction.compartment_str.includes('=>');
   const type = 'metabolite';
   const stoichiometry = x => (Math.abs(x.stoichiometry) !== 1 ? `${x.stoichiometry} ` : '');
-  const getComponentName = x => (noLink ? x.name : buildCustomLink({ model, type, id: x.id, cssClass: x.id === sourceMet ? 'cms' : undefined, title: x.name }));
+  // superscript + and - at the end of names
+  const supName = ({ name }) => (html ? name.replace(/([-+])$/, '<sup>$1</sup>') : name);
+  const getComponentName = x => (noLink ? supName(x) : buildCustomLink({ model, type, id: x.id, cssClass: x.id === sourceMet ? 'cms' : undefined, title: supName(x) }));
 
   function formatReactionElement(x) {
     if (!addComp) {
