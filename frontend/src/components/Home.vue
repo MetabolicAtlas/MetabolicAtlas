@@ -234,7 +234,7 @@ export default {
           route: { name: 'search', query: { term: 'glyoxalate' } },
           icon: 'download' },
         { title: 'Compare',
-          text: 'The integrated models can be compared on-the-fly via the external identifiers they share. Moreover, a 3-way comparison can be performed as well.',
+          text: 'The integrated models can be compared on-the-fly via the cross references to other models or databases they share. Moreover, a 3-way comparison can be performed as well.',
           img: require('../assets/comparison.jpg'),
           route: { name: 'comparemodels' },
           icon: 'download' },
