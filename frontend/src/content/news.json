@@ -2,7 +2,7 @@
   "2021": [
     {
       "date": "2021-11-09",
-      "title": "Metabolic Atlas 2.1 revamps data overlay",
+      "title": "Metabolic Atlas 2.1 revamps Data overlay",
       "text": "<b>Metabolic Atlas 2.1</b> is out. In this minor release we focused on improving the usability of the website, either through feature re-implementation, as was the case for the <i>Data overlay</i>, or through independent fixes. Moreover, several small new features were added, for example the <i>Identifier</i> pages. More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/2.1' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/badge/latestdoi/53664497' target='_blank'>on Zenodo</a>."
     },
     {
@@ -57,7 +57,7 @@
     {
       "date": "2019-09-05",
       "title": "Metabolic Atlas 1.4 enables gene expression comparison",
-      "text": "<b>Metabolic Atlas 1.4</b> is out. The main feature of this release is the <i>Data Overlay</i> panel on the <i>Map Viewer</i>, currently enabling data upload and comparison for gene expression. Other small tweaks on the <i>Map Viwewer</i> are: the fullscreen mode, hiding genes or subsystem highlights, some button layout changes. The RNA legend was refactored but maintains the same functionality. The <i>GEM Browser</i> tiles can be randomized by clicking a button. More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/1.4' target='_blank'>on GitHub</a>."
+      "text": "<b>Metabolic Atlas 1.4</b> is out. The main feature of this release is the <i>Data overlay</i> panel on the <i>Map Viewer</i>, currently enabling data upload and comparison for gene expression. Other small tweaks on the <i>Map Viwewer</i> are: the fullscreen mode, hiding genes or subsystem highlights, some button layout changes. The RNA legend was refactored but maintains the same functionality. The <i>GEM Browser</i> tiles can be randomized by clicking a button. More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/1.4' target='_blank'>on GitHub</a>."
     },
     {
       "date": "2019-08-01",
