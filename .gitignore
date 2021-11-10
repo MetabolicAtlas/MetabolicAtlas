@@ -51,14 +51,7 @@ bh_unicode_properties.cache
 GitHub.sublime-settings
 
 # local env files
-.env.local
-.env.*.local
-.env
-*.env
-
-static/
-
-*.pyc
+.env*
 node_modules/
 
 # Log files
@@ -93,3 +86,6 @@ svg/
 
 # data folder in API
 api/src/data/*.json
+
+# dataOverlay folder in API
+api/dataOverlay

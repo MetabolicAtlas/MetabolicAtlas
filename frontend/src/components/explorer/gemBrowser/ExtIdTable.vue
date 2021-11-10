@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4 class="subtitle is-4">External databases</h4>
+    <h4 class="subtitle is-4">Cross references</h4>
     <template v-if="externalDbs && Object.keys(externalDbs).length !== 0">
       <table id="ed-table" class="table is-fullwidth">
         <template v-for="k in extDbListOrdered">
@@ -9,12 +9,7 @@
             <td>
               <template v-for="(el, index) in externalDbs[k]">
                 <template v-if="index !== 0">{{ '; ' }}</template>
-                <template v-if="el.url">
-                  <a :key="el.id" :href="`${el.url}`" target="_blank">{{ el.id }}</a>
-                </template>
-                <template v-else>
-                  {{ el.id }}
-                </template>
+                <a :key="el.id" :href="`/identifier/${k}/${el.id}`" target="_blank">{{ el.id }}</a>
               </template>
             </td>
           </tr>
@@ -22,13 +17,13 @@
       </table>
     </template>
     <template v-else>
-      <span>This {{ type }} has no associations with external databases</span>
+      <span>This {{ type }} has no cross references to other models or databases</span>
     </template>
   </div>
 </template>
 
 <script>
-import { reformatTableKey } from '../../../helpers/utils';
+import { reformatTableKey } from '@/helpers/utils';
 
 export default {
   name: 'ExtIdTable',

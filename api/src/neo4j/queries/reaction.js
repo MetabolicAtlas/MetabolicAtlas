@@ -64,4 +64,15 @@ RETURN apoc.map.mergeList(COLLECT(value.data)) as reaction
   return { ...reaction, compartmentSVGs: reformatCompartmentSVGs(reaction), subsystemSVGs: reformatSubsystemSVGs(reaction), externalDbs: reformatExternalDbs(reaction.externalDbs) };
 };
 
-export default getReaction;
+const getReactionCount = async (model, version) => {
+  const [m, v] = parseParams(model, version);
+
+  const statement = `
+MATCH (r:Reaction${m})-[${v}]-()
+RETURN {reaction_count: COUNT(DISTINCT(r))}
+`;
+  const { reaction_count } = await querySingleResult(statement);
+  return reaction_count;
+};
+
+export { getReaction, getReactionCount };

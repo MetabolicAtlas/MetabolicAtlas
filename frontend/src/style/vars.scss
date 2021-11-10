@@ -28,5 +28,7 @@ $black: hsl(0, 0%, 4%);
 // Custom variables for fullheight Map Viewer, same as Bulma defaults
 $navbar-height: 4rem;
 $footer-height: 3.5rem;
-
+// Custom height for the 2D and 3D Map Viewers on mobile
 $viewer-height: 450px;
+// Custom variable to align the logo with the other content of the web page
+$navbar-margin-threshold: 44px;

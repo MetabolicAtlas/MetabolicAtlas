@@ -1,5 +1,5 @@
 import searchApi from '@/api/search';
-import { sortResults } from '@/helpers/utils';
+import { sortResultsSearchTerm } from '@/helpers/utils';
 
 const data = {
   categories: [
@@ -54,7 +54,7 @@ const getters = {
       if (v === 0) {
         return v;
       }
-      return v.sort((a, b) => sortResults(a, b, state.searchTermString));
+      return v.sort((a, b) => sortResultsSearchTerm(a, b, state.searchTermString));
     })()]));
   },
 };

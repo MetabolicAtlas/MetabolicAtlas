@@ -2,9 +2,8 @@
   <div class="section extended-section">
     <div class="container is-fullhd">
       <template v-if="errorMessage">
-        <div class="column notification is-danger is-half is-offset-one-quarter has-text-centered">
-          {{ errorMessage }}
-        </div>
+        <div class="column notification is-danger is-half is-offset-one-quarter has-text-centered"
+             v-html="errorMessage" />
       </template>
       <template v-else>
         <div class="columns">
@@ -31,7 +30,7 @@
               <br>
             </div>
           </div>
-          <div v-if="tileComponents" id="gem-browser-tiles" class="tile is-ancestor">
+          <div v-if="tileComponents" id="gem-browser-tiles" class="tile is-ancestor break-word">
             <div class="tile">
               <div class="tile is-vertical is-9">
                 <div class="tile">
@@ -86,7 +85,7 @@
 <script>
 import { mapState } from 'vuex';
 import Tile from '@/components/explorer/gemBrowser/Tile';
-import { default as messages } from '@/helpers/messages';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'GemBrowser',
@@ -127,7 +126,6 @@ export default {
 <style lang="scss">
 
 #gem-browser-tiles {
-  word-wrap: anywhere;
   .tile.is-child {
     ul {
       list-style-type: disc;

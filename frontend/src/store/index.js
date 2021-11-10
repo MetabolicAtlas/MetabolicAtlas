@@ -11,10 +11,10 @@ import compartments from './modules/compartments';
 import maps from './modules/maps';
 import interactionPartners from './modules/interactionPartners';
 import search from './modules/search';
-import humanProteinAtlas from './modules/humanProteinAtlas';
 import europepmc from './modules/europepmc';
 import compare from './modules/compare';
 import externalDb from './modules/externalDb';
+import dataOverlay from './modules/dataOverlay';
 
 Vue.use(Vuex);
 
@@ -31,9 +31,9 @@ export default new Vuex.Store({
     maps,
     interactionPartners,
     search,
-    humanProteinAtlas,
     europepmc,
     compare,
     externalDb,
+    dataOverlay,
   },
 });

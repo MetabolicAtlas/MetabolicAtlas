@@ -1,0 +1,129 @@
+{
+  "2021": [
+    {
+      "date": "2021-11-09",
+      "title": "Metabolic Atlas 2.1 revamps Data overlay",
+      "text": "<b>Metabolic Atlas 2.1</b> is out. In this minor release we focused on improving the usability of the website, either through feature re-implementation, as was the case for the <i>Data overlay</i>, or through independent fixes. Moreover, several small new features were added, for example the <i>Identifier</i> pages. More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/2.1' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/badge/latestdoi/53664497' target='_blank'>on Zenodo</a>."
+    },
+    {
+      "date": "2021-07-20",
+      "title": "Metabolic Atlas 2.0",
+      "text": "We are excited to announce official release of <b>Metabolic Atlas 2.0</b> together with the publication of <a href='https://doi.org/10.1073/pnas.2102344118' target='_blank'><i>Genome-scale metabolic network reconstruction of model animals as a platform for translational research</i></a> 🎉  </br> Visually, the development efforts have alternated between implementing specific features, for example a highly performant and more lightweight 3D viewer, and a dynamic comparison between models, and implementing incremental improvements to the user experience, for example a faster way to search, random suggestions for the Interaction Partners, and a new home page layout. Moreover, a sleuth of bugs, some introduced by the new technology stack, have been fixed.</br> Content-wise, this 2.0 release integrates 5 new GEMs next to the updated Human-GEM and Yeast-GEM, bringing the total to 7 integrated models. With this, new IDs for reactions and metabolites have been created for 6 of these models. These new IDs have been updated on the manually created 2D maps, replacing the previous IDs.</br> More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/2.0' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/badge/latestdoi/53664497' target='_blank'>on Zenodo</a>."
+    },
+    {
+      "date": "2021-04-23",
+      "title": "Metabolic Atlas was presented in an NBIS course",
+      "text": "<b>Metabolic Atlas</b> was presented in the <a href='https://nbisweden.github.io/workshop_omics_integration/schedule.html' target='_blank'>Omics Integration and Systems Biology</a> course given by <a href='https://nbis.se' target='_blank'>NBIS</a>, with <a href='https://zenodo.org/record/4896710' target='_blank'>materials available on Zenodo</a>."
+    }
+  ],
+  "2020": [
+    {
+      "date": "2020-10-15",
+      "title": "Metabolic Atlas was presented in a workshop",
+      "text": "A poster of <b>Metabolic Atlas</b> was presented in the <a href='https://mbm.systemsbiology.se/#program' target='_blank'>Workshop on Modelling in Biology and Medicine</a> in Gothenburg, Sweden."
+    },
+    {
+      "date": "2020-10-09",
+      "title": "Metabolic Atlas was presented in an NBIS course",
+      "text": "<b>Metabolic Atlas</b> was presented in the Omics Integration and Systems Biology course given by <a href='https://nbis.se' target='_blank'>NBIS</a>, with <a href='https://zenodo.org/record/4084627' target='_blank'>materials available on Zenodo</a>."
+    },
+    {
+      "date": "2020-06-10",
+      "title": "Metabolic Atlas at Elixir All Hands",
+      "text": "A <a href='https://f1000research.com/posters/9-561' target='_blank'> poster of <b>Metabolic Atlas</b></a> has been shown at the virtual <a href='https://elixir-europe.org/events/elixir-all-hands-2020' target='_blank'>Elixir All Hands</a>."
+    },
+    {
+      "date": "2020-04-27",
+      "title": "Metabolic Atlas 1.7 brings Map Viewer improvements",
+      "text": "<b>Metabolic Atlas 1.7</b> is out. This release links the genes and metabolites directly to the maps, and improves the Map Viewer links to be more share-friendly. The overall appearance of the website has also been tweaked. More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/1.7' target='_blank'>on GitHub</a>."
+    },
+    {
+      "date": "2020-03-23",
+      "title": "Metabolic Atlas 1.6",
+      "text": "<b>Metabolic Atlas 1.6</b> is out, in connection with the publication of the research article <a href='https://doi.org/10.1126/scisignal.aaz1482' target=_blank'><i>An atlas of human metabolism</i></a>, and the <a href='https://www.chalmers.se/en/departments/bio/news/Pages/The-next-generation-of-human-metabolic-modelling.aspx' target='_blank'>press release at Chalmers University</a>. This release contains many user interface improvements, documentation updates and correction of typos. More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/1.6' target='_blank'>on GitHub</a>."
+    },
+    {
+      "date": "2020-02-07",
+      "title": "Metabolic Atlas 1.5 updates both integrated models",
+      "text": "<b>Metabolic Atlas 1.5</b> is out. This release updates the layout of the <i>Home</i>, <i>Explore</i>, and <i>Interaction Partner</i> pages. A <i>News</i> section has also been added on the <i>About</i> page. Other features include suggestions on the <i>Search</i> page, a contact button in the <i>GEM Browser</i>, and a progress bar at the top indicating page loading status. The Human-GEM has also been updated to v1.3, and the Yeast-GEM to v8.3.4. More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/1.5' target='_blank'>on GitHub</a>."
+    }
+  ],
+  "2019": [
+    {
+      "date": "2019-09-11",
+      "title": "Metabolic Atlas was presented in an NBIS course",
+      "text": "<b>Metabolic Atlas</b> was presented in the <a href='https://www.scilifelab.se/events/omics-integration-and-systems-biology/' target='_blank'>Omics Integration and Systems Biology</a> course given by <a href='https://nbis.se' target='_blank'>NBIS</a>."
+    },
+    {
+      "date": "2019-09-05",
+      "title": "Metabolic Atlas 1.4 enables gene expression comparison",
+      "text": "<b>Metabolic Atlas 1.4</b> is out. The main feature of this release is the <i>Data overlay</i> panel on the <i>Map Viewer</i>, currently enabling data upload and comparison for gene expression. Other small tweaks on the <i>Map Viwewer</i> are: the fullscreen mode, hiding genes or subsystem highlights, some button layout changes. The RNA legend was refactored but maintains the same functionality. The <i>GEM Browser</i> tiles can be randomized by clicking a button. More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/1.4' target='_blank'>on GitHub</a>."
+    },
+    {
+      "date": "2019-08-01",
+      "title": "Metabolic Atlas 1.3",
+      "text": "<b>Metabolic Atlas 1.3</b> loads much faster. Across the website <i>enzyme</i> has been renamed to <i>gene</i>, and the <i>Global search</i> gives results in order, downloadable in TSV format. Among the minor tweaks are: notice on 404 page,  <i>Interaction partners</i> layout and <i>API</i> layout. More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/1.3' target='_blank'>on GitHub</a>."
+    },
+    {
+      "date": "2019-06-25",
+      "title": "Metabolic Atlas is upgraded to 1.2 with Human-GEM updated to v1.1",
+      "text": "<b>Metabolic Atlas 1.2</b> adds more interaction on the 3D <i>Map Viewer</i>, and improves the <i>GEM Comparison</i> tables. It also contains several bug fixes. More details can be found in <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/1.2' target='_blank'>on GitHub</a>. Moreover, <i>Human-GEM</i> was updated to v1.1."
+    },
+    {
+      "date": "2019-05-29",
+      "title": "Metabolic Atlas is upgraded to 1.1",
+      "text": "<b>Metabolic Atlas 1.1</b> has minor UI improvements, mainly around documentation, resources, <i>Interaction Partners</i> and <i>Map Viewe</i>, alongside deployment improvements with a focus on reducing downtime. More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/1.1' target='_blank'>on GitHub</a>."
+    },
+    {
+      "date": "2019-05-17",
+      "title": "Metabolic Atlas is publicly available as 1.0",
+      "text": "<b>Metabolic Atlas 1.0</b> is publicly available. We have finalized two main tools, the <i>GEM Browser</i> (including <i>Interaction Partners</i>) and <i>Map Viewer</i>. Additionally, Metabolic Atlas is hosting GEMs in a repository. More details can be found in <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/1.0' target='_blank'>on GitHub</a>.",
+      "icon": "flag"
+    },
+    {
+      "date": "2019-05-02",
+      "text": "<i>Human-GEM</i> is integrated, with complete compartment maps, and a significant number of the subsystem maps."
+    }
+  ],
+  "2018": [
+    {
+      "date": "2018-12",
+      "text": "New manually curated maps for <i>Human-GEM</i> are being created, and the MapViewer is faster when browsing these maps."
+    },
+    {
+      "date": "2018-11",
+      "text": "Draft models of <i>Human-GEM</i> and <i>Yeast-GEM</i> have been integrated on the 23rd and 28th respectively."
+    },
+    {
+      "date": "2018-09",
+      "text": "Development on Metabolic Atlas is coordinated by <a href='https://nbis.se/about/staff/mihail-anton' target='_blank'>Mihail Anton</a> from <a href='https://nbis.se' target='_blank'>NBIS</a> in close collaboration with  <a href='https://www.sysbio.se' target='_blank'>SysBio</a>, headed by <a href='https://www.sysbio.se/labs/nielsen' target='_blank'>Prof. Nielsen</a>.",
+      "icon": "thumb-tack"
+    }
+  ],
+  "2017": [
+    {
+      "date": "2017-09",
+      "text": "The project is coordinated by <a href='https://www.sysbio.se/labs/nielsen' target='_blank'>Prof. Nielsen</a>.",
+      "icon": "thumb-tack"
+    }
+  ],
+  "2016": [
+    {
+      "date": "2016-09",
+      "text": "The framework behind Metabolic Atlas is coordinated by Lena Hansson from <a href='https://nbis.se' target='_blank'>NBIS</a> in close collaboration with  <a href='https://www.sysbio.se' target='_blank'>SysBio</a>, under the direction of <a href='https://www.sysbio.se/labs/nielsen' target='_blank'>Prof. Nielsen</a>.",
+      "icon": "thumb-tack"
+    },
+    {
+      "date": "2016-03",
+      "text": "Work on a new Atlas began in the GitHub repository, directed by <a href='https://www.sysbio.se/labs/nielsen' target='_blank'>Prof. Nielsen</a>.",
+      "icon": "thumb-tack"
+    }
+  ],
+  "2015": [
+    {
+      "date": "2015-07",
+      "text": "A first Atlas focusing on human metabolism is made publicly available at <i>metabolicatlas.org</i>, with the associated publication <a href='https://academic.oup.com/database/article/doi/10.1093/database/bav068/2433201' target='_blank'><i>Human metabolic atlas: an online resource for human metabolism</i></a>.",
+      "icon": "archive"
+    }
+  ]
+}

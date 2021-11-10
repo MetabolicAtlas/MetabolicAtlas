@@ -1,9 +1,7 @@
 <template>
   <section class="section extended-section">
     <div class="container is-fullhd">
-      <div v-if="errorMessage">
-        {{ errorMessage }}
-      </div>
+      <div v-if="errorMessage" v-html="errorMessage" />
       <div v-else>
         <h3 id="Integrated-models" class="title is-3">Integrated models</h3>
         <p class="has-text-justified">
@@ -147,7 +145,7 @@ import { VueGoodTable } from 'vue-good-table';
 import 'vue-good-table/dist/vue-good-table.css';
 import Loader from '@/components/Loader';
 import References from '@/components/shared/References';
-import { default as messages } from '@/helpers/messages';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'Repository',
@@ -342,3 +340,5 @@ export default {
 };
 
 </script>
+
+<style lang="scss"></style>

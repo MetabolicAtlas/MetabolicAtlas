@@ -47,44 +47,63 @@ export function getSimpleEquation(reaction) {
   return `${reactants} ${equationSign(reaction.reversible)} ${products}`;
 }
 
-export function getChemicalReaction(reaction) {
-  if (reaction === null) {
-    return '';
-  }
-  const reactants = reaction.reactants.map(
-    x => `${x.stoichiometry !== 1 ? `${x.stoichiometry} ` : ''}${x.fullName}`
-  ).join(' + ');
-  const products = reaction.products.map(
-    x => `${x.stoichiometry !== 1 ? `${x.stoichiometry} ` : ''}${x.fullName}`
-  ).join(' + ');
-  return `${reactants} ${equationSign(reaction.reversible)} ${products}`;
-}
 
 const sortByName = metabolites => [...metabolites].sort((a, b) => ((a.name > b.name) ? 1 : -1));
 
-// TODO: consider using an object as param
-export function reformatChemicalReactionHTML(reaction, noLink = false, model = 'human-gem', sourceMet = '') {
+/** Get the compartement from a reactant or product */
+const getCompartment = ({ fullName }) => fullName.match(/\[[a-z]{1,3}\]/)[0];
+
+/** Extract the compartements from the full names,
+  * discard duplicates and return as a string  */
+const uniqueCompartments = xs => Array.from(new Set(xs.map(r => getCompartment(r)))).join(' + ');
+
+
+/** Create  the compartements for the summary, as used in Equation and Related Reactions */
+export const formatCompartmentStr = (reaction) => {
+  const reactants = reaction.metabolites.filter(m => m.outgoing);
+  const products = reaction.metabolites.filter(m => !m.outgoing);
+
+  const reactantsCompartments = uniqueCompartments(reactants);
+  const productsCompartments = uniqueCompartments(products);
+
+  if (reactantsCompartments === productsCompartments) {
+    return reactantsCompartments;
+  }
+  return `${reactantsCompartments} ${equationSign(reaction.reversible)} ${productsCompartments}`;
+};
+
+
+export function reformatChemicalReactionHTML({ reaction, model, noLink = false, sourceMet = '', comp = false,
+  addSummary = false, html = true }) {
   if (reaction === null) {
     return '';
   }
-  const addComp = reaction.compartment_str.includes('=>');
+  // if comp is true, override other test
+  const addComp = comp || reaction.compartment_str.includes('=>');
   const type = 'metabolite';
+  const stoichiometry = x => (Math.abs(x.stoichiometry) !== 1 ? `${x.stoichiometry} ` : '');
   function formatReactionElement(x) {
     if (!addComp) {
-      return `${Math.abs(x.stoichiometry) !== 1 ? x.stoichiometry : ''} ${noLink ? x.name : buildCustomLink({ model, type, id: x.id, cssClass: x.id === sourceMet ? 'cms' : undefined, title: x.name })}`;
+      return `${stoichiometry(x)}${noLink ? x.name : buildCustomLink({ model, type, id: x.id, cssClass: x.id === sourceMet ? 'cms' : undefined, title: x.name })}`;
     }
-    const regex = /.+\[([a-z]{1,3})\]$/;
-    const match = regex.exec(x.fullName);
-    return `${Math.abs(x.stoichiometry !== 1) ? x.stoichiometry : ''} ${noLink ? x.name : buildCustomLink({ model, type, id: x.id, cssClass: x.id === sourceMet ? 'cms' : undefined, title: x.name })}<span class="sc" title="${x.compartment}">${match[1]}</span>`;
+
+    const compStr = html ? `<span title="${x.compartment}">${getCompartment(x)}</span>` : getCompartment(x);
+
+    return `${stoichiometry(x)}${noLink ? x.name : buildCustomLink({ model, type, id: x.id, cssClass: x.id === sourceMet ? 'cms' : undefined, title: x.name })} ${compStr}`;
   }
 
   const reactants = sortByName(reaction.reactants).map(formatReactionElement).join(' + ');
   const products = sortByName(reaction.products).map(formatReactionElement).join(' + ');
+  const summary = addSummary ? ` : ${formatCompartmentStr(reaction)}` : '';
 
-  return `${reactants} ${equationSign(reaction.reversible)} ${products}`;
+  return `${reactants} ${equationSign(reaction.reversible)} ${products}${summary}`;
 }
 
-export function sortResults(a, b, searchTermString) {
+export function sortResultsScore(a, b) {
+  return b.score - a.score;
+}
+
+export function sortResultsSearchTerm(a, b, searchTermString) {
   let matchSizeDiffA = 100;
   let matchedStringA = '';
   Object.values(a).forEach((v) => {

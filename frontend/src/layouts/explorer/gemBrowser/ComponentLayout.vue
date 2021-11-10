@@ -30,7 +30,7 @@
               <a href="/api/v2" target="_blank">API</a></p>
           </div>
           <slot v-if="isMetabolite" name="chebi" />
-          <div class="column is-3-widescreen is-3-desktop is-half-tablet has-text-centered">
+          <div class="column is-3-widescreen is-4-desktop is-6-tablet has-text-centered">
             <router-link v-if="interactionPartner" class="button is-info is-fullwidth is-outlined"
                          :to="{
                            name: 'interaction',
@@ -63,7 +63,7 @@ import ExtIdTable from '@/components/explorer/gemBrowser/ExtIdTable';
 import ReactionTable from '@/components/explorer/gemBrowser/ReactionTable';
 import GemContact from '@/components/shared/GemContact';
 import References from '@/components/shared/References';
-import { default as messages } from '@/helpers/messages';
+import { default as messages } from '@/content/messages';
 
 export default {
   components: {
@@ -126,7 +126,7 @@ export default {
         await this.$store.dispatch(this.queryComponentAction, payload);
         this.componentNotFound = false;
         if (this.$listeners && this.$listeners.handleCallback) {
-          this.$emit('handleCallback');
+          this.$emit('handleCallback', this.model, this.componentId);
         }
         this.showLoaderMessage = '';
       } catch {

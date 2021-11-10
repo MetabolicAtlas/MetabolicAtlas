@@ -33,8 +33,6 @@ const data = {
   },
   searchTerm: '',
   selectedElementId: null,
-  tissue1: 'None',
-  tissue2: 'None',
   backgroundColor: BG_COLORS.light,
   loading: true,
   loadingElement: false,
@@ -50,8 +48,6 @@ const getters = {
     sel: state.selectedElementId,
     search: state.searchTerm,
     coords: Object.values(state.coords).map(c => Math.round((c + Number.EPSILON) * 100) / 100).join(','),
-    g1: state.tissue1,
-    g2: state.tissue2,
   }),
 };
 
@@ -66,6 +62,10 @@ const actions = {
     commit('setSvgMap', null);
     const svgMap = await mapsApi.fetchSvgMap(model, svgName);
     commit('setSvgMap', svgMap);
+  },
+
+  clearSvgMap({ commit }) {
+    commit('setSvgMap', null);
   },
 
   async mapSearch({ commit }, { model, searchTerm }) {
@@ -139,14 +139,6 @@ const actions = {
     commit('setSelectedElementId', selectedElementId);
   },
 
-  setTissue1({ commit }, tissue1) {
-    commit('setTissue1', tissue1);
-  },
-
-  setTissue2({ commit }, tissue2) {
-    commit('setTissue2', tissue2);
-  },
-
   setLoading({ commit }, loading) {
     commit('setLoading', loading);
   },
@@ -160,10 +152,10 @@ const actions = {
     commit('setBackgroundColor', color);
   },
 
-  initFromQueryParams({ commit }, { dim, panel, coords, sel, search, g1, g2 }) {
+  initFromQueryParams({ commit }, { dim, panel, coords, sel, search }) {
     // TODO: handle errors
     commit('setShowing2D', dim !== '3d');
-    commit('setDataOverlayPanelVisible', !!(panel === '1' || g1 || g2));
+    commit('setDataOverlayPanelVisible', panel === '1');
     commit('setSelectedElementId', sel);
     commit('setSearchTerm', search);
 
@@ -177,14 +169,6 @@ const actions = {
         ly: parsedCoords[4],
         lz: parsedCoords[5],
       });
-    }
-
-    if (g1 && g1.length > 0) {
-      commit('setTissue1', g1);
-    }
-
-    if (g2 && g2.length > 0) {
-      commit('setTissue2', g2);
     }
   },
 
@@ -214,14 +198,6 @@ const actions = {
         ly: 0,
         lz: 0,
       });
-    }
-
-    if (!paramsToKeep.includes('g1')) {
-      commit('setTissue1', null);
-    }
-
-    if (!paramsToKeep.includes('g2')) {
-      commit('setTissue2', null);
     }
   },
 };
@@ -269,14 +245,6 @@ const mutations = {
 
   setSearchTerm: (state, searchTerm) => {
     state.searchTerm = searchTerm;
-  },
-
-  setTissue1: (state, tissue1) => {
-    state.tissue1 = tissue1;
-  },
-
-  setTissue2: (state, tissue2) => {
-    state.tissue2 = tissue2;
   },
 
   setBackgroundColor: (state, color) => {

@@ -3,7 +3,8 @@
     <div id="mapViewerContainer" class="columns ordered-mobile m-0">
       <template v-if="errorMessage">
         <div class="column is-danger is-half is-offset-one-quarter">
-          <div class="notification is-danger is-danger has-text-centered">{{ errorMessage }}</div>
+          <div class="notification is-danger is-danger has-text-centered"
+               v-html="errorMessage" />
         </div>
       </template>
       <template v-else>
@@ -14,7 +15,7 @@
         <div id="mapSidebar" ref="mapSidebar"
              class="column is-one-fifth-widescreen is-one-quarter-desktop
                     is-one-quarter-tablet has-background-lightgray om-2 pt-0
-                    fixed-height-desktop scrollable"
+                    fixed-height-desktop scrollable break-word"
              v-on="sidebarLayoutReset ? { scroll: () => handleSidebarScroll() } : {}">
           <div id="mapSidebar__header" class="has-background-lightgray pt-3">
             <div class="buttons has-addons is-centered padding-mobile m-0"
@@ -54,7 +55,7 @@
         <div v-if="!currentMap"
              class="column is-unselectable om-1 fixed-height-mobile p-0 m-0">
           <NotFound v-if="mapNotFound" type="map" :component-id="$route.params.map_id"></NotFound>
-          <p v-else class="is-size-5 has-text-centered" style="padding: 10%;">
+          <p v-else class="is-size-5 has-text-centered py-6 my-6">
             <a @click="showingMapListing = true">Show the map list and choose a compartment or subsystem map</a>
           </p>
         </div>
@@ -70,7 +71,8 @@
           <ErrorPanel :message="loadMapErrorMessage" @hideErrorPanel="loadMapErrorMessage=''" />
         </div>
         <div id="dataOverlayBar"
-             class="column is-narrow has-text-white is-unselectable is-hidden-mobile fixed-height-desktop p-1"
+             class="column is-clickable is-narrow has-text-white
+                    is-unselectable is-hidden-mobile fixed-height-desktop p-1"
              :class="{'px-0 py-0': dataOverlayPanelVisible }"
              title="Click to show the data overlay panel"
              @click="$store.dispatch('maps/toggleDataOverlayPanelVisible')">
@@ -107,8 +109,7 @@ import NotFound from '@/components/NotFound';
 import SidebarDataPanels from '@/components/explorer/mapViewer/SidebarDataPanels.vue';
 import Svgmap from '@/components/explorer/mapViewer/Svgmap';
 import ThreeDViewer from '@/components/explorer/mapViewer/ThreeDviewer';
-import { default as messages } from '@/helpers/messages';
-import { default as EventBus } from '@/event-bus';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'MapViewer',
@@ -149,8 +150,12 @@ export default {
       mapsListing: state => state.maps.mapsListing,
     }),
     ...mapGetters({
-      queryParams: 'maps/queryParams',
+      mapQueryParams: 'maps/queryParams',
+      dataOverlayQueryParams: 'dataOverlay/queryParams',
     }),
+    queryParams() {
+      return { ...this.mapQueryParams, ...this.dataOverlayQueryParams };
+    },
   },
   watch: {
     '$route.params': 'loadMapFromParams',
@@ -162,14 +167,6 @@ export default {
     this.handleQueryParamsWatch = debounce(this.handleQueryParamsWatch, 100);
     window.onpopstate = this.handleQueryParamsWatch();
 
-    EventBus.$off('loadRNAComplete');
-    EventBus.$on('loadRNAComplete', (isSuccess, errorMessage) => {
-      if (!isSuccess) {
-        this.showMessage(errorMessage);
-        EventBus.$emit('unselectFirstTissue');
-        EventBus.$emit('unselectSecondTissue');
-      }
-    });
     if (!this.model || this.model.short_name !== this.$route.params.model) {
       const modelSelectionSuccessful = await this.$store.dispatch('models/selectModel', this.$route.params.model);
       if (!modelSelectionSuccessful) {
@@ -194,19 +191,18 @@ export default {
     dimensionalState(showing2D) {
       return showing2D ? '2d' : '3d';
     },
-    handleQueryParamsWatch(newQuery, oldQuery) {
+    handleQueryParamsWatch(newQuery, oldQuery) { // eslint-disable-line no-unused-vars
+      if (!newQuery) {
+        return;
+      }
+
       if (newQuery && !this.$route.params.map_id) {
         const payload = [{}, null, `${this.$route.path}?dim=${newQuery.dim}`];
         history.replaceState(...payload); // eslint-disable-line no-restricted-globals
         return;
       }
 
-      if (JSON.stringify(newQuery) === JSON.stringify(oldQuery)) {
-        return;
-      }
-
       const queryString = Object.entries(newQuery).map(e => e.join('=')).join('&');
-
       const payload = [{}, null, `${this.$route.path}?${queryString}`];
       if (newQuery.dim === this.$route.query.dim || (newQuery.dim && !this.$route.query.dim)) {
         history.replaceState(...payload); // eslint-disable-line no-restricted-globals
@@ -283,8 +279,6 @@ export default {
 #mapViewerContainer {
 
   #mapSidebar {
-    word-wrap: break-word;
-
     &__header {
       @media screen and (min-width: $tablet) {
         position: sticky;
@@ -374,7 +368,6 @@ export default {
   display: flex;
   align-items: center;
   background: $primary;
-  cursor: pointer;
   line-height: 17px;
   &:hover{
     background: $primary-light;

@@ -6,8 +6,8 @@
         <gem-search v-show="showGemSearch" :handle-clear="() => showGemSearch = false" />
       </transition>
       <transition name="fade">
-        <div v-show="!showGemSearch" class="container is-fullhd">
-          <div class="navbar-brand ml-2">
+        <div v-show="!showGemSearch" id="navbarContainer" class="container is-fullhd">
+          <div class="navbar-brand">
             <router-link class="navbar-item" :to="{ name: 'home' }" active-class=""
                          @click.native="isMobileMenu = false">
               <img src="/img/logo.png" />
@@ -139,8 +139,8 @@ import axios from 'axios';
 import { mapState } from 'vuex';
 import ErrorPanel from '@/components/shared/ErrorPanel';
 import GemSearch from '@/components/explorer/gemBrowser/GemSearch';
-import { default as messages } from '@/helpers/messages';
-import { isCookiePolicyAccepted, acceptCookiePolicy } from './helpers/store';
+import { default as messages } from '@/content/messages';
+import { isCookiePolicyAccepted, acceptCookiePolicy } from '@/helpers/store';
 
 export default {
   name: 'App',
@@ -305,6 +305,16 @@ html {
   }
 }
 
+#navbarContainer {
+  @media screen and (min-width: $desktop) and (max-width: $fullhd + $navbar-margin-threshold) {
+    margin-left: 50px;
+  }
+  @media screen  and (max-width: $desktop) {
+    margin-left: 10px;
+  }
+}
+
+
 #navbar {
   min-height: 52px;
 
@@ -430,6 +440,15 @@ span.sc {
   left: 0;
   width: 100%;
   height: 3px;
+}
+.has-nowrap {
+  white-space: nowrap;
+}
+
+.break-word {
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }
 
 </style>

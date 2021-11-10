@@ -3,17 +3,20 @@
     <table class="table">
       <thead>
         <tr>
-          <th></th>
-          <th v-for="cn in columnNames" :key="cn">{{ cn }}</th>
+          <th class="has-nowrap px-3 py-3"></th>
+          <th v-for="cn in columnNames" :key="cn" class="has-nowrap">{{ cn }}</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(rn, i) in rowNames" :key="rn + i">
-          <th>{{ rn }}</th>
-          <td v-for="(cn, j) in columnNames" :key="cn + j" :class="{selected: isSelectedCell(i, j)}">
+          <th class="has-nowrap">{{ rn }}</th>
+          <td v-for="(cn, j) in columnNames"
+              :key="cn + j" class="p-0 is-clickable"
+              :class="{selected: isSelectedCell(i, j)}">
             <div>
               <span v-for="(type, k) in types" :key="cn + j + type"
                     :style="{backgroundColor: colors[k]}"
+                    class="px-3 py-2"
                     @click="handleSelectCell(i, j)">
                 {{ matrix[i][j][type] }}
               </span>
@@ -21,11 +24,11 @@
           </td>
         </tr>
       </tbody>
-      <caption>
+      <caption class="p-1">
         click a cell to see the comparison details
         <br />
         legend:
-        <span v-for="(type, k) of types" :key="type" :style="{backgroundColor: colors[k]}">
+        <span v-for="(type, k) of types" :key="type" :style="{backgroundColor: colors[k]}" class="p-1">
           {{ type }}
         </span>
       </caption>
@@ -167,22 +170,13 @@ table {
   caption {
     font-size: 0.9em;
     font-style: italic;
-    padding: 0.25em;
-
-    span {
-      padding: 0.25em;
-    }
   }
 
   th {
-    padding: 0.5em 0.75em;
     white-space: nowrap;
   }
 
   td {
-    cursor: pointer;
-    padding: 0;
-
     &.selected, &:hover {
       outline: 2px solid $black;
       outline-offset: -2px;
@@ -192,7 +186,6 @@ table {
       display: flex;
 
       span {
-        padding: 0.5em 0.75em;
         width: 50%;
       }
     }

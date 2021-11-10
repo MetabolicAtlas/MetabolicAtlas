@@ -1,9 +1,8 @@
 <template>
   <div class="viewer-container">
     <div v-if="errorMessage" class="columns is-centered">
-      <div class="column notification is-danger is-half is-offset-one-quarter has-text-centered">
-        {{ errorMessage }}
-      </div>
+      <div class="column notification is-danger is-half is-offset-one-quarter has-text-centered"
+           v-html="errorMessage" />
     </div>
     <div v-else id="viewer3d"></div>
     <MapControls wrapper-elem-selector=".viewer-container" :is-fullscreen="isFullscreen"
@@ -23,12 +22,12 @@
 <script>
 import { mapGetters, mapState } from 'vuex';
 import { MetAtlasViewer } from '@metabolicatlas/3d-network-viewer';
-import { default as EventBus } from '@/event-bus';
 import MapControls from '@/components/explorer/mapViewer/MapControls';
 import MapLoader from '@/components/explorer/mapViewer/MapLoader';
 import MapSearch from '@/components/explorer/mapViewer/MapSearch';
-import { default as messages } from '@/helpers/messages';
+import { default as messages } from '@/content/messages';
 import { default as colorToRGBArray } from '@/helpers/colors';
+import { DEFAULT_GENE_COLOR, DEFAULT_METABOLITE_COLOR } from '@/helpers/dataOverlay';
 
 const NODE_TEXTURES = [
   { group: 'e', sprite: '/sprite_round.png' },
@@ -56,6 +55,8 @@ export default {
       controller: null,
       isFullscreen: false,
       searchedNodesOnMap: [],
+      defaultGeneColor: DEFAULT_GENE_COLOR,
+      defaultMetaboliteColor: DEFAULT_METABOLITE_COLOR,
     };
   },
   computed: {
@@ -67,27 +68,36 @@ export default {
       backgroundColor: state => state.maps.backgroundColor,
       coords: state => state.maps.coords,
       dataOverlayPanelVisible: state => state.maps.dataOverlayPanelVisible,
+      dataSet: state => state.dataOverlay.dataSet,
+      customDataSet: state => state.dataOverlay.customDataSet,
     }),
     ...mapGetters({
       queryParams: 'maps/queryParams',
+      computedLevels: 'dataOverlay/computedLevels',
+      componentDefaultColor: 'dataOverlay/componentDefaultColor',
+      componentType: 'dataOverlay/componentType',
     }),
   },
   watch: {
     async currentMap() {
-      this.resetNetwork();
       await this.loadNetwork();
     },
     dataOverlayPanelVisible() {
       // this is needed by the 3D viewer to update its size
       window.dispatchEvent(new Event('resize'));
     },
-  },
-  created() {
-    EventBus.$off('apply3DHPARNAlevels');
-    EventBus.$on('apply3DHPARNAlevels', this.applyColorsAndRenderNetwork);
+    async dataSet() {
+      await this.applyColorsAndRenderNetwork();
+    },
+    async customDataSet() {
+      await this.applyColorsAndRenderNetwork();
+    },
   },
   async mounted() {
     await this.loadNetwork();
+  },
+  beforeDestroy() {
+    this.resetNetwork();
   },
   methods: {
     async loadNetwork() {
@@ -176,26 +186,41 @@ export default {
         this.$store.dispatch('maps/setLoadingElement', false);
       }
     },
-    async applyColorsAndRenderNetwork(levels) {
-      const nodes = this.network.nodes.map((node) => {
-        let color = colorToRGBArray('#9df');
+    async applyColorsAndRenderNetwork() {
+      // if (this.currentLevels === levels
+      //     || (this.currentLevels === {} && Object.keys(levels).length > 0)
+      // ) {
+      //   return;
+      // }
+      // this.currentLevels = levels;
 
-        if (node.g === 'e') {
-          if (Object.keys(levels).length === 0) {
-            color = colorToRGBArray('#feb');
-          } else {
-            const partialID = node.id.split('-')[0];
-            const key = levels[partialID] !== undefined ? partialID : 'n/a';
-            color = colorToRGBArray(levels[key][0]);
-          }
-        }
+      const nodes = this.network.nodes.map((node) => {
+        let color = colorToRGBArray(this.defaultMetaboliteColor);
 
         if (node.g === 'r') {
           color = colorToRGBArray('#fff');
         }
 
+        if (node.g === 'e') {
+          if (this.componentType === 'gene' && Object.keys(this.computedLevels).length > 0) {
+            const partialID = node.id.split('-')[0];
+            const key = this.computedLevels[partialID] !== undefined ? partialID : 'n/a';
+            color = colorToRGBArray(this.computedLevels[key][0]);
+          } else {
+            color = colorToRGBArray(this.defaultGeneColor);
+          }
+        }
+
         if (node.g === 'm') {
           node.n = node.id; // eslint-disable-line
+
+          if (this.componentType === 'metabolite' && Object.keys(this.computedLevels).length > 0) {
+            const partialID = node.id.split('-')[0];
+            const key = this.computedLevels[partialID] !== undefined ? partialID : 'n/a';
+            color = colorToRGBArray(this.computedLevels[key][0]);
+          } else {
+            color = colorToRGBArray(this.defaultMetaboliteColor);
+          }
         }
 
         return {
@@ -219,8 +244,10 @@ export default {
       this.$store.dispatch('maps/setCoords', payload);
     },
     resetNetwork() {
-      const viewer = document.getElementById('viewer3d');
-      viewer.innerHTML = '';
+      if (this.controller) {
+        this.controller.dispose();
+        this.controller = null;
+      }
     },
     zoomIn() {
       this.zoomBy(50);

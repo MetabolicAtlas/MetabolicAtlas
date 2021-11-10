@@ -82,12 +82,12 @@
           <p>The <i>GEM Browser</i> is a set of dedicated pages for various components, i.e., reactions, metabolites, genes, subsystems and compartments of the selected model, which is indicated on the left side of the top navigation bar. Each page contains a button on the right to <i>Report an issue</i>. Click this button to report a problem or ask questions to the modellers.</p>
 
           <h5 id="reaction-page" class="is-size-5">Reaction page</h5>
-          <p>The <i>Reaction</i> page shows the information about the currently selected reaction. If provided by the modellers, a list of identifiers from external databases and a list of references (PMIDs) are also shown in the <i>References</i> table below. On the right side of the page there is a list of links pointing to 2D or 3D <a href="#Map-Viewer">Map Viewer</a> pages in which this reaction is involved.</p>
+          <p>The <i>Reaction</i> page shows the information about the currently selected reaction. If provided by the modellers, a list of cross references to other models or databases and a list of references (PMIDs) are also shown in the <i>Cross references</i> and <i>References</i> tables respectively. On the right side of the page there is a list of links pointing to 2D or 3D <a href="#Map-Viewer">Map Viewer</a> pages in which this reaction is involved.</p>
 
           <h5 id="metabolite-page" class="is-size-5">Metabolite page</h5>
           <p>The <i>Metabolite</i> page shows information of the currently selected metabolite. Metabolites in GEMs are often differentiated according to their cell compartment localization. For this reason, one metabolite, e.g. cholesterol, may correspond to several different metabolite entries in a GEM, such as cholesterol[c], cholesterol[m], with the suffix indicating the compartment in which the metabolite is localized.</p>
-          <p>The top table pf the page contains basic information extracted from the GEM. If provided, additional identifiers from external databases will also be shown in the <i>External databases</i> table under the top table.</p>
-          <p>Below the <i>External databases</i> table comes the <i>Reactions</i> table. It lists all reactions involving the current metabolite as a reactant or product. The current metabolite is highlighted in black in the reaction equations. This table can be exported by clicking the button <i>Export to TSV</i>. Since metabolites are specific to a cell compartment, only reactions involving the metabolite in its specific compartment are displayed. To remove this restriction and display additional reactions involving the metabolite in any compartment, click the button to <i>See reactions from all compartments</i>. Note that the number of retrieved reactions is limited to 200. It is recommended to use the <a href="#API">API</a> to retrieve all reactions.</p>
+          <p>The top table of the page contains basic information extracted from the GEM. If provided by the modellers, a list of cross references to other models or databases will also be shown in the <i>Cross references</i> table under the top table.</p>
+          <p>Below the <i>Cross references</i> table comes the <i>Reactions</i> table. It lists all reactions involving the current metabolite as a reactant or product. The current metabolite is highlighted in black in the reaction equations. This table can be exported by clicking the button <i>Export to TSV</i>. Since metabolites are specific to a cell compartment, only reactions involving the metabolite in its specific compartment are displayed. To remove this restriction and display additional reactions involving the metabolite in any compartment, click the button to <i>See reactions from all compartments</i>. Note that the number of retrieved reactions is limited to 200. It is recommended to use the <a href="#API">API</a> to retrieve all reactions.</p>
           <p>On the top right of the page, the <a href="#Interaction-Partners">Interaction Partners</a> tool for that metabolite can be accessed by clicking the button <i>Interaction Partners</i>. Below this button there is a widget to access the corresponding 2D or 3D <a href="#Map-Viewer">Map Viewer</a> pages for this metabolite.</p>
 
           <h5 id="gene-page" class="is-size-5">Gene page</h5>
@@ -112,6 +112,7 @@
 
           <h5 id="2D-Viewer" class="is-size-5">2D Viewer</h5>
           <p>The 2D maps in SVG format are provided for integrated GEMs. They represent either a cell compartment or a subsystem/pathway. While a very high percentage of the reactions in the model are represented on the 2D maps, some may be unavailable. SVG maps were produced with <a target="_blank" href="https://www.omix-visualization.com/">Omix Vizualization</a>, a customizable tool for editing biochemical networks. A custom plug-in was developed to enable the creation of compact maps with consistent layout.</p>
+          <p>All these 2D maps are manually curated to achieve state-of-the-art quality. However, this also makes it hard to keep these 2D maps up to date. As the integrated GEMs continuously update, the 2D maps and models are sometimes out of sync. Consequently, some reactions in the integrated GEMs for a certain compartment/subsystem might be missing from the corresponding 2D map. Occasionally, a 2D map can also include reactions which do not exist in the corresponding compartment/subsystem.</p>
           <p>There are five buttons on the top left of the map that allow to (from top to bottom) zoom in, zoom out, show/hide genes, show/hide subsystems, toggle fullscreen (exit the fullscreen mode with the key <i>Esc</i>), and download the SVG map on the current view. One can interact with the map by clicking and dragging the mouse to pan the view or using the mouse wheel to zoom in/out.</p>
           <p>A search function is available for 2D maps using the search bar. The window will zoom and center on each component found. Click the <i>Highlight</i> button to color all found components on the maps in red. To remove the highlight, simply clear the search bar.</p>
           <p>The SVGs are interactive; click on a node (metabolite, reaction, gene) or a subsystem to load some of its information in the sidebar. Additonal information on the corresponding selected element can be accessed by clicking the button "GEM browser" under information panel of the selected element on the left sidebar.</p>
@@ -128,16 +129,11 @@
           <div class="columns ml-0">
             <div class="column pl-0 is-8 content">
               <p>The <i>Data overlay</i> panel is by default hidden in the <i>Map Viewer</i>. By clicking the <i>Data overlay</i> button on the right side of the page, one can toggle the hidden/display of this panel. On the <i>Data overlay</i> panel, gene expression levels for genes from <a href="https://www.proteinatlas.org/about/releases#18" target="_blank">The Human Protein Atlas v18</a> can be loaded by selecting one of the tissues in the drop down list. Once selected, the RNA levels corresponding to the chosen tissue will be used to color each gene on the respective map, according to the color legend (an example of the color legend is shown <b>Figure 1</b>). To clear the RNA levels, select the <i>None</i> option in the drop down list. RNA levels are available for both 2D and 3D Map Viewer. The data is obtained from version 18 of the Protein Atlas with the units in log<sub>2</sub>(TPM+1) associated with a gradient colorbar.</p>
-              <p>If multiple data are selected in the <i>Data overlay</i> sidebar, the overlay will switch to the comparison mode, using a differently color legend (see <b>Figure 2</b>) for the log fold change between the selected data.</p>
-              <p>The <i>Data overlay</i> sidebar allows uploading of the custom data in <a target="_blank" href="https://en.wikipedia.org/wiki/Tab-separated_values">TSV format</a>. If the file is parsed correctly, the file name will be highlighted in green; in case errors are detected, it will be highlighted in red. The expected custom data file should contain at least two columns with headers and using tab delimiter. The first column has to contain gene IDs, identical to the ones in the model. Any missing genes or missing values will be assigned an "n/a" value and highlighted in gray. The rest of the columns act as data series, with each column being a new data serie, as shown in the example to the right (<b>Figure 3</b>). The headers of these data series will be shown automatically in the dropdown options for the uploaded data. The values are expected in TPM.</p>
+              <p>The <i>Data overlay</i> sidebar allows uploading of the custom data in <a target="_blank" href="https://en.wikipedia.org/wiki/Tab-separated_values">TSV format</a>. If the file is parsed correctly, the file name will be highlighted in green; in case errors are detected, it will be highlighted in red. The expected custom data file should contain at least two columns with headers and using tab delimiter. The first column has to contain gene IDs, identical to the ones in the model. Any missing genes or missing values will be assigned an "n/a" value and highlighted in gray. The rest of the columns act as data series, with each column being a new data serie, as shown in the example to the right (<b>Figure 2</b>). The headers of these data series will be shown automatically in the dropdown options for the uploaded data. The values are expected in TPM.</p>
             </div>
             <div class="column">
               <RNALegend></RNALegend>
               <p style="font-size:80%"><b>Figure 1: Color legend for RNA level in Data overlay when only one data is selected.</b></p>
-
-              <br>
-              <RNALegend text="log<sub>2</sub>(TPM<sub>T2</sub>+1 / TPM<sub>T1</sub>+1)" left-value="-5" right-value="5" :gradient="`${multipleColors}`"></RNALegend>
-              <p style="font-size:80%"><b>Figure 2: Color legend for RNA level in Data overlay when multiple data are selected.</b></p>
 
               <br>
               <blockquote>
@@ -146,7 +142,7 @@
                 ENSG00000175535&emsp;572<br>
                 ENSG00000187021&emsp;3498&emsp;1768
               </blockquote>
-              <p style="font-size:80%"><b>Figure 3: Example file for custom data to be uploaded in Data overlay</b></p>
+              <p style="font-size:80%"><b>Figure 2: Example file for custom data to be uploaded in Data overlay</b></p>
             </div>
           </div>
 
@@ -217,7 +213,7 @@
           <p>Click on a row in the table to show more information about a GEM. One can download models in various file formats (when available).</p>
 
           <h5 id="Comparison" class="is-size-5">Comparison</h5>
-          <p>In the first section of the page one can select 2 or 3 integrated GEMs to compare. The comparison is performed dynamically, by inspecting the external identifiers in the database. If a reaction or a metabolite share at least one such external identifier, they are considered to be shared between the compared models. Otherwise, they are considerend to be unique to the respective model. The comparison table is interactive - by clicking on a cell, the corresponding comparison details are shown on the right panel.</p>
+          <p>In the first section of the page one can select 2 or 3 integrated GEMs to compare. The comparison is performed dynamically, by inspecting the cross references to other models or databases they share in the database. If a reaction or a metabolite share at least one such cross reference, they are considered to be shared between the compared models. Otherwise, they are considerend to be unique to the respective model. The comparison table is interactive - by clicking on a cell, the corresponding comparison details are shown on the right panel.</p>
           <p>In the second section, the <i>Comparison</i> page provides statistics about the comparison/overlap between Human-GEM 1.0.2 and HMR 2.0, as well as Human-GEM and Recon3D. This comparison has been performed manually for an early verion of Human-GEM, and will not be updated.</p>
 
           <h5 id="FTP-access" class="is-size-5">FTP access</h5>
@@ -245,7 +241,6 @@
 <script>
 
 import RNALegend from '@/components/explorer/mapViewer/RNALegend.vue';
-import { multipleColors } from '@/expression-sources/hpa';
 
 export default {
   name: 'Help',
@@ -254,7 +249,6 @@ export default {
   },
   data() {
     return {
-      multipleColors,
       ftpUrl: 'ftp.metabolicatlas.org',
     };
   },

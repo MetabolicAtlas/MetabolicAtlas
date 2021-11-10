@@ -168,4 +168,15 @@ RETURN DISTINCT({id: c.id, name: cs.name})
   };
 };
 
-export { getGene, getGenesForHPA, getGeneDetailsForHPA };
+const getGeneCount = async (model, version) => {
+  const [m, v] = parseParams(model, version);
+
+  const statement = `
+MATCH (g:Gene${m})-[${v}]-()
+RETURN {gene_count: COUNT(DISTINCT(g))}
+`;
+  const { gene_count } = await querySingleResult(statement);
+  return gene_count;
+};
+
+export { getGene, getGenesForHPA, getGeneDetailsForHPA, getGeneCount };

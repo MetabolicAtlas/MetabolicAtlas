@@ -50,14 +50,19 @@
             <div class="column is-6 is-size-5">
               <p>The main versions of <b>Metabolic Atlas</b> are associated with scientific articles as follows.</p><br>
               <div class="box">
-                <p>Version 2.0:
-                  <i>Genome-scale reconstruction of metabolic networks of model animals
-                    represents a platform for translational research</i>.
-                  Article under consideration.
+                <p>From version 2.0:
+                  <a href="https://doi.org/10.1073/pnas.2102344118" target="_blank">
+                    Wang, H., et al, 2021. <i>Genome-scale metabolic network reconstruction of model animals
+                      as a platform for translational research</i>. PNAS 118, e2102344118
+                  </a>
                 </p>
               </div>
               <div class="box">
-                <p>Version 1.0: <a href="https://doi.org/10.1126/scisignal.aaz1482" target="_blank">Robinson, J., et al, 2020. <i>An atlas of human metabolism</i>. Sci. Signal. 13, eaaz1482</a></p>
+                <p>From version 1.0:
+                  <a href="https://doi.org/10.1126/scisignal.aaz1482" target="_blank">
+                    Robinson, J., et al, 2020. <i>An atlas of human metabolism</i>. Sci. Signal. 13, eaaz1482
+                  </a>
+                </p>
               </div>
             </div>
             <div class="column is-6 is-size-5">
@@ -66,10 +71,10 @@
                 <template v-for="el in newsItems">
                   <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
                   <tr v-if="el.date">
-                    <td>{{ el.date }}</td>
+                    <td class="has-nowrap">{{ el.date }}</td>
                     <td class="pl-3">
-                      <router-link :to="{ name: 'about', hash: `#${el.hash}` }">
-                        {{ el.text }}
+                      <router-link :to="{ name: 'about', hash: `#${el.date}` }">
+                        {{ el.title }}
                       </router-link>
                     </td>
                   </tr>
@@ -171,7 +176,8 @@
 </template>
 
 <script>
-import { default as messages } from '../helpers/messages';
+import { default as messages } from '@/content/messages';
+import { default as newsItems } from '@/content/news';
 
 /* eslint-disable global-require */
 export default {
@@ -218,7 +224,7 @@ export default {
           img: require('../assets/analyze.jpg'),
           route: { name: 'viewer',
             params: { model: 'Human-GEM', type: 'compartment', map_id: 'endoplasmic_reticulum' },
-            query: { dim: '2d', panel: '1', g1: 'skin 1', g2: 'testis', coords: '-7222.7,-4501.6,0.97,0,0,0' } },
+            query: { dim: '2d', panel: '1', coords: '-7222.7,-4501.6,0.97,0,0,0' } },
           icon: 'tasks' },
       ],
       features2: [
@@ -228,7 +234,7 @@ export default {
           route: { name: 'search', query: { term: 'glyoxalate' } },
           icon: 'download' },
         { title: 'Compare',
-          text: 'The integrated models can be compared on-the-fly via the external identifiers they share. Moreover, a 3-way comparison can be performed as well.',
+          text: 'The integrated models can be compared on-the-fly via the cross references to other models or databases they share. Moreover, a 3-way comparison can be performed as well.',
           img: require('../assets/comparison.jpg'),
           route: { name: 'comparemodels' },
           icon: 'download' },
@@ -246,39 +252,12 @@ export default {
           route: { name: 'resources' },
           icon: 'gears' },
         { title: 'Community',
-          text: '<p>We are grateful for the efforts of scientists all over the world in creating the knowledge required to assemble high quality genome scale metabolic models. We are passionate about continuing on this journey of open curation of models.<br><br>We invite you to explore the world of GEMs through Metabolic Atlas, and hope it will enhance your interest in this field. We wish to continuously improve Metabolic Atlas for the community. Email us with any feedback, suggestions, or requests at <a href="mailto:">contact [at] metabolicatlas [dot] org</a>.</p>',
+          text: '<p>We are grateful for the efforts of scientists all over the world in creating the knowledge required to assemble high quality genome scale metabolic models. We are passionate about continuing on this journey of open curation of models.<br><br>We invite you to explore the world of GEMs through Metabolic Atlas, and hope it will enhance your interest in this field. We wish to continuously improve Metabolic Atlas for the community. Email us with any feedback, suggestions, or requests at <a href="mailto:contact@metabolicatlas.org">contact [at] metabolicatlas [dot] org</a>.</p>',
           route: { name: 'about' },
           icon: 'users' },
       ],
-      newsItems: [
-        { date: '2020.04.27',
-          hash: '27-April-2020',
-          text: 'Metabolic Atlas v1.7 brings Map Viewer improvements' },
-        { date: '2020.03.23',
-          hash: '23-March-2020',
-          text: 'Metabolic Atlas v1.6' },
-        { date: '2020.02.07',
-          hash: '7-February-2020',
-          text: 'Metabolic Atlas v1.5 updates both integrated models' },
-        { date: '2019.09.11',
-          hash: '11-September-2019',
-          text: 'Metabolic Atlas was presented in a course given by NBIS' },
-        { date: '2019.09.05',
-          hash: '5-September-2019',
-          text: 'Metabolic Atlas v1.4 enables gene expression comparison' },
-        { date: '2019.08.01',
-          hash: '1-August-2019',
-          text: 'Metabolic Atlas v1.3' },
-        { date: '2019.06.25',
-          hash: '25-June-2019',
-          text: 'Metabolic Atlas is upgraded to v1.2 with Human-GEM updated to v1.1' },
-        { date: '2019.05.29',
-          hash: '29-May-2019',
-          text: 'Metabolic Atlas is upgraded to v1.1' },
-        { date: '2019.05.17',
-          hash: '17-May-2019',
-          text: 'Metabolic Atlas is publicly available as v1.0' },
-      ],
+      newsItems:
+        Object.values(newsItems).reverse().flat(1).slice(0, 12),
     };
   },
 };

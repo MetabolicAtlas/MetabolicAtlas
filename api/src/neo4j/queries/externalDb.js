@@ -1,10 +1,22 @@
 import querySingleResult from 'neo4j/queryHandlers/single';
 
 const getComponentsForExternalDb = async ({ dbName, externalId }) => {
-  const statement = `
+  let statement = `
 MATCH (db:ExternalDb {dbName: '${dbName}', externalId: '${externalId}'})-[v]-(c)
 RETURN { externalDb: properties(db), components: COLLECT({ component: c, version: type(v) }) }
 `;
+  if (dbName === 'MetabolicAtlas') {
+    statement = `
+MATCH (r:Reaction {id: '${externalId}'})-[v]-()
+RETURN { externalDb: properties(r), components: COLLECT(DISTINCT({component: r, version: type(v)}))}
+
+UNION
+
+MATCH (r:CompartmentalizedMetabolite {id: '${externalId}'})-[v]-()
+RETURN { externalDb: properties(r), components: COLLECT(DISTINCT({component: r, version: type(v)}))}
+
+`;
+  }
 
   let { externalDb, components } = await querySingleResult(statement);
 
@@ -20,6 +32,12 @@ RETURN { externalDb: properties(db), components: COLLECT({ component: c, version
       version: version.replace('V', '').replace(/_/g, '.'),
     };
   });
+
+  if (dbName === 'MetabolicAtlas') {
+    externalDb.dbName = dbName;
+    externalDb.externalId = externalDb.id;
+  }
+
 
   return { components, externalDb };
 };

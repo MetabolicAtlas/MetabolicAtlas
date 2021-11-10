@@ -12,7 +12,7 @@
 
 import { default as FileSaver } from 'file-saver';
 import ErrorPanel from '@/components/shared/ErrorPanel';
-import { default as messages } from '@/helpers/messages';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'ExportTSV',

@@ -1,8 +1,11 @@
+[![DOI](https://zenodo.org/badge/53664497.svg)](https://zenodo.org/badge/latestdoi/53664497)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4276/badge)](https://bestpractices.coreinfrastructure.org/projects/4276)
 
 Welcome to the codebase for the Metabolic Atlas project.  
 If you use *Metabolic Atlas* in your scientific work, please cite:
-> Robinson, Jonathan L., et al. "An atlas of human metabolism." *Science Signaling* 13.624 (2020) [doi:10.1126/scisignal.aaz1482 ](https://doi.org/10.1126/scisignal.aaz1482 )
+> Wang, H., et al, 2021. _Genome-scale metabolic network reconstruction of model animals as a platform for translational research_. PNAS 118 [doi:10.1073/pnas.2102344118](https://doi.org/10.1073/pnas.2102344118)
+>
+> Robinson, J., et al, 2020. _An atlas of human metabolism_. Science Signaling 13 [doi:10.1126/scisignal.aaz1482 ](https://doi.org/10.1126/scisignal.aaz1482)
 
 
 ## Get started
@@ -15,15 +18,18 @@ If you want to try out the latest features of MetabolicAtlas, change the branch 
 Apart from the current repository, two additional repositories are required in
 order to deploy Metabolic Atlas locally, they are
 
-* [neo4j-data-generation](https://github.com/MetabolicAtlas/neo4j-data-generation): for generating neo4j database
+* [data-generation](https://github.com/MetabolicAtlas/data-generation): for generating neo4j database
 * [data-files](https://github.com/MetabolicAtlas/data-files): contains all the data necessary data (integrated models, maps, FTP repository) using Git LFS
 
 Clone the three required repositories by 
 
     git clone https://github.com/MetabolicAtlas/MetabolicAtlas
-    git clone https://github.com/MetabolicAtlas/neo4j-data-generation
+    git clone https://github.com/MetabolicAtlas/data-generation
     git clone https://github.com/MetabolicAtlas/data-files && pushd data-files; git lfs pull; popd
 
+
+Go to the repository `data-generation` and follow the
+[instructions](https://github.com/MetabolicAtlas/data-generation#readme) on how to generate the data files required by MetabolicAtlas.
 
 In the folder `MetabolicAtlas` that has been cloned, add a `.env` file based on the `.env.sample` file:
 ```bash
@@ -31,13 +37,15 @@ cp .env.sample .env
 ```
 and modify this `.env` file.
 
-The content of the file `.env` that has just been copied from `.env.sample` is shown below. Make sure the paths for `DATA_FILES_PATH` and `DATA_GENERATOR_PATH` are correct for your setup.
+The content of the file `.env` that has just been copied from `.env.sample` is shown below. Make sure the paths for `DATA_FILES_PATH` and `DATA_GENERATOR_PATH` are correct for your setup,
+eg. the paths to where you have downloaded the repositories `data-files` and `data-generation`.
+
 
 ```
 CERTBOT_EMAIL=
 SERVER_NAME=localhost
 DATA_FILES_PATH=../data-files
-DATA_GENERATOR_PATH=../neo4j-data-generation
+DATA_GENERATOR_PATH=../data-generation
 
 NEO4J_USERNAME=neo4j
 NEO4J_PASSWORD=password-unhackable
@@ -79,6 +87,17 @@ Given successful deployment, the frontend should be accessible at: `http://local
 * To display real-time logs: `logs [container-name: frontend/api/nginx/neo4j/ftp]`
 * To deploy the project: `deploy-stack`
 * To (re-)import the Neo4j database: `import-db`
+
+### A note to Unix/Linux users
+
+When rebuilding the stack, you might have to change the ownership of the directory `neo4j`:
+```
+sudo chown -R <user> neo4j
+```
+Replace `<user>` with your user name.
+The ownership will be automatically reset when running the project, so you will
+have to repeat this step for every rebuild.
+
 
 ## Licenses
 

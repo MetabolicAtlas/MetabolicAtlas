@@ -2,7 +2,6 @@
 
 import interactionPartnersApi from '@/api/interactionPartners';
 import randomComponentsApi from '@/api/randomComponents';
-import { chemicalName } from '@/helpers/chemical-formatters';
 import { constructCompartmentStr } from '@/helpers/utils';
 
 const data = {
@@ -15,10 +14,6 @@ const data = {
 const getters = {
   component: state => state.interactionPartners.component || {},
   reactions: state => state.interactionPartners.reactions || [],
-  title: (state, _getters) => (_getters.component.type === 'metabolite'
-    ? chemicalName(_getters.component.name) || _getters.component.id
-    : _getters.component.name || _getters.component.id
-  ),
   reactionsSet: (state, _getters) => new Set(_getters.reactions.map(r => r.id)),
   componentName: (state, _getters) => _getters.component.name || _getters.component.id,
 };

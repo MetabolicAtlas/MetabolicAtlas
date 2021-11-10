@@ -309,7 +309,7 @@ OPTIONAL MATCH (node)-[${v}]-(parentNode:${model})
 WHERE node:${model} OR parentNode:${model}
 WITH DISTINCT(
 	CASE
-		WHEN EXISTS(node.id) THEN { id: node.id, labels: labelList, score: score }
+		WHEN EXISTS(node.id) AND NOT EXISTS(node.externalId) THEN { id: node.id, labels: labelList, score: score }
 		ELSE { id: parentNode.id, labels: LABELS(parentNode), score: score }
 	END
 ) as r 
@@ -324,17 +324,18 @@ LIMIT ${limit}
 
   const results = await queryListResult(statement);
 
+  const idsToScore = {};
   const uniqueIds = results.reduce((o, r) => {
     const c = intersect(componentTypes, r.labels);
     if (!o[c]) {
       o[c] = new Set();
     }
     o[c].add(r.id);
+    idsToScore[r.id] = r.score;
     return o;
   }, {});
 
   const ids = Object.assign({}, ...Object.keys(uniqueIds).map(c => ({ [c]: Array.from(uniqueIds[c]) })));
-
   const [
     compartmentalizedMetabolites,
     metabolites,
@@ -351,13 +352,33 @@ LIMIT ${limit}
     fetchCompartments({ ids: ids["Compartment"], model, version: v, includeCounts: true }),
   ]);
 
-  // formatting for simple (gem browser) search
+  const resObj = {
+    compartmentalizedMetabolites,
+    metabolites,
+    genes,
+    reactions,
+    subsystems,
+    compartments
+  };
+
+  const resWithScore = {};
+  for (const [component, result] of Object.entries(resObj)) {
+    if (result) {
+      resWithScore[component] = result.map(obj => ({
+        ...obj,
+        score: idsToScore[obj.id]
+      }));
+    } else {
+      resWithScore[component] = [];
+    }
+  }
+
   return {
-    metabolite: [...compartmentalizedMetabolites || [], ...metabolites || []],
-    gene: genes || [],
-    reaction: reactions || [],
-    subsystem: subsystems || [],
-    compartment: compartments || [],
+    metabolite: [...resWithScore.compartmentalizedMetabolites, ...resWithScore.metabolites],
+    gene: resWithScore.genes,
+    reaction: resWithScore.reactions,
+    subsystem: resWithScore.subsystems,
+    compartment: resWithScore.compartments,
   };
 };
 

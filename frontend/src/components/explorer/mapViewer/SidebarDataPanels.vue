@@ -11,13 +11,18 @@
            class="card-content p-4">
         <template v-if="currentMap.mapReactionIdSet.length == 1">
           Please note that {{ missingReactionList.length }}
-          of the reactions in the {{ currentMap.type }} are not shown on the map.
+          of the reactions in the {{ currentMap.type }} are not shown on the map
         </template>
         <template v-else>
           Please note that {{ missingReactionList.length }} of the reactions in the
-          {{ currentMap.type }} are not shown on any of the {{ currentMap.name }} maps.
+          {{ currentMap.type }} are not shown on any of the {{ currentMap.name }} maps
         </template>
-        <a @click="$emit('update:showModal', true)"> See comparison </a>
+        <span class="p-0 has-nowrap">
+          <router-link :to="{ name: 'documentation', hash: '#2D-Viewer'}">
+            <span class="icon"><i class="fa fa-info-circle"></i></span>
+          </router-link>
+        </span>
+        <br>For details <a @click="$emit('update:showModal', true)">see the comparison</a>
       </div>
       <footer v-if="currentMap.type !== 'custom'" class="card-footer sidebarCardHover">
         <router-link class="p-0 is-info is-outlined card-footer-item has-text-centered"
@@ -94,7 +99,9 @@
               <template v-else-if="item.name === 'equation'">
                 <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
                 <p><span class="has-text-weight-bold" v-html="capitalize(item.display || item.name) + ':'"></span><br>
-                  <span v-html="reformatChemicalReactionHTML(selectionData.data, false, model.short_name)"></span>
+                  <span v-html="reformatChemicalReactionHTML(
+                    { reaction: selectionData.data, model: model.short_name })">
+                  </span>
                 </p>
               </template>
               <template v-else-if="item.name === 'formula'">
@@ -128,7 +135,7 @@
         <header class="card-header is-clickable">
           <p class="card-header-title is-inline is-unselectable has-text-weight-normal">
             This {{ selectionData.type }} does not exist in {{ model.short_name }}.
-            Email us at contact@metabolicatlas.org
+            Email us at <a href="mailto:contact@metabolicatlas.org">contact [at] metabolicatlas [dot] org</a>.
           </p>
         </header>
       </div>
@@ -139,8 +146,8 @@
 <script>
 import { mapState } from 'vuex';
 import { capitalize, reformatStringToLink, reformatChemicalReactionHTML } from '@/helpers/utils';
-import { chemicalFormula } from '@/helpers/chemical-formatters';
-import { default as messages } from '@/helpers/messages';
+import { default as chemicalFormula } from '@/helpers/chemical-formatters';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'SidebarDataPanels',

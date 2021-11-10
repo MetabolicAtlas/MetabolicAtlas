@@ -43,6 +43,7 @@ services:
       - ./api/svg:/project/svg
       - ./api/repository:/project/repository
       - ./api/public:/project/public
+      - ./api/dataOverlay:/project/dataOverlay
     command: yarn develop
 
   ftp:

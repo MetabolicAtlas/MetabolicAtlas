@@ -7,7 +7,12 @@
         <div class="column is-half has-text-justified">
           <div class="box is-hidden-tablet">
             <p class="subtitle has-text-weight-bold is-size-4 has-text-primary has-text-centered">Citing Metabolic Atlas</p>
-            <a href="https://doi.org/10.1126/scisignal.aaz1482" target="_blank">Robinson, J., et al, 2020. <i>An atlas of human metabolism</i>. Sci. Signal. 13, eaaz1482 </a>
+            <p><a href="https://doi.org/10.1073/pnas.2102344118" target="_blank">
+              Wang, H., et al, 2021. <i>Genome-scale metabolic network reconstruction of model animals as a platform for translational research</i>. PNAS 118, e2102344118
+            </a></p>
+            <p><a href="https://doi.org/10.1126/scisignal.aaz1482" target="_blank">
+              Robinson, J., et al, 2020. <i>An atlas of human metabolism</i>. Sci. Signal. 13, eaaz1482
+            </a></p>
           </div>
           The Metabolic Atlas project is headed by <a href="https://www.sysbio.se/labs/nielsen" target="_new">Professor Jens Nielsen</a>, <a href="https://www.sysbio.se">Division of Systems and Synthetic Biology</a>, Department of Biology and Biological Engineering at the <a href="https://www.chalmers.se" target="_new">Chalmers University of Technology</a>. The platform is developed by members of <a href="https://www.chalmers.se/en/researchinfrastructure/csb/Pages/default.aspx">Computational Systems Biology Infrastructure</a> at Chalmers University of Technology and <a href="https://nbis.se" target="blank">National Bioinformatics Infrastructure Sweden</a>.<br><br>
 
@@ -17,7 +22,7 @@
 
           Metabolic Atlas is intended to be used for applications in metabolomics, clinical chemistry, biomarker discovery and general education. In short, the vision is to create a one-stop-shop for everything metabolism related, starting with <a href="https://www.sysbio.se/labs/nielsen/#publications">the publications of the Nielsen lab</a>.<br><br>
 
-          The development of Metabolic Atlas is led by <a href="https://nbis.se/about/staff/mihail-anton" target="_blank">Mihail Anton</a>, with team members Pierre-Etienne Cholley and Shan Huang. Past and more detailed contributions are <a href="https://github.com/SysBioChalmers/MetabolicAtlas/graphs/contributors" target="_blank">shown on GitHub</a>. For versions and release notes of the software behind Metabolic Atlas, <a href="https://github.com/SysBioChalmers/MetabolicAtlas/releases" target="_blank">check the GitHub page</a>. The integrated models are also available on GitHub, check our <router-link :to="{ name: 'gems' }">GEM Repository</router-link> for links to those.<br><br>
+          The development of Metabolic Atlas is led by <a href="https://nbis.se/about/staff/mihail-anton" target="_blank">Mihail Anton</a>, with team members Pierre-Etienne Cholley and Shan Huang. Past and more detailed contributions are <a href="https://github.com/SysBioChalmers/MetabolicAtlas/graphs/contributors" target="_blank">shown on GitHub</a>. For versions and release notes of the software behind Metabolic Atlas, <a href="https://github.com/SysBioChalmers/MetabolicAtlas/releases" target="_blank">check the GitHub page</a> or <a href="https://zenodo.org/badge/latestdoi/53664497" target="_blank">Zenodo</a>. The integrated models are also available on GitHub, check our <router-link :to="{ name: 'gems' }">GEM Repository</router-link> for links to those.<br><br>
 
           <p>Metabolic Atlas would not be possible without the following excellent Elixir resources: <a href="https://proteinatlas.org" target="_blank">The Human Protein Atlas</a>, <a href="https://www.ensembl.org/" target="_blank">Ensembl</a>, <a href="https://www.uniprot.org" target="_blank">UniProt</a>, <a href="https://europepmc.org" target="_blank">Europe PMC</a>, <a href="https://identifiers.org" target="_blank">Identifiers.org</a>, <a href="https://www.ebi.ac.uk/chebi" target="_blank">ChEBi</a> and other essential sources of information: <a href="http://www.genome.jp/kegg/" target="_blank">KEGG: Kyoto Encyclopedia of Genes and Genomes</a>,  <a href="http://www.hmdb.ca/" target="_blank">The Human Metabolome Database</a>, <a href="https://www.metanetx.org" target="_blank">MetaNetX</a>, <a href="http://bigg.ucsd.edu" target="_blank">BiGG</a>, <a href="https://www.ncbi.nlm.nih.gov" target="_blank">NCBI</a>.
           </p>
@@ -25,27 +30,51 @@
         <div class="column is-half has-text-justified content">
           <div class="box is-hidden-mobile">
             <p class="subtitle has-text-weight-bold is-size-4 has-text-primary has-text-centered">Citing Metabolic Atlas</p>
-            <a href="https://doi.org/10.1126/scisignal.aaz1482" target="_blank">Robinson, J., et al, 2020. <i>An atlas of human metabolism</i>. Sci. Signal. 13, eaaz1482 </a>
+            <p><a href="https://doi.org/10.1073/pnas.2102344118" target="_blank">
+              Wang, H., et al, 2021. <i>Genome-scale metabolic network reconstruction of model animals as a platform for translational research</i>. PNAS 118, e2102344118
+            </a></p>
+            <p><a href="https://doi.org/10.1126/scisignal.aaz1482" target="_blank">
+              Robinson, J., et al, 2020. <i>An atlas of human metabolism</i>. Sci. Signal. 13, eaaz1482
+            </a></p>
           </div>
           <img width="100%" alt="The SysBio group 2019" src="../assets/group_19.jpg">
-          <center>The SysBio group 2019</center>
+          <center><a href="https://sysbio.se" target="_blank">The SysBio group 2019</a></center>
           <br><br>
-          <h4 class="title is-4">Scientific Advisors</h4>
-          <nav id="advisors" class="level">
-            <div v-for="advisor in advisors" :key="advisor.name" class="level-left">
-              <a :href="advisor.url" target="_blank">
-                <span class="level-item">
-                  <figure class="image is-64x64">
-                    <img class="is-rounded" :alt="advisor.name" :src="advisor.img" />
-                  </figure>
-                  {{ advisor.name }}
-                </span>
-              </a>
-            </div>
-          </nav>
-          <br>
           <h4 class="title is-4">Contact</h4>
           <p>For any questions, comments or suggestions please email us at <a href="mailto:">contact [at] metabolicatlas [dot] org</a>.</p>
+        </div>
+      </div>
+      <br>
+      <h3 class="title is-3">Scientific Advisors</h3>
+      <div class="columns is-multiline">
+        <div v-for="advisor in advisors" :key="advisor.name" class="column is-half-tablet is-one-third-desktop">
+          <div class="card card-fullheight">
+            <div class="card-content">
+              <div class="media">
+                <div class="media-left">
+                  <figure class="image is-64x64">
+                    <img :alt="advisor.name" :src="advisor.img" />
+                  </figure>
+                </div>
+                <div class="media-content">
+                  <p class="title is-4">{{ advisor.name }}</p>
+                  <p class="subtitle is-6 pt-2">
+                    <a :href="advisor.orcid" target="_blank">
+                      <img class="image is-16x16 is-inline" alt="orcid" src="../assets/orcid.gif" />
+                    </a>
+                    <a :href="advisor.linkedin" target="_blank">
+                      <span class="icon pl-3"><i class="fa fa-linkedin-square fa-lg"></i></span>
+                    </a>
+                    <a v-if="advisor.github" :href="advisor.github" target="_blank">
+                      <span class="icon pl-4 has-text-black-bis"><i class="fa fa-lg fa-github"></i></span>
+                    </a>
+                  </p>
+                </div>
+              </div>
+              <div class="content" v-html="advisor.content">
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <br>
@@ -99,90 +128,47 @@
 </template>
 
 <script>
+import { default as news } from '@/content/news';
+
 export default {
   name: 'About',
   data() {
     return {
-      news: {
-        2020: [
-          { date: '27 April 2020',
-            text: '<b>Metabolic Atlas v1.7</b> is out. This release links the genes and metabolites directly to the maps, and improves the Map Viewer links to be more share-friendly. The overall appearance of the website has also been tweaked. More details can be found <a href="https://github.com/SysBioChalmers/MetabolicAtlas/releases/tag/1.7" target="_blank">on GitHub</a>.' },
-          { date: '23 March 2020',
-            text: '<b>Metabolic Atlas v1.6</b> is out. This release contains many user interface improvements, documentation updates and correction of typos. More details can be found <a href="https://github.com/SysBioChalmers/MetabolicAtlas/releases/tag/1.6" target="_blank">on GitHub</a>.' },
-          { date: '7 February 2020',
-            text: '<b>Metabolic Atlas v1.5</b> is out. This release updates the layout of the <i>Home</i>, <i>Explore</i>, and <i>Interaction Partner</i> pages. A <i>News</i> section has also been added on the <i>About</i> page. Other features include suggestions on the <i>Search</i> page, a contact button in the <i>GEM Browser</i>, and a progress bar at the top indicating page loading status. The Human-GEM has also been updated to v1.3, and the Yeast-GEM to v.8.3.4. More details can be found <a href="https://github.com/SysBioChalmers/MetabolicAtlas/releases/tag/1.5" target="_blank">on GitHub</a>.' },
-        ],
-        2019: [
-          { date: '11 September 2019',
-            text: '<b>Metabolic Atlas</b> was presented in the <a href="https://www.scilifelab.se/events/omics-integration-and-systems-biology/" target="_blank">Omics Integration and Systems Biology</a> course given by <a href="https://nbis.se" target="_blank">NBIS</a>.' },
-          { date: '5 September 2019',
-            text: '<b>Metabolic Atlas v1.4</b> is out. The main feature of this release is the <i>Data Overlay</i> panel on the <i>Map Viewer</i>, currently enabling data upload and comparison for gene expression. Other small tweaks on the <i>Map Viwewer</i> are: the fullscreen mode, hiding genes or subsystem highlights, some button layout changes. The RNA legend was refactored but maintains the same functionality. The <i>GEM Browser</i> tiles can be randomized by clicking a button. More details can be found <a href="https://github.com/SysBioChalmers/MetabolicAtlas/releases/tag/1.4" target="_blank">on GitHub</a>.' },
-          { date: '1 August 2019',
-            text: '<b>Metabolic Atlas v1.3</b> loads much faster. Across the website <i>enzyme</i> has been renamed to <i>gene</i>, and the <i>Global search</i> gives results in order, downloadable in TSV format. Among the minor tweaks are: notice on 404 page,  <i>Interaction partners</i> layout and <i>API</i> layout. More details can be found <a href="https://github.com/SysBioChalmers/MetabolicAtlas/releases/tag/1.3" target="_blank">on GitHub</a>.' },
-          { date: '25 June 2019',
-            text: '<b>Metabolic Atlas v1.2</b> adds more interaction on the 3D <i>Map Viewer</i>, and improves the <i>GEM Comparison</i> tables. It also contains several bug fixes. More details can be found in <a href="https://github.com/SysBioChalmers/MetabolicAtlas/releases/tag/1.2" target="_blank">on GitHub</a>. Moreover, <i>Human-GEM</i> was updated to v1.1.' },
-          { date: '29 May 2019',
-            text: '<b>Metabolic Atlas v1.1</b> has minor UI improvements, mainly around documentation, resources, <i>Interaction Partners</i> and <i>Map Viewe</i>, alongside deployment improvements with a focus on reducing downtime. More details can be found <a href="https://github.com/SysBioChalmers/MetabolicAtlas/releases/tag/1.1" target="_blank">on GitHub</a>.' },
-          { date: '17 May 2019',
-            text: '<b>Metabolic Atlas v1.0</b> is publicly available. We have finalized two main tools, the <i>GEM Browser</i> (including <i>Interaction Partners</i>) and <i>Map Viewer</i>. Additionally, Metabolic Atlas is hosting GEMs in a repository. More details can be found in <a href="https://github.com/SysBioChalmers/MetabolicAtlas/releases/tag/1.0" target="_blank">on GitHub</a>.',
-            icon: 'flag' },
-          { date: '2 May 2019',
-            text: '<i>Human-GEM</i> is integrated, with complete compartment maps, and a significant number of the subsystem maps.' },
-        ],
-        2018: [
-          { date: 'December 2018',
-            text: 'New manually curated maps for <i>Human-GEM</i> are being created, and the MapViewer is faster when browsing these maps.' },
-          { date: 'November 2018',
-            text: 'Draft models of <i>Human-GEM</i> and <i>Yeast-GEM</i> have been integrated on the 23rd and 28th respectively.' },
-          { date: 'September 2018',
-            text: 'Development on Metabolic Atlas is coordinated by <a href="https://nbis.se/about/staff/mihail-anton" target="_blank">Mihail Anton</a> from <a href="https://nbis.se" target="blank">NBIS</a> in close collaboration with  <a href="https://www.sysbio.se">SysBio</a>, headed by <a href="https://www.sysbio.se/labs/nielsen" target="_new">Prof. Nielsen</a>.',
-            icon: 'thumb-tack' },
-        ],
-        2017: [
-          { date: 'September 2017',
-            text: 'The project is coordinated by <a href="https://www.sysbio.se/labs/nielsen" target="_new">Prof. Nielsen</a>.',
-            icon: 'thumb-tack' },
-        ],
-        2016: [
-          { date: 'September 2016',
-            text: 'The framework behind Metabolic Atlas is coordinated by Lena Hansson from <a href="https://nbis.se" target="blank">NBIS</a> in close collaboration with  <a href="https://www.sysbio.se">SysBio</a>, under the direction of <a href="https://www.sysbio.se/labs/nielsen" target="_new">Prof. Nielsen</a>.',
-            icon: 'thumb-tack' },
-          { date: 'March 2016',
-            text: 'Work on a new Atlas began in the GitHub repository, directed by <a href="https://www.sysbio.se/labs/nielsen" target="_new">Prof. Nielsen</a>.',
-            icon: 'thumb-tack' },
-        ],
-        2015: [
-          { date: 'July 2015',
-            text: 'A first Atlas focusing on human metabolism is made publicly available at <i>metabolicatlas.org</i>, with the associated publication <a href="https://academic.oup.com/database/article/doi/10.1093/database/bav068/2433201" target="_blank"><i>Human metabolic atlas: an online resource for human metabolism</i></a>.',
-            icon: 'archive' },
-
-        ],
-      },
       /* eslint-disable global-require */
       advisors: [
         {
           name: 'Prof. Jens Nielsen',
           img: require('../assets/pic-jens.jpg'),
-          url: 'https://www.sysbio.se/labs/nielsen/',
+          orcid: 'https://orcid.org/0000-0002-9955-6003',
+          linkedin: 'https://www.linkedin.com/in/jens-nielsen-57a207181/',
+          content: '<a href="https://bii.dk/team/jens-nielsen" target="_blank">CEO at BioInnovation Institute</a> and <a href="https://www.sysbio.se/labs/nielsen/" target="_blank">Prof. of Systems and Synthetic Biology at Chalmers University of Technology</a>',
         }, {
           name: 'Dr. Jonathan Robinson',
           img: require('../assets/pic-jon.jpg'),
-          url: 'https://nbis.se/about/staff/jonathan-robinson/',
+          orcid: 'https://orcid.org/0000-0001-8567-5960',
+          linkedin: 'https://www.linkedin.com/in/jonathanrob',
+          github: 'https://github.com/JonathanRob',
+          content: '<a href="https://bii.dk/team/jonathan-robinson" target="_blank">Scientific Data Developer at BioInnovation Institute</a>',
+        }, {
+          name: 'Dr. Hao Wang',
+          img: require('../assets/pic-hao.jpg'),
+          orcid: 'https://orcid.org/0000-0001-7475-0136',
+          linkedin: 'https://www.linkedin.com/in/hao-wang-9a66ba30',
+          github: 'https://github.com/Hao-Chalmers',
+          content: '<a href="https://github.com/Hao-Chalmers" target="_blank">Researcher at Chalmers University of Technology</a>',
+        }, {
+          name: 'Dr. Rui Benfeitas',
+          img: require('../assets/pic-rui.jpg'),
+          orcid: 'https://orcid.org/0000-0001-7972-0083',
+          linkedin: 'https://www.linkedin.com/in/ruibenfeitas/',
+          github: 'https://github.com/Benfeitas',
+          content: '<a href="https://www.benfeitas.net" target="_blank">Senior Bioinformatician at NBIS, SciLifeLab</a>',
         },
       ],
+      news,
     };
   },
 };
 </script>
 
-<style lang="scss">
-#advisors{
-  figure {
-    margin: 0 1rem 0 0;
-  }
-  .level-item {
-    justify-content: flex-start;
-    margin: 0 4rem 0 0;
-  }
-}
-</style>
+<style lang="scss"></style>

@@ -26,13 +26,13 @@
         <span v-show="showSearchCharAlert" class="has-text-info icon is-right" style="width: 270px">
           Type at least 2 characters
         </span>
-        <span id="clear-search-icon" class="icon is-medium is-right has-text-grey-dark" @click="handleClearSearch()">
+        <span id="clear-search-icon" class="icon is-medium is-right has-text-grey-dark is-clickable" @click="handleClearSearch()">
           <i class="fa fa-times-circle" />
         </span>
       </p>
     </div>
     <div v-show="showResults && searchTermString.length > 1" id="searchResults" ref="searchResults">
-      <div v-show="searchResults.length !== 0 && !showLoader"
+      <div v-show="!noResult && !showLoader"
            class="notification is-large is-unselectable has-text-centered is-clickable py-1 mb-1"
            @mousedown="globalSearch()">
         Limited to 50 results per type. Click here to search all integrated GEMs
@@ -68,13 +68,16 @@
         <a class="button is-primary is-inverted is-outlined is-large is-loading"></a>
       </div>
       <div v-show="!showLoader && noResult" class="has-text-centered notification m-0">
-        {{ messages.searchNoResult }}
+        <div> No matches found in {{ searchModel.short_name }} </div>
         <div v-if="notFoundSuggestions.length !== 0">
           Do you mean:&nbsp;
           <template v-for="v in notFoundSuggestions">
             <a :key="v" class="suggestions has-text-link" @click.prevent="searchDebounce(v)">{{ v }}</a>&nbsp;
           </template>?
         </div>
+        <button class="button is-primary is-rounded my-2" @click="globalSearch()">
+          Search all integrated GEMs
+        </button>
       </div>
     </div>
   </div>
@@ -83,7 +86,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex';
 import $ from 'jquery';
-import { default as messages } from '@/helpers/messages';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'GemSearch',
@@ -124,6 +127,11 @@ export default {
       return 'uracil, SULT1A3, ATP => cAMP + PPi, subsystem or compartment';
     },
   },
+  watch: {
+    model(m) {
+      this.searchModel = m;
+    },
+  },
   async created() {
     await this.getIntegratedModelList();
   },
@@ -138,7 +146,6 @@ export default {
         this.$router.replace({ params: { model: modelKey } });
       }
       this.$store.dispatch('models/selectModel', modelKey);
-      this.searchModel = this.models[modelKey];
     },
     async handleModelChange(e) {
       e.preventDefault();
@@ -257,7 +264,6 @@ export default {
   }
 
   #clear-search-icon {
-    cursor: pointer;
     pointer-events: auto;
   }
 
