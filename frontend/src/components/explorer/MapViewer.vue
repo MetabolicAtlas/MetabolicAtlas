@@ -218,7 +218,7 @@ export default {
         for (let i = 0; i < categories.length; i += 1) {
           for (let j = 0; j < items[i].length; j += 1) {
             const item = items[i][j];
-            if (this.showing2D) {
+            if (this.showing2D && item.svgs.length > 0) {
               for (let k = 0; k < item.svgs.length; k += 1) {
                 if (item.svgs[k].id === id) {
                   this.currentMap = { ...item };
@@ -235,9 +235,11 @@ export default {
               this.currentMap = item;
               this.currentMap.type = categories[i].slice(0, -1);
               this.mapNotFound = false;
-              this.currentMap.mapReactionIdSet = item.svgs;
-              this.setMapReactionList();
-              this.setMissingReactionList();
+              if (item.svgs.length > 0) {
+                this.currentMap.mapReactionIdSet = item.svgs;
+                this.setMapReactionList();
+                this.setMissingReactionList();
+              }
               return;
             }
             this.mapNotFound = true;
