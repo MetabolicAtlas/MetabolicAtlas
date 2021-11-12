@@ -157,6 +157,7 @@ export default {
         this.searchModel = this.models[modelKey];
         await this.searchDebounce(this.searchTermString);
       }
+      this.$store.dispatch('models/selectModel', modelKey);
     },
     async searchDebounce(searchTerm) {
       this.noResult = false;
