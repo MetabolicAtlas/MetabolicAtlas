@@ -56,7 +56,7 @@
                 {{ rr.id }}
               </router-link>:&nbsp;
               <span v-html="reformatChemicalReactionHTML(
-                {reaction: rr, noLink : true, model : model.short_name, comp : true})"/>
+                {reaction: rr, noLink : true, model : model.short_name, comp : true})" />
             </p>
           </td>
         </tr>
