@@ -1,3 +1,5 @@
+import chemicalFormula from '@/helpers/chemical-formatters';
+
 export const buildCustomLink = ({ model, type, id, title, cssClass }) => `<a href="/explore/${model}/gem-browser/${type}/${id}" class="custom-router-link ${cssClass || ''}">${title}</a>`;
 
 export function capitalize(value) {
@@ -83,9 +85,9 @@ export function reformatChemicalReactionHTML({ reaction, model, noLink = false, 
   const addComp = comp || reaction.compartment_str.includes('=>');
   const type = 'metabolite';
   const stoichiometry = x => (Math.abs(x.stoichiometry) !== 1 ? `${x.stoichiometry} ` : '');
-  // superscript + and - at the end of names
-  const supName = ({ name }) => (html ? name.replace(/([-+])$/, '<sup>$1</sup>') : name);
-  const getComponentName = x => (noLink ? supName(x) : buildCustomLink({ model, type, id: x.id, cssClass: x.id === sourceMet ? 'cms' : undefined, title: supName(x) }));
+  // use super- and subscript for charge and number of atoms, if in html mode
+  const chemName = ({ name, charge }) => (html ? chemicalFormula(name.replace(/([-+])$/, ''), charge) : name);
+  const getComponentName = x => (noLink ? chemName(x) : buildCustomLink({ model, type, id: x.id, cssClass: x.id === sourceMet ? 'cms' : undefined, title: chemName(x) }));
 
   function formatReactionElement(x) {
     if (!addComp) {
