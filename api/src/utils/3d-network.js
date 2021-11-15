@@ -23,15 +23,9 @@ module.exports = ({ nodes, links }) => {
   let iterations = MAX_ITERATIONS;
   const elementsCount = nodes.length + links.length;
   if (elementsCount > 50000) {
-    // From benchmarks, it takes about 60s to run 300 iterations
-    // for a network of around 60000 elements (nodes + links) 
-    // so the iterations is capped at 200 for optimal speed
-    iterations = 200;
+    iterations = 100;
   } else if (elementsCount > 12000) {
-    // From benchmarks, it takes about 25s and 800 iterations
-    // to stabilize a network of around 11000 elements (nodes + links) 
-    // so the iterations is capped at 800 for optimal quality
-    iterations = 800;
+    iterations = 200;
   }
 
   for (let i = 1; i <= iterations; ++i) {
