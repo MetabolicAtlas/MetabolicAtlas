@@ -86,7 +86,7 @@ export function reformatChemicalReactionHTML({ reaction, model, noLink = false, 
   const type = 'metabolite';
   const stoichiometry = x => (Math.abs(x.stoichiometry) !== 1 ? `${x.stoichiometry} ` : '');
   // use super- and subscript for charge and number of atoms, if in html mode
-  const chemName = ({ name, charge }) => (html ? chemicalFormula(name.replace(/([-+])$/, ''), charge) : name);
+  const chemName = ({ name }) => (html ? chemicalFormula(name, null) : name);
   const getComponentName = x => (noLink ? chemName(x) : buildCustomLink({ model, type, id: x.id, cssClass: x.id === sourceMet ? 'cms' : undefined, title: chemName(x) }));
 
   function formatReactionElement(x) {
