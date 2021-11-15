@@ -1,10 +1,10 @@
-import createGraph from 'ngraph.graph';
-import createLayout from 'ngraph.forcelayout';
+const createGraph = require('ngraph.graph');
+const createLayout = require('ngraph.forcelayout');
 
 const SCALE = 5;
 const MAX_ITERATIONS = 1000;
 
-const populateWithLayout = ({ nodes, links }) => {
+module.exports = ({ nodes, links }) => {
   const g = createGraph();
 
   for (let node of nodes) {
@@ -64,5 +64,3 @@ const populateWithLayout = ({ nodes, links }) => {
     links,
   };
 };
-
-export default populateWithLayout;
