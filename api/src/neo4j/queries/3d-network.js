@@ -43,7 +43,7 @@ CALL apoc.cypher.run('
   UNION
   
   MATCH ${sf}(r:Reaction${m})-[cmE${v}]-(cm:CompartmentalizedMetabolite)${cfe}
-  USING JOIN on r
+  USING JOIN on ${sf === '' ? 'cm' : 'r'}
   MATCH (cm)-[${v}]-(:Metabolite)-[${v}]-(ms:MetaboliteState)
   RETURN {
     nodes: COLLECT(DISTINCT { g: "m", id: cm.id, n: ms.name }),
