@@ -304,7 +304,7 @@ export default {
       }
 
       .color-ip {
-        color: #A15786;
+        color: $icon-interaction-partner;
       }
     }
   }
