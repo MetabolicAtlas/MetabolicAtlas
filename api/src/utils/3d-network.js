@@ -1,10 +1,16 @@
-import createGraph from 'ngraph.graph';
-import createLayout from 'ngraph.forcelayout';
+// This file uses `require` and `module.exports` as opposed to
+// the import/export instances that are used elsewhere.
+// The reason for this is that it intended to be used in a worker 
+// thread (`/api/src/workers/3d-network.js`) so it needs to used 
+// the syntax that is default to node.js
+
+const createGraph = require('ngraph.graph');
+const createLayout = require('ngraph.forcelayout');
 
 const SCALE = 5;
 const MAX_ITERATIONS = 1000;
 
-const populateWithLayout = ({ nodes, links }) => {
+module.exports = ({ nodes, links }) => {
   const g = createGraph();
 
   for (let node of nodes) {
@@ -23,15 +29,9 @@ const populateWithLayout = ({ nodes, links }) => {
   let iterations = MAX_ITERATIONS;
   const elementsCount = nodes.length + links.length;
   if (elementsCount > 50000) {
-    // From benchmarks, it takes about 60s to run 300 iterations
-    // for a network of around 60000 elements (nodes + links) 
-    // so the iterations is capped at 200 for optimal speed
-    iterations = 200;
+    iterations = 100;
   } else if (elementsCount > 12000) {
-    // From benchmarks, it takes about 25s and 800 iterations
-    // to stabilize a network of around 11000 elements (nodes + links) 
-    // so the iterations is capped at 800 for optimal quality
-    iterations = 800;
+    iterations = 200;
   }
 
   for (let i = 1; i <= iterations; ++i) {
@@ -64,5 +64,3 @@ const populateWithLayout = ({ nodes, links }) => {
     links,
   };
 };
-
-export default populateWithLayout;
