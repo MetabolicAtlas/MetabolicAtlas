@@ -41,7 +41,7 @@
         <template v-for="type in resultsOrder">
           <div v-for="(r, i2) in searchResults[type]" :key="`${r.id}-${i2}`" class="searchResultSection px-1 py-0">
             <hr v-if="i2 !== 0" class="m-0">
-            <div py-2>
+            <div class="is-clickable">
               <span v-if="type === 'metabolite' || type === 'gene'" class="pr-1">
                 <span class="color-gb is-clickable" @mousedown="handleClickResult(type, r)">
                   <span class="icon is-medium is-left" title="Gem Browser"><i class="fa fa-table" /></span>
@@ -292,11 +292,16 @@ export default {
 
     .searchResultSection {
       > div {
-        display: block;
+        display: flex;
         padding: 7px 0px;
+        align-items: center;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+
+        > span:last-child {
+          flex-grow: 1;
+        }
       }
 
       .color-gb {
