@@ -1,3 +1,9 @@
+// This file uses `require` and `module.exports` as opposed to
+// the import/export instances that are used elsewhere.
+// The reason for this is that it intended to be used in a worker 
+// thread (`/api/src/workers/3d-network.js`) so it needs to used 
+// the syntax that is default to node.js
+
 const createGraph = require('ngraph.graph');
 const createLayout = require('ngraph.forcelayout');
 

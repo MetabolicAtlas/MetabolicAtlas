@@ -1,5 +1,10 @@
 import { Worker } from 'worker_threads'
 
+// The purpose of this worker is to wrap a potentially long running
+// process of generating 3D networks in a new thread so it does not
+// block the main thread, which is responsible for accepting other
+// requests and should ideally respond as quickly as possible.
+
 export default (workerData) => new Promise((resolve, reject) => {
   const worker = new Worker(`
     const { parentPort } = require('worker_threads');
