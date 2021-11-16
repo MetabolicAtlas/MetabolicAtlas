@@ -23,7 +23,7 @@ WITH v.component as component
 MATCH (${m} {id: component.id})-[${v}]-(r:Reaction)
 WITH component, collect(r) as reactions
 
-CALL apoc.cypher.mapParallel("
+CALL apoc.cypher.mapParallel2("
  WITH (_) as reaction
  MATCH (reaction)-[${v}]-(cm:CompartmentalizedMetabolite)
  WITH DISTINCT cm as compm, reaction
@@ -40,7 +40,7 @@ CALL apoc.cypher.mapParallel("
  MATCH (reaction)-[cmE${v}]-(cm:CompartmentalizedMetabolite)
  WITH DISTINCT cm, cmE, reaction, compartments, subsystem, genes
  MATCH (c:Compartment)-[${v}]-(cm)-[${v}]-(:Metabolite)-[${v}]-(ms:MetaboliteState)
- RETURN {id: reaction.id, subsystem: subsystem, compartments: compartments, genes: genes, metabolites: COLLECT(DISTINCT({id: cm.id, name: ms.name,  compartmentId: c.id, outgoing: startnode(cmE)=cm})) } as data", {}, reactions) YIELD value
+ RETURN {id: reaction.id, subsystem: subsystem, compartments: compartments, genes: genes, metabolites: COLLECT(DISTINCT({id: cm.id, name: ms.name,  compartmentId: c.id, outgoing: startnode(cmE)=cm})) } as data", {}, reactions, 50) YIELD value
 
 WITH apoc.map.mergeList(apoc.coll.flatten(
   apoc.map.values(apoc.map.groupByMulti(COLLECT(value.data), "id"), [value.data.id])
