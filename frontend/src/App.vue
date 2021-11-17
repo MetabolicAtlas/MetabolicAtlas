@@ -451,4 +451,8 @@ span.sc {
   hyphens: auto;
 }
 
+.has-text-icon-interaction-partner {
+  color: $icon-interaction-partner;
+}
+
 </style>
