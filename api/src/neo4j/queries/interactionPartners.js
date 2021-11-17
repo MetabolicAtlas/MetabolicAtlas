@@ -29,13 +29,13 @@ CALL apoc.cypher.mapParallel2("
  WITH DISTINCT cm as compm, reaction
  MATCH (compm)-[${v}]-(c:Compartment)-[${v}]-(cs:CompartmentState)
  WITH COLLECT(DISTINCT({ id: c.id, name: cs.name })) as compartments, reaction
- MATCH (reaction)-[${v}]-(s:Subsystem)
+ OPTIONAL MATCH (reaction)-[${v}]-(s:Subsystem)
  WITH DISTINCT s as subs, reaction, compartments
- MATCH(subs)-[${v}]-(ss:SubsystemState)
+ OPTIONAL MATCH(subs)-[${v}]-(ss:SubsystemState)
  WITH reaction,compartments, COLLECT(ss.name) as subsystem
- optional MATCH (reaction)-[${v}]-(g:Gene)
+ OPTIONAL MATCH (reaction)-[${v}]-(g:Gene)
  WITH DISTINCT (g) as gen, reaction, compartments, subsystem
- optional MATCH (gen)-[${v}]-(gs:GeneState)
+ OPTIONAL MATCH (gen)-[${v}]-(gs:GeneState)
  WITH reaction, compartments, subsystem, COLLECT(DISTINCT(gs {id: gen.id, .*})) as genes
  MATCH (reaction)-[cmE${v}]-(cm:CompartmentalizedMetabolite)
  WITH DISTINCT cm, cmE, reaction, compartments, subsystem, genes
@@ -45,7 +45,7 @@ CALL apoc.cypher.mapParallel2("
 WITH apoc.map.mergeList(apoc.coll.flatten(
   apoc.map.values(apoc.map.groupByMulti(COLLECT(value.data), "id"), [value.data.id])
 )) as reaction, component
-RETURN { component: component, reactions: COLLECT(reaction), type: 'parallel'}
+RETURN { component: component, reactions: COLLECT(reaction)}
 `;
   return querySingleResult(statement);
 };
