@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4 class="subtitle is-4">External databases</h4>
+    <h4 class="subtitle is-4">Cross references</h4>
     <template v-if="externalDbs && Object.keys(externalDbs).length !== 0">
       <table id="ed-table" class="table is-fullwidth">
         <template v-for="k in extDbListOrdered">
@@ -17,7 +17,7 @@
       </table>
     </template>
     <template v-else>
-      <span>This {{ type }} has no associations with external databases</span>
+      <span>This {{ type }} has no cross references to other models or databases</span>
     </template>
   </div>
 </template>

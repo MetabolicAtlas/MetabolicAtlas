@@ -60,8 +60,8 @@
 </template>
 
 <script>
-import { getSimpleEquation } from '@/helpers/utils';
 import { mapState } from 'vuex';
+import { getSimpleEquation } from '@/helpers/utils';
 
 export default {
   name: 'Tile',

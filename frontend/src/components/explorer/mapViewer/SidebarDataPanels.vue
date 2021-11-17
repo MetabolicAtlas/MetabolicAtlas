@@ -7,7 +7,7 @@
           <i>{{ currentMap.name }}</i>
         </p>
       </header>
-      <div v-if="dim==='2d' && currentMap.reactionList && missingReactionList.length > 0"
+      <div v-if="dim==='2d' && missingReactionList && missingReactionList.length > 0"
            class="card-content p-4">
         <template v-if="currentMap.mapReactionIdSet.length == 1">
           Please note that {{ missingReactionList.length }}
@@ -99,7 +99,9 @@
               <template v-else-if="item.name === 'equation'">
                 <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
                 <p><span class="has-text-weight-bold" v-html="capitalize(item.display || item.name) + ':'"></span><br>
-                  <span v-html="reformatChemicalReactionHTML(selectionData.data, false, model.short_name)"></span>
+                  <span v-html="reformatChemicalReactionHTML(
+                    { reaction: selectionData.data, model: model.short_name })">
+                  </span>
                 </p>
               </template>
               <template v-else-if="item.name === 'formula'">

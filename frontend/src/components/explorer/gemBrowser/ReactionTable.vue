@@ -5,9 +5,7 @@
     </div>
     <div v-else class="column table-template">
       <h4 class="subtitle is-4">Reactions</h4>
-      <div v-if="errorMessage" class="notification is-danger">
-        {{ errorMessage }}
-      </div>
+      <div v-if="errorMessage" class="notification is-danger" v-html="errorMessage" />
       <p v-if="relatedMetCount" class="control field">
         <button class="button" @click="toggleExpandAllCompartment">
           {{ !expandAllCompartment ? "See reactions from all compartments" : "Restrict to current compartment" }}
@@ -47,7 +45,9 @@
                   {{ r.id }}
                 </a>
               </td>
-              <td v-html="reformatChemicalReactionHTML(r, false, model.short_name, selectedElmId)"></td>
+              <td v-html="
+                reformatChemicalReactionHTML({ reaction: r, model: model.short_name, sourceMet: selectedElmId,
+                                               comp: true })" />
               <td>
                 <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key max-len -->
                 <template v-for="(m, index) in r.genes">{{ index == 0 ? '' : ', ' }}<a :class="{'cms' : sourceName === m.name }" :href="`/explore/${model.short_name}/gem-browser/gene/${m.id}`" @click="handleRouterClick">{{ m.name || m.id }}</a>
@@ -84,7 +84,7 @@ import { mapState } from 'vuex';
 import Loader from '@/components/Loader';
 import { default as compare } from '@/helpers/compare';
 import ExportTSV from '@/components/shared/ExportTSV';
-import { idfy, reformatChemicalReactionHTML, getChemicalReaction } from '@/helpers/utils';
+import { idfy, reformatChemicalReactionHTML } from '@/helpers/utils';
 
 export default {
   name: 'ReactionTable',
@@ -218,7 +218,10 @@ export default {
       tsvContent += this.sortedReactions.map((r) => {
         const arr = [];
         arr.push(r.id);
-        arr.push(getChemicalReaction(r));
+
+        arr.push(
+          reformatChemicalReactionHTML({ reaction: r, noLink: true, model: undefined, comp: true, html: false })
+        );
         arr.push(r.genes.map(g => g.name || g.id).join('; '));
         if (this.showCP) {
           arr.push(r.cp);

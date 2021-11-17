@@ -1,22 +1,21 @@
 import cytoscape from 'cytoscape';
 
+
+const ALLOWED_TYPES = ['gene', 'metabolite'];
+
 export default function (
   componentID, elms, rels, nodeDisplayParams, reactionHL, compartmentHL, subsystemHL) {
   const elmsjson = [];
-  const enzExpSource = nodeDisplayParams.geneExpSource;
-  const enzExpType = nodeDisplayParams.geneExpType;
-  const enzSample = nodeDisplayParams.geneExpSample;
+  const { expSource, expType, expSample } = nodeDisplayParams;
   /* eslint-disable no-param-reassign */
   Object.values(elms).forEach((elm) => {
-    if (elm.type === 'gene') {
+    if (ALLOWED_TYPES.includes(elm.type)) {
       if (!elm.expressionLvl) {
         elm.expressionLvl = {};
         elm.expressionLvl.false = {};
         elm.expressionLvl.false.false = {};
-        elm.expressionLvl.false.false.false = nodeDisplayParams.geneNodeColor.hex;
-      } else {
-        elm.expressionLvl.false.false.false = nodeDisplayParams.geneNodeColor.hex;
       }
+      elm.expressionLvl.false.false.false = nodeDisplayParams[`${elm.type}NodeColor`].hex;
       elmsjson.push({
         group: 'nodes',
         data: {
@@ -58,6 +57,7 @@ export default function (
     });
   });
 
+  const geneColor = nodeDisplayParams.geneNodeColor.hex;
   const metaboliteColor = nodeDisplayParams.metaboliteNodeColor.hex;
   const textColor = '#363636';
   const textColorHL = '#CC3636';
@@ -91,7 +91,15 @@ export default function (
     .selector('node[type="metabolite"]')
     .css({
       shape: nodeDisplayParams.metaboliteNodeShape,
-      'background-color': metaboliteColor,
+      'background-color': function f(e) {
+        if (!e.data('color')[expSource]) {
+          return metaboliteColor;
+        }
+        if (e.data('color')[expSource][expType][expSample]) {
+          return e.data('color')[expSource][expType][expSample];
+        }
+        return metaboliteColor;
+      },
       width: 15,
       height: 15,
       color: function f(e) {
@@ -120,13 +128,13 @@ export default function (
     .css({
       shape: nodeDisplayParams.geneNodeShape,
       'background-color': function f(e) {
-        if (!e.data('color')[enzExpSource]) {
-          return 'whitesmoke';
+        if (!e.data('color')[expSource]) {
+          return geneColor;
         }
-        if (e.data('color')[enzExpSource][enzExpType][enzSample]) {
-          return e.data('color')[enzExpSource][enzExpType][enzSample];
+        if (e.data('color')[expSource][expType][expSample]) {
+          return e.data('color')[expSource][expType][expSample];
         }
-        return 'whitesmoke';
+        return geneColor;
       },
       width: 20,
       height: 20,

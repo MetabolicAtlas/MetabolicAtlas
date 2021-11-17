@@ -55,9 +55,8 @@
               <router-link :to="{ name: 'reaction', params: { model: model.short_name, id: rr.id } }">
                 {{ rr.id }}
               </router-link>:&nbsp;
-              <span v-html="reformatChemicalReactionHTML(rr, true, model.short_name)"></span>:
-              (<span v-html="equationSign(rr.reversible)">
-              </span>)
+              <span v-html="reformatChemicalReactionHTML(
+                {reaction: rr, noLink : true, model : model.short_name, comp : true})"></span>
             </span>
           </td>
         </tr>
@@ -106,7 +105,7 @@ export default {
     }
 
     const title = `${this.reaction.id}, Reaction in ${this.model.short_name}`;
-    const description = `The reaction ${this.reaction.id} in ${this.model.short_name} (version ${this.model.version}) can be found in the ${this.reaction.compartments.[0].name} compartment and the ${this.reaction.subsystems[0].name} subsystem.`;
+    const description = `The reaction ${this.reaction.id} in ${this.model.short_name} (version ${this.model.version}) can be found in the ${this.reaction.compartments[0].name} compartment and the ${this.reaction.subsystems[0].name} subsystem.`;
 
     return {
       title,
@@ -122,7 +121,10 @@ export default {
         this.$store.dispatch('reactions/clearRelatedReactions');
       }
     },
-    reformatEquation() { return reformatChemicalReactionHTML(this.reaction, false, this.model.short_name); },
+    reformatEquation() {
+      return reformatChemicalReactionHTML({ reaction: this.reaction, model: this.model.short_name, comp: true });
+    },
+
     reformatGenes() {
       if (!this.reaction.geneRule) {
         return '-';

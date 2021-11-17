@@ -48,5 +48,15 @@ RETURN apoc.map.mergeList(COLLECT(value.data)) as metabolite
   return { ...metabolite, compartmentSVGs: reformatCompartmentSVGs(metabolite), subsystemSVGs: reformatSubsystemSVGs(metabolite), externalDbs: reformatExternalDbs(metabolite.externalDbs) };
 };
 
+const getMetaboliteCount = async (model, version) => {
+  const [m, v] = parseParams(model, version);
 
-export default getMetabolite;
+  const statement = `
+MATCH (cm:CompartmentalizedMetabolite${m})-[${v}]-()
+RETURN {metabolite_count: COUNT(DISTINCT(cm))}
+`;
+  const { metabolite_count } = await querySingleResult(statement);
+  return metabolite_count;
+};
+
+export { getMetabolite, getMetaboliteCount };

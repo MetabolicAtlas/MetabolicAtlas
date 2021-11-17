@@ -5,7 +5,7 @@
              :class="searchInputClass"
              title="Exact search by id, name, alias. Press Enter for results" class="input"
              placeholder="Exact search by id, name, alias"
-             :disabled="loading"
+             :disabled="loading || (showing2D && !svgMap)"
              :value="searchTerm"
              type="text" @input="e => handleChange(e.target.value)"
              @keyup.enter="e => search(e.target.value)" />
@@ -61,6 +61,8 @@ export default {
       searchTerm: state => state.maps.searchTerm,
       idsFound: state => state.maps.idsFound,
       loading: state => state.maps.loading,
+      svgMap: state => state.maps.svgMap,
+      showing2D: state => state.maps.showing2D,
     }),
   },
   watch: {
