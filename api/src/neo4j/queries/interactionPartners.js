@@ -21,41 +21,32 @@ YIELD value as v
 
 WITH v.component as component
 MATCH (${m} {id: component.id})-[${v}]-(r:Reaction)
+WITH component, collect(r) as reactions
 
-CALL apoc.cypher.run("
-  MATCH (:Reaction${m} {id: $rid})-[${v}]-(cm:CompartmentalizedMetabolite)
-  WITH DISTINCT cm
-  MATCH (cm)-[${v}]-(c:Compartment)-[${v}]-(cs:CompartmentState)
-  RETURN { id: $rid, compartments: COLLECT(DISTINCT({ id: c.id, name: cs.name })) } as data
- 
-  UNION
- 
-  MATCH (:Reaction${m} {id: $rid})-[${v}]-(s:Subsystem)
-  WITH DISTINCT s
-  MATCH(s)-[${v}]-(ss:SubsystemState)
-  RETURN { id: $rid, subsystem: COLLECT(ss.name) } as data
- 
-  UNION
- 
-  MATCH (:Reaction${m} {id: $rid})-[${v}]-(g:Gene)
-  WITH DISTINCT (g)
-  MATCH (g)-[${v}]-(gs:GeneState)
-  RETURN { id: $rid, genes: COLLECT(DISTINCT(gs {id: g.id, .*})) } as data
- 
-  UNION
- 
-  MATCH (:Reaction${m} {id: $rid})-[cmE${v}]-(cm:CompartmentalizedMetabolite)
-  WITH DISTINCT cm, cmE
-  MATCH (c:Compartment)-[${v}]-(cm)-[${v}]-(:Metabolite)-[${v}]-(ms:MetaboliteState)
-  RETURN { id: $rid, metabolites: COLLECT(DISTINCT({id: cm.id, name: ms.name,  compartmentId: c.id, outgoing: startnode(cmE)=cm})) } as data
+CALL apoc.cypher.mapParallel2("
+ WITH (_) as reaction
+ MATCH (reaction)-[${v}]-(cm:CompartmentalizedMetabolite)
+ WITH DISTINCT cm as compm, reaction
+ MATCH (compm)-[${v}]-(c:Compartment)-[${v}]-(cs:CompartmentState)
+ WITH COLLECT(DISTINCT({ id: c.id, name: cs.name })) as compartments, reaction
+ OPTIONAL MATCH (reaction)-[${v}]-(s:Subsystem)
+ WITH DISTINCT s as subs, reaction, compartments
+ OPTIONAL MATCH(subs)-[${v}]-(ss:SubsystemState)
+ WITH reaction,compartments, COLLECT(ss.name) as subsystem
+ OPTIONAL MATCH (reaction)-[${v}]-(g:Gene)
+ WITH DISTINCT (g) as gen, reaction, compartments, subsystem
+ OPTIONAL MATCH (gen)-[${v}]-(gs:GeneState)
+ WITH reaction, compartments, subsystem, COLLECT(DISTINCT(gs {id: gen.id, .*})) as genes
+ MATCH (reaction)-[cmE${v}]-(cm:CompartmentalizedMetabolite)
+ WITH DISTINCT cm, cmE, reaction, compartments, subsystem, genes
+ MATCH (c:Compartment)-[${v}]-(cm)-[${v}]-(:Metabolite)-[${v}]-(ms:MetaboliteState)
+ RETURN {id: reaction.id, subsystem: subsystem, compartments: compartments, genes: genes, metabolites: COLLECT(DISTINCT({id: cm.id, name: ms.name,  compartmentId: c.id, outgoing: startnode(cmE)=cm})) } as data", {}, reactions, 50) YIELD value
 
-", {rid:r.id}) yield value
 WITH apoc.map.mergeList(apoc.coll.flatten(
-    apoc.map.values(apoc.map.groupByMulti(COLLECT(value.data), "id"), [value.data.id])
+  apoc.map.values(apoc.map.groupByMulti(COLLECT(value.data), "id"), [value.data.id])
 )) as reaction, component
-RETURN { component: component, reactions: COLLECT(reaction) }
+RETURN { component: component, reactions: COLLECT(reaction)}
 `;
-
   return querySingleResult(statement);
 };
 
