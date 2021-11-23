@@ -1,4 +1,4 @@
-FROM node:lts-alpine AS frontend
+FROM node:14-alpine AS frontend
 WORKDIR /project
 COPY frontend .
 RUN yarn && yarn build
