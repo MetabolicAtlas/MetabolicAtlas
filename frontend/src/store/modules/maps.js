@@ -21,6 +21,7 @@ const data = {
     nodes: [],
     links: [],
   },
+  avail2D: true,
   showing2D: true,
   dataOverlayPanelVisible: false,
   coords: {
@@ -52,9 +53,15 @@ const getters = {
 };
 
 const actions = {
+
   async getMapsListing({ commit }, model) {
     const payload = { model: model.apiName, version: model.apiVersion };
     const mapsListing = await mapsApi.fetchMapsListing(payload);
+    let avail2D = false;
+    Object.keys(mapsListing).forEach((cat) => {
+      avail2D = mapsListing[cat].some(x => x.svgs.length === 1) || avail2D;
+    });
+    commit('setAvail2D', avail2D);
     commit('setMapsListing', mapsListing);
   },
 
@@ -203,6 +210,13 @@ const actions = {
 };
 
 const mutations = {
+  setAvail2D: (state, available) => {
+    if (!available) {
+      state.showing2D = false;
+    }
+    state.avail2D = available;
+  },
+
   setAvailableMaps: (state, maps) => {
     state.availableMaps = maps;
   },
@@ -228,7 +242,7 @@ const mutations = {
   },
 
   setShowing2D: (state, showing2D) => {
-    state.showing2D = showing2D;
+    state.showing2D = showing2D && state.avail2D;
   },
 
   setDataOverlayPanelVisible: (state, dataOverlayPanelVisible) => {

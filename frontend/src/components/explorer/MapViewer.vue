@@ -149,6 +149,7 @@ export default {
       showing2D: state => state.maps.showing2D,
       dataOverlayPanelVisible: state => state.maps.dataOverlayPanelVisible,
       mapsListing: state => state.maps.mapsListing,
+      avail2D: state => state.maps.avail2D,
     }),
     ...mapGetters({
       mapQueryParams: 'maps/queryParams',
