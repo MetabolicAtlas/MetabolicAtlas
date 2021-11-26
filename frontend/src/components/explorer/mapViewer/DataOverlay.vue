@@ -34,37 +34,41 @@
     <div class="card my-3">
       <div class="card-content py-2 p-3">
         <div class="has-text-centered title is-size-6">Data</div>
-        <div v-if="Object.keys(dataSourcesIndex).length > 0" class="control">
-          <p>Select data type</p>
-          <div v-if="dataType" class="select is-fullwidth">
-            <select @change="handleDataTypeSelect">
-              <option v-for="type in Object.keys(dataSourcesIndex)" :key="type"
-                      :selected="type === dataType.name"
-                      :value="type"
-                      class="is-clickable is-capitalized">{{ type }}</option>
-            </select>
+        <div v-if="modelHasOverlayData()">
+          <div class="control">
+            <p>Select data type</p>
+            <div v-if="dataType" class="select is-fullwidth">
+              <select @change="handleDataTypeSelect">
+                <option v-for="type in Object.keys(dataSourcesIndex)" :key="type"
+                        :selected="type === dataType.name"
+                        :value="type"
+                        class="is-clickable is-capitalized">{{ type }}</option>
+              </select>
+            </div>
           </div>
-        </div>
-        <div v-if="Object.keys(dataSourcesIndex).length > 0" class="control">
-          <p>Select data source</p>
-          <div v-if="dataType" class="select is-fullwidth">
-            <select @change="handleDataSourceSelect">
-              <option v-for="s in dataSourcesIndex[dataType.name]" :key="s.filename"
-                      :selected="dataSource && s.filename === dataSource.filename"
-                      :value="s.filename"
-                      class="is-clickable is-capitalized">{{ s.name }}</option>
-            </select>
+          <div class="control">
+            <p>Select data source</p>
+            <div v-if="dataType" class="select is-fullwidth">
+              <select @change="handleDataSourceSelect">
+                <option v-for="s in dataSourcesIndex[dataType.name]" :key="s.filename"
+                        :selected="dataSource && s.filename === dataSource.filename"
+                        :value="s.filename"
+                        class="is-clickable is-capitalized">{{ s.name }}</option>
+              </select>
+            </div>
           </div>
-        </div>
-        <div v-if="dataSource" class="control">
-          <p>Levels from <a :href="dataSource.link" target="_blank">{{ dataSource.name }}</a></p>
-          <div class="select is-fullwidth">
-            <select :disabled="levelsDisabled" @change="(e) => setDataSet(e.target.value)">
-              <option>None</option>
-              <option v-for="t in dataSource.dataSets" :key="t"
-                      :selected="t === dataSet"
-                      class="is-clickable is-capitalized">{{ t }}</option>
-            </select>
+          <div class="control">
+            <div v-if="dataSource" class="control">
+              <p>Levels from <a :href="dataSource.link" target="_blank">{{ dataSource.name }}</a></p>
+              <div class="select is-fullwidth">
+                <select :disabled="levelsDisabled" @change="(e) => setDataSet(e.target.value)">
+                  <option>None</option>
+                  <option v-for="t in dataSource.dataSets" :key="t"
+                          :selected="t === dataSet"
+                          class="is-clickable is-capitalized">{{ t }}</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
         <template v-if="customDataSource">
@@ -223,6 +227,9 @@ export default {
           .map(e => e.filename)
           .indexOf(this.$route.query.datasource) > -1
       );
+    },
+    modelHasOverlayData() {
+      return Object.keys(this.dataSourcesIndex).length > 0;
     },
     validDataSourceDataSetInQuery() {
       return (
