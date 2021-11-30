@@ -58,9 +58,13 @@ const actions = {
     const payload = { model: model.apiName, version: model.apiVersion };
     const mapsListing = await mapsApi.fetchMapsListing(payload);
     let avail2D = false;
-    Object.keys(mapsListing).forEach((cat) => {
-      avail2D = mapsListing[cat].some(x => x.svgs.length === 1) || avail2D;
-    });
+    // eslint-disable-next-line
+    for (const { svgs } of Object.values(mapsListing).flat()) {
+      if (svgs.length > 0) {
+        avail2D = true;
+        break;
+      }
+    }
     commit('setAvail2D', avail2D);
     commit('setMapsListing', mapsListing);
   },
