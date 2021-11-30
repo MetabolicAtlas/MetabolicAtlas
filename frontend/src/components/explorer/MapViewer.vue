@@ -59,7 +59,8 @@
             <a @click="showingMapListing = true">Show the map list and choose a compartment or subsystem map</a>
           </p>
         </div>
-        <div v-else class="column is-unselectable om-1 fixed-height-desktop fixed-height-mobile p-0 m-0">
+        <div v-else id="mapWrapper"
+             class="column is-unselectable om-1 fixed-height-desktop fixed-height-mobile p-0 m-0">
           <Svgmap v-if="showing2D"
                   :map-data="currentMap"
                   @unSelect="unSelect" @updatePanelSelectionData="updatePanelSelectionData">
@@ -302,6 +303,9 @@ export default {
         }
       }
     }
+  }
+  #mapWrapper {
+    z-index: 5;
   }
 
   .padding-mobile {
