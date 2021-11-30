@@ -59,12 +59,16 @@ const actions = {
     const mapsListing = await mapsApi.fetchMapsListing(payload);
     let avail2D = false;
     // eslint-disable-next-line
-    for (const { svgs } of Object.values(mapsListing).flat()) {
-      if (svgs.length > 0) {
-        avail2D = true;
-        break;
-      }
-    }
+    // avail2D = ! Object.values(mapsListing).flat().every(function(map) {return map.svgs.length === 0});
+    // eslint-disable-next-line
+    console.log(Object.values(mapsListing).flat());
+    avail2D = !Object.values(mapsListing).flat().every(m => m.svgs.length);
+    // for (const { svgs } of Object.values(mapsListing).flat()) {
+    //   if (svgs.length > 0) {
+    //     avail2D = true;
+    //     break;
+    //   }
+    // }
     commit('setAvail2D', avail2D);
     commit('setMapsListing', mapsListing);
   },
