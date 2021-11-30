@@ -8,7 +8,9 @@
   "scripts": {
     "serve": "vue-cli-service serve --mode local",
     "build": "vue-cli-service build --mode production",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "prepare": "cd .. && husky install frontend/.husky",
+    "pre-commit": "lint-staged"
   },
   "dependencies": {
     "nprogress": "0.2.0",
@@ -41,10 +43,15 @@
     "compression-webpack-plugin": "^3.0.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "husky": ">=6",
+    "lint-staged": ">=10",
     "node-sass": "^4.9.0",
     "prettier": "^2.5.1",
     "sass-loader": "^7.1.0",
     "vue-cli-plugin-webpack-bundle-analyzer": "^1.4.0",
     "vue-template-compiler": "^2.6.10"
+  },
+  "lint-staged": {
+    "*.{js,css,md,vue}": "prettier --write"
   }
 }
