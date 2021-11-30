@@ -19,7 +19,7 @@
              v-on="sidebarLayoutReset ? { scroll: () => handleSidebarScroll() } : {}">
           <div id="mapSidebar__header" class="has-background-lightgray pt-3">
             <div class="buttons has-addons is-centered padding-mobile m-0"
-                 :title="`Switch to ${dimensionalState(!showing2D) }`"
+                 :title="switchTitle"
                  @click="(!currentMap || (currentMap && currentMap.type !== 'custom'))
                    && $store.dispatch('maps/toggleShowing2D')">
               <button v-for="dim in [true, false]" :key="dim"
@@ -157,6 +157,12 @@ export default {
     }),
     queryParams() {
       return { ...this.mapQueryParams, ...this.dataOverlayQueryParams };
+    },
+    switchTitle() {
+      if (this.avail2D) {
+        return `Switch to ${this.dimensionalState(!this.showing2D)}`;
+      }
+      return 'This model only has 3D maps availabe';
     },
   },
   watch: {
