@@ -11,7 +11,6 @@ services:
   api:
     container_name: api
     build: api
-    env_file: .env
     depends_on: 
       - neo4j
     networks:

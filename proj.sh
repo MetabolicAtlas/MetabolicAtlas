@@ -1,10 +1,12 @@
 # To make sure docker-compose is in the path
 export PATH=$PATH:/usr/local/bin
+CHOSEN_ENV="env-${1:-local}.env"
 
 function generate-data {
   # enable flag "-q" to force overwritting existing data files
   echo 'Data generation started.'
-  source .env && yarn --cwd $DATA_GENERATOR_PATH start $DATA_FILES_PATH "$@"
+  echo $CHOSEN_ENV
+  source $CHOSEN_ENV && yarn --cwd $DATA_GENERATOR_PATH start $DATA_FILES_PATH "$@"
   /bin/cp -rf $DATA_GENERATOR_PATH/neo4j/* neo4j/import
   /bin/cp -rf $DATA_GENERATOR_PATH/dataOverlay api/
   /bin/cp  -f $DATA_FILES_PATH/integrated-models/integratedModels.json api/src/data/
@@ -16,17 +18,17 @@ function generate-data {
 
 function build-stack {
   generate-data
-  docker compose -f docker-compose.yml -f docker-compose-local.yml build $@
+  docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-local.yml build
 }
 
 function start-stack {
-  docker compose -f docker-compose.yml -f docker-compose-local.yml up -d
+  docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-local.yml up --detach
   docker cp frontend:/project/yarn.lock frontend/yarn.lock
   docker cp api:/project/yarn.lock api/yarn.lock
 }
 
 function stop-stack {
-  docker compose -f docker-compose.yml -f docker-compose-local.yml kill
+  docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-local.yml kill
 }
 
 function clean-stack {
@@ -36,12 +38,13 @@ function clean-stack {
 }
 
 function logs {
-  docker compose -f docker-compose.yml -f docker-compose-local.yml logs -f $@
+  docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-local.yml logs -f $@
 }
 
 function deploy-stack {
+  CHOSEN_ENV="env-${1:-local}.env"
   generate-data
-  docker --context $1 compose -f docker-compose.yml -f docker-compose-prod.yml -p metabolicatlas up -d --build --force-recreate
+  docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-prod.yml --project-name metabolicatlas up --detach --build --force-recreate --remove-orphans --renew-anon-volumes
 }
 
 function import-db {
