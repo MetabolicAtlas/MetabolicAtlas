@@ -1,11 +1,10 @@
 # To make sure docker-compose is in the path
 export PATH=$PATH:/usr/local/bin
-CHOSEN_ENV="env-${1:-local}.env"
+export CHOSEN_ENV="env-local.env"
 
 function generate-data {
   # enable flag "-q" to force overwritting existing data files
-  echo 'Data generation started.'
-  echo $CHOSEN_ENV
+  echo "Using $CHOSEN_ENV"
   source $CHOSEN_ENV && yarn --cwd $DATA_GENERATOR_PATH start $DATA_FILES_PATH "$@"
   /bin/cp -rf $DATA_GENERATOR_PATH/neo4j/* neo4j/import
   /bin/cp -rf $DATA_GENERATOR_PATH/dataOverlay api/
@@ -42,9 +41,9 @@ function logs {
 }
 
 function deploy-stack {
-  CHOSEN_ENV="env-${1:-local}.env"
+  CHOSEN_ENV="env-${1:=local}.env"
   generate-data
-  docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-prod.yml --project-name metabolicatlas up --detach --build --force-recreate --remove-orphans --renew-anon-volumes
+  docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-remote.yml --project-name metabolicatlas up --detach --build --force-recreate --remove-orphans --renew-anon-volumes
 }
 
 function import-db {

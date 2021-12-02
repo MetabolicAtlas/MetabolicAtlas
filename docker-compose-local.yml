@@ -36,8 +36,6 @@ services:
       - "127.0.0.1:${PORT_NEO4J_2:-7687}:7687"
 
   api:
-    environment:
-      - NODE_ENV=develop
     volumes:
       - ./api/src:/project/src
       - ./api/svg:/project/svg

@@ -55,6 +55,16 @@ start-stack
 
 Given successful deployment, the frontend should be accessible at: `http://localhost/`. If you encounter any problems try looking at the logs `logs api` / `logs frontend`.
 
+To deploy the stack to a remote server, create another `.env` file and modify it accordingly:
+```bash
+cp env-local.env.sample env-dev.env
+```
+
+Use the name of the file (`dev` in the previous example) as an argument to the `deploy-stack` command to pass the `.env` file to the Docker command and the Docker compose file:
+```bash
+deploy-stack dev
+```
+
 ## Description of helper commands
 
 * To bootstrap the project: `build-stack`
