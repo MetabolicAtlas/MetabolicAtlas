@@ -1,1 +1,0 @@
-{"id":"tryptophan_metabolism","name":"Tryptophan metabolism","reaction_count":19,"metabolite_count":49,"gene_count":24,"compartments":[{"id":"cytosol","name":"Cytosol"},{"id":"mitochondria","name":"Mitochondria"}],"unique_metabolite_count":40,"compartment_count":2,"external_databases":{}}
