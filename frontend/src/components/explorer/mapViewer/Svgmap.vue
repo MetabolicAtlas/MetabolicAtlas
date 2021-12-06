@@ -158,6 +158,7 @@ export default {
       if (this.mapData.svgs.length === 0) {
         this.$store.dispatch('maps/clearSvgMap');
         this.errorMessage = messages.mapNotFound;
+        this.$store.dispatch('maps/setLoading', false);
         return;
       }
       this.errorMessage = '';
@@ -467,7 +468,6 @@ export default {
       }
 
       const selectionData = { type, data: null, error: false };
-
       this.unHighlight(this.selectedElemsHL, 'selhl');
       if (!element.hasClass('subsystem')) {
         // HL all nodes type but subsystems

@@ -16,17 +16,17 @@ function generate-data {
 
 function build-stack {
   generate-data
-  docker-compose -f docker-compose.yml -f docker-compose-local.yml build $@
+  docker compose -f docker-compose.yml -f docker-compose-local.yml build $@
 }
 
 function start-stack {
-  docker-compose -f docker-compose.yml -f docker-compose-local.yml up -d
+  docker compose -f docker-compose.yml -f docker-compose-local.yml up -d
   docker cp frontend:/project/yarn.lock frontend/yarn.lock
   docker cp api:/project/yarn.lock api/yarn.lock
 }
 
 function stop-stack {
-  docker-compose -f docker-compose.yml -f docker-compose-local.yml kill
+  docker compose -f docker-compose.yml -f docker-compose-local.yml kill
 }
 
 function clean-stack {
@@ -36,7 +36,7 @@ function clean-stack {
 }
 
 function logs {
-  docker-compose -f docker-compose.yml -f docker-compose-local.yml logs -f $@
+  docker compose -f docker-compose.yml -f docker-compose-local.yml logs -f $@
 }
 
 function deploy-stack {

@@ -41,24 +41,20 @@
         <template v-for="type in resultsOrder">
           <div v-for="(r, i2) in searchResults[type]" :key="`${r.id}-${i2}`" class="searchResultSection px-1 py-0">
             <hr v-if="i2 !== 0" class="m-0">
-            <router-link class="is-clickable"
-                         :to="{ name: type, params: { model: searchModel.short_name, id: r.id } }"
-                         @click.native="handleClickResult">
-              <span v-if="type === 'metabolite' || type === 'gene'" class="search-result-icons pr-1">
-                <router-link class="is-clickable"
-                             :to="{ name: type, params: { model: searchModel.short_name, id: r.id } }"
-                             @click.native="handleClickResult">
+            <div>
+              <span v-if="type === 'metabolite' || type === 'gene'" class="pr-1">
+                <span class="has-text-primary is-clickable" @mousedown="handleClickResult(type, r)">
                   <span class="icon is-medium is-left" title="Gem Browser"><i class="fa fa-table" /></span>
-                </router-link>
-                <router-link class="is-clickable"
-                             :to="{ name: 'interaction', params: { model: searchModel.short_name, id: r.id } }"
-                             @click.native="handleClickResult">
+                </span>
+                <span class="has-text-icon-interaction-partner is-clickable" @mousedown="handleClickResult('interaction', r)">
                   <span class="icon is-medium is-left" title="Interaction Partners"><i class="fa fa-connectdevelop" /></span>
-                </router-link>
+                </span>
               </span>
-              <b class="is-capitalized">{{ type }}: </b>
-              <label class="is-clickable" v-html="formatSearchResultLabel(type, r, searchTermString)"></label>
-            </router-link>
+              <span class="has-text-link is-clickable" @mousedown="handleClickResult(type, r)">
+                <b class="is-capitalized">{{ type }}: </b>
+                <label class="is-clickable" v-html="formatSearchResultLabel(type, r, searchTermString)"></label>
+              </span>
+            </div>
           </div>
           <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
           <hr v-if="searchResults[type] && searchResults[type].length !== 0" class="bhr p-0">
@@ -226,9 +222,11 @@ export default {
       this.$store.dispatch('search/setSearchTermString', '');
       this.handleClear();
     },
-    handleClickResult() {
+    async handleClickResult(type, r) {
       this.showResults = false;
       this.handleClear();
+      await this.$store.dispatch('models/selectModel', this.searchModel.short_name);
+      this.$router.push({ name: type, params: { model: this.searchModel.short_name, id: r.id } });
     },
     blur() {
       setTimeout(() => {
@@ -292,22 +290,17 @@ export default {
       display: none;
     }
 
-    .searchResultSection{
-      > a {
-        display: block;
-        padding: 7px 0px;
+    .searchResultSection {
+      > div {
+        display: flex;
+        align-items: center;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-      }
 
-      .search-result-icons a {
-        &:first-child {
-          color: $primary;
-        }
-
-        &:nth-child(2) {
-          color: #A15786;
+        > span:last-child {
+          flex-grow: 1;
+          padding: 11px 0px;
         }
       }
     }

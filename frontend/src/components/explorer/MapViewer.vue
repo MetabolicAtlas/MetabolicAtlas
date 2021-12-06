@@ -19,12 +19,13 @@
              v-on="sidebarLayoutReset ? { scroll: () => handleSidebarScroll() } : {}">
           <div id="mapSidebar__header" class="has-background-lightgray pt-3">
             <div class="buttons has-addons is-centered padding-mobile m-0"
-                 :title="`Switch to ${dimensionalState(!showing2D) }`"
-                 @click="currentMap && currentMap.type !== 'custom' && $store.dispatch('maps/toggleShowing2D')">
+                 :title="switchTitle"
+                 @click="(!currentMap || (currentMap && currentMap.type !== 'custom'))
+                   && $store.dispatch('maps/toggleShowing2D')">
               <button v-for="dim in [true, false]" :key="dim"
                       class="button m-0"
                       :class="dim === showing2D ? 'is-selected is-primary has-text-weight-bold' : 'is-light'"
-                      :disabled="currentMap && currentMap.type === 'custom'">
+                      :disabled=" !avail2D || (currentMap && currentMap.type === 'custom')">
                 <span v-if="dim === showing2D" class="icon">
                   <i class="fa fa-check-square-o"></i>
                 </span>
@@ -59,7 +60,8 @@
             <a @click="showingMapListing = true">Show the map list and choose a compartment or subsystem map</a>
           </p>
         </div>
-        <div v-else class="column is-unselectable om-1 fixed-height-desktop fixed-height-mobile p-0 m-0">
+        <div v-else id="mapWrapper"
+             class="column is-unselectable om-1 fixed-height-desktop fixed-height-mobile p-0 m-0">
           <Svgmap v-if="showing2D"
                   :map-data="currentMap"
                   @unSelect="unSelect" @updatePanelSelectionData="updatePanelSelectionData">
@@ -148,6 +150,7 @@ export default {
       showing2D: state => state.maps.showing2D,
       dataOverlayPanelVisible: state => state.maps.dataOverlayPanelVisible,
       mapsListing: state => state.maps.mapsListing,
+      avail2D: state => state.maps.avail2D,
     }),
     ...mapGetters({
       mapQueryParams: 'maps/queryParams',
@@ -155,6 +158,12 @@ export default {
     }),
     queryParams() {
       return { ...this.mapQueryParams, ...this.dataOverlayQueryParams };
+    },
+    switchTitle() {
+      if (this.avail2D) {
+        return `Switch to ${this.dimensionalState(!this.showing2D)}`;
+      }
+      return 'This model only has 3D maps available';
     },
   },
   watch: {
@@ -218,7 +227,7 @@ export default {
         for (let i = 0; i < categories.length; i += 1) {
           for (let j = 0; j < items[i].length; j += 1) {
             const item = items[i][j];
-            if (this.showing2D) {
+            if (this.showing2D && item.svgs.length > 0) {
               for (let k = 0; k < item.svgs.length; k += 1) {
                 if (item.svgs[k].id === id) {
                   this.currentMap = { ...item };
@@ -235,9 +244,11 @@ export default {
               this.currentMap = item;
               this.currentMap.type = categories[i].slice(0, -1);
               this.mapNotFound = false;
-              this.currentMap.mapReactionIdSet = item.svgs;
-              this.setMapReactionList();
-              this.setMissingReactionList();
+              if (item.svgs.length > 0) {
+                this.currentMap.mapReactionIdSet = item.svgs;
+                this.setMapReactionList();
+                this.setMissingReactionList();
+              }
               return;
             }
             this.mapNotFound = true;
@@ -300,6 +311,9 @@ export default {
         }
       }
     }
+  }
+  #mapWrapper {
+    z-index: 5;
   }
 
   .padding-mobile {

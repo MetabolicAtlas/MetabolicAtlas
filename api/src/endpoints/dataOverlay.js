@@ -19,8 +19,12 @@ routes.get('/:model', async (req, res) => {
     );
     res.json(JSON.parse(indexJson));
   } catch (e) {
-    console.error(e.message);
-    res.sendStatus(404);
+    if (e.code === 'ENOENT'){
+      res.json({});
+    } else {
+      console.error(e.message);
+      res.sendStatus(404);
+    }
   }
 });
 
