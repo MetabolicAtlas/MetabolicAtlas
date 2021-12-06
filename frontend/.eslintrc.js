@@ -7,6 +7,7 @@ module.exports = {
     'plugin:vue/essential',
     'plugin:vue/recommended',
     '@vue/airbnb',
+    'prettier',
   ],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
