@@ -11,18 +11,18 @@ import linkHandlerMixin from './mixins/linkHandler'
 
 axios.defaults.baseURL = '/api/v2'
 axios.defaults.onDownloadProgress = function onDownloadProgress(progressEvent) {
-    const percentCompleted = Math.floor((progressEvent.loaded * 100.0) / progressEvent.total)
-    NProgress.set(percentCompleted / 100.0)
+  const percentCompleted = Math.floor((progressEvent.loaded * 100.0) / progressEvent.total)
+  NProgress.set(percentCompleted / 100.0)
 }
 
 Vue.use(vueDebounce)
 
 if (navigator.doNotTrack !== '1') {
-    Vue.use(VueMatomo, {
-        host: 'https://csbi.chalmers.se/',
-        siteId: process.env.VUE_APP_MATOMOID,
-        router,
-    })
+  Vue.use(VueMatomo, {
+    host: 'https://csbi.chalmers.se/',
+    siteId: process.env.VUE_APP_MATOMOID,
+    router,
+  })
 }
 
 Vue.mixin(linkHandlerMixin)
@@ -31,8 +31,8 @@ Vue.use(VueMeta)
 
 // eslint-disable-next-line no-new
 new Vue({
-    el: '#app',
-    router,
-    store,
-    render: (h) => h(App),
+  el: '#app',
+  router,
+  store,
+  render: (h) => h(App),
 })

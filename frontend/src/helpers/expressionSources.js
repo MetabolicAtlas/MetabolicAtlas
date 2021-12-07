@@ -19,21 +19,21 @@ export const singleColors = `${singleLeftColor}, ${singleMiddleColor}, ${singleR
 const MAX = 1
 const HALF = MAX / 2
 export const getSingleExpressionColor = (value) => {
-    if (Number.isNaN(value)) {
-        return notDetectedColor
-    }
-    if (value > MAX) {
-        return singleRightColor
-    }
-    if (value < HALF) {
-        const ratio = value / HALF
-        const r = slr + ratio * (smr - slr)
-        const g = slg + ratio * (smg - slg)
-        const b = slb + ratio * (smb - slb)
-        return `rgb(${r},${g},${b})`
-    }
-    const ratio = (value - HALF) / HALF
-    const g = smg - ratio * (smg - srg)
-    const b = smb - ratio * smb
-    return `rgb(${srr},${g},${b})`
+  if (Number.isNaN(value)) {
+    return notDetectedColor
+  }
+  if (value > MAX) {
+    return singleRightColor
+  }
+  if (value < HALF) {
+    const ratio = value / HALF
+    const r = slr + ratio * (smr - slr)
+    const g = slg + ratio * (smg - slg)
+    const b = slb + ratio * (smb - slb)
+    return `rgb(${r},${g},${b})`
+  }
+  const ratio = (value - HALF) / HALF
+  const g = smg - ratio * (smg - srg)
+  const b = smb - ratio * smb
+  return `rgb(${srr},${g},${b})`
 }

@@ -1,20 +1,20 @@
 <template>
-    <transition name="slide-fade">
-        <article v-if="message" id="errorPanel" class="message is-danger">
-            <div class="message-header">
-                <b>{{ title }}</b>
-                <button
-                    v-if="hasHideListener"
-                    class="delete"
-                    aria-label="delete"
-                    @click="$emit('hideErrorPanel')"
-                />
-            </div>
-            <div class="message-body has-text-centered">
-                <p class="title is-6" v-html="message" />
-            </div>
-        </article>
-    </transition>
+  <transition name="slide-fade">
+    <article v-if="message" id="errorPanel" class="message is-danger">
+      <div class="message-header">
+        <b>{{ title }}</b>
+        <button
+          v-if="hasHideListener"
+          class="delete"
+          aria-label="delete"
+          @click="$emit('hideErrorPanel')"
+        />
+      </div>
+      <div class="message-body has-text-centered">
+        <p class="title is-6" v-html="message" />
+      </div>
+    </article>
+  </transition>
 </template>
 
 <script>
@@ -29,43 +29,43 @@
  * <ErrorPanel :message="mess" @hideErrorPanel="mess=''" />
  */
 export default {
-    name: 'ErrorPanel',
-    props: {
-        title: {
-            type: String,
-            default: 'Oops!..',
-        },
-        message: {
-            type: String,
-        },
+  name: 'ErrorPanel',
+  props: {
+    title: {
+      type: String,
+      default: 'Oops!..',
     },
-    computed: {
-        hasHideListener() {
-            return Object.keys(this.$listeners).includes('hideErrorPanel')
-        },
+    message: {
+      type: String,
     },
+  },
+  computed: {
+    hasHideListener() {
+      return Object.keys(this.$listeners).includes('hideErrorPanel')
+    },
+  },
 }
 </script>
 
 <style>
 #errorPanel {
-    z-index: 11;
-    position: fixed;
-    width: 350px;
-    left: calc(50% - 175px);
-    bottom: 80px;
-    border: 1px solid gray;
+  z-index: 11;
+  position: fixed;
+  width: 350px;
+  left: calc(50% - 175px);
+  bottom: 80px;
+  border: 1px solid gray;
 }
 
 .slide-fade-enter-active {
-    transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 .slide-fade-leave-active {
-    transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
 }
 .slide-fade-enter,
 .slide-fade-leave-to {
-    transform: translateY(200px);
-    opacity: 0;
+  transform: translateY(200px);
+  opacity: 0;
 }
 </style>

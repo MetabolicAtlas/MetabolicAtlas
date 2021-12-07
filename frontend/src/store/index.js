@@ -19,21 +19,21 @@ import dataOverlay from './modules/dataOverlay'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-    modules: {
-        models,
-        browserTiles,
-        gems,
-        genes,
-        reactions,
-        subsystems,
-        metabolites,
-        compartments,
-        maps,
-        interactionPartners,
-        search,
-        europepmc,
-        compare,
-        externalDb,
-        dataOverlay,
-    },
+  modules: {
+    models,
+    browserTiles,
+    gems,
+    genes,
+    reactions,
+    subsystems,
+    metabolites,
+    compartments,
+    maps,
+    interactionPartners,
+    search,
+    europepmc,
+    compare,
+    externalDb,
+    dataOverlay,
+  },
 })
