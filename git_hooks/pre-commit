@@ -1,5 +1,6 @@
 #!/bin/sh
-FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
+FILES=$(git diff --cached --name-only --diff-filter=ACMR -- frontend/src/ | sed 's| |\\ |g')
+echo $FILES
 FRONTEND_FILES=${FILES//frontend\/}
 [ -z "$FRONTEND_FILES" ] && exit 0
 
@@ -7,7 +8,7 @@ FRONTEND_FILES=${FILES//frontend\/}
 echo "$FRONTEND_FILES" | xargs docker compose -f docker-compose.yml -f docker-compose-local.yml exec frontend ./node_modules/.bin/prettier --ignore-unknown --write
 
 # Exit if there are lint problems
-if ! docker compose -f docker-compose.yml -f docker-compose-local.yml exec frontend yarn lint; then
+if ! docker compose -f docker-compose.yml -f docker-compose-local.yml exec frontend yarn run eslint $FRONTEND_FILES --ext .js,.vue; then
   exit 1
 fi
 
