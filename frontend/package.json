@@ -8,9 +8,10 @@
   "scripts": {
     "serve": "vue-cli-service serve --mode local",
     "build": "vue-cli-service build --mode production",
-    "lint": "eslint src",
+    "lint": "eslint src --ext .js,.vue",
     "prepare": "cd .. && husky install frontend/.husky",
     "check-format": "prettier -l src",
+    "format": "prettier -w src",
     "pre-commit": "lint-staged"
   },
   "dependencies": {

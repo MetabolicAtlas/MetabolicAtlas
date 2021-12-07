@@ -28,17 +28,6 @@ module.exports = {
         ],
         'import/no-named-default': 'off',
         'import/extensions': 'off',
-        'max-len': [
-            'error',
-            {
-                code: 120,
-                ignoreUrls: true,
-                ignoreComments: true,
-                ignoreStrings: true,
-                ignoreTemplateLiterals: true,
-                ignoreRegExpLiterals: true,
-            },
-        ],
         'function-paren-newline': 'off',
         'object-curly-newline': 'off',
     },
