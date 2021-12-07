@@ -1,0 +1,12 @@
+#!/bin/sh
+FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
+FRONTEND_FILES=${FILES//frontend\/}
+[ -z "$FRONTEND_FILES" ] && exit 0
+
+# Prettify all selected files
+echo "$FRONTEND_FILES" | xargs docker compose -f docker-compose.yml -f docker-compose-local.yml exec frontend ./node_modules/.bin/prettier --ignore-unknown --write
+
+# Add back the modified/prettified files to staging
+echo "$FILES" | xargs git add
+
+exit 0

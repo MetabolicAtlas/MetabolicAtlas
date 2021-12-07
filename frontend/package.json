@@ -9,10 +9,8 @@
     "serve": "vue-cli-service serve --mode local",
     "build": "vue-cli-service build --mode production",
     "lint": "eslint src --ext .js,.vue",
-    "prepare": "cd .. && husky install frontend/.husky",
     "check-format": "prettier -l src",
-    "format": "prettier -w src",
-    "pre-commit": "lint-staged"
+    "format": "prettier -w src"
   },
   "dependencies": {
     "@metabolicatlas/3d-network-viewer": "^0.1.18",
@@ -46,15 +44,10 @@
     "compression-webpack-plugin": "^3.0.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^8.2.0",
-    "husky": ">=6",
-    "lint-staged": ">=10",
     "node-sass": "^4.9.0",
     "prettier": "^2.5.1",
     "sass-loader": "^7.1.0",
     "vue-cli-plugin-webpack-bundle-analyzer": "^1.4.0",
     "vue-template-compiler": "^2.6.10"
-  },
-  "lint-staged": {
-    "*.{js,css,md,vue}": "prettier --write"
   }
 }
