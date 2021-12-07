@@ -13,6 +13,10 @@ module.exports = {
         'vue/html-self-closing': 'off',
         'vue/no-v-html': 'off',
         'vue/require-default-prop': 'off',
+        'vue/multi-word-component-names': 'off',
+        'vue/no-useless-template-attributes': 'off',
+        'vue/no-lone-template': 'off',
+        'vue/order-in-components': 'off',
         'no-unused-vars': [
             'error',
             {
