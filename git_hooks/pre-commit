@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 FILES=$(git diff --cached --name-only --diff-filter=ACMR -- frontend/src/ | sed 's| |\\ |g')
 echo $FILES
 FRONTEND_FILES=${FILES//frontend\/}
