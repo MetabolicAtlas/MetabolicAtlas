@@ -17,12 +17,14 @@ jobs:
 
       - name: Install Node.js dependencies
         working-directory: frontend
-        run: npm ci
+        run: |
+          npm install -g yarn
+          yarn install --frozen-lockfile
 
       - name: Check formatting
         working-directory: ./frontend
-        run: npm run check-format
+        run: yarn run check-format
 
       - name: Linting
         working-directory: ./frontend
-        run: npm run lint
+        run: yarn run lint
