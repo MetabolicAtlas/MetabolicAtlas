@@ -6,6 +6,11 @@ FRONTEND_FILES=${FILES//frontend\/}
 # Prettify all selected files
 echo "$FRONTEND_FILES" | xargs docker compose -f docker-compose.yml -f docker-compose-local.yml exec frontend ./node_modules/.bin/prettier --ignore-unknown --write
 
+# Exit if there are lint problems
+if ! docker compose -f docker-compose.yml -f docker-compose-local.yml exec frontend yarn lint; then
+  exit 1
+fi
+
 # Add back the modified/prettified files to staging
 echo "$FILES" | xargs git add
 
