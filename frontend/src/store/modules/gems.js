@@ -7,13 +7,12 @@ const data = {
 
 const getters = {
   /* eslint-disable no-unused-vars */
-  gemList: (state) => Object.values(state.gems),
-  setFilterOptions: (state, _getters) =>
-    [...new Set(_getters.gemList.map((g) => g.set_name))].sort(),
+  gemList: state => Object.values(state.gems),
+  setFilterOptions: (state, _getters) => [...new Set(_getters.gemList.map(g => g.set_name))].sort(),
   systemFilterOptions: (state, _getters) =>
-    [...new Set(_getters.gemList.map((g) => g.organ_system))].sort(),
+    [...new Set(_getters.gemList.map(g => g.organ_system))].sort(),
   conditionFilterOptions: (state, _getters) =>
-    [...new Set(_getters.gemList.map((g) => g.condition))].sort(),
+    [...new Set(_getters.gemList.map(g => g.condition))].sort(),
   /* eslint-enable no-unused-vars */
 };
 

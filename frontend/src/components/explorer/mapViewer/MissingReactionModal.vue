@@ -94,7 +94,7 @@ export default {
   },
   computed: {
     ...mapState({
-      model: (state) => state.models.model,
+      model: state => state.models.model,
     }),
     mapReactionIdListHtml() {
       const l = ['<span class="tags">'];

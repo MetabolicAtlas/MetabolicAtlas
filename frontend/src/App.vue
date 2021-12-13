@@ -77,7 +77,7 @@
                         class="navbar-link is-active-underline"
                         :class="{
                           'router-link-active': menuElem.subMenuElems
-                            .map((sme) => sme.routeName)
+                            .map(sme => sme.routeName)
                             .includes($route.name),
                         }"
                       >
@@ -239,7 +239,7 @@ export default {
   },
   computed: {
     ...mapState({
-      model: (state) => state.models.model,
+      model: state => state.models.model,
     }),
   },
   watch: {
@@ -257,8 +257,8 @@ export default {
   methods: {
     setupErrorCatcher() {
       axios.interceptors.response.use(
-        (response) => response,
-        (error) => {
+        response => response,
+        error => {
           if (error.response && error.response.status === 404) {
             this.errorMessage = messages.notFoundError;
           } else {

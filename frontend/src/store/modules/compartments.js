@@ -5,8 +5,8 @@ const data = {
 };
 
 const getters = {
-  info: (state) => state.compartmentSummary.info || {},
-  subsystems: (state) => state.compartmentSummary.subsystems || [],
+  info: state => state.compartmentSummary.info || {},
+  subsystems: state => state.compartmentSummary.subsystems || [],
 };
 
 const actions = {

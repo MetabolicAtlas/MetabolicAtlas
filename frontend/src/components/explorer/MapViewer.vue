@@ -186,11 +186,11 @@ export default {
   },
   computed: {
     ...mapState({
-      model: (state) => state.models.model,
-      showing2D: (state) => state.maps.showing2D,
-      dataOverlayPanelVisible: (state) => state.maps.dataOverlayPanelVisible,
-      mapsListing: (state) => state.maps.mapsListing,
-      avail2D: (state) => state.maps.avail2D,
+      model: state => state.models.model,
+      showing2D: state => state.maps.showing2D,
+      dataOverlayPanelVisible: state => state.maps.dataOverlayPanelVisible,
+      mapsListing: state => state.maps.mapsListing,
+      avail2D: state => state.maps.avail2D,
     }),
     ...mapGetters({
       mapQueryParams: 'maps/queryParams',
@@ -256,7 +256,7 @@ export default {
       }
 
       const queryString = Object.entries(newQuery)
-        .map((e) => e.join('='))
+        .map(e => e.join('='))
         .join('&');
       const payload = [{}, null, `${this.$route.path}?${queryString}`];
       if (newQuery.dim === this.$route.query.dim || (newQuery.dim && !this.$route.query.dim)) {
@@ -304,7 +304,7 @@ export default {
     },
     setMapReactionList() {
       let mapReactionIdList = [];
-      this.currentMap.mapReactionIdSet.forEach((map) => {
+      this.currentMap.mapReactionIdSet.forEach(map => {
         mapReactionIdList = [...mapReactionIdList, ...map.mapReactionIdSet];
       });
       this.mapReactionList = mapReactionIdList;
@@ -313,7 +313,7 @@ export default {
       const modelReactionIdSet = new Set(this.currentMap.reactionList);
       const mapReactionIdSet = new Set(this.mapReactionList);
       const missingReactionIdSet = new Set(
-        [...modelReactionIdSet].filter((x) => !mapReactionIdSet.has(x))
+        [...modelReactionIdSet].filter(x => !mapReactionIdSet.has(x))
       );
       this.missingReactionList = Array.from(missingReactionIdSet);
     },

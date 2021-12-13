@@ -22,7 +22,7 @@
             </td>
             <td v-else>
               <div class="select is-small">
-                <select class="has-text-link" @change="(e) => routeSVGmap(e.target.value, '2d')">
+                <select class="has-text-link" @change="e => routeSVGmap(e.target.value, '2d')">
                   <option selected disabled>2D</option>
                   <option v-for="map in component.svgMaps" :key="map.id" :value="map.id">
                     {{ map.customName }}
@@ -69,8 +69,8 @@ export default {
   },
   computed: {
     ...mapState({
-      model: (state) => state.models.model,
-      mapsAvailable: (state) => state.maps.availableMaps,
+      model: state => state.models.model,
+      mapsAvailable: state => state.maps.availableMaps,
     }),
   },
   methods: {

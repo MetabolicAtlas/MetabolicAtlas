@@ -17,7 +17,7 @@ const actions = {
       root: true,
     });
 
-    const pmids = pubmedIds.map((pm) => pm.id);
+    const pmids = pubmedIds.map(pm => pm.id);
     commit('setReferenceList', pmids);
   },
   async getRelatedReactionsForReaction({ commit, state }, { model, id }) {

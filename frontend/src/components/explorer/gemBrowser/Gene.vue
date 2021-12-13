@@ -60,8 +60,8 @@ export default {
   },
   computed: {
     ...mapState({
-      model: (state) => state.models.model,
-      gene: (state) => state.genes.gene,
+      model: state => state.models.model,
+      gene: state => state.genes.gene,
     }),
     ...mapGetters({
       geneName: 'genes/geneName',

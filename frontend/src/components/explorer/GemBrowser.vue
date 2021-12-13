@@ -96,8 +96,8 @@ export default {
   },
   computed: {
     ...mapState({
-      model: (state) => state.models.model,
-      tileComponents: (state) => state.browserTiles.tileComponents,
+      model: state => state.models.model,
+      tileComponents: state => state.browserTiles.tileComponents,
     }),
   },
   async beforeMount() {

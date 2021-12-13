@@ -8,18 +8,18 @@ const data = {
   searchTermString: '',
 };
 
-const categorizeResults = (results) => {
+const categorizeResults = results => {
   const categorizedResults = data.categories.reduce(
     (obj, category) => ({ ...obj, [category]: [] }),
     {}
   );
-  Object.keys(results).forEach((model) => {
+  Object.keys(results).forEach(model => {
     const resultsModel = results[model];
     data.categories
-      .filter((resultType) => resultsModel[resultType])
-      .forEach((resultType) => {
+      .filter(resultType => resultsModel[resultType])
+      .forEach(resultType => {
         categorizedResults[resultType] = categorizedResults[resultType].concat(
-          resultsModel[resultType].map((e) => {
+          resultsModel[resultType].map(e => {
             const d = e;
             d.model = { id: model, name: resultsModel.name };
             return d;
@@ -31,13 +31,13 @@ const categorizeResults = (results) => {
 };
 
 const getters = {
-  globalResultsEmpty: (state) =>
+  globalResultsEmpty: state =>
     Object.values(state.globalResults).reduce((s, r) => {
-      const components = Object.keys(r).filter((k) => k !== 'name');
+      const components = Object.keys(r).filter(k => k !== 'name');
       return s + components.reduce((t, c) => t + r[c].length, 0);
     }, 0) === 0,
 
-  categorizedGlobalResults: (state) => categorizeResults(state.globalResults),
+  categorizedGlobalResults: state => categorizeResults(state.globalResults),
 
   // eslint-disable-next-line no-unused-vars
   categorizedGlobalResultsCount: (state, _getters) =>
@@ -45,7 +45,7 @@ const getters = {
       Object.entries(_getters.categorizedGlobalResults).map(([k, v]) => [k, v.length])
     ),
 
-  categorizedAndSortedResults: (state) => {
+  categorizedAndSortedResults: state => {
     if (Object.keys(state.results).length === 0) {
       return {};
     }

@@ -144,9 +144,9 @@ export default {
   },
   computed: {
     ...mapState({
-      model: (state) => state.models.model,
-      resultsOrder: (state) => state.search.categories,
-      searchTermString: (state) => state.search.searchTermString,
+      model: state => state.models.model,
+      resultsOrder: state => state.search.categories,
+      searchTermString: state => state.search.searchTermString,
     }),
     ...mapGetters({
       models: 'models/models',
@@ -243,8 +243,8 @@ export default {
       const re = new RegExp(`(${searchTerm})`, 'ig');
       let s = '';
       this.itemKeys[type]
-        .filter((key) => element[key])
-        .forEach((key) => {
+        .filter(key => element[key])
+        .forEach(key => {
           // do not HL the compartment name
           s =
             key === 'compartment_str'

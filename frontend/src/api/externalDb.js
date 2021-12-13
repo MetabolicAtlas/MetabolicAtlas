@@ -5,7 +5,7 @@ const fetchComponentsForExternalDb = async ({ dbName, externalId }) => {
   const { externalDb, components } = data;
   return {
     externalDb,
-    components: components.map((c) => ({
+    components: components.map(c => ({
       ...c,
       componentType: c.componentType.replace('Compartmentalized', ''),
     })),

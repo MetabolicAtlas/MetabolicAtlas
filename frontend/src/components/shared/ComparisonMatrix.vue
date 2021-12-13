@@ -59,9 +59,9 @@ export default {
   },
   computed: {
     ...mapState({
-      comparisons: (state) => state.compare.comparisons,
-      modelList: (state) => state.models.modelList,
-      selectedCell: (state) => state.compare.selectedCell,
+      comparisons: state => state.compare.comparisons,
+      modelList: state => state.models.modelList,
+      selectedCell: state => state.compare.selectedCell,
     }),
     mergedComparisons() {
       // currently has support for two types
@@ -72,7 +72,7 @@ export default {
       const [t1, t2] = this.types;
       return this.comparisons[t1].map((row, i) =>
         Object.keys(row).reduce((mergedRow, key) => {
-          const model = this.modelList.find((m) => m.apiName === key);
+          const model = this.modelList.find(m => m.apiName === key);
           // eslint-disable-next-line no-param-reassign
           mergedRow[model.short_name] = {
             [t1]: this.comparisons[t1][i][key],
@@ -86,19 +86,19 @@ export default {
       return Object.keys(this.comparisons);
     },
     singles() {
-      return this.mergedComparisons.filter((c) => Object.keys(c).length === 1);
+      return this.mergedComparisons.filter(c => Object.keys(c).length === 1);
     },
     doubles() {
-      return this.mergedComparisons.filter((c) => Object.keys(c).length === 2);
+      return this.mergedComparisons.filter(c => Object.keys(c).length === 2);
     },
     triples() {
-      return this.mergedComparisons.filter((c) => Object.keys(c).length === 3);
+      return this.mergedComparisons.filter(c => Object.keys(c).length === 3);
     },
     quadruples() {
-      return this.mergedComparisons.filter((c) => Object.keys(c).length === 4);
+      return this.mergedComparisons.filter(c => Object.keys(c).length === 4);
     },
     columnNames() {
-      return this.singles.map((x) => Object.keys(x)[0]);
+      return this.singles.map(x => Object.keys(x)[0]);
     },
     rowNames() {
       let names = [...this.columnNames];
@@ -129,10 +129,10 @@ export default {
           let comparison;
 
           if (rn === cn) {
-            comparison = this.singles.find((x) => Object.keys(x)[0] === cn);
+            comparison = this.singles.find(x => Object.keys(x)[0] === cn);
           } else if (i < this.columnNames.length && j < this.columnNames.length) {
             comparison = this.doubles.find(
-              (x) => Object.keys(x).includes(rn) && Object.keys(x).includes(cn)
+              x => Object.keys(x).includes(rn) && Object.keys(x).includes(cn)
             );
           } else if (i === this.rowNames.length - 1) {
             // if last row
@@ -143,7 +143,7 @@ export default {
               k1 !== cn &&
               k2 !== cn &&
               this.triples.find(
-                (x) =>
+                x =>
                   Object.keys(x).includes(k1) &&
                   Object.keys(x).includes(k2) &&
                   Object.keys(x).includes(cn)
@@ -164,22 +164,22 @@ export default {
       return row === r && col === c;
     },
     handleSelectCell(row, col) {
-      const selectedModels = [this.$route.query.models].flat().map((m) => {
+      const selectedModels = [this.$route.query.models].flat().map(m => {
         const [model, version] = m.split('-');
-        return this.modelList.find((mo) => mo.apiName === model && mo.version === version);
+        return this.modelList.find(mo => mo.apiName === model && mo.version === version);
       });
 
-      const model = selectedModels.find((m) => m.short_name === this.columnNames[col]);
+      const model = selectedModels.find(m => m.short_name === this.columnNames[col]);
       let models;
       if (this.rowNames[row] === 'others') {
-        models = selectedModels.filter((m) => m.short_name !== this.columnNames[col]);
+        models = selectedModels.filter(m => m.short_name !== this.columnNames[col]);
       } else {
-        models = selectedModels.filter((m) => m.short_name === this.rowNames[row]);
+        models = selectedModels.filter(m => m.short_name === this.rowNames[row]);
       }
 
       this.$store.dispatch('compare/setSelectedCell', {
         model: { model: model.apiName, version: model.apiVersion },
-        models: models.map((m) => ({ model: m.apiName, version: m.apiVersion })),
+        models: models.map(m => ({ model: m.apiName, version: m.apiVersion })),
         position: { row, col },
       });
     },

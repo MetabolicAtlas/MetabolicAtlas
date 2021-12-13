@@ -44,7 +44,7 @@ const actions = {
 };
 
 const getters = {
-  comparisonsEmpty: (state) => Object.values(state.comparisons).flat().length === 0,
+  comparisonsEmpty: state => Object.values(state.comparisons).flat().length === 0,
 };
 
 const mutations = {

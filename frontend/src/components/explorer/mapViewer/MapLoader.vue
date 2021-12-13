@@ -11,7 +11,7 @@ export default {
   name: 'MapLoader',
   computed: {
     ...mapState({
-      loading: (state) => state.maps.loading,
+      loading: state => state.maps.loading,
     }),
   },
 };

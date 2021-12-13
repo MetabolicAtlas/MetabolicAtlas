@@ -311,7 +311,7 @@ export default {
             filterOptions: {
               enabled: true,
               filterFn: (e, s) =>
-                e.filter((v) => v.name.toLowerCase().includes(s.toLowerCase())).length !== 0,
+                e.filter(v => v.name.toLowerCase().includes(s.toLowerCase())).length !== 0,
             },
             sortable: true,
           },
@@ -351,7 +351,7 @@ export default {
             filterOptions: {
               enabled: true,
               filterFn: (e, s) =>
-                e.filter((v) => v.name.toLowerCase().includes(s.toLowerCase())).length !== 0,
+                e.filter(v => v.name.toLowerCase().includes(s.toLowerCase())).length !== 0,
             },
             sortable: true,
           },
@@ -361,7 +361,7 @@ export default {
             filterOptions: {
               enabled: true,
               filterDropdownItems: [],
-              filterFn: (e, s) => e.filter((v) => v.name === s).length !== 0,
+              filterFn: (e, s) => e.filter(v => v.name === s).length !== 0,
             },
             sortable: true,
           },
@@ -391,7 +391,7 @@ export default {
             filterOptions: {
               enabled: true,
               filterFn: (e, s) =>
-                e.filter((v) => v.name.toLowerCase().includes(s.toLowerCase())).length !== 0,
+                e.filter(v => v.name.toLowerCase().includes(s.toLowerCase())).length !== 0,
             },
             sortable: true,
           },
@@ -401,7 +401,7 @@ export default {
             filterOptions: {
               enabled: true,
               filterDropdownItems: [],
-              filterFn: (e, s) => e.filter((v) => v.name === s).length !== 0,
+              filterFn: (e, s) => e.filter(v => v.name === s).length !== 0,
             },
             sortable: true,
           },
@@ -431,7 +431,7 @@ export default {
             filterOptions: {
               enabled: true,
               filterDropdownItems: [],
-              filterFn: (e, s) => e.filter((v) => v.name === s).length !== 0,
+              filterFn: (e, s) => e.filter(v => v.name === s).length !== 0,
             },
             sortable: true,
           },
@@ -531,7 +531,7 @@ export default {
   },
   computed: {
     ...mapState({
-      tabs: (state) => state.search.categories,
+      tabs: state => state.search.categories,
     }),
     ...mapGetters({
       searchResults: 'search/categorizedGlobalResults',
@@ -541,7 +541,7 @@ export default {
   },
   // eslint-disable-next-line no-unused-vars
   beforeRouteEnter(to, from, next) {
-    next((vm) => {
+    next(vm => {
       if (to.query.term) {
         vm.searchedTerm = to.query.term; // eslint-disable-line no-param-reassign
         vm.validateSearch(to.query.term);
@@ -595,7 +595,7 @@ export default {
       };
 
       // store choice only once in a dict
-      Object.keys(this.searchResults).forEach((componentType) => {
+      Object.keys(this.searchResults).forEach(componentType => {
         const compoList = this.searchResults[componentType];
         /* Sorted twice as sortResultsSearchTerm does not catch cases when
         this.searchResult contains nodes that were returned because they have a relationship
@@ -606,10 +606,10 @@ export default {
         */
         compoList.sort((a, b) => sortResultsScore(a, b));
         compoList.sort((a, b) => sortResultsSearchTerm(a, b, this.searchedTerm));
-        compoList.forEach((el) => {
+        compoList.forEach(el => {
           // e.g. results list for metabolites
           if (componentType === 'metabolite') {
-            Object.keys(filterTypeDropdown[componentType]).forEach((field) => {
+            Object.keys(filterTypeDropdown[componentType]).forEach(field => {
               if (field === 'model') {
                 filterTypeDropdown[componentType][field][el[field].id] = el[field].name;
               } else if (el[field] && field === 'compartment') {
@@ -618,24 +618,24 @@ export default {
             });
             rows[componentType].push(el);
           } else if (componentType === 'gene') {
-            Object.keys(filterTypeDropdown[componentType]).forEach((field) => {
+            Object.keys(filterTypeDropdown[componentType]).forEach(field => {
               if (field === 'model') {
                 filterTypeDropdown[componentType][field][el[field].id] = el[field].name;
               } else if (el[field] && field === 'compartment') {
                 el[field]
-                  .filter((v) => !(v.id in filterTypeDropdown[componentType][field]))
-                  .forEach((v) => {
+                  .filter(v => !(v.id in filterTypeDropdown[componentType][field]))
+                  .forEach(v => {
                     filterTypeDropdown[componentType][field][v.name] = 1;
                   });
               }
             });
             rows[componentType].push(el);
           } else if (componentType === 'reaction') {
-            Object.keys(filterTypeDropdown[componentType]).forEach((field) => {
+            Object.keys(filterTypeDropdown[componentType]).forEach(field => {
               if (field === 'compartment') {
                 el[field]
-                  .filter((v) => !(v in filterTypeDropdown[componentType][field]))
-                  .forEach((v) => {
+                  .filter(v => !(v in filterTypeDropdown[componentType][field]))
+                  .forEach(v => {
                     filterTypeDropdown[componentType][field][v.name] = 1;
                   });
               } else if (field === 'model') {
@@ -651,13 +651,13 @@ export default {
               compartment: el.compartment,
             });
           } else if (componentType === 'subsystem') {
-            Object.keys(filterTypeDropdown[componentType]).forEach((field) => {
+            Object.keys(filterTypeDropdown[componentType]).forEach(field => {
               if (field === 'compartments') {
                 el[field]
                   .filter(
-                    (compartment) => !(compartment.id in filterTypeDropdown[componentType][field])
+                    compartment => !(compartment.id in filterTypeDropdown[componentType][field])
                   )
-                  .forEach((compartment) => {
+                  .forEach(compartment => {
                     filterTypeDropdown[componentType][field][compartment.name] = 1;
                   });
               } else if (field === 'model') {
@@ -666,19 +666,19 @@ export default {
             });
             rows[componentType].push(el);
           } else if (componentType === 'compartment') {
-            Object.keys(filterTypeDropdown[componentType]).forEach((field) => {
+            Object.keys(filterTypeDropdown[componentType]).forEach(field => {
               // 'model' field
               filterTypeDropdown[componentType][field][el[field].id] = el[field].name;
             });
             rows[componentType].push(el);
           }
         });
-        Object.keys(filterTypeDropdown[componentType]).forEach((field) => {
+        Object.keys(filterTypeDropdown[componentType]).forEach(field => {
           if (field === 'model') {
             filterTypeDropdown[componentType][field] = Object.keys(
               filterTypeDropdown[componentType][field]
             ).map(
-              (e) => {
+              e => {
                 const d = {};
                 d.value = e;
                 d.text = filterTypeDropdown[componentType][field][e];
@@ -689,7 +689,7 @@ export default {
             filterTypeDropdown[componentType][field] = Object.keys(
               filterTypeDropdown[componentType][field]
             )
-              .map((e) => {
+              .map(e => {
                 let v = e;
                 if (v === 'true') {
                   v = 'Yes';
@@ -767,8 +767,8 @@ export default {
         this.fillFilterFields();
         // select the active tab
         Object.keys(this.resultsCount)
-          .filter((key) => this.resultsCount[key] !== 0)
-          .every((key) => {
+          .filter(key => this.resultsCount[key] !== 0)
+          .every(key => {
             this.showTabType = key;
             return false;
           });
@@ -779,9 +779,9 @@ export default {
       const header = [];
       let getHeader = false;
       const tsvContent = rows
-        .map((e) => {
+        .map(e => {
           const rowData = [];
-          Object.entries(e).forEach((entry) => {
+          Object.entries(e).forEach(entry => {
             const key = entry[0];
             let value = entry[1];
             if (key !== 'vgt_id' && key !== 'originalIndex') {

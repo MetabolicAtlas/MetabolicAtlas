@@ -85,7 +85,7 @@
                 <a :href="dataSource.link" target="_blank">{{ dataSource.name }}</a>
               </p>
               <div class="select is-fullwidth">
-                <select :disabled="levelsDisabled" @change="(e) => setDataSet(e.target.value)">
+                <select :disabled="levelsDisabled" @change="e => setDataSet(e.target.value)">
                   <option>None</option>
                   <option
                     v-for="t in dataSource.dataSets"
@@ -107,7 +107,7 @@
               <select
                 :value="customDataSet"
                 :disabled="!customDataSource"
-                @change="(e) => setCustomDataSet(e.target.value)"
+                @change="e => setCustomDataSet(e.target.value)"
               >
                 <template v-if="customDataSource">
                   <option>None</option>
@@ -161,16 +161,16 @@ export default {
   },
   computed: {
     ...mapState({
-      model: (state) => state.models.model,
-      showing2D: (state) => state.maps.showing2D,
-      dataOverlayPanelVisible: (state) => state.maps.dataOverlayPanelVisible,
-      mapLoaded: (state) => !state.maps.loading,
-      dataSourcesIndex: (state) => state.dataOverlay.index,
-      dataType: (state) => state.dataOverlay.currentDataType,
-      dataSource: (state) => state.dataOverlay.currentDataSource,
-      dataSet: (state) => state.dataOverlay.dataSet,
-      customDataSource: (state) => state.dataOverlay.customDataSource,
-      customDataSet: (state) => state.dataOverlay.customDataSet,
+      model: state => state.models.model,
+      showing2D: state => state.maps.showing2D,
+      dataOverlayPanelVisible: state => state.maps.dataOverlayPanelVisible,
+      mapLoaded: state => !state.maps.loading,
+      dataSourcesIndex: state => state.dataOverlay.index,
+      dataType: state => state.dataOverlay.currentDataType,
+      dataSource: state => state.dataOverlay.currentDataSource,
+      dataSet: state => state.dataOverlay.dataSet,
+      customDataSource: state => state.dataOverlay.customDataSource,
+      customDataSet: state => state.dataOverlay.customDataSet,
     }),
     levelsDisabled() {
       return !this.mapName || !this.dataSource || this.dataSource.dataSets.length === 0;
@@ -267,7 +267,7 @@ export default {
         this.$route.query.datasource && // eslint-disable-line operator-linebreak
         this.dataType && // eslint-disable-line operator-linebreak
         this.dataSourcesIndex[this.dataType.name]
-          .map((e) => e.filename)
+          .map(e => e.filename)
           .indexOf(this.$route.query.datasource) > -1
       );
     },

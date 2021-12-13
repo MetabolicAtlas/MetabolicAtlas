@@ -113,7 +113,7 @@
           <div class="content">
             <template
               v-for="item in selectedElementDataKeys[selectionData.type].filter(
-                (i) => selectionData.data[i.name]
+                i => selectionData.data[i.name]
               )"
             >
               <!-- eslint-disable vue/valid-v-for vue/require-v-for-key -->
@@ -252,8 +252,8 @@ export default {
   },
   computed: {
     ...mapState({
-      model: (state) => state.models.model,
-      loading: (state) => state.maps.loadingElement,
+      model: state => state.models.model,
+      loading: state => state.maps.loadingElement,
     }),
   },
   watch: {

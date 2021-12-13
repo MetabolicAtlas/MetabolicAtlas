@@ -1,7 +1,7 @@
 // https://stackoverflow.com/a/19366389
 const memoize = (factory, ctx) => {
   const cache = {};
-  return (key) => {
+  return key => {
     if (!(key in cache)) {
       cache[key] = factory.call(ctx, key);
     }
@@ -15,7 +15,7 @@ const colorToRGBA = (() => {
   canvas.height = 1;
   const ctx = canvas.getContext('2d');
 
-  return memoize((col) => {
+  return memoize(col => {
     ctx.clearRect(0, 0, 1, 1);
     // In order to detect invalid values,
     // we can't rely on col being in the same format as what fillStyle is computed as,
@@ -45,7 +45,7 @@ const colorOrFallbackColorToRGBA = (color, fallbackColor) => {
   return colorToRGBA(color) || fallbackRGBA;
 };
 
-export default (color) => {
+export default color => {
   const [r, g, b] = colorOrFallbackColorToRGBA(color, '#fff');
   return [r, g, b];
 };

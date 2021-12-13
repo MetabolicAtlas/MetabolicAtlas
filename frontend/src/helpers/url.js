@@ -8,7 +8,7 @@ const routeQueryEntries = [
   { name: 'search', regexp: null, default: '' },
 ];
 
-const roundValue = (value) => Math.round((value + 0.00001) * 1000) / 1000;
+const roundValue = value => Math.round((value + 0.00001) * 1000) / 1000;
 
 const setRouteForMap = ({ route, mapType, mapId, dim }) => ({
   name: 'viewer',
@@ -32,7 +32,7 @@ const setRouteForSearch = ({ route, searchTerm }) => ({
 });
 
 const setRouteForCoord = ({ route, x, y, z, u, v, w }) => {
-  const coord = [x, y, z, u, v, w].map((val) => roundValue(val)).join(',');
+  const coord = [x, y, z, u, v, w].map(val => roundValue(val)).join(',');
   return {
     query: { ...route.query, coord },
     params: { ...route.params, reload: false },
@@ -46,7 +46,7 @@ const setRouteForOverlay = ({ route, isOpen }) => ({
 
 const setDefaultQuery = ({ route, defaultValues }) => {
   const query = {};
-  routeQueryEntries.forEach((el) => {
+  routeQueryEntries.forEach(el => {
     if (!(el.name in route.query) || !(!el.regexp || route.query[el.name].match(el.regexp))) {
       query[el.name] = el.default;
     } else {
@@ -85,9 +85,9 @@ const areRoutesIdentical = ({ route, oldRoute }) => {
   return true;
 };
 
-const parseRoute = (route) => ({
+const parseRoute = route => ({
   searchTerm: route.query.search,
-  selectIDs: [route.query.sel].filter((x) => x),
+  selectIDs: [route.query.sel].filter(x => x),
   coords: route.query.coord !== '0,0,0,0,0,0' ? route.query.coord : null,
 });
 

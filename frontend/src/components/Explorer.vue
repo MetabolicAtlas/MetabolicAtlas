@@ -127,7 +127,7 @@ export default {
       models: 'models/models',
     }),
     ...mapState({
-      model: (state) => state.models.model,
+      model: state => state.models.model,
     }),
   },
   mounted() {

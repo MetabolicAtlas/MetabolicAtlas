@@ -31,14 +31,14 @@ export default {
         }
         const errors = [];
         const reader = new FileReader();
-        reader.onloadend = (evt) => {
+        reader.onloadend = evt => {
           const lines = evt.target.result.split(/\r?\n/);
           const header = lines[0].split('\t');
           if (header[0] !== 'id') {
             errors.push(`Error: ${messages.noIDColumn}. First column should not be ${header[0]}`);
           }
           const colTitles = [];
-          header.forEach((colTitle) => {
+          header.forEach(colTitle => {
             if (colTitles.indexOf(colTitle) > -1) {
               errors.push(`Error: ${messages.duplicateColName} ${colTitle}`);
             } else {
@@ -47,7 +47,7 @@ export default {
           });
           // No further checks if invalid TSV format
           if (header.length !== 1 && lines.length > 2) {
-            header.forEach((name) => {
+            header.forEach(name => {
               if (name.length > 20) {
                 errors.push(`Error: ${messages.columnNameLength}, ${name} has ${name.length}`);
               }
@@ -63,7 +63,7 @@ export default {
                     `Error: ${messages.idNameLenght}, ${columnValues[0]} has ${columnValues[0].length}`
                   );
                 }
-                columnValues.slice(1).forEach((value) => {
+                columnValues.slice(1).forEach(value => {
                   if (Number.isNaN(Number(value)) || value < 0 || value > 1) {
                     errors.push(`Error: ${value} ${messages.levelsRange}`);
                   }

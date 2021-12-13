@@ -11,8 +11,8 @@
         :disabled="loading || (showing2D && !svgMap)"
         :value="searchTerm"
         type="text"
-        @input="(e) => handleChange(e.target.value)"
-        @keyup.enter="(e) => search(e.target.value)"
+        @input="e => handleChange(e.target.value)"
+        @keyup.enter="e => search(e.target.value)"
       />
     </div>
     <template v-if="searchTerm && matches && matches.length !== 0 && totalSearchMatch !== 0">
@@ -64,12 +64,12 @@ export default {
   },
   computed: {
     ...mapState({
-      model: (state) => state.models.model,
-      searchTerm: (state) => state.maps.searchTerm,
-      idsFound: (state) => state.maps.idsFound,
-      loading: (state) => state.maps.loading,
-      svgMap: (state) => state.maps.svgMap,
-      showing2D: (state) => state.maps.showing2D,
+      model: state => state.models.model,
+      searchTerm: state => state.maps.searchTerm,
+      idsFound: state => state.maps.idsFound,
+      loading: state => state.maps.loading,
+      svgMap: state => state.maps.svgMap,
+      showing2D: state => state.maps.showing2D,
     }),
   },
   watch: {

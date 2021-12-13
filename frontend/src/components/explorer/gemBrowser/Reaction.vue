@@ -140,10 +140,10 @@ export default {
   },
   computed: {
     ...mapState({
-      model: (state) => state.models.model,
-      reaction: (state) => state.reactions.reaction,
-      referenceList: (state) => state.reactions.referenceList,
-      relatedReactions: (state) => state.reactions.relatedReactions,
+      model: state => state.models.model,
+      reaction: state => state.reactions.reaction,
+      referenceList: state => state.reactions.referenceList,
+      relatedReactions: state => state.reactions.relatedReactions,
     }),
   },
   metaInfo() {
@@ -184,12 +184,12 @@ export default {
       // capture any sequence that's not a space or parenthesis
       const regex = /[^\s()]+/g;
 
-      return this.reaction.geneRule.replace(regex, (w) => {
+      return this.reaction.geneRule.replace(regex, w => {
         if (w.match(/and|or/)) {
           return w;
         }
 
-        const gene = this.reaction.genes.find((g) => g.id === w);
+        const gene = this.reaction.genes.find(g => g.id === w);
         const customLink = buildCustomLink({
           model: this.model.short_name,
           type: 'gene',
@@ -204,7 +204,7 @@ export default {
     },
     reformatQuant() {
       const data = [];
-      ['lowerBound', 'upperBound', 'objective_coefficient'].forEach((key) => {
+      ['lowerBound', 'upperBound', 'objective_coefficient'].forEach(key => {
         if (this.reaction[key] != null) {
           data.push(this.formatQuantFieldName(capitalize(convertCamelCase(key))));
           if (key === 'objective_coefficient') {

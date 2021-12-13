@@ -22,7 +22,7 @@ export function replaceUnderscores(value) {
   return `${value.replace('_', ' ')}`;
 }
 
-export const convertCamelCase = (str) =>
+export const convertCamelCase = str =>
   str.replace(/([a-z\xE0-\xFF])([A-Z\xC0\xDF])/g, '$1 $2').toLowerCase();
 
 export function reformatTableKey(value) {
@@ -53,20 +53,19 @@ export function getSimpleEquation(reaction) {
   return `${reactants} ${equationSign(reaction.reversible)} ${products}`;
 }
 
-const sortByName = (metabolites) => [...metabolites].sort((a, b) => (a.name > b.name ? 1 : -1));
+const sortByName = metabolites => [...metabolites].sort((a, b) => (a.name > b.name ? 1 : -1));
 
 /** Get the compartement from a reactant or product */
 const getCompartment = ({ fullName }) => fullName.match(/\[[a-z]{1,3}\]/)[0];
 
 /** Extract the compartements from the full names,
  * discard duplicates and return as a string  */
-const uniqueCompartments = (xs) =>
-  Array.from(new Set(xs.map((r) => getCompartment(r)))).join(' + ');
+const uniqueCompartments = xs => Array.from(new Set(xs.map(r => getCompartment(r)))).join(' + ');
 
 /** Create  the compartements for the summary, as used in Equation and Related Reactions */
-export const formatCompartmentStr = (reaction) => {
-  const reactants = reaction.metabolites.filter((m) => m.outgoing);
-  const products = reaction.metabolites.filter((m) => !m.outgoing);
+export const formatCompartmentStr = reaction => {
+  const reactants = reaction.metabolites.filter(m => m.outgoing);
+  const products = reaction.metabolites.filter(m => !m.outgoing);
 
   const reactantsCompartments = uniqueCompartments(reactants);
   const productsCompartments = uniqueCompartments(products);
@@ -92,10 +91,10 @@ export function reformatChemicalReactionHTML({
   // if comp is true, override other test
   const addComp = comp || reaction.compartment_str.includes('=>');
   const type = 'metabolite';
-  const stoichiometry = (x) => (Math.abs(x.stoichiometry) !== 1 ? `${x.stoichiometry} ` : '');
+  const stoichiometry = x => (Math.abs(x.stoichiometry) !== 1 ? `${x.stoichiometry} ` : '');
   // use super- and subscript for charge and number of atoms, if in html mode
   const chemName = ({ name }) => (html ? chemicalFormula(name, null) : name);
-  const getComponentName = (x) =>
+  const getComponentName = x =>
     noLink
       ? chemName(x)
       : buildCustomLink({
@@ -132,7 +131,7 @@ export function sortResultsScore(a, b) {
 export function sortResultsSearchTerm(a, b, searchTermString) {
   let matchSizeDiffA = 100;
   let matchedStringA = '';
-  Object.values(a).forEach((v) => {
+  Object.values(a).forEach(v => {
     if (
       v &&
       (typeof v === 'string' || v instanceof String) &&
@@ -149,7 +148,7 @@ export function sortResultsSearchTerm(a, b, searchTermString) {
   let matchSizeDiffB = 100;
   let matchedStringB = '';
 
-  Object.values(b).forEach((v) => {
+  Object.values(b).forEach(v => {
     if (
       v &&
       (typeof v === 'string' || v instanceof String) &&
@@ -168,7 +167,7 @@ export function sortResultsSearchTerm(a, b, searchTermString) {
   return matchSizeDiffA < matchSizeDiffB ? -1 : 1;
 }
 
-export const constructCompartmentStr = (reaction) => {
+export const constructCompartmentStr = reaction => {
   const compartments = reaction.compartments.reduce(
     (obj, { id, ...cs }) => ({
       ...obj,
@@ -177,13 +176,13 @@ export const constructCompartmentStr = (reaction) => {
     {}
   );
 
-  const reactants = reaction.metabolites.filter((m) => m.outgoing);
-  const products = reaction.metabolites.filter((m) => !m.outgoing);
+  const reactants = reaction.metabolites.filter(m => m.outgoing);
+  const products = reaction.metabolites.filter(m => !m.outgoing);
   const reactantsCompartments = new Set(
-    reactants.map((r) => compartments[r.compartmentId].name).sort()
+    reactants.map(r => compartments[r.compartmentId].name).sort()
   );
   const productsCompartments = new Set(
-    products.map((r) => compartments[r.compartmentId].name).sort()
+    products.map(r => compartments[r.compartmentId].name).sort()
   );
 
   const reactantsCompartmentsStr = Array.from(reactantsCompartments).join(' + ');

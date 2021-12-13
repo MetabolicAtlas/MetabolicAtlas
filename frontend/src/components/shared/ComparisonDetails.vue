@@ -5,7 +5,7 @@
         Comparing&nbsp;
         <span v-if="comparisonDetails">
           {{ currentModel.short_name }} with
-          {{ comparedModels.map((m) => m.short_name).join(' and ') }}
+          {{ comparedModels.map(m => m.short_name).join(' and ') }}
         </span>
       </p>
     </header>
@@ -87,24 +87,24 @@ export default {
   },
   computed: {
     ...mapState({
-      selectedCell: (state) => state.compare.selectedCell,
-      comparisonDetails: (state) => state.compare.comparisonDetails,
-      modelList: (state) => state.models.modelList,
+      selectedCell: state => state.compare.selectedCell,
+      comparisonDetails: state => state.compare.comparisonDetails,
+      modelList: state => state.models.modelList,
     }),
     currentModel() {
       if (!this.comparisonDetails || this.modelList.length === 0) {
         return null;
       }
 
-      return this.modelList.find((m) => m.apiName === this.comparisonDetails.models.model.model);
+      return this.modelList.find(m => m.apiName === this.comparisonDetails.models.model.model);
     },
     comparedModels() {
       if (!this.comparisonDetails) {
         return [];
       }
 
-      return this.comparisonDetails.models.models.map((m) =>
-        this.modelList.find((mo) => mo.apiName === m.model)
+      return this.comparisonDetails.models.models.map(m =>
+        this.modelList.find(mo => mo.apiName === m.model)
       );
     },
   },

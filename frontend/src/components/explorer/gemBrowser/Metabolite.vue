@@ -122,9 +122,9 @@ export default {
   },
   computed: {
     ...mapState({
-      model: (state) => state.models.model,
-      metabolite: (state) => state.metabolites.metabolite,
-      relatedMetabolites: (state) => state.metabolites.relatedMetabolites,
+      model: state => state.models.model,
+      metabolite: state => state.metabolites.metabolite,
+      relatedMetabolites: state => state.metabolites.relatedMetabolites,
     }),
   },
   metaInfo() {

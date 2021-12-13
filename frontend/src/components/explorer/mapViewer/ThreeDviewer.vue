@@ -73,15 +73,15 @@ export default {
   },
   computed: {
     ...mapState({
-      model: (state) => state.models.model,
-      network: (state) => state.maps.network,
-      selectedElement: (state) => state.maps.selectedElement,
-      selectedElementId: (state) => state.maps.selectedElementId,
-      backgroundColor: (state) => state.maps.backgroundColor,
-      coords: (state) => state.maps.coords,
-      dataOverlayPanelVisible: (state) => state.maps.dataOverlayPanelVisible,
-      dataSet: (state) => state.dataOverlay.dataSet,
-      customDataSet: (state) => state.dataOverlay.customDataSet,
+      model: state => state.models.model,
+      network: state => state.maps.network,
+      selectedElement: state => state.maps.selectedElement,
+      selectedElementId: state => state.maps.selectedElementId,
+      backgroundColor: state => state.maps.backgroundColor,
+      coords: state => state.maps.coords,
+      dataOverlayPanelVisible: state => state.maps.dataOverlayPanelVisible,
+      dataSet: state => state.dataOverlay.dataSet,
+      customDataSet: state => state.dataOverlay.customDataSet,
     }),
     ...mapGetters({
       queryParams: 'maps/queryParams',
@@ -146,8 +146,8 @@ export default {
       this.controller = MetAtlasViewer('viewer3d');
 
       const graphData = customizedNetwork || this.network;
-      const nodeTypes = new Set(graphData.nodes.map((n) => n.g));
-      const nodeTextures = NODE_TEXTURES.filter((t) => nodeTypes.has(t.group));
+      const nodeTypes = new Set(graphData.nodes.map(n => n.g));
+      const nodeTextures = NODE_TEXTURES.filter(t => nodeTypes.has(t.group));
 
       this.controller.setNodeSelectCallback(this.selectElement);
       this.controller.setBackgroundColor(this.backgroundColor);
@@ -207,7 +207,7 @@ export default {
       // }
       // this.currentLevels = levels;
 
-      const nodes = this.network.nodes.map((node) => {
+      const nodes = this.network.nodes.map(node => {
         let color = colorToRGBArray(this.defaultMetaboliteColor);
 
         if (node.g === 'r') {
@@ -299,8 +299,8 @@ export default {
 
       if (ids && ids.length > 0) {
         this.searchedNodesOnMap = this.network.nodes
-          .filter((n) => ids.includes(n.id))
-          .map((n) => ({
+          .filter(n => ids.includes(n.id))
+          .map(n => ({
             id: n.id,
             name: n.n,
             group: n.g,

@@ -94,16 +94,16 @@ export default {
   },
   computed: {
     ...mapState({
-      model: (state) => state.models.model,
-      svgContent: (state) => state.maps.svgMap,
-      idsFound: (state) => state.maps.idsFound,
-      selectedElement: (state) => state.maps.selectedElement,
-      coords: (state) => state.maps.coords,
-      selectedElementId: (state) => state.maps.selectedElementId,
-      searchTerm: (state) => state.maps.searchTerm,
-      dataSource: (state) => state.dataOverlay.currentDataSource,
-      dataSet: (state) => state.dataOverlay.dataSet,
-      customDataSet: (state) => state.dataOverlay.customDataSet,
+      model: state => state.models.model,
+      svgContent: state => state.maps.svgMap,
+      idsFound: state => state.maps.idsFound,
+      selectedElement: state => state.maps.selectedElement,
+      coords: state => state.maps.coords,
+      selectedElementId: state => state.maps.selectedElementId,
+      searchTerm: state => state.maps.searchTerm,
+      dataSource: state => state.dataOverlay.currentDataSource,
+      dataSet: state => state.dataOverlay.dataSet,
+      customDataSet: state => state.dataOverlay.customDataSet,
     }),
     ...mapGetters({
       selectIds: 'maps/selectIds',
@@ -129,7 +129,7 @@ export default {
   },
   async mounted() {
     const self = this;
-    ['.met', '.enz', '.rea', '.subsystem'].forEach((aClass) => {
+    ['.met', '.enz', '.rea', '.subsystem'].forEach(aClass => {
       $('#svg-wrapper').on('click', aClass, async function f() {
         await self.selectElement($(this));
       });
@@ -153,7 +153,7 @@ export default {
     });
     $('.svgbox').on(
       'webkitfullscreenchange mozfullscreenchange fullscreenchange mozFullScreen MSFullscreenChange',
-      (e) => {
+      e => {
         $('.svgbox').first().toggleClass('fullscreen');
         self.isFullscreen = $('.svgbox').first().hasClass('fullscreen');
         e.stopPropagation();
@@ -177,7 +177,7 @@ export default {
       this.bindKeyboardShortcuts();
     },
     bindKeyboardShortcuts() {
-      document.addEventListener('keydown', (event) => {
+      document.addEventListener('keydown', event => {
         const key = event.key || event.keyCode;
         const panDistance = 10;
         switch (key) {
@@ -285,7 +285,7 @@ export default {
 
         // bind event listeners
         panzoomElem.addEventListener('panzoomchange', this.updateURLCoord);
-        panzoomElem.addEventListener('panzoomzoom', (e) => {
+        panzoomElem.addEventListener('panzoomzoom', e => {
           this.currentZoomScale = e.detail.scale;
         });
 
@@ -340,14 +340,14 @@ export default {
     },
     applyLevelsOnMap() {
       if (Object.keys(this.computedLevels).length === 0) {
-        Object.values(DATA_TYPES_COMPONENTS).forEach((dataType) => {
+        Object.values(DATA_TYPES_COMPONENTS).forEach(dataType => {
           $(`#svg-wrapper .${dataType.className} .shape`).attr('fill', dataType.defaultColor);
         });
 
         return;
       }
       const allComponents = $(`#svg-wrapper .${this.componentClassName}`);
-      Object.values(allComponents).forEach((node) => {
+      Object.values(allComponents).forEach(node => {
         try {
           const ID = node.classList[1];
           if (this.computedLevels[ID] !== undefined) {
@@ -363,8 +363,8 @@ export default {
 
       // update cached selected elements
       Object.keys(this.selectedItemHistory)
-        .filter((id) => this.computedLevels[id] !== undefined)
-        .forEach((ID) => {
+        .filter(id => this.computedLevels[id] !== undefined)
+        .forEach(ID => {
           this.selectedItemHistory[ID].rnaLvl = this.computedLevels[ID];
         });
     },

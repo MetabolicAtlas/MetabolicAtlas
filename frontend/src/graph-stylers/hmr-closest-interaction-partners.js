@@ -14,7 +14,7 @@ export default function (
   const elmsjson = [];
   const { expSource, expType, expSample } = nodeDisplayParams;
   /* eslint-disable no-param-reassign */
-  Object.values(elms).forEach((elm) => {
+  Object.values(elms).forEach(elm => {
     if (ALLOWED_TYPES.includes(elm.type)) {
       if (!elm.expressionLvl) {
         elm.expressionLvl = {};
@@ -49,7 +49,7 @@ export default function (
     }
   });
 
-  Object.values(rels).forEach((rel) => {
+  Object.values(rels).forEach(rel => {
     elmsjson.push({
       group: 'edges',
       data: {

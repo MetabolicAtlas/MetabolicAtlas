@@ -161,9 +161,9 @@ export default {
   },
   computed: {
     ...mapState({
-      model: (state) => state.models.model,
-      reactions: (state) => state.reactions.relatedReactions,
-      limitReaction: (state) => state.reactions.relatedReactionsLimit,
+      model: state => state.models.model,
+      reactions: state => state.reactions.relatedReactions,
+      limitReaction: state => state.reactions.relatedReactionsLimit,
     }),
     showCP() {
       return this.selectedElmId; // true or false
@@ -178,16 +178,16 @@ export default {
       }
       // create consume/produce column
       if (this.selectedElmId) {
-        reactionsCopy = reactionsCopy.map((r) => {
+        reactionsCopy = reactionsCopy.map(r => {
           const rCopy = { ...r };
           if (rCopy.reversible) {
             rCopy.cp = 'consume/produce';
           } else {
-            const boolC = rCopy.reactants.filter((e) => e.id === this.selectedElmId);
+            const boolC = rCopy.reactants.filter(e => e.id === this.selectedElmId);
             if (boolC.length !== 0) {
               rCopy.cp = 'consume';
             } else {
-              const boolP = rCopy.products.filter((e) => e.id === this.selectedElmId);
+              const boolP = rCopy.products.filter(e => e.id === this.selectedElmId);
               if (boolP.length !== 0) {
                 rCopy.cp = 'produce';
               }
@@ -252,7 +252,7 @@ export default {
     },
     formatToTSV() {
       let tsvContent = `${this.fields
-        .filter((e) => {
+        .filter(e => {
           if (
             (e.name === 'cp' && !this.showCP) ||
             (e.name === 'subsystem_str' && !this.showSubsystem)
@@ -261,10 +261,10 @@ export default {
           }
           return true;
         })
-        .map((e) => e.display)
+        .map(e => e.display)
         .join('\t')}\n`;
       tsvContent += this.sortedReactions
-        .map((r) => {
+        .map(r => {
           const arr = [];
           arr.push(r.id);
 
@@ -277,7 +277,7 @@ export default {
               html: false,
             })
           );
-          arr.push(r.genes.map((g) => g.name || g.id).join('; '));
+          arr.push(r.genes.map(g => g.name || g.id).join('; '));
           if (this.showCP) {
             arr.push(r.cp);
           }

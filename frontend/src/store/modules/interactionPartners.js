@@ -12,19 +12,19 @@ const data = {
 };
 
 const getters = {
-  component: (state) => state.interactionPartners.component || {},
-  reactions: (state) => state.interactionPartners.reactions || [],
-  reactionsSet: (state, _getters) => new Set(_getters.reactions.map((r) => r.id)),
+  component: state => state.interactionPartners.component || {},
+  reactions: state => state.interactionPartners.reactions || [],
+  reactionsSet: (state, _getters) => new Set(_getters.reactions.map(r => r.id)),
   componentName: (state, _getters) => _getters.component.name || _getters.component.id,
 };
 
-const formatInteractionPartners = (ips) => ({
+const formatInteractionPartners = ips => ({
   ...ips,
-  reactions: ips.reactions.map((r) => ({
+  reactions: ips.reactions.map(r => ({
     ...r,
     compartment: constructCompartmentStr(r),
-    reactants: r.metabolites.filter((m) => m.outgoing),
-    products: r.metabolites.filter((m) => !m.outgoing),
+    reactants: r.metabolites.filter(m => m.outgoing),
+    products: r.metabolites.filter(m => !m.outgoing),
   })),
 });
 
@@ -59,7 +59,7 @@ const actions = {
     commit('setTooLargeNetworkGraph', !expansion.reactions);
     commit('setExpansion', expansion);
 
-    const newReactions = expansion.reactions.filter((r) => !_getters.reactionsSet.has(r.id));
+    const newReactions = expansion.reactions.filter(r => !_getters.reactionsSet.has(r.id));
     const updatedInteractionPartners = {
       ...state.interactionPartners,
       reactions: [..._getters.reactions, ...newReactions],

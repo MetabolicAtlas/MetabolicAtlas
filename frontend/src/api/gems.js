@@ -11,8 +11,7 @@ const fetchGems = async () => {
       description: g.description || g.gemodelset.description,
       set_name: g.gemodelset.name,
       tissue:
-        [g.sample.tissue, g.sample.cell_type, g.sample.cell_line].filter((e) => e).join(' ‒ ') ||
-        '-',
+        [g.sample.tissue, g.sample.cell_type, g.sample.cell_line].filter(e => e).join(' ‒ ') || '-',
       stats: `reactions:&nbsp;${
         g.reaction_count === null ? '-' : g.reaction_count
       }<br>metabolites:&nbsp;${

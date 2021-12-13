@@ -5,11 +5,11 @@ const data = {
 };
 
 const getters = {
-  info: (state) => state.subsystemSummary || {},
-  metabolites: (state) => state.subsystemSummary.metabolites || [],
-  genes: (state) => state.subsystemSummary.genes || [],
-  limitMetabolite: (state) => state.subsystemSummary.limit || 1000,
-  limitGene: (state) => state.subsystemSummary.limit || 1000,
+  info: state => state.subsystemSummary || {},
+  metabolites: state => state.subsystemSummary.metabolites || [],
+  genes: state => state.subsystemSummary.genes || [],
+  limitMetabolite: state => state.subsystemSummary.limit || 1000,
+  limitGene: state => state.subsystemSummary.limit || 1000,
 };
 
 const actions = {

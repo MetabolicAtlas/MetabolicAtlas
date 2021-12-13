@@ -6,7 +6,7 @@ const data = {
 };
 
 const getters = {
-  models: (state) =>
+  models: state =>
     state.modelList.reduce((models, model) => {
       const modifiedModel = {
         ...model,
@@ -17,12 +17,12 @@ const getters = {
         [model.short_name]: modifiedModel,
       };
     }, {}),
-  integratedModels: (state) =>
-    state.modelList.map((model) => ({
+  integratedModels: state =>
+    state.modelList.map(model => ({
       ...model,
       sample:
         [model.sample.tissue, model.sample.cell_type, model.sample.cell_line]
-          .filter((e) => e)
+          .filter(e => e)
           .join(' ‒ ') || '-',
     })),
 };

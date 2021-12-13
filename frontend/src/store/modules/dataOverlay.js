@@ -12,12 +12,12 @@ const data = {
 };
 
 const getters = {
-  queryParams: (state) => ({
+  queryParams: state => ({
     datatype: state.currentDataType ? state.currentDataType.name : 'None',
     datasource: state.currentDataSource ? state.currentDataSource.filename : 'None',
     dataSet: state.dataSet,
   }),
-  computedLevels: (state) => {
+  computedLevels: state => {
     const { dataSet, currentDataSource, customDataSource, customDataSet } = state;
     let t;
     let l;
@@ -36,16 +36,16 @@ const getters = {
       'n/a': [getSingleExpressionColor(NaN), 'n/a'],
     };
 
-    Object.keys(l[t]).forEach((id) => {
+    Object.keys(l[t]).forEach(id => {
       const val = Math.round((l[t][id] + 0.00001) * 100) / 100;
       computedLevels[id] = [getSingleExpressionColor(val), val];
     });
 
     return computedLevels;
   },
-  componentClassName: (state) => state.currentDataType && state.currentDataType.className,
-  componentDefaultColor: (state) => state.currentDataType && state.currentDataType.defaultColor,
-  componentType: (state) => state.currentDataType && state.currentDataType.componentType,
+  componentClassName: state => state.currentDataType && state.currentDataType.className,
+  componentDefaultColor: state => state.currentDataType && state.currentDataType.defaultColor,
+  componentType: state => state.currentDataType && state.currentDataType.componentType,
 };
 
 const actions = {
@@ -78,7 +78,7 @@ const actions = {
         filename,
       });
       const dataSource = await parseFile(file);
-      const metadata = data.index[type].find((m) => m.filename === filename);
+      const metadata = data.index[type].find(m => m.filename === filename);
       commit('setCurrentDataSource', {
         ...metadata,
         ...dataSource,

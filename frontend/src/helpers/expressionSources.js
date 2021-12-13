@@ -18,7 +18,7 @@ export const singleColors = `${singleLeftColor}, ${singleMiddleColor}, ${singleR
 
 const MAX = 1;
 const HALF = MAX / 2;
-export const getSingleExpressionColor = (value) => {
+export const getSingleExpressionColor = value => {
   if (Number.isNaN(value)) {
     return notDetectedColor;
   }

@@ -5,7 +5,7 @@ const data = {
 };
 
 const getters = {
-  geneName: (state) => state.gene.id,
+  geneName: state => state.gene.id,
 };
 
 const actions = {

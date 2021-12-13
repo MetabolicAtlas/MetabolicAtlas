@@ -15,13 +15,13 @@ const search = async ({ searchTerm, model, version, limit }) => {
     obj[k] = {
       ...v,
       reaction: v.reaction
-        .map((r) => ({
+        .map(r => ({
           ...r,
-          compartment_str: r.compartment.map((c) => c.name).join(', '),
-          reactants: r.metabolites.filter((m) => m.outgoing),
-          products: r.metabolites.filter((m) => !m.outgoing),
+          compartment_str: r.compartment.map(c => c.name).join(', '),
+          reactants: r.metabolites.filter(m => m.outgoing),
+          products: r.metabolites.filter(m => !m.outgoing),
         }))
-        .map((r) => ({
+        .map(r => ({
           ...r,
           equation: reformatChemicalReactionHTML({
             reaction: r,

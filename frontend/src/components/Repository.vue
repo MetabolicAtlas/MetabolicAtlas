@@ -77,7 +77,7 @@
             :sort-options="{ enabled: true }"
             style-class="vgt-table striped"
             :pagination-options="tablePaginationOpts"
-            @on-row-click="(t) => selectModel(t.row.id)"
+            @on-row-click="t => selectModel(t.row.id)"
           >
           </vue-good-table>
         </div>
@@ -146,7 +146,7 @@
                     <td>
                       {{
                         selectedModel.authors
-                          .map((a) => `${a.given_name} ${a.family_name}`)
+                          .map(a => `${a.given_name} ${a.family_name}`)
                           .join(', ')
                       }}
                     </td>
@@ -324,7 +324,7 @@ export default {
   },
   computed: {
     ...mapState({
-      gem: (state) => state.gems.gem,
+      gem: state => state.gems.gem,
     }),
     ...mapGetters({
       integratedModels: 'models/integratedModels',
@@ -357,7 +357,7 @@ export default {
       try {
         const urlId = this.$route.params.model_id;
         if (urlId) {
-          const urlIntegrateModel = this.integratedModels.find((m) => m.short_name === urlId);
+          const urlIntegrateModel = this.integratedModels.find(m => m.short_name === urlId);
           if (urlIntegrateModel) {
             this.showIntegratedModelData(urlIntegrateModel);
           } else {
@@ -374,7 +374,7 @@ export default {
       this.showModelId = '';
       this.selectedModel = {};
       if (urlId) {
-        Object.values(this.integratedModels).forEach((anIntegratedModel) => {
+        Object.values(this.integratedModels).forEach(anIntegratedModel => {
           if (urlId === anIntegratedModel.short_name) {
             this.selectedModel = anIntegratedModel;
             this.showModelId = this.selectedModel.short_name;

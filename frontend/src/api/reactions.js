@@ -7,9 +7,9 @@ const fetchReactionData = async ({ id, model, version }) => {
 
   data = {
     ...data,
-    compartment_str: data.compartments.map((c) => c.name).join(', '),
-    reactants: data.metabolites.filter((m) => m.outgoing),
-    products: data.metabolites.filter((m) => !m.outgoing),
+    compartment_str: data.compartments.map(c => c.name).join(', '),
+    reactants: data.metabolites.filter(m => m.outgoing),
+    products: data.metabolites.filter(m => !m.outgoing),
   };
 
   return {
@@ -27,23 +27,23 @@ const fetchRelatedReactionsForReaction = async ({ id, model, version, limit }) =
   const { data } = await axios.get(`/reactions/${id}/related-reactions`, { params });
   return data
     .sort((a, b) => (a.compartment_str < b.compartment_str ? -1 : 1))
-    .map((r) => ({
+    .map(r => ({
       ...r,
       compartment_str: constructCompartmentStr(r),
-      reactants: r.metabolites.filter((m) => m.outgoing),
-      products: r.metabolites.filter((m) => !m.outgoing),
+      reactants: r.metabolites.filter(m => m.outgoing),
+      products: r.metabolites.filter(m => !m.outgoing),
     }));
 };
 
 const fetchRelatedReactions = async (resourceType, id, model, version, limit) => {
   const params = { model, version, limit };
   const { data } = await axios.get(`/${resourceType}s/${id}/related-reactions`, { params });
-  return data.map((r) => ({
+  return data.map(r => ({
     ...r,
     compartment_str: constructCompartmentStr(r),
-    subsystem_str: r.subsystems.map((s) => s.name).join(', '),
-    reactants: r.metabolites.filter((m) => m.outgoing),
-    products: r.metabolites.filter((m) => !m.outgoing),
+    subsystem_str: r.subsystems.map(s => s.name).join(', '),
+    reactants: r.metabolites.filter(m => m.outgoing),
+    products: r.metabolites.filter(m => !m.outgoing),
   }));
 };
 

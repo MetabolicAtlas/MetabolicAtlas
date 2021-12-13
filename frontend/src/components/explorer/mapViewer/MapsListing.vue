@@ -44,13 +44,13 @@ export default {
   name: 'MapsListing',
   computed: {
     ...mapState({
-      model: (state) => state.models.model,
-      showing2D: (state) => state.maps.showing2D,
-      mapsListing: (state) => state.maps.mapsListing,
+      model: state => state.models.model,
+      showing2D: state => state.maps.showing2D,
+      mapsListing: state => state.maps.mapsListing,
     }),
     categories() {
       return Object.keys(this.mapsListing)
-        .filter((c) => this.mapsListing[c].length > 0 && (c !== 'customs' || this.showing2D))
+        .filter(c => this.mapsListing[c].length > 0 && (c !== 'customs' || this.showing2D))
         .sort();
     },
   },

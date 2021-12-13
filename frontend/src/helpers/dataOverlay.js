@@ -14,7 +14,7 @@ const DATA_TYPES_COMPONENTS = {
   },
 };
 
-const parseFile = async (file) => {
+const parseFile = async file => {
   let dataSets = [];
   const levels = { 'n/a': 'n/a' };
 

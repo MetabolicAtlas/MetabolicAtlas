@@ -47,7 +47,7 @@ export default {
   },
   computed: {
     ...mapState({
-      formattedRefs: (state) => state.europepmc.formattedRefs,
+      formattedRefs: state => state.europepmc.formattedRefs,
     }),
   },
   async beforeMount() {

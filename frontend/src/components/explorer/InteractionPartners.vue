@@ -489,13 +489,13 @@ export default {
   },
   computed: {
     ...mapState({
-      model: (state) => state.models.model,
-      tooLargeNetworkGraph: (state) => state.interactionPartners.tooLargeNetworkGraph,
-      expansion: (state) => state.interactionPartners.expansion,
-      randomComponents: (state) => state.interactionPartners.randomComponents,
-      currentDataType: (state) => state.dataOverlay.currentDataType,
-      currentDataSource: (state) => state.dataOverlay.currentDataSource,
-      dataSet: (state) => state.dataOverlay.dataSet,
+      model: state => state.models.model,
+      tooLargeNetworkGraph: state => state.interactionPartners.tooLargeNetworkGraph,
+      expansion: state => state.interactionPartners.expansion,
+      randomComponents: state => state.interactionPartners.randomComponents,
+      currentDataType: state => state.dataOverlay.currentDataType,
+      currentDataSource: state => state.dataOverlay.currentDataSource,
+      dataSet: state => state.dataOverlay.dataSet,
     }),
     ...mapGetters({
       component: 'interactionPartners/component',
@@ -508,12 +508,12 @@ export default {
     },
     elms() {
       if (Object.keys(this.rawElms).length !== 0) {
-        return Object.keys(this.rawElms).map((k) => this.rawElms[k]);
+        return Object.keys(this.rawElms).map(k => this.rawElms[k]);
       }
       return [];
     },
     rels() {
-      return Object.keys(this.rawRels).map((k) => this.rawRels[k]);
+      return Object.keys(this.rawRels).map(k => this.rawRels[k]);
     },
   },
   watch: {
@@ -692,8 +692,8 @@ export default {
       if (isValid) {
         const { dataSets } = this.currentDataSource;
         const componentIds = Object.keys(this.rawElms)
-          .filter((el) => this.rawElms[el].type === this.currentDataType.componentType)
-          .map((k) => this.rawElms[k].id);
+          .filter(el => this.rawElms[el].type === this.currentDataType.componentType)
+          .map(k => this.rawElms[k].id);
         const s = this.currentDataSource.name;
         const t = this.currentDataType.componentType;
 
@@ -948,12 +948,12 @@ export default {
       this.showGraphContextMenu = false;
       this.showNetworkGraph = true;
 
-      const updateContextMenuPosition = (node) => {
+      const updateContextMenuPosition = node => {
         contextMenuGraph.style.left = `${node.renderedPosition().x + 15}px`;
         contextMenuGraph.style.top = `${node.renderedPosition().y + 160}px`;
       };
 
-      this.cy.on('tap tapstart cxttap', (evt) => {
+      this.cy.on('tap tapstart cxttap', evt => {
         if (evt.target === this.cy) {
           this.cy.nodes().deselect();
           this.showGraphContextMenu = false;
@@ -962,7 +962,7 @@ export default {
         }
       });
 
-      this.cy.on('tap cxttap', 'node', (evt) => {
+      this.cy.on('tap cxttap', 'node', evt => {
         const node = evt.target;
         this.cy.nodes().deselect();
         node.json({ selected: true });

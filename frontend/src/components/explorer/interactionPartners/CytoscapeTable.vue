@@ -154,8 +154,8 @@ export default {
     },
     geneCount() {
       const genes = new Set();
-      this.reactions.forEach((r) => {
-        r.genes.forEach((e) => {
+      this.reactions.forEach(r => {
+        r.genes.forEach(e => {
           genes.add(e.id);
         });
       });
@@ -163,11 +163,11 @@ export default {
     },
     metaboliteCount() {
       const metabolites = new Set();
-      this.reactions.forEach((r) => {
-        r.reactants.forEach((e) => {
+      this.reactions.forEach(r => {
+        r.reactants.forEach(e => {
           metabolites.add(e.id);
         });
-        r.products.forEach((e) => {
+        r.products.forEach(e => {
           metabolites.add(e.id);
         });
       });
@@ -215,14 +215,14 @@ export default {
         this.matchingReactions = [];
         this.unMatchingReactions = [];
         const t = this.tableSearch.toLowerCase();
-        this.sortedReactions.forEach((elm) => {
+        this.sortedReactions.forEach(elm => {
           let matches = false;
-          this.columns.every((s) => {
+          this.columns.every(s => {
             const val = elm[s.field];
             if (typeof val === 'object' && ['reactants', 'products', 'genes'].includes(s.field)) {
               let match = false;
-              val.every((el) => {
-                Object.keys(el).every((k) => {
+              val.every(el => {
+                Object.keys(el).every(k => {
                   if (k === 'id') {
                     match = el[k].toLowerCase() === t;
                   } else {
@@ -256,14 +256,14 @@ export default {
       }
     },
     formatToTSV() {
-      let tsvContent = `${this.columns.map((e) => e.display).join('\t')}\n`;
+      let tsvContent = `${this.columns.map(e => e.display).join('\t')}\n`;
       tsvContent += this.sortedReactions
-        .map((d) =>
+        .map(d =>
           [
             d.id,
-            d.reactants.map((e) => e.name || e.id).join('; '),
-            d.products.map((e) => e.name || e.id).join('; '),
-            d.genes.map((e) => e.name || e.id).join('; '),
+            d.reactants.map(e => e.name || e.id).join('; '),
+            d.products.map(e => e.name || e.id).join('; '),
+            d.genes.map(e => e.name || e.id).join('; '),
             d.compartment,
           ].join('\t')
         )

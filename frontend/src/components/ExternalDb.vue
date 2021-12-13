@@ -56,8 +56,8 @@ export default {
   },
   computed: {
     ...mapState({
-      components: (state) => state.externalDb.components,
-      externalDb: (state) => state.externalDb.externalDb,
+      components: state => state.externalDb.components,
+      externalDb: state => state.externalDb.externalDb,
     }),
     compGroupedByModel() {
       const result = this.components.reduce((r, a) => {

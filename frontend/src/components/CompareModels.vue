@@ -313,8 +313,8 @@ export default {
   },
   computed: {
     ...mapState({
-      modelList: (state) => state.models.modelList,
-      comparisons: (state) => state.compare.comparisons,
+      modelList: state => state.models.modelList,
+      comparisons: state => state.compare.comparisons,
     }),
     ...mapGetters({
       comparisonsEmpty: 'compare/comparisonsEmpty',
@@ -335,7 +335,7 @@ export default {
       }
 
       const query = {
-        models: models.map((m) => `${m.apiName}-${m.version}`),
+        models: models.map(m => `${m.apiName}-${m.version}`),
       };
 
       if (JSON.stringify(query.models) !== JSON.stringify([this.$route.query.models].flat())) {
@@ -351,7 +351,7 @@ export default {
   methods: {
     selectedModelIndex(model) {
       return this.selectedModels.findIndex(
-        (m) => model.apiName === m.apiName && model.version === m.version
+        m => model.apiName === m.apiName && model.version === m.version
       );
     },
     shouldDisable(model) {
@@ -366,7 +366,7 @@ export default {
       this.$store.dispatch('compare/resetComparisons');
 
       const payload = {
-        models: this.selectedModels.map((m) => ({
+        models: this.selectedModels.map(m => ({
           model: m.apiName,
           version: m.apiVersion,
         })),
@@ -382,11 +382,11 @@ export default {
       const { models } = this.$route.query;
 
       if (models) {
-        const mappedModels = [models].flat().map((m) => {
+        const mappedModels = [models].flat().map(m => {
           const [apiName, version] = m.split('-');
-          return this.modelList.find((x) => x.apiName === apiName && x.version === version);
+          return this.modelList.find(x => x.apiName === apiName && x.version === version);
         });
-        const matchingModels = mappedModels.filter((m) => m);
+        const matchingModels = mappedModels.filter(m => m);
         const uniqueMatchingModels = new Set(matchingModels);
 
         this.selectedModels = [...uniqueMatchingModels].splice(0, this.maxModels);

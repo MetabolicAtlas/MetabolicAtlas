@@ -41,15 +41,15 @@ const data = {
 };
 
 const getters = {
-  selectIds: (state) => [state.selectedElementId].filter((x) => x),
+  selectIds: state => [state.selectedElementId].filter(x => x),
 
-  queryParams: (state) => ({
+  queryParams: state => ({
     dim: state.showing2D ? '2d' : '3d',
     panel: +state.dataOverlayPanelVisible,
     sel: state.selectedElementId,
     search: state.searchTerm,
     coords: Object.values(state.coords)
-      .map((c) => Math.round((c + Number.EPSILON) * 100) / 100)
+      .map(c => Math.round((c + Number.EPSILON) * 100) / 100)
       .join(','),
   }),
 };
@@ -172,7 +172,7 @@ const actions = {
     commit('setSearchTerm', search);
 
     if (coords && coords.length > 0) {
-      const parsedCoords = coords.split(',').map((c) => parseFloat(c));
+      const parsedCoords = coords.split(',').map(c => parseFloat(c));
       commit('setCoords', {
         x: parsedCoords[0],
         y: parsedCoords[1],

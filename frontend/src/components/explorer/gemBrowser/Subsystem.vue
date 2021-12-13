@@ -118,7 +118,7 @@ export default {
   },
   computed: {
     ...mapState({
-      model: (state) => state.models.model,
+      model: state => state.models.model,
     }),
     ...mapGetters({
       info: 'subsystems/info',

@@ -24,13 +24,13 @@ export default function (c, reactions, relms, rrels, rcomp, rsub) {
     order = 2;
   }
 
-  reactions.forEach((r) => {
+  reactions.forEach(r => {
     const mets = {};
     const reactionComp = new Set();
     if (r.subsystem.length !== 0) {
       subsystemSet.add(...r.subsystem);
     }
-    [...r.products, ...r.reactants].forEach((m) => {
+    [...r.products, ...r.reactants].forEach(m => {
       const metabolite = {
         id: m.id,
         type: 'metabolite',
@@ -49,7 +49,7 @@ export default function (c, reactions, relms, rrels, rcomp, rsub) {
     });
 
     const mods = {};
-    r.genes.forEach((m) => {
+    r.genes.forEach(m => {
       const gene = {
         id: m.id,
         type: 'gene',
@@ -64,7 +64,7 @@ export default function (c, reactions, relms, rrels, rcomp, rsub) {
         gene.compartment[compt] = 1;
       } else {
         // ambigous localization
-        reactionComp.forEach((e) => {
+        reactionComp.forEach(e => {
           gene.compartment[e] = 0;
         });
       }
@@ -74,14 +74,14 @@ export default function (c, reactions, relms, rrels, rcomp, rsub) {
       mods[gene.id] = gene;
     });
 
-    Object.keys(mods).forEach((eid) => {
+    Object.keys(mods).forEach(eid => {
       const e = mods[eid];
       if (!(eid in elms)) {
         Vue.set(elms, eid, e);
       } else {
         elms[eid].reaction.add(...e.reaction);
         elms[eid].subsystem.add(...e.subsystem);
-        Object.keys(e.compartment).forEach((cpt) => {
+        Object.keys(e.compartment).forEach(cpt => {
           // new compartment or not ambigous localization for the existing gene
           if (!(cpt in elms[eid].compartment) || e.compartment[cpt] === 1) {
             elms[eid].compartment[cpt] = e.compartment[cpt];
@@ -90,7 +90,7 @@ export default function (c, reactions, relms, rrels, rcomp, rsub) {
       }
     });
 
-    Object.keys(mets).forEach((mid) => {
+    Object.keys(mets).forEach(mid => {
       const m = mets[mid];
       if (!(mid in elms)) {
         Vue.set(elms, mid, m);
@@ -101,8 +101,8 @@ export default function (c, reactions, relms, rrels, rcomp, rsub) {
     });
 
     // add relations between mets-mods components of the current reaction
-    Object.keys(mods).forEach((eidMo) => {
-      [...r.reactants].forEach((eidMe) => {
+    Object.keys(mods).forEach(eidMo => {
+      [...r.reactants].forEach(eidMe => {
         const relID = `${eidMo}_${eidMe.id}`;
         const relIDinv = `${eidMe.id}_${eidMo}`;
         if (!(relID in rels) && !(relIDinv in rels)) {
@@ -127,8 +127,8 @@ export default function (c, reactions, relms, rrels, rcomp, rsub) {
     });
 
     // add relations between mets-mods components of the current reaction
-    Object.keys(mods).forEach((eidMo) => {
-      [...r.products].forEach((eidMe) => {
+    Object.keys(mods).forEach(eidMo => {
+      [...r.products].forEach(eidMe => {
         const relID = `${eidMo}_${eidMe.id}`;
         const relIDinv = `${eidMe.id}_${eidMo}`;
         if (!(relID in rels) && !(relIDinv in rels)) {
@@ -178,7 +178,7 @@ export default function (c, reactions, relms, rrels, rcomp, rsub) {
     // }
 
     // add relations with the main component
-    Object.keys(mods).forEach((eidMo) => {
+    Object.keys(mods).forEach(eidMo => {
       if (eidMo !== c.id) {
         const relID = `${eidMo}_${c.id}`;
         if (!(relID in rels)) {
@@ -196,7 +196,7 @@ export default function (c, reactions, relms, rrels, rcomp, rsub) {
       }
     });
 
-    Object.keys(mets).forEach((eidMe) => {
+    Object.keys(mets).forEach(eidMe => {
       if (eidMe !== c.id) {
         const relID = `${eidMe}_${c.id}`;
         const relIDinv = `${c.id}_${eidMe}`;
