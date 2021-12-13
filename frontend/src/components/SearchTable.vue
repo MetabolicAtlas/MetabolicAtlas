@@ -245,15 +245,15 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
-import $ from 'jquery'
-import { VueGoodTable } from 'vue-good-table'
-import Loader from '@/components/Loader'
-import ExportTSV from '@/components/shared/ExportTSV'
-import 'vue-good-table/dist/vue-good-table.css'
-import { default as chemicalFormula } from '@/helpers/chemical-formatters'
-import { sortResultsScore, sortResultsSearchTerm } from '@/helpers/utils'
-import { default as messages } from '@/content/messages'
+import { mapGetters, mapState } from 'vuex';
+import $ from 'jquery';
+import { VueGoodTable } from 'vue-good-table';
+import Loader from '@/components/Loader';
+import ExportTSV from '@/components/shared/ExportTSV';
+import 'vue-good-table/dist/vue-good-table.css';
+import { default as chemicalFormula } from '@/helpers/chemical-formatters';
+import { sortResultsScore, sortResultsSearchTerm } from '@/helpers/utils';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'SearchTable',
@@ -527,7 +527,7 @@ export default {
         compartment: [],
       },
       notFoundSuggestions: [],
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -543,24 +543,24 @@ export default {
   beforeRouteEnter(to, from, next) {
     next((vm) => {
       if (to.query.term) {
-        vm.searchedTerm = to.query.term // eslint-disable-line no-param-reassign
-        vm.validateSearch(to.query.term)
+        vm.searchedTerm = to.query.term; // eslint-disable-line no-param-reassign
+        vm.validateSearch(to.query.term);
       } else if (vm.searchTerm) {
-        vm.$router.replace({ query: { term: vm.searchTerm } })
+        vm.$router.replace({ query: { term: vm.searchTerm } });
       }
-      next()
-    })
+      next();
+    });
   },
   // eslint-disable-next-line no-unused-vars
   async beforeRouteUpdate(to, from, next) {
     if (to.query.term && to.query.term !== this.searchedTerm) {
-      this.searchedTerm = to.query.term
-      await this.validateSearch(to.query.term)
+      this.searchedTerm = to.query.term;
+      await this.validateSearch(to.query.term);
     }
-    next()
+    next();
   },
   updated() {
-    $('#search').focus()
+    $('#search').focus();
   },
   methods: {
     fillFilterFields() {
@@ -584,7 +584,7 @@ export default {
         compartment: {
           model: {},
         },
-      }
+      };
 
       const rows = {
         metabolite: [],
@@ -592,11 +592,11 @@ export default {
         reaction: [],
         subsystem: [],
         compartment: [],
-      }
+      };
 
       // store choice only once in a dict
       Object.keys(this.searchResults).forEach((componentType) => {
-        const compoList = this.searchResults[componentType]
+        const compoList = this.searchResults[componentType];
         /* Sorted twice as sortResultsSearchTerm does not catch cases when
         this.searchResult contains nodes that were returned because they have a relationship
         with a node where searchedTerm is part of a property, not because they have that property themselves.
@@ -604,52 +604,52 @@ export default {
         Unfortunately, one can not rely only to sorting on score, as the scores return by neo4j in some cases
         are not 100% as desired (e.g, searching for 'POLR3F' and gene POLR2A has a higher score than gene POLR3F)
         */
-        compoList.sort((a, b) => sortResultsScore(a, b))
-        compoList.sort((a, b) => sortResultsSearchTerm(a, b, this.searchedTerm))
+        compoList.sort((a, b) => sortResultsScore(a, b));
+        compoList.sort((a, b) => sortResultsSearchTerm(a, b, this.searchedTerm));
         compoList.forEach((el) => {
           // e.g. results list for metabolites
           if (componentType === 'metabolite') {
             Object.keys(filterTypeDropdown[componentType]).forEach((field) => {
               if (field === 'model') {
-                filterTypeDropdown[componentType][field][el[field].id] = el[field].name
+                filterTypeDropdown[componentType][field][el[field].id] = el[field].name;
               } else if (el[field] && field === 'compartment') {
-                filterTypeDropdown[componentType][field][el[field].name] = 1
+                filterTypeDropdown[componentType][field][el[field].name] = 1;
               }
-            })
-            rows[componentType].push(el)
+            });
+            rows[componentType].push(el);
           } else if (componentType === 'gene') {
             Object.keys(filterTypeDropdown[componentType]).forEach((field) => {
               if (field === 'model') {
-                filterTypeDropdown[componentType][field][el[field].id] = el[field].name
+                filterTypeDropdown[componentType][field][el[field].id] = el[field].name;
               } else if (el[field] && field === 'compartment') {
                 el[field]
                   .filter((v) => !(v.id in filterTypeDropdown[componentType][field]))
                   .forEach((v) => {
-                    filterTypeDropdown[componentType][field][v.name] = 1
-                  })
+                    filterTypeDropdown[componentType][field][v.name] = 1;
+                  });
               }
-            })
-            rows[componentType].push(el)
+            });
+            rows[componentType].push(el);
           } else if (componentType === 'reaction') {
             Object.keys(filterTypeDropdown[componentType]).forEach((field) => {
               if (field === 'compartment') {
                 el[field]
                   .filter((v) => !(v in filterTypeDropdown[componentType][field]))
                   .forEach((v) => {
-                    filterTypeDropdown[componentType][field][v.name] = 1
-                  })
+                    filterTypeDropdown[componentType][field][v.name] = 1;
+                  });
               } else if (field === 'model') {
-                filterTypeDropdown[componentType][field][el[field].id] = el[field].name
+                filterTypeDropdown[componentType][field][el[field].id] = el[field].name;
               } else if (!(el[field] in filterTypeDropdown[componentType][field])) {
-                filterTypeDropdown[componentType][field][el[field]] = 1
+                filterTypeDropdown[componentType][field][el[field]] = 1;
               }
-            })
+            });
             rows[componentType].push({
               id: el.id,
               model: el.model,
               subsystem: el.subsystem,
               compartment: el.compartment,
-            })
+            });
           } else if (componentType === 'subsystem') {
             Object.keys(filterTypeDropdown[componentType]).forEach((field) => {
               if (field === 'compartments') {
@@ -658,71 +658,72 @@ export default {
                     (compartment) => !(compartment.id in filterTypeDropdown[componentType][field])
                   )
                   .forEach((compartment) => {
-                    filterTypeDropdown[componentType][field][compartment.name] = 1
-                  })
+                    filterTypeDropdown[componentType][field][compartment.name] = 1;
+                  });
               } else if (field === 'model') {
-                filterTypeDropdown[componentType][field][el[field].id] = el[field].name
+                filterTypeDropdown[componentType][field][el[field].id] = el[field].name;
               }
-            })
-            rows[componentType].push(el)
+            });
+            rows[componentType].push(el);
           } else if (componentType === 'compartment') {
             Object.keys(filterTypeDropdown[componentType]).forEach((field) => {
               // 'model' field
-              filterTypeDropdown[componentType][field][el[field].id] = el[field].name
-            })
-            rows[componentType].push(el)
+              filterTypeDropdown[componentType][field][el[field].id] = el[field].name;
+            });
+            rows[componentType].push(el);
           }
-        })
+        });
         Object.keys(filterTypeDropdown[componentType]).forEach((field) => {
           if (field === 'model') {
             filterTypeDropdown[componentType][field] = Object.keys(
               filterTypeDropdown[componentType][field]
             ).map(
               (e) => {
-                const d = {}
-                d.value = e
-                d.text = filterTypeDropdown[componentType][field][e]
-                return d
+                const d = {};
+                d.value = e;
+                d.text = filterTypeDropdown[componentType][field][e];
+                return d;
               } // eslint-disable-line
-            )
+            );
           } else {
             filterTypeDropdown[componentType][field] = Object.keys(
               filterTypeDropdown[componentType][field]
             )
               .map((e) => {
-                let v = e
+                let v = e;
                 if (v === 'true') {
-                  v = 'Yes'
+                  v = 'Yes';
                 } else if (v === 'false') {
-                  v = 'No'
+                  v = 'No';
                 }
-                return v
+                return v;
               })
-              .sort()
+              .sort();
           }
-        })
-      })
+        });
+      });
       // assign filter choices lists to the columns
       this.columns.metabolite[0].filterOptions.filterDropdownItems =
-        filterTypeDropdown.metabolite.model
+        filterTypeDropdown.metabolite.model;
       this.columns.metabolite[4].filterOptions.filterDropdownItems =
-        filterTypeDropdown.metabolite.compartment
+        filterTypeDropdown.metabolite.compartment;
 
-      this.columns.gene[0].filterOptions.filterDropdownItems = filterTypeDropdown.gene.model
-      this.columns.gene[3].filterOptions.filterDropdownItems = filterTypeDropdown.gene.compartment
+      this.columns.gene[0].filterOptions.filterDropdownItems = filterTypeDropdown.gene.model;
+      this.columns.gene[3].filterOptions.filterDropdownItems = filterTypeDropdown.gene.compartment;
 
-      this.columns.reaction[0].filterOptions.filterDropdownItems = filterTypeDropdown.reaction.model
+      this.columns.reaction[0].filterOptions.filterDropdownItems =
+        filterTypeDropdown.reaction.model;
       this.columns.reaction[3].filterOptions.filterDropdownItems =
-        filterTypeDropdown.reaction.compartment
+        filterTypeDropdown.reaction.compartment;
 
       this.columns.subsystem[0].filterOptions.filterDropdownItems =
-        filterTypeDropdown.subsystem.model
+        filterTypeDropdown.subsystem.model;
       this.columns.subsystem[2].filterOptions.filterDropdownItems =
-        filterTypeDropdown.subsystem.compartments
+        filterTypeDropdown.subsystem.compartments;
 
       this.columns.compartment[0].filterOptions.filterDropdownItems =
-        filterTypeDropdown.subsystem.model
-      this.rows = rows
+        filterTypeDropdown.subsystem.model;
+      this.rows = rows;
     },
     updateSearch() {
       if (this.searchTerm !== this.searchedTerm) {
@@ -731,84 +732,84 @@ export default {
           query: {
             term: this.searchTerm,
           },
-        })
+        });
       }
     },
     showTab(elementType) {
-      return this.showTabType === elementType
+      return this.showTabType === elementType;
     },
     async validateSearch(term) {
-      this.searchTerm = term
-      this.showSearchCharAlert = false
-      this.$store.dispatch('search/clearGlobalSearchResults')
-      this.showTabType = ''
-      this.searchResultsFiltered = {}
+      this.searchTerm = term;
+      this.showSearchCharAlert = false;
+      this.$store.dispatch('search/clearGlobalSearchResults');
+      this.showTabType = '';
+      this.searchResultsFiltered = {};
       if (this.searchTerm.length > 1) {
-        await this.search()
+        await this.search();
       } else if (this.searchTerm.length === 1) {
-        this.showSearchCharAlert = true
+        this.showSearchCharAlert = true;
       }
     },
     async search() {
-      this.loading = true
+      this.loading = true;
       try {
-        await this.$store.dispatch('search/globalSearch', this.searchTerm)
+        await this.$store.dispatch('search/globalSearch', this.searchTerm);
       } catch (error) {
         if (error.response.headers.suggestions) {
-          this.notFoundSuggestions = JSON.parse(error.response.headers.suggestions)
+          this.notFoundSuggestions = JSON.parse(error.response.headers.suggestions);
         } else {
-          this.notFoundSuggestions = []
+          this.notFoundSuggestions = [];
         }
-        this.$store.dispatch('search/clearGlobalSearchResults')
+        this.$store.dispatch('search/clearGlobalSearchResults');
       } finally {
-        this.loading = false
+        this.loading = false;
         // get filters
-        this.fillFilterFields()
+        this.fillFilterFields();
         // select the active tab
         Object.keys(this.resultsCount)
           .filter((key) => this.resultsCount[key] !== 0)
           .every((key) => {
-            this.showTabType = key
-            return false
-          })
+            this.showTabType = key;
+            return false;
+          });
       }
     },
     formatToTSV(index) {
-      const rows = Array.from(this.$refs.searchTables[index].filteredRows[0].children)
-      const header = []
-      let getHeader = false
+      const rows = Array.from(this.$refs.searchTables[index].filteredRows[0].children);
+      const header = [];
+      let getHeader = false;
       const tsvContent = rows
         .map((e) => {
-          const rowData = []
+          const rowData = [];
           Object.entries(e).forEach((entry) => {
-            const key = entry[0]
-            let value = entry[1]
+            const key = entry[0];
+            let value = entry[1];
             if (key !== 'vgt_id' && key !== 'originalIndex') {
               if (!getHeader) {
-                header.push(key)
+                header.push(key);
               }
               if (key === 'model') {
-                rowData.push(value.name)
+                rowData.push(value.name);
               } else {
                 if (Array.isArray(value)) {
-                  value = value.join('; ')
+                  value = value.join('; ');
                 }
-                rowData.push(value)
+                rowData.push(value);
               }
             }
-          })
+          });
           if (!getHeader) {
-            getHeader = true
+            getHeader = true;
           }
-          return rowData.join('\t')
+          return rowData.join('\t');
         })
-        .join('\n')
-      return `${header.join('\t')}\n${tsvContent}`
+        .join('\n');
+      return `${header.join('\t')}\n${tsvContent}`;
     },
     chemicalFormula,
     sortResultsScore,
   },
-}
+};
 </script>
 
 <style lang="scss">

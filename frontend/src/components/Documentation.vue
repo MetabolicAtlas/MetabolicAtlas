@@ -581,7 +581,7 @@
 </template>
 
 <script>
-import RNALegend from '@/components/explorer/mapViewer/RNALegend.vue'
+import RNALegend from '@/components/explorer/mapViewer/RNALegend.vue';
 
 export default {
   name: 'Help',
@@ -591,9 +591,9 @@ export default {
   data() {
     return {
       ftpUrl: 'ftp.metabolicatlas.org',
-    }
+    };
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

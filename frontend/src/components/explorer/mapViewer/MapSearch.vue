@@ -38,9 +38,9 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { debounce } from 'vue-debounce'
-import { default as messages } from '@/content/messages'
+import { mapState } from 'vuex';
+import { debounce } from 'vue-debounce';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'MapSearch',
@@ -60,7 +60,7 @@ export default {
       totalSearchMatch: 0,
       haveSearched: false,
       messages,
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -75,79 +75,79 @@ export default {
   watch: {
     matches() {
       if (!this.matches || this.matches.length === 0) {
-        this.searchInputClass = this.haveSearched ? 'is-danger' : 'is-info'
-        this.totalSearchMatch = 0
+        this.searchInputClass = this.haveSearched ? 'is-danger' : 'is-info';
+        this.totalSearchMatch = 0;
       } else {
-        this.searchInputClass = 'is-success'
-        this.totalSearchMatch = this.matches.length
+        this.searchInputClass = 'is-success';
+        this.totalSearchMatch = this.matches.length;
       }
-      this.currentSearchMatch = 0
+      this.currentSearchMatch = 0;
     },
   },
   created() {
-    this.search = debounce(this.search, 300)
+    this.search = debounce(this.search, 300);
   },
   methods: {
     handleChange(term) {
       if (!term) {
-        this.$emit('unHighlightAll', this.matches, 'schhl')
-        this.totalSearchMatch = 0
-        this.currentSearchMatch = 0
-        this.searchInputClass = 'is-info'
-        this.prevSearchTerm = null
-        this.$store.dispatch('maps/clearSearchTerm')
+        this.$emit('unHighlightAll', this.matches, 'schhl');
+        this.totalSearchMatch = 0;
+        this.currentSearchMatch = 0;
+        this.searchInputClass = 'is-info';
+        this.prevSearchTerm = null;
+        this.$store.dispatch('maps/clearSearchTerm');
       }
-      this.haveSearched = false
+      this.haveSearched = false;
     },
     reset() {
       // reset
-      this.prevSearchTerm = null
-      this.totalSearchMatch = 0
-      this.currentSearchMatch = 0
-      this.searchInputClass = 'is-info'
+      this.prevSearchTerm = null;
+      this.totalSearchMatch = 0;
+      this.currentSearchMatch = 0;
+      this.searchInputClass = 'is-info';
     },
     async search(term) {
-      this.$store.dispatch('maps/setIdsFound', [])
+      this.$store.dispatch('maps/setIdsFound', []);
 
       if (!term) {
-        this.searchInputClass = 'is-warning'
-        return
+        this.searchInputClass = 'is-warning';
+        return;
       }
       if (this.prevSearchTerm === term) {
-        this.centerViewOn(1)
-        return
+        this.centerViewOn(1);
+        return;
       }
 
       // get the IDs from the backend, then search in the SVG
-      this.isSearching = true
+      this.isSearching = true;
       try {
-        const payload = { model: this.model, searchTerm: term }
-        await this.$store.dispatch('maps/mapSearch', payload)
-        this.totalSearchMatch = 0
-        this.currentSearchMatch = 0
+        const payload = { model: this.model, searchTerm: term };
+        await this.$store.dispatch('maps/mapSearch', payload);
+        this.totalSearchMatch = 0;
+        this.currentSearchMatch = 0;
       } catch {
-        this.searchInputClass = 'is-danger'
+        this.searchInputClass = 'is-danger';
       } finally {
-        this.isSearching = false
-        this.haveSearched = true
-        this.prevSearchTerm = term
-        this.$emit('searchOnMap', this.idsFound) // let the view call its own search function
+        this.isSearching = false;
+        this.haveSearched = true;
+        this.prevSearchTerm = term;
+        this.$emit('searchOnMap', this.idsFound); // let the view call its own search function
       }
     },
     centerViewOn(position) {
       if (this.matches.length === 0) {
-        return
+        return;
       }
-      this.currentSearchMatch += position
+      this.currentSearchMatch += position;
       if (this.currentSearchMatch < 0) {
-        this.currentSearchMatch = this.totalSearchMatch - 1
+        this.currentSearchMatch = this.totalSearchMatch - 1;
       } else if (this.currentSearchMatch > this.totalSearchMatch - 1) {
-        this.currentSearchMatch = 0
+        this.currentSearchMatch = 0;
       }
-      this.$emit('centerViewOn', this.matches[this.currentSearchMatch])
+      this.$emit('centerViewOn', this.matches[this.currentSearchMatch]);
     },
   },
-}
+};
 </script>
 
 <style lang="scss">

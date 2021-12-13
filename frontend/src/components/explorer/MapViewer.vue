@@ -24,7 +24,7 @@
               class="buttons has-addons is-centered padding-mobile m-0"
               :title="switchTitle"
               @click="
-                ;(!currentMap || (currentMap && currentMap.type !== 'custom')) &&
+                (!currentMap || (currentMap && currentMap.type !== 'custom')) &&
                   $store.dispatch('maps/toggleShowing2D')
               "
             >
@@ -141,17 +141,17 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
-import { debounce } from 'vue-debounce'
-import DataOverlay from '@/components/explorer/mapViewer/DataOverlay.vue'
-import ErrorPanel from '@/components/shared/ErrorPanel'
-import MapsListing from '@/components/explorer/mapViewer/MapsListing.vue'
-import MissingReactionModal from '@/components/explorer/mapViewer/MissingReactionModal.vue'
-import NotFound from '@/components/NotFound'
-import SidebarDataPanels from '@/components/explorer/mapViewer/SidebarDataPanels.vue'
-import Svgmap from '@/components/explorer/mapViewer/Svgmap'
-import ThreeDViewer from '@/components/explorer/mapViewer/ThreeDviewer'
-import { default as messages } from '@/content/messages'
+import { mapGetters, mapState } from 'vuex';
+import { debounce } from 'vue-debounce';
+import DataOverlay from '@/components/explorer/mapViewer/DataOverlay.vue';
+import ErrorPanel from '@/components/shared/ErrorPanel';
+import MapsListing from '@/components/explorer/mapViewer/MapsListing.vue';
+import MissingReactionModal from '@/components/explorer/mapViewer/MissingReactionModal.vue';
+import NotFound from '@/components/NotFound';
+import SidebarDataPanels from '@/components/explorer/mapViewer/SidebarDataPanels.vue';
+import Svgmap from '@/components/explorer/mapViewer/Svgmap';
+import ThreeDViewer from '@/components/explorer/mapViewer/ThreeDviewer';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'MapViewer',
@@ -182,7 +182,7 @@ export default {
       showModal: false,
       mapReactionList: null,
       missingReactionList: null,
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -197,141 +197,141 @@ export default {
       dataOverlayQueryParams: 'dataOverlay/queryParams',
     }),
     queryParams() {
-      return { ...this.mapQueryParams, ...this.dataOverlayQueryParams }
+      return { ...this.mapQueryParams, ...this.dataOverlayQueryParams };
     },
     switchTitle() {
       if (this.avail2D) {
-        return `Switch to ${this.dimensionalState(!this.showing2D)}`
+        return `Switch to ${this.dimensionalState(!this.showing2D)}`;
       }
-      return 'This model only has 3D maps available'
+      return 'This model only has 3D maps available';
     },
   },
   watch: {
     '$route.params': 'loadMapFromParams',
     queryParams(newQuery, oldQuery) {
-      this.handleQueryParamsWatch(newQuery, oldQuery)
+      this.handleQueryParamsWatch(newQuery, oldQuery);
     },
   },
   async created() {
-    this.handleQueryParamsWatch = debounce(this.handleQueryParamsWatch, 100)
-    window.onpopstate = this.handleQueryParamsWatch()
+    this.handleQueryParamsWatch = debounce(this.handleQueryParamsWatch, 100);
+    window.onpopstate = this.handleQueryParamsWatch();
 
     if (!this.model || this.model.short_name !== this.$route.params.model) {
       const modelSelectionSuccessful = await this.$store.dispatch(
         'models/selectModel',
         this.$route.params.model
-      )
+      );
       if (!modelSelectionSuccessful) {
-        this.errorMessage = `Error: ${messages.modelNotFound}`
+        this.errorMessage = `Error: ${messages.modelNotFound}`;
       }
     }
-    await this.$store.dispatch('maps/getMapsListing', this.model)
-    this.$store.dispatch('maps/initFromQueryParams', this.$route.query)
-    this.loadMapFromParams()
+    await this.$store.dispatch('maps/getMapsListing', this.model);
+    this.$store.dispatch('maps/initFromQueryParams', this.$route.query);
+    this.loadMapFromParams();
   },
   methods: {
     handleSidebarScroll() {
       if (this.$refs.mapSidebar.scrollTop > 0) {
-        this.sidebarLayoutReset = false
-        this.$refs.sidebarDataPanels.hideSelectionCardContent()
+        this.sidebarLayoutReset = false;
+        this.$refs.sidebarDataPanels.hideSelectionCardContent();
       }
     },
     resetSidebarLayout() {
-      this.$refs.mapSidebar.scrollTop = 0
-      this.sidebarLayoutReset = true
+      this.$refs.mapSidebar.scrollTop = 0;
+      this.sidebarLayoutReset = true;
     },
     dimensionalState(showing2D) {
-      return showing2D ? '2d' : '3d'
+      return showing2D ? '2d' : '3d';
     },
     // eslint-disable-next-line no-unused-vars
     handleQueryParamsWatch(newQuery, oldQuery) {
       if (!newQuery) {
-        return
+        return;
       }
 
       if (newQuery && !this.$route.params.map_id) {
-        const payload = [{}, null, `${this.$route.path}?dim=${newQuery.dim}`]
-        history.replaceState(...payload) // eslint-disable-line no-restricted-globals
-        return
+        const payload = [{}, null, `${this.$route.path}?dim=${newQuery.dim}`];
+        history.replaceState(...payload); // eslint-disable-line no-restricted-globals
+        return;
       }
 
       const queryString = Object.entries(newQuery)
         .map((e) => e.join('='))
-        .join('&')
-      const payload = [{}, null, `${this.$route.path}?${queryString}`]
+        .join('&');
+      const payload = [{}, null, `${this.$route.path}?${queryString}`];
       if (newQuery.dim === this.$route.query.dim || (newQuery.dim && !this.$route.query.dim)) {
-        history.replaceState(...payload) // eslint-disable-line no-restricted-globals
+        history.replaceState(...payload); // eslint-disable-line no-restricted-globals
       } else {
-        history.pushState(...payload) // eslint-disable-line no-restricted-globals
+        history.pushState(...payload); // eslint-disable-line no-restricted-globals
       }
     },
     loadMapFromParams() {
-      const id = this.$route.params.map_id
+      const id = this.$route.params.map_id;
       if (id) {
-        const categories = Object.keys(this.mapsListing)
-        const items = Object.values(this.mapsListing)
+        const categories = Object.keys(this.mapsListing);
+        const items = Object.values(this.mapsListing);
         for (let i = 0; i < categories.length; i += 1) {
           for (let j = 0; j < items[i].length; j += 1) {
-            const item = items[i][j]
+            const item = items[i][j];
             if (this.showing2D && item.svgs.length > 0) {
               for (let k = 0; k < item.svgs.length; k += 1) {
                 if (item.svgs[k].id === id) {
-                  this.currentMap = { ...item }
-                  this.currentMap.svgs = [item.svgs[k]]
-                  this.currentMap.mapReactionIdSet = item.svgs
-                  this.currentMap.type = categories[i].slice(0, -1)
-                  this.mapNotFound = false
-                  this.setMapReactionList()
-                  this.setMissingReactionList()
-                  return
+                  this.currentMap = { ...item };
+                  this.currentMap.svgs = [item.svgs[k]];
+                  this.currentMap.mapReactionIdSet = item.svgs;
+                  this.currentMap.type = categories[i].slice(0, -1);
+                  this.mapNotFound = false;
+                  this.setMapReactionList();
+                  this.setMissingReactionList();
+                  return;
                 }
               }
             } else if (item.id === id) {
-              this.currentMap = item
-              this.currentMap.type = categories[i].slice(0, -1)
-              this.mapNotFound = false
+              this.currentMap = item;
+              this.currentMap.type = categories[i].slice(0, -1);
+              this.mapNotFound = false;
               if (item.svgs.length > 0) {
-                this.currentMap.mapReactionIdSet = item.svgs
-                this.setMapReactionList()
-                this.setMissingReactionList()
+                this.currentMap.mapReactionIdSet = item.svgs;
+                this.setMapReactionList();
+                this.setMissingReactionList();
               }
-              return
+              return;
             }
-            this.mapNotFound = true
+            this.mapNotFound = true;
           }
         }
       }
     },
     setMapReactionList() {
-      let mapReactionIdList = []
+      let mapReactionIdList = [];
       this.currentMap.mapReactionIdSet.forEach((map) => {
-        mapReactionIdList = [...mapReactionIdList, ...map.mapReactionIdSet]
-      })
-      this.mapReactionList = mapReactionIdList
+        mapReactionIdList = [...mapReactionIdList, ...map.mapReactionIdSet];
+      });
+      this.mapReactionList = mapReactionIdList;
     },
     setMissingReactionList() {
-      const modelReactionIdSet = new Set(this.currentMap.reactionList)
-      const mapReactionIdSet = new Set(this.mapReactionList)
+      const modelReactionIdSet = new Set(this.currentMap.reactionList);
+      const mapReactionIdSet = new Set(this.mapReactionList);
       const missingReactionIdSet = new Set(
         [...modelReactionIdSet].filter((x) => !mapReactionIdSet.has(x))
-      )
-      this.missingReactionList = Array.from(missingReactionIdSet)
+      );
+      this.missingReactionList = Array.from(missingReactionIdSet);
     },
     showMessage(errorMessage) {
-      this.loadMapErrorMessage = errorMessage
+      this.loadMapErrorMessage = errorMessage;
       if (!this.loadMapErrorMessage) {
-        this.loadMapErrorMessage = messages.unknownError
+        this.loadMapErrorMessage = messages.unknownError;
       }
     },
     unSelect() {
-      this.selectionData.error = false
-      this.selectionData.data = null
+      this.selectionData.error = false;
+      this.selectionData.data = null;
     },
     updatePanelSelectionData(data) {
-      this.selectionData = data
+      this.selectionData = data;
     },
   },
-}
+};
 </script>
 
 <style lang="scss">

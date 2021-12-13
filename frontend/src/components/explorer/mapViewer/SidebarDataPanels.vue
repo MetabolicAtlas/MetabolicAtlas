@@ -218,10 +218,10 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { capitalize, reformatStringToLink, reformatChemicalReactionHTML } from '@/helpers/utils'
-import { default as chemicalFormula } from '@/helpers/chemical-formatters'
-import { default as messages } from '@/content/messages'
+import { mapState } from 'vuex';
+import { capitalize, reformatStringToLink, reformatChemicalReactionHTML } from '@/helpers/utils';
+import { default as chemicalFormula } from '@/helpers/chemical-formatters';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'SidebarDataPanels',
@@ -248,7 +248,7 @@ export default {
       showMapCardContent: true,
       showSelectionCardContent: true,
       messages,
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -258,21 +258,21 @@ export default {
   },
   watch: {
     selectionData() {
-      this.openSelectionCardContent()
+      this.openSelectionCardContent();
     },
   },
   methods: {
     selectionHasNoData() {
       if (!(this.selectionData.type in this.selectedElementDataKeys)) {
-        return true
+        return true;
       }
       for (let i = 0; i < this.selectedElementDataKeys[this.selectionData.type].length; i += 1) {
-        const k = this.selectedElementDataKeys[this.selectionData.type][i]
+        const k = this.selectedElementDataKeys[this.selectionData.type][i];
         if (k.name in this.selectionData.data && this.selectionData.data[k.name]) {
-          return false
+          return false;
         }
       }
-      return true
+      return true;
     },
     capitalize,
     reformatStringToLink,
@@ -280,20 +280,20 @@ export default {
     reformatChemicalReactionHTML,
     toggleSelectionCardContent() {
       if (this.showSelectionCardContent) {
-        this.hideSelectionCardContent()
+        this.hideSelectionCardContent();
       } else {
-        this.openSelectionCardContent()
+        this.openSelectionCardContent();
       }
     },
     openSelectionCardContent() {
-      this.showSelectionCardContent = true
-      this.$emit('openSelectionCardContent')
+      this.showSelectionCardContent = true;
+      this.$emit('openSelectionCardContent');
     },
     hideSelectionCardContent() {
-      this.showSelectionCardContent = false
+      this.showSelectionCardContent = false;
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

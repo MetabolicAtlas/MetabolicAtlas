@@ -1,13 +1,13 @@
-import axios from 'axios'
-import { reformatChemicalReactionHTML } from '@/helpers/utils'
+import axios from 'axios';
+import { reformatChemicalReactionHTML } from '@/helpers/utils';
 
 const search = async ({ searchTerm, model, version, limit }) => {
-  const params = { searchTerm, model, version, limit }
-  const { data } = await axios.get('/search', { params })
+  const params = { searchTerm, model, version, limit };
+  const { data } = await axios.get('/search', { params });
 
   // the metabolites are returned ONLY if limit is provided
   if (!limit) {
-    return data
+    return data;
   }
 
   return Object.entries(data).reduce((obj, [k, v]) => {
@@ -29,10 +29,10 @@ const search = async ({ searchTerm, model, version, limit }) => {
             model: model.short_name,
           }),
         })),
-    }
+    };
 
-    return obj
-  }, {})
-}
+    return obj;
+  }, {});
+};
 
-export default { search }
+export default { search };

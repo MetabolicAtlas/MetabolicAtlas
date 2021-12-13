@@ -118,10 +118,10 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
-import ComparisonMatrix from '@/components/shared/ComparisonMatrix.vue'
-import ComparisonDetails from '@/components/shared/ComparisonDetails.vue'
-import Loader from '@/components/Loader.vue'
+import { mapGetters, mapState } from 'vuex';
+import ComparisonMatrix from '@/components/shared/ComparisonMatrix.vue';
+import ComparisonDetails from '@/components/shared/ComparisonDetails.vue';
+import Loader from '@/components/Loader.vue';
 
 export default {
   name: 'CompareModels',
@@ -309,7 +309,7 @@ export default {
           ],
         },
       ],
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -322,81 +322,81 @@ export default {
     validModels() {
       return (
         this.selectedModels.length >= this.minModels && this.selectedModels.length <= this.maxModels
-      )
+      );
     },
   },
   watch: {
     modelList() {
-      this.restoreFromQuery()
+      this.restoreFromQuery();
     },
     async selectedModels(models) {
       if (!models) {
-        return
+        return;
       }
 
       const query = {
         models: models.map((m) => `${m.apiName}-${m.version}`),
-      }
+      };
 
       if (JSON.stringify(query.models) !== JSON.stringify([this.$route.query.models].flat())) {
-        this.$router.replace({ query })
+        this.$router.replace({ query });
       }
 
-      await this.compare()
+      await this.compare();
     },
   },
   mounted() {
-    this.restoreFromQuery()
+    this.restoreFromQuery();
   },
   methods: {
     selectedModelIndex(model) {
       return this.selectedModels.findIndex(
         (m) => model.apiName === m.apiName && model.version === m.version
-      )
+      );
     },
     shouldDisable(model) {
-      return this.selectedModelIndex(model) === -1 && this.selectedModels.length === this.maxModels
+      return this.selectedModelIndex(model) === -1 && this.selectedModels.length === this.maxModels;
     },
     async compare() {
       if (!this.validModels || this.comparing) {
-        return
+        return;
       }
 
-      this.comparing = true
-      this.$store.dispatch('compare/resetComparisons')
+      this.comparing = true;
+      this.$store.dispatch('compare/resetComparisons');
 
       const payload = {
         models: this.selectedModels.map((m) => ({
           model: m.apiName,
           version: m.apiVersion,
         })),
-      }
-      await this.$store.dispatch('compare/getComparisons', payload)
-      this.comparing = false
+      };
+      await this.$store.dispatch('compare/getComparisons', payload);
+      this.comparing = false;
     },
     restoreFromQuery() {
       if (this.modelList.length === 0) {
-        return
+        return;
       }
 
-      const { models } = this.$route.query
+      const { models } = this.$route.query;
 
       if (models) {
         const mappedModels = [models].flat().map((m) => {
-          const [apiName, version] = m.split('-')
-          return this.modelList.find((x) => x.apiName === apiName && x.version === version)
-        })
-        const matchingModels = mappedModels.filter((m) => m)
-        const uniqueMatchingModels = new Set(matchingModels)
+          const [apiName, version] = m.split('-');
+          return this.modelList.find((x) => x.apiName === apiName && x.version === version);
+        });
+        const matchingModels = mappedModels.filter((m) => m);
+        const uniqueMatchingModels = new Set(matchingModels);
 
-        this.selectedModels = [...uniqueMatchingModels].splice(0, this.maxModels)
+        this.selectedModels = [...uniqueMatchingModels].splice(0, this.maxModels);
       } else {
-        const [m1, m2] = this.modelList
-        this.selectedModels = [m1, m2]
+        const [m1, m2] = this.modelList;
+        this.selectedModels = [m1, m2];
       }
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

@@ -1,26 +1,26 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import NProgress from 'nprogress'
-import Home from '@/components/Home'
-import Explorer from '@/components/Explorer'
-import GemBrowser from '@/components/explorer/GemBrowser'
-import Compartment from '@/components/explorer/gemBrowser/Compartment'
-import Gene from '@/components/explorer/gemBrowser/Gene'
-import Metabolite from '@/components/explorer/gemBrowser/Metabolite'
-import Reaction from '@/components/explorer/gemBrowser/Reaction'
-import Subsystem from '@/components/explorer/gemBrowser/Subsystem'
-import MapViewer from '@/components/explorer/MapViewer'
-import InteractionPartners from '@/components/explorer/InteractionPartners'
-import SearchTable from '@/components/SearchTable'
-import About from '@/components/About'
-import Documentation from '@/components/Documentation'
-import Repository from '@/components/Repository'
-import CompareModels from '@/components/CompareModels'
-import FourOFour from '@/components/FourOFour'
-import Resources from '@/components/Resources'
-import ExternalDb from '@/components/ExternalDb'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import NProgress from 'nprogress';
+import Home from '@/components/Home';
+import Explorer from '@/components/Explorer';
+import GemBrowser from '@/components/explorer/GemBrowser';
+import Compartment from '@/components/explorer/gemBrowser/Compartment';
+import Gene from '@/components/explorer/gemBrowser/Gene';
+import Metabolite from '@/components/explorer/gemBrowser/Metabolite';
+import Reaction from '@/components/explorer/gemBrowser/Reaction';
+import Subsystem from '@/components/explorer/gemBrowser/Subsystem';
+import MapViewer from '@/components/explorer/MapViewer';
+import InteractionPartners from '@/components/explorer/InteractionPartners';
+import SearchTable from '@/components/SearchTable';
+import About from '@/components/About';
+import Documentation from '@/components/Documentation';
+import Repository from '@/components/Repository';
+import CompareModels from '@/components/CompareModels';
+import FourOFour from '@/components/FourOFour';
+import Resources from '@/components/Resources';
+import ExternalDb from '@/components/ExternalDb';
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   { path: '/', name: 'home', component: Home },
@@ -59,30 +59,30 @@ const routes = [
 
   // catch rest
   { path: '/*', name: 'fourOfour', component: FourOFour },
-]
+];
 
 const router = new VueRouter({
   mode: 'history',
   routes,
   scrollBehavior(to) {
-    return to.hash ? { selector: to.hash } : {}
+    return to.hash ? { selector: to.hash } : {};
   },
-})
+});
 
 NProgress.configure({
   speed: 600,
   showSpinner: false,
-})
+});
 
 // eslint-disable-next-line no-unused-vars
 router.beforeResolve((to, from, next) => {
-  NProgress.start()
-  next()
-})
+  NProgress.start();
+  next();
+});
 
 // eslint-disable-next-line no-unused-vars
 router.afterEach((to, from) => {
-  NProgress.done()
-})
+  NProgress.done();
+});
 
-export default router
+export default router;

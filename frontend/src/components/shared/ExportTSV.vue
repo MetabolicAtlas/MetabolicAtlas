@@ -9,9 +9,9 @@
 </template>
 
 <script>
-import { default as FileSaver } from 'file-saver'
-import ErrorPanel from '@/components/shared/ErrorPanel'
-import { default as messages } from '@/content/messages'
+import { default as FileSaver } from 'file-saver';
+import ErrorPanel from '@/components/shared/ErrorPanel';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'ExportTSV',
@@ -27,28 +27,28 @@ export default {
     return {
       messages,
       errorMessage: '',
-    }
+    };
   },
   methods: {
     exportToTSV() {
       try {
-        let tsvContent = null
+        let tsvContent = null;
         // one argument can be passed to the format function
         if (this.arg !== undefined) {
-          tsvContent = this.formatFunction(this.arg)
+          tsvContent = this.formatFunction(this.arg);
         } else {
-          tsvContent = this.formatFunction()
+          tsvContent = this.formatFunction();
         }
         const blob = new Blob([tsvContent], {
           type: 'text/tsv;charset=utf-8',
-        })
-        FileSaver.saveAs(blob, this.filename)
+        });
+        FileSaver.saveAs(blob, this.filename);
       } catch (error) {
-        this.errorMessage = messages.fileSaveError
+        this.errorMessage = messages.fileSaveError;
       }
     },
   },
-}
+};
 </script>
 
 <style lang="scss"></style>

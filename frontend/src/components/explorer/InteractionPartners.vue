@@ -339,27 +339,27 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
-import cytoscape from 'cytoscape'
-import jquery from 'jquery'
-import cola from 'cytoscape-cola'
-import { Compact } from 'vue-color'
-import { default as FileSaver } from 'file-saver'
+import { mapGetters, mapState } from 'vuex';
+import cytoscape from 'cytoscape';
+import jquery from 'jquery';
+import cola from 'cytoscape-cola';
+import { Compact } from 'vue-color';
+import { default as FileSaver } from 'file-saver';
 
-import Sidebar from '@/components/explorer/interactionPartners/Sidebar'
-import CytoscapeTable from '@/components/explorer/interactionPartners/CytoscapeTable'
-import Loader from '@/components/Loader'
-import NotFound from '@/components/NotFound'
-import Tile from '@/components/explorer/gemBrowser/Tile'
-import DataOverlay from '@/components/explorer/mapViewer/DataOverlay'
+import Sidebar from '@/components/explorer/interactionPartners/Sidebar';
+import CytoscapeTable from '@/components/explorer/interactionPartners/CytoscapeTable';
+import Loader from '@/components/Loader';
+import NotFound from '@/components/NotFound';
+import Tile from '@/components/explorer/gemBrowser/Tile';
+import DataOverlay from '@/components/explorer/mapViewer/DataOverlay';
 
-import { default as transform } from '@/data-mappers/hmr-closest-interaction-partners'
-import { default as changeGraphStyle } from '@/graph-stylers/hmr-closest-interaction-partners'
+import { default as transform } from '@/data-mappers/hmr-closest-interaction-partners';
+import { default as changeGraphStyle } from '@/graph-stylers/hmr-closest-interaction-partners';
 
-import { default as convertGraphML } from '@/helpers/graph-ml-converter'
+import { default as convertGraphML } from '@/helpers/graph-ml-converter';
 
-import { getSingleExpressionColor } from '@/helpers/expressionSources'
-import { default as messages } from '@/content/messages'
+import { getSingleExpressionColor } from '@/helpers/expressionSources';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'InteractionPartners',
@@ -485,7 +485,7 @@ export default {
       minZoom: 0.1,
       factorZoom: 0.08,
       messages,
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -504,16 +504,16 @@ export default {
       componentName: 'interactionPartners/componentName',
     }),
     filename() {
-      return `MetAtlas Interaction Partners for ${this.componentName} ${this.mainNodeID}`
+      return `MetAtlas Interaction Partners for ${this.componentName} ${this.mainNodeID}`;
     },
     elms() {
       if (Object.keys(this.rawElms).length !== 0) {
-        return Object.keys(this.rawElms).map((k) => this.rawElms[k])
+        return Object.keys(this.rawElms).map((k) => this.rawElms[k]);
       }
-      return []
+      return [];
     },
     rels() {
-      return Object.keys(this.rawRels).map((k) => this.rawRels[k])
+      return Object.keys(this.rawRels).map((k) => this.rawRels[k]);
     },
   },
   watch: {
@@ -525,269 +525,269 @@ export default {
       const modelSelectionSuccessful = await this.$store.dispatch(
         'models/selectModel',
         this.$route.params.model
-      )
+      );
       if (!modelSelectionSuccessful) {
-        this.errorMessage = `Error: ${messages.modelNotFound}`
-        return
+        this.errorMessage = `Error: ${messages.modelNotFound}`;
+        return;
       }
     }
-    cytoscape.use(cola)
+    cytoscape.use(cola);
     jquery(window).resize(() => {
-      jquery('#cy').height(jquery('#cy').width() / 1.5)
-      this.fitGraph()
-    })
-    await this.setup()
+      jquery('#cy').height(jquery('#cy').width() / 1.5);
+      this.fitGraph();
+    });
+    await this.setup();
 
     if (!this.mainNodeID) {
-      await this.getRandomComponents()
+      await this.getRandomComponents();
     }
   },
   methods: {
     async getRandomComponents() {
-      await this.$store.dispatch('interactionPartners/getRandomComponents', this.model)
+      await this.$store.dispatch('interactionPartners/getRandomComponents', this.model);
     },
     async setup() {
-      this.mainNodeID = this.$route.params.id
-      this.mainNode = null
-      this.reactionHL = null
-      this.compartmentHL = ''
-      this.subsystemHL = ''
+      this.mainNodeID = this.$route.params.id;
+      this.mainNode = null;
+      this.reactionHL = null;
+      this.compartmentHL = '';
+      this.subsystemHL = '';
       if (this.mainNodeID) {
-        await this.load()
-        jquery('#cy').height(jquery('#cy').width() / 1.5)
+        await this.load();
+        jquery('#cy').height(jquery('#cy').width() / 1.5);
       }
     },
     navigate() {
-      this.reactionHL = null
-      this.compartmentHL = ''
-      this.subsystemHL = ''
+      this.reactionHL = null;
+      this.compartmentHL = '';
+      this.subsystemHL = '';
       this.$router.push({
         name: 'interaction',
         params: { model: this.model.short_name, id: this.clickedElmId },
-      })
+      });
     },
     async load() {
-      this.loading = true
+      this.loading = true;
 
       try {
-        const payload = { model: this.model, id: this.mainNodeID }
-        await this.$store.dispatch('interactionPartners/getInteractionPartners', payload)
+        const payload = { model: this.model, id: this.mainNodeID };
+        await this.$store.dispatch('interactionPartners/getInteractionPartners', payload);
 
         // TODO: consider refactoring the following lines in this try block into Vuex,
         //       as well as duplication with the loadExpansion method
-        this.componentNotFound = false
-        this.showGraphContextMenu = false
+        this.componentNotFound = false;
+        this.showGraphContextMenu = false;
         if (this.tooLargeNetworkGraph) {
-          this.showNetworkGraph = false
-          return
+          this.showNetworkGraph = false;
+          return;
         }
 
-        ;[this.rawElms, this.rawRels, this.compartmentList, this.subsystemList] = transform(
+        [this.rawElms, this.rawRels, this.compartmentList, this.subsystemList] = transform(
           this.component,
           this.reactions,
           null,
           null,
           null,
           null
-        )
+        );
         if (this.compartmentList.length === 1) {
-          this.compartmentHL = ''
-          this.disableCompartmentHL = true
+          this.compartmentHL = '';
+          this.disableCompartmentHL = true;
         }
-        this.mainNode = this.rawElms[this.component.id]
-        this.mainNode.name = this.componentName
+        this.mainNode = this.rawElms[this.component.id];
+        this.mainNode.name = this.componentName;
 
-        this.expandedIds = []
-        this.expandedIds.push(this.component.id)
+        this.expandedIds = [];
+        this.expandedIds.push(this.component.id);
 
-        this.resetGeneExpression()
+        this.resetGeneExpression();
 
-        this.nodeCount = Object.keys(this.rawElms).length
+        this.nodeCount = Object.keys(this.rawElms).length;
         if (this.nodeCount > this.warnNodeCount) {
-          this.showNetworkGraph = false
-          this.largeNetworkGraph = true
-          this.errorMessage = ''
-          return
+          this.showNetworkGraph = false;
+          this.largeNetworkGraph = true;
+          this.errorMessage = '';
+          return;
         }
-        this.largeNetworkGraph = false
-        this.showNetworkGraph = true
-        this.errorMessage = ''
+        this.largeNetworkGraph = false;
+        this.showNetworkGraph = true;
+        this.errorMessage = '';
 
         // The set time out wrapper enforces this happens last.
         setTimeout(() => {
-          this.constructGraph(this.rawElms, this.rawRels, this.fitGraph)
-        }, 0)
+          this.constructGraph(this.rawElms, this.rawRels, this.fitGraph);
+        }, 0);
       } catch (error) {
         switch (error.response.status) {
           case 404:
-            this.componentNotFound = true
-            break
+            this.componentNotFound = true;
+            break;
           default:
-            this.errorMessage = messages.unknownError
+            this.errorMessage = messages.unknownError;
         }
       } finally {
-        this.loading = false
+        this.loading = false;
       }
     },
     async loadExpansion() {
       try {
-        const payload = { model: this.model, id: this.clickedElmId }
-        await this.$store.dispatch('interactionPartners/loadExpansion', payload)
+        const payload = { model: this.model, id: this.clickedElmId };
+        await this.$store.dispatch('interactionPartners/loadExpansion', payload);
 
-        this.reactionHL = null
-        this.errorMessage = null
-        this.showGraphContextMenu = false
+        this.reactionHL = null;
+        this.errorMessage = null;
+        this.showGraphContextMenu = false;
 
         if (this.tooLargeNetworkGraph) {
-          this.showNetworkGraph = false
-          return
+          this.showNetworkGraph = false;
+          return;
         }
 
-        ;[this.rawElms, this.rawRels, this.compartmentList, this.subsystemList] = transform(
+        [this.rawElms, this.rawRels, this.compartmentList, this.subsystemList] = transform(
           this.expansion.component,
           this.expansion.reactions,
           this.rawElms,
           this.rawRels,
           this.compartmentList,
           this.subsystemList
-        )
+        );
 
         if (this.compartmentList.length === 1) {
-          this.compartmentHL = ''
-          this.disableCompartmentHL = true
+          this.compartmentHL = '';
+          this.disableCompartmentHL = true;
         } else {
-          this.disableCompartmentHL = false
+          this.disableCompartmentHL = false;
         }
 
-        this.expandedIds.push(this.expansion.component.id)
+        this.expandedIds.push(this.expansion.component.id);
 
-        this.nodeCount = Object.keys(this.rawElms).length
+        this.nodeCount = Object.keys(this.rawElms).length;
         if (this.nodeCount > this.warnNodeCount) {
-          this.showNetworkGraph = false
-          this.largeNetworkGraph = true
-          return
+          this.showNetworkGraph = false;
+          this.largeNetworkGraph = true;
+          return;
         }
-        this.showNetworkGraph = true
-        this.errorMessage = ''
+        this.showNetworkGraph = true;
+        this.errorMessage = '';
 
         // The set time out wrapper enforces this happens last.
         setTimeout(() => {
-          this.constructGraph(this.rawElms, this.rawRels)
-        }, 0)
+          this.constructGraph(this.rawElms, this.rawRels);
+        }, 0);
       } catch (error) {
         switch (error.response.status) {
           case 404:
-            this.errorMessage = messages.notFoundError
-            break
+            this.errorMessage = messages.notFoundError;
+            break;
           default:
-            this.errorMessage = messages.unknownError
+            this.errorMessage = messages.unknownError;
         }
       } finally {
-        this.loading = false
+        this.loading = false;
       }
     },
     applyLevels() {
-      const isValid = this.currentDataSource.levels[[this.dataSet]]
+      const isValid = this.currentDataSource.levels[[this.dataSet]];
 
       if (isValid) {
-        const { dataSets } = this.currentDataSource
+        const { dataSets } = this.currentDataSource;
         const componentIds = Object.keys(this.rawElms)
           .filter((el) => this.rawElms[el].type === this.currentDataType.componentType)
-          .map((k) => this.rawElms[k].id)
-        const s = this.currentDataSource.name
-        const t = this.currentDataType.componentType
+          .map((k) => this.rawElms[k].id);
+        const s = this.currentDataSource.name;
+        const t = this.currentDataType.componentType;
 
         for (let i = 0; i < componentIds.length; i += 1) {
-          const componentID = componentIds[i]
+          const componentID = componentIds[i];
 
           if (!this.rawElms[componentID].expressionLvl[s]) {
-            this.rawElms[componentID].expressionLvl[s] = {}
+            this.rawElms[componentID].expressionLvl[s] = {};
           }
 
           if (!this.rawElms[componentID].expressionLvl[s][t]) {
-            this.rawElms[componentID].expressionLvl[s][t] = {}
+            this.rawElms[componentID].expressionLvl[s][t] = {};
           }
 
           for (let j = 0; j < dataSets.length; j += 1) {
-            const d = dataSets[j]
-            const levels = this.currentDataSource.levels[d]
-            let level = levels[componentID]
-            level = Math.round((level + 0.00001) * 100) / 100
+            const d = dataSets[j];
+            const levels = this.currentDataSource.levels[d];
+            let level = levels[componentID];
+            level = Math.round((level + 0.00001) * 100) / 100;
 
-            this.rawElms[componentID].expressionLvl[s][t][d] = getSingleExpressionColor(level)
+            this.rawElms[componentID].expressionLvl[s][t][d] = getSingleExpressionColor(level);
           }
         }
 
-        this.nodeDisplayParams.expSource = s
-        this.nodeDisplayParams.expType = t
-        this.nodeDisplayParams.expSample = this.dataSet
+        this.nodeDisplayParams.expSource = s;
+        this.nodeDisplayParams.expType = t;
+        this.nodeDisplayParams.expSample = this.dataSet;
 
-        this.overlay[s] = {}
-        this.overlay[s][t] = true
+        this.overlay[s] = {};
+        this.overlay[s][t] = true;
       } else {
-        this.resetGeneExpression()
+        this.resetGeneExpression();
       }
 
-      setTimeout(this.redrawGraph, 0)
+      setTimeout(this.redrawGraph, 0);
     },
     isCompartmentSubsystemHLDisabled() {
       return (
         (this.compartmentHL === '' && this.subsystemHL === '') ||
         (this.compartmentList.length < 2 && this.subsystemList.length === 0)
-      )
+      );
     },
     highlightReaction(rid) {
       if (this.cy) {
-        this.clickedElmId = ''
-        this.reactionHL = rid
-        this.clickedElm = { id: rid, type: 'reaction' }
-        this.redrawGraph()
-        this.showGraphContextMenu = false
+        this.clickedElmId = '';
+        this.reactionHL = rid;
+        this.clickedElm = { id: rid, type: 'reaction' };
+        this.redrawGraph();
+        this.showGraphContextMenu = false;
       }
     },
     highlightCompartment() {
       if (this.compartmentHL) {
-        this.redrawGraph()
+        this.redrawGraph();
       }
     },
     highlightSubsystem() {
       if (this.subsystemHL) {
-        this.redrawGraph()
+        this.redrawGraph();
       }
     },
     toggleGraphLegend() {
-      this.showGraphLegend = !this.showGraphLegend
-      this.showColorPickerEnz = false
-      this.showColorPickerMeta = false
+      this.showGraphLegend = !this.showGraphLegend;
+      this.showColorPickerEnz = false;
+      this.showColorPickerMeta = false;
     },
     applyOptionPanelColor(nodeType) {
       if (nodeType === 'gene' && this.nodeDisplayParams.expSample) {
         // expression lvl are active
-        return
+        return;
       }
       setTimeout(() => {
-        this.redrawGraph()
-      }, 0)
+        this.redrawGraph();
+      }, 0);
     },
     resetHighlight() {
       if (this.isCompartmentSubsystemHLDisabled()) {
-        return
+        return;
       }
-      this.compartmentHL = ''
-      this.subsystemHL = ''
+      this.compartmentHL = '';
+      this.subsystemHL = '';
     },
     async resetGraph(reload) {
-      this.reactionHL = null
-      this.mainNode = null
-      this.clickedElm = null
-      this.clickedElmId = ''
-      this.showGraphContextMenu = false
-      this.resetGeneExpression()
-      this.resetHighlight()
+      this.reactionHL = null;
+      this.mainNode = null;
+      this.clickedElm = null;
+      this.clickedElmId = '';
+      this.showGraphContextMenu = false;
+      this.resetGeneExpression();
+      this.resetHighlight();
       if (reload) {
-        await this.load()
+        await this.load();
       } else {
-        this.redrawGraph()
+        this.redrawGraph();
       }
     },
     redrawGraph() {
@@ -799,47 +799,47 @@ export default {
         this.reactionHL,
         this.compartmentHL,
         this.subsystemHL
-      )[1]
-      const cyzoom = this.cy.zoom()
-      const cypan = this.cy.pan()
-      this.cy.style(stylesheet)
+      )[1];
+      const cyzoom = this.cy.zoom();
+      const cypan = this.cy.pan();
+      this.cy.style(stylesheet);
       this.cy.viewport({
         zoom: cyzoom,
         pan: cypan,
-      })
+      });
     },
     fitGraph() {
-      jquery('#cy').height(jquery('#cy').width() / 1.5)
+      jquery('#cy').height(jquery('#cy').width() / 1.5);
       setTimeout(() => {
-        this.cy.fit(null, 10)
-        this.minZoom = this.cy.zoom() / 2.0
-      }, 300)
+        this.cy.fit(null, 10);
+        this.minZoom = this.cy.zoom() / 2.0;
+      }, 300);
     },
     highlightNode(elmId) {
-      this.showGraphContextMenu = false
-      this.reactionHL = null
-      this.clickedElmId = elmId
-      this.clickedElm = this.rawElms[elmId]
+      this.showGraphContextMenu = false;
+      this.reactionHL = null;
+      this.clickedElmId = elmId;
+      this.clickedElm = this.rawElms[elmId];
 
       if (this.showNetworkGraph) {
-        this.cy.nodes().deselect()
-        const node = this.cy.getElementById(elmId)
-        node.json({ selected: true })
-        node.trigger('tap')
-        this.redrawGraph()
+        this.cy.nodes().deselect();
+        const node = this.cy.getElementById(elmId);
+        node.json({ selected: true });
+        node.trigger('tap');
+        this.redrawGraph();
       }
     },
     generateGraph(callback) {
-      this.showNetworkGraph = true
-      this.largeNetworkGraph = false
-      this.errorMessage = null
+      this.showNetworkGraph = true;
+      this.largeNetworkGraph = false;
+      this.errorMessage = null;
 
-      this.resetGeneExpression()
+      this.resetGeneExpression();
 
       // The set time out wrapper enforces this happens last.
       setTimeout(() => {
-        this.constructGraph(this.rawElms, this.rawRels, callback)
-      }, 0)
+        this.constructGraph(this.rawElms, this.rawRels, callback);
+      }, 0);
     },
     constructGraph: function constructGraph(elms, rels, callback) {
       const [elements, stylesheet] = changeGraphStyle(
@@ -850,7 +850,7 @@ export default {
         this.reactionHL,
         this.compartmentHL,
         this.subsystemHL
-      )
+      );
 
       const colaOptions = {
         animate: true, // whether to show the layout as it's running
@@ -873,7 +873,7 @@ export default {
         avoidOverlap: true, // if true, prevents overlap of node bounding boxe
         handleDisconnected: true, // if true, avoids disconnected components from overlappin
         nodeSpacing() {
-          return 10
+          return 10;
         }, // extra spacing around node
         flow: undefined,
         // use DAG/tree flow layout if specified, e.g. { axis: 'y', minSeparation: 30 }
@@ -895,8 +895,8 @@ export default {
 
         // infinite layout options
         infinite: false, // overrides all other options for a forces-all-the-time mode
-      }
-      const { mainNodeID } = this
+      };
+      const { mainNodeID } = this;
       this.cy = cytoscape({
         container: this.$refs.cy,
         elements,
@@ -906,34 +906,34 @@ export default {
           colaOptions,
           concentric(node) {
             if (node.degree() === 1) {
-              return 1
+              return 1;
             }
             if (node.data().id === mainNodeID) {
-              return 10000
+              return 10000;
             }
             if (node.data().type === 'gene') {
-              return 100
+              return 100;
             }
-            return 200
+            return 200;
           },
           ready: this.fitGraph,
         },
-      })
-      this.cy.userZoomingEnabled(false)
+      });
+      this.cy.userZoomingEnabled(false);
 
-      window.pageYOffset = 0
-      document.documentElement.scrollTop = 0
-      document.body.scrollTop = 0
+      window.pageYOffset = 0;
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
 
-      const cyt = this.cy
+      const cyt = this.cy;
       cyt.on('zoom', () => {
-        const dim = Math.ceil(10 / cyt.zoom())
-        const edgeWidth = 1 / cyt.zoom()
+        const dim = Math.ceil(10 / cyt.zoom());
+        const edgeWidth = 1 / cyt.zoom();
 
         cyt.$('edge').css({
           width: edgeWidth,
           'font-size': dim / 2,
-        })
+        });
 
         cyt.$('node').css({
           width: dim,
@@ -941,115 +941,115 @@ export default {
           'font-size': dim * 1.5,
           'text-opacity': 1,
           'overlay-padding': edgeWidth * 2,
-        })
-      })
+        });
+      });
 
-      const { contextMenuGraph } = this.$refs
-      this.showGraphContextMenu = false
-      this.showNetworkGraph = true
+      const { contextMenuGraph } = this.$refs;
+      this.showGraphContextMenu = false;
+      this.showNetworkGraph = true;
 
       const updateContextMenuPosition = (node) => {
-        contextMenuGraph.style.left = `${node.renderedPosition().x + 15}px`
-        contextMenuGraph.style.top = `${node.renderedPosition().y + 160}px`
-      }
+        contextMenuGraph.style.left = `${node.renderedPosition().x + 15}px`;
+        contextMenuGraph.style.top = `${node.renderedPosition().y + 160}px`;
+      };
 
       this.cy.on('tap tapstart cxttap', (evt) => {
         if (evt.target === this.cy) {
-          this.cy.nodes().deselect()
-          this.showGraphContextMenu = false
-          this.clickedElmId = ''
-          this.clickedElm = null
+          this.cy.nodes().deselect();
+          this.showGraphContextMenu = false;
+          this.clickedElmId = '';
+          this.clickedElm = null;
         }
-      })
+      });
 
       this.cy.on('tap cxttap', 'node', (evt) => {
-        const node = evt.target
-        this.cy.nodes().deselect()
-        node.json({ selected: true })
-        const elmId = node.data().id
-        this.clickedElmId = elmId
-        this.clickedElm = this.rawElms[elmId]
-        updateContextMenuPosition(node)
-        this.showGraphContextMenu = evt.type === 'cxttap'
-      })
+        const node = evt.target;
+        this.cy.nodes().deselect();
+        node.json({ selected: true });
+        const elmId = node.data().id;
+        this.clickedElmId = elmId;
+        this.clickedElm = this.rawElms[elmId];
+        updateContextMenuPosition(node);
+        this.showGraphContextMenu = evt.type === 'cxttap';
+      });
 
       if (callback) {
-        callback()
+        callback();
       }
     },
     exportGraphml: function exportGraphml() {
-      const output = convertGraphML(this.cy)
-      const blob = new Blob([output], { type: 'text/graphml' })
-      const fn = `${this.filename}.graphml`
-      FileSaver.saveAs(blob, fn)
+      const output = convertGraphML(this.cy);
+      const blob = new Blob([output], { type: 'text/graphml' });
+      const fn = `${this.filename}.graphml`;
+      FileSaver.saveAs(blob, fn);
     },
     exportPNG: function exportPNG() {
-      const a = document.createElement('a')
+      const a = document.createElement('a');
       const output = this.cy.png({
         bg: 'white',
-      })
+      });
 
-      a.href = output
-      a.download = `${this.filename}.png`
-      a.target = '_blank'
-      a.style.display = 'none'
-      document.body.appendChild(a)
-      a.click()
-      document.body.removeChild(a)
+      a.href = output;
+      a.download = `${this.filename}.png`;
+      a.target = '_blank';
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
     },
     zoomGraph: function zoomGraph(zoomIn) {
-      let factor = this.factorZoom
+      let factor = this.factorZoom;
       if (!zoomIn) {
-        factor = -factor
+        factor = -factor;
       }
 
-      const zoom = this.cy.zoom()
-      let lvl = zoom + zoom * factor
+      const zoom = this.cy.zoom();
+      let lvl = zoom + zoom * factor;
 
       if (lvl < this.minZoom) {
-        lvl = this.minZoom
+        lvl = this.minZoom;
       }
 
       if (lvl > this.maxZoom) {
-        lvl = this.maxZoom
+        lvl = this.maxZoom;
       }
 
       if (
         (lvl === this.maxZoom && zoom === this.maxZoom) ||
         (lvl === this.minZoom && zoom === this.minZoom)
       ) {
-        return
+        return;
       }
 
       this.cy.zoom({
         level: lvl,
-      })
+      });
     },
     scrollTo(id) {
-      const container = jquery('body, html')
+      const container = jquery('body, html');
       container.scrollTop(
         jquery(`#${id}`).offset().top - (container.offset().top + container.scrollTop())
-      )
+      );
     },
     resetGeneExpression() {
-      this.selectedSample = ''
-      this.nodeDisplayParams.expSource = false
-      this.nodeDisplayParams.expType = false
-      this.nodeDisplayParams.expSample = false
-      this.overlay = {}
+      this.selectedSample = '';
+      this.nodeDisplayParams.expSource = false;
+      this.nodeDisplayParams.expType = false;
+      this.nodeDisplayParams.expSample = false;
+      this.overlay = {};
     },
     toggleGeneColorPicker() {
-      this.showColorPickerMeta = false
-      this.showColorPickerEnz = !this.showColorPickerEnz
-      return this.showColorPickerEnz
+      this.showColorPickerMeta = false;
+      this.showColorPickerEnz = !this.showColorPickerEnz;
+      return this.showColorPickerEnz;
     },
     toggleMetaboliteColorPicker() {
-      this.showColorPickerEnz = false
-      this.showColorPickerMeta = !this.showColorPickerMeta
-      return this.showColorPickerMeta
+      this.showColorPickerEnz = false;
+      this.showColorPickerMeta = !this.showColorPickerMeta;
+      return this.showColorPickerMeta;
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

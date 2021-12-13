@@ -44,9 +44,9 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
-import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout'
-import { buildCustomLink, generateSocialMetaTags } from '@/helpers/utils'
+import { mapGetters, mapState } from 'vuex';
+import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout';
+import { buildCustomLink, generateSocialMetaTags } from '@/helpers/utils';
 
 export default {
   name: 'Compartment',
@@ -57,7 +57,7 @@ export default {
     return {
       showFullSubsystem: false,
       limitSubsystem: 30,
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -68,41 +68,41 @@ export default {
       subsystems: 'compartments/subsystems',
     }),
     subsystemListHtml() {
-      const l = ['<span class="tags">']
+      const l = ['<span class="tags">'];
       const sortedSubsystemList = this.subsystems
         .concat()
-        .sort((a, b) => (a.name < b.name ? -1 : 1))
+        .sort((a, b) => (a.name < b.name ? -1 : 1));
       for (let i = 0; i < sortedSubsystemList.length; i += 1) {
-        const s = sortedSubsystemList[i]
+        const s = sortedSubsystemList[i];
         if (!this.showFullSubsystem && i === this.limitSubsystem) {
-          break
+          break;
         }
         const customLink = buildCustomLink({
           model: this.model.short_name,
           type: 'subsystem',
           id: s.id,
           title: s.name,
-        })
-        l.push(`<span id="${s.id}" class="tag sub">${customLink}</span>`)
+        });
+        l.push(`<span id="${s.id}" class="tag sub">${customLink}</span>`);
       }
-      l.push('</span>')
-      return l.join('')
+      l.push('</span>');
+      return l.join('');
     },
   },
   metaInfo() {
     if (!this.model || !this.compartment.name) {
-      return {}
+      return {};
     }
 
-    const title = `${this.compartment.name}, Compartment in ${this.model.short_name}`
-    const description = `The compartment ${this.compartment.name} in ${this.model.short_name} (version ${this.model.version}) consists of ${this.compartment.subsystemCount} subsystems, ${this.compartment.reactionsCount} reactions, ${this.compartment.metabolitesCount} metabolites, and ${this.compartment.genesCount} genes.`
+    const title = `${this.compartment.name}, Compartment in ${this.model.short_name}`;
+    const description = `The compartment ${this.compartment.name} in ${this.model.short_name} (version ${this.model.version}) consists of ${this.compartment.subsystemCount} subsystems, ${this.compartment.reactionsCount} reactions, ${this.compartment.metabolitesCount} metabolites, and ${this.compartment.genesCount} genes.`;
 
     return {
       title,
       meta: generateSocialMetaTags({ title, description }),
-    }
+    };
   },
-}
+};
 </script>
 
 <style lang="scss"></style>

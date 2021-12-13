@@ -37,17 +37,17 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
-import $ from 'jquery'
-import Panzoom from '@panzoom/panzoom'
-import { default as FileSaver } from 'file-saver'
-import { debounce } from 'vue-debounce'
-import MapControls from '@/components/explorer/mapViewer/MapControls'
-import MapLoader from '@/components/explorer/mapViewer/MapLoader'
-import MapSearch from '@/components/explorer/mapViewer/MapSearch'
-import { default as messages } from '@/content/messages'
-import { reformatChemicalReactionHTML } from '@/helpers/utils'
-import { DATA_TYPES_COMPONENTS } from '@/helpers/dataOverlay'
+import { mapGetters, mapState } from 'vuex';
+import $ from 'jquery';
+import Panzoom from '@panzoom/panzoom';
+import { default as FileSaver } from 'file-saver';
+import { debounce } from 'vue-debounce';
+import MapControls from '@/components/explorer/mapViewer/MapControls';
+import MapLoader from '@/components/explorer/mapViewer/MapLoader';
+import MapSearch from '@/components/explorer/mapViewer/MapSearch';
+import { default as messages } from '@/content/messages';
+import { reformatChemicalReactionHTML } from '@/helpers/utils';
+import { DATA_TYPES_COMPONENTS } from '@/helpers/dataOverlay';
 
 export default {
   name: 'Svgmap',
@@ -90,7 +90,7 @@ export default {
       messages,
 
       initialLoadWithParams: true,
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -114,208 +114,208 @@ export default {
   },
   watch: {
     async mapData() {
-      await this.init()
+      await this.init();
     },
     dataSet() {
-      this.applyLevelsOnMap()
+      this.applyLevelsOnMap();
     },
     customDataSet() {
-      this.applyLevelsOnMap()
+      this.applyLevelsOnMap();
     },
     svgContent: 'loadSvgPanzoom',
   },
   created() {
-    this.updateURLCoord = debounce(this.updateURLCoord, 150)
+    this.updateURLCoord = debounce(this.updateURLCoord, 150);
   },
   async mounted() {
-    const self = this
-    ;['.met', '.enz', '.rea', '.subsystem'].forEach((aClass) => {
+    const self = this;
+    ['.met', '.enz', '.rea', '.subsystem'].forEach((aClass) => {
       $('#svg-wrapper').on('click', aClass, async function f() {
-        await self.selectElement($(this))
-      })
-    })
+        await self.selectElement($(this));
+      });
+    });
     $('#svg-wrapper').on('mouseover', `.${self.componentClassName}`, function f(e) {
-      const id = $(this).attr('class').split(' ')[1].trim()
+      const id = $(this).attr('class').split(' ')[1].trim();
       if (id in self.computedLevels) {
-        self.$refs.tooltip.innerHTML = self.computedLevels[id][1] // eslint-disable-line prefer-destructuring
+        self.$refs.tooltip.innerHTML = self.computedLevels[id][1]; // eslint-disable-line prefer-destructuring
       } else if (Object.keys(self.computedLevels).length !== 0) {
-        self.$refs.tooltip.innerHTML = self.computedLevels['n/a'][1] // eslint-disable-line prefer-destructuring
+        self.$refs.tooltip.innerHTML = self.computedLevels['n/a'][1]; // eslint-disable-line prefer-destructuring
       } else {
-        return
+        return;
       }
-      self.$refs.tooltip.style.top = `${e.pageY - $('.svgbox').first().offset().top + 15}px`
-      self.$refs.tooltip.style.left = `${e.pageX - $('.svgbox').first().offset().left + 15}px`
-      self.$refs.tooltip.style.display = 'block'
-    })
+      self.$refs.tooltip.style.top = `${e.pageY - $('.svgbox').first().offset().top + 15}px`;
+      self.$refs.tooltip.style.left = `${e.pageX - $('.svgbox').first().offset().left + 15}px`;
+      self.$refs.tooltip.style.display = 'block';
+    });
     $('#svg-wrapper').on('mouseout', `.${self.componentClassName}`, () => {
-      self.$refs.tooltip.innerHTML = ''
-      self.$refs.tooltip.style.display = 'none'
-    })
+      self.$refs.tooltip.innerHTML = '';
+      self.$refs.tooltip.style.display = 'none';
+    });
     $('.svgbox').on(
       'webkitfullscreenchange mozfullscreenchange fullscreenchange mozFullScreen MSFullscreenChange',
       (e) => {
-        $('.svgbox').first().toggleClass('fullscreen')
-        self.isFullscreen = $('.svgbox').first().hasClass('fullscreen')
-        e.stopPropagation()
+        $('.svgbox').first().toggleClass('fullscreen');
+        self.isFullscreen = $('.svgbox').first().hasClass('fullscreen');
+        e.stopPropagation();
       }
-    )
-    await this.init()
+    );
+    await this.init();
   },
   methods: {
     async init() {
-      this.$refs.mapsearch.reset()
+      this.$refs.mapsearch.reset();
       if (this.mapData.svgs.length === 0) {
-        this.$store.dispatch('maps/clearSvgMap')
-        this.errorMessage = messages.mapNotFound
-        this.$store.dispatch('maps/setLoading', false)
-        return
+        this.$store.dispatch('maps/clearSvgMap');
+        this.errorMessage = messages.mapNotFound;
+        this.$store.dispatch('maps/setLoading', false);
+        return;
       }
-      this.errorMessage = ''
-      this.$store.dispatch('maps/setLoading', true)
-      const payload = { model: this.model.short_name, svgName: this.mapData.svgs[0].filename }
-      await this.$store.dispatch('maps/getSvgMap', payload)
-      this.bindKeyboardShortcuts()
+      this.errorMessage = '';
+      this.$store.dispatch('maps/setLoading', true);
+      const payload = { model: this.model.short_name, svgName: this.mapData.svgs[0].filename };
+      await this.$store.dispatch('maps/getSvgMap', payload);
+      this.bindKeyboardShortcuts();
     },
     bindKeyboardShortcuts() {
       document.addEventListener('keydown', (event) => {
-        const key = event.key || event.keyCode
-        const panDistance = 10
+        const key = event.key || event.keyCode;
+        const panDistance = 10;
         switch (key) {
           case 'ArrowLeft':
           case 37:
-            this.relativePan(-panDistance, 0)
-            break
+            this.relativePan(-panDistance, 0);
+            break;
           case 'ArrowUp':
           case 38:
-            this.relativePan(0, -panDistance)
-            break
+            this.relativePan(0, -panDistance);
+            break;
           case 'ArrowRight':
           case 39:
-            this.relativePan(panDistance, 0)
-            break
+            this.relativePan(panDistance, 0);
+            break;
           case 'ArrowDown':
           case 40:
-            this.relativePan(0, panDistance)
-            break
+            this.relativePan(0, panDistance);
+            break;
           default:
-            return
+            return;
         }
-        event.preventDefault()
-      })
+        event.preventDefault();
+      });
     },
     relativePan(x, y) {
-      this.panzoom.pan(x, y, { relative: true })
+      this.panzoom.pan(x, y, { relative: true });
     },
     toggleGenes() {
       if ($('.enz, .ee').first().attr('visibility') === 'hidden') {
-        $('.enz, .ee').attr('visibility', 'visible')
+        $('.enz, .ee').attr('visibility', 'visible');
       } else {
-        $('.enz, .ee').attr('visibility', 'hidden')
+        $('.enz, .ee').attr('visibility', 'hidden');
       }
     },
     toggleSubsystems() {
       if ($('.subsystem').first().attr('visibility') === 'hidden') {
-        $('.subsystem').attr('visibility', 'visible')
+        $('.subsystem').attr('visibility', 'visible');
       } else {
-        $('.subsystem').attr('visibility', 'hidden')
+        $('.subsystem').attr('visibility', 'hidden');
       }
     },
     toggleFullscreen() {
-      this.isFullscreen = !this.isFullscreen
+      this.isFullscreen = !this.isFullscreen;
     },
     zoomToValue(v) {
       if (v >= this.panzoomOptions.minScale && v <= this.panzoomOptions.maxScale) {
         this.panzoom.zoomToPoint(v, {
           clientX: this.clientFocusX(),
           clientY: this.clientFocusY(),
-        })
+        });
       }
     },
     zoomIn() {
-      this.zoomToValue(this.currentZoomScale + this.panzoomOptions.step)
+      this.zoomToValue(this.currentZoomScale + this.panzoomOptions.step);
     },
     zoomOut() {
-      this.zoomToValue(this.currentZoomScale - this.panzoomOptions.step)
+      this.zoomToValue(this.currentZoomScale - this.panzoomOptions.step);
     },
     restoreMapPosition(x, y, zoom) {
-      this.zoomToValue(1.0)
-      this.panToCoords({ panX: x, panY: y, zoom })
-      this.zoomToValue(zoom)
+      this.zoomToValue(1.0);
+      this.panToCoords({ panX: x, panY: y, zoom });
+      this.zoomToValue(zoom);
 
-      const payload = { ...this.coords, x, y, z: zoom }
-      this.$store.dispatch('maps/setCoords', payload)
+      const payload = { ...this.coords, x, y, z: zoom };
+      this.$store.dispatch('maps/setCoords', payload);
     },
     updateURLCoord(e) {
-      const z = e.detail.scale || this.currentZoomScale
-      const x = e.detail.x || 0
-      const y = e.detail.y || 0
+      const z = e.detail.scale || this.currentZoomScale;
+      const x = e.detail.x || 0;
+      const y = e.detail.y || 0;
 
-      const payload = { ...this.coords, x, y, z }
-      this.$store.dispatch('maps/setCoords', payload)
+      const payload = { ...this.coords, x, y, z };
+      this.$store.dispatch('maps/setCoords', payload);
     },
     processSelSearchParam() {
       // unselect
-      this.unHighlight(this.searchedElemsHL, 'schhl')
-      this.unHighlight(this.selectedElemsHL, 'selhl')
+      this.unHighlight(this.searchedElemsHL, 'schhl');
+      this.unHighlight(this.selectedElemsHL, 'selhl');
       if (this.searchTerm) {
-        this.$refs.mapsearch.search(this.searchTerm)
+        this.$refs.mapsearch.search(this.searchTerm);
       } else if (this.coords && this.initialLoadWithParams) {
-        const coords = Object.values(this.coords)
-        this.restoreMapPosition(coords[0], coords[1], coords[2])
+        const coords = Object.values(this.coords);
+        this.restoreMapPosition(coords[0], coords[1], coords[2]);
       }
       // selection (sidebar), get the first node with this id
-      const elms = this.findElementsOnSVG(this.selectIds)
-      this.selectElement(elms[0] || null, true)
+      const elms = this.findElementsOnSVG(this.selectIds);
+      this.selectElement(elms[0] || null, true);
     },
     loadSvgPanzoom() {
       if (!this.svgContent) {
-        return
+        return;
       }
 
-      this.initialLoadWithParams = !!this.$route.query.coords
+      this.initialLoadWithParams = !!this.$route.query.coords;
 
       // load the lib svgPanzoom on the SVG loaded
-      const panzoomElem = document.getElementById('svg-wrapper')
-      this.panzoom = Panzoom(panzoomElem, this.panzoomOptions)
+      const panzoomElem = document.getElementById('svg-wrapper');
+      this.panzoom = Panzoom(panzoomElem, this.panzoomOptions);
 
       setTimeout(() => {
         // reset
-        this.panzoom.reset()
-        panzoomElem.parentElement.removeEventListener('wheel', this.handleWheelEvent)
+        this.panzoom.reset();
+        panzoomElem.parentElement.removeEventListener('wheel', this.handleWheelEvent);
 
         // bind event listeners
-        panzoomElem.addEventListener('panzoomchange', this.updateURLCoord)
+        panzoomElem.addEventListener('panzoomchange', this.updateURLCoord);
         panzoomElem.addEventListener('panzoomzoom', (e) => {
-          this.currentZoomScale = e.detail.scale
-        })
+          this.currentZoomScale = e.detail.scale;
+        });
 
-        panzoomElem.parentElement.addEventListener('wheel', this.handleWheelEvent)
+        panzoomElem.parentElement.addEventListener('wheel', this.handleWheelEvent);
 
-        const svg = document.querySelector('#svg-wrapper svg').getBBox()
-        const svgBox = document.querySelector('.svgbox')
+        const svg = document.querySelector('#svg-wrapper svg').getBBox();
+        const svgBox = document.querySelector('.svgbox');
 
         // set default pan
-        const focusX = svg.width / 2 - svgBox.offsetWidth / 2
-        const focusY = svg.height / 2 - svgBox.offsetHeight / 3
-        this.panzoom.pan(-focusX, -focusY)
+        const focusX = svg.width / 2 - svgBox.offsetWidth / 2;
+        const focusY = svg.height / 2 - svgBox.offsetHeight / 3;
+        this.panzoom.pan(-focusX, -focusY);
 
         // set default zoom
         const minZoomScale = Math.min(
           svgBox.offsetWidth / svg.width,
           svgBox.offsetHeight / svg.height
-        )
+        );
 
         this.panzoom.zoomToPoint(minZoomScale, {
           clientX: this.clientFocusX(),
           clientY: this.clientFocusY(),
-        })
+        });
 
-        this.processSelSearchParam()
-        this.$store.dispatch('maps/setLoading', false)
-      }, 50)
+        this.processSelSearchParam();
+        this.$store.dispatch('maps/setLoading', false);
+      }, 50);
     },
     handleWheelEvent(event) {
-      event.preventDefault()
+      event.preventDefault();
 
       // In certain browsers such as Safari and Firefox,
       // the wheel event triggers too many zooms to be handled
@@ -324,242 +324,242 @@ export default {
       // It is added for all browsers as it is less computationally
       // expensive and helps out performance for bigger maps.
       setTimeout(() => {
-        const timeDelta = Date.now() - this.lastWheelZoomTime
+        const timeDelta = Date.now() - this.lastWheelZoomTime;
 
         if (timeDelta > 50) {
-          this.lastWheelZoomTime = Date.now()
-          this.panzoom.zoomWithWheel(event, { step: 0.3 })
+          this.lastWheelZoomTime = Date.now();
+          this.panzoom.zoomWithWheel(event, { step: 0.3 });
         }
-      })
+      });
     },
     downloadCanvas() {
       const blob = new Blob([document.getElementById('svg-wrapper').innerHTML], {
         type: 'data:text/tsv;charset=utf-8',
-      })
-      FileSaver.saveAs(blob, `${this.mapData.id}.svg`)
+      });
+      FileSaver.saveAs(blob, `${this.mapData.id}.svg`);
     },
     applyLevelsOnMap() {
       if (Object.keys(this.computedLevels).length === 0) {
         Object.values(DATA_TYPES_COMPONENTS).forEach((dataType) => {
-          $(`#svg-wrapper .${dataType.className} .shape`).attr('fill', dataType.defaultColor)
-        })
+          $(`#svg-wrapper .${dataType.className} .shape`).attr('fill', dataType.defaultColor);
+        });
 
-        return
+        return;
       }
-      const allComponents = $(`#svg-wrapper .${this.componentClassName}`)
+      const allComponents = $(`#svg-wrapper .${this.componentClassName}`);
       Object.values(allComponents).forEach((node) => {
         try {
-          const ID = node.classList[1]
+          const ID = node.classList[1];
           if (this.computedLevels[ID] !== undefined) {
-            node.children[0].setAttribute('fill', this.computedLevels[ID][0]) // 0 is the float value, 1 the color hex
+            node.children[0].setAttribute('fill', this.computedLevels[ID][0]); // 0 is the float value, 1 the color hex
           } else {
-            node.children[0].setAttribute('fill', this.computedLevels['n/a'][0])
+            node.children[0].setAttribute('fill', this.computedLevels['n/a'][0]);
           }
         } catch {
           // .values() returns the prop 'length', we don't want that
         }
-        return true
-      })
+        return true;
+      });
 
       // update cached selected elements
       Object.keys(this.selectedItemHistory)
         .filter((id) => this.computedLevels[id] !== undefined)
         .forEach((ID) => {
-          this.selectedItemHistory[ID].rnaLvl = this.computedLevels[ID]
-        })
+          this.selectedItemHistory[ID].rnaLvl = this.computedLevels[ID];
+        });
     },
     searchIDsOnMap(ids) {
-      this.unHighlight(this.searchedElemsHL, 'schhl')
-      this.searchedNodesOnMap = []
+      this.unHighlight(this.searchedElemsHL, 'schhl');
+      this.searchedNodesOnMap = [];
       if (ids) {
-        this.searchIDs = ids
+        this.searchIDs = ids;
       }
       if (this.searchIDs.length !== 0) {
-        this.searchedNodesOnMap = this.findElementsOnSVG(this.searchIDs)
+        this.searchedNodesOnMap = this.findElementsOnSVG(this.searchIDs);
         if (this.searchedNodesOnMap.length !== 0) {
-          this.searchedElemsHL = this.highlight(this.searchedNodesOnMap, 'schhl')
-          this.centerElementOnSVG(this.searchedNodesOnMap[0])
+          this.searchedElemsHL = this.highlight(this.searchedNodesOnMap, 'schhl');
+          this.centerElementOnSVG(this.searchedNodesOnMap[0]);
         }
       }
     },
     findElementsOnSVG(IDs) {
-      const elmsOnMap = []
+      const elmsOnMap = [];
       for (let i = 0; i < IDs.length; i += 1) {
-        const id = IDs[i].trim()
-        const reaSelector = `#svg-wrapper .rea[id="${id}"]`
+        const id = IDs[i].trim();
+        const reaSelector = `#svg-wrapper .rea[id="${id}"]`;
         if ($(reaSelector).length) {
-          elmsOnMap.push($(reaSelector).first())
+          elmsOnMap.push($(reaSelector).first());
         }
-        const metEnzSelector = `#svg-wrapper .met[class*=" ${id} "], #svg-wrapper .enz[class*=" ${id} "]`
+        const metEnzSelector = `#svg-wrapper .met[class*=" ${id} "], #svg-wrapper .enz[class*=" ${id} "]`;
         if ($(metEnzSelector).length) {
           // eslint-disable-next-line no-unused-vars
           $(metEnzSelector).each((k, v) => {
-            elmsOnMap.push($(v))
-          })
+            elmsOnMap.push($(v));
+          });
         }
-        const subSelector = `#svg-wrapper .subsystem[id="${id}"]`
+        const subSelector = `#svg-wrapper .subsystem[id="${id}"]`;
         if ($(subSelector).length) {
-          const firstText = $(subSelector).first().find('text')[0]
-          elmsOnMap.push($(firstText))
+          const firstText = $(subSelector).first().find('text')[0];
+          elmsOnMap.push($(firstText));
         }
       }
-      return elmsOnMap
+      return elmsOnMap;
     },
     centerElementOnSVG(element) {
       if (!element) {
-        return
+        return;
       }
 
       // eslint-disable-next-line max-len
       const coords =
         this.getSvgElemCoordinates(element) ||
-        this.getSvgElemCoordinates($(element).find('.shape')[0])
+        this.getSvgElemCoordinates($(element).find('.shape')[0]);
       if (!coords) {
-        return
+        return;
       }
       // const zoom = element.is('text') ? 0.8 : 1; zoom out a bit when centering a subsystem label
-      this.panToCoords({ panX: -coords[4], panY: -coords[5], zoom: 1, center: true })
+      this.panToCoords({ panX: -coords[4], panY: -coords[5], zoom: 1, center: true });
     },
     getSvgElemCoordinates(el) {
       // read and parse the transform attribut
-      const node = $(el)
-      let transform = node.attr('transform')
+      const node = $(el);
+      let transform = node.attr('transform');
       if (transform) {
-        transform = transform.substring(0, transform.length - 1)
-        transform = transform.substring(7, transform.length)
-        return transform.split(',').map(parseFloat)
+        transform = transform.substring(0, transform.length - 1);
+        transform = transform.substring(7, transform.length);
+        return transform.split(',').map(parseFloat);
       }
-      return null
+      return null;
     },
     highlight(nodes, className) {
-      const elmsSelected = []
+      const elmsSelected = [];
       // eslint-disable-next-line no-restricted-syntax
       for (const el of nodes) {
         if (!el.is('text')) {
           // do not HL subsystem texts
-          $(el).addClass(className)
-          elmsSelected.push(el)
+          $(el).addClass(className);
+          elmsSelected.push(el);
           if (el.hasClass('rea') && className === 'selhl') {
-            const selectors = `#svg-wrapper .met.${el.attr('id')}`
-            const elms = $(selectors)
+            const selectors = `#svg-wrapper .met.${el.attr('id')}`;
+            const elms = $(selectors);
             // eslint-disable-next-line no-restricted-syntax
             for (const con of elms) {
-              $(con).addClass(className)
-              elmsSelected.push(con)
+              $(con).addClass(className);
+              elmsSelected.push(con);
             }
           }
         }
       }
-      return elmsSelected
+      return elmsSelected;
     },
     unHighlight(elements, className) {
       // un-highlight elements
       if (elements.length !== 0) {
         for (let i = 0; i < elements.length; i += 1) {
-          $(elements[i]).removeClass(className)
+          $(elements[i]).removeClass(className);
         }
       }
     },
     getElementIdAndType(element) {
       if (element.hasClass('rea')) {
-        return [element.attr('id'), 'reaction']
+        return [element.attr('id'), 'reaction'];
       }
       if (element.hasClass('enz')) {
-        return [element.attr('class').split(' ')[1], 'gene']
+        return [element.attr('class').split(' ')[1], 'gene'];
       }
       if (element.hasClass('met')) {
-        return [element.attr('class').split(' ')[1], 'metabolite']
+        return [element.attr('class').split(' ')[1], 'metabolite'];
       }
-      return [element.attr('id'), 'subsystem']
+      return [element.attr('id'), 'subsystem'];
     },
     async selectElement(element, routeSelect = false) {
       if (!element) {
-        this.unSelectElement()
-        return
+        this.unSelectElement();
+        return;
       }
-      const [id, type] = this.getElementIdAndType(element)
+      const [id, type] = this.getElementIdAndType(element);
 
       if (this.selectedElementId === id && !routeSelect) {
-        this.unSelectElement()
-        return
+        this.unSelectElement();
+        return;
       }
 
-      const selectionData = { type, data: null, error: false }
-      this.unHighlight(this.selectedElemsHL, 'selhl')
+      const selectionData = { type, data: null, error: false };
+      this.unHighlight(this.selectedElemsHL, 'selhl');
       if (!element.hasClass('subsystem')) {
         // HL all nodes type but subsystems
-        this.selectedElemsHL = this.highlight(this.findElementsOnSVG([id]), 'selhl')
+        this.selectedElemsHL = this.highlight(this.findElementsOnSVG([id]), 'selhl');
       }
 
       if (this.selectedItemHistory[id]) {
-        selectionData.data = this.selectedItemHistory[id]
-        this.$store.dispatch('maps/setSelectedElementId', id)
-        this.$emit('updatePanelSelectionData', selectionData)
-        return
+        selectionData.data = this.selectedItemHistory[id];
+        this.$store.dispatch('maps/setSelectedElementId', id);
+        this.$emit('updatePanelSelectionData', selectionData);
+        return;
       }
 
       if (type === 'subsystem') {
         // the sidePanel shows only the id for subsystems
-        selectionData.data = { id }
-        this.$emit('updatePanelSelectionData', selectionData)
-        return
+        selectionData.data = { id };
+        this.$emit('updatePanelSelectionData', selectionData);
+        return;
       }
 
-      this.$emit('startSelection')
+      this.$emit('startSelection');
       try {
-        this.$store.dispatch('maps/setLoadingElement', true)
+        this.$store.dispatch('maps/setLoadingElement', true);
         const payload = {
           model: this.model.apiName,
           version: this.model.apiVersion,
           type,
           id,
-        }
-        await this.$store.dispatch('maps/getSelectedElement', payload)
-        selectionData.data = this.selectedElement
-        this.selectedItemHistory[id] = selectionData.data
-        this.$emit('updatePanelSelectionData', selectionData)
-        this.$emit('endSelection', true)
-        this.$store.dispatch('maps/setLoadingElement', false)
+        };
+        await this.$store.dispatch('maps/getSelectedElement', payload);
+        selectionData.data = this.selectedElement;
+        this.selectedItemHistory[id] = selectionData.data;
+        this.$emit('updatePanelSelectionData', selectionData);
+        this.$emit('endSelection', true);
+        this.$store.dispatch('maps/setLoadingElement', false);
       } catch {
-        this.$emit('updatePanelSelectionData', selectionData)
-        this.$set(selectionData, 'error', true)
-        this.$emit('endSelection', false)
-        this.$store.dispatch('maps/setLoadingElement', false)
+        this.$emit('updatePanelSelectionData', selectionData);
+        this.$set(selectionData, 'error', true);
+        this.$emit('endSelection', false);
+        this.$store.dispatch('maps/setLoadingElement', false);
       }
     },
     unSelectElement() {
-      this.unHighlight(this.selectedElemsHL, 'selhl')
-      this.$store.dispatch('maps/setSelectedElementId', null)
-      this.selectedElemsHL = []
-      this.$emit('unSelect')
+      this.unHighlight(this.selectedElemsHL, 'selhl');
+      this.$store.dispatch('maps/setSelectedElementId', null);
+      this.selectedElemsHL = [];
+      this.$emit('unSelect');
     },
     clientFocusX() {
-      const svgBox = document.querySelector('.svgbox')
+      const svgBox = document.querySelector('.svgbox');
 
       // This is the same as the $tablet (scss variable) width
       if (window.innerWidth < 660) {
-        return svgBox.offsetWidth / 2
+        return svgBox.offsetWidth / 2;
       }
 
-      const sidebar = document.querySelector('#mapSidebar')
-      return svgBox.offsetWidth / 2 + sidebar.offsetWidth
+      const sidebar = document.querySelector('#mapSidebar');
+      return svgBox.offsetWidth / 2 + sidebar.offsetWidth;
     },
     clientFocusY() {
-      const svgBox = document.querySelector('.svgbox')
-      const navbar = document.querySelector('#navbar')
-      return svgBox.offsetHeight / 2 + navbar.offsetHeight
+      const svgBox = document.querySelector('.svgbox');
+      const navbar = document.querySelector('#navbar');
+      return svgBox.offsetHeight / 2 + navbar.offsetHeight;
     },
     panToCoords({ panX, panY, zoom, center }) {
-      this.panzoom.zoom(zoom)
+      this.panzoom.zoom(zoom);
       if (center) {
-        this.panzoom.pan(panX + $('.svgbox').width() / 2, panY + $('.svgbox').height() / 2)
+        this.panzoom.pan(panX + $('.svgbox').width() / 2, panY + $('.svgbox').height() / 2);
       } else {
-        this.panzoom.pan(panX, panY)
+        this.panzoom.pan(panX, panY);
       }
     },
     reformatChemicalReactionHTML,
   },
-}
+};
 </script>
 
 <style lang="scss">

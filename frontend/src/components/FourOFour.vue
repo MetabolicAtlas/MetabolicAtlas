@@ -7,14 +7,14 @@
 </template>
 
 <script>
-import NotFound from '@/components/NotFound'
+import NotFound from '@/components/NotFound';
 
 export default {
   name: 'FourOFour',
   components: {
     NotFound,
   },
-}
+};
 </script>
 
 <style lang="scss"></style>

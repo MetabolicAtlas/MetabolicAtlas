@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
 
 export default {
   name: 'References',
@@ -52,11 +52,11 @@ export default {
   },
   async beforeMount() {
     if (this.referenceList.length > 0) {
-      const queryIds = `(EXT_ID:"${this.referenceList.join('"+OR+EXT_ID:"')}")`
-      await this.$store.dispatch('europepmc/searchReferences', queryIds)
+      const queryIds = `(EXT_ID:"${this.referenceList.join('"+OR+EXT_ID:"')}")`;
+      await this.$store.dispatch('europepmc/searchReferences', queryIds);
     }
   },
-}
+};
 </script>
 
 <style lang="scss"></style>

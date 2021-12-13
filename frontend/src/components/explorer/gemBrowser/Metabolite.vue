@@ -93,10 +93,10 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout'
-import { default as chemicalFormula } from '@/helpers/chemical-formatters'
-import { generateSocialMetaTags, reformatTableKey } from '@/helpers/utils'
+import { mapState } from 'vuex';
+import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout';
+import { default as chemicalFormula } from '@/helpers/chemical-formatters';
+import { generateSocialMetaTags, reformatTableKey } from '@/helpers/utils';
 
 export default {
   name: 'Metabolite',
@@ -118,7 +118,7 @@ export default {
         { name: 'compartment' },
       ],
       activePanel: 'table',
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -129,11 +129,11 @@ export default {
   },
   metaInfo() {
     if (!this.model || !this.metabolite.name) {
-      return {}
+      return {};
     }
 
-    const title = `${this.metabolite.name}, Metabolite in ${this.model.short_name}`
-    const description = `The metabolite ${this.metabolite.name} in ${this.model.short_name} (version ${this.model.version}) can be found in the ${this.metabolite.compartment.name} compartment and the ${this.metabolite.subsystems[0].name} subsystem.`
+    const title = `${this.metabolite.name}, Metabolite in ${this.model.short_name}`;
+    const description = `The metabolite ${this.metabolite.name} in ${this.model.short_name} (version ${this.model.version}) can be found in the ${this.metabolite.compartment.name} compartment and the ${this.metabolite.subsystems[0].name} subsystem.`;
 
     return {
       title,
@@ -152,23 +152,23 @@ export default {
           },
         },
       ],
-    }
+    };
   },
   methods: {
     async handleCallback(model, id) {
       try {
-        const payload = { model, id }
-        await this.$store.dispatch('metabolites/getRelatedMetabolites', payload)
+        const payload = { model, id };
+        await this.$store.dispatch('metabolites/getRelatedMetabolites', payload);
       } catch {
-        this.$store.dispatch('metabolites/clearRelatedMetabolites')
+        this.$store.dispatch('metabolites/clearRelatedMetabolites');
       }
     },
     reformatTableKey(k) {
-      return reformatTableKey(k)
+      return reformatTableKey(k);
     },
     chemicalFormula,
   },
-}
+};
 </script>
 
 <style lang="scss">

@@ -1,4 +1,4 @@
-import compareApi from '@/api/compare'
+import compareApi from '@/api/compare';
 
 const data = {
   comparisons: {
@@ -14,50 +14,50 @@ const data = {
     },
   },
   comparisonDetails: null,
-}
+};
 
 const actions = {
   async getComparisons({ commit }, { models }) {
-    const comparisons = await compareApi.fetchComparisons({ models })
+    const comparisons = await compareApi.fetchComparisons({ models });
 
     commit('setComparisons', {
       reactions: comparisons.Reaction,
       metabolites: comparisons.CompartmentalizedMetabolite,
-    })
+    });
   },
   async getComparisonDetails({ commit }, { model, models }) {
-    commit('setComparisonDetails', null)
+    commit('setComparisonDetails', null);
 
-    const comparisonDetails = await compareApi.fetchComparisonDetails({ model, models })
+    const comparisonDetails = await compareApi.fetchComparisonDetails({ model, models });
 
-    commit('setComparisonDetails', comparisonDetails)
+    commit('setComparisonDetails', comparisonDetails);
   },
   resetComparisons({ commit }) {
-    commit('setComparisons', [])
+    commit('setComparisons', []);
   },
   resetComparisonDetails({ commit }) {
-    commit('setComparisonDetails', null)
+    commit('setComparisonDetails', null);
   },
   setSelectedCell({ commit }, cell) {
-    commit('setSelectedCell', cell)
+    commit('setSelectedCell', cell);
   },
-}
+};
 
 const getters = {
   comparisonsEmpty: (state) => Object.values(state.comparisons).flat().length === 0,
-}
+};
 
 const mutations = {
   setComparisons: (state, comparisons) => {
-    state.comparisons = comparisons
+    state.comparisons = comparisons;
   },
   setComparisonDetails: (state, comparisonDetails) => {
-    state.comparisonDetails = comparisonDetails
+    state.comparisonDetails = comparisonDetails;
   },
   setSelectedCell: (state, selectedCell) => {
-    state.selectedCell = selectedCell
+    state.selectedCell = selectedCell;
   },
-}
+};
 
 export default {
   namespaced: true,
@@ -65,4 +65,4 @@ export default {
   getters,
   actions,
   mutations,
-}
+};

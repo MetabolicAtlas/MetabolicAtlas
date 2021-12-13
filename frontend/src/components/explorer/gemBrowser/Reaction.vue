@@ -104,8 +104,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout'
+import { mapState } from 'vuex';
+import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout';
 import {
   buildCustomLink,
   reformatTableKey,
@@ -115,7 +115,7 @@ import {
   reformatChemicalReactionHTML,
   equationSign,
   generateSocialMetaTags,
-} from '@/helpers/utils'
+} from '@/helpers/utils';
 
 export default {
   name: 'Reaction',
@@ -136,7 +136,7 @@ export default {
         { name: 'subsystems', display: 'Subsystem(s)' },
       ],
       mapsAvailable: {},
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -148,24 +148,24 @@ export default {
   },
   metaInfo() {
     if (!this.model || !this.reaction.id) {
-      return {}
+      return {};
     }
 
-    const title = `${this.reaction.id}, Reaction in ${this.model.short_name}`
-    const description = `The reaction ${this.reaction.id} in ${this.model.short_name} (version ${this.model.version}) can be found in the ${this.reaction.compartments[0].name} compartment and the ${this.reaction.subsystems[0].name} subsystem.`
+    const title = `${this.reaction.id}, Reaction in ${this.model.short_name}`;
+    const description = `The reaction ${this.reaction.id} in ${this.model.short_name} (version ${this.model.version}) can be found in the ${this.reaction.compartments[0].name} compartment and the ${this.reaction.subsystems[0].name} subsystem.`;
 
     return {
       title,
       meta: generateSocialMetaTags({ title, description }),
-    }
+    };
   },
   methods: {
     async handleCallback(model, id) {
       try {
-        const payload = { model, id }
-        await this.$store.dispatch('reactions/getRelatedReactionsForReaction', payload)
+        const payload = { model, id };
+        await this.$store.dispatch('reactions/getRelatedReactionsForReaction', payload);
       } catch {
-        this.$store.dispatch('reactions/clearRelatedReactions')
+        this.$store.dispatch('reactions/clearRelatedReactions');
       }
     },
     reformatEquation() {
@@ -173,62 +173,62 @@ export default {
         reaction: this.reaction,
         model: this.model.short_name,
         comp: true,
-      })
+      });
     },
 
     reformatGenes() {
       if (!this.reaction.geneRule) {
-        return '-'
+        return '-';
       }
 
       // capture any sequence that's not a space or parenthesis
-      const regex = /[^\s()]+/g
+      const regex = /[^\s()]+/g;
 
       return this.reaction.geneRule.replace(regex, (w) => {
         if (w.match(/and|or/)) {
-          return w
+          return w;
         }
 
-        const gene = this.reaction.genes.find((g) => g.id === w)
+        const gene = this.reaction.genes.find((g) => g.id === w);
         const customLink = buildCustomLink({
           model: this.model.short_name,
           type: 'gene',
           id: gene.id,
           title: gene.name || gene.id,
-        })
-        return `<span class="tag">${customLink}</span>`
-      })
+        });
+        return `<span class="tag">${customLink}</span>`;
+      });
     },
     formatQuantFieldName(name) {
-      return `${name}:&nbsp;`
+      return `${name}:&nbsp;`;
     },
     reformatQuant() {
-      const data = []
-      ;['lowerBound', 'upperBound', 'objective_coefficient'].forEach((key) => {
+      const data = [];
+      ['lowerBound', 'upperBound', 'objective_coefficient'].forEach((key) => {
         if (this.reaction[key] != null) {
-          data.push(this.formatQuantFieldName(capitalize(convertCamelCase(key))))
+          data.push(this.formatQuantFieldName(capitalize(convertCamelCase(key))));
           if (key === 'objective_coefficient') {
-            data.push(addMassUnit(this.reaction[key]))
+            data.push(addMassUnit(this.reaction[key]));
           } else {
-            data.push(this.reaction[key])
+            data.push(this.reaction[key]);
           }
-          data.push('<span>&nbsp;&dash;&nbsp;</span>')
+          data.push('<span>&nbsp;&dash;&nbsp;</span>');
         }
-      })
-      let s = data.join(' ')
+      });
+      let s = data.join(' ');
       if (s.endsWith('<span>&nbsp;&dash;&nbsp;</span>')) {
-        s = s.slice(0, -31)
+        s = s.slice(0, -31);
       }
-      return s
+      return s;
     },
     reformatReversible() {
-      return this.reaction.reversible ? 'Yes' : 'No'
+      return this.reaction.reversible ? 'Yes' : 'No';
     },
     reformatTableKey,
     reformatChemicalReactionHTML,
     equationSign,
   },
-}
+};
 </script>
 
 <style lang="scss"></style>

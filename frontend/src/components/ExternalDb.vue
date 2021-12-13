@@ -43,8 +43,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { default as messages } from '@/content/messages'
+import { mapState } from 'vuex';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'ExternalDb',
@@ -52,7 +52,7 @@ export default {
     return {
       errorMessage: '',
       messages,
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -62,21 +62,21 @@ export default {
     compGroupedByModel() {
       const result = this.components.reduce((r, a) => {
         // eslint-disable-next-line
-        r[a.model] = r[a.model] || []
-        r[a.model].push(a)
-        return r
-      }, {})
+        r[a.model] = r[a.model] || [];
+        r[a.model].push(a);
+        return r;
+      }, {});
       const orderedRst = Object.keys(result)
         .sort()
         .reduce((obj, key) => {
           // eslint-disable-next-line
-          obj[key] = result[key]
-          return obj
-        }, {})
-      return orderedRst
+          obj[key] = result[key];
+          return obj;
+        }, {});
+      return orderedRst;
     },
     dbNameToDisplay() {
-      return this.externalDb.dbName.replace('MetabolicAtlas', 'Metabolic Atlas')
+      return this.externalDb.dbName.replace('MetabolicAtlas', 'Metabolic Atlas');
     },
   },
   async beforeMount() {
@@ -84,18 +84,18 @@ export default {
       await this.$store.dispatch('externalDb/getComponentsForExternalDb', {
         dbName: this.$route.params.dbName,
         externalId: this.$route.params.identifierId,
-      })
+      });
     } catch {
       if (this.$route.params.dbName === 'MetabolicAtlas') {
-        const regex = /^MA[MR]/
-        const found = this.$route.params.identifierId.match(regex)
+        const regex = /^MA[MR]/;
+        const found = this.$route.params.identifierId.match(regex);
         if (this.externalDb == null && found != null) {
-          this.errorMessage = messages.maIDNotFound
+          this.errorMessage = messages.maIDNotFound;
         }
       }
     }
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

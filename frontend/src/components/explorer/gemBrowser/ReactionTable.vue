@@ -123,11 +123,11 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import Loader from '@/components/Loader'
-import { default as compare } from '@/helpers/compare'
-import ExportTSV from '@/components/shared/ExportTSV'
-import { idfy, reformatChemicalReactionHTML } from '@/helpers/utils'
+import { mapState } from 'vuex';
+import Loader from '@/components/Loader';
+import { default as compare } from '@/helpers/compare';
+import ExportTSV from '@/components/shared/ExportTSV';
+import { idfy, reformatChemicalReactionHTML } from '@/helpers/utils';
 
 export default {
   name: 'ReactionTable',
@@ -157,7 +157,7 @@ export default {
       expandAllCompartment: false,
       showReactionLoader: true,
       errorMessage: '',
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -166,89 +166,89 @@ export default {
       limitReaction: (state) => state.reactions.relatedReactionsLimit,
     }),
     showCP() {
-      return this.selectedElmId // true or false
+      return this.selectedElmId; // true or false
     },
     showSubsystem() {
-      return this.type !== 'subsystem'
+      return this.type !== 'subsystem';
     },
     sortedReactions() {
-      let reactionsCopy = [...this.reactions]
+      let reactionsCopy = [...this.reactions];
       if (reactionsCopy.length === 0) {
-        return []
+        return [];
       }
       // create consume/produce column
       if (this.selectedElmId) {
         reactionsCopy = reactionsCopy.map((r) => {
-          const rCopy = { ...r }
+          const rCopy = { ...r };
           if (rCopy.reversible) {
-            rCopy.cp = 'consume/produce'
+            rCopy.cp = 'consume/produce';
           } else {
-            const boolC = rCopy.reactants.filter((e) => e.id === this.selectedElmId)
+            const boolC = rCopy.reactants.filter((e) => e.id === this.selectedElmId);
             if (boolC.length !== 0) {
-              rCopy.cp = 'consume'
+              rCopy.cp = 'consume';
             } else {
-              const boolP = rCopy.products.filter((e) => e.id === this.selectedElmId)
+              const boolP = rCopy.products.filter((e) => e.id === this.selectedElmId);
               if (boolP.length !== 0) {
-                rCopy.cp = 'produce'
+                rCopy.cp = 'produce';
               }
             }
           }
 
-          return rCopy
-        })
+          return rCopy;
+        });
       }
-      return reactionsCopy.concat().sort(compare(this.sortBy, this.sortPattern, this.sortOrder))
+      return reactionsCopy.concat().sort(compare(this.sortBy, this.sortPattern, this.sortOrder));
     },
   },
   watch: {
     sourceName() {
-      this.setup()
+      this.setup();
     },
   },
   async beforeMount() {
-    this.setup()
+    this.setup();
   },
   methods: {
     async setup() {
-      this.showReactionLoader = true
-      this.$store.dispatch('reactions/clearRelatedReactions')
-      this.errorMessage = ''
+      this.showReactionLoader = true;
+      this.$store.dispatch('reactions/clearRelatedReactions');
+      this.errorMessage = '';
       try {
         const payload = {
           model: this.model,
           id: this.sourceName,
           allCompartments: this.expandAllCompartment,
-        }
+        };
         await this.$store.dispatch(
           `reactions/getRelatedReactionsFor${this.type[0].toUpperCase()}${this.type.slice(1)}`,
           payload
-        )
-        this.showReactionLoader = false
+        );
+        this.showReactionLoader = false;
       } catch {
-        this.errorMessage = `Could not load reactions for ${this.type} ${this.sourceName}.`
-        this.showReactionLoader = false
+        this.errorMessage = `Could not load reactions for ${this.type} ${this.sourceName}.`;
+        this.showReactionLoader = false;
       }
     },
     async toggleExpandAllCompartment() {
-      this.expandAllCompartment = !this.expandAllCompartment
-      await this.setup()
+      this.expandAllCompartment = !this.expandAllCompartment;
+      await this.setup();
     },
     sortTable(field, pattern, order) {
       if (order) {
-        this.sortOrder = order
+        this.sortOrder = order;
       } else if (field !== this.sortBy) {
-        this.sortOrder = 'asc'
+        this.sortOrder = 'asc';
       } else {
-        this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc'
+        this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
       }
-      this.sortBy = field
-      this.sortPattern = pattern
+      this.sortBy = field;
+      this.sortPattern = pattern;
     },
     showCol(name) {
       if ((name === 'cp' && !this.showCP) || (name === 'subsystem_str' && !this.showSubsystem)) {
-        return false
+        return false;
       }
-      return true
+      return true;
     },
     formatToTSV() {
       let tsvContent = `${this.fields
@@ -257,16 +257,16 @@ export default {
             (e.name === 'cp' && !this.showCP) ||
             (e.name === 'subsystem_str' && !this.showSubsystem)
           ) {
-            return false
+            return false;
           }
-          return true
+          return true;
         })
         .map((e) => e.display)
-        .join('\t')}\n`
+        .join('\t')}\n`;
       tsvContent += this.sortedReactions
         .map((r) => {
-          const arr = []
-          arr.push(r.id)
+          const arr = [];
+          arr.push(r.id);
 
           arr.push(
             reformatChemicalReactionHTML({
@@ -276,24 +276,24 @@ export default {
               comp: true,
               html: false,
             })
-          )
-          arr.push(r.genes.map((g) => g.name || g.id).join('; '))
+          );
+          arr.push(r.genes.map((g) => g.name || g.id).join('; '));
           if (this.showCP) {
-            arr.push(r.cp)
+            arr.push(r.cp);
           }
           if (this.showSubsystem) {
-            arr.push(r.subsystem_str)
+            arr.push(r.subsystem_str);
           }
-          arr.push(r.compartment_str)
-          return arr.join('\t')
+          arr.push(r.compartment_str);
+          return arr.join('\t');
         })
-        .join('\n')
-      return tsvContent
+        .join('\n');
+      return tsvContent;
     },
     idfy,
     reformatChemicalReactionHTML,
   },
-}
+};
 </script>
 
 <style lang="scss">

@@ -190,12 +190,12 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
-import { VueGoodTable } from 'vue-good-table'
-import 'vue-good-table/dist/vue-good-table.css'
-import Loader from '@/components/Loader'
-import References from '@/components/shared/References'
-import { default as messages } from '@/content/messages'
+import { mapGetters, mapState } from 'vuex';
+import { VueGoodTable } from 'vue-good-table';
+import 'vue-good-table/dist/vue-good-table.css';
+import Loader from '@/components/Loader';
+import References from '@/components/shared/References';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'Repository',
@@ -320,7 +320,7 @@ export default {
         ofLabel: 'of',
       },
       messages,
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -339,63 +339,63 @@ export default {
   },
   async beforeMount() {
     try {
-      this.showLoader = true
-      await this.$store.dispatch('gems/getGems')
-      this.columns[0].filterOptions.filterDropdownItems = this.setFilterOptions
-      this.columns[3].filterOptions.filterDropdownItems = this.systemFilterOptions
-      this.columns[4].filterOptions.filterDropdownItems = this.conditionFilterOptions
-      this.errorMessage = ''
-      this.showLoader = false
-      this.getModelData()
+      this.showLoader = true;
+      await this.$store.dispatch('gems/getGems');
+      this.columns[0].filterOptions.filterDropdownItems = this.setFilterOptions;
+      this.columns[3].filterOptions.filterDropdownItems = this.systemFilterOptions;
+      this.columns[4].filterOptions.filterDropdownItems = this.conditionFilterOptions;
+      this.errorMessage = '';
+      this.showLoader = false;
+      this.getModelData();
     } catch {
-      this.errorMessage = messages.notFoundError
-      this.showLoader = false
+      this.errorMessage = messages.notFoundError;
+      this.showLoader = false;
     }
   },
   methods: {
     async getIntegratedModels() {
       try {
-        const urlId = this.$route.params.model_id
+        const urlId = this.$route.params.model_id;
         if (urlId) {
-          const urlIntegrateModel = this.integratedModels.find((m) => m.short_name === urlId)
+          const urlIntegrateModel = this.integratedModels.find((m) => m.short_name === urlId);
           if (urlIntegrateModel) {
-            this.showIntegratedModelData(urlIntegrateModel)
+            this.showIntegratedModelData(urlIntegrateModel);
           } else {
             // concurrence getModels api query
-            this.getModelData(urlId)
+            this.getModelData(urlId);
           }
         }
       } catch {
-        this.errorMessage = messages.unknownError
+        this.errorMessage = messages.unknownError;
       }
     },
     getModelData() {
-      const urlId = this.$route.params.model_id
-      this.showModelId = ''
-      this.selectedModel = {}
+      const urlId = this.$route.params.model_id;
+      this.showModelId = '';
+      this.selectedModel = {};
       if (urlId) {
         Object.values(this.integratedModels).forEach((anIntegratedModel) => {
           if (urlId === anIntegratedModel.short_name) {
-            this.selectedModel = anIntegratedModel
-            this.showModelId = this.selectedModel.short_name
+            this.selectedModel = anIntegratedModel;
+            this.showModelId = this.selectedModel.short_name;
           }
-        })
+        });
         if (!this.showModelId) {
-          const urlIdExists = this.$store.dispatch('gems/getGemData', urlId)
+          const urlIdExists = this.$store.dispatch('gems/getGemData', urlId);
           if (urlIdExists) {
-            this.selectedModel = this.gem
-            this.showModelId = urlId
+            this.selectedModel = this.gem;
+            this.showModelId = urlId;
           } else {
-            this.selectModel(null)
+            this.selectModel(null);
           }
         }
       }
     },
     selectModel(id) {
-      this.$router.push({ params: { model_id: id } })
+      this.$router.push({ params: { model_id: id } });
     },
   },
-}
+};
 </script>
 
 <style lang="scss"></style>

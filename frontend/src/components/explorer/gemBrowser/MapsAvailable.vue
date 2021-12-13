@@ -46,8 +46,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { default as messages } from '@/content/messages'
+import { mapState } from 'vuex';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'MapsAvailable',
@@ -65,7 +65,7 @@ export default {
         '3d': false,
       },
       limited3DMaps: false,
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -75,16 +75,16 @@ export default {
   },
   methods: {
     routeSVGmap(svgId, dimension) {
-      const params = { model: this.model.short_name, map_id: svgId }
-      const query = { dim: dimension }
+      const params = { model: this.model.short_name, map_id: svgId };
+      const query = { dim: dimension };
       if (this.viewerSelectedID) {
-        query.search = this.viewerSelectedID
-        query.sel = this.viewerSelectedID
+        query.search = this.viewerSelectedID;
+        query.sel = this.viewerSelectedID;
       }
-      this.$router.push({ name: 'viewer', params, query })
+      this.$router.push({ name: 'viewer', params, query });
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

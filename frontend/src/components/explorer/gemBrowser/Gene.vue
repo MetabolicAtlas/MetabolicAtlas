@@ -35,9 +35,9 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
-import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout'
-import { generateSocialMetaTags, reformatTableKey } from '@/helpers/utils'
+import { mapGetters, mapState } from 'vuex';
+import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout';
+import { generateSocialMetaTags, reformatTableKey } from '@/helpers/utils';
 
 export default {
   name: 'Gene',
@@ -56,7 +56,7 @@ export default {
         { name: 'function' },
       ],
       limitReaction: 200,
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -69,11 +69,11 @@ export default {
   },
   metaInfo() {
     if (!this.model || !this.gene.geneName) {
-      return {}
+      return {};
     }
 
-    const title = `${this.gene.geneName}, Gene in ${this.model.short_name}`
-    const description = `The gene ${this.gene.geneName} in ${this.model.short_name} (version ${this.model.version}) can be found in the ${this.gene.compartments[0].name} compartment and the ${this.gene.subsystems[0].name} subsystem.`
+    const title = `${this.gene.geneName}, Gene in ${this.model.short_name}`;
+    const description = `The gene ${this.gene.geneName} in ${this.model.short_name} (version ${this.model.version}) can be found in the ${this.gene.compartments[0].name} compartment and the ${this.gene.subsystems[0].name} subsystem.`;
 
     return {
       title,
@@ -91,14 +91,14 @@ export default {
           },
         },
       ],
-    }
+    };
   },
   methods: {
     reformatTableKey(k) {
-      return reformatTableKey(k)
+      return reformatTableKey(k);
     },
   },
-}
+};
 </script>
 
 <style lang="scss"></style>

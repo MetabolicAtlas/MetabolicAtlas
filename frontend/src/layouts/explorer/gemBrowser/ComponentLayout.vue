@@ -77,15 +77,15 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import NotFound from '@/components/NotFound'
-import Loader from '@/components/Loader'
-import MapsAvailable from '@/components/explorer/gemBrowser/MapsAvailable'
-import ExtIdTable from '@/components/explorer/gemBrowser/ExtIdTable'
-import ReactionTable from '@/components/explorer/gemBrowser/ReactionTable'
-import GemContact from '@/components/shared/GemContact'
-import References from '@/components/shared/References'
-import { default as messages } from '@/content/messages'
+import { mapState } from 'vuex';
+import NotFound from '@/components/NotFound';
+import Loader from '@/components/Loader';
+import MapsAvailable from '@/components/explorer/gemBrowser/MapsAvailable';
+import ExtIdTable from '@/components/explorer/gemBrowser/ExtIdTable';
+import ReactionTable from '@/components/explorer/gemBrowser/ReactionTable';
+import GemContact from '@/components/shared/GemContact';
+import References from '@/components/shared/References';
+import { default as messages } from '@/content/messages';
 
 export default {
   components: {
@@ -118,7 +118,7 @@ export default {
       componentNotFound: false,
       showLoaderMessage: '',
       messages,
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -133,35 +133,35 @@ export default {
       const modelSelectionSuccessful = await this.$store.dispatch(
         'models/selectModel',
         this.$route.params.model
-      )
+      );
       if (!modelSelectionSuccessful) {
-        this.modelNotFound = true
+        this.modelNotFound = true;
       }
     }
 
-    await this.setup()
+    await this.setup();
   },
   methods: {
     async setup() {
-      this.componentId = this.$route.params.id
+      this.componentId = this.$route.params.id;
       this.showLoaderMessage = `Loading ${this.queryComponentAction
         .replace('compartmentalized', '')
-        .toLowerCase()} data`
+        .toLowerCase()} data`;
 
       try {
-        const payload = { model: this.model, id: this.componentId }
-        await this.$store.dispatch(this.queryComponentAction, payload)
-        this.componentNotFound = false
+        const payload = { model: this.model, id: this.componentId };
+        await this.$store.dispatch(this.queryComponentAction, payload);
+        this.componentNotFound = false;
         if (this.$listeners && this.$listeners.handleCallback) {
-          this.$emit('handleCallback', this.model, this.componentId)
+          this.$emit('handleCallback', this.model, this.componentId);
         }
-        this.showLoaderMessage = ''
+        this.showLoaderMessage = '';
       } catch {
-        this.componentNotFound = true
+        this.componentNotFound = true;
       }
     },
   },
-}
+};
 </script>
 
 <style lang="scss"></style>

@@ -90,8 +90,8 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
-import { default as messages } from '@/content/messages'
+import { mapGetters, mapState } from 'vuex';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'Explorer',
@@ -120,7 +120,7 @@ export default {
       ],
       compartments: {},
       errorMessage: '',
-    }
+    };
   },
   computed: {
     ...mapGetters({
@@ -131,22 +131,22 @@ export default {
     }),
   },
   mounted() {
-    const modelShortName = this.$route.params.model
+    const modelShortName = this.$route.params.model;
     if (modelShortName && this.model) {
-      this.selectModel(modelShortName)
+      this.selectModel(modelShortName);
     }
   },
   methods: {
     selectModel(modelShortName) {
       if (modelShortName !== this.$route.params.model) {
-        this.$router.replace({ params: { model: modelShortName } })
+        this.$router.replace({ params: { model: modelShortName } });
       }
       if (modelShortName !== this.model.short_name) {
-        this.$store.dispatch('models/selectModel', modelShortName)
+        this.$store.dispatch('models/selectModel', modelShortName);
       }
     },
   },
-}
+};
 </script>
 
 <style lang="scss">

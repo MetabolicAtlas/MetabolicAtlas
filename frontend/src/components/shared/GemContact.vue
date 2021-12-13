@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
 
 export default {
   name: 'GemContact',
@@ -39,14 +39,14 @@ export default {
   data() {
     return {
       isExpanded: false,
-    }
+    };
   },
   computed: {
     ...mapState({
       model: (state) => state.models.model,
     }),
   },
-}
+};
 </script>
 
 <style lang="scss"></style>

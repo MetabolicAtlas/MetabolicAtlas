@@ -114,8 +114,8 @@
 </template>
 
 <script>
-import ExportTSV from '@/components/shared/ExportTSV'
-import { default as compare } from '@/helpers/compare'
+import ExportTSV from '@/components/shared/ExportTSV';
+import { default as compare } from '@/helpers/compare';
 
 export default {
   name: 'CytoscapeTable',
@@ -145,118 +145,118 @@ export default {
       tableSearch: '',
       errorMessage: '',
       hlID: null,
-    }
+    };
   },
   computed: {
     sortedReactions() {
-      const reactions = Array.prototype.slice.call(this.reactions) // Do not mutate original elms;
-      return reactions.sort(compare(this.sortField, null, this.sortAsc ? 'asc' : 'desc'))
+      const reactions = Array.prototype.slice.call(this.reactions); // Do not mutate original elms;
+      return reactions.sort(compare(this.sortField, null, this.sortAsc ? 'asc' : 'desc'));
     },
     geneCount() {
-      const genes = new Set()
+      const genes = new Set();
       this.reactions.forEach((r) => {
         r.genes.forEach((e) => {
-          genes.add(e.id)
-        })
-      })
-      return genes.size
+          genes.add(e.id);
+        });
+      });
+      return genes.size;
     },
     metaboliteCount() {
-      const metabolites = new Set()
+      const metabolites = new Set();
       this.reactions.forEach((r) => {
         r.reactants.forEach((e) => {
-          metabolites.add(e.id)
-        })
+          metabolites.add(e.id);
+        });
         r.products.forEach((e) => {
-          metabolites.add(e.id)
-        })
-      })
-      return metabolites.size
+          metabolites.add(e.id);
+        });
+      });
+      return metabolites.size;
     },
   },
   watch: {
     reactions() {
-      this.sortAsc = true
-      this.sortField = null
-      this.hlID = null
-      this.updateTable()
+      this.sortAsc = true;
+      this.sortField = null;
+      this.hlID = null;
+      this.updateTable();
     },
     selectedElmId() {
-      this.hlID = this.selectedElmId.slice()
+      this.hlID = this.selectedElmId.slice();
     },
   },
   mounted() {
-    this.hlID = null
-    this.updateTable()
+    this.hlID = null;
+    this.updateTable();
   },
   methods: {
     isSelected(elmId) {
-      return this.hlID === elmId || this.selectedReactionId === elmId
+      return this.hlID === elmId || this.selectedReactionId === elmId;
     },
     highlight(elmId) {
-      const sameID = this.hlID === elmId
-      this.hlID = sameID ? '' : elmId
-      this.$emit('highlight', this.hlID)
+      const sameID = this.hlID === elmId;
+      this.hlID = sameID ? '' : elmId;
+      this.$emit('highlight', this.hlID);
     },
     HLreaction(rID) {
-      this.$emit('HLreaction', this.selectedReactionId === rID ? null : rID)
+      this.$emit('HLreaction', this.selectedReactionId === rID ? null : rID);
     },
     sortBy(field) {
-      this.sortField = field
-      this.sortAsc = !this.sortAsc
-      this.updateTable()
+      this.sortField = field;
+      this.sortAsc = !this.sortAsc;
+      this.updateTable();
     },
     updateTable() {
       if (this.tableSearch === '') {
-        this.matchingReactions = Array.prototype.slice.call(this.sortedReactions)
-        this.unMatchingReactions = []
-        this.$refs.machingTableBody.style.display = ''
+        this.matchingReactions = Array.prototype.slice.call(this.sortedReactions);
+        this.unMatchingReactions = [];
+        this.$refs.machingTableBody.style.display = '';
       } else {
-        this.matchingReactions = []
-        this.unMatchingReactions = []
-        const t = this.tableSearch.toLowerCase()
+        this.matchingReactions = [];
+        this.unMatchingReactions = [];
+        const t = this.tableSearch.toLowerCase();
         this.sortedReactions.forEach((elm) => {
-          let matches = false
+          let matches = false;
           this.columns.every((s) => {
-            const val = elm[s.field]
+            const val = elm[s.field];
             if (typeof val === 'object' && ['reactants', 'products', 'genes'].includes(s.field)) {
-              let match = false
+              let match = false;
               val.every((el) => {
                 Object.keys(el).every((k) => {
                   if (k === 'id') {
-                    match = el[k].toLowerCase() === t
+                    match = el[k].toLowerCase() === t;
                   } else {
-                    match = el[k].toLowerCase().includes(t)
+                    match = el[k].toLowerCase().includes(t);
                   }
                   if (match) {
-                    matches = match
+                    matches = match;
                   }
-                  return !matches
-                })
-                return !matches
-              })
+                  return !matches;
+                });
+                return !matches;
+              });
             } else if (!matches && val && val.toLowerCase().includes(t)) {
-              matches = true
+              matches = true;
             }
-            return !matches
-          })
+            return !matches;
+          });
           if (matches) {
-            this.matchingReactions.push(elm)
+            this.matchingReactions.push(elm);
           } else {
-            this.unMatchingReactions.push(elm)
+            this.unMatchingReactions.push(elm);
           }
-        })
+        });
 
         // fix disappearing row/cell borders
         if (this.matchingReactions.length === 0) {
-          this.$refs.machingTableBody.style.display = 'none'
+          this.$refs.machingTableBody.style.display = 'none';
         } else {
-          this.$refs.machingTableBody.style.display = ''
+          this.$refs.machingTableBody.style.display = '';
         }
       }
     },
     formatToTSV() {
-      let tsvContent = `${this.columns.map((e) => e.display).join('\t')}\n`
+      let tsvContent = `${this.columns.map((e) => e.display).join('\t')}\n`;
       tsvContent += this.sortedReactions
         .map((d) =>
           [
@@ -267,11 +267,11 @@ export default {
             d.compartment,
           ].join('\t')
         )
-        .join('\n')
-      return tsvContent
+        .join('\n');
+      return tsvContent;
     },
   },
-}
+};
 </script>
 
 <style lang="scss">

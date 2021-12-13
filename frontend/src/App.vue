@@ -165,8 +165,8 @@
           <p
             class="button is-small is-rounded has-background-danger has-text-white has-text-weight-bold"
             @click="
-              showCookieMsg = false
-              acceptCookiePolicy()
+              showCookieMsg = false;
+              acceptCookiePolicy();
             "
           >
             <span class="icon is-small"><i class="fa fa-check"></i></span>
@@ -179,12 +179,12 @@
 </template>
 
 <script>
-import axios from 'axios'
-import { mapState } from 'vuex'
-import ErrorPanel from '@/components/shared/ErrorPanel'
-import GemSearch from '@/components/explorer/gemBrowser/GemSearch'
-import { default as messages } from '@/content/messages'
-import { isCookiePolicyAccepted, acceptCookiePolicy } from '@/helpers/store'
+import axios from 'axios';
+import { mapState } from 'vuex';
+import ErrorPanel from '@/components/shared/ErrorPanel';
+import GemSearch from '@/components/explorer/gemBrowser/GemSearch';
+import { default as messages } from '@/content/messages';
+import { isCookiePolicyAccepted, acceptCookiePolicy } from '@/helpers/store';
 
 export default {
   name: 'App',
@@ -235,7 +235,7 @@ export default {
       showGemSearch: false,
       messages,
       errorMessage: '',
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -246,13 +246,13 @@ export default {
     showGemSearch(show) {
       if (show) {
         setTimeout(() => {
-          document.querySelector('#search').focus()
-        })
+          document.querySelector('#search').focus();
+        });
       }
     },
   },
   created() {
-    this.setupErrorCatcher()
+    this.setupErrorCatcher();
   },
   methods: {
     setupErrorCatcher() {
@@ -260,25 +260,25 @@ export default {
         (response) => response,
         (error) => {
           if (error.response && error.response.status === 404) {
-            this.errorMessage = messages.notFoundError
+            this.errorMessage = messages.notFoundError;
           } else {
-            this.errorMessage = messages.unknownError
+            this.errorMessage = messages.unknownError;
           }
-          return Promise.reject(error)
+          return Promise.reject(error);
         }
-      )
+      );
 
       this.$router.afterEach(() => {
         if (this.errorMessage !== '') {
-          this.errorMessage = ''
+          this.errorMessage = '';
         }
-      })
+      });
     },
     showCompactFooter() {
-      return this.$route.name === 'viewer'
+      return this.$route.name === 'viewer';
     },
   },
-}
+};
 </script>
 
 <style lang="scss">

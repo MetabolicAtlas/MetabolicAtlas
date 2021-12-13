@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { singleColors, notDetectedColor } from '@/helpers/expressionSources'
+import { singleColors, notDetectedColor } from '@/helpers/expressionSources';
 
 export default {
   name: 'RNALegend',
@@ -56,7 +56,7 @@ export default {
       default: 'n/a',
     },
   },
-}
+};
 </script>
 
 <style lang="scss"></style>

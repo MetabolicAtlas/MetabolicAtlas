@@ -249,7 +249,7 @@
 </template>
 
 <script>
-import { default as news } from '@/content/news'
+import { default as news } from '@/content/news';
 
 export default {
   name: 'About',
@@ -294,9 +294,9 @@ export default {
         },
       ],
       news,
-    }
+    };
   },
-}
+};
 </script>
 
 <style lang="scss"></style>

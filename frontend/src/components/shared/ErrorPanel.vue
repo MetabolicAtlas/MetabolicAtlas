@@ -41,10 +41,10 @@ export default {
   },
   computed: {
     hasHideListener() {
-      return Object.keys(this.$listeners).includes('hideErrorPanel')
+      return Object.keys(this.$listeners).includes('hideErrorPanel');
     },
   },
-}
+};
 </script>
 
 <style>

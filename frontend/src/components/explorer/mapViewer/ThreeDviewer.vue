@@ -32,20 +32,20 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
-import { MetAtlasViewer } from '@metabolicatlas/3d-network-viewer'
-import MapControls from '@/components/explorer/mapViewer/MapControls'
-import MapLoader from '@/components/explorer/mapViewer/MapLoader'
-import MapSearch from '@/components/explorer/mapViewer/MapSearch'
-import { default as messages } from '@/content/messages'
-import { default as colorToRGBArray } from '@/helpers/colors'
-import { DEFAULT_GENE_COLOR, DEFAULT_METABOLITE_COLOR } from '@/helpers/dataOverlay'
+import { mapGetters, mapState } from 'vuex';
+import { MetAtlasViewer } from '@metabolicatlas/3d-network-viewer';
+import MapControls from '@/components/explorer/mapViewer/MapControls';
+import MapLoader from '@/components/explorer/mapViewer/MapLoader';
+import MapSearch from '@/components/explorer/mapViewer/MapSearch';
+import { default as messages } from '@/content/messages';
+import { default as colorToRGBArray } from '@/helpers/colors';
+import { DEFAULT_GENE_COLOR, DEFAULT_METABOLITE_COLOR } from '@/helpers/dataOverlay';
 
 const NODE_TEXTURES = [
   { group: 'e', sprite: '/sprite_round.png' },
   { group: 'r', sprite: '/sprite_square.png' },
   { group: 'm', sprite: '/sprite_triangle.png' },
-]
+];
 
 export default {
   name: 'ThreeDViewer',
@@ -69,7 +69,7 @@ export default {
       searchedNodesOnMap: [],
       defaultGeneColor: DEFAULT_GENE_COLOR,
       defaultMetaboliteColor: DEFAULT_METABOLITE_COLOR,
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -92,111 +92,111 @@ export default {
   },
   watch: {
     async currentMap() {
-      await this.loadNetwork()
+      await this.loadNetwork();
     },
     dataOverlayPanelVisible() {
       // this is needed by the 3D viewer to update its size
-      window.dispatchEvent(new Event('resize'))
+      window.dispatchEvent(new Event('resize'));
     },
     async dataSet() {
-      await this.applyColorsAndRenderNetwork()
+      await this.applyColorsAndRenderNetwork();
     },
     async customDataSet() {
-      await this.applyColorsAndRenderNetwork()
+      await this.applyColorsAndRenderNetwork();
     },
   },
   async mounted() {
-    await this.loadNetwork()
+    await this.loadNetwork();
   },
   beforeDestroy() {
-    this.resetNetwork()
+    this.resetNetwork();
   },
   methods: {
     async loadNetwork() {
-      this.$store.dispatch('maps/setLoading', true)
+      this.$store.dispatch('maps/setLoading', true);
 
       const payload = {
         model: this.model.apiName,
         version: this.model.apiVersion,
         type: this.currentMap.type,
         id: this.currentMap.id,
-      }
-      await this.$store.dispatch('maps/get3DMapNetwork', payload)
-      this.$store.dispatch('maps/setLoading', false)
-      await this.applyColorsAndRenderNetwork({})
+      };
+      await this.$store.dispatch('maps/get3DMapNetwork', payload);
+      this.$store.dispatch('maps/setLoading', false);
+      await this.applyColorsAndRenderNetwork({});
       // controller.filterBy({group: 'm'});
       // controller.filterBy({id: [1, 2, 3, 4]});
       // Subscribe to node selection events
       // document.getElementById('viewer').addEventListener('select', e => console.debug('selected', e.detail));
     },
     getElementIdAndType(element) {
-      let type = 'metabolite'
+      let type = 'metabolite';
 
       if (element.group === 'r') {
-        type = 'reaction'
+        type = 'reaction';
       }
       if (element.group === 'e') {
-        type = 'gene'
+        type = 'gene';
       }
 
-      return [element.id, type]
+      return [element.id, type];
     },
     async renderNetwork(customizedNetwork) {
-      this.resetNetwork()
-      this.controller = MetAtlasViewer('viewer3d')
+      this.resetNetwork();
+      this.controller = MetAtlasViewer('viewer3d');
 
-      const graphData = customizedNetwork || this.network
-      const nodeTypes = new Set(graphData.nodes.map((n) => n.g))
-      const nodeTextures = NODE_TEXTURES.filter((t) => nodeTypes.has(t.group))
+      const graphData = customizedNetwork || this.network;
+      const nodeTypes = new Set(graphData.nodes.map((n) => n.g));
+      const nodeTextures = NODE_TEXTURES.filter((t) => nodeTypes.has(t.group));
 
-      this.controller.setNodeSelectCallback(this.selectElement)
-      this.controller.setBackgroundColor(this.backgroundColor)
-      this.controller.setUpdateCameraCallback(this.updateURLCoords)
+      this.controller.setNodeSelectCallback(this.selectElement);
+      this.controller.setBackgroundColor(this.backgroundColor);
+      this.controller.setUpdateCameraCallback(this.updateURLCoords);
 
       await this.controller.setData({
         graphData,
         nodeTextures,
         nodeSize: 10,
-      })
+      });
 
-      this.processURLQuery()
+      this.processURLQuery();
     },
     processURLQuery() {
-      const { lx, ly, lz } = this.coords
-      this.controller.setCamera({ x: lx, y: ly, z: lz })
+      const { lx, ly, lz } = this.coords;
+      this.controller.setCamera({ x: lx, y: ly, z: lz });
 
-      const id = this.queryParams.sel
+      const id = this.queryParams.sel;
 
       if (id) {
         setTimeout(async () => {
-          await this.searchIDsOnMap([id])
-        }, 200)
+          await this.searchIDsOnMap([id]);
+        }, 200);
       }
     },
     async selectElement(element) {
-      const [id, type] = this.getElementIdAndType(element)
-      const selectionData = { type, data: null, error: false }
+      const [id, type] = this.getElementIdAndType(element);
+      const selectionData = { type, data: null, error: false };
 
-      this.$emit('startSelection')
+      this.$emit('startSelection');
       try {
-        this.$store.dispatch('maps/setLoadingElement', true)
+        this.$store.dispatch('maps/setLoadingElement', true);
         const payload = {
           model: this.model.apiName,
           version: this.model.apiVersion,
           type,
           id,
-        }
-        await this.$store.dispatch('maps/getSelectedElement', payload)
-        const data = this.selectedElement
-        selectionData.data = data
-        this.$emit('updatePanelSelectionData', selectionData)
-        this.$emit('endSelection', true)
-        this.$store.dispatch('maps/setLoadingElement', false)
+        };
+        await this.$store.dispatch('maps/getSelectedElement', payload);
+        const data = this.selectedElement;
+        selectionData.data = data;
+        this.$emit('updatePanelSelectionData', selectionData);
+        this.$emit('endSelection', true);
+        this.$store.dispatch('maps/setLoadingElement', false);
       } catch {
-        this.$emit('updatePanelSelectionData', selectionData)
-        this.$set(selectionData, 'error', true)
-        this.$emit('endSelection', false)
-        this.$store.dispatch('maps/setLoadingElement', false)
+        this.$emit('updatePanelSelectionData', selectionData);
+        this.$set(selectionData, 'error', true);
+        this.$emit('endSelection', false);
+        this.$store.dispatch('maps/setLoadingElement', false);
       }
     },
     async applyColorsAndRenderNetwork() {
@@ -208,44 +208,44 @@ export default {
       // this.currentLevels = levels;
 
       const nodes = this.network.nodes.map((node) => {
-        let color = colorToRGBArray(this.defaultMetaboliteColor)
+        let color = colorToRGBArray(this.defaultMetaboliteColor);
 
         if (node.g === 'r') {
-          color = colorToRGBArray('#fff')
+          color = colorToRGBArray('#fff');
         }
 
         if (node.g === 'e') {
           if (this.componentType === 'gene' && Object.keys(this.computedLevels).length > 0) {
-            const partialID = node.id.split('-')[0]
-            const key = this.computedLevels[partialID] !== undefined ? partialID : 'n/a'
-            color = colorToRGBArray(this.computedLevels[key][0])
+            const partialID = node.id.split('-')[0];
+            const key = this.computedLevels[partialID] !== undefined ? partialID : 'n/a';
+            color = colorToRGBArray(this.computedLevels[key][0]);
           } else {
-            color = colorToRGBArray(this.defaultGeneColor)
+            color = colorToRGBArray(this.defaultGeneColor);
           }
         }
 
         if (node.g === 'm') {
-          node.n = node.id // eslint-disable-line
+          node.n = node.id; // eslint-disable-line
 
           if (this.componentType === 'metabolite' && Object.keys(this.computedLevels).length > 0) {
-            const partialID = node.id.split('-')[0]
-            const key = this.computedLevels[partialID] !== undefined ? partialID : 'n/a'
-            color = colorToRGBArray(this.computedLevels[key][0])
+            const partialID = node.id.split('-')[0];
+            const key = this.computedLevels[partialID] !== undefined ? partialID : 'n/a';
+            color = colorToRGBArray(this.computedLevels[key][0]);
           } else {
-            color = colorToRGBArray(this.defaultMetaboliteColor)
+            color = colorToRGBArray(this.defaultMetaboliteColor);
           }
         }
 
         return {
           ...node,
           color,
-        }
-      })
+        };
+      });
 
       await this.renderNetwork({
         nodes,
         links: this.network.links,
-      })
+      });
     },
     updateURLCoords({ x, y, z }) {
       const payload = {
@@ -253,49 +253,49 @@ export default {
         lx: x,
         ly: y,
         lz: z,
-      }
-      this.$store.dispatch('maps/setCoords', payload)
+      };
+      this.$store.dispatch('maps/setCoords', payload);
     },
     resetNetwork() {
       if (this.controller) {
-        this.controller.dispose()
-        this.controller = null
+        this.controller.dispose();
+        this.controller = null;
       }
     },
     zoomIn() {
-      this.zoomBy(50)
+      this.zoomBy(50);
     },
     zoomOut() {
-      this.zoomBy(-50)
+      this.zoomBy(-50);
     },
     zoomBy(amount) {
-      const { lx, ly, lz } = this.coords
-      let z = lz - amount
+      const { lx, ly, lz } = this.coords;
+      let z = lz - amount;
       if (z < 0) {
-        z = 0
+        z = 0;
       } else if (z > 1000) {
-        z = 1000
+        z = 1000;
       }
 
-      const payload = { x: lx, y: ly, z }
-      this.controller.setCamera(payload)
-      this.updateURLCoords(payload)
+      const payload = { x: lx, y: ly, z };
+      this.controller.setCamera(payload);
+      this.updateURLCoords(payload);
     },
     toggleFullscreen() {
-      this.isFullscreen = !this.isFullscreen
+      this.isFullscreen = !this.isFullscreen;
     },
     async toggleGenes() {
-      await this.controller.toggleNodeType('e')
+      await this.controller.toggleNodeType('e');
     },
     toggleLabels() {
-      this.controller.toggleLabels()
+      this.controller.toggleLabels();
     },
     toggleBackgroundColor() {
-      this.$store.dispatch('maps/toggleBackgroundColor')
-      this.controller.setBackgroundColor(this.backgroundColor)
+      this.$store.dispatch('maps/toggleBackgroundColor');
+      this.controller.setBackgroundColor(this.backgroundColor);
     },
     async searchIDsOnMap(ids) {
-      this.searchedNodesOnMap = []
+      this.searchedNodesOnMap = [];
 
       if (ids && ids.length > 0) {
         this.searchedNodesOnMap = this.network.nodes
@@ -304,24 +304,24 @@ export default {
             id: n.id,
             name: n.n,
             group: n.g,
-          }))
+          }));
 
         if (this.searchedNodesOnMap.length > 0) {
-          await this.centerElement(this.searchedNodesOnMap[0])
+          await this.centerElement(this.searchedNodesOnMap[0]);
         }
       }
     },
     async centerElement(elem) {
-      this.controller.selectBy({ id: elem.id })
-      await this.selectElement(elem)
+      this.controller.selectBy({ id: elem.id });
+      await this.selectElement(elem);
     },
     unHighlight() {
-      this.searchedNodesOnMap = []
-      this.controller.selectBy({})
-      this.$store.dispatch('maps/setSelectedElementId', null)
+      this.searchedNodesOnMap = [];
+      this.controller.selectBy({});
+      this.$store.dispatch('maps/setSelectedElementId', null);
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

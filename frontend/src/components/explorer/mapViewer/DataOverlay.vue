@@ -130,10 +130,10 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
-import DataOverlayValidation from '@/components/explorer/mapViewer/DataOverlayValidation.vue'
-import RNALegend from '@/components/explorer/mapViewer/RNALegend.vue'
-import { parseFile } from '@/helpers/dataOverlay'
+import { mapActions, mapState } from 'vuex';
+import DataOverlayValidation from '@/components/explorer/mapViewer/DataOverlayValidation.vue';
+import RNALegend from '@/components/explorer/mapViewer/RNALegend.vue';
+import { parseFile } from '@/helpers/dataOverlay';
 
 export default {
   name: 'DataOverlay',
@@ -157,7 +157,7 @@ export default {
       showFileLoader: true,
       errorCustomFileMsg: '',
       customFileInfo: '',
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -173,33 +173,33 @@ export default {
       customDataSet: (state) => state.dataOverlay.customDataSet,
     }),
     levelsDisabled() {
-      return !this.mapName || !this.dataSource || this.dataSource.dataSets.length === 0
+      return !this.mapName || !this.dataSource || this.dataSource.dataSets.length === 0;
     },
   },
   async created() {
-    await this.getDataSourcesIndex(this.model.short_name)
+    await this.getDataSourcesIndex(this.model.short_name);
     const datatype = this.validDataTypeInQuery()
       ? this.$route.query.datatype
-      : Object.keys(this.dataSourcesIndex)[0]
+      : Object.keys(this.dataSourcesIndex)[0];
     await this.setCurrentDataType({
       model: this.model.short_name,
       type: datatype,
       propagate: false,
-    })
+    });
     const datasource = this.validDataSourceInQuery()
       ? this.$route.query.datasource
-      : this.dataSourcesIndex[this.dataType.name][0].filename
+      : this.dataSourcesIndex[this.dataType.name][0].filename;
     await this.getDataSource({
       model: this.model.short_name,
       type: datatype,
       filename: datasource,
       propagate: false,
-    })
-    const dataSet = this.validDataSourceDataSetInQuery() ? this.$route.query.dataSet : 'None'
-    await this.setDataSet(dataSet)
+    });
+    const dataSet = this.validDataSourceDataSetInQuery() ? this.$route.query.dataSet : 'None';
+    await this.setDataSet(dataSet);
   },
   destroyed() {
-    this.resetDataValues()
+    this.resetDataValues();
   },
   methods: {
     ...mapActions({
@@ -216,9 +216,9 @@ export default {
         model: this.model.short_name,
         type: e.target.value,
         propagate: true,
-      }
+      };
 
-      await this.setCurrentDataType(payload)
+      await this.setCurrentDataType(payload);
     },
     async handleDataSourceSelect(e) {
       const payload = {
@@ -226,41 +226,41 @@ export default {
         type: this.dataType.name,
         filename: e.target.value,
         propagate: true,
-      }
+      };
 
-      await this.getDataSource(payload)
+      await this.getDataSource(payload);
     },
     async getFileName(file) {
-      this.customFileName = file.name
-      this.errorCustomFileMsg = ''
-      this.customFileInfo = ''
+      this.customFileName = file.name;
+      this.errorCustomFileMsg = '';
+      this.customFileInfo = '';
       try {
-        const dataSource = await parseFile(file)
-        this.setCustomDataSource(dataSource)
-        this.customFileInfo = `Entries found: ${dataSource.entriesCount} - Series loaded: ${dataSource.dataSets.length}`
-        this.showFileLoader = false
+        const dataSource = await parseFile(file);
+        this.setCustomDataSource(dataSource);
+        this.customFileInfo = `Entries found: ${dataSource.entriesCount} - Series loaded: ${dataSource.dataSets.length}`;
+        this.showFileLoader = false;
       } catch ({ message }) {
-        this.handleErrorCustomFile(message)
+        this.handleErrorCustomFile(message);
       }
     },
     unloadUploadedFile() {
-      this.customFileName = ''
-      this.errorCustomFileMsg = ''
-      this.setCustomDataSource(null)
+      this.customFileName = '';
+      this.errorCustomFileMsg = '';
+      this.setCustomDataSource(null);
     },
     handleErrorCustomFile(errorMsg, name) {
-      this.customFileName = name
-      this.errorCustomFileMsg = errorMsg
-      this.showFileLoader = false
+      this.customFileName = name;
+      this.errorCustomFileMsg = errorMsg;
+      this.showFileLoader = false;
     },
     customErrorMessage() {
-      return this.errorCustomFileMsg.join('<br>')
+      return this.errorCustomFileMsg.join('<br>');
     },
     validDataTypeInQuery() {
       return (
         this.$route.query.datatype &&
         Object.keys(this.dataSourcesIndex).indexOf(this.$route.query.datatype) > -1
-      )
+      );
     },
     validDataSourceInQuery() {
       return (
@@ -269,20 +269,20 @@ export default {
         this.dataSourcesIndex[this.dataType.name]
           .map((e) => e.filename)
           .indexOf(this.$route.query.datasource) > -1
-      )
+      );
     },
     modelHasOverlayData() {
-      return Object.keys(this.dataSourcesIndex).length > 0
+      return Object.keys(this.dataSourcesIndex).length > 0;
     },
     validDataSourceDataSetInQuery() {
       return (
         this.$route.query.dataSet && // eslint-disable-line operator-linebreak
         this.dataSource && // eslint-disable-line operator-linebreak
         this.dataSource.dataSets.indexOf(this.$route.query.dataSet) > -1
-      )
+      );
     },
   },
-}
+};
 </script>
 
 <style lang="scss">

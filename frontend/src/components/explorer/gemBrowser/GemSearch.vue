@@ -113,9 +113,9 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
-import $ from 'jquery'
-import { default as messages } from '@/content/messages'
+import { mapGetters, mapState } from 'vuex';
+import $ from 'jquery';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'GemSearch',
@@ -140,7 +140,7 @@ export default {
       },
       notFoundSuggestions: [],
       searchModel: null,
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -153,95 +153,95 @@ export default {
       searchResults: 'search/categorizedAndSortedResults',
     }),
     placeholder() {
-      return 'uracil, SULT1A3, ATP => cAMP + PPi, subsystem or compartment'
+      return 'uracil, SULT1A3, ATP => cAMP + PPi, subsystem or compartment';
     },
   },
   watch: {
     model(m) {
-      this.searchModel = m
+      this.searchModel = m;
     },
   },
   async created() {
-    await this.getIntegratedModelList()
+    await this.getIntegratedModelList();
   },
   methods: {
     async getIntegratedModelList() {
-      await this.$store.dispatch('models/getModels')
-      let modelKey = Object.keys(this.models)[0]
+      await this.$store.dispatch('models/getModels');
+      let modelKey = Object.keys(this.models)[0];
       if (this.$route.params && this.$route.params.model in this.models) {
-        modelKey = this.$route.params.model
+        modelKey = this.$route.params.model;
       } else if (this.model) {
-        modelKey = this.model.short_name
-        this.$router.replace({ params: { model: modelKey } })
+        modelKey = this.model.short_name;
+        this.$router.replace({ params: { model: modelKey } });
       }
-      this.$store.dispatch('models/selectModel', modelKey)
+      this.$store.dispatch('models/selectModel', modelKey);
     },
     async handleModelChange(e) {
-      e.preventDefault()
-      const modelKey = e.target.value
+      e.preventDefault();
+      const modelKey = e.target.value;
 
       if (modelKey === 'Global Search') {
-        this.globalSearch()
+        this.globalSearch();
       } else {
-        this.searchModel = this.models[modelKey]
-        await this.searchDebounce(this.searchTermString)
+        this.searchModel = this.models[modelKey];
+        await this.searchDebounce(this.searchTermString);
       }
     },
     async searchDebounce(searchTerm) {
-      this.noResult = false
-      this.showSearchCharAlert = searchTerm.length === 1
-      this.$store.dispatch('search/setSearchTermString', searchTerm)
+      this.noResult = false;
+      this.showSearchCharAlert = searchTerm.length === 1;
+      this.$store.dispatch('search/setSearchTermString', searchTerm);
 
-      const canSearch = searchTerm.length > 1
+      const canSearch = searchTerm.length > 1;
 
-      this.showLoader = canSearch
-      this.showResults = canSearch
+      this.showLoader = canSearch;
+      this.showResults = canSearch;
       if (canSearch) {
-        await this.search(searchTerm)
+        await this.search(searchTerm);
       }
     },
     async search() {
-      $('#search').focus()
+      $('#search').focus();
       if (this.searchTermString.length < 2) {
-        return
+        return;
       }
 
       try {
         const payload = {
           model: this.searchModel,
-        }
-        await this.$store.dispatch('search/search', payload)
+        };
+        await this.$store.dispatch('search/search', payload);
 
-        this.noResult = true
-        const keyList = Object.keys(this.searchResults)
+        this.noResult = true;
+        const keyList = Object.keys(this.searchResults);
         for (let i = 0; i < keyList.length; i += 1) {
-          const k = keyList[i]
+          const k = keyList[i];
           if (this.searchResults[k].length) {
-            this.showSearchCharAlert = false
-            this.noResult = false
-            break
+            this.showSearchCharAlert = false;
+            this.noResult = false;
+            break;
           }
         }
-        this.showLoader = false
-        this.$refs.searchResults.scrollTop = 0
+        this.showLoader = false;
+        this.$refs.searchResults.scrollTop = 0;
       } catch (error) {
-        this.$store.dispatch('search/clearSearchResults')
-        this.noResult = true
+        this.$store.dispatch('search/clearSearchResults');
+        this.noResult = true;
         if (error.response.headers.suggestions) {
-          this.notFoundSuggestions = JSON.parse(error.response.headers.suggestions)
+          this.notFoundSuggestions = JSON.parse(error.response.headers.suggestions);
         } else {
-          this.notFoundSuggestions = []
+          this.notFoundSuggestions = [];
         }
-        this.showLoader = false
+        this.showLoader = false;
       }
     },
     globalSearch() {
-      this.handleClear()
-      this.$router.push({ name: 'search', query: { term: this.searchTermString } })
+      this.handleClear();
+      this.$router.push({ name: 'search', query: { term: this.searchTermString } });
     },
     formatSearchResultLabel(type, element, searchTerm) {
-      const re = new RegExp(`(${searchTerm})`, 'ig')
-      let s = ''
+      const re = new RegExp(`(${searchTerm})`, 'ig');
+      let s = '';
       this.itemKeys[type]
         .filter((key) => element[key])
         .forEach((key) => {
@@ -249,42 +249,42 @@ export default {
           s =
             key === 'compartment_str'
               ? `${s} ‒ ${element[key]}`
-              : `${s} ‒ ${element[key].replace(re, '<b>$1</b>')}`
-        })
+              : `${s} ‒ ${element[key].replace(re, '<b>$1</b>')}`;
+        });
       if (s.length !== 0) {
-        return s.slice(2)
+        return s.slice(2);
       }
-      return s
+      return s;
     },
     handleClearSearch() {
-      this.$store.dispatch('search/setSearchTermString', '')
-      this.handleClear()
+      this.$store.dispatch('search/setSearchTermString', '');
+      this.handleClear();
     },
     async handleClickResult(type, r) {
-      this.showResults = false
-      this.handleClear()
-      await this.$store.dispatch('models/selectModel', this.searchModel.short_name)
+      this.showResults = false;
+      this.handleClear();
+      await this.$store.dispatch('models/selectModel', this.searchModel.short_name);
       this.$router.push({
         name: type,
         params: { model: this.searchModel.short_name, id: r.id },
-      })
+      });
     },
     blur() {
       setTimeout(() => {
         if (
           document.getElementById('gem-search-wrapper').contains(document.activeElement) === false
         ) {
-          this.showResults = false
-          this.handleClear()
+          this.showResults = false;
+          this.handleClear();
         } else if (
           document.getElementById('model-select').contains(document.activeElement) === false
         ) {
-          $('#search').focus()
+          $('#search').focus();
         }
-      })
+      });
     },
   },
-}
+};
 </script>
 
 <style lang="scss">

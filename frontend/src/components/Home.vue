@@ -189,8 +189,8 @@
 </template>
 
 <script>
-import { default as messages } from '@/content/messages'
-import { default as newsItems } from '@/content/news'
+import { default as messages } from '@/content/messages';
+import { default as newsItems } from '@/content/news';
 
 /* eslint-disable global-require */
 export default {
@@ -300,9 +300,9 @@ export default {
         },
       ],
       newsItems: Object.values(newsItems).reverse().flat(1).slice(0, 12),
-    }
+    };
   },
-}
+};
 </script>
 <style lang="scss">
 #home {

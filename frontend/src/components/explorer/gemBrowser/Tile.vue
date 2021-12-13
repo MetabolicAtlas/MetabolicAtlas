@@ -76,8 +76,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { getSimpleEquation } from '@/helpers/utils'
+import { mapState } from 'vuex';
+import { getSimpleEquation } from '@/helpers/utils';
 
 export default {
   name: 'Tile',
@@ -95,7 +95,7 @@ export default {
   methods: {
     getSimpleEquation,
   },
-}
+};
 </script>
 
 <style lang="scss"></style>

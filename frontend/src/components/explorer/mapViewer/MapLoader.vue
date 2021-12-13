@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
 
 export default {
   name: 'MapLoader',
@@ -14,7 +14,7 @@ export default {
       loading: (state) => state.maps.loading,
     }),
   },
-}
+};
 </script>
 
 <style lang="scss">

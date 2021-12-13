@@ -79,9 +79,9 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import Tile from '@/components/explorer/gemBrowser/Tile'
-import { default as messages } from '@/content/messages'
+import { mapState } from 'vuex';
+import Tile from '@/components/explorer/gemBrowser/Tile';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'GemBrowser',
@@ -92,7 +92,7 @@ export default {
     return {
       messages,
       errorMessage: '',
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -105,20 +105,20 @@ export default {
       const modelSelectionSuccessful = await this.$store.dispatch(
         'models/selectModel',
         this.$route.params.model
-      )
+      );
       if (!modelSelectionSuccessful) {
-        this.errorMessage = `Error: ${messages.modelNotFound}`
-        return
+        this.errorMessage = `Error: ${messages.modelNotFound}`;
+        return;
       }
     }
-    await this.getTilesData()
+    await this.getTilesData();
   },
   methods: {
     async getTilesData() {
-      await this.$store.dispatch('browserTiles/getBrowserTiles', this.model)
+      await this.$store.dispatch('browserTiles/getBrowserTiles', this.model);
     },
   },
-}
+};
 </script>
 
 <style lang="scss">

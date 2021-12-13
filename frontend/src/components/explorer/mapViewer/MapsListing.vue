@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import mobileScrollToTop from '@/helpers/mapViewer.js'
+import { mapState } from 'vuex';
+import mobileScrollToTop from '@/helpers/mapViewer.js';
 
 export default {
   name: 'MapsListing',
@@ -51,21 +51,21 @@ export default {
     categories() {
       return Object.keys(this.mapsListing)
         .filter((c) => this.mapsListing[c].length > 0 && (c !== 'customs' || this.showing2D))
-        .sort()
+        .sort();
     },
   },
   methods: {
     changeToMap(newMapId) {
-      mobileScrollToTop()
-      const oldMapId = this.$router.currentRoute.params.map_id
-      const oldDim = this.$router.currentRoute.query.dim
-      const newDim = this.showing2D ? '2d' : '3d'
+      mobileScrollToTop();
+      const oldMapId = this.$router.currentRoute.params.map_id;
+      const oldDim = this.$router.currentRoute.query.dim;
+      const newDim = this.showing2D ? '2d' : '3d';
       if (oldMapId !== newMapId || oldDim !== newDim) {
-        this.$router.push({ params: { map_id: newMapId }, query: { dim: newDim } })
+        this.$router.push({ params: { map_id: newMapId }, query: { dim: newDim } });
       }
     },
   },
-}
+};
 </script>
 
 <style lang="scss">

@@ -1,7 +1,7 @@
-import axios from 'axios'
+import axios from 'axios';
 
 const fetchGems = async () => {
-  const { data } = await axios.get('repository/models/')
+  const { data } = await axios.get('repository/models/');
   // TODO consider moving this mapping logic into store
 
   return data.reduce((dict, g) => {
@@ -22,15 +22,15 @@ const fetchGems = async () => {
       organ_system: g.sample.organ_system || '-',
       condition: g.condition || '-',
       ref: g.ref.length > 0 ? g.ref : g.gemodelset.reference,
-    }
+    };
 
     // eslint-disable-next-line
-    const { gemodelset, sample, cell_type, reference, ...strippedGem } = gem
+    const { gemodelset, sample, cell_type, reference, ...strippedGem } = gem;
     return {
       ...dict,
       [strippedGem.id]: strippedGem,
-    }
-  }, {})
-}
+    };
+  }, {});
+};
 
-export default { fetchGems }
+export default { fetchGems };

@@ -74,8 +74,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { buildCustomLink } from '@/helpers/utils'
+import { mapState } from 'vuex';
+import { buildCustomLink } from '@/helpers/utils';
 
 export default {
   name: 'MissingReactionsModal',
@@ -90,18 +90,18 @@ export default {
       showFullReactionListMissing: false,
       showFullReactionListMap: false,
       displayedReaction: 40,
-    }
+    };
   },
   computed: {
     ...mapState({
       model: (state) => state.models.model,
     }),
     mapReactionIdListHtml() {
-      const l = ['<span class="tags">']
+      const l = ['<span class="tags">'];
       for (let i = 0; i < this.mapReactionList.length; i += 1) {
-        const r = this.mapReactionList[i]
+        const r = this.mapReactionList[i];
         if (!this.showFullReactionListMap && i === this.displayedReaction) {
-          break
+          break;
         }
         const customLink = buildCustomLink({
           model: this.model.short_name,
@@ -109,18 +109,18 @@ export default {
           id: r,
           title: r,
           cssClass: 'target="_blank"',
-        })
-        l.push(`<span id="${r}" class="tag">${customLink}</span>`)
+        });
+        l.push(`<span id="${r}" class="tag">${customLink}</span>`);
       }
-      l.push('</span>')
-      return l.join('')
+      l.push('</span>');
+      return l.join('');
     },
     missingReactionIdListHtml() {
-      const l = ['<span class="tags">']
+      const l = ['<span class="tags">'];
       for (let i = 0; i < this.missingReactionList.length; i += 1) {
-        const r = this.missingReactionList[i]
+        const r = this.missingReactionList[i];
         if (!this.showFullReactionListMissing && i === this.displayedReaction) {
-          break
+          break;
         }
         const customLink = buildCustomLink({
           model: this.model.short_name,
@@ -128,21 +128,21 @@ export default {
           id: r,
           title: r,
           cssClass: 'target="_blank"',
-        })
-        l.push(`<span id="${r}" class="tag">${customLink}</span>`)
+        });
+        l.push(`<span id="${r}" class="tag">${customLink}</span>`);
       }
-      l.push('</span>')
-      return l.join('')
+      l.push('</span>');
+      return l.join('');
     },
   },
   methods: {
     closeModal() {
-      this.$emit('update:showModal', false)
-      this.showFullReactionListMissing = false
-      this.showFullReactionListMap = false
+      this.$emit('update:showModal', false);
+      this.showFullReactionListMissing = false;
+      this.showFullReactionListMap = false;
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped></style>

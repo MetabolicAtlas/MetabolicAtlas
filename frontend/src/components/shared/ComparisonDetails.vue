@@ -69,8 +69,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import Loader from '@/components/Loader.vue'
+import { mapState } from 'vuex';
+import Loader from '@/components/Loader.vue';
 
 export default {
   name: 'ComparisonDetails',
@@ -83,7 +83,7 @@ export default {
         reaction: 'Reaction',
         metabolite: 'CompartmentalizedMetabolite',
       },
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -93,31 +93,31 @@ export default {
     }),
     currentModel() {
       if (!this.comparisonDetails || this.modelList.length === 0) {
-        return null
+        return null;
       }
 
-      return this.modelList.find((m) => m.apiName === this.comparisonDetails.models.model.model)
+      return this.modelList.find((m) => m.apiName === this.comparisonDetails.models.model.model);
     },
     comparedModels() {
       if (!this.comparisonDetails) {
-        return []
+        return [];
       }
 
       return this.comparisonDetails.models.models.map((m) =>
         this.modelList.find((mo) => mo.apiName === m.model)
-      )
+      );
     },
   },
   watch: {
     async selectedCell(cell) {
-      if (!cell) return
+      if (!cell) return;
 
-      const { model, models } = cell
-      await this.$store.dispatch('compare/getComparisonDetails', { model, models })
+      const { model, models } = cell;
+      await this.$store.dispatch('compare/getComparisonDetails', { model, models });
     },
   },
   methods: {},
-}
+};
 </script>
 
 <style lang="scss" scoped>

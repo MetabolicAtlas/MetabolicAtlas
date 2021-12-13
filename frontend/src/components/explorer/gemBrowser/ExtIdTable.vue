@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { reformatTableKey } from '@/helpers/utils'
+import { reformatTableKey } from '@/helpers/utils';
 
 export default {
   name: 'ExtIdTable',
@@ -35,13 +35,13 @@ export default {
   },
   computed: {
     extDbListOrdered() {
-      return Object.keys(this.externalDbs).sort()
+      return Object.keys(this.externalDbs).sort();
     },
   },
   methods: {
     reformatTableKey,
   },
-}
+};
 </script>
 
 <style lang="scss"></style>

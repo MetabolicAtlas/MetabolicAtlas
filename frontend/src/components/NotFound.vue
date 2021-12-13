@@ -39,8 +39,8 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
-import { default as messages } from '@/content/messages'
+import { mapState } from 'vuex';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'NotFound',
@@ -51,14 +51,14 @@ export default {
   data() {
     return {
       messages,
-    }
+    };
   },
   computed: {
     ...mapState({
       model: (state) => state.models.model,
     }),
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

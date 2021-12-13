@@ -84,9 +84,9 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
-import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout'
-import { buildCustomLink, generateSocialMetaTags, reformatTableKey } from '@/helpers/utils'
+import { mapGetters, mapState } from 'vuex';
+import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout';
+import { buildCustomLink, generateSocialMetaTags, reformatTableKey } from '@/helpers/utils';
 
 export default {
   name: 'Subsystem',
@@ -101,20 +101,20 @@ export default {
       showFullGene: false,
       displayedMetabolite: 40,
       displayedGene: 40,
-    }
+    };
   },
   metaInfo() {
     if (!this.model || !this.info.name) {
-      return {}
+      return {};
     }
 
-    const title = `${this.info.name}, Subsystem in ${this.model.short_name}`
-    const description = `The subsystem ${this.info.name} in ${this.model.short_name} (version ${this.model.version}) can be found in ${this.info.compartments.length} compartments, and contains ${this.metabolites.length} metabolites and ${this.genes.length} genes.`
+    const title = `${this.info.name}, Subsystem in ${this.model.short_name}`;
+    const description = `The subsystem ${this.info.name} in ${this.model.short_name} (version ${this.model.version}) can be found in ${this.info.compartments.length} compartments, and contains ${this.metabolites.length} metabolites and ${this.genes.length} genes.`;
 
     return {
       title,
       meta: generateSocialMetaTags({ title, description }),
-    }
+    };
   },
   computed: {
     ...mapState({
@@ -128,53 +128,53 @@ export default {
       limitGene: 'subsystems/limitGene',
     }),
     metabolitesListHtml() {
-      const l = ['<span class="tags">']
-      const metsSorted = [...this.metabolites].sort((a, b) => (a.name < b.name ? -1 : 1))
+      const l = ['<span class="tags">'];
+      const metsSorted = [...this.metabolites].sort((a, b) => (a.name < b.name ? -1 : 1));
       for (let i = 0; i < metsSorted.length; i += 1) {
-        const m = metsSorted[i]
+        const m = metsSorted[i];
         if (
           (!this.showFullMetabolite && i === this.displayedMetabolite) ||
           i === this.limitMetabolite
         ) {
-          break
+          break;
         }
         const customLink = buildCustomLink({
           model: this.model.short_name,
           type: 'metabolite',
           id: m.id,
           title: m.name || m.id,
-        })
-        l.push(`<span id="${m.id}" class="tag">${customLink}</span>`)
+        });
+        l.push(`<span id="${m.id}" class="tag">${customLink}</span>`);
       }
-      l.push('</span>')
-      return l.join('')
+      l.push('</span>');
+      return l.join('');
     },
     genesListHtml() {
-      const l = ['<span class="tags">']
-      const genesSorted = [...this.genes].sort((a, b) => (a.name < b.name ? -1 : 1))
+      const l = ['<span class="tags">'];
+      const genesSorted = [...this.genes].sort((a, b) => (a.name < b.name ? -1 : 1));
       for (let i = 0; i < genesSorted.length; i += 1) {
-        const e = genesSorted[i]
+        const e = genesSorted[i];
         if ((!this.showFullGene && i === this.displayedGene) || i === this.limitGene) {
-          break
+          break;
         }
         const customLink = buildCustomLink({
           model: this.model.short_name,
           type: 'gene',
           id: e.id,
           title: e.name || e.id,
-        })
-        l.push(`<span id="${e.id}" class="tag">${customLink}</span>`)
+        });
+        l.push(`<span id="${e.id}" class="tag">${customLink}</span>`);
       }
-      l.push('</span>')
-      return l.join('')
+      l.push('</span>');
+      return l.join('');
     },
   },
   methods: {
     reformatKey(k) {
-      return reformatTableKey(k)
+      return reformatTableKey(k);
     },
   },
-}
+};
 </script>
 
 <style lang="scss"></style>
