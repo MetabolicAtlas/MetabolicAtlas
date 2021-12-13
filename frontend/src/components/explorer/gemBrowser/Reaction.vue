@@ -9,7 +9,7 @@
     :reference-list="referenceList"
     @handleCallback="handleCallback"
   >
-    <template #table>
+    <template v-slot:table>
       <table
         v-if="reaction && Object.keys(reaction).length !== 0"
         class="table main-table is-fullwidth"
@@ -33,10 +33,7 @@
                 <template v-if="i !== 0">;</template>
                 <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key max-len -->
                 <router-link
-                  :to="{
-                    name: 'subsystem',
-                    params: { model: model.short_name, id: v.id },
-                  }"
+                  :to="{ name: 'subsystem', params: { model: model.short_name, id: v.id } }"
                 >
                   {{ v.name }}
                 </router-link>
@@ -48,10 +45,7 @@
                   <span :key="c.id" class="tag">
                     <!-- eslint-disable-next-line max-len -->
                     <router-link
-                      :to="{
-                        name: 'compartment',
-                        params: { model: model.short_name, id: c.id },
-                      }"
+                      :to="{ name: 'compartment', params: { model: model.short_name, id: c.id } }"
                     >
                       {{ c.name }}
                     </router-link>
@@ -79,10 +73,7 @@
           <td>
             <p v-for="rr in relatedReactions" :key="rr.id">
               <router-link
-                :to="{
-                  name: 'reaction',
-                  params: { model: model.short_name, id: rr.id },
-                }"
+                :to="{ name: 'reaction', params: { model: model.short_name, id: rr.id } }"
               >
                 {{ rr.id }}
               </router-link>

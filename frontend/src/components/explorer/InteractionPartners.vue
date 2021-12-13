@@ -193,9 +193,7 @@
                     <span>Color:</span>
                     <span
                       class="color-span is-clickable"
-                      :style="{
-                        background: nodeDisplayParams.geneNodeColor.hex,
-                      }"
+                      :style="{ background: nodeDisplayParams.geneNodeColor.hex }"
                       @click="toggleGeneColorPicker()"
                     >
                       <compact-picker
@@ -222,9 +220,7 @@
                     <span>Color:</span>
                     <span
                       class="color-span is-clickable"
-                      :style="{
-                        background: nodeDisplayParams.metaboliteNodeColor.hex,
-                      }"
+                      :style="{ background: nodeDisplayParams.metaboliteNodeColor.hex }"
                       @click="toggleMetaboliteColorPicker()"
                     >
                       <compact-picker

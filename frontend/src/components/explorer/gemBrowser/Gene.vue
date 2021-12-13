@@ -7,7 +7,7 @@
     :interaction-partner="true"
     :viewer-selected-i-d="gene.id"
   >
-    <template #table>
+    <template v-slot:table>
       <table v-if="gene && Object.keys(gene).length !== 0" class="table main-table is-fullwidth">
         <tr v-for="el in mainTableKey" :key="el.name">
           <td

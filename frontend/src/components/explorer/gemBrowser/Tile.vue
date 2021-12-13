@@ -66,7 +66,7 @@
         <b>Major subsystems</b>
         :
         <br />
-        <p></p>
+        <p />
         <ul>
           <li v-for="sub in data.majorSubsystems" :key="sub">{{ sub }}</li>
         </ul>

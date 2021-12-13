@@ -41,8 +41,7 @@
               >
                 <br />
                 <button class="is-small button" @click="showFullReactionListMissing = true">
-                  ... and
-                  {{ missingReactionList.length - displayedReaction }} more
+                  ... and {{ missingReactionList.length - displayedReaction }} more
                 </button>
               </div>
             </td>

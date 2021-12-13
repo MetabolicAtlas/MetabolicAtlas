@@ -12,7 +12,7 @@
     :selected-elm-id="true"
     @handleCallback="handleCallback"
   >
-    <template #table>
+    <template v-slot:table>
       <table v-if="metabolite" class="table main-table is-fullwidth">
         <tr v-for="el in mainTableKey" :key="el.name">
           <td
@@ -56,10 +56,7 @@
               <br v-if="i !== 0" />
               <!-- eslint-disable-next-line max-len -->
               <router-link
-                :to="{
-                  name: 'metabolite',
-                  params: { model: model.short_name, id: rm.id },
-                }"
+                :to="{ name: 'metabolite', params: { model: model.short_name, id: rm.id } }"
               >
                 {{ rm.fullName }}
               </router-link>
@@ -69,7 +66,7 @@
         </tr>
       </table>
     </template>
-    <template #chebi>
+    <template v-slot:chebi>
       <div
         v-if="metabolite.externalDbs && metabolite.externalDbs.ChEBI"
         class="column is-3-widescreen is-2-desktop is-full-tablet has-text-centered px-2"

@@ -34,8 +34,8 @@
           <ul>
             <li>
               {{ comparisonDetails.details['Reaction'].common }} reactions and
-              {{ comparisonDetails.details['CompartmentalizedMetabolite'].common }}
-              metabolites in common
+              {{ comparisonDetails.details['CompartmentalizedMetabolite'].common }} metabolites in
+              common
             </li>
             <li v-for="t in Object.keys(types)" :key="t">
               {{ comparisonDetails.details[types[t]].unique.length }} unique {{ t }}s
@@ -49,12 +49,7 @@
                   :key="id"
                   class="tag"
                 >
-                  <router-link
-                    :to="{
-                      name: t,
-                      params: { model: currentModel.short_name, id },
-                    }"
-                  >
+                  <router-link :to="{ name: t, params: { model: currentModel.short_name, id } }">
                     {{ id }}
                   </router-link>
                 </span>

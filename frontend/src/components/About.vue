@@ -153,9 +153,7 @@
             </p>
           </div>
           <img width="100%" alt="The SysBio group 2019" src="../assets/group_19.jpg" />
-          <center>
-            <a href="https://sysbio.se" target="_blank">The SysBio group 2019</a>
-          </center>
+          <center><a href="https://sysbio.se" target="_blank">The SysBio group 2019</a></center>
           <br />
           <br />
           <h4 class="title is-4">Contact</h4>

@@ -90,6 +90,7 @@
               <td v-show="showCP">{{ r.cp }}</td>
               <td v-show="showSubsystem">
                 <template v-if="r.subsystem_str">
+                  <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key max-len -->
                   <template v-for="(s, index) in r.subsystem_str.split('; ')">
                     {{ index == 0 ? '' : '; ' }}
                     <a

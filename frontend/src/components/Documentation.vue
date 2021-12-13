@@ -36,12 +36,8 @@
                 </a>
                 <ul class="menu-list">
                   <li><a href="#Interaction-Partners-Export">Export graph</a></li>
-                  <li>
-                    <a href="#Interaction-Partners-Highlights">Highlights</a>
-                  </li>
-                  <li>
-                    <a href="#Interaction-Partners-Reactions">Reactions table</a>
-                  </li>
+                  <li><a href="#Interaction-Partners-Highlights">Highlights</a></li>
+                  <li><a href="#Interaction-Partners-Reactions">Reactions table</a></li>
                 </ul>
                 <a href="#Search">
                   <span class="icon pr-5 has-text-info"><i class="fa fa-search"></i></span>

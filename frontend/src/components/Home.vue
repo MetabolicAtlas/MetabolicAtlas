@@ -223,11 +223,7 @@ export default {
           cardLink: 'Map Viewer',
           route: {
             name: 'viewer',
-            params: {
-              model: 'Human-GEM',
-              type: 'compartment',
-              map_id: 'golgi_apparatus',
-            },
+            params: { model: 'Human-GEM', type: 'compartment', map_id: 'golgi_apparatus' },
             query: { dim: '2d' },
           },
           icon: 'map-o',
@@ -255,11 +251,7 @@ export default {
           img: require('../assets/analyze.jpg'),
           route: {
             name: 'viewer',
-            params: {
-              model: 'Human-GEM',
-              type: 'compartment',
-              map_id: 'endoplasmic_reticulum',
-            },
+            params: { model: 'Human-GEM', type: 'compartment', map_id: 'endoplasmic_reticulum' },
             query: { dim: '2d', panel: '1', coords: '-7222.7,-4501.6,0.97,0,0,0' },
           },
           icon: 'tasks',

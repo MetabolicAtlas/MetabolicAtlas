@@ -5,7 +5,7 @@
     :external-dbs="info.externalDbs"
     query-component-action="subsystems/getSubsystemSummary"
   >
-    <template #table>
+    <template v-slot:table>
       <table v-if="info && Object.keys(info).length !== 0" class="table main-table is-fullwidth">
         <tr v-for="el in mainTableKey" :key="el.name" class="m-row">
           <template v-if="info[el.name]">
@@ -30,10 +30,7 @@
                 <span :key="c.id" class="tag">
                   <!-- eslint-disable-next-line max-len -->
                   <router-link
-                    :to="{
-                      name: 'compartment',
-                      params: { model: model.short_name, id: c.id },
-                    }"
+                    :to="{ name: 'compartment', params: { model: model.short_name, id: c.id } }"
                   >
                     {{ c.name }}
                   </router-link>
@@ -55,8 +52,7 @@
                 v-show="metabolites.length === limitMetabolite"
                 class="tag is-medium is-warning is-pulled-right"
               >
-                The number of metabolites displayed is limited to
-                {{ limitMetabolite }}.
+                The number of metabolites displayed is limited to {{ limitMetabolite }}.
               </span>
             </div>
           </td>

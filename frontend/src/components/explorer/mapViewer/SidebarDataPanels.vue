@@ -31,10 +31,7 @@
       <footer v-if="currentMap.type !== 'custom'" class="card-footer sidebarCardHover">
         <router-link
           class="p-0 is-info is-outlined card-footer-item has-text-centered"
-          :to="{
-            name: currentMap.type,
-            params: { model: model.short_name, id: currentMap.id },
-          }"
+          :to="{ name: currentMap.type, params: { model: model.short_name, id: currentMap.id } }"
         >
           <!-- eslint-disable-line max-len -->
           <span class="icon is-large"><i class="fa fa-table fa-lg"></i></span>
@@ -119,8 +116,8 @@
                 i => selectionData.data[i.name]
               )"
             >
-              <!-- eslint-disable vue/valid-v-for vue/require-v-for-key -->
               <template v-if="item.name === 'synonyms'">
+                <!-- eslint-disable vue/valid-v-for vue/require-v-for-key -->
                 <span class="has-text-weight-bold">
                   {{ capitalize(item.display || item.name) }}:
                 </span>
@@ -132,6 +129,7 @@
                 </p>
               </template>
               <template v-else-if="item.name === 'subsystems'">
+                <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
                 <span class="has-text-weight-bold">
                   {{ capitalize(item.display || item.name) }}:
                 </span>
@@ -143,12 +141,14 @@
                 </p>
               </template>
               <template v-else-if="item.name === 'compartment'">
+                <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
                 <span class="has-text-weight-bold">
                   {{ capitalize(item.display || item.name) }}:
                 </span>
                 {{ selectionData.data[item.name].name }}
               </template>
               <template v-else-if="item.name === 'equation'">
+                <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
                 <p>
                   <span
                     class="has-text-weight-bold"
@@ -166,6 +166,7 @@
                 </p>
               </template>
               <template v-else-if="item.name === 'formula'">
+                <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
                 <p>
                   <span
                     class="has-text-weight-bold"
@@ -179,6 +180,7 @@
                 </p>
               </template>
               <template v-else-if="selectionData.data[item.name]">
+                <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
                 <p>
                   <span
                     class="has-text-weight-bold"
@@ -187,7 +189,7 @@
                   {{ selectionData.data[item.name] }}
                 </p>
               </template>
-              <!-- eslint-enable-next-line vue/valid-v-for vue/require-v-for-key -->
+              <!-- eslint-enable vue/valid-v-for vue/require-v-for-key -->
             </template>
             <template v-if="selectionHasNoData()">
               {{ messages.noInfoAvailable }}

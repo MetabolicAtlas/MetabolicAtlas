@@ -5,7 +5,7 @@
     query-component-action="compartments/getCompartmentSummary"
     :include-reaction-table="false"
   >
-    <template #table>
+    <template v-slot:table>
       <table
         v-if="compartment && Object.keys(compartment).length != 0"
         class="table main-table is-fullwidth"

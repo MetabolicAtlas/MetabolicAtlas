@@ -65,9 +65,7 @@
               :key="tab"
               :disabled="resultsCount[tab] === 0"
               :class="[
-                {
-                  'is-active has-text-weight-bold': showTab(tab) && resultsCount[tab] !== 0,
-                },
+                { 'is-active has-text-weight-bold': showTab(tab) && resultsCount[tab] !== 0 },
                 { 'is-disabled': resultsCount[tab] === 0 },
               ]"
               @click="resultsCount[tab] !== 0 ? (showTabType = tab) : ''"
@@ -162,10 +160,7 @@
                     <router-link
                       :to="{
                         name: header,
-                        params: {
-                          model: props.row.model.id,
-                          id: props.row.id,
-                        },
+                        params: { model: props.row.model.id, id: props.row.id },
                       }"
                     >
                       {{ props.row.name || props.row.id }}
@@ -181,10 +176,7 @@
                       <router-link
                         :to="{
                           name: 'subsystem',
-                          params: {
-                            model: props.row.model.id,
-                            id: sub.id,
-                          },
+                          params: { model: props.row.model.id, id: sub.id },
                         }"
                       >
                         {{ sub.name }}
@@ -204,10 +196,7 @@
                         <router-link
                           :to="{
                             name: 'compartment',
-                            params: {
-                              model: props.row.model.id,
-                              id: comp.id,
-                            },
+                            params: { model: props.row.model.id, id: comp.id },
                           }"
                         >
                           {{ comp.name }}

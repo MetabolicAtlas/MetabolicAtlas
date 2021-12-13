@@ -33,11 +33,7 @@ const routes = [
     component: Compartment,
   },
   { path: '/explore/:model/gem-browser/gene/:id', name: 'gene', component: Gene },
-  {
-    path: '/explore/:model/gem-browser/metabolite/:id',
-    name: 'metabolite',
-    component: Metabolite,
-  },
+  { path: '/explore/:model/gem-browser/metabolite/:id', name: 'metabolite', component: Metabolite },
   { path: '/explore/:model/gem-browser/reaction/:id', name: 'reaction', component: Reaction },
   { path: '/explore/:model/gem-browser/subsystem/:id', name: 'subsystem', component: Subsystem },
   { path: '/explore/:model/map-viewer/:map_id?', name: 'viewer', component: MapViewer },

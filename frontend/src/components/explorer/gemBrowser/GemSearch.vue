@@ -265,10 +265,7 @@ export default {
       this.showResults = false;
       this.handleClear();
       await this.$store.dispatch('models/selectModel', this.searchModel.short_name);
-      this.$router.push({
-        name: type,
-        params: { model: this.searchModel.short_name, id: r.id },
-      });
+      this.$router.push({ name: type, params: { model: this.searchModel.short_name, id: r.id } });
     },
     blur() {
       setTimeout(() => {
