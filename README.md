@@ -34,7 +34,7 @@ In the folder `MetabolicAtlas` that has been cloned, add a `env-local.env` file 
 ```bash
 cp env-local.env.sample env-local.env
 ```
-and modify this `.env` file.
+and modify this `env-local.env` file.
 
 Make sure the paths for `DATA_FILES_PATH` and `DATA_GENERATOR_PATH` are correct for your setup, eg. the paths to where you have downloaded the repositories `data-files` and `data-generation`.
 
