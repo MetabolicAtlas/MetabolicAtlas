@@ -18,6 +18,8 @@ services:
     volumes:
       - ./frontend/src:/project/src
       - ./frontend/public:/project/public
+      - ./frontend/.eslintrc.js:/project/.eslintrc.js
+      - ./frontend/.prettierrc.json:/project/.prettierrc.json
     networks:
       - nginx-network
     ports:
