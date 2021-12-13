@@ -1,4 +1,4 @@
-version: "3.7"
+version: '3.7'
 
 services:
   nginx:
@@ -14,11 +14,10 @@ services:
   frontend:
     container_name: frontend
     build: frontend
-    command: yarn && yarn serve
+    command: yarn serve
     volumes:
       - ./frontend/src:/project/src
       - ./frontend/public:/project/public
-      - ./frontend/node_modules:/project/node_modules
     networks:
       - nginx-network
     ports:
@@ -45,8 +44,7 @@ services:
       - ./api/repository:/project/repository
       - ./api/public:/project/public
       - ./api/dataOverlay:/project/dataOverlay
-      - ./api/node_modules:/project/node_modules
-    command: yarn && yarn develop
+    command: yarn develop
 
   ftp:
     environment:
