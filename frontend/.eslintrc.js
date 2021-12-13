@@ -17,6 +17,7 @@ module.exports = {
         'vue/no-useless-template-attributes': 'off',
         'vue/no-lone-template': 'off',
         'vue/order-in-components': 'off',
+        'vue/v-slot-style': 'off',
         'no-unused-vars': [
             'error',
             {
