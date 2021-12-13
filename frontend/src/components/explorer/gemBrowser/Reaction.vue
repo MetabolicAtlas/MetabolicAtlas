@@ -30,7 +30,7 @@
             <template v-if="'modifier' in el"><span v-html="el.modifier()"></span></template>
             <template v-else-if="el.name === 'subsystems'">
               <template v-for="(v, i) in reaction[el.name]">
-                <template v-if="i !== 0">; </template>
+                <template v-if="i !== 0">;</template>
                 <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key max-len -->
                 <router-link
                   :to="{
@@ -38,8 +38,8 @@
                     params: { model: model.short_name, id: v.id },
                   }"
                 >
-                  {{ v.name }}</router-link
-                >
+                  {{ v.name }}
+                </router-link>
               </template>
             </template>
             <template v-else-if="el.name === 'compartments'">
@@ -52,8 +52,9 @@
                         name: 'compartment',
                         params: { model: model.short_name, id: c.id },
                       }"
-                      >{{ c.name }}</router-link
                     >
+                      {{ c.name }}
+                    </router-link>
                   </span>
                 </template>
               </div>
@@ -83,8 +84,9 @@
                   params: { model: model.short_name, id: rr.id },
                 }"
               >
-                {{ rr.id }} </router-link
-              >:&nbsp;
+                {{ rr.id }}
+              </router-link>
+              :&nbsp;
               <span
                 v-html="
                   reformatChemicalReactionHTML({

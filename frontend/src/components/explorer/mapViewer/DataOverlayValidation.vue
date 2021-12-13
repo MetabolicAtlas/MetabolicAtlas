@@ -11,7 +11,7 @@
         <span class="file-icon">
           <i class="fa fa-upload"></i>
         </span>
-        <span class="file-label"> Choose a file </span>
+        <span class="file-label">Choose a file</span>
       </span>
     </label>
   </div>

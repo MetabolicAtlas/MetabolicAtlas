@@ -22,7 +22,7 @@
             {{ reformatTableKey(el.name) }}
           </td>
           <td v-if="gene[el.name]">
-            <span v-if="'modifier' in el" v-html="el.modifier(gene)"> </span>
+            <span v-if="'modifier' in el" v-html="el.modifier(gene)"></span>
             <span v-else>
               {{ gene[el.name] }}
             </span>

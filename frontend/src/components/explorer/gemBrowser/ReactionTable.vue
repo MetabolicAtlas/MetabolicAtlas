@@ -26,7 +26,8 @@
         >
           Showing {{ reactions.length }} reaction(s)
           <template v-if="(reactions.length || -1) === limitReaction" class="icon">
-            <i class="fa fa-exclamation-triangle has-text-warning"></i> limited to
+            <i class="fa fa-exclamation-triangle has-text-warning"></i>
+            limited to
             {{ limitReaction }}
           </template>
         </div>
@@ -34,8 +35,7 @@
           <ExportTSV
             :filename="`Reactions for ${type} ${sourceName}.tsv`"
             :format-function="formatToTSV"
-          >
-          </ExportTSV>
+          ></ExportTSV>
         </div>
       </div>
       <div class="table-container">
@@ -76,26 +76,28 @@
               />
               <td>
                 <!-- eslint-disable vue/valid-v-for vue/require-v-for-key max-len -->
-                <template v-for="(m, index) in r.genes"
-                  >{{ index == 0 ? '' : ', '
-                  }}<a
+                <template v-for="(m, index) in r.genes">
+                  {{ index == 0 ? '' : ', ' }}
+                  <a
                     :class="{ cms: sourceName === m.name }"
                     :href="`/explore/${model.short_name}/gem-browser/gene/${m.id}`"
                     @click="handleRouterClick"
-                    >{{ m.name || m.id }}</a
                   >
+                    {{ m.name || m.id }}
+                  </a>
                 </template>
               </td>
               <td v-show="showCP">{{ r.cp }}</td>
               <td v-show="showSubsystem">
                 <template v-if="r.subsystem_str">
-                  <template v-for="(s, index) in r.subsystem_str.split('; ')"
-                    >{{ index == 0 ? '' : '; '
-                    }}<a
+                  <template v-for="(s, index) in r.subsystem_str.split('; ')">
+                    {{ index == 0 ? '' : '; ' }}
+                    <a
                       :href="`/explore/${model.short_name}/gem-browser/subsystem/${idfy(s)}`"
                       @click="handleRouterClick"
-                      >{{ s }}</a
                     >
+                      {{ s }}
+                    </a>
                   </template>
                 </template>
                 <!-- eslint-enable vue/valid-v-for vue/require-v-for-key max-len -->
@@ -104,13 +106,14 @@
                 <template v-for="(w, i) in r.compartment_str.split(/⇔|⇒/)">
                   <template v-if="i !== 0">{{ r.reversible ? ' ⇔ ' : ' ⇒ ' }}</template>
                   <template v-for="(comp, j) in w.split(' + ')">
-                    <template v-if="j != 0"> + </template>
+                    <template v-if="j != 0">+</template>
                     <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key max-len -->
                     <a
                       :href="`/explore/${model.short_name}/gem-browser/compartment/${idfy(comp)}`"
                       @click="handleRouterClick"
-                      >{{ comp }}</a
                     >
+                      {{ comp }}
+                    </a>
                   </template>
                 </template>
               </td>

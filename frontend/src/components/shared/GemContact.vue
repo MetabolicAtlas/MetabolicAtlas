@@ -4,7 +4,8 @@
     <article class="message">
       <!-- <div class="message-header"> -->
       <a class="button is-grey is-fullwidth" @click="isExpanded = !isExpanded">
-        <span class="icon"><i class="fa fa-question fa-lg"></i></span>&nbsp;
+        <span class="icon"><i class="fa fa-question fa-lg"></i></span>
+        &nbsp;
         <span>Report an issue</span>
       </a>
       <!-- </div> -->
@@ -14,8 +15,9 @@
         <a :href="`mailto:${model.email}?subject=Issue on ${type} ${id}`">via email</a>
         <template v-if="model.chat_link">
           or
-          <a :href="model.chat_link" target="_blank">via public chat (faster)</a> </template
-        >.
+          <a :href="model.chat_link" target="_blank">via public chat (faster)</a>
+        </template>
+        .
       </div>
     </article>
   </div>

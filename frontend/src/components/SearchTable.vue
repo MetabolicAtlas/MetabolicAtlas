@@ -50,9 +50,11 @@
           Do you mean:&nbsp;
           <template v-for="v in notFoundSuggestions">
             <router-link :key="v" :to="{ name: 'search', query: { term: v } }">
-              <span class="suggestions">{{ v }}</span> </router-link
-            >&nbsp; </template
-          >?
+              <span class="suggestions">{{ v }}</span>
+            </router-link>
+            &nbsp;
+          </template>
+          ?
         </div>
       </div>
       <div>
@@ -73,9 +75,9 @@
               <a class="is-capitalized">
                 <p>
                   {{ tab }}s
-                  <span :class="{ 'has-text-info': resultsCount[tab] !== 0 }"
-                    >({{ resultsCount[tab] }})</span
-                  >
+                  <span :class="{ 'has-text-info': resultsCount[tab] !== 0 }">
+                    ({{ resultsCount[tab] }})
+                  </span>
                 </p>
               </a>
             </li>
@@ -90,9 +92,10 @@
             >
               <div v-if="searchedTerm" class="has-text-centered notification">
                 {{ messages.searchNoResult }} for
-                <b
-                  ><i>{{ searchedTerm }}</i></b
-                ><br />
+                <b>
+                  <i>{{ searchedTerm }}</i>
+                </b>
+                <br />
                 If this is an alias or external identifier, it means it is not present in any of the
                 models.
               </div>
@@ -142,8 +145,7 @@
                     class="my-1 mx-4"
                     :filename="`${searchTerm}-${header}.tsv`"
                     :format-function="formatToTSV"
-                  >
-                  </ExportTSV>
+                  ></ExportTSV>
                 </div>
                 <template slot="table-row" slot-scope="props">
                   <!-- eslint-disable max-len -->
@@ -174,7 +176,7 @@
                       {{ '' }}
                     </template>
                     <template v-for="(sub, i) in props.formattedRow[props.column.field]" v-else>
-                      <template v-if="i !== 0">; </template>
+                      <template v-if="i !== 0">;</template>
                       <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key max-len -->
                       <router-link
                         :to="{
@@ -184,8 +186,9 @@
                             id: sub.id,
                           },
                         }"
-                        >{{ sub.name }}</router-link
                       >
+                        {{ sub.name }}
+                      </router-link>
                     </template>
                   </template>
                   <template
@@ -197,8 +200,8 @@
                     <template v-else-if="['gene', 'subsystem', 'reaction'].includes(header)">
                       <template v-for="(comp, i) in props.formattedRow[props.column.field]">
                         <!-- eslint-disable vue/valid-v-for vue/require-v-for-key -->
-                        <template v-if="i != 0">; </template
-                        ><router-link
+                        <template v-if="i != 0">;</template>
+                        <router-link
                           :to="{
                             name: 'compartment',
                             params: {
@@ -206,8 +209,9 @@
                               id: comp.id,
                             },
                           }"
-                          >{{ comp.name }}</router-link
                         >
+                          {{ comp.name }}
+                        </router-link>
                         <!-- eslint-enable vue/valid-v-for vue/require-v-for-key -->
                       </template>
                     </template>

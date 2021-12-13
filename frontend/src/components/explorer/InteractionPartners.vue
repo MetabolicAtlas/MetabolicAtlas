@@ -97,14 +97,16 @@
               v-show="clickedElmId && clickedElmId !== mainNodeID"
               class="button is-dark"
               @click="navigate"
-              >Load {{ messages.interPartName }}</span
             >
+              Load {{ messages.interPartName }}
+            </span>
             <span
               v-show="clickedElmId && !expandedIds.includes(clickedElmId)"
               class="button is-dark"
               @click="loadExpansion"
-              >Expand {{ messages.interPartName }}</span
             >
+              Expand {{ messages.interPartName }}
+            </span>
             <div v-show="clickedElm">
               <span class="button is-dark">Highlight reaction:</span>
             </div>
@@ -157,20 +159,21 @@
                     :class="[{ 'is-active': showGraphLegend }, '']"
                     title="Options"
                     @click="toggleGraphLegend"
-                    ><i class="fa fa-cog"></i
-                  ></span>
-                  <span class="button" title="Zoom In" @click="zoomGraph(true)"
-                    ><i class="fa fa-search-plus"></i
-                  ></span>
+                  >
+                    <i class="fa fa-cog"></i>
+                  </span>
+                  <span class="button" title="Zoom In" @click="zoomGraph(true)">
+                    <i class="fa fa-search-plus"></i>
+                  </span>
                   <span class="button" title="Zoom Out" @click="zoomGraph(false)">
                     <i class="fa fa-search-minus"></i>
                   </span>
-                  <span class="button" title="Fit to frame" @click="fitGraph()"
-                    ><i class="fa fa-arrows-alt"></i
-                  ></span>
-                  <span class="button" title="Reload" @click="resetGraph(true)"
-                    ><i class="fa fa-refresh"></i
-                  ></span>
+                  <span class="button" title="Fit to frame" @click="fitGraph()">
+                    <i class="fa fa-arrows-alt"></i>
+                  </span>
+                  <span class="button" title="Reload" @click="resetGraph(true)">
+                    <i class="fa fa-refresh"></i>
+                  </span>
                   <span class="button" title="Clean selection/highlight" @click="resetGraph(false)">
                     <i class="fa fa-eraser"></i>
                   </span>
@@ -199,8 +202,7 @@
                         v-show="showColorPickerEnz"
                         v-model="nodeDisplayParams.geneNodeColor"
                         @input="applyOptionPanelColor('gene')"
-                      >
-                      </compact-picker>
+                      ></compact-picker>
                     </span>
                   </div>
                   <br />
@@ -229,8 +231,7 @@
                         v-show="showColorPickerMeta"
                         v-model="nodeDisplayParams.metaboliteNodeColor"
                         @input="applyOptionPanelColor('metabolite')"
-                      >
-                      </compact-picker>
+                      ></compact-picker>
                     </span>
                   </div>
                 </div>
@@ -257,8 +258,8 @@
                       @mouseleave="showMenuExport = false"
                     >
                       <div class="dropdown-content">
-                        <a class="dropdown-item" @click="exportGraphml"> Graphml </a>
-                        <a class="dropdown-item" @click="exportPNG"> PNG </a>
+                        <a class="dropdown-item" @click="exportGraphml">Graphml</a>
+                        <a class="dropdown-item" @click="exportPNG">PNG</a>
                       </div>
                     </div>
                   </div>
@@ -330,8 +331,7 @@
             :filename="filename"
             @highlight="highlightNode($event)"
             @HLreaction="highlightReaction($event)"
-          >
-          </cytoscape-table>
+          ></cytoscape-table>
         </template>
       </div>
     </div>

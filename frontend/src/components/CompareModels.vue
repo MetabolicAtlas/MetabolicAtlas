@@ -34,7 +34,8 @@
         </div>
         <comparison-details v-if="validModels && !comparisonsEmpty" />
       </div>
-      <br /><br />
+      <br />
+      <br />
       <div v-for="(c, id) in comparison" :key="id">
         <h4 class="title is-size-4">{{ c.models.A.modelId }} vs. {{ c.models.B.modelId }}</h4>
         <div class="table-container">
@@ -111,7 +112,8 @@
             </div>
           </div>
         </div>
-        <br /><br />
+        <br />
+        <br />
       </div>
     </div>
   </section>

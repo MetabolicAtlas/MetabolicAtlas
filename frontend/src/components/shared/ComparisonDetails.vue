@@ -26,9 +26,11 @@
             <router-link :to="{ name: 'explorer', params: { model: cm.short_name } }">
               {{ cm.short_name }}
             </router-link>
-            <span v-if="i < comparedModels.length - 1"> and </span>
+            <span v-if="i < comparedModels.length - 1">and</span>
           </span>
-          , <b>{{ currentModel.short_name }}</b> has:
+          ,
+          <b>{{ currentModel.short_name }}</b>
+          has:
           <ul>
             <li>
               {{ comparisonDetails.details['Reaction'].common }} reactions and

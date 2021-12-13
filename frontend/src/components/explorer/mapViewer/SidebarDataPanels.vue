@@ -24,7 +24,9 @@
             <span class="icon"><i class="fa fa-info-circle"></i></span>
           </router-link>
         </span>
-        <br />For details <a @click="$emit('update:showModal', true)">see the comparison</a>
+        <br />
+        For details
+        <a @click="$emit('update:showModal', true)">see the comparison</a>
       </div>
       <footer v-if="currentMap.type !== 'custom'" class="card-footer sidebarCardHover">
         <router-link
@@ -56,7 +58,8 @@
       >
         <header class="card-header">
           <p class="card-header-title is-capitalized is-inline is-unselectable">
-            {{ selectionData.type }}: <i>{{ selectionData.data.id }}</i>
+            {{ selectionData.type }}:
+            <i>{{ selectionData.data.id }}</i>
           </p>
         </header>
         <footer class="card-footer">
@@ -118,29 +121,31 @@
             >
               <!-- eslint-disable vue/valid-v-for vue/require-v-for-key -->
               <template v-if="item.name === 'synonyms'">
-                <span class="has-text-weight-bold"
-                  >{{ capitalize(item.display || item.name) }}:</span
-                >
+                <span class="has-text-weight-bold">
+                  {{ capitalize(item.display || item.name) }}:
+                </span>
                 <p>
                   <template v-for="s in selectionData.data[item.name].split('; ')">
-                    &ndash;&nbsp;{{ s }}<br :key="s" />
+                    &ndash;&nbsp;{{ s }}
+                    <br :key="s" />
                   </template>
                 </p>
               </template>
               <template v-else-if="item.name === 'subsystems'">
-                <span class="has-text-weight-bold"
-                  >{{ capitalize(item.display || item.name) }}:</span
-                >
+                <span class="has-text-weight-bold">
+                  {{ capitalize(item.display || item.name) }}:
+                </span>
                 <p>
                   <template v-for="s in selectionData.data[item.name]">
-                    &ndash;&nbsp;{{ s.name }}<br :key="s.id" />
+                    &ndash;&nbsp;{{ s.name }}
+                    <br :key="s.id" />
                   </template>
                 </p>
               </template>
               <template v-else-if="item.name === 'compartment'">
-                <span class="has-text-weight-bold"
-                  >{{ capitalize(item.display || item.name) }}:</span
-                >
+                <span class="has-text-weight-bold">
+                  {{ capitalize(item.display || item.name) }}:
+                </span>
                 {{ selectionData.data[item.name].name }}
               </template>
               <template v-else-if="item.name === 'equation'">
@@ -148,8 +153,8 @@
                   <span
                     class="has-text-weight-bold"
                     v-html="capitalize(item.display || item.name) + ':'"
-                  ></span
-                  ><br />
+                  ></span>
+                  <br />
                   <span
                     v-html="
                       reformatChemicalReactionHTML({
@@ -157,8 +162,7 @@
                         model: model.short_name,
                       })
                     "
-                  >
-                  </span>
+                  ></span>
                 </p>
               </template>
               <template v-else-if="item.name === 'formula'">
@@ -209,7 +213,8 @@
         <header class="card-header is-clickable">
           <p class="card-header-title is-inline is-unselectable has-text-weight-normal">
             This {{ selectionData.type }} does not exist in {{ model.short_name }}. Email us at
-            <a href="mailto:contact@metabolicatlas.org">contact [at] metabolicatlas [dot] org</a>.
+            <a href="mailto:contact@metabolicatlas.org">contact [at] metabolicatlas [dot] org</a>
+            .
           </p>
         </header>
       </div>

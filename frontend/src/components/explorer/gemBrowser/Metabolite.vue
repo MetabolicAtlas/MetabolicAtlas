@@ -30,9 +30,8 @@
             <span
               v-if="el.name === 'formula'"
               v-html="chemicalFormula(metabolite[el.name], metabolite.charge)"
-            >
-            </span>
-            <span v-else-if="el.modifier" v-html="el.modifier(metabolite[el.name])"> </span>
+            ></span>
+            <span v-else-if="el.modifier" v-html="el.modifier(metabolite[el.name])"></span>
             <span v-else-if="el.name === 'compartment' && metabolite[el.name]">
               <!-- eslint-disable-next-line max-len -->
               <router-link
@@ -40,8 +39,9 @@
                   name: 'compartment',
                   params: { model: model.short_name, id: metabolite[el.name].id },
                 }"
-                >{{ metabolite[el.name].id }}</router-link
               >
+                {{ metabolite[el.name].id }}
+              </router-link>
             </span>
             <span v-else>
               {{ metabolite[el.name] }}

@@ -35,8 +35,9 @@
               <a
                 :href="`/api/v2/${model.apiVersion}/compartments/${componentId}?full=true`"
                 target="_blank"
-                >complete list in JSON format</a
               >
+                complete list in JSON format
+              </a>
               of reactions / metabolites / genes is available using our
               <a href="/api/v2" target="_blank">API</a>
             </p>
@@ -51,7 +52,8 @@
                 params: { model: model.short_name, id: componentId },
               }"
             >
-              <span class="icon"><i class="fa fa-connectdevelop fa-lg"></i></span>&nbsp;
+              <span class="icon"><i class="fa fa-connectdevelop fa-lg"></i></span>
+              &nbsp;
               <span>{{ messages.interPartName }}</span>
             </router-link>
             <br />

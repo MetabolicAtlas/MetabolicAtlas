@@ -64,21 +64,21 @@
             <div>
               <span v-if="type === 'metabolite' || type === 'gene'" class="pr-1">
                 <span class="has-text-primary is-clickable" @mousedown="handleClickResult(type, r)">
-                  <span class="icon is-medium is-left" title="Gem Browser"
-                    ><i class="fa fa-table"
-                  /></span>
+                  <span class="icon is-medium is-left" title="Gem Browser">
+                    <i class="fa fa-table" />
+                  </span>
                 </span>
                 <span
                   class="has-text-icon-interaction-partner is-clickable"
                   @mousedown="handleClickResult('interaction', r)"
                 >
-                  <span class="icon is-medium is-left" title="Interaction Partners"
-                    ><i class="fa fa-connectdevelop"
-                  /></span>
+                  <span class="icon is-medium is-left" title="Interaction Partners">
+                    <i class="fa fa-connectdevelop" />
+                  </span>
                 </span>
               </span>
               <span class="has-text-link is-clickable" @mousedown="handleClickResult(type, r)">
-                <b class="is-capitalized">{{ type }}: </b>
+                <b class="is-capitalized">{{ type }}:</b>
                 <label
                   class="is-clickable"
                   v-html="formatSearchResultLabel(type, r, searchTermString)"
@@ -98,11 +98,12 @@
         <div v-if="notFoundSuggestions.length !== 0">
           Do you mean:&nbsp;
           <template v-for="v in notFoundSuggestions">
-            <a :key="v" class="suggestions has-text-link" @click.prevent="searchDebounce(v)">{{
-              v
-            }}</a
-            >&nbsp; </template
-          >?
+            <a :key="v" class="suggestions has-text-link" @click.prevent="searchDebounce(v)">
+              {{ v }}
+            </a>
+            &nbsp;
+          </template>
+          ?
         </div>
         <button class="button is-primary is-rounded my-2" @click="globalSearch()">
           Search all integrated GEMs

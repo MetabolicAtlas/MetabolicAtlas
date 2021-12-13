@@ -41,34 +41,40 @@
             <div class="tile">
               <div class="tile is-vertical is-9">
                 <div class="tile">
-                  <tile type="reaction" :data="tileComponents.reactions[0]"> </tile>
+                  <tile type="reaction" :data="tileComponents.reactions[0]"></tile>
                   <div class="tile is-vertical is-8">
-                    <tile type="subsystem" :data="tileComponents.subsystems[0]"> </tile>
+                    <tile type="subsystem" :data="tileComponents.subsystems[0]"></tile>
                     <div class="tile">
-                      <tile type="gene" size="is-6" :data="tileComponents.genes[0]"> </tile>
-                      <tile type="metabolite" size="is-6" :data="tileComponents.metabolites[0]">
-                      </tile>
+                      <tile type="gene" size="is-6" :data="tileComponents.genes[0]"></tile>
+                      <tile
+                        type="metabolite"
+                        size="is-6"
+                        :data="tileComponents.metabolites[0]"
+                      ></tile>
                     </div>
                   </div>
                 </div>
                 <div class="tile">
                   <div class="tile is-vertical is-8">
                     <div class="tile">
-                      <tile type="subsystem" :data="tileComponents.subsystems[1]"> </tile>
+                      <tile type="subsystem" :data="tileComponents.subsystems[1]"></tile>
                     </div>
                     <div class="tile">
-                      <tile type="metabolite" size="is-6" :data="tileComponents.metabolites[1]">
-                      </tile>
-                      <tile type="gene" size="is-6" :data="tileComponents.genes[1]"> </tile>
+                      <tile
+                        type="metabolite"
+                        size="is-6"
+                        :data="tileComponents.metabolites[1]"
+                      ></tile>
+                      <tile type="gene" size="is-6" :data="tileComponents.genes[1]"></tile>
                     </div>
                   </div>
                   <div class="tile is-4">
-                    <tile type="reaction" :data="tileComponents.reactions[1]"> </tile>
+                    <tile type="reaction" :data="tileComponents.reactions[1]"></tile>
                   </div>
                 </div>
               </div>
               <div class="tile is-vertical">
-                <tile type="compartment" :data="tileComponents.compartment"> </tile>
+                <tile type="compartment" :data="tileComponents.compartment"></tile>
               </div>
             </div>
           </div>

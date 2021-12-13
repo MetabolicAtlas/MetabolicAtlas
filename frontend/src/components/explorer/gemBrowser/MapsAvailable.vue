@@ -2,7 +2,8 @@
   <div class="card" title="Click on any of the links to directly load a map">
     <header class="card-header has-text-centered">
       <p class="card-header-title has-text-primary has-text-weight-bold is-size-5">
-        <span class="icon is-medium"><i class="fa fa-map-o"></i></span>&nbsp;
+        <span class="icon is-medium"><i class="fa fa-map-o"></i></span>
+        &nbsp;
         <span>{{ messages.mapViewerName }}</span>
       </p>
     </header>
@@ -17,7 +18,7 @@
                 class="button is-outlined is-small link-button"
                 @click="routeSVGmap(component.svgMaps[0].id, '2d')"
               >
-                <span class="has-text-link"> 2D </span>
+                <span class="has-text-link">2D</span>
               </button>
             </td>
             <td v-else>
@@ -35,7 +36,7 @@
                 class="button is-outlined is-small link-button"
                 @click="routeSVGmap(component.id, '3d')"
               >
-                <span class="has-text-link"> 3D </span>
+                <span class="has-text-link">3D</span>
               </button>
             </td>
           </tr>

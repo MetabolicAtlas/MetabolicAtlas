@@ -6,8 +6,10 @@
       </h3>
       <p class="my-3">
         <template v-if="externalDb.url">
-          Visit <a :href="externalDb.url" target="_blank">{{ externalDb.url }}</a> for more
-          details.<br />
+          Visit
+          <a :href="externalDb.url" target="_blank">{{ externalDb.url }}</a>
+          for more details.
+          <br />
         </template>
         This database identifier is associated with the following Metabolic Atlas
         {{ components.length === 1 ? 'component' : 'components' }}:

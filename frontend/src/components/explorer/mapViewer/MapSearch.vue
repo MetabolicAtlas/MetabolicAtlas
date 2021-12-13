@@ -24,12 +24,12 @@
       >
         {{ currentSearchMatch + 1 }} of {{ totalSearchMatch }}
       </span>
-      <span class="button has-text-dark" title="Go to previous" @click="centerViewOn(-1)"
-        ><i class="fa fa-angle-left"></i
-      ></span>
-      <span class="button has-text-dark" title="Go to next" @click="centerViewOn(1)"
-        ><i class="fa fa-angle-right"></i
-      ></span>
+      <span class="button has-text-dark" title="Go to previous" @click="centerViewOn(-1)">
+        <i class="fa fa-angle-left"></i>
+      </span>
+      <span class="button has-text-dark" title="Go to next" @click="centerViewOn(1)">
+        <i class="fa fa-angle-right"></i>
+      </span>
     </template>
     <template v-else-if="searchTerm && totalSearchMatch === 0 && haveSearched">
       <span class="has-text-white">{{ messages.searchNoResult }}</span>

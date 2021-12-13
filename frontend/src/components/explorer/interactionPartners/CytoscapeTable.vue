@@ -19,11 +19,11 @@
     <div class="columns">
       <div class="column">
         <div class="field">
-          <span class="tag"> # Reaction(s): {{ reactions.length }} </span>
+          <span class="tag"># Reaction(s): {{ reactions.length }}</span>
           &nbsp;
-          <span class="tag"> # Unique Metabolite(s): {{ metaboliteCount }} </span>
+          <span class="tag"># Unique Metabolite(s): {{ metaboliteCount }}</span>
           &nbsp;
-          <span v-show="geneCount" class="tag"> # Unique Gene(s): {{ geneCount }} </span>
+          <span v-show="geneCount" class="tag"># Unique Gene(s): {{ geneCount }}</span>
           <span v-show="isGraphVisible">
             &nbsp; Click on a
             <span class="tag is-rounded"><span class="is-size-6">label</span></span>

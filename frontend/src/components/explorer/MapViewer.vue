@@ -73,9 +73,9 @@
         <div v-if="!currentMap" class="column is-unselectable om-1 fixed-height-mobile p-0 m-0">
           <NotFound v-if="mapNotFound" type="map" :component-id="$route.params.map_id"></NotFound>
           <p v-else class="is-size-5 has-text-centered py-6 my-6">
-            <a @click="showingMapListing = true"
-              >Show the map list and choose a compartment or subsystem map</a
-            >
+            <a @click="showingMapListing = true">
+              Show the map list and choose a compartment or subsystem map
+            </a>
           </p>
         </div>
         <div
@@ -88,8 +88,7 @@
             :map-data="currentMap"
             @unSelect="unSelect"
             @updatePanelSelectionData="updatePanelSelectionData"
-          >
-          </Svgmap>
+          ></Svgmap>
           <ThreeDViewer
             v-if="!showing2D"
             :current-map="currentMap"
@@ -113,11 +112,32 @@
                   'fa-arrow-left': !dataOverlayPanelVisible,
                   'fa-arrow-right': dataOverlayPanelVisible,
                 }"
-              >
-              </i> </span
-            ><br />
-            D<br />A<br />T<br />A<br /><br />
-            O<br />V<br />E<br />R<br />L<br />A<br />Y<br />
+              ></i>
+            </span>
+            <br />
+            D
+            <br />
+            A
+            <br />
+            T
+            <br />
+            A
+            <br />
+            <br />
+            O
+            <br />
+            V
+            <br />
+            E
+            <br />
+            R
+            <br />
+            L
+            <br />
+            A
+            <br />
+            Y
+            <br />
             <span class="icon">
               <i
                 class="fa"
@@ -125,8 +145,7 @@
                   'fa-arrow-left': !dataOverlayPanelVisible,
                   'fa-arrow-right': dataOverlayPanelVisible,
                 }"
-              >
-              </i>
+              ></i>
             </span>
           </p>
         </div>

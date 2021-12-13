@@ -9,7 +9,8 @@
           {{ messages.gemBrowserName }}, {{ messages.mapViewerName }} and
           {{ messages.interPartName }}.
         </p>
-        <br /><br />
+        <br />
+        <br />
         <div id="integrated" class="columns is-multiline is-variable is-6 is-centered">
           <div
             v-for="model in integratedModels"
@@ -34,7 +35,8 @@
                 <p>
                   {{ model.full_name }}, updated {{ model.date || 'n/a' }} from
                   <a :href="model.link" target="_blank">
-                    GitHub<span class="icon"><i class="fa fa-github"></i></span>
+                    GitHub
+                    <span class="icon"><i class="fa fa-github"></i></span>
                   </a>
                 </p>
               </div>
@@ -62,10 +64,11 @@
         <p class="has-text-justified">
           While we do not provide support for these models, we are making them available to
           download. For support, the authors should be contacted. They are listed in the
-          <i>References</i> section of each model. Click on a row to display more information. To
-          download multiple models at once use the
-          <router-link :to="{ name: 'documentation', hash: '#FTP-access' }">FTP server</router-link
-          >.
+          <i>References</i>
+          section of each model. Click on a row to display more information. To download multiple
+          models at once use the
+          <router-link :to="{ name: 'documentation', hash: '#FTP-access' }">FTP server</router-link>
+          .
         </p>
         <br />
         <loader v-show="showLoader"></loader>
@@ -78,8 +81,7 @@
             style-class="vgt-table striped"
             :pagination-options="tablePaginationOpts"
             @on-row-click="t => selectModel(t.row.id)"
-          >
-          </vue-good-table>
+          ></vue-good-table>
         </div>
         <div v-else>
           <span v-if="!showLoader">No models available</span>
@@ -109,7 +111,9 @@
                   }}
                 </template>
               </h4>
-              {{ selectedModel.description }}<br /><br />
+              {{ selectedModel.description }}
+              <br />
+              <br />
               <table class="table main-table is-fullwidth m-0">
                 <tbody>
                   <tr v-for="field in model_fields" :key="field.name">
@@ -170,14 +174,16 @@
                 <h4 class="subtitle is-size-4">Files</h4>
                 <template v-for="file in selectedModel.files">
                   <a :key="file.path" class="button" :href="`/api/v2/repository/${file.path}`">
-                    {{ file.format }} </a
-                  >&nbsp;
+                    {{ file.format }}
+                  </a>
+                  &nbsp;
                 </template>
                 <div class="notification mt-4">
                   To download multiple models at once use the
-                  <router-link :to="{ name: 'documentation', hash: '#FTP-access' }"
-                    >FTP server</router-link
-                  >.
+                  <router-link :to="{ name: 'documentation', hash: '#FTP-access' }">
+                    FTP server
+                  </router-link>
+                  .
                 </div>
               </template>
             </div>

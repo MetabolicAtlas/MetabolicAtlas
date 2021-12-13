@@ -34,8 +34,9 @@
                       name: 'compartment',
                       params: { model: model.short_name, id: c.id },
                     }"
-                    >{{ c.name }}</router-link
                   >
+                    {{ c.name }}
+                  </router-link>
                 </span>
               </template>
             </div>

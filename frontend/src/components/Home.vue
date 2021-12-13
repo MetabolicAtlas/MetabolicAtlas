@@ -54,8 +54,9 @@
           <div class="columns is-variable is-8 pt-3">
             <div class="column is-6 is-size-5">
               <p>
-                The main versions of <b>Metabolic Atlas</b> are associated with scientific articles
-                as follows.
+                The main versions of
+                <b>Metabolic Atlas</b>
+                are associated with scientific articles as follows.
               </p>
               <br />
               <div class="box">
@@ -63,10 +64,11 @@
                   From version 2.0:
                   <a href="https://doi.org/10.1073/pnas.2102344118" target="_blank">
                     Wang, H., et al, 2021.
-                    <i
-                      >Genome-scale metabolic network reconstruction of model animals as a platform
-                      for translational research</i
-                    >. PNAS 118, e2102344118
+                    <i>
+                      Genome-scale metabolic network reconstruction of model animals as a platform
+                      for translational research
+                    </i>
+                    . PNAS 118, e2102344118
                   </a>
                 </p>
               </div>
@@ -75,7 +77,8 @@
                   From version 1.0:
                   <a href="https://doi.org/10.1126/scisignal.aaz1482" target="_blank">
                     Robinson, J., et al, 2020.
-                    <i>An atlas of human metabolism</i>. Sci. Signal. 13, eaaz1482
+                    <i>An atlas of human metabolism</i>
+                    . Sci. Signal. 13, eaaz1482
                   </a>
                 </p>
               </div>

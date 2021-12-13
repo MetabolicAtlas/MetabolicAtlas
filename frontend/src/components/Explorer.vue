@@ -32,9 +32,9 @@
               class="title is-5"
               :class="cmodel.short_name === model.short_name ? 'has-text-primary' : ''"
             >
-              <span v-if="cmodel.short_name === model.short_name" class="icon"
-                ><i class="fa fa-check-square-o"></i
-              ></span>
+              <span v-if="cmodel.short_name === model.short_name" class="icon">
+                <i class="fa fa-check-square-o"></i>
+              </span>
               <span v-else><i class="fa fa-square-o">&nbsp;</i></span>
               &nbsp;{{ cmodel.short_name }} {{ cmodel.version }}
             </p>
@@ -48,7 +48,9 @@
           </div>
         </div>
       </div>
-      <br /><br /><br />
+      <br />
+      <br />
+      <br />
       <div class="columns">
         <div class="column has-text-centered">
           <p class="has-text-weight-bold is-size-5">2. Select a tool:</p>

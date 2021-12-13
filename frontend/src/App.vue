@@ -64,8 +64,7 @@
                     :to="{ name: menuElem.routeName }"
                     @click.native="isMobileMenu = false"
                     v-html="menuElem.displayName"
-                  >
-                  </router-link>
+                  ></router-link>
                 </template>
                 <template v-else>
                   <template>
@@ -90,7 +89,8 @@
                             class="navbar-item is-unselectable has-background-primary-lighter"
                             :to="{ name: subMenuElem.routeName }"
                             @click.native="isMobileMenu = false"
-                            >{{ subMenuElem.displayName }}
+                          >
+                            {{ subMenuElem.displayName }}
                           </router-link>
                         </template>
                       </div>
@@ -160,8 +160,9 @@
             class="has-text-white has-text-weight-bold"
             :to="{ name: 'about', hash: '#privacy' }"
           >
-            Privacy Notice and Terms of Use </router-link
-          >&emsp;
+            Privacy Notice and Terms of Use
+          </router-link>
+          &emsp;
           <p
             class="button is-small is-rounded has-background-danger has-text-white has-text-weight-bold"
             @click="
