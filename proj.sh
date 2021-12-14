@@ -1,6 +1,7 @@
 # To make sure docker-compose is in the path
 export PATH=$PATH:/usr/local/bin
-export CHOSEN_ENV="env-local.env"
+LOCALENV="local"
+METATLAS_DEFAULT_ENV="env-${LOCALENV}.env"
 
 function generate-data {
   # enable flag "-q" to force overwritting existing data files
@@ -41,10 +42,10 @@ function logs {
 }
 
 function deploy-stack {
-  CHOSEN_ENV="env-${1:=local}.env"
+  CHOSEN_ENV="env-${1:-$LOCALENV}.env"
   generate-data
   docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-remote.yml --project-name metabolicatlas up --detach --build --force-recreate --remove-orphans --renew-anon-volumes
-  CHOSEN_ENV="env-local.env"
+  CHOSEN_ENV=$METATLAS_DEFAULT_ENV
 }
 
 function import-db {
