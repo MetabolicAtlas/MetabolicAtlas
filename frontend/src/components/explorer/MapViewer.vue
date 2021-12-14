@@ -163,7 +163,7 @@ export default {
       if (this.avail2D) {
         return `Switch to ${this.dimensionalState(!this.showing2D)}`;
       }
-      return 'This model only has 3D maps available';
+      return 'This model has only 3D maps available';
     },
   },
   watch: {
