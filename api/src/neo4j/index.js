@@ -5,15 +5,9 @@ import {
   getGeneDetailsForHPA,
   getGeneCount,
 } from 'neo4j/queries/gene';
-import {
-    getReaction,
-    getReactionCount,
-} from 'neo4j/queries/reaction';
+import { getReaction, getReactionCount } from 'neo4j/queries/reaction';
 import getSubsystem from 'neo4j/queries/subsystem';
-import {
-    getMetabolite,
-    getMetaboliteCount,
-}from 'neo4j/queries/metabolite';
+import { getMetabolite, getMetaboliteCount } from 'neo4j/queries/metabolite';
 import { search } from 'neo4j/queries/search';
 import {
   getRelatedReactionsForReaction,

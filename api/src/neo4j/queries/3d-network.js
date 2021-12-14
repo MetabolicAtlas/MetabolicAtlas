@@ -6,19 +6,17 @@ const get3dNetwork = async ({ model, version, type, id }) => {
   const [m, v] = parseParams(model, version);
 
   // compartment fragment
-  const cf = type === 'compartment'
-    ? `(:Compartment {id: "${id}"})-[${v}]-(:CompartmentalizedMetabolite)-[${v}]-`
-    : '';
+  const cf =
+    type === 'compartment'
+      ? `(:Compartment {id: "${id}"})-[${v}]-(:CompartmentalizedMetabolite)-[${v}]-`
+      : '';
 
   // compartment fragment at end
-  const cfe = type === 'compartment'
-    ? `-[${v}]-(:Compartment {id: "${id}"})`
-    : '';
+  const cfe =
+    type === 'compartment' ? `-[${v}]-(:Compartment {id: "${id}"})` : '';
 
   // subsystem fragment
-  const sf = type === 'subsystem'
-    ? `(s:Subsystem {id: "${id}"})-[${v}]-`
-    : '';
+  const sf = type === 'subsystem' ? `(s:Subsystem {id: "${id}"})-[${v}]-` : '';
 
   const f = `${cf}${sf}`;
 

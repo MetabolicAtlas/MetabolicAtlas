@@ -3,21 +3,27 @@ import fs from 'fs';
 import getSvgThumbnail from 'utils/2d-map';
 import models from 'data/integratedModels.json';
 
-const VALID_MODELS = models.map((m) => m.short_name);
+const VALID_MODELS = models.map(m => m.short_name);
 
 const routes = express.Router();
 
 function getDimension(dimensionString) {
   const minDim = 100;
   const maxDim = 600;
-  if(dimensionString){
+  if (dimensionString) {
     var myDimension = parseInt(dimensionString) || null;
-    if (!/^\d+$/.test(dimensionString) || myDimension < minDim || myDimension > maxDim) {
-      throw new Error(`Invalid dimension provided: ${dimensionString}. The width and/or height parameters should be an integer between ${minDim} and ${maxDim}.`);
+    if (
+      !/^\d+$/.test(dimensionString) ||
+      myDimension < minDim ||
+      myDimension > maxDim
+    ) {
+      throw new Error(
+        `Invalid dimension provided: ${dimensionString}. The width and/or height parameters should be an integer between ${minDim} and ${maxDim}.`
+      );
     }
   }
   return myDimension || null;
-};
+}
 
 routes.get('/:svgName', async (req, res) => {
   const { svgName } = req.params;
@@ -35,8 +41,8 @@ routes.get('/:svgName', async (req, res) => {
       height: getDimension(height),
       fit: 'cover',
     };
-    const svgThumbnail = await getSvgThumbnail(svgName, resizeParams, model)
-    res.type('png')
+    const svgThumbnail = await getSvgThumbnail(svgName, resizeParams, model);
+    res.type('png');
     res.send(svgThumbnail);
   } catch (e) {
     if (e.message === '404') {

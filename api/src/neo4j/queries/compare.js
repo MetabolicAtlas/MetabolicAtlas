@@ -47,11 +47,16 @@ RETURN { ${ma.model}: COUNT(DISTINCT(a)), ${mb.model}: COUNT(DISTINCT(b)), ${mc.
   ];
 
   const results = await Promise.all(promises);
-  const filteredResults = results.flat() // remove duplicates
-    .filter((v, i, a) => a.findIndex(r => JSON.stringify(r) === JSON.stringify(v)) === i);;
+  const filteredResults = results
+    .flat() // remove duplicates
+    .filter(
+      (v, i, a) =>
+        a.findIndex(r => JSON.stringify(r) === JSON.stringify(v)) === i
+    );
 
-  return filteredResults.sort((a, b) => Object.keys(a).length - Object.keys(b).length);
-  ;
+  return filteredResults.sort(
+    (a, b) => Object.keys(a).length - Object.keys(b).length
+  );
 };
 
 const compareFour = async ({ type, models }) => {
@@ -76,17 +81,25 @@ RETURN { ${ma.model}: COUNT(DISTINCT(a)), ${mb.model}: COUNT(DISTINCT(b)), ${mc.
   ];
 
   const results = await Promise.all(promises);
-  const filteredResults = results.flat() // remove duplicates
-    .filter((v, i, a) => a.findIndex(r => JSON.stringify(r) === JSON.stringify(v)) === i);;
+  const filteredResults = results
+    .flat() // remove duplicates
+    .filter(
+      (v, i, a) =>
+        a.findIndex(r => JSON.stringify(r) === JSON.stringify(v)) === i
+    );
 
-  return filteredResults.sort((a, b) => Object.keys(a).length - Object.keys(b).length);
+  return filteredResults.sort(
+    (a, b) => Object.keys(a).length - Object.keys(b).length
+  );
 };
 
 const compareOverview = async ({ models, type }) => {
   const max = type === 'CompartmentalizedMetabolite' ? 3 : 4;
 
   if (models.length < 2 || models.length > max) {
-    throw new Error(`At least 2 and at most ${max} models need to be provided for ${type}.`);
+    throw new Error(
+      `At least 2 and at most ${max} models need to be provided for ${type}.`
+    );
   }
 
   const payload = { type, models };
@@ -98,11 +111,11 @@ const compareOverview = async ({ models, type }) => {
   if (models.length === 3) {
     return await compareThree(payload);
   }
-  
+
   return compareFour(payload);
 };
 
-const compareDetails = async({ model, models, type }) => {
+const compareDetails = async ({ model, models, type }) => {
   // models can be of length 1 or 2
   const [ma, mb, mc] = [model, ...models];
 
@@ -147,20 +160,22 @@ RETURN { unique: COLLECT(DISTINCT(a.id)) }
   ];
 
   const results = await Promise.all(promises);
-  return results.reduce((obj, x) => ({ ...obj, ...x }), {})
+  return results.reduce((obj, x) => ({ ...obj, ...x }), {});
 };
 
-const getComparisonOverview = async({ models }) => {
-  const results = await Promise.all(COMPONENT_TYPES.map(async type => ({
-    [type]: await compareOverview({ models, type })
-  })));
+const getComparisonOverview = async ({ models }) => {
+  const results = await Promise.all(
+    COMPONENT_TYPES.map(async type => ({
+      [type]: await compareOverview({ models, type }),
+    }))
+  );
 
   return results.reduce((obj, x) => ({ ...obj, ...x }), {});
 };
 
-const getComparisonDetails = async({ model, models }) => {
+const getComparisonDetails = async ({ model, models }) => {
   const promises = COMPONENT_TYPES.map(async type => ({
-    [type]: await compareDetails({ model, models, type })
+    [type]: await compareDetails({ model, models, type }),
   }));
   const results = await Promise.all(promises);
 
