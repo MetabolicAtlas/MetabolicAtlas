@@ -44,6 +44,7 @@ function deploy-stack {
   CHOSEN_ENV="env-${1:=local}.env"
   generate-data
   docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-remote.yml --project-name metabolicatlas up --detach --build --force-recreate --remove-orphans --renew-anon-volumes
+  CHOSEN_ENV="env-local.env"
 }
 
 function import-db {
