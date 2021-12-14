@@ -7,7 +7,9 @@
   "scripts": {
     "start": "webpack && node ./dist/bundle.js",
     "develop": "webpack --watch",
-    "lint": "eslint ./src --fix"
+    "lint": "eslint src --ext .js,.vue",
+    "check-format": "prettier -l src",
+    "format": "prettier -w src"
   },
   "dependencies": {
     "@babel/runtime": "^7.14.6",
@@ -27,9 +29,11 @@
     "css-loader": "^3.6.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.20.2",
     "file-loader": "^6.0.0",
     "nodemon-webpack-plugin": "^4.3.2",
+    "prettier": "^2.5.1",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
     "webpack-node-externals": "^1.7.0",
