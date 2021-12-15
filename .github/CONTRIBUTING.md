@@ -48,7 +48,7 @@ Prettier relies on the `.prettierrc.json` file, which is provided by default in 
 
 ##### eslint
 
-To enable the `eslint` integrations, the text editor needs to have access to the `node_modules` folder. Since the project runs in docker, the `node_modules` are not mounted to the local file system by default for performance reasons. Therefore, to enable text editor integrations, the `node_modules` folder needs to be mounted, which can be done by making the following changes (this is for `frontend`, but it can also be added to `api` for the same effect) in `docker-compose-local.yml`.
+To enable the `eslint` integrations, the text editor needs to have access to the `node_modules` folder. Since the project runs in Docker, the `node_modules` are not mounted to the local file system by default for performance reasons. Therefore, to enable text editor integrations, the `node_modules` folder needs to be mounted, which can be done by making the following changes (this is for `/frontend`, but it can also be added to `/api` for the same effect) in `docker-compose-local.yml`.
 
 Under `frontend:`:
 
