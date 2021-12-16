@@ -129,7 +129,7 @@
           <div class="columns ml-0">
             <div class="column pl-0 is-8 content">
               <p>The <i>Data overlay</i> panel is by default hidden in the <i>Map Viewer</i>. By clicking the <i>Data overlay</i> button on the right side of the page, one can toggle the hidden/display of this panel. On the <i>Data overlay</i> panel, gene expression levels for genes from <a href="https://www.proteinatlas.org/about/releases#18" target="_blank">The Human Protein Atlas v18</a> can be loaded by selecting one of the tissues in the drop down list. Once selected, the RNA levels corresponding to the chosen tissue will be used to color each gene on the respective map, according to the color legend (an example of the color legend is shown <b>Figure 1</b>). To clear the RNA levels, select the <i>None</i> option in the drop down list. RNA levels are available for both 2D and 3D Map Viewer. The data is obtained from version 18 of the Protein Atlas with the units in log<sub>2</sub>(TPM+1) associated with a gradient colorbar.</p>
-              <p>The <i>Data overlay</i> sidebar allows uploading of the custom data in <a target="_blank" href="https://en.wikipedia.org/wiki/Tab-separated_values">TSV format</a>. If the file is parsed correctly, the file name will be highlighted in green; in case errors are detected, it will be highlighted in red. The expected custom data file should contain at least two columns with headers and using tab delimiter. The first column has to contain gene IDs, identical to the ones in the model. Any missing genes or missing values will be assigned an "n/a" value and highlighted in gray. The rest of the columns act as data series, with each column being a new data serie, as shown in the example to the right (<b>Figure 2</b>). The headers of these data series will be shown automatically in the dropdown options for the uploaded data. The values are expected in TPM.</p>
+              <p>The <i>Data overlay</i> sidebar allows uploading of the custom data in <a target="_blank" href="https://en.wikipedia.org/wiki/Tab-separated_values">TSV format</a>. If the file is parsed correctly, the file name will be highlighted in green; in case errors are detected, it will be highlighted in red. The expected custom data file should contain at least two columns with headers and using tab delimiter. The first column has to contain gene IDs, identical to the ones in the model. The header of the first column should be named as <b>id</b> as shown in the example to the right (<b>Figure 2</b>). Any missing genes or missing values will be assigned an "n/a" value and highlighted in gray. The rest of the columns act as data series, with each column being a new data serie (see <b>Figure 2</b>). Note that the values of data series must be in the range of 0-1. Detailed information about the format of the custom data as well as why the data should be in the rage of 0-1 can be found <a target="_blank" href="https://github.com/MetabolicAtlas/data-files/blob/main/DATA_OVERLAY.md#data-source-file-requirements">here</a>. The headers of these data series will be shown automatically in the dropdown options for the uploaded data. The values are expected in TPM.</p>
             </div>
             <div class="column">
               <RNALegend></RNALegend>
@@ -137,10 +137,10 @@
 
               <br>
               <blockquote>
-                geneID&emsp;heart&emsp;liver<br>
-                ENSG00000177666&emsp;42&emsp;8701<br>
-                ENSG00000175535&emsp;572<br>
-                ENSG00000187021&emsp;3498&emsp;1768
+                id&emsp;heart&emsp;liver<br>
+                ENSG00000177666&emsp;0.484&emsp;0.349<br>
+                ENSG00000175535&emsp;0.564&emsp;0<br>
+                ENSG00000187021&emsp;0.114&emsp;0
               </blockquote>
               <p style="font-size:80%"><b>Figure 2: Example file for custom data to be uploaded in Data overlay</b></p>
             </div>
