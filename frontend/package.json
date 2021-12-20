@@ -8,19 +8,22 @@
   "scripts": {
     "serve": "vue-cli-service serve --mode local",
     "build": "vue-cli-service build --mode production",
-    "lint": "vue-cli-service lint"
+    "lint": "eslint src --ext .js,.vue",
+    "check-format": "prettier -l src",
+    "format": "prettier -w src"
   },
   "dependencies": {
-    "nprogress": "0.2.0",
+    "@metabolicatlas/3d-network-viewer": "^0.1.18",
+    "@panzoom/panzoom": "^4.3.2",
     "axios": "^0.21.1",
     "bulma": "^0.9.0",
     "bulma-timeline": "^3.0.4",
     "cytoscape": "3.2.9",
     "cytoscape-cola": "2.3.0",
+    "eslint-config-prettier": "^8.3.0",
     "file-saver": "^2.0.2",
     "jquery": "3.3.1",
-    "@metabolicatlas/3d-network-viewer": "^0.1.18",
-    "@panzoom/panzoom": "^4.3.2",
+    "nprogress": "0.2.0",
     "vue": "^2.6.10",
     "vue-color": "2.0.9",
     "vue-cookie": "^1.1.4",
@@ -40,8 +43,9 @@
     "babel-eslint": "^10.0.1",
     "compression-webpack-plugin": "^3.0.0",
     "eslint": "^5.16.0",
-    "eslint-plugin-vue": "^5.0.0",
+    "eslint-plugin-vue": "^8.2.0",
     "node-sass": "^4.9.0",
+    "prettier": "^2.5.1",
     "sass-loader": "^7.1.0",
     "vue-cli-plugin-webpack-bundle-analyzer": "^1.4.0",
     "vue-template-compiler": "^2.6.10"

@@ -1,0 +1,30 @@
+name: "Prettier"
+
+on:
+  pull_request:
+    branches: [develop]
+
+jobs:
+
+  check_syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+
+      - name: Install Node.js dependencies
+        working-directory: frontend
+        run: |
+          npm install -g yarn
+          yarn install --frozen-lockfile
+
+      - name: Check formatting
+        working-directory: ./frontend
+        run: yarn run check-format
+
+      - name: Linting
+        working-directory: ./frontend
+        run: yarn run lint

@@ -1,27 +1,38 @@
 <template>
   <div class="canvasOption overlay p-2">
     <span class="button" title="Zoom in" @click="zoomIn()"><i class="fa fa-search-plus"></i></span>
-    <span class="button" title="Zoom out" @click="zoomOut()"><i class="fa fa-search-minus"></i></span>
+    <span class="button" title="Zoom out" @click="zoomOut()">
+      <i class="fa fa-search-minus"></i>
+    </span>
     <span class="button p-2" title="Show/Hide genes" @click="toggleGenes()">
       <i class="fa fa-eye-slash">&thinsp;G</i>
     </span>
     <span v-if="toggleLabels" class="button p-2" title="Show/Hide labels" @click="toggleLabels()">
       <i class="fa fa-eye-slash">&thinsp;L</i>
     </span>
-    <span v-if="toggleSubsystems"
-          class="button p-2"
-          title="Show/Hide subsystem"
-          @click="toggleSubsystems()">
+    <span
+      v-if="toggleSubsystems"
+      class="button p-2"
+      title="Show/Hide subsystem"
+      @click="toggleSubsystems()"
+    >
       <i class="fa fa-eye-slash">&thinsp;S</i>
     </span>
-    <span v-if="toggleBackgroundColor" class="button" title="Toggle background color"
-          @click="toggleBackgroundColor()">
+    <span
+      v-if="toggleBackgroundColor"
+      class="button"
+      title="Toggle background color"
+      @click="toggleBackgroundColor()"
+    >
       <i class="fa fa-adjust"></i>
     </span>
-    <span class="button" title="Toggle fullscreen"
-          :disabled="isFullscreenDisabled"
-          @click="handleToggleFullScreen()">
-      <i class="fa" :class="{ 'fa-compress': isFullscreen, 'fa-arrows-alt': !isFullscreen}"></i>
+    <span
+      class="button"
+      title="Toggle fullscreen"
+      :disabled="isFullscreenDisabled"
+      @click="handleToggleFullScreen()"
+    >
+      <i class="fa" :class="{ 'fa-compress': isFullscreen, 'fa-arrows-alt': !isFullscreen }"></i>
     </span>
     <span v-if="downloadCanvas" class="button" title="Download as SVG" @click="downloadCanvas()">
       <i class="fa fa-download"></i>
@@ -30,7 +41,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'MapControls',
   props: {
@@ -73,10 +83,12 @@ export default {
   },
   computed: {
     isFullscreenDisabled() {
-      if ((document.fullScreenElement !== undefined && document.fullScreenElement === null)
-        || (document.msFullscreenElement !== undefined && document.msFullscreenElement === null)
-        || (document.mozFullScreen !== undefined && !document.mozFullScreen)
-        || (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)) {
+      if (
+        (document.fullScreenElement !== undefined && document.fullScreenElement === null) ||
+        (document.msFullscreenElement !== undefined && document.msFullscreenElement === null) ||
+        (document.mozFullScreen !== undefined && !document.mozFullScreen) ||
+        (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)
+      ) {
         return false;
       }
       return true;
@@ -89,10 +101,12 @@ export default {
       }
 
       const elem = document.querySelector(this.wrapperElemSelector);
-      if ((document.fullScreenElement !== undefined && document.fullScreenElement === null)
-        || (document.msFullscreenElement !== undefined && document.msFullscreenElement === null)
-        || (document.mozFullScreen !== undefined && !document.mozFullScreen)
-        || (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)) {
+      if (
+        (document.fullScreenElement !== undefined && document.fullScreenElement === null) ||
+        (document.msFullscreenElement !== undefined && document.msFullscreenElement === null) ||
+        (document.mozFullScreen !== undefined && !document.mozFullScreen) ||
+        (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)
+      ) {
         if (elem.requestFullScreen) {
           elem.requestFullScreen();
         } else if (elem.mozRequestFullScreen) {
@@ -115,7 +129,6 @@ export default {
     },
   },
 };
-
 </script>
 
 <style lang="scss"></style>

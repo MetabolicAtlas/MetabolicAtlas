@@ -3,34 +3,40 @@
     <div class="svgbox p-0 m-0">
       <div v-if="errorMessage" class="columns is-centered">
         <div class="column is-half has-text-centered">
-          <p class="notification has-background-danger-light" style="margin-top: 30%;" v-html="errorMessage"></p>
+          <p
+            class="notification has-background-danger-light"
+            style="margin-top: 30%"
+            v-html="errorMessage"
+          ></p>
         </div>
       </div>
       <MapLoader />
-      <div id="svg-wrapper" v-html="svgContent">
-      </div>
+      <div id="svg-wrapper" v-html="svgContent"></div>
       <div id="tooltip" ref="tooltip"></div>
     </div>
 
-    <MapControls wrapper-elem-selector=".viewer-container"
-                 :is-fullscreen="isFullscreen"
-                 :zoom-in="zoomIn"
-                 :zoom-out="zoomOut"
-                 :toggle-full-screen="toggleFullscreen"
-                 :toggle-genes="toggleGenes"
-                 :toggle-subsystems="toggleSubsystems"
-                 :download-canvas="downloadCanvas" />
-    <MapSearch ref="mapsearch"
-               :matches="searchedNodesOnMap"
-               :fullscreen="isFullscreen"
-               @searchOnMap="searchIDsOnMap"
-               @centerViewOn="centerElementOnSVG"
-               @unHighlightAll="unHighlight" />
+    <MapControls
+      wrapper-elem-selector=".viewer-container"
+      :is-fullscreen="isFullscreen"
+      :zoom-in="zoomIn"
+      :zoom-out="zoomOut"
+      :toggle-full-screen="toggleFullscreen"
+      :toggle-genes="toggleGenes"
+      :toggle-subsystems="toggleSubsystems"
+      :download-canvas="downloadCanvas"
+    />
+    <MapSearch
+      ref="mapsearch"
+      :matches="searchedNodesOnMap"
+      :fullscreen="isFullscreen"
+      @searchOnMap="searchIDsOnMap"
+      @centerViewOn="centerElementOnSVG"
+      @unHighlightAll="unHighlight"
+    />
   </div>
 </template>
 
 <script>
-
 import { mapGetters, mapState } from 'vuex';
 import $ from 'jquery';
 import Panzoom from '@panzoom/panzoom';
@@ -123,7 +129,7 @@ export default {
   },
   async mounted() {
     const self = this;
-    ['.met', '.enz', '.rea', '.subsystem'].forEach((aClass) => {
+    ['.met', '.enz', '.rea', '.subsystem'].forEach(aClass => {
       $('#svg-wrapper').on('click', aClass, async function f() {
         await self.selectElement($(this));
       });
@@ -137,19 +143,22 @@ export default {
       } else {
         return;
       }
-      self.$refs.tooltip.style.top = `${(e.pageY - $('.svgbox').first().offset().top) + 15}px`;
-      self.$refs.tooltip.style.left = `${(e.pageX - $('.svgbox').first().offset().left) + 15}px`;
+      self.$refs.tooltip.style.top = `${e.pageY - $('.svgbox').first().offset().top + 15}px`;
+      self.$refs.tooltip.style.left = `${e.pageX - $('.svgbox').first().offset().left + 15}px`;
       self.$refs.tooltip.style.display = 'block';
     });
     $('#svg-wrapper').on('mouseout', `.${self.componentClassName}`, () => {
       self.$refs.tooltip.innerHTML = '';
       self.$refs.tooltip.style.display = 'none';
     });
-    $('.svgbox').on('webkitfullscreenchange mozfullscreenchange fullscreenchange mozFullScreen MSFullscreenChange', (e) => {
-      $('.svgbox').first().toggleClass('fullscreen');
-      self.isFullscreen = $('.svgbox').first().hasClass('fullscreen');
-      e.stopPropagation();
-    });
+    $('.svgbox').on(
+      'webkitfullscreenchange mozfullscreenchange fullscreenchange mozFullScreen MSFullscreenChange',
+      e => {
+        $('.svgbox').first().toggleClass('fullscreen');
+        self.isFullscreen = $('.svgbox').first().hasClass('fullscreen');
+        e.stopPropagation();
+      }
+    );
     await this.init();
   },
   methods: {
@@ -168,7 +177,7 @@ export default {
       this.bindKeyboardShortcuts();
     },
     bindKeyboardShortcuts() {
-      document.addEventListener('keydown', (event) => {
+      document.addEventListener('keydown', event => {
         const key = event.key || event.keyCode;
         const panDistance = 10;
         switch (key) {
@@ -215,9 +224,7 @@ export default {
       this.isFullscreen = !this.isFullscreen;
     },
     zoomToValue(v) {
-      if (v >= this.panzoomOptions.minScale
-        && v <= this.panzoomOptions.maxScale
-      ) {
+      if (v >= this.panzoomOptions.minScale && v <= this.panzoomOptions.maxScale) {
         this.panzoom.zoomToPoint(v, {
           clientX: this.clientFocusX(),
           clientY: this.clientFocusY(),
@@ -278,7 +285,7 @@ export default {
 
         // bind event listeners
         panzoomElem.addEventListener('panzoomchange', this.updateURLCoord);
-        panzoomElem.addEventListener('panzoomzoom', (e) => {
+        panzoomElem.addEventListener('panzoomzoom', e => {
           this.currentZoomScale = e.detail.scale;
         });
 
@@ -333,14 +340,14 @@ export default {
     },
     applyLevelsOnMap() {
       if (Object.keys(this.computedLevels).length === 0) {
-        Object.values(DATA_TYPES_COMPONENTS).forEach((dataType) => {
+        Object.values(DATA_TYPES_COMPONENTS).forEach(dataType => {
           $(`#svg-wrapper .${dataType.className} .shape`).attr('fill', dataType.defaultColor);
         });
 
         return;
       }
       const allComponents = $(`#svg-wrapper .${this.componentClassName}`);
-      Object.values(allComponents).forEach((node) => {
+      Object.values(allComponents).forEach(node => {
         try {
           const ID = node.classList[1];
           if (this.computedLevels[ID] !== undefined) {
@@ -355,8 +362,9 @@ export default {
       });
 
       // update cached selected elements
-      Object.keys(this.selectedItemHistory).filter(id => this.computedLevels[id] !== undefined)
-        .forEach((ID) => {
+      Object.keys(this.selectedItemHistory)
+        .filter(id => this.computedLevels[id] !== undefined)
+        .forEach(ID => {
           this.selectedItemHistory[ID].rnaLvl = this.computedLevels[ID];
         });
     },
@@ -384,7 +392,8 @@ export default {
         }
         const metEnzSelector = `#svg-wrapper .met[class*=" ${id} "], #svg-wrapper .enz[class*=" ${id} "]`;
         if ($(metEnzSelector).length) {
-          $(metEnzSelector).each((k, v) => { // eslint-disable-line no-unused-vars
+          // eslint-disable-next-line no-unused-vars
+          $(metEnzSelector).each((k, v) => {
             elmsOnMap.push($(v));
           });
         }
@@ -402,7 +411,9 @@ export default {
       }
 
       // eslint-disable-next-line max-len
-      const coords = this.getSvgElemCoordinates(element) || this.getSvgElemCoordinates($(element).find('.shape')[0]);
+      const coords =
+        this.getSvgElemCoordinates(element) ||
+        this.getSvgElemCoordinates($(element).find('.shape')[0]);
       if (!coords) {
         return;
       }
@@ -422,14 +433,17 @@ export default {
     },
     highlight(nodes, className) {
       const elmsSelected = [];
-      for (const el of nodes) { // eslint-disable-line no-restricted-syntax
-        if (!el.is('text')) { // do not HL subsystem texts
+      // eslint-disable-next-line no-restricted-syntax
+      for (const el of nodes) {
+        if (!el.is('text')) {
+          // do not HL subsystem texts
           $(el).addClass(className);
           elmsSelected.push(el);
           if (el.hasClass('rea') && className === 'selhl') {
             const selectors = `#svg-wrapper .met.${el.attr('id')}`;
             const elms = $(selectors);
-            for (const con of elms) { // eslint-disable-line no-restricted-syntax
+            // eslint-disable-next-line no-restricted-syntax
+            for (const con of elms) {
               $(con).addClass(className);
               elmsSelected.push(con);
             }
@@ -438,7 +452,8 @@ export default {
       }
       return elmsSelected;
     },
-    unHighlight(elements, className) { // un-highlight elements
+    unHighlight(elements, className) {
+      // un-highlight elements
       if (elements.length !== 0) {
         for (let i = 0; i < elements.length; i += 1) {
           $(elements[i]).removeClass(className);
@@ -448,9 +463,11 @@ export default {
     getElementIdAndType(element) {
       if (element.hasClass('rea')) {
         return [element.attr('id'), 'reaction'];
-      } if (element.hasClass('enz')) {
+      }
+      if (element.hasClass('enz')) {
         return [element.attr('class').split(' ')[1], 'gene'];
-      } if (element.hasClass('met')) {
+      }
+      if (element.hasClass('met')) {
         return [element.attr('class').split(' ')[1], 'metabolite'];
       }
       return [element.attr('id'), 'subsystem'];
@@ -525,17 +542,17 @@ export default {
       }
 
       const sidebar = document.querySelector('#mapSidebar');
-      return (svgBox.offsetWidth / 2) + sidebar.offsetWidth;
+      return svgBox.offsetWidth / 2 + sidebar.offsetWidth;
     },
     clientFocusY() {
       const svgBox = document.querySelector('.svgbox');
       const navbar = document.querySelector('#navbar');
-      return (svgBox.offsetHeight / 2) + navbar.offsetHeight;
+      return svgBox.offsetHeight / 2 + navbar.offsetHeight;
     },
     panToCoords({ panX, panY, zoom, center }) {
       this.panzoom.zoom(zoom);
       if (center) {
-        this.panzoom.pan(panX + ($('.svgbox').width() / 2), panY + ($('.svgbox').height() / 2));
+        this.panzoom.pan(panX + $('.svgbox').width() / 2, panY + $('.svgbox').height() / 2);
       } else {
         this.panzoom.pan(panX, panY);
       }
@@ -546,7 +563,6 @@ export default {
 </script>
 
 <style lang="scss">
-
 .viewer-container {
   width: 100%;
   height: 100%;
@@ -555,8 +571,11 @@ export default {
   }
 }
 
-.met, .rea, .enz {
-  .shape, .lbl {
+.met,
+.rea,
+.enz {
+  .shape,
+  .lbl {
     cursor: pointer;
   }
   &:hover {
@@ -573,7 +592,7 @@ export default {
 .svgbox {
   position: relative;
   width: 100%;
-  height:100%;
+  height: 100%;
   &.fullscreen {
     background: white;
   }

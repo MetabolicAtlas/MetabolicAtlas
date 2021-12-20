@@ -4,15 +4,18 @@
       <div v-if="modelNotFound || componentNotFound" class="columns is-centered">
         <NotFound
           :type="modelNotFound ? 'model' : componentType"
-          :component-id="modelNotFound ? $route.params.model : componentId" />
+          :component-id="modelNotFound ? $route.params.model : componentId"
+        />
       </div>
       <div v-else>
         <div class="columns">
           <div class="column">
             <h3 class="title is-3">
-              <span class="is-capitalized">{{ componentType }}</span> {{ componentName }}
+              <span class="is-capitalized">{{ componentType }}</span>
+              {{ componentName }}
               <span v-if="compartmentName" class="has-text-weight-light has-text-grey-light">
-                in {{ compartmentName }} </span>
+                in {{ compartmentName }}
+              </span>
             </h3>
           </div>
         </div>
@@ -22,37 +25,58 @@
             <div class="table-container">
               <slot name="table" />
             </div>
-            <ExtIdTable v-if="externalDbs" :type="componentType" :external-dbs="externalDbs"></ExtIdTable>
-            <p v-if="model && !externalDbs">The
-              <a :href="`/api/v2/${model.apiVersion}/compartments/${componentId}?full=true`"
-                 target="_blank">complete list in JSON format</a>
+            <ExtIdTable
+              v-if="externalDbs"
+              :type="componentType"
+              :external-dbs="externalDbs"
+            ></ExtIdTable>
+            <p v-if="model && !externalDbs">
+              The
+              <a
+                :href="`/api/v2/${model.apiVersion}/compartments/${componentId}?full=true`"
+                target="_blank"
+              >
+                complete list in JSON format
+              </a>
               of reactions / metabolites / genes is available using our
-              <a href="/api/v2" target="_blank">API</a></p>
+              <a href="/api/v2" target="_blank">API</a>
+            </p>
           </div>
           <slot v-if="isMetabolite" name="chebi" />
           <div class="column is-3-widescreen is-4-desktop is-6-tablet has-text-centered">
-            <router-link v-if="interactionPartner" class="button is-info is-fullwidth is-outlined"
-                         :to="{
-                           name: 'interaction',
-                           params: { model: model.short_name, id: componentId }
-                         }">
-              <span class="icon"><i class="fa fa-connectdevelop fa-lg"></i></span>&nbsp;
+            <router-link
+              v-if="interactionPartner"
+              class="button is-info is-fullwidth is-outlined"
+              :to="{
+                name: 'interaction',
+                params: { model: model.short_name, id: componentId },
+              }"
+            >
+              <span class="icon"><i class="fa fa-connectdevelop fa-lg"></i></span>
+              &nbsp;
               <span>{{ messages.interPartName }}</span>
             </router-link>
-            <br>
-            <maps-available :id="componentId" :type="componentType"
-                            :viewer-selected-i-d="viewerSelectedID"></maps-available>
+            <br />
+            <maps-available
+              :id="componentId"
+              :type="componentType"
+              :viewer-selected-i-d="viewerSelectedID"
+            ></maps-available>
             <gem-contact :id="componentId" :type="componentType" />
           </div>
         </div>
         <references v-if="referenceList && !showLoaderMessage" :reference-list="referenceList" />
-        <reaction-table v-if="model && includeReactionTable" :source-name="componentId" :type="componentType"
-                        :selected-elm-id="selectedElmId ? componentId : null" :related-met-count="relatedMetCount" />
+        <reaction-table
+          v-if="model && includeReactionTable"
+          :source-name="componentId"
+          :type="componentType"
+          :selected-elm-id="selectedElmId ? componentId : null"
+          :related-met-count="relatedMetCount"
+        />
       </div>
     </div>
   </div>
 </template>
-
 
 <script>
 import { mapState } from 'vuex';
@@ -108,7 +132,10 @@ export default {
   },
   async created() {
     if (!this.model || this.model.short_name !== this.$route.params.model) {
-      const modelSelectionSuccessful = await this.$store.dispatch('models/selectModel', this.$route.params.model);
+      const modelSelectionSuccessful = await this.$store.dispatch(
+        'models/selectModel',
+        this.$route.params.model
+      );
       if (!modelSelectionSuccessful) {
         this.modelNotFound = true;
       }
@@ -119,7 +146,9 @@ export default {
   methods: {
     async setup() {
       this.componentId = this.$route.params.id;
-      this.showLoaderMessage = `Loading ${this.queryComponentAction.replace('compartmentalized', '').toLowerCase()} data`;
+      this.showLoaderMessage = `Loading ${this.queryComponentAction
+        .replace('compartmentalized', '')
+        .toLowerCase()} data`;
 
       try {
         const payload = { model: this.model, id: this.componentId };

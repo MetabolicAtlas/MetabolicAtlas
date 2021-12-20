@@ -7,7 +7,10 @@ const data = {
 
 const actions = {
   async getComponentsForExternalDb({ commit }, { dbName, externalId }) {
-    const { components, externalDb } = await externalDbApi.fetchComponentsForExternalDb({ dbName, externalId });
+    const { components, externalDb } = await externalDbApi.fetchComponentsForExternalDb({
+      dbName,
+      externalId,
+    });
     commit('setComponents', components);
     commit('setExternalDb', externalDb);
   },

@@ -3,7 +3,7 @@
     <section class="hero is-primary is-bold py-6">
       <router-link :to="{ name: 'explorer', params: { model: 'Human-GEM' } }">
         <div class="hero-body has-text-centered">
-          <p class="is-size-1 title">METABOLIC ATLAS </p>
+          <p class="is-size-1 title">METABOLIC ATLAS</p>
           <p class="is-size-5">
             open source genome-scale metabolic models for easy browsing and analysis
           </p>
@@ -12,11 +12,16 @@
     </section>
 
     <section id="home">
-
       <div class="py-6">
         <div class="container px-6">
-          <div class="columns is-multiline is-mobile is-variable is-8-tablet is-centered is-vcentered">
-            <div v-for="item in tools" :key="item.title" class="column is-3-desktop is-6-mobile is-size-5">
+          <div
+            class="columns is-multiline is-mobile is-variable is-8-tablet is-centered is-vcentered"
+          >
+            <div
+              v-for="item in tools"
+              :key="item.title"
+              class="column is-3-desktop is-6-mobile is-size-5"
+            >
               <router-link :to="item.route">
                 <div class="card hoverable">
                   <div class="card-image">
@@ -43,24 +48,37 @@
               <span class="icon is-large fa-lg">
                 <i :class="`fa fa-${news.icon}`"></i>
               </span>
-              {{ news. title }}
+              {{ news.title }}
             </router-link>
           </p>
           <div class="columns is-variable is-8 pt-3">
             <div class="column is-6 is-size-5">
-              <p>The main versions of <b>Metabolic Atlas</b> are associated with scientific articles as follows.</p><br>
+              <p>
+                The main versions of
+                <b>Metabolic Atlas</b>
+                are associated with scientific articles as follows.
+              </p>
+              <br />
               <div class="box">
-                <p>From version 2.0:
+                <p>
+                  From version 2.0:
                   <a href="https://doi.org/10.1073/pnas.2102344118" target="_blank">
-                    Wang, H., et al, 2021. <i>Genome-scale metabolic network reconstruction of model animals
-                      as a platform for translational research</i>. PNAS 118, e2102344118
+                    Wang, H., et al, 2021.
+                    <i>
+                      Genome-scale metabolic network reconstruction of model animals as a platform
+                      for translational research
+                    </i>
+                    . PNAS 118, e2102344118
                   </a>
                 </p>
               </div>
               <div class="box">
-                <p>From version 1.0:
+                <p>
+                  From version 1.0:
                   <a href="https://doi.org/10.1126/scisignal.aaz1482" target="_blank">
-                    Robinson, J., et al, 2020. <i>An atlas of human metabolism</i>. Sci. Signal. 13, eaaz1482
+                    Robinson, J., et al, 2020.
+                    <i>An atlas of human metabolism</i>
+                    . Sci. Signal. 13, eaaz1482
                   </a>
                 </p>
               </div>
@@ -99,7 +117,7 @@
                   <span class="icon is-large fa-lg">
                     <i :class="`fa fa-${item.icon}`"></i>
                   </span>
-                  {{ item. title }}
+                  {{ item.title }}
                 </router-link>
               </p>
               <div class="columns pb-6">
@@ -132,7 +150,7 @@
                   <span class="icon is-large fa-lg">
                     <i :class="`fa fa-${repository.icon}`"></i>
                   </span>
-                  {{ repository. title }}
+                  {{ repository.title }}
                 </router-link>
               </p>
               <p v-html="repository.text"></p>
@@ -161,7 +179,7 @@
                   <span class="icon is-large fa-lg">
                     <i :class="`fa fa-${item.icon}`"></i>
                   </span>
-                  {{ item. title }}
+                  {{ item.title }}
                 </router-link>
               </p>
               <p v-html="item.text"></p>
@@ -169,9 +187,7 @@
           </div>
         </div>
       </div>
-
     </section>
-
   </div>
 </template>
 
@@ -192,52 +208,70 @@ export default {
         icon: 'newspaper-o',
       },
       tools: [
-        { title: messages.gemBrowserName,
+        {
+          title: messages.gemBrowserName,
           text: 'The <b>GEM Browser</b> enables powerful query and exploration of model content in tabular format.<br><br>A wide range of attributes, including reaction equations, metabolite formulas, gene rules and subsystem contents, are presented as a detailed network of individual model components. They are highly interconnected and rationally associated to easily navigate and switch between them.<br><br>Visit the documentation to learn about the different functionalities provided by the GEM Browser.',
           img: require('../assets/gemBrowser.jpg'),
           cardLink: 'GEM Browser',
           route: { name: 'browser', params: { model: 'Human-GEM' } },
-          icon: 'table' },
-        { title: messages.mapViewerName,
+          icon: 'table',
+        },
+        {
+          title: messages.mapViewerName,
           text: 'For easy visualization, <b>Metabolic Atlas</b> handles both 2D and 3D maps. For each of the integrated models, the website automatically generates 3D graphs at both compartment and subsystem level.<br><br>Both compartment and subsystem 2D maps of the Human-GEM have been created by Human-GEM contributors and are manually curated. On these maps, one can search for reactions, metabolites or genes. Moreover, RNA expression data from Human Protein Atlas can be overlaid.<br><br>By clicking on an element on the map, more information of that element will be shown on the left sidebar. From there, one can navigate back to the <b>GEM Browser</b> for detailed information.',
           img: require('../assets/mapViewer.jpg'),
           cardLink: 'Map Viewer',
-          route: { name: 'viewer',
+          route: {
+            name: 'viewer',
             params: { model: 'Human-GEM', type: 'compartment', map_id: 'golgi_apparatus' },
-            query: { dim: '2d' } },
-          icon: 'map-o' },
-        { title: messages.interPartName,
+            query: { dim: '2d' },
+          },
+          icon: 'map-o',
+        },
+        {
+          title: messages.interPartName,
           text: `The <b>Interaction Partners</b> graph shows connectivity between metabolites and genes based on their associated reactions.<br><br>The graph is dynamically generated and is customizable. One can interact with a restricted part of the metabolic network, or further expand the interaction partners of any element already on the graph. Moreover, RNA expression data from the Human Protein Atlas can be overlaid onto the graph. <br><br>This feature is available only for metabolites and genes, and is accessible via the <b>${messages.gemBrowserName}</b>.`,
           img: require('../assets/interaction.jpg'),
           cardLink: 'Interaction Partners',
           route: { name: 'interaction', params: { model: 'Human-GEM' } },
-          icon: 'connectdevelop' },
+          icon: 'connectdevelop',
+        },
       ],
       features1: [
-        { title: 'Search',
+        {
+          title: 'Search',
           text: 'The menu bar contains a shortcut to the <b>Global search</b> function, which enables users to easily search cellular components across all the integrated models available for further filtering.',
           img: require('../assets/search.jpg'),
           route: { name: 'search', query: { term: '' } },
-          icon: 'search' },
-        { title: 'Analyze',
+          icon: 'search',
+        },
+        {
+          title: 'Analyze',
           text: 'Gene expression data from the Human Protein Atlas can be viewed in the 2D and 3D maps and Interaction Partners. User data can also be overlaid onto the maps, with the option of comparing datasets, for example against normal tissue. Additional types of omics integrations are under development.',
           img: require('../assets/analyze.jpg'),
-          route: { name: 'viewer',
+          route: {
+            name: 'viewer',
             params: { model: 'Human-GEM', type: 'compartment', map_id: 'endoplasmic_reticulum' },
-            query: { dim: '2d', panel: '1', coords: '-7222.7,-4501.6,0.97,0,0,0' } },
-          icon: 'tasks' },
+            query: { dim: '2d', panel: '1', coords: '-7222.7,-4501.6,0.97,0,0,0' },
+          },
+          icon: 'tasks',
+        },
       ],
       features2: [
-        { title: 'Export',
+        {
+          title: 'Export',
           text: 'Most of the data provided on the website is convenient to export, for example via <b>Export to TSV</b> buttons. For the extracting data in JSON format, we have documented our API.',
           img: require('../assets/export.jpg'),
           route: { name: 'search', query: { term: 'glyoxalate' } },
-          icon: 'download' },
-        { title: 'Compare',
+          icon: 'download',
+        },
+        {
+          title: 'Compare',
           text: 'The integrated models can be compared on-the-fly via the cross references to other models or databases they share. Moreover, a 3-way comparison can be performed as well.',
           img: require('../assets/comparison.jpg'),
           route: { name: 'comparemodels' },
-          icon: 'download' },
+          icon: 'download',
+        },
       ],
       repository: {
         title: 'GEM Repository',
@@ -247,21 +281,23 @@ export default {
         icon: 'files-o',
       },
       comRes: [
-        { title: 'Resources',
+        {
+          title: 'Resources',
           text: 'Working with metabolic models requires a set of tools and external databases, which we have collected together for one-click access.<br><br>Additionally, Metabolic Atlas is open to further integrations.',
           route: { name: 'resources' },
-          icon: 'gears' },
-        { title: 'Community',
+          icon: 'gears',
+        },
+        {
+          title: 'Community',
           text: '<p>We are grateful for the efforts of scientists all over the world in creating the knowledge required to assemble high quality genome scale metabolic models. We are passionate about continuing on this journey of open curation of models.<br><br>We invite you to explore the world of GEMs through Metabolic Atlas, and hope it will enhance your interest in this field. We wish to continuously improve Metabolic Atlas for the community. Email us with any feedback, suggestions, or requests at <a href="mailto:contact@metabolicatlas.org">contact [at] metabolicatlas [dot] org</a>.</p>',
           route: { name: 'about' },
-          icon: 'users' },
+          icon: 'users',
+        },
       ],
-      newsItems:
-        Object.values(newsItems).reverse().flat(1).slice(0, 12),
+      newsItems: Object.values(newsItems).reverse().flat(1).slice(0, 12),
     };
   },
 };
-
 </script>
 <style lang="scss">
 #home {

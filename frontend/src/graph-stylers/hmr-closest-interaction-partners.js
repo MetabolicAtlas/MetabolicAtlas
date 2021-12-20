@@ -1,14 +1,20 @@
 import cytoscape from 'cytoscape';
 
-
 const ALLOWED_TYPES = ['gene', 'metabolite'];
 
 export default function (
-  componentID, elms, rels, nodeDisplayParams, reactionHL, compartmentHL, subsystemHL) {
+  componentID,
+  elms,
+  rels,
+  nodeDisplayParams,
+  reactionHL,
+  compartmentHL,
+  subsystemHL
+) {
   const elmsjson = [];
   const { expSource, expType, expSample } = nodeDisplayParams;
   /* eslint-disable no-param-reassign */
-  Object.values(elms).forEach((elm) => {
+  Object.values(elms).forEach(elm => {
     if (ALLOWED_TYPES.includes(elm.type)) {
       if (!elm.expressionLvl) {
         elm.expressionLvl = {};
@@ -43,7 +49,7 @@ export default function (
     }
   });
 
-  Object.values(rels).forEach((rel) => {
+  Object.values(rels).forEach(rel => {
     elmsjson.push({
       group: 'edges',
       data: {
@@ -64,7 +70,8 @@ export default function (
   const textColorHLpartial = '#f4ad42';
   const lineColor = '#bbbbbb';
 
-  const stylesheet = cytoscape.stylesheet()
+  const stylesheet = cytoscape
+    .stylesheet()
     .selector('node')
     .css({
       content: 'data(name)',

@@ -3,29 +3,40 @@
     <div id="mapViewerContainer" class="columns ordered-mobile m-0">
       <template v-if="errorMessage">
         <div class="column is-danger is-half is-offset-one-quarter">
-          <div class="notification is-danger is-danger has-text-centered"
-               v-html="errorMessage" />
+          <div class="notification is-danger is-danger has-text-centered" v-html="errorMessage" />
         </div>
       </template>
       <template v-else>
-        <MissingReactionModal :current-map="currentMap"
-                              :missing-reaction-list="missingReactionList"
-                              :map-reaction-list="mapReactionList"
-                              :show-modal.sync="showModal" />
-        <div id="mapSidebar" ref="mapSidebar"
-             class="column is-one-fifth-widescreen is-one-quarter-desktop
-                    is-one-quarter-tablet has-background-lightgray om-2 pt-0
-                    fixed-height-desktop scrollable break-word"
-             v-on="sidebarLayoutReset ? { scroll: () => handleSidebarScroll() } : {}">
+        <MissingReactionModal
+          :current-map="currentMap"
+          :missing-reaction-list="missingReactionList"
+          :map-reaction-list="mapReactionList"
+          :show-modal.sync="showModal"
+        />
+        <div
+          id="mapSidebar"
+          ref="mapSidebar"
+          class="column is-one-fifth-widescreen is-one-quarter-desktop is-one-quarter-tablet has-background-lightgray om-2 pt-0 fixed-height-desktop scrollable break-word"
+          v-on="sidebarLayoutReset ? { scroll: () => handleSidebarScroll() } : {}"
+        >
           <div id="mapSidebar__header" class="has-background-lightgray pt-3">
-            <div class="buttons has-addons is-centered padding-mobile m-0"
-                 :title="switchTitle"
-                 @click="(!currentMap || (currentMap && currentMap.type !== 'custom'))
-                   && $store.dispatch('maps/toggleShowing2D')">
-              <button v-for="dim in [true, false]" :key="dim"
-                      class="button m-0"
-                      :class="dim === showing2D ? 'is-selected is-primary has-text-weight-bold' : 'is-light'"
-                      :disabled=" !avail2D || (currentMap && currentMap.type === 'custom')">
+            <div
+              class="buttons has-addons is-centered padding-mobile m-0"
+              :title="switchTitle"
+              @click="
+                (!currentMap || (currentMap && currentMap.type !== 'custom')) &&
+                  $store.dispatch('maps/toggleShowing2D')
+              "
+            >
+              <button
+                v-for="dim in [true, false]"
+                :key="dim"
+                class="button m-0"
+                :class="
+                  dim === showing2D ? 'is-selected is-primary has-text-weight-bold' : 'is-light'
+                "
+                :disabled="!avail2D || (currentMap && currentMap.type === 'custom')"
+              >
                 <span v-if="dim === showing2D" class="icon">
                   <i class="fa fa-check-square-o"></i>
                 </span>
@@ -33,68 +44,116 @@
                 <span class="is-uppercase">{{ dimensionalState(dim) }}</span>
               </button>
             </div>
-            <SidebarDataPanels ref="sidebarDataPanels"
-                               :dim="dimensionalState(showing2D)"
-                               :current-map="currentMap"
-                               :selection-data="selectionData"
-                               :show-modal.sync="showModal"
-                               :missing-reaction-list="missingReactionList"
-                               @openSelectionCardContent="resetSidebarLayout" />
+            <SidebarDataPanels
+              ref="sidebarDataPanels"
+              :dim="dimensionalState(showing2D)"
+              :current-map="currentMap"
+              :selection-data="selectionData"
+              :show-modal.sync="showModal"
+              :missing-reaction-list="missingReactionList"
+              @openSelectionCardContent="resetSidebarLayout"
+            />
           </div>
           <div class="padding-mobile">
-            <a class="button is-fullwidth is-primary is-inverted has-text-weight-bold is-hidden-tablet"
-               @click="showingMapListing = !showingMapListing">
+            <a
+              class="button is-fullwidth is-primary is-inverted has-text-weight-bold is-hidden-tablet"
+              @click="showingMapListing = !showingMapListing"
+            >
               {{ showingMapListing ? 'Hide' : 'Show' }} the map list
             </a>
           </div>
-          <a class="button is-fullwidth is-primary is-inverted has-text-weight-bold is-hidden-tablet"
-             @click="$store.dispatch('maps/toggleDataOverlayPanelVisible')">
+          <a
+            class="button is-fullwidth is-primary is-inverted has-text-weight-bold is-hidden-tablet"
+            @click="$store.dispatch('maps/toggleDataOverlayPanelVisible')"
+          >
             {{ dataOverlayPanelVisible ? 'Hide' : 'Show' }} data overlay
           </a>
           <MapsListing v-if="showingMapListing" />
         </div>
-        <div v-if="!currentMap"
-             class="column is-unselectable om-1 fixed-height-mobile p-0 m-0">
+        <div v-if="!currentMap" class="column is-unselectable om-1 fixed-height-mobile p-0 m-0">
           <NotFound v-if="mapNotFound" type="map" :component-id="$route.params.map_id"></NotFound>
           <p v-else class="is-size-5 has-text-centered py-6 my-6">
-            <a @click="showingMapListing = true">Show the map list and choose a compartment or subsystem map</a>
+            <a @click="showingMapListing = true">
+              Show the map list and choose a compartment or subsystem map
+            </a>
           </p>
         </div>
-        <div v-else id="mapWrapper"
-             class="column is-unselectable om-1 fixed-height-desktop fixed-height-mobile p-0 m-0">
-          <Svgmap v-if="showing2D"
-                  :map-data="currentMap"
-                  @unSelect="unSelect" @updatePanelSelectionData="updatePanelSelectionData">
-          </Svgmap>
-          <ThreeDViewer v-if="!showing2D"
-                        :current-map="currentMap"
-                        @unSelect="unSelect"
-                        @updatePanelSelectionData="updatePanelSelectionData" />
-          <ErrorPanel :message="loadMapErrorMessage" @hideErrorPanel="loadMapErrorMessage=''" />
+        <div
+          v-else
+          id="mapWrapper"
+          class="column is-unselectable om-1 fixed-height-desktop fixed-height-mobile p-0 m-0"
+        >
+          <Svgmap
+            v-if="showing2D"
+            :map-data="currentMap"
+            @unSelect="unSelect"
+            @updatePanelSelectionData="updatePanelSelectionData"
+          ></Svgmap>
+          <ThreeDViewer
+            v-if="!showing2D"
+            :current-map="currentMap"
+            @unSelect="unSelect"
+            @updatePanelSelectionData="updatePanelSelectionData"
+          />
+          <ErrorPanel :message="loadMapErrorMessage" @hideErrorPanel="loadMapErrorMessage = ''" />
         </div>
-        <div id="dataOverlayBar"
-             class="column is-clickable is-narrow has-text-white
-                    is-unselectable is-hidden-mobile fixed-height-desktop p-1"
-             :class="{'px-0 py-0': dataOverlayPanelVisible }"
-             title="Click to show the data overlay panel"
-             @click="$store.dispatch('maps/toggleDataOverlayPanelVisible')">
+        <div
+          id="dataOverlayBar"
+          class="column is-clickable is-narrow has-text-white is-unselectable is-hidden-mobile fixed-height-desktop p-1"
+          :class="{ 'px-0 py-0': dataOverlayPanelVisible }"
+          title="Click to show the data overlay panel"
+          @click="$store.dispatch('maps/toggleDataOverlayPanelVisible')"
+        >
           <p class="is-size-5 has-text-centered has-text-weight-bold">
             <span class="icon py-2">
-              <i class="fa"
-                 :class="{ 'fa-arrow-left': !dataOverlayPanelVisible, 'fa-arrow-right': dataOverlayPanelVisible}">
-              </i>
-            </span><br>
-            D<br>A<br>T<br>A<br><br>
-            O<br>V<br>E<br>R<br>L<br>A<br>Y<br>
+              <i
+                class="fa"
+                :class="{
+                  'fa-arrow-left': !dataOverlayPanelVisible,
+                  'fa-arrow-right': dataOverlayPanelVisible,
+                }"
+              ></i>
+            </span>
+            <br />
+            D
+            <br />
+            A
+            <br />
+            T
+            <br />
+            A
+            <br />
+            <br />
+            O
+            <br />
+            V
+            <br />
+            E
+            <br />
+            R
+            <br />
+            L
+            <br />
+            A
+            <br />
+            Y
+            <br />
             <span class="icon">
-              <i class="fa"
-                 :class="{ 'fa-arrow-left': !dataOverlayPanelVisible, 'fa-arrow-right': dataOverlayPanelVisible}">
-              </i>
+              <i
+                class="fa"
+                :class="{
+                  'fa-arrow-left': !dataOverlayPanelVisible,
+                  'fa-arrow-right': dataOverlayPanelVisible,
+                }"
+              ></i>
             </span>
           </p>
         </div>
-        <DataOverlay v-if="currentMap !== null && dataOverlayPanelVisible"
-                     class="om-3 fixed-height-desktop scrollable" :map-name="currentMap.name" />
+        <DataOverlay
+          v-if="currentMap !== null && dataOverlayPanelVisible"
+          class="om-3 fixed-height-desktop scrollable"
+          :map-name="currentMap.name"
+        />
       </template>
     </div>
   </div>
@@ -177,7 +236,10 @@ export default {
     window.onpopstate = this.handleQueryParamsWatch();
 
     if (!this.model || this.model.short_name !== this.$route.params.model) {
-      const modelSelectionSuccessful = await this.$store.dispatch('models/selectModel', this.$route.params.model);
+      const modelSelectionSuccessful = await this.$store.dispatch(
+        'models/selectModel',
+        this.$route.params.model
+      );
       if (!modelSelectionSuccessful) {
         this.errorMessage = `Error: ${messages.modelNotFound}`;
       }
@@ -200,7 +262,8 @@ export default {
     dimensionalState(showing2D) {
       return showing2D ? '2d' : '3d';
     },
-    handleQueryParamsWatch(newQuery, oldQuery) { // eslint-disable-line no-unused-vars
+    // eslint-disable-next-line no-unused-vars
+    handleQueryParamsWatch(newQuery, oldQuery) {
       if (!newQuery) {
         return;
       }
@@ -211,7 +274,9 @@ export default {
         return;
       }
 
-      const queryString = Object.entries(newQuery).map(e => e.join('=')).join('&');
+      const queryString = Object.entries(newQuery)
+        .map(e => e.join('='))
+        .join('&');
       const payload = [{}, null, `${this.$route.path}?${queryString}`];
       if (newQuery.dim === this.$route.query.dim || (newQuery.dim && !this.$route.query.dim)) {
         history.replaceState(...payload); // eslint-disable-line no-restricted-globals
@@ -258,7 +323,7 @@ export default {
     },
     setMapReactionList() {
       let mapReactionIdList = [];
-      this.currentMap.mapReactionIdSet.forEach((map) => {
+      this.currentMap.mapReactionIdSet.forEach(map => {
         mapReactionIdList = [...mapReactionIdList, ...map.mapReactionIdSet];
       });
       this.mapReactionList = mapReactionIdList;
@@ -266,7 +331,9 @@ export default {
     setMissingReactionList() {
       const modelReactionIdSet = new Set(this.currentMap.reactionList);
       const mapReactionIdSet = new Set(this.mapReactionList);
-      const missingReactionIdSet = new Set([...modelReactionIdSet].filter(x => !mapReactionIdSet.has(x)));
+      const missingReactionIdSet = new Set(
+        [...modelReactionIdSet].filter(x => !mapReactionIdSet.has(x))
+      );
       this.missingReactionList = Array.from(missingReactionIdSet);
     },
     showMessage(errorMessage) {
@@ -288,7 +355,6 @@ export default {
 
 <style lang="scss">
 #mapViewerContainer {
-
   #mapSidebar {
     &__header {
       @media screen and (min-width: $tablet) {
@@ -299,7 +365,6 @@ export default {
     }
 
     .buttons {
-
       button {
         min-width: 8rem;
         width: 50%;
@@ -383,7 +448,7 @@ export default {
   align-items: center;
   background: $primary;
   line-height: 17px;
-  &:hover{
+  &:hover {
     background: $primary-light;
   }
   @media (max-width: $tablet) {

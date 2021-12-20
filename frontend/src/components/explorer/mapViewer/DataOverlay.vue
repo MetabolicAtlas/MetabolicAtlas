@@ -1,24 +1,34 @@
 <template>
-  <div id="dataOverlayBox"
-       :class="{ 'is-one-fifth-widescreen is-one-quarter-desktop is-one-quarter-tablet': position === 'absolute'}"
-       class="column has-background-lightgray">
+  <div
+    id="dataOverlayBox"
+    :class="{
+      'is-one-fifth-widescreen is-one-quarter-desktop is-one-quarter-tablet':
+        position === 'absolute',
+    }"
+    class="column has-background-lightgray"
+  >
     <div class="title is-size-4 has-text-centered">Expression data</div>
-    <div class="has-text-centered"
-         title="Load a TSV file with IDs and TPM values.
-         More information can be found in the documentation.">
+    <div
+      class="has-text-centered"
+      title="Load a TSV file with IDs and TPM values.
+         More information can be found in the documentation."
+    >
       Load custom expression
       <span class="has-nowrap">
         data
-        <router-link :to="{ name: 'documentation', hash: '#Data-overlay'}">
+        <router-link :to="{ name: 'documentation', hash: '#Data-overlay' }">
           <span class="icon"><i class="fa fa-info-circle"></i></span>
         </router-link>
       </span>
     </div>
-    <DataOverlayValidation @getFileName="getFileName($event)" @errorCustomFile="handleErrorCustomFile" />
+    <DataOverlayValidation
+      @getFileName="getFileName($event)"
+      @errorCustomFile="handleErrorCustomFile"
+    />
     <div v-if="customFileName" class="mb-0">
       <div v-show="!showFileLoader" id="fileNameBox" class="tags has-addons is-centered mb-0">
         <span class="tag" :class="errorCustomFileMsg ? 'is-danger' : 'is-success'">
-          <div class="is-size-6"> {{ customFileName }}</div>
+          <div class="is-size-6">{{ customFileName }}</div>
         </span>
         <a class="tag is-delete" title="Unload file" @click="unloadUploadedFile()"></a>
       </div>
@@ -27,9 +37,10 @@
       </div>
     </div>
     <div v-if="errorCustomFileMsg" id="customFileError" class="card mb-4">
-      <div class="notification p-3 is-danger is-half is-offset-one-quarter"
-           v-html="customErrorMessage()">
-      </div>
+      <div
+        class="notification p-3 is-danger is-half is-offset-one-quarter"
+        v-html="customErrorMessage()"
+      ></div>
     </div>
     <div class="card my-3">
       <div class="card-content py-2 p-3">
@@ -39,10 +50,15 @@
             <p>Select data type</p>
             <div v-if="dataType" class="select is-fullwidth">
               <select @change="handleDataTypeSelect">
-                <option v-for="type in Object.keys(dataSourcesIndex)" :key="type"
-                        :selected="type === dataType.name"
-                        :value="type"
-                        class="is-clickable is-capitalized">{{ type }}</option>
+                <option
+                  v-for="type in Object.keys(dataSourcesIndex)"
+                  :key="type"
+                  :selected="type === dataType.name"
+                  :value="type"
+                  class="is-clickable is-capitalized"
+                >
+                  {{ type }}
+                </option>
               </select>
             </div>
           </div>
@@ -50,22 +66,35 @@
             <p>Select data source</p>
             <div v-if="dataType" class="select is-fullwidth">
               <select @change="handleDataSourceSelect">
-                <option v-for="s in dataSourcesIndex[dataType.name]" :key="s.filename"
-                        :selected="dataSource && s.filename === dataSource.filename"
-                        :value="s.filename"
-                        class="is-clickable is-capitalized">{{ s.name }}</option>
+                <option
+                  v-for="s in dataSourcesIndex[dataType.name]"
+                  :key="s.filename"
+                  :selected="dataSource && s.filename === dataSource.filename"
+                  :value="s.filename"
+                  class="is-clickable is-capitalized"
+                >
+                  {{ s.name }}
+                </option>
               </select>
             </div>
           </div>
           <div class="control">
             <div v-if="dataSource" class="control">
-              <p>Levels from <a :href="dataSource.link" target="_blank">{{ dataSource.name }}</a></p>
+              <p>
+                Levels from
+                <a :href="dataSource.link" target="_blank">{{ dataSource.name }}</a>
+              </p>
               <div class="select is-fullwidth">
-                <select :disabled="levelsDisabled" @change="(e) => setDataSet(e.target.value)">
+                <select :disabled="levelsDisabled" @change="e => setDataSet(e.target.value)">
                   <option>None</option>
-                  <option v-for="t in dataSource.dataSets" :key="t"
-                          :selected="t === dataSet"
-                          class="is-clickable is-capitalized">{{ t }}</option>
+                  <option
+                    v-for="t in dataSource.dataSets"
+                    :key="t"
+                    :selected="t === dataSet"
+                    class="is-clickable is-capitalized"
+                  >
+                    {{ t }}
+                  </option>
                 </select>
               </div>
             </div>
@@ -78,11 +107,17 @@
               <select
                 :value="customDataSet"
                 :disabled="!customDataSource"
-                @change="(e) => setCustomDataSet(e.target.value)">
+                @change="e => setCustomDataSet(e.target.value)"
+              >
                 <template v-if="customDataSource">
                   <option>None</option>
-                  <option v-for="dataSet in customDataSource.dataSets" :key="dataSet"
-                          class="is-clickable is-capitalized">{{ dataSet }}</option>
+                  <option
+                    v-for="dataSet in customDataSource.dataSets"
+                    :key="dataSet"
+                    class="is-clickable is-capitalized"
+                  >
+                    {{ dataSet }}
+                  </option>
                 </template>
               </select>
             </div>
@@ -95,7 +130,6 @@
 </template>
 
 <script>
-
 import { mapActions, mapState } from 'vuex';
 import DataOverlayValidation from '@/components/explorer/mapViewer/DataOverlayValidation.vue';
 import RNALegend from '@/components/explorer/mapViewer/RNALegend.vue';
@@ -144,20 +178,22 @@ export default {
   },
   async created() {
     await this.getDataSourcesIndex(this.model.short_name);
-    const datatype = this.validDataTypeInQuery() ? this.$route.query.datatype : Object.keys(this.dataSourcesIndex)[0];
+    const datatype = this.validDataTypeInQuery()
+      ? this.$route.query.datatype
+      : Object.keys(this.dataSourcesIndex)[0];
     await this.setCurrentDataType({
       model: this.model.short_name,
       type: datatype,
       propagate: false,
     });
-    const datasource = this.validDataSourceInQuery() ? this.$route.query.datasource
+    const datasource = this.validDataSourceInQuery()
+      ? this.$route.query.datasource
       : this.dataSourcesIndex[this.dataType.name][0].filename;
     await this.getDataSource({
       model: this.model.short_name,
       type: datatype,
       filename: datasource,
       propagate: false,
-
     });
     const dataSet = this.validDataSourceDataSetInQuery() ? this.$route.query.dataSet : 'None';
     await this.setDataSet(dataSet);
@@ -221,7 +257,10 @@ export default {
       return this.errorCustomFileMsg.join('<br>');
     },
     validDataTypeInQuery() {
-      return this.$route.query.datatype && Object.keys(this.dataSourcesIndex).indexOf(this.$route.query.datatype) > -1;
+      return (
+        this.$route.query.datatype &&
+        Object.keys(this.dataSourcesIndex).indexOf(this.$route.query.datatype) > -1
+      );
     },
     validDataSourceInQuery() {
       return (
@@ -247,7 +286,6 @@ export default {
 </script>
 
 <style lang="scss">
-
 #fileNameBox {
   display: flex;
   flex-wrap: nowrap;
@@ -265,9 +303,8 @@ export default {
 #customFileError {
   max-height: 30%;
   overflow-y: scroll;
-  background-color: #F46036;
-  scrollbar-color: rgba(123,123,121, 0.8) #F46036;
+  background-color: #f46036;
+  scrollbar-color: rgba(123, 123, 121, 0.8) #f46036;
   word-wrap: break-word;
 }
-
 </style>

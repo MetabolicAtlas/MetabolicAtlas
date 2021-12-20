@@ -4,7 +4,8 @@
       <p class="card-header-title">
         Comparing&nbsp;
         <span v-if="comparisonDetails">
-          {{ currentModel.short_name }} with {{ comparedModels.map(m => m.short_name).join(' and ') }}
+          {{ currentModel.short_name }} with
+          {{ comparedModels.map(m => m.short_name).join(' and ') }}
         </span>
       </p>
     </header>
@@ -25,13 +26,16 @@
             <router-link :to="{ name: 'explorer', params: { model: cm.short_name } }">
               {{ cm.short_name }}
             </router-link>
-            <span v-if="i < comparedModels.length - 1"> and </span>
+            <span v-if="i < comparedModels.length - 1">and</span>
           </span>
-          , <b>{{ currentModel.short_name }}</b> has:
+          ,
+          <b>{{ currentModel.short_name }}</b>
+          has:
           <ul>
             <li>
               {{ comparisonDetails.details['Reaction'].common }} reactions and
-              {{ comparisonDetails.details['CompartmentalizedMetabolite'].common }} metabolites in common
+              {{ comparisonDetails.details['CompartmentalizedMetabolite'].common }} metabolites in
+              common
             </li>
             <li v-for="t in Object.keys(types)" :key="t">
               {{ comparisonDetails.details[types[t]].unique.length }} unique {{ t }}s
@@ -40,8 +44,11 @@
               </span>
               <br />
               <div class="tags">
-                <span v-for="id in comparisonDetails.details[types[t]].unique.slice(0,20)"
-                      :key="id" class="tag">
+                <span
+                  v-for="id in comparisonDetails.details[types[t]].unique.slice(0, 20)"
+                  :key="id"
+                  class="tag"
+                >
                   <router-link :to="{ name: t, params: { model: currentModel.short_name, id } }">
                     {{ id }}
                   </router-link>
@@ -59,7 +66,6 @@
 </template>
 
 <script>
-
 import { mapState } from 'vuex';
 import Loader from '@/components/Loader.vue';
 
@@ -94,7 +100,9 @@ export default {
         return [];
       }
 
-      return this.comparisonDetails.models.models.map(m => this.modelList.find(mo => mo.apiName === m.model));
+      return this.comparisonDetails.models.models.map(m =>
+        this.modelList.find(mo => mo.apiName === m.model)
+      );
     },
   },
   watch: {
@@ -105,14 +113,12 @@ export default {
       await this.$store.dispatch('compare/getComparisonDetails', { model, models });
     },
   },
-  methods: {
-  },
+  methods: {},
 };
-
 </script>
 
 <style lang="scss" scoped>
-  .compared-models:last-of-type {
-    margin-right: -0.25em;
-  }
+.compared-models:last-of-type {
+  margin-right: -0.25em;
+}
 </style>

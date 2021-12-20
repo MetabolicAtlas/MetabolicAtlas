@@ -1,4 +1,3 @@
-
 const COORD_REGEXP = /(?:-)?\d+(?:[.]\d+)?(?:[,](?:-)?\d+(?:[.]\d+)?){5}/;
 
 const routeQueryEntries = [
@@ -47,7 +46,7 @@ const setRouteForOverlay = ({ route, isOpen }) => ({
 
 const setDefaultQuery = ({ route, defaultValues }) => {
   const query = {};
-  routeQueryEntries.forEach((el) => {
+  routeQueryEntries.forEach(el => {
     if (!(el.name in route.query) || !(!el.regexp || route.query[el.name].match(el.regexp))) {
       query[el.name] = el.default;
     } else {
@@ -59,10 +58,12 @@ const setDefaultQuery = ({ route, defaultValues }) => {
 };
 
 const areRoutesIdentical = ({ route, oldRoute }) => {
-  if (route.name !== oldRoute.name
-    || Object.keys(route).length !== Object.keys(oldRoute).length
-    || Object.keys(route.params).length !== Object.keys(oldRoute.params).length
-    || Object.keys(route.query).length !== Object.keys(oldRoute.query).length) {
+  if (
+    route.name !== oldRoute.name ||
+    Object.keys(route).length !== Object.keys(oldRoute).length ||
+    Object.keys(route.params).length !== Object.keys(oldRoute.params).length ||
+    Object.keys(route.query).length !== Object.keys(oldRoute.query).length
+  ) {
     return false;
   }
 

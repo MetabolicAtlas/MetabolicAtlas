@@ -39,6 +39,10 @@ function logs {
   docker compose -f docker-compose.yml -f docker-compose-local.yml logs -f $@
 }
 
+function ma-exec {
+  docker compose -f docker-compose.yml -f docker-compose-local.yml exec $@
+}
+
 function deploy-stack {
   generate-data
   docker --context $1 compose -f docker-compose.yml -f docker-compose-prod.yml -p metabolicatlas up -d --build --force-recreate
@@ -56,4 +60,5 @@ echo -e "Available commands:
 \tclean-stack
 \tdeploy-stack <CONTEXT>
 \timport-db
+\tma-exec [container command(s)]
 \tlogs [container]"

@@ -6,7 +6,10 @@
       </h3>
       <p class="my-3">
         <template v-if="externalDb.url">
-          Visit <a :href="externalDb.url" target="_blank">{{ externalDb.url }}</a> for more details.<br>
+          Visit
+          <a :href="externalDb.url" target="_blank">{{ externalDb.url }}</a>
+          for more details.
+          <br />
         </template>
         This database identifier is associated with the following Metabolic Atlas
         {{ components.length === 1 ? 'component' : 'components' }}:
@@ -17,8 +20,12 @@
           <ul class="is-flex-direction-column is-align-items-flex-start mb-4 ml-5">
             <li v-for="c in components" :key="c.id + c.model + c.version" class="my-1">
               <span class="tag is-light is-medium">
-                <router-link :to="{ name: c.componentType.toLowerCase(), params: { model:
-                  c.model, id: c.id } }">
+                <router-link
+                  :to="{
+                    name: c.componentType.toLowerCase(),
+                    params: { model: c.model, id: c.id },
+                  }"
+                >
                   {{ c.id }}
                 </router-link>
               </span>
@@ -28,7 +35,11 @@
       </ul>
     </div>
     <div v-else class="container">
-      <p v-if="errorMessage" class="notification has-background-danger-light mt-6" v-html="errorMessage"></p>
+      <p
+        v-if="errorMessage"
+        class="notification has-background-danger-light mt-6"
+        v-html="errorMessage"
+      ></p>
     </div>
   </section>
 </template>
@@ -51,13 +62,16 @@ export default {
       externalDb: state => state.externalDb.externalDb,
     }),
     compGroupedByModel() {
-      const result = this.components.reduce((r, a) => { // eslint-disable-next-line
+      const result = this.components.reduce((r, a) => {
+        // eslint-disable-next-line
         r[a.model] = r[a.model] || [];
         r[a.model].push(a);
         return r;
       }, {});
-      const orderedRst = Object.keys(result).sort().reduce(
-        (obj, key) => { // eslint-disable-next-line
+      const orderedRst = Object.keys(result)
+        .sort()
+        .reduce((obj, key) => {
+          // eslint-disable-next-line
           obj[key] = result[key];
           return obj;
         }, {});

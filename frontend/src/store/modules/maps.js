@@ -48,12 +48,13 @@ const getters = {
     panel: +state.dataOverlayPanelVisible,
     sel: state.selectedElementId,
     search: state.searchTerm,
-    coords: Object.values(state.coords).map(c => Math.round((c + Number.EPSILON) * 100) / 100).join(','),
+    coords: Object.values(state.coords)
+      .map(c => Math.round((c + Number.EPSILON) * 100) / 100)
+      .join(','),
   }),
 };
 
 const actions = {
-
   async getMapsListing({ commit }, model) {
     const payload = { model: model.apiName, version: model.apiVersion };
     const mapsListing = await mapsApi.fetchMapsListing(payload);

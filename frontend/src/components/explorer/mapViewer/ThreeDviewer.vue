@@ -1,20 +1,32 @@
 <template>
   <div class="viewer-container">
     <div v-if="errorMessage" class="columns is-centered">
-      <div class="column notification is-danger is-half is-offset-one-quarter has-text-centered"
-           v-html="errorMessage" />
+      <div
+        class="column notification is-danger is-half is-offset-one-quarter has-text-centered"
+        v-html="errorMessage"
+      />
     </div>
     <div v-else id="viewer3d"></div>
-    <MapControls wrapper-elem-selector=".viewer-container" :is-fullscreen="isFullscreen"
-                 :zoom-in="zoomIn" :zoom-out="zoomOut"
-                 :toggle-full-screen="toggleFullscreen" :toggle-genes="toggleGenes"
-                 :toggle-labels="toggleLabels"
-                 :toggle-background-color="toggleBackgroundColor"
-                 :style="{'z-index': network.nodes.length + 1}" />
-    <MapSearch ref="mapsearch" :matches="searchedNodesOnMap"
-               :fullscreen="isFullscreen" :style="{'z-index': network.nodes.length + 1}"
-               @searchOnMap="searchIDsOnMap" @centerViewOn="centerElement"
-               @unHighlightAll="unHighlight" />
+    <MapControls
+      wrapper-elem-selector=".viewer-container"
+      :is-fullscreen="isFullscreen"
+      :zoom-in="zoomIn"
+      :zoom-out="zoomOut"
+      :toggle-full-screen="toggleFullscreen"
+      :toggle-genes="toggleGenes"
+      :toggle-labels="toggleLabels"
+      :toggle-background-color="toggleBackgroundColor"
+      :style="{ 'z-index': network.nodes.length + 1 }"
+    />
+    <MapSearch
+      ref="mapsearch"
+      :matches="searchedNodesOnMap"
+      :fullscreen="isFullscreen"
+      :style="{ 'z-index': network.nodes.length + 1 }"
+      @searchOnMap="searchIDsOnMap"
+      @centerViewOn="centerElement"
+      @unHighlightAll="unHighlight"
+    />
     <MapLoader />
   </div>
 </template>
@@ -122,7 +134,8 @@ export default {
 
       if (element.group === 'r') {
         type = 'reaction';
-      } if (element.group === 'e') {
+      }
+      if (element.group === 'e') {
         type = 'gene';
       }
 
@@ -194,7 +207,7 @@ export default {
       // }
       // this.currentLevels = levels;
 
-      const nodes = this.network.nodes.map((node) => {
+      const nodes = this.network.nodes.map(node => {
         let color = colorToRGBArray(this.defaultMetaboliteColor);
 
         if (node.g === 'r') {
@@ -311,8 +324,9 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
-.viewer-container, #viewer3d {
+<style lang="scss" scoped>
+.viewer-container,
+#viewer3d {
   width: 100%;
   height: 100%;
   @media screen and (max-width: $tablet) {

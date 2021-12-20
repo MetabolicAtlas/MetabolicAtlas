@@ -27,13 +27,21 @@ const routes = [
   { path: '/search', name: 'search', component: SearchTable },
   { path: '/explore/:model?', name: 'explorer', component: Explorer },
   { path: '/explore/:model/gem-browser', name: 'browser', component: GemBrowser },
-  { path: '/explore/:model/gem-browser/compartment/:id', name: 'compartment', component: Compartment },
+  {
+    path: '/explore/:model/gem-browser/compartment/:id',
+    name: 'compartment',
+    component: Compartment,
+  },
   { path: '/explore/:model/gem-browser/gene/:id', name: 'gene', component: Gene },
   { path: '/explore/:model/gem-browser/metabolite/:id', name: 'metabolite', component: Metabolite },
   { path: '/explore/:model/gem-browser/reaction/:id', name: 'reaction', component: Reaction },
   { path: '/explore/:model/gem-browser/subsystem/:id', name: 'subsystem', component: Subsystem },
   { path: '/explore/:model/map-viewer/:map_id?', name: 'viewer', component: MapViewer },
-  { path: '/explore/:model/interaction-partners/:id?', name: 'interaction', component: InteractionPartners },
+  {
+    path: '/explore/:model/interaction-partners/:id?',
+    name: 'interaction',
+    component: InteractionPartners,
+  },
   { path: '/about', name: 'about', component: About },
   { path: '/gems/repository/:model_id?', name: 'gems', component: Repository },
   { path: '/gems/comparison', name: 'comparemodels', component: CompareModels },
@@ -62,12 +70,14 @@ NProgress.configure({
   showSpinner: false,
 });
 
-router.beforeResolve((to, from, next) => { // eslint-disable-line no-unused-vars
+// eslint-disable-next-line no-unused-vars
+router.beforeResolve((to, from, next) => {
   NProgress.start();
   next();
 });
 
-router.afterEach((to, from) => { // eslint-disable-line no-unused-vars
+// eslint-disable-next-line no-unused-vars
+router.afterEach((to, from) => {
   NProgress.done();
 });
 
