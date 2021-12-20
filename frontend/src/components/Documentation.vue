@@ -383,12 +383,25 @@
                 . If the file is parsed correctly, the file name will be highlighted in green; in
                 case errors are detected, it will be highlighted in red. The expected custom data
                 file should contain at least two columns with headers and using tab delimiter. The
-                first column has to contain gene IDs, identical to the ones in the model. Any
-                missing genes or missing values will be assigned an "n/a" value and highlighted in
-                gray. The rest of the columns act as data series, with each column being a new data
-                serie, as shown in the example to the right (
+                first column has to contain gene IDs, identical to the ones in the model. The header
+                of the first column should be named as
+                <b>id</b>
+                as shown in the example to the right (
                 <b>Figure 2</b>
-                ). The headers of these data series will be shown automatically in the dropdown
+                ). Any missing genes or missing values will be assigned an "n/a" value and
+                highlighted in gray. The rest of the columns act as data series, with each column
+                being a new data serie (see
+                <b>Figure 2</b>
+                ). Note that the values of data series must be in the range of 0-1. Detailed
+                information about the format of the custom data as well as why the data should be in
+                the rage of 0-1 can be found
+                <a
+                  target="_blank"
+                  href="https://github.com/MetabolicAtlas/data-files/blob/main/DATA_OVERLAY.md#data-source-file-requirements"
+                >
+                  here
+                </a>
+                . The headers of these data series will be shown automatically in the dropdown
                 options for the uploaded data. The values are expected in TPM.
               </p>
             </div>
@@ -403,13 +416,13 @@
 
               <br />
               <blockquote>
-                geneID&emsp;heart&emsp;liver
+                id&emsp;heart&emsp;liver
                 <br />
-                ENSG00000177666&emsp;42&emsp;8701
+                ENSG00000177666&emsp;0.484&emsp;0.349
                 <br />
-                ENSG00000175535&emsp;572
+                ENSG00000175535&emsp;0.564&emsp;0
                 <br />
-                ENSG00000187021&emsp;3498&emsp;1768
+                ENSG00000187021&emsp;0.114&emsp;0
               </blockquote>
               <p style="font-size: 80%">
                 <b>Figure 2: Example file for custom data to be uploaded in Data overlay</b>
