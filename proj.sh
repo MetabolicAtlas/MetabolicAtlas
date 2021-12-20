@@ -45,7 +45,7 @@ function ma-exec {
 
 function deploy-stack {
   generate-data
-  docker --context $1 compose -f docker-compose.yml -f docker-compose-prod.yml up -d --build --force-recreate
+  docker --context $1 compose -f docker-compose.yml -f docker-compose-prod.yml -p metabolicatlas up -d --build --force-recreate
 }
 
 function import-db {
