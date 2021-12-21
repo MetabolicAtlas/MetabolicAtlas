@@ -365,9 +365,12 @@
                 <i>None</i>
                 option in the drop down list. RNA levels are available for both 2D and 3D Map
                 Viewer. The gene expression levels used are obtained from the file
+                <b>rna_tissue_hpa.tsv.zip</b>
+                in the
                 <a href="https://www.proteinatlas.org/about/download" target="_blank">
-                  rna_tissue_hpa.tsv
-                </a>.
+                  download page
+                </a>
+                of the Human Protein Atlas.
               </p>
               <p>
                 The
