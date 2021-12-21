@@ -367,7 +367,7 @@
                 Viewer. The gene expression levels used are obtained from the file
                 <a href="https://www.proteinatlas.org/about/download" target="_blank">
                   rna_tissue_hpa.tsv
-                </a>
+                </a>.
               </p>
               <p>
                 The
