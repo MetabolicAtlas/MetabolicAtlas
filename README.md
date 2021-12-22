@@ -7,6 +7,11 @@ If you use *Metabolic Atlas* in your scientific work, please cite:
 >
 > Robinson, J., et al, 2020. _An atlas of human metabolism_. Science Signaling 13 [doi:10.1126/scisignal.aaz1482 ](https://doi.org/10.1126/scisignal.aaz1482)
 
+## About Metabolic Atlas
+Metabolic Atlas is a web platform integrating open-source genome scale metabolic models (GEMs) for easy browsing and analysis. The goal is to collect many curated GEMs, and to bring these models closer to [FAIR principles](https://en.wikipedia.org/wiki/FAIR_data). The webiste provides visualisations and comparisons of the GEMs, and links to resourcess, algorithms, other databases, and more general software applications. In short, the vision is to create a one-stop-shop for everything metabolism related. 
+
+## Contributing
+If you would like to contribute to the project, for example if you have ideas for new features, discovered a bug or if you would like to improve the code base, please have a look at [CONTRIBUTING.md](https://github.com/MetabolicAtlas/MetabolicAtlas/blob/develop/.github/CONTRIBUTING.md).
 
 ## Get started
 The front-end uses [Vue.js](https://vuejs.org), with help of [Vue CLI](https://cli.vuejs.org/). The backend uses [ExpressJS](https://expressjs.com/) and [Neo4j](https://neo4j.com/) as the database.  
