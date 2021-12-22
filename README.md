@@ -28,38 +28,15 @@ Clone the three required repositories by
     git clone https://github.com/MetabolicAtlas/data-files && pushd data-files; git lfs pull; popd
 
 
-Go to the repository `data-generation` and follow the
-[instructions](https://github.com/MetabolicAtlas/data-generation#readme) on how to generate the data files required by MetabolicAtlas.
+Go to the repository `data-generation` and follow the [instructions](https://github.com/MetabolicAtlas/data-generation#readme) on how to generate the data files required by Metabolic Atlas.
 
-In the folder `MetabolicAtlas` that has been cloned, add a `.env` file based on the `.env.sample` file:
+In the folder `MetabolicAtlas` that has been cloned, add a `env-local.env` file based on the `env-local.env.sample` file:
 ```bash
-cp .env.sample .env
+cp env-local.env.sample env-local.env
 ```
-and modify this `.env` file.
+and modify this `env-local.env` file.
 
-The content of the file `.env` that has just been copied from `.env.sample` is shown below. Make sure the paths for `DATA_FILES_PATH` and `DATA_GENERATOR_PATH` are correct for your setup,
-eg. the paths to where you have downloaded the repositories `data-files` and `data-generation`.
-
-
-```
-CERTBOT_EMAIL=
-SERVER_NAME=localhost
-DATA_FILES_PATH=../data-files
-DATA_GENERATOR_PATH=../data-generation
-
-NEO4J_USERNAME=neo4j
-NEO4J_PASSWORD=password-unhackable
-
-FTP_MIN_PORT=30000
-FTP_MAX_PORT=31000
-
-PORT_NGINX=80
-PORT_FRONTEND=81
-PORT_NEO4J_1=7474
-PORT_NEO4J_2=7687
-
-IP_FILTER=""
-```
+Make sure the paths for `DATA_FILES_PATH` and `DATA_GENERATOR_PATH` are correct for your setup, eg. the paths to where you have downloaded the repositories `data-files` and `data-generation`.
 
 To load the list of helper commands run:
 ```bash
@@ -78,6 +55,16 @@ start-stack
 
 Given successful deployment, the frontend should be accessible at: `http://localhost/`. If you encounter any problems try looking at the logs `logs api` / `logs frontend`.
 
+To deploy the stack to a remote server, create another `ENV` file, e.g. `env-dev.env`, and modify it accordingly:
+```bash
+cp env-local.env.sample env-dev.env
+```
+
+Use the tag of the file (`dev` in the previous example) as an argument to the `deploy-stack` command to pass the `ENV` file to the Docker command and the Docker compose file:
+```bash
+deploy-stack dev
+```
+
 ## Description of helper commands
 
 * To bootstrap the project: `build-stack`
@@ -94,9 +81,7 @@ When rebuilding the stack, you might have to change the ownership of the directo
 ```
 sudo chown -R <user> neo4j
 ```
-Replace `<user>` with your user name.
-The ownership will be automatically reset when running the project, so you will
-have to repeat this step for every rebuild.
+Replace `<user>` with your user name. The ownership will be automatically reset when running the project, so you will have to repeat this step for every rebuild.
 
 
 ## Licenses
