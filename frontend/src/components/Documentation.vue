@@ -354,12 +354,8 @@
                 . By clicking the
                 <i>Data overlay</i>
                 button on the right side of the page, one can toggle the hidden/display of this
-                panel. On the
-                <i>Data overlay</i>
-                panel, gene expression levels for genes from
-                <a href="https://www.proteinatlas.org/about/releases#18" target="_blank">
-                  The Human Protein Atlas v18
-                </a>
+                panel. For Human-GEM, the gene expression levels for genes from
+                <a href="https://www.proteinatlas.org/" target="_blank">The Human Protein Atlas</a>
                 can be loaded by selecting one of the tissues in the drop down list. Once selected,
                 the RNA levels corresponding to the chosen tissue will be used to color each gene on
                 the respective map, according to the color legend (an example of the color legend is
@@ -368,10 +364,13 @@
                 ). To clear the RNA levels, select the
                 <i>None</i>
                 option in the drop down list. RNA levels are available for both 2D and 3D Map
-                Viewer. The data is obtained from version 18 of the Protein Atlas with the units in
-                log
-                <sub>2</sub>
-                (TPM+1) associated with a gradient colorbar.
+                Viewer. The gene expression levels used are obtained from the file
+                <b>rna_tissue_hpa.tsv.zip</b>
+                in the
+                <a href="https://www.proteinatlas.org/about/download" target="_blank">
+                  download page
+                </a>
+                of the Human Protein Atlas.
               </p>
               <p>
                 The
