@@ -2,6 +2,7 @@
 export PATH=$PATH:/usr/local/bin
 LOCALENV="local"
 METATLAS_DEFAULT_ENV="env-${LOCALENV}.env"
+export CHOSEN_ENV=$METATLAS_DEFAULT_ENV
 
 function generate-data {
   # enable flag "-q" to force overwritting existing data files
