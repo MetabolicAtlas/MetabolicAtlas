@@ -15,7 +15,7 @@
   "dependencies": {
     "@metabolicatlas/3d-network-viewer": "^0.1.18",
     "@panzoom/panzoom": "^4.4.3",
-    "axios": "^0.21.1",
+    "axios": "^0.24.0",
     "bulma": "^0.9.0",
     "bulma-timeline": "^3.0.4",
     "cytoscape": "3.2.9",
@@ -27,10 +27,10 @@
     "vue": "^2.6.10",
     "vue-color": "2.8.1",
     "vue-cookie": "^1.1.4",
-    "vue-debounce": "^2.1.0",
+    "vue-debounce": "^3.0.2",
     "vue-good-table": "^2.21.11",
-    "vue-lodash": "^1.0.3",
-    "vue-matomo": "^3",
+    "vue-lodash": "^2.1.2",
+    "vue-matomo": "^4.1.0",
     "vue-meta": "^2.4.0",
     "vue-router": "^3.5.3",
     "vuex": "^3.0.1"
