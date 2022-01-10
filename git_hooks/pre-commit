@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# run_lint: runs prettier and eslint on all staged files inside docker
+# files will be reformatted by prettier and the script will fail if there are
+# any warnings from eslint
+#  $1: container name
+#  $2: file names as in container
+#  $3: local file names
 run_lint () {
 
   if [[ ! -z "$2" ]]
