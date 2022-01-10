@@ -1,27 +1,35 @@
 <template>
-  <div id="mapSearch" class="overlay m-0 p-2" :class="[{'fullscreen' : fullscreen}]">
-    <div class="control" :class="{ 'is-loading' : isSearching }">
-      <input id="searchInput" data-hj-whitelist
-             :class="searchInputClass"
-             title="Exact search by id, name, alias. Press Enter for results" class="input"
-             placeholder="Exact search by id, name, alias"
-             :disabled="loading || (showing2D && !svgMap)"
-             :value="searchTerm"
-             type="text" @input="e => handleChange(e.target.value)"
-             @keyup.enter="e => search(e.target.value)" />
+  <div id="mapSearch" class="overlay m-0 p-2" :class="[{ fullscreen: fullscreen }]">
+    <div class="control" :class="{ 'is-loading': isSearching }">
+      <input
+        id="searchInput"
+        data-hj-whitelist
+        :class="searchInputClass"
+        title="Exact search by id, name, alias. Press Enter for results"
+        class="input"
+        placeholder="Exact search by id, name, alias"
+        :disabled="loading || (showing2D && !svgMap)"
+        :value="searchTerm"
+        type="text"
+        @input="e => handleChange(e.target.value)"
+        @keyup.enter="e => search(e.target.value)"
+      />
     </div>
     <template v-if="searchTerm && matches && matches.length !== 0 && totalSearchMatch !== 0">
-      <span id="searchResCount" class="button has-text-dark"
-            title="Click to center on current match"
-            @click="centerViewOn(0)">
+      <span
+        id="searchResCount"
+        class="button has-text-dark"
+        title="Click to center on current match"
+        @click="centerViewOn(0)"
+      >
         {{ currentSearchMatch + 1 }} of {{ totalSearchMatch }}
       </span>
-      <span class="button has-text-dark"
-            title="Go to previous"
-            @click="centerViewOn(-1)"><i class="fa fa-angle-left"></i></span>
-      <span class="button has-text-dark"
-            title="Go to next"
-            @click="centerViewOn(1)"><i class="fa fa-angle-right"></i></span>
+      <span class="button has-text-dark" title="Go to previous" @click="centerViewOn(-1)">
+        <i class="fa fa-angle-left"></i>
+      </span>
+      <span class="button has-text-dark" title="Go to next" @click="centerViewOn(1)">
+        <i class="fa fa-angle-right"></i>
+      </span>
     </template>
     <template v-else-if="searchTerm && totalSearchMatch === 0 && haveSearched">
       <span class="has-text-white">{{ messages.searchNoResult }}</span>
@@ -30,7 +38,6 @@
 </template>
 
 <script>
-
 import { mapState } from 'vuex';
 import { debounce } from 'vue-debounce';
 import { default as messages } from '@/content/messages';
@@ -144,25 +151,25 @@ export default {
 </script>
 
 <style lang="scss">
-  #mapSearch {
-    top: 2rem;
-    left: 20%;
-    div {
-      display: inline-block;
-      vertical-align: middle;
-    }
-    span {
-      margin-left: 5px;
-    }
+#mapSearch {
+  top: 2rem;
+  left: 20%;
+  div {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  span {
+    margin-left: 5px;
+  }
+  #searchInput {
+    display: inline-block;
+    width: 20vw;
+  }
+  &.fullscreen {
+    left: 30%;
     #searchInput {
-      display: inline-block;
-      width: 20vw;
-    }
-    &.fullscreen {
-      left: 30%;
-      #searchInput {
-        width: 30vw;
-      }
+      width: 30vw;
     }
   }
+}
 </style>

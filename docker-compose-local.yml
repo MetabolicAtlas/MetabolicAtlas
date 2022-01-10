@@ -18,6 +18,8 @@ services:
     volumes:
       - ./frontend/src:/project/src
       - ./frontend/public:/project/public
+      - ./frontend/.eslintrc.js:/project/.eslintrc.js
+      - ./frontend/.prettierrc.json:/project/.prettierrc.json
     networks:
       - nginx-network
     ports:
@@ -36,8 +38,6 @@ services:
       - "127.0.0.1:${PORT_NEO4J_2:-7687}:7687"
 
   api:
-    environment:
-      - NODE_ENV=develop
     volumes:
       - ./api/src:/project/src
       - ./api/svg:/project/svg

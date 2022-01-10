@@ -15,7 +15,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  p {
-    line-height: 3em;
-  }
+p {
+  line-height: 3em;
+}
 </style>

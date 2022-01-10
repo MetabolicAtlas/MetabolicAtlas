@@ -11,17 +11,24 @@ const search = async ({ searchTerm, model, version, limit }) => {
   }
 
   return Object.entries(data).reduce((obj, [k, v]) => {
-    obj[k] = { // eslint-disable-line no-param-reassign
+    // eslint-disable-next-line no-param-reassign
+    obj[k] = {
       ...v,
-      reaction: v.reaction.map(r => ({
-        ...r,
-        compartment_str: r.compartment.map(c => c.name).join(', '),
-        reactants: r.metabolites.filter(m => m.outgoing),
-        products: r.metabolites.filter(m => !m.outgoing),
-      })).map(r => ({
-        ...r,
-        equation: reformatChemicalReactionHTML({ reaction: r, noLink: true, model: model.short_name }),
-      })),
+      reaction: v.reaction
+        .map(r => ({
+          ...r,
+          compartment_str: r.compartment.map(c => c.name).join(', '),
+          reactants: r.metabolites.filter(m => m.outgoing),
+          products: r.metabolites.filter(m => !m.outgoing),
+        }))
+        .map(r => ({
+          ...r,
+          equation: reformatChemicalReactionHTML({
+            reaction: r,
+            noLink: true,
+            model: model.short_name,
+          }),
+        })),
     };
 
     return obj;

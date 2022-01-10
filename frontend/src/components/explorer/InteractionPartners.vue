@@ -2,14 +2,17 @@
   <div class="section extended-section">
     <div class="container is-fullhd">
       <div v-if="errorMessage">
-        <div class="column notification is-danger is-half is-offset-one-quarter has-text-centered"
-             v-html="errorMessage" />
+        <div
+          class="column notification is-danger is-half is-offset-one-quarter has-text-centered"
+          v-html="errorMessage"
+        />
       </div>
       <div v-else class="interaction-partners">
         <div v-if="!mainNodeID" class="columns">
           <div class="column container is-fullhd has-text-centered">
             <h3 class="title is-3">
-              Explore {{ model ? model.short_name : 'the model' }} with the {{ messages.interPartName }}
+              Explore {{ model ? model.short_name : 'the model' }} with the
+              {{ messages.interPartName }}
             </h3>
             <h5 class="subtitle is-5 has-text-weight-normal">
               use the menu bar search to find the component of interest and click the
@@ -20,26 +23,50 @@
         </div>
         <div v-if="!mainNodeID">
           <div class="has-text-centered">
-            <a id="randomButton" class="button is-rounded is-outlined is-success"
-               :class="randomComponents ? '' : 'is-loading'"
-               title="Fetch another random set of components" @click="getRandomComponents()">
+            <a
+              id="randomButton"
+              class="button is-rounded is-outlined is-success"
+              :class="randomComponents ? '' : 'is-loading'"
+              title="Fetch another random set of components"
+              @click="getRandomComponents()"
+            >
               <span class="icon">
                 <i class="fa fa-random"></i>
               </span>
               <span v-if="model">random components of {{ model.short_name || 'a model' }}</span>
             </a>
-            <br>
+            <br />
           </div>
-          <br>
+          <br />
           <transition name="fade">
             <div v-if="randomComponents" class="tile is-ancestor">
               <div class="tile is-vertical">
-                <tile type="interaction" label="gene" :data="randomComponents.genes[0]" class="is-half" />
-                <tile type="interaction" label="metabolite" :data="randomComponents.metabolites[0]" class="is-half" />
+                <tile
+                  type="interaction"
+                  label="gene"
+                  :data="randomComponents.genes[0]"
+                  class="is-half"
+                />
+                <tile
+                  type="interaction"
+                  label="metabolite"
+                  :data="randomComponents.metabolites[0]"
+                  class="is-half"
+                />
               </div>
               <div class="tile is-vertical">
-                <tile type="interaction" label="metabolite" :data="randomComponents.metabolites[1]" class="is-half" />
-                <tile type="interaction" label="gene" :data="randomComponents.genes[1]" class="is-half" />
+                <tile
+                  type="interaction"
+                  label="metabolite"
+                  :data="randomComponents.metabolites[1]"
+                  class="is-half"
+                />
+                <tile
+                  type="interaction"
+                  label="gene"
+                  :data="randomComponents.genes[1]"
+                  class="is-half"
+                />
               </div>
             </div>
           </transition>
@@ -55,23 +82,43 @@
         <template v-else-if="mainNodeID && !componentNotFound">
           <div class="container is-fullhd columns">
             <div class="column is-8">
-              <h3 class="title is-3 m-0" v-html="`${messages.interPartName} for ${componentName}`"></h3>
+              <h3
+                class="title is-3 m-0"
+                v-html="`${messages.interPartName} for ${componentName}`"
+              ></h3>
             </div>
           </div>
-          <div v-show="showGraphContextMenu && showNetworkGraph" id="contextMenuGraph" ref="contextMenuGraph">
-            <span v-show="clickedElmId && clickedElmId !== mainNodeID"
-                  class="button is-dark" @click="navigate">Load {{ messages.interPartName }}</span>
-            <span v-show="clickedElmId && !expandedIds.includes(clickedElmId)"
-                  class="button is-dark" @click="loadExpansion">Expand {{ messages.interPartName }}</span>
+          <div
+            v-show="showGraphContextMenu && showNetworkGraph"
+            id="contextMenuGraph"
+            ref="contextMenuGraph"
+          >
+            <span
+              v-show="clickedElmId && clickedElmId !== mainNodeID"
+              class="button is-dark"
+              @click="navigate"
+            >
+              Load {{ messages.interPartName }}
+            </span>
+            <span
+              v-show="clickedElmId && !expandedIds.includes(clickedElmId)"
+              class="button is-dark"
+              @click="loadExpansion"
+            >
+              Expand {{ messages.interPartName }}
+            </span>
             <div v-show="clickedElm">
               <span class="button is-dark">Highlight reaction:</span>
             </div>
             <div>
               <template v-if="clickedElm && clickedElm['reaction']">
-                <template v-for="(r, index) in Array.from(clickedElm.reaction).slice(0,16)">
+                <template v-for="(r, index) in Array.from(clickedElm.reaction).slice(0, 16)">
                   <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
-                  <span v-if="index != 15" class="button is-dark is-small has-margin-left"
-                        @click="highlightReaction(r)">
+                  <span
+                    v-if="index != 15"
+                    class="button is-dark is-small has-margin-left"
+                    @click="highlightReaction(r)"
+                  >
                     {{ r }}
                   </span>
                   <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
@@ -87,7 +134,7 @@
               <div class="column is-8-desktop is-fullwidth-tablet">
                 <div class="notification is-warning has-text-centered">
                   The query has returned many nodes.
-                  <br>
+                  <br />
                   The network cannot been generated.
                 </div>
               </div>
@@ -97,7 +144,7 @@
                 <div class="notification is-warning has-text-centered">
                   <div>
                     The query has returned many nodes.
-                    <br>
+                    <br />
                     The network has not been generated.
                   </div>
                   <span class="button" @click="generateGraph(fitGraph)">Generate</span>
@@ -107,14 +154,26 @@
             <template v-else-if="showNetworkGraph">
               <div class="column is-8-desktop is-fullwidth-tablet">
                 <div id="graphOption">
-                  <span class="button" :class="[{ 'is-active': showGraphLegend }, '']"
-                        title="Options" @click="toggleGraphLegend"><i class="fa fa-cog"></i></span>
-                  <span class="button" title="Zoom In" @click="zoomGraph(true)"><i class="fa fa-search-plus"></i></span>
+                  <span
+                    class="button"
+                    :class="[{ 'is-active': showGraphLegend }, '']"
+                    title="Options"
+                    @click="toggleGraphLegend"
+                  >
+                    <i class="fa fa-cog"></i>
+                  </span>
+                  <span class="button" title="Zoom In" @click="zoomGraph(true)">
+                    <i class="fa fa-search-plus"></i>
+                  </span>
                   <span class="button" title="Zoom Out" @click="zoomGraph(false)">
                     <i class="fa fa-search-minus"></i>
                   </span>
-                  <span class="button" title="Fit to frame" @click="fitGraph()"><i class="fa fa-arrows-alt"></i></span>
-                  <span class="button" title="Reload" @click="resetGraph(true)"><i class="fa fa-refresh"></i></span>
+                  <span class="button" title="Fit to frame" @click="fitGraph()">
+                    <i class="fa fa-arrows-alt"></i>
+                  </span>
+                  <span class="button" title="Reload" @click="resetGraph(true)">
+                    <i class="fa fa-refresh"></i>
+                  </span>
                   <span class="button" title="Clean selection/highlight" @click="resetGraph(false)">
                     <i class="fa fa-eraser"></i>
                   </span>
@@ -132,58 +191,71 @@
                       </select>
                     </div>
                     <span>Color:</span>
-                    <span class="color-span is-clickable"
-                          :style="{ background: nodeDisplayParams.geneNodeColor.hex }"
-                          @click="toggleGeneColorPicker()">
-                      <compact-picker v-show="showColorPickerEnz"
-                                      v-model="nodeDisplayParams.geneNodeColor"
-                                      @input="applyOptionPanelColor('gene')">
-                      </compact-picker>
+                    <span
+                      class="color-span is-clickable"
+                      :style="{ background: nodeDisplayParams.geneNodeColor.hex }"
+                      @click="toggleGeneColorPicker()"
+                    >
+                      <compact-picker
+                        v-show="showColorPickerEnz"
+                        v-model="nodeDisplayParams.geneNodeColor"
+                        @input="applyOptionPanelColor('gene')"
+                      ></compact-picker>
                     </span>
                   </div>
-                  <br>
+                  <br />
                   <span class="label">Metabolite</span>
                   <div class="comp">
                     <span>Shape:</span>
                     <div class="select">
-                      <select v-model="nodeDisplayParams.metaboliteNodeShape"
-                              @change="redrawGraph()">
+                      <select
+                        v-model="nodeDisplayParams.metaboliteNodeShape"
+                        @change="redrawGraph()"
+                      >
                         <option v-for="shape in availableNodeShape" :key="shape">
                           {{ shape }}
                         </option>
                       </select>
                     </div>
                     <span>Color:</span>
-                    <span class="color-span is-clickable"
-                          :style="{ background: nodeDisplayParams.metaboliteNodeColor.hex }"
-                          @click="toggleMetaboliteColorPicker()">
-                      <compact-picker v-show="showColorPickerMeta"
-                                      v-model="nodeDisplayParams.metaboliteNodeColor"
-                                      @input="applyOptionPanelColor('metabolite')">
-                      </compact-picker>
+                    <span
+                      class="color-span is-clickable"
+                      :style="{ background: nodeDisplayParams.metaboliteNodeColor.hex }"
+                      @click="toggleMetaboliteColorPicker()"
+                    >
+                      <compact-picker
+                        v-show="showColorPickerMeta"
+                        v-model="nodeDisplayParams.metaboliteNodeColor"
+                        @input="applyOptionPanelColor('metabolite')"
+                      ></compact-picker>
                     </span>
                   </div>
                 </div>
                 <div id="cy" ref="cy" class="card p0">
                   <div id="dropdownMenuExport" class="dropdown">
                     <div class="dropdown-trigger">
-                      <a v-show="showNetworkGraph" class="button is-white" aria-haspopup="true"
-                         aria-controls="dropdown-menu" @click="showMenuExport=!showMenuExport">
+                      <a
+                        v-show="showNetworkGraph"
+                        class="button is-white"
+                        aria-haspopup="true"
+                        aria-controls="dropdown-menu"
+                        @click="showMenuExport = !showMenuExport"
+                      >
                         <span class="icon is-large"><i class="fa fa-download"></i></span>
                         <span>Export</span>
                         <span class="icon is-large"><i class="fa fa-caret-down"></i></span>
                       </a>
                     </div>
-                    <div v-show="showMenuExport" id="dropdown-menu"
-                         class="dropdown-menu" role="menu"
-                         @mouseleave="showMenuExport = false">
+                    <div
+                      v-show="showMenuExport"
+                      id="dropdown-menu"
+                      class="dropdown-menu"
+                      role="menu"
+                      @mouseleave="showMenuExport = false"
+                    >
                       <div class="dropdown-content">
-                        <a class="dropdown-item" @click="exportGraphml">
-                          Graphml
-                        </a>
-                        <a class="dropdown-item" @click="exportPNG">
-                          PNG
-                        </a>
+                        <a class="dropdown-item" @click="exportGraphml">Graphml</a>
+                        <a class="dropdown-item" @click="exportPNG">PNG</a>
                       </div>
                     </div>
                   </div>
@@ -191,33 +263,47 @@
               </div>
             </template>
             <div class="column">
-              <sidebar id="sidebar" class="mb-2"
-                       :selected-elm="clickedElm" :show-ip-button="clickedElmId !== mainNodeID" />
+              <sidebar
+                id="sidebar"
+                class="mb-2"
+                :selected-elm="clickedElm"
+                :show-ip-button="clickedElmId !== mainNodeID"
+              />
               <template v-if="showNetworkGraph">
                 <div class="card mb-2">
                   <div class="card-content py-2 p-3">
-                    <DataOverlay :map-name="mainNodeID" position="relative" class="has-background-white" />
+                    <DataOverlay
+                      :map-name="mainNodeID"
+                      position="relative"
+                      class="has-background-white"
+                    />
                   </div>
                 </div>
                 <div v-if="compartmentList.length !== 0 || subsystemList.length != 0" class="card">
                   <header class="card-header">
-                    <p class="card-header-title">
-                      Highlight
-                    </p>
+                    <p class="card-header-title">Highlight</p>
                   </header>
                   <div class="card-content py-2 p-3">
                     <div class="select is-fullwidth">
-                      <select v-model="compartmentHL" :disabled="disableCompartmentHL"
-                              @change.prevent="highlightCompartment">
-                        <option v-if="!disableCompartmentHL" value="" disabled>Select a compartment</option>
-                        <option v-for="compartment in compartmentList"
-                                :key="compartment" :value="disableCompartmentHL ? '' : compartment">
+                      <select
+                        v-model="compartmentHL"
+                        :disabled="disableCompartmentHL"
+                        @change.prevent="highlightCompartment"
+                      >
+                        <option v-if="!disableCompartmentHL" value="" disabled>
+                          Select a compartment
+                        </option>
+                        <option
+                          v-for="compartment in compartmentList"
+                          :key="compartment"
+                          :value="disableCompartmentHL ? '' : compartment"
+                        >
                           {{ compartment }}
                         </option>
                       </select>
                     </div>
                     <div v-show="subsystemList.length !== 0">
-                      <br>
+                      <br />
                       <div class="select is-fullwidth">
                         <select v-model="subsystemHL" @change.prevent="highlightSubsystem">
                           <option value="" disabled>Select a subsystem</option>
@@ -229,15 +315,19 @@
                     </div>
                   </div>
                 </div>
-                <br>
+                <br />
               </template>
             </div>
           </div>
-          <cytoscape-table :reactions="reactions" :selected-elm-id="clickedElmId" :selected-reaction-id="reactionHL"
-                           :is-graph-visible="showNetworkGraph"
-                           :filename="filename"
-                           @highlight="highlightNode($event)" @HLreaction="highlightReaction($event)">
-          </cytoscape-table>
+          <cytoscape-table
+            :reactions="reactions"
+            :selected-elm-id="clickedElmId"
+            :selected-reaction-id="reactionHL"
+            :is-graph-visible="showNetworkGraph"
+            :filename="filename"
+            @highlight="highlightNode($event)"
+            @HLreaction="highlightReaction($event)"
+          ></cytoscape-table>
         </template>
       </div>
     </div>
@@ -266,7 +356,6 @@ import { default as convertGraphML } from '@/helpers/graph-ml-converter';
 
 import { getSingleExpressionColor } from '@/helpers/expressionSources';
 import { default as messages } from '@/content/messages';
-
 
 export default {
   name: 'InteractionPartners',
@@ -345,13 +434,22 @@ export default {
         geneNodeColor: {
           hex: '#9F0500',
           hsl: {
-            h: 1.8868, s: 1, l: 0.3118, a: 1,
+            h: 1.8868,
+            s: 1,
+            l: 0.3118,
+            a: 1,
           },
           hsv: {
-            h: 1.8868, s: 1, v: 0.6235, a: 1,
+            h: 1.8868,
+            s: 1,
+            v: 0.6235,
+            a: 1,
           },
           rgba: {
-            r: 159, g: 5, b: 0, a: 1,
+            r: 159,
+            g: 5,
+            b: 0,
+            a: 1,
           },
           a: 1,
         },
@@ -359,13 +457,22 @@ export default {
         metaboliteNodeColor: {
           hex: '#73D8FF',
           hsl: {
-            h: 196.714, s: 1, l: 0.7255, a: 1,
+            h: 196.714,
+            s: 1,
+            l: 0.7255,
+            a: 1,
           },
           hsv: {
-            h: 196.7142, s: 0.549, v: 1, a: 1,
+            h: 196.7142,
+            s: 0.549,
+            v: 1,
+            a: 1,
           },
           rgba: {
-            r: 115, g: 216, b: 255, a: 1,
+            r: 115,
+            g: 216,
+            b: 255,
+            a: 1,
           },
           a: 1,
         },
@@ -411,7 +518,10 @@ export default {
   },
   async beforeMount() {
     if (!this.model || this.model.short_name !== this.$route.params.model) {
-      const modelSelectionSuccessful = await this.$store.dispatch('models/selectModel', this.$route.params.model);
+      const modelSelectionSuccessful = await this.$store.dispatch(
+        'models/selectModel',
+        this.$route.params.model
+      );
       if (!modelSelectionSuccessful) {
         this.errorMessage = `Error: ${messages.modelNotFound}`;
         return;
@@ -447,7 +557,10 @@ export default {
       this.reactionHL = null;
       this.compartmentHL = '';
       this.subsystemHL = '';
-      this.$router.push({ name: 'interaction', params: { model: this.model.short_name, id: this.clickedElmId } });
+      this.$router.push({
+        name: 'interaction',
+        params: { model: this.model.short_name, id: this.clickedElmId },
+      });
     },
     async load() {
       this.loading = true;
@@ -465,10 +578,14 @@ export default {
           return;
         }
 
-        [this.rawElms,
-          this.rawRels,
-          this.compartmentList,
-          this.subsystemList] = transform(this.component, this.reactions, null, null, null, null);
+        [this.rawElms, this.rawRels, this.compartmentList, this.subsystemList] = transform(
+          this.component,
+          this.reactions,
+          null,
+          null,
+          null,
+          null
+        );
         if (this.compartmentList.length === 1) {
           this.compartmentHL = '';
           this.disableCompartmentHL = true;
@@ -610,8 +727,10 @@ export default {
       setTimeout(this.redrawGraph, 0);
     },
     isCompartmentSubsystemHLDisabled() {
-      return ((this.compartmentHL === '' && this.subsystemHL === '')
-        || (this.compartmentList.length < 2 && this.subsystemList.length === 0));
+      return (
+        (this.compartmentHL === '' && this.subsystemHL === '') ||
+        (this.compartmentList.length < 2 && this.subsystemList.length === 0)
+      );
     },
     highlightReaction(rid) {
       if (this.cy) {
@@ -668,9 +787,15 @@ export default {
       }
     },
     redrawGraph() {
-      const stylesheet = changeGraphStyle(this.mainNodeID,
-        this.rawElms, this.rawRels, this.nodeDisplayParams,
-        this.reactionHL, this.compartmentHL, this.subsystemHL)[1];
+      const stylesheet = changeGraphStyle(
+        this.mainNodeID,
+        this.rawElms,
+        this.rawRels,
+        this.nodeDisplayParams,
+        this.reactionHL,
+        this.compartmentHL,
+        this.subsystemHL
+      )[1];
       const cyzoom = this.cy.zoom();
       const cypan = this.cy.pan();
       this.cy.style(stylesheet);
@@ -713,8 +838,15 @@ export default {
       }, 0);
     },
     constructGraph: function constructGraph(elms, rels, callback) {
-      const [elements, stylesheet] = changeGraphStyle(this.mainNodeID,
-        elms, rels, this.nodeDisplayParams, this.reactionHL, this.compartmentHL, this.subsystemHL);
+      const [elements, stylesheet] = changeGraphStyle(
+        this.mainNodeID,
+        elms,
+        rels,
+        this.nodeDisplayParams,
+        this.reactionHL,
+        this.compartmentHL,
+        this.subsystemHL
+      );
 
       const colaOptions = {
         animate: true, // whether to show the layout as it's running
@@ -736,7 +868,9 @@ export default {
         randomize: false, // use random node positions at beginning of layout
         avoidOverlap: true, // if true, prevents overlap of node bounding boxe
         handleDisconnected: true, // if true, avoids disconnected components from overlappin
-        nodeSpacing() { return 10; }, // extra spacing around node
+        nodeSpacing() {
+          return 10;
+        }, // extra spacing around node
         flow: undefined,
         // use DAG/tree flow layout if specified, e.g. { axis: 'y', minSeparation: 30 }
         alignment: undefined,
@@ -810,12 +944,12 @@ export default {
       this.showGraphContextMenu = false;
       this.showNetworkGraph = true;
 
-      const updateContextMenuPosition = (node) => {
+      const updateContextMenuPosition = node => {
         contextMenuGraph.style.left = `${node.renderedPosition().x + 15}px`;
         contextMenuGraph.style.top = `${node.renderedPosition().y + 160}px`;
       };
 
-      this.cy.on('tap tapstart cxttap', (evt) => {
+      this.cy.on('tap tapstart cxttap', evt => {
         if (evt.target === this.cy) {
           this.cy.nodes().deselect();
           this.showGraphContextMenu = false;
@@ -824,7 +958,7 @@ export default {
         }
       });
 
-      this.cy.on('tap cxttap', 'node', (evt) => {
+      this.cy.on('tap cxttap', 'node', evt => {
         const node = evt.target;
         this.cy.nodes().deselect();
         node.json({ selected: true });
@@ -866,7 +1000,7 @@ export default {
       }
 
       const zoom = this.cy.zoom();
-      let lvl = zoom + (zoom * factor);
+      let lvl = zoom + zoom * factor;
 
       if (lvl < this.minZoom) {
         lvl = this.minZoom;
@@ -876,8 +1010,10 @@ export default {
         lvl = this.maxZoom;
       }
 
-      if ((lvl === this.maxZoom && zoom === this.maxZoom)
-        || (lvl === this.minZoom && zoom === this.minZoom)) {
+      if (
+        (lvl === this.maxZoom && zoom === this.maxZoom) ||
+        (lvl === this.minZoom && zoom === this.minZoom)
+      ) {
         return;
       }
 
@@ -912,15 +1048,15 @@ export default {
 };
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .interaction-partners {
-
-  h1, h2 {
+  h1,
+  h2 {
     font-weight: normal;
   }
 
   h5 .icon {
-    color: #A15786;
+    color: #a15786;
   }
 
   #cy {
@@ -947,7 +1083,9 @@ export default {
     }
   }
 
-  #contextMenuGraph, #contextMenuExport, #contextMenuExpression {
+  #contextMenuGraph,
+  #contextMenuExport,
+  #contextMenuExpression {
     position: absolute;
     z-index: 20;
 
@@ -1004,7 +1142,9 @@ export default {
     border-radius: 2px;
     z-index: 30;
 
-    span, div.select, compact-picker {
+    span,
+    div.select,
+    compact-picker {
       display: inline-block;
       margin-right: 20px;
       margin-bottom: 10px;
@@ -1021,7 +1161,7 @@ export default {
     }
 
     .delete {
-      position : absolute;
+      position: absolute;
       right: 10px;
       top: 10px;
     }
@@ -1041,14 +1181,14 @@ export default {
   }
 
   .fade-enter-active {
-    transition: opacity .5s ease;
+    transition: opacity 0.5s ease;
   }
   .fade-leave-active {
-    transition: opacity .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    transition: opacity 0.5s cubic-bezier(1, 0.5, 0.8, 1);
   }
-  .fade-enter, .fade-leave-active {
+  .fade-enter,
+  .fade-leave-active {
     opacity: 0;
   }
 }
-
 </style>

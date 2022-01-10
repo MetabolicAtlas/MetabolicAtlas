@@ -1,8 +1,9 @@
 <template>
   <div id="maps-listing">
-    <div v-for="category in categories"
-         :key="category" class="card my-3">
-      <p class="is-capitalized is-size-6 has-text-weight-bold">{{ category.replace(/.$/," maps") }}</p>
+    <div v-for="category in categories" :key="category" class="card my-3">
+      <p class="is-capitalized is-size-6 has-text-weight-bold">
+        {{ category.replace(/.$/, ' maps') }}
+      </p>
       <span v-for="item in mapsListing[category]" :key="item.id">
         <template v-if="showing2D">
           <template v-if="item.svgs.length === 0">
@@ -15,8 +16,12 @@
           </template>
           <template v-else>
             {{ item.name }}:
-            <a v-for="svg in [...item.svgs].sort((a, b) => a.customName.localeCompare(b.customName))"
-               :key="svg.id" class="inline" @click="changeToMap(svg.id)">
+            <a
+              v-for="svg in [...item.svgs].sort((a, b) => a.customName.localeCompare(b.customName))"
+              :key="svg.id"
+              class="inline"
+              @click="changeToMap(svg.id)"
+            >
               {{ svg.customName }}
             </a>
           </template>
@@ -35,7 +40,6 @@
 import { mapState } from 'vuex';
 import mobileScrollToTop from '@/helpers/mapViewer.js';
 
-
 export default {
   name: 'MapsListing',
   computed: {
@@ -45,7 +49,9 @@ export default {
       mapsListing: state => state.maps.mapsListing,
     }),
     categories() {
-      return Object.keys(this.mapsListing).filter(c => this.mapsListing[c].length > 0 && (c !== 'customs' || this.showing2D)).sort();
+      return Object.keys(this.mapsListing)
+        .filter(c => this.mapsListing[c].length > 0 && (c !== 'customs' || this.showing2D))
+        .sort();
     },
   },
   methods: {
@@ -63,9 +69,9 @@ export default {
 </script>
 
 <style lang="scss">
-
 #maps-listing {
-  p, span {
+  p,
+  span {
     padding: 0.5rem 1rem;
   }
 
@@ -86,5 +92,4 @@ export default {
     }
   }
 }
-
 </style>

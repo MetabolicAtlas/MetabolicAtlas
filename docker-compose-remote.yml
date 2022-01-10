@@ -25,8 +25,6 @@ services:
           memory: 3G
 
   api:
-    environment:
-      - NODE_ENV=production
     command: yarn start
     restart: unless-stopped
     deploy:

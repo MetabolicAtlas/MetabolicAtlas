@@ -28,6 +28,39 @@ Once you have the project running locally, create a new branch based on the `dev
 
 When you are ready to commit the changes, please write a commit message based on [Semantic Commit Messages](https://www.conventionalcommits.org/en/v1.0.0/). For example: `docs: add contribution guidelines`.
 
+#### [Recommended] Setup commit hooks
+
+The project (`frontend` and `api`) uses `eslint` and `prettier` to help catch errors and format code. Some pre-commit actions are provided along with the project that runs the linter and formatter before finalizing each commit. To setup the pre and post commit hooks, please run the following:
+
+```bash
+git config core.hooksPath git_hooks
+```
+
+Note that the project needs to be running (`start-stack`) for the commit hooks to work since they are executing commands through docker.
+
+#### [Optional] Text editor integration for eslint
+
+Many text editors have support for integrating `eslint` and `prettier`. For `eslint`, the editor could show inline warnings and errors live. For `prettier`, the editor can auto-format the code whenever a file is saved.
+
+##### prettier
+
+Prettier relies on the `.prettierrc.json` file, which is provided by default in the project. Please refer to the plugin documentation for more information on how to set them up. For example: [ale](https://github.com/dense-analysis/ale) and [coc.nvim](https://github.com/neoclide/coc.nvim) for Vim or [the Prettier extension](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) for Visual Studio Code.
+
+##### eslint
+
+To enable the `eslint` integrations, the text editor needs to have access to the `node_modules` folder. Since the project runs in Docker, the `node_modules` are not mounted to the local file system by default for performance reasons. Therefore, to enable text editor integrations, the `node_modules` folder needs to be mounted, which can be done by making the following changes (this is for `/frontend`, but it can also be added to `/api` for the same effect) in `docker-compose-local.yml`.
+
+Under `frontend:`:
+
+- change `command:` from `yarn serve` to `yarn && yarn serve`.
+- under `volumes:`, add a new line: `- ./frontend/node_modules:/project/node_modules`
+
+After these changes, make sure to run `start-stack` again to mount the `node_modules` to the local file system. Please note that the project might take longer to start as this is a resource intensive process, which is also why this is not provided by default.
+
+Once the `node_modules` are mounted to the local file system, the text editor integration should work as normal. Please refer to the plugin documentation for more information on how to set them up. For example: [ale](https://github.com/dense-analysis/ale) and [coc.nvim](https://github.com/neoclide/coc.nvim) for Vim or [the ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) for Visual Studio Code.
+
+**Important**: please make sure that these changes you make in the `docker-compose-local.yml` file are not checked into git.
+
 ### Creating a PR
 
 1. When you are finished with the changes, [initiate a new PR](https://github.com/MetabolicAtlas/MetabolicAtlas/compare) from your branch with `develop` as the base branch.

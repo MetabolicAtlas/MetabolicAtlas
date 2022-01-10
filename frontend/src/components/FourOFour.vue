@@ -7,7 +7,6 @@
 </template>
 
 <script>
-
 import NotFound from '@/components/NotFound';
 
 export default {
@@ -16,7 +15,6 @@ export default {
     NotFound,
   },
 };
-
 </script>
 
 <style lang="scss"></style>

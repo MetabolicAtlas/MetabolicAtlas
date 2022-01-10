@@ -5,7 +5,9 @@
       <table id="ed-table" class="table is-fullwidth">
         <template v-for="k in extDbListOrdered">
           <tr :key="k">
-            <td class="td-key has-background-primary has-text-white-bis">{{ reformatTableKey(k) }}</td>
+            <td class="td-key has-background-primary has-text-white-bis">
+              {{ reformatTableKey(k) }}
+            </td>
             <td>
               <template v-for="(el, index) in externalDbs[k]">
                 <template v-if="index !== 0">{{ '; ' }}</template>

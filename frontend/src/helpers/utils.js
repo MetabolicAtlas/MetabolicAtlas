@@ -1,6 +1,9 @@
 import chemicalFormula from '@/helpers/chemical-formatters';
 
-export const buildCustomLink = ({ model, type, id, title, cssClass }) => `<a href="/explore/${model}/gem-browser/${type}/${id}" class="custom-router-link ${cssClass || ''}">${title}</a>`;
+export const buildCustomLink = ({ model, type, id, title, cssClass }) =>
+  `<a href="/explore/${model}/gem-browser/${type}/${id}" class="custom-router-link ${
+    cssClass || ''
+  }">${title}</a>`;
 
 export function capitalize(value) {
   return `${value[0].toUpperCase()}${value.slice(1)}`;
@@ -19,7 +22,8 @@ export function replaceUnderscores(value) {
   return `${value.replace('_', ' ')}`;
 }
 
-export const convertCamelCase = str => str.replace(/([a-z\xE0-\xFF])([A-Z\xC0\xDF])/g, '$1 $2').toLowerCase();
+export const convertCamelCase = str =>
+  str.replace(/([a-z\xE0-\xFF])([A-Z\xC0\xDF])/g, '$1 $2').toLowerCase();
 
 export function reformatTableKey(value) {
   return replaceUnderscores(capitalize(value));
@@ -49,20 +53,17 @@ export function getSimpleEquation(reaction) {
   return `${reactants} ${equationSign(reaction.reversible)} ${products}`;
 }
 
-
-const sortByName = metabolites => [...metabolites].sort((a, b) => ((a.name > b.name) ? 1 : -1));
+const sortByName = metabolites => [...metabolites].sort((a, b) => (a.name > b.name ? 1 : -1));
 
 /** Get the compartement from a reactant or product */
 const getCompartment = ({ fullName }) => fullName.match(/\[[a-z]{1,3}\]/)[0];
 
-
 /** Extract the compartements from the full names,
-  * discard duplicates and return as a string  */
+ * discard duplicates and return as a string  */
 const uniqueCompartments = xs => Array.from(new Set(xs.map(r => getCompartment(r)))).join(' + ');
 
-
 /** Create  the compartements for the summary, as used in Equation and Related Reactions */
-export const formatCompartmentStr = (reaction) => {
+export const formatCompartmentStr = reaction => {
   const reactants = reaction.metabolites.filter(m => m.outgoing);
   const products = reaction.metabolites.filter(m => !m.outgoing);
 
@@ -75,9 +76,15 @@ export const formatCompartmentStr = (reaction) => {
   return `${reactantsCompartments} ${equationSign(reaction.reversible)} ${productsCompartments}`;
 };
 
-
-export function reformatChemicalReactionHTML({ reaction, model, noLink = false, sourceMet = '', comp = false,
-  addSummary = false, html = true }) {
+export function reformatChemicalReactionHTML({
+  reaction,
+  model,
+  noLink = false,
+  sourceMet = '',
+  comp = false,
+  addSummary = false,
+  html = true,
+}) {
   if (reaction === null) {
     return '';
   }
@@ -87,14 +94,25 @@ export function reformatChemicalReactionHTML({ reaction, model, noLink = false, 
   const stoichiometry = x => (Math.abs(x.stoichiometry) !== 1 ? `${x.stoichiometry} ` : '');
   // use super- and subscript for charge and number of atoms, if in html mode
   const chemName = ({ name }) => (html ? chemicalFormula(name, null) : name);
-  const getComponentName = x => (noLink ? chemName(x) : buildCustomLink({ model, type, id: x.id, cssClass: x.id === sourceMet ? 'cms' : undefined, title: chemName(x) }));
+  const getComponentName = x =>
+    noLink
+      ? chemName(x)
+      : buildCustomLink({
+          model,
+          type,
+          id: x.id,
+          cssClass: x.id === sourceMet ? 'cms' : undefined,
+          title: chemName(x),
+        });
 
   function formatReactionElement(x) {
     if (!addComp) {
       return `${stoichiometry(x)}${getComponentName(x)}`;
     }
 
-    const compStr = html ? `<span title="${x.compartment}">${getCompartment(x)}</span>` : getCompartment(x);
+    const compStr = html
+      ? `<span title="${x.compartment}">${getCompartment(x)}</span>`
+      : getCompartment(x);
 
     return `${stoichiometry(x)}${getComponentName(x)} ${compStr}`;
   }
@@ -113,9 +131,12 @@ export function sortResultsScore(a, b) {
 export function sortResultsSearchTerm(a, b, searchTermString) {
   let matchSizeDiffA = 100;
   let matchedStringA = '';
-  Object.values(a).forEach((v) => {
-    if (v && (typeof v === 'string' || v instanceof String)
-      && v.toLowerCase().includes(searchTermString.toLowerCase())) {
+  Object.values(a).forEach(v => {
+    if (
+      v &&
+      (typeof v === 'string' || v instanceof String) &&
+      v.toLowerCase().includes(searchTermString.toLowerCase())
+    ) {
       const diff = v.length - searchTermString.length;
       if (diff < matchSizeDiffA) {
         matchSizeDiffA = diff;
@@ -127,9 +148,12 @@ export function sortResultsSearchTerm(a, b, searchTermString) {
   let matchSizeDiffB = 100;
   let matchedStringB = '';
 
-  Object.values(b).forEach((v) => {
-    if (v && (typeof v === 'string' || v instanceof String)
-      && v.toLowerCase().includes(searchTermString.toLowerCase())) {
+  Object.values(b).forEach(v => {
+    if (
+      v &&
+      (typeof v === 'string' || v instanceof String) &&
+      v.toLowerCase().includes(searchTermString.toLowerCase())
+    ) {
       const diff = v.length - searchTermString.length;
       if (diff < matchSizeDiffB) {
         matchSizeDiffB = diff;
@@ -143,11 +167,14 @@ export function sortResultsSearchTerm(a, b, searchTermString) {
   return matchSizeDiffA < matchSizeDiffB ? -1 : 1;
 }
 
-export const constructCompartmentStr = (reaction) => {
-  const compartments = reaction.compartments.reduce((obj, { id, ...cs }) => ({
-    ...obj,
-    [id]: cs,
-  }), {});
+export const constructCompartmentStr = reaction => {
+  const compartments = reaction.compartments.reduce(
+    (obj, { id, ...cs }) => ({
+      ...obj,
+      [id]: cs,
+    }),
+    {}
+  );
 
   const reactants = reaction.metabolites.filter(m => m.outgoing);
   const products = reaction.metabolites.filter(m => !m.outgoing);
@@ -159,13 +186,14 @@ export const constructCompartmentStr = (reaction) => {
   );
 
   const reactantsCompartmentsStr = Array.from(reactantsCompartments).join(' + ');
-  if (JSON.stringify([...reactantsCompartments])
-    === JSON.stringify([...productsCompartments])) {
+  if (JSON.stringify([...reactantsCompartments]) === JSON.stringify([...productsCompartments])) {
     return reactantsCompartmentsStr;
   }
 
   const productsCompartmentsStr = Array.from(productsCompartments).join(' + ');
-  return `${reactantsCompartmentsStr} ${equationSign(reaction.reversible)} ${productsCompartmentsStr}`;
+  return `${reactantsCompartmentsStr} ${equationSign(
+    reaction.reversible
+  )} ${productsCompartmentsStr}`;
 };
 
 export const generateSocialMetaTags = ({ title, description }) => [

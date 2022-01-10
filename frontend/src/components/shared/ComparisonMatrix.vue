@@ -10,14 +10,20 @@
       <tbody>
         <tr v-for="(rn, i) in rowNames" :key="rn + i">
           <th class="has-nowrap">{{ rn }}</th>
-          <td v-for="(cn, j) in columnNames"
-              :key="cn + j" class="p-0 is-clickable"
-              :class="{selected: isSelectedCell(i, j)}">
+          <td
+            v-for="(cn, j) in columnNames"
+            :key="cn + j"
+            class="p-0 is-clickable"
+            :class="{ selected: isSelectedCell(i, j) }"
+          >
             <div>
-              <span v-for="(type, k) in types" :key="cn + j + type"
-                    :style="{backgroundColor: colors[k]}"
-                    class="px-3 py-2"
-                    @click="handleSelectCell(i, j)">
+              <span
+                v-for="(type, k) in types"
+                :key="cn + j + type"
+                :style="{ backgroundColor: colors[k] }"
+                class="px-3 py-2"
+                @click="handleSelectCell(i, j)"
+              >
                 {{ matrix[i][j][type] }}
               </span>
             </div>
@@ -28,7 +34,12 @@
         click a cell to see the comparison details
         <br />
         legend:
-        <span v-for="(type, k) of types" :key="type" :style="{backgroundColor: colors[k]}" class="p-1">
+        <span
+          v-for="(type, k) of types"
+          :key="type"
+          :style="{ backgroundColor: colors[k] }"
+          class="p-1"
+        >
           {{ type }}
         </span>
       </caption>
@@ -37,7 +48,6 @@
 </template>
 
 <script>
-
 import { mapState } from 'vuex';
 
 export default {
@@ -60,14 +70,17 @@ export default {
       }
 
       const [t1, t2] = this.types;
-      return this.comparisons[t1].map((row, i) => Object.keys(row).reduce((mergedRow, key) => {
-        const model = this.modelList.find(m => m.apiName === key);
-        mergedRow[model.short_name] = { // eslint-disable-line no-param-reassign
-          [t1]: this.comparisons[t1][i][key],
-          [t2]: this.comparisons[t2][i][key],
-        };
-        return mergedRow;
-      }, {}));
+      return this.comparisons[t1].map((row, i) =>
+        Object.keys(row).reduce((mergedRow, key) => {
+          const model = this.modelList.find(m => m.apiName === key);
+          // eslint-disable-next-line no-param-reassign
+          mergedRow[model.short_name] = {
+            [t1]: this.comparisons[t1][i][key],
+            [t2]: this.comparisons[t2][i][key],
+          };
+          return mergedRow;
+        }, {})
+      );
     },
     types() {
       return Object.keys(this.comparisons);
@@ -111,23 +124,35 @@ export default {
       return names;
     },
     matrix() {
-      return this.rowNames.map((rn, i) => this.columnNames.map((cn, j) => {
-        let comparison;
+      return this.rowNames.map((rn, i) =>
+        this.columnNames.map((cn, j) => {
+          let comparison;
 
-        if (rn === cn) {
-          comparison = this.singles.find(x => Object.keys(x)[0] === cn);
-        } else if (i < this.columnNames.length && j < this.columnNames.length) {
-          comparison = this.doubles.find(x => Object.keys(x).includes(rn) && Object.keys(x).includes(cn));
-        } else if (i === this.rowNames.length - 1) { // if last row
-          comparison = this.columnNames.length === 3 ? this.triples[0] : this.quadruples[0];
-        } else {
-          const [k1, k2] = rn.split(' + '); // e.g. HumanGem + MouseGem
-          comparison = k1 !== cn && k2 !== cn && this.triples.find(x => Object.keys(x).includes(k1)
-            && Object.keys(x).includes(k2) && Object.keys(x).includes(cn));
-        }
+          if (rn === cn) {
+            comparison = this.singles.find(x => Object.keys(x)[0] === cn);
+          } else if (i < this.columnNames.length && j < this.columnNames.length) {
+            comparison = this.doubles.find(
+              x => Object.keys(x).includes(rn) && Object.keys(x).includes(cn)
+            );
+          } else if (i === this.rowNames.length - 1) {
+            // if last row
+            comparison = this.columnNames.length === 3 ? this.triples[0] : this.quadruples[0];
+          } else {
+            const [k1, k2] = rn.split(' + '); // e.g. HumanGem + MouseGem
+            comparison =
+              k1 !== cn &&
+              k2 !== cn &&
+              this.triples.find(
+                x =>
+                  Object.keys(x).includes(k1) &&
+                  Object.keys(x).includes(k2) &&
+                  Object.keys(x).includes(cn)
+              );
+          }
 
-        return comparison ? comparison[cn] : '-';
-      }));
+          return comparison ? comparison[cn] : '-';
+        })
+      );
     },
   },
   mounted() {
@@ -139,7 +164,7 @@ export default {
       return row === r && col === c;
     },
     handleSelectCell(row, col) {
-      const selectedModels = [this.$route.query.models].flat().map((m) => {
+      const selectedModels = [this.$route.query.models].flat().map(m => {
         const [model, version] = m.split('-');
         return this.modelList.find(mo => mo.apiName === model && mo.version === version);
       });
@@ -160,7 +185,6 @@ export default {
     },
   },
 };
-
 </script>
 
 <style lang="scss" scoped>
@@ -177,7 +201,8 @@ table {
   }
 
   td {
-    &.selected, &:hover {
+    &.selected,
+    &:hover {
       outline: 2px solid $black;
       outline-offset: -2px;
     }

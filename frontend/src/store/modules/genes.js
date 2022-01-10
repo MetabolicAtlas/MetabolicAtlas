@@ -14,9 +14,9 @@ const actions = {
     const gene = await genesApi.fetchGeneData(payload);
     commit('setGene', gene);
 
-    commit('maps/setAvailableMaps', [
-      ...gene.compartmentSVGs, ...gene.subsystemSVGs,
-    ], { root: true });
+    commit('maps/setAvailableMaps', [...gene.compartmentSVGs, ...gene.subsystemSVGs], {
+      root: true,
+    });
   },
 };
 

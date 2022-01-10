@@ -29,7 +29,8 @@ Vue.mixin(linkHandlerMixin);
 
 Vue.use(VueMeta);
 
-new Vue({ // eslint-disable-line no-new
+// eslint-disable-next-line no-new
+new Vue({
   el: '#app',
   router,
   store,

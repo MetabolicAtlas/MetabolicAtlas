@@ -15,11 +15,9 @@ export default {
     }),
   },
 };
-
 </script>
 
 <style lang="scss">
-
 .map-loader {
   z-index: 10;
   position: absolute;
