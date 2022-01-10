@@ -9,7 +9,8 @@
     "develop": "webpack --watch",
     "lint": "eslint src --ext .js",
     "check-format": "prettier -l src",
-    "format": "prettier -w src"
+    "format": "prettier -w src",
+    "test": "jest"
   },
   "dependencies": {
     "@babel/runtime": "^7.14.6",
@@ -18,8 +19,8 @@
     "neo4j-driver": "^4.1.1",
     "ngraph.forcelayout": "^3.0.0",
     "ngraph.graph": "^19.1.0",
-    "swagger-ui-express": "^4.1.4",
-    "sharp":"^0.29.0"
+    "sharp": "^0.29.0",
+    "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
@@ -32,6 +33,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.20.2",
     "file-loader": "^6.0.0",
+    "jest": "^27.4.7",
     "nodemon-webpack-plugin": "^4.3.2",
     "prettier": "^2.5.1",
     "webpack": "^4.43.0",
