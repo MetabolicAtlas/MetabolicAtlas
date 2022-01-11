@@ -10,7 +10,7 @@ describe("search", () => {
     const data = await search({
       searchTerm: "H2O",
       model: "HumanGem",
-      version: "1_10_0",
+      version: HUMAN_GEM_VERSION,
     });
 
     expect(Object.keys(data)).toContain("Human-GEM");
