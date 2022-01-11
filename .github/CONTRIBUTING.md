@@ -6,7 +6,7 @@ In this guide you will get overview of the contribution workflow from opening an
 
 ## Creating a new issue
 
-If you spot a problem with the website or have any kind of suggestions, search if an issue already exists. If a related issue doesn't exist, please create a new issue. Use a suitable issue template, e.g. bug report or feature request, or create a blank issue with a description as following:
+If you spot a problem with the website or have any kind of suggestions, search if an issue already exists. If a related issue doesn't exist, please [create a new issue](https://github.com/MetabolicAtlas/MetabolicAtlas/issues/new/choose). Use a suitable issue template, e.g. bug report or feature request, or create a blank issue with a description as following:
 
 _As a TYPE_OF_USER, I want to ACCOMPLISH_A_GOAL, so that I REASON_FOR_ACCOMPLISHING_GOAL._
 
