@@ -13,7 +13,7 @@ describe("GEM comparison", () => {
     expect(Reaction[1].HumanGem).toBeGreaterThanOrEqual(Reaction[2].HumanGem);
   });
 
-  test("the comparison details should have lists of unique reactions and metabolites", async () => {
+  test("the comparison details should have lists of reactions and metabolites", async () => {
     const res = await fetch(
       `${API_BASE}/comparison-details?model=%7B"model":"FruitflyGem","version":"1_1_0"%7D&models=[%7B"model":"HumanGem","version":"1_10_0"%7D]`
     );
