@@ -285,7 +285,7 @@ export default {
         let urlPath = `${this.$route.path}`;
         if (this.currentMap.mapReactionIdSet.length > 1) {
           if (newQuery.dim === '2d') {
-            urlPath = urlPath.replace(new RegExp(this.currentMap.id), `${this.currentMap.id}_1`);
+            urlPath = urlPath.replace(new RegExp(this.currentMap.id), this.currentMap.svgs[0].id);
           } else {
             urlPath = urlPath.replace(new RegExp(this.$route.params.map_id), this.currentMap.id);
           }
