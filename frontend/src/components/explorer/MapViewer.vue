@@ -277,10 +277,20 @@ export default {
       const queryString = Object.entries(newQuery)
         .map(e => e.join('='))
         .join('&');
-      const payload = [{}, null, `${this.$route.path}?${queryString}`];
+
       if (newQuery.dim === this.$route.query.dim || (newQuery.dim && !this.$route.query.dim)) {
+        const payload = [{}, null, `${this.$route.path}?${queryString}`];
         history.replaceState(...payload); // eslint-disable-line no-restricted-globals
       } else {
+        let urlPath = `${this.$route.path}`;
+        if (this.currentMap.mapReactionIdSet.length > 1) {
+          if (newQuery.dim === '2d') {
+            urlPath = urlPath.replace(new RegExp(this.currentMap.id), `${this.currentMap.id}_1`);
+          } else {
+            urlPath = urlPath.replace(new RegExp(this.$route.params.map_id), this.currentMap.id);
+          }
+        }
+        const payload = [{}, null, `${urlPath}?${queryString}`];
         history.pushState(...payload); // eslint-disable-line no-restricted-globals
       }
     },
