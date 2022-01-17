@@ -2,6 +2,7 @@
 export PATH=$PATH:/usr/local/bin
 LOCALENV="local"
 METATLAS_DEFAULT_ENV="env-${LOCALENV}.env"
+CHOSEN_ENV=$METATLAS_DEFAULT_ENV
 
 function generate-data {
   # enable flag "-q" to force overwritting existing data files
@@ -42,7 +43,7 @@ function logs {
 }
 
 function ma-exec {
-  docker compose -f docker-compose.yml -f docker-compose-local.yml exec $@
+  docker compose --env-file $CHOSEN_ENV  -f docker-compose.yml -f docker-compose-local.yml exec $@
 }
 
 function deploy-stack {
