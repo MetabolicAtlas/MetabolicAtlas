@@ -4,3 +4,4 @@ Dockerfile
 package*
 repository
 svg
+src/data
