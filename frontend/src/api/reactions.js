@@ -41,7 +41,7 @@ const fetchRelatedReactions = async (resourceType, id, model, version, limit) =>
   return data.map(r => ({
     ...r,
     compartment_str: constructCompartmentStr(r),
-    subsystem_str: r.subsystems.map(s => s.name).join(', '),
+    subsystem_str: r.subsystems.map(s => s.name).join('; '),
     reactants: r.metabolites.filter(m => m.outgoing),
     products: r.metabolites.filter(m => !m.outgoing),
   }));
