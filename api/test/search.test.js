@@ -6,7 +6,7 @@ describe("search", () => {
     await driver.close();
   });
 
-  test("model search to have 50 results per component type if there are too many matches", async () => {
+  test("model search to have 50 results per component type if it exceeds the limit 50", async () => {
     const data = await search({
       searchTerm: "H2O",
       model: "HumanGem",
