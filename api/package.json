@@ -7,7 +7,7 @@
   "scripts": {
     "start": "webpack && node ./dist/bundle.js",
     "develop": "webpack --watch",
-    "lint": "eslint src --ext .js,.vue",
+    "lint": "eslint src --ext .js",
     "check-format": "prettier -l src",
     "format": "prettier -w src"
   },
