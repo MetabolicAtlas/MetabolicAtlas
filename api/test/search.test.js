@@ -6,7 +6,7 @@ describe("search", () => {
     await driver.close();
   });
 
-  test("model search to have max 50 results per component type as default", async () => {
+  test("model search to have 50 results per component type if there are too many matches", async () => {
     const data = await search({
       searchTerm: "H2O",
       model: "HumanGem",
