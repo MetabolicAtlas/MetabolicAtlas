@@ -116,6 +116,9 @@ export default {
     async mapData() {
       await this.init();
     },
+    componentClassName() {
+      this.setupHoverEventHandlers();
+    },
     dataSet() {
       this.applyLevelsOnMap();
     },
@@ -133,23 +136,6 @@ export default {
       $('#svg-wrapper').on('click', aClass, async function f() {
         await self.selectElement($(this));
       });
-    });
-    $('#svg-wrapper').on('mouseover', `.${self.componentClassName}`, function f(e) {
-      const id = $(this).attr('class').split(' ')[1].trim();
-      if (id in self.computedLevels) {
-        self.$refs.tooltip.innerHTML = self.computedLevels[id][1]; // eslint-disable-line prefer-destructuring
-      } else if (Object.keys(self.computedLevels).length !== 0) {
-        self.$refs.tooltip.innerHTML = self.computedLevels['n/a'][1]; // eslint-disable-line prefer-destructuring
-      } else {
-        return;
-      }
-      self.$refs.tooltip.style.top = `${e.pageY - $('.svgbox').first().offset().top + 15}px`;
-      self.$refs.tooltip.style.left = `${e.pageX - $('.svgbox').first().offset().left + 15}px`;
-      self.$refs.tooltip.style.display = 'block';
-    });
-    $('#svg-wrapper').on('mouseout', `.${self.componentClassName}`, () => {
-      self.$refs.tooltip.innerHTML = '';
-      self.$refs.tooltip.style.display = 'none';
     });
     $('.svgbox').on(
       'webkitfullscreenchange mozfullscreenchange fullscreenchange mozFullScreen MSFullscreenChange',
@@ -175,6 +161,26 @@ export default {
       const payload = { model: this.model.short_name, svgName: this.mapData.svgs[0].filename };
       await this.$store.dispatch('maps/getSvgMap', payload);
       this.bindKeyboardShortcuts();
+    },
+    setupHoverEventHandlers() {
+      const self = this;
+      $('#svg-wrapper').on('mouseover', `.${self.componentClassName}`, function f(e) {
+        const id = $(this).attr('class').split(' ')[1].trim();
+        if (id in self.computedLevels) {
+          self.$refs.tooltip.innerHTML = self.computedLevels[id][1]; // eslint-disable-line prefer-destructuring
+        } else if (Object.keys(self.computedLevels).length !== 0) {
+          self.$refs.tooltip.innerHTML = self.computedLevels['n/a'][1]; // eslint-disable-line prefer-destructuring
+        } else {
+          return;
+        }
+        self.$refs.tooltip.style.top = `${e.pageY - $('.svgbox').first().offset().top + 15}px`;
+        self.$refs.tooltip.style.left = `${e.pageX - $('.svgbox').first().offset().left + 15}px`;
+        self.$refs.tooltip.style.display = 'block';
+      });
+      $('#svg-wrapper').on('mouseout', `.${self.componentClassName}`, () => {
+        self.$refs.tooltip.innerHTML = '';
+        self.$refs.tooltip.style.display = 'none';
+      });
     },
     bindKeyboardShortcuts() {
       document.addEventListener('keydown', event => {
