@@ -1,6 +1,10 @@
 import querySingleResult from 'neo4j/queryHandlers/single';
 import queryListResult from 'neo4j/queryHandlers/list';
-import { reformatExternalDbs, reformatCompartmentSVGs, reformatSubsystemSVGs } from 'neo4j/shared/formatter';
+import {
+  reformatExternalDbs,
+  reformatCompartmentSVGs,
+  reformatSubsystemSVGs,
+} from 'neo4j/shared/formatter';
 import parseParams from 'neo4j/shared/helper';
 import integratedGemsRepoJson from 'data/integratedModels.json';
 
@@ -49,16 +53,25 @@ RETURN apoc.map.mergeList(COLLECT(value.data)) as gene
 `;
 
   const gene = await querySingleResult(statement);
-  return { ...gene, compartmentSVGs: reformatCompartmentSVGs(gene), subsystemSVGs: reformatSubsystemSVGs(gene), externalDbs: reformatExternalDbs(gene.externalDbs) };
+  return {
+    ...gene,
+    compartmentSVGs: reformatCompartmentSVGs(gene),
+    subsystemSVGs: reformatSubsystemSVGs(gene),
+    externalDbs: reformatExternalDbs(gene.externalDbs),
+  };
 };
 
 const getHumanLabelAndVersion = () => {
-  const humanGem = integratedGemsRepoJson.find(g => g.short_name === 'Human-GEM'); 
-  const label = `:${humanGem.short_name.split('-').map(s => s[0] + s.slice(1).toLowerCase()).join('')}`;
+  const humanGem = integratedGemsRepoJson.find(
+    g => g.short_name === 'Human-GEM'
+  );
+  const label = `:${humanGem.short_name
+    .split('-')
+    .map(s => s[0] + s.slice(1).toLowerCase())
+    .join('')}`;
   const version = `:V${humanGem.version.split('.').join('_')}`;
   return [label, version];
 };
-
 
 const getGenesForHPA = async () => {
   const [l, v] = getHumanLabelAndVersion();
@@ -71,7 +84,6 @@ RETURN DISTINCT [g.id, ss.name, s.id]
 
   return queryListResult(statement);
 };
-
 
 const getGeneDetailsForHPA = async ({ id }) => {
   const [l, v] = getHumanLabelAndVersion();
@@ -126,42 +138,45 @@ MATCH (cm)-[${v}]-(c:Compartment)-[${v}]-(cs:CompartmentState)
 RETURN DISTINCT({id: c.id, name: cs.name})
 `;
 
-  const [subsystemsResult, compartmentsResult] = await Promise.all(
-    [queryListResult(subsystemsStatement), queryListResult(compartmentsStatement)]
-  );
-  
-  const subsystems = subsystemsResult.map(({
-    id,
-    name,
-    details: {
+  const [subsystemsResult, compartmentsResult] = await Promise.all([
+    queryListResult(subsystemsStatement),
+    queryListResult(compartmentsStatement),
+  ]);
+
+  const subsystems = subsystemsResult.map(
+    ({
+      id,
+      name,
+      details: {
+        compartments,
+        genes,
+        reactions_catalysed,
+        model_metabolite_count,
+        compartment_metabolite_count,
+        reaction_count,
+        svgs,
+      },
+    }) => ({
+      name,
       compartments,
       genes,
       reactions_catalysed,
+      map_url: `${BASE_URL}/api/v2/svg/Human-GEM/${svgs[0]}`,
+      subsystem_url: `${BASE_URL}/explore/Human-GEM/gem-browser/subsystem/${id}`,
       model_metabolite_count,
       compartment_metabolite_count,
       reaction_count,
-      svgs
-    }
-  }) => ({
-    name,
-    compartments,
-    genes,
-    reactions_catalysed,
-    map_url: `${BASE_URL}/api/v2/svg/Human-GEM/${svgs[0]}`,
-    subsystem_url: `${BASE_URL}/explore/Human-GEM/gem-browser/subsystem/${id}`,
-    model_metabolite_count,
-    compartment_metabolite_count,
-    reaction_count,
-    gene_count: genes.length
-  }));
+      gene_count: genes.length,
+    })
+  );
 
-  const compartments = compartmentsResult.map(({id, name}) => ({
+  const compartments = compartmentsResult.map(({ id, name }) => ({
     name,
     compartment_url: `${BASE_URL}/explore/Human-GEM/gem-browser/compartment/${id}`,
   }));
 
   return {
-    gene_url: `${BASE_URL}/explore/Human-GEM/gem-browser/gene/${id}`, 
+    gene_url: `${BASE_URL}/explore/Human-GEM/gem-browser/gene/${id}`,
     compartments,
     subsystems,
     doc: 'A subsystem can contain the same chemical metabolite that comes from different compartments.',

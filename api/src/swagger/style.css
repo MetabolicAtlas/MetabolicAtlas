@@ -1,11 +1,12 @@
 .swagger-ui .topbar {
-  padding: 0.5rem  0 0 0;
+  padding: 0.5rem 0 0 0;
   margin: 0 0 0 0;
   background-color: #eef0ef;
-  height:  4rem;
+  height: 4rem;
 }
 
-.swagger-ui .topbar-wrapper img, .topbar-wrapper span{
+.swagger-ui .topbar-wrapper img,
+.topbar-wrapper span {
   visibility: collapse;
 }
 .swagger-ui .topbar-wrapper {
@@ -16,12 +17,12 @@
 
 #imgp img {
   height: auto;
-  max-width:100%;
-  max-height:100%;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 #imgp a {
-  text-decoration: none !important;;
+  text-decoration: none !important;
 }
 
 .scheme-container {
@@ -29,25 +30,25 @@
 }
 
 .opblock-tag-section {
-  margin-top:2rem;
+  margin-top: 2rem;
 }
 
 .swagger-ui .opblock.opblock-get {
-  border-color: #25543C;
-  background: #F2F8F5;
+  border-color: #25543c;
+  background: #f2f8f5;
 }
 
 .swagger-ui .opblock.opblock-get .opblock-summary {
-  border-color: #25543C;
+  border-color: #25543c;
 }
 
 .swagger-ui .opblock.opblock-get .opblock-summary-method {
-  background: #4C735F;
+  background: #4c735f;
 }
 
 .swagger-ui .btn.execute {
-  background-color: #25543C;
-  border-color: #25543C;
+  background-color: #25543c;
+  border-color: #25543c;
 }
 
 .base-url {

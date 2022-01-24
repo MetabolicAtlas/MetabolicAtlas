@@ -48,14 +48,21 @@ RETURN apoc.map.mergeList(COLLECT(value.data)) as subsystem
 `;
 
   const result = await querySingleResult(statement);
-  return { ...result, subsystemSVGs: [
-    {
-      id: result.id,
-      customName: result.name,
-      svgMaps: result.subsystemSVGs[0] ? result.subsystemSVGs[0].subsystemSVGs.sort((a, b) => a.id.localeCompare(b.id)) : [],
-    }
-  ], externalDbs: reformatExternalDbs(result.externalDbs) };
+  return {
+    ...result,
+    subsystemSVGs: [
+      {
+        id: result.id,
+        customName: result.name,
+        svgMaps: result.subsystemSVGs[0]
+          ? result.subsystemSVGs[0].subsystemSVGs.sort((a, b) =>
+              a.id.localeCompare(b.id)
+            )
+          : [],
+      },
+    ],
+    externalDbs: reformatExternalDbs(result.externalDbs),
+  };
 };
-
 
 export default getSubsystem;
