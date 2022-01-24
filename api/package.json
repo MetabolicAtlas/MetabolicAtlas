@@ -10,14 +10,14 @@
     "lint": "eslint ./src --fix"
   },
   "dependencies": {
-    "@babel/runtime": "^7.14.6",
+    "@babel/runtime": "^7.16.7",
     "esm": "^3.2.25",
-    "express": "^4.17.1",
-    "neo4j-driver": "^4.1.1",
+    "express": "^4.17.2",
+    "neo4j-driver": "^4.4.1",
     "ngraph.forcelayout": "^3.0.0",
     "ngraph.graph": "^19.1.0",
-    "swagger-ui-express": "^4.1.4",
-    "sharp":"^0.29.0"
+    "sharp": "^0.29.0",
+    "swagger-ui-express": "^4.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
