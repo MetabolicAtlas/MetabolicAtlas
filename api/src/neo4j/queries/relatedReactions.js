@@ -10,7 +10,7 @@ const NODE_TYPES = {
 };
 
 // TODO: add pagination and search
-const getRelatedReactions = async ({ nodeType, id, model,  version, limit }) => {
+const getRelatedReactions = async ({ nodeType, id, model, version, limit }) => {
   const [m, v] = parseParams(model, version);
   let statement;
 
@@ -102,25 +102,49 @@ RETURN apoc.map.mergeList(apoc.coll.flatten(
   return queryListResult(statement);
 };
 
-
-const getRelatedReactionsForReaction = ({ id, model, version, limit }) => getRelatedReactions({
-  id, model, version, nodeType: NODE_TYPES.reaction, limit,
+const getRelatedReactionsForReaction = ({ id, model, version, limit }) =>
+  getRelatedReactions({
+    id,
+    model,
+    version,
+    nodeType: NODE_TYPES.reaction,
+    limit,
   });
 
-const getRelatedReactionsForGene = ({ id, model, version, limit }) => getRelatedReactions({
-  id, model, version, nodeType: NODE_TYPES.gene, limit,
+const getRelatedReactionsForGene = ({ id, model, version, limit }) =>
+  getRelatedReactions({
+    id,
+    model,
+    version,
+    nodeType: NODE_TYPES.gene,
+    limit,
   });
 
-const getRelatedReactionsForMetabolite = ({ id, model, version, limit }) => getRelatedReactions({
-  id, model, version, nodeType: NODE_TYPES.metabolite, limit,
+const getRelatedReactionsForMetabolite = ({ id, model, version, limit }) =>
+  getRelatedReactions({
+    id,
+    model,
+    version,
+    nodeType: NODE_TYPES.metabolite,
+    limit,
   });
 
-const getRelatedReactionsForSubsystem = ({ id, model, version, limit }) => getRelatedReactions({
-  id, model, version, nodeType: NODE_TYPES.subsystem, limit,
+const getRelatedReactionsForSubsystem = ({ id, model, version, limit }) =>
+  getRelatedReactions({
+    id,
+    model,
+    version,
+    nodeType: NODE_TYPES.subsystem,
+    limit,
   });
 
-const getRelatedReactionsForCompartment = ({ id, model, version, limit }) => getRelatedReactions({
-  id, model, version, nodeType: NODE_TYPES.compartment, limit,
+const getRelatedReactionsForCompartment = ({ id, model, version, limit }) =>
+  getRelatedReactions({
+    id,
+    model,
+    version,
+    nodeType: NODE_TYPES.compartment,
+    limit,
   });
 
 export {

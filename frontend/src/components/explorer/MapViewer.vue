@@ -277,10 +277,26 @@ export default {
       const queryString = Object.entries(newQuery)
         .map(e => e.join('='))
         .join('&');
-      const payload = [{}, null, `${this.$route.path}?${queryString}`];
+
       if (newQuery.dim === this.$route.query.dim || (newQuery.dim && !this.$route.query.dim)) {
+        // if Map viewer (2D or 3D) is not changed, keep the url path
+        const payload = [{}, null, `${this.$route.path}?${queryString}`];
         history.replaceState(...payload); // eslint-disable-line no-restricted-globals
       } else {
+        let urlPath = `${this.$route.path}`;
+        if (this.currentMap.mapReactionIdSet.length > 1) {
+          // if Map Viewer (2D or 3D) is changed, for the 2D Compartment maps with
+          // sub maps, e.g. Cytosol, replace the map id to the name of submap when
+          // switching to the 2D Map viewer, and replace the map id of the
+          // submap back to the compartment name when switching to the 3D Map
+          // viewer
+          if (newQuery.dim === '2d') {
+            urlPath = urlPath.replace(new RegExp(this.currentMap.id), this.currentMap.svgs[0].id);
+          } else {
+            urlPath = urlPath.replace(new RegExp(this.$route.params.map_id), this.currentMap.id);
+          }
+        }
+        const payload = [{}, null, `${urlPath}?${queryString}`];
         history.pushState(...payload); // eslint-disable-line no-restricted-globals
       }
     },

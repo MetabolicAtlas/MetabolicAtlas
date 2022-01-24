@@ -129,7 +129,7 @@
             pages in which this reaction is involved.
           </p>
 
-          <h5 id="metabolite-page" class="is-size-5">Metabolite page</h5>
+          <h5 id="GEM-Browser-Metabolite" class="is-size-5">Metabolite page</h5>
           <p>
             The
             <i>Metabolite</i>

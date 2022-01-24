@@ -2,19 +2,29 @@ import queryListResult from 'neo4j/queryHandlers/list';
 import reformatExternalDbs from 'neo4j/shared/formatter';
 import parseParams from 'neo4j/shared/helper';
 
-const getRandomComponents = async ({ model, version, componentTypes = {
-  compartment: true,
-  compartmentalizedMetabolite: true,
-  gene: true,
-  reaction: true,
-  subsystem: true,
-}}) => {
+const getRandomComponents = async ({
+  model,
+  version,
+  componentTypes = {
+    compartment: true,
+    compartmentalizedMetabolite: true,
+    gene: true,
+    reaction: true,
+    subsystem: true,
+  },
+}) => {
   if (Object.values(componentTypes).filter(v => v === true).length === 0) {
-    throw new Error ('At least 1 component type is needed');
+    throw new Error('At least 1 component type is needed');
   }
 
   const [m, v] = parseParams(model, version);
-  const { compartment, compartmentalizedMetabolite, gene, reaction, subsystem } = componentTypes;
+  const {
+    compartment,
+    compartmentalizedMetabolite,
+    gene,
+    reaction,
+    subsystem,
+  } = componentTypes;
 
   let statement = '';
 
@@ -147,22 +157,20 @@ RETURN { subsystem: apoc.map.mergeList(apoc.coll.flatten(
 
   const rows = await queryListResult(statement);
   return rows.reduce((obj, row) => {
-    const [componentType, component] = Object.entries(row)[0]
+    const [componentType, component] = Object.entries(row)[0];
 
-    if (componentType === "compartment") {
+    if (componentType === 'compartment') {
       obj[componentType] = component;
     } else {
       const key = `${componentType}s`;
       if (!obj[key]) {
-        obj[key] = []
+        obj[key] = [];
       }
       obj[key] = [...obj[key], component];
     }
 
     return obj;
   }, {});
-
 };
-
 
 export default getRandomComponents;

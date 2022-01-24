@@ -1,5 +1,9 @@
 import querySingleResult from 'neo4j/queryHandlers/single';
-import { reformatExternalDbs, reformatCompartmentSVGs, reformatSubsystemSVGs} from 'neo4j/shared/formatter';
+import {
+  reformatExternalDbs,
+  reformatCompartmentSVGs,
+  reformatSubsystemSVGs,
+} from 'neo4j/shared/formatter';
 import parseParams from 'neo4j/shared/helper';
 
 const getReaction = async ({ id, model, version }) => {
@@ -61,7 +65,12 @@ RETURN apoc.map.mergeList(COLLECT(value.data)) as reaction
 `;
 
   const reaction = await querySingleResult(statement);
-  return { ...reaction, compartmentSVGs: reformatCompartmentSVGs(reaction), subsystemSVGs: reformatSubsystemSVGs(reaction), externalDbs: reformatExternalDbs(reaction.externalDbs) };
+  return {
+    ...reaction,
+    compartmentSVGs: reformatCompartmentSVGs(reaction),
+    subsystemSVGs: reformatSubsystemSVGs(reaction),
+    externalDbs: reformatExternalDbs(reaction.externalDbs),
+  };
 };
 
 const getReactionCount = async (model, version) => {

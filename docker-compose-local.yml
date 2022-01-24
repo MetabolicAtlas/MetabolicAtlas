@@ -44,6 +44,8 @@ services:
       - ./api/repository:/project/repository
       - ./api/public:/project/public
       - ./api/dataOverlay:/project/dataOverlay
+      - ./api/.eslintrc.js:/project/.eslintrc.js
+      - ./api/.prettierrc.json:/project/.prettierrc.json
     command: yarn develop
 
   ftp:

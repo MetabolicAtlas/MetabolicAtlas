@@ -8,11 +8,10 @@ const getSvgThumbnail = async (svgName, size, model) => {
     .flatten({ background: { r: 255, g: 255, b: 255 } })
     .png()
     .toBuffer()
-    .then(function(info) {
-      return info
+    .then(function (info) {
+      return info;
     })
-    .catch(function(err) {
-    });
+    .catch(function (err) {});
   return svgThumbnail;
 };
 
