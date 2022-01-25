@@ -46,6 +46,7 @@ services:
       - ./api/dataOverlay:/project/dataOverlay
       - ./api/.eslintrc.js:/project/.eslintrc.js
       - ./api/.prettierrc.json:/project/.prettierrc.json
+      - ./api/test:/project/test
     command: yarn develop
 
   ftp:

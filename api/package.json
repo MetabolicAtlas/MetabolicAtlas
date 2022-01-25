@@ -7,9 +7,10 @@
   "scripts": {
     "start": "webpack && node ./dist/bundle.js",
     "develop": "webpack --watch",
-    "lint": "eslint src --ext .js",
-    "check-format": "prettier -l src",
-    "format": "prettier -w src"
+    "lint": "eslint src test --ext .js",
+    "check-format": "prettier -l src test",
+    "format": "prettier -w src test",
+    "test": "jest"
   },
   "dependencies": {
     "@babel/runtime": "^7.14.6",
@@ -18,8 +19,9 @@
     "neo4j-driver": "^4.1.1",
     "ngraph.forcelayout": "^3.0.0",
     "ngraph.graph": "^19.1.0",
-    "swagger-ui-express": "^4.1.4",
-    "sharp":"^0.29.0"
+    "node-fetch": "2",
+    "sharp": "^0.29.0",
+    "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
@@ -31,7 +33,9 @@
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jest": "^26.0.0",
     "file-loader": "^6.0.0",
+    "jest": "^27.4.7",
     "nodemon-webpack-plugin": "^4.3.2",
     "prettier": "^2.5.1",
     "webpack": "^4.43.0",
