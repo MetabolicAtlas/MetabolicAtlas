@@ -8,7 +8,7 @@ describe('cross reference', () => {
     expect(components.length).toBeGreaterThan(1);
   });
 
-  test('should return a TSV file for a given data source', async () => {
+  test('should contain an URL for an external reference', async () => {
     const res = await fetch(`${API_BASE}/external-db/Recon3D/RE3335C`);
 
     const {
