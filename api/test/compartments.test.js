@@ -28,6 +28,6 @@ describe('compartments', () => {
     );
 
     const data = await res.json();
-    expect(data.length).toBe(238);
+    expect(data.length).toBe(NUCLEUS_INFO.reactionsCount);
   });
 });
