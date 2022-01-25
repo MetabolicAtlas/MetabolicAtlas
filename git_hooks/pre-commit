@@ -26,7 +26,7 @@ run_lint () {
 }
 
 # List all backend files
-A_FILES=$(git diff --cached --name-only --diff-filter=ACMR -- api/src/ | sed 's| |\\ |g')
+A_FILES=$(git diff --cached --name-only --diff-filter=ACMR -- api/src/ api/test/ | sed 's| |\\ |g')
 API_FILES=${A_FILES//api\/}
 F_FILES=$(git diff --cached --name-only --diff-filter=ACMR -- frontend/src/ | sed 's| |\\ |g')
 FRONTEND_FILES=${F_FILES//frontend\/}

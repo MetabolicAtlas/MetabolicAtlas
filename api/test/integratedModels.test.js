@@ -1,54 +1,54 @@
-import fetch from "node-fetch";
+import fetch from 'node-fetch';
 
 // This constant should be updated whenever new data (new versions
 // of existing models, or new models) is added to the project.
 const CORRECT_DATA = {
-  "Human-GEM": {
-    version: "1.10.0",
+  'Human-GEM': {
+    version: '1.10.0',
     gene_count: 3625,
     reaction_count: 13078,
     metabolite_count: 8370,
   },
-  "Yeast-GEM": {
-    version: "8.4.2",
+  'Yeast-GEM': {
+    version: '8.4.2',
     gene_count: 1150,
     reaction_count: 4058,
     metabolite_count: 2742,
   },
-  "Mouse-GEM": {
-    version: "1.2.0",
+  'Mouse-GEM': {
+    version: '1.2.0',
     gene_count: 3513,
     reaction_count: 13078,
     metabolite_count: 8382,
   },
-  "Rat-GEM": {
-    version: "1.2.0",
+  'Rat-GEM': {
+    version: '1.2.0',
     gene_count: 3502,
     reaction_count: 13086,
     metabolite_count: 8386,
   },
-  "Zebrafish-GEM": {
-    version: "1.1.0",
+  'Zebrafish-GEM': {
+    version: '1.1.0',
     gene_count: 3232,
     reaction_count: 12940,
     metabolite_count: 8362,
   },
-  "Fruitfly-GEM": {
-    version: "1.1.0",
+  'Fruitfly-GEM': {
+    version: '1.1.0',
     gene_count: 2050,
     reaction_count: 12056,
     metabolite_count: 8132,
   },
-  "Worm-GEM": {
-    version: "1.1.0",
+  'Worm-GEM': {
+    version: '1.1.0',
     gene_count: 1952,
     reaction_count: 12187,
     metabolite_count: 8150,
   },
 };
 
-describe("integrated models", () => {
-  test("there should be a list of integrated models, with the correct version numbers and componen counts", async () => {
+describe('integrated models', () => {
+  test('there should be a list of integrated models, with the correct version numbers and componen counts', async () => {
     const res = await fetch(`${API_BASE}/repository/integrated_models`);
 
     const data = await res.json();
@@ -69,13 +69,13 @@ describe("integrated models", () => {
     }
   });
 
-  test("the Human-GEM should exist", async () => {
+  test('the Human-GEM should exist', async () => {
     const res = await fetch(
       `${API_BASE}/repository/integrated_models/Human-GEM`
     );
 
     const { short_name, condition } = await res.json();
-    expect(short_name).toBe("Human-GEM");
-    expect(condition).toBe("Generic metabolism");
+    expect(short_name).toBe('Human-GEM');
+    expect(condition).toBe('Generic metabolism');
   });
 });

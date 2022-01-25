@@ -1,7 +1,7 @@
-import fetch from "node-fetch";
+import fetch from 'node-fetch';
 
-describe("HPA", () => {
-  test("should return a list of genes", async () => {
+describe('HPA', () => {
+  test('should return a list of genes', async () => {
     const res = await fetch(`${API_BASE}/hpa/genes`);
 
     const genes = await res.json();
@@ -10,7 +10,7 @@ describe("HPA", () => {
     expect(genes[genes.length - 1].length).toBe(3);
   });
 
-  test("should return details for a gene", async () => {
+  test('should return details for a gene', async () => {
     const res = await fetch(`${API_BASE}/hpa/gene/ENSG00000126091`);
 
     const { gene_url, compartments, subsystems } = await res.json();
