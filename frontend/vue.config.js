@@ -11,7 +11,7 @@ module.exports = {
         loaderOptions: {
             sass: {
                 // @/ is an alias to src/  so this assumes you have a file named `src/vars.scss`
-                data: '@import "~@/style/vars.scss";',
+                additionalData: '@import "~@/style/vars.scss";',
             },
         },
     },
