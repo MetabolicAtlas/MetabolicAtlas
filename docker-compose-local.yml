@@ -12,6 +12,8 @@ services:
       - ./nginx/svgs:/svgs
 
   frontend:
+    environment:
+      - VUE_APP_MATOMOID=${VUE_APP_MATOMOID}
     container_name: frontend
     build: frontend
     command: yarn serve
