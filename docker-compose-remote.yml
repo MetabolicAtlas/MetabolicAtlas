@@ -5,6 +5,9 @@ services:
     build:
       context: .
       dockerfile: ./nginx/prod.Dockerfile
+      args:
+        - VUE_APP_MATOMOID=${VUE_APP_MATOMOID}
+        - VUE_APP_HOTJAR=${VUE_APP_HOTJAR}
     ports:
       - "80:80"
       - "443:443"
