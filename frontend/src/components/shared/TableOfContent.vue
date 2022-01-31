@@ -5,7 +5,7 @@
       <ul class="menu-list">
         <li v-for="l in links" :key="l.name">
           <a :href="l.link">
-            <span class="icon pr-5 has-text-info"><i class="fa" :class="l.icon"></i></span>
+            <span v-if="l.icon" class="icon pr-5 has-text-info"><i class="fa" :class="l.icon"></i></span>
             <b>{{ l.name }}</b>
           </a>
           <ul class="menu-list">

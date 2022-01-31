@@ -1,7 +1,6 @@
 <template>
-
-  <about-layout>
-    <template v-slot:table/>
+  <about-layout title="About Metabolic Atlas">
+    <template v-slot:contents/>
   </about-layout>
 </template>
 <script>

@@ -1,8 +1,11 @@
 <template>
-  <div>
-    <TableOfContent :links="content"/>
-    <slot name="table" />
-  </div>
+  <section class="section extended-section">
+    <div class="container is-fullhd">
+      <h3 class="title is-3">{{title}}</h3>
+      <TableOfContent :links="content"/>
+      <slot name="contents" />
+    </div>
+  </section>
 </template>
 
 <script>
@@ -13,12 +16,15 @@ export default {
   components: {
     TableOfContent,
   },
+  props: {
+    title: { type: String, default: '' },
+  },
   data() {
     return {
       content: [
-        {"name": "About MetabolicAtlas", "icon": "fa-table", "link": "/about/metabolicatlas"},
-        {"name": "Our impact", "icon": "fa-table", "link": "/about/impact"},
-          ],
+        {"name": "About MetabolicAtlas",  "link": "/about/metabolicatlas"},
+        {"name": "Our impact", "link": "/about/impact"},
+      ],
     };
   },
 };
