@@ -661,26 +661,61 @@ export default {
     return {
       ftpUrl: 'ftp.metabolicatlas.org',
       content: [
-          {"name": "GEM Browser", "icon": "fa-table", "link": "#GEM-Browser",
-           "subsections": [{"name": "Reaction page", "link": "#reaction-page"},
-                           {"name": "Metabolite page", "link": "#GEM-Browser-Metabolite"},
-                           {"name": "Gene page", "link": "#gene-page"},
-                           {"name": "Subsystem page", "link": "#subsystem-page"},
-                           {"name": "Compartment page", "link": "#compartment-page"},
-                           ]}
+        {
+          "name": "GEM Browser", "icon": "fa-table", "link": "#GEM-Browser",
+          "subsections": [
+            {"name": "Reaction page", "link": "#reaction-page"},
+            {"name": "Metabolite page", "link": "#GEM-Browser-Metabolite"},
+            {"name": "Gene page", "link": "#gene-page"},
+            {"name": "Subsystem page", "link": "#subsystem-page"},
+            {"name": "Compartment page", "link": "#compartment-page"},
           ],
+        },
+        {
+          "name": "Map Viewer", "icon": "fa-map-o", "link": "#Map-Viewer",
+          "subsections": [
+            {"name": "2D Viewer", "link": "#2D-Viewer"},
+            {"name": "3D Viewer", "link": "#3D-Viewer"},
+            {"name": "Data Overlay", "link": "#Data-overlay"},
+          ],
+        },
+        {
+          "name": "Interaction Partners", "icon": "fa-connectdevelop", "link": "#Interaction-Partners",
+          "subsections": [
+            {"name": "Export graph", "link": "#Interaction-Partners-Export"},
+            {"name": "Highlights", "link": "#Interaction-Partners-Highlights"},
+            {"name": "Reactions table", "link": "#Interaction-Partners-Reactions"},
+          ],
+        },
+        {
+          "name": "Search", "icon": "fa-search", "link": "#Search",
+          "subsections": [
+            {"name": "Quick search", "link": "#Quick-search"},
+            {"name": "Global search", "link": "#Global-search"},
+          ],
+        },
+        {
+          "name": "GEM", "icon": "fa-files-o", "link": "#GEM",
+          "subsections": [
+            {"name": "Integrated models", "link": "#Integrated-models"},
+            {"name": "Repository", "link": "#Repository"},
+            {"name": "Comparison", "link": "#Comparison"},
+            {"name": "FTP access", "link": "#FTP-access"},
+          ],
+        },
+        {
+          "name": "Resources", "icon": "fa-cogs", "link": "#Resources",
+          "subsections": [
+            {"name": "API", "link": "#API"},
+          ],
+        },
+      ],
     };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.menu-list {
-  ul {
-    margin-top: 0;
-  }
-}
-
 #interaction-partners-intro {
   display: flex;
   flex-direction: column-reverse;
