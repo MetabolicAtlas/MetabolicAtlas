@@ -19,6 +19,8 @@ import CompareModels from '@/components/CompareModels';
 import FourOFour from '@/components/FourOFour';
 import Resources from '@/components/Resources';
 import ExternalDb from '@/components/ExternalDb';
+import MetabolicAtlas from '@/components/about/MetabolicAtlas';
+import Impact from '@/components/about/Impact';
 
 Vue.use(VueRouter);
 
@@ -42,6 +44,8 @@ const routes = [
     name: 'interaction',
     component: InteractionPartners,
   },
+  { path: '/about/metabolicatlas', name: 'about-metabolicatlas', component: MetabolicAtlas },
+  { path: '/about/impact', name: 'about-impact', component: Impact },
   { path: '/about', name: 'about', component: About },
   { path: '/gems/repository/:model_id?', name: 'gems', component: Repository },
   { path: '/gems/comparison', name: 'comparemodels', component: CompareModels },

@@ -5,71 +5,7 @@
       <h3 class="title is-3">Documentation</h3>
       <br />
       <div class="columns is-variable is-8">
-        <div class="column is-narrow">
-          <aside class="menu">
-            <p class="menu-label">Table of Contents</p>
-            <ul class="menu-list">
-              <li>
-                <a href="#GEM-Browser">
-                  <span class="icon pr-5 has-text-info"><i class="fa fa-table"></i></span>
-                  <b>GEM Browser</b>
-                </a>
-                <ul class="menu-list">
-                  <li><a href="#reaction-page">Reaction page</a></li>
-                  <li><a href="#GEM-Browser-Metabolite">Metabolite page</a></li>
-                  <li><a href="#gene-page">Gene page</a></li>
-                  <li><a href="#subsystem-page">Subsystem page</a></li>
-                  <li><a href="#compartment-page">Compartment page</a></li>
-                </ul>
-                <a href="#Map-Viewer">
-                  <span class="icon pr-5 has-text-info"><i class="fa fa-map-o"></i></span>
-                  <b>Map Viewer</b>
-                </a>
-                <ul class="menu-list">
-                  <li><a href="#2D-Viewer">2D Viewer</a></li>
-                  <li><a href="#3D-Viewer">3D Viewer</a></li>
-                  <li><a href="#Data-overlay">Data Overlay</a></li>
-                </ul>
-                <a href="#Interaction-Partners">
-                  <span class="icon pr-5 has-text-info"><i class="fa fa-connectdevelop"></i></span>
-                  <b>Interaction Partners</b>
-                </a>
-                <ul class="menu-list">
-                  <li><a href="#Interaction-Partners-Export">Export graph</a></li>
-                  <li><a href="#Interaction-Partners-Highlights">Highlights</a></li>
-                  <li><a href="#Interaction-Partners-Reactions">Reactions table</a></li>
-                </ul>
-                <a href="#Search">
-                  <span class="icon pr-5 has-text-info"><i class="fa fa-search"></i></span>
-                  <b>Search</b>
-                </a>
-                <ul class="menu-list">
-                  <li><a href="#Quick-search">Quick search</a></li>
-                  <li><a href="#Global-search">Global search</a></li>
-                </ul>
-                <a href="#GEM">
-                  <span class="icon pr-5 has-text-info"><i class="fa fa-files-o"></i></span>
-                  <b>GEM</b>
-                </a>
-                <ul class="menu-list">
-                  <li><a href="#Integrated-models">Integrated models</a></li>
-                  <li><a href="#Repository">Repository</a></li>
-                  <li><a href="#Comparison">Comparison</a></li>
-                  <li><a href="#FTP-access">FTP access</a></li>
-                </ul>
-              </li>
-              <li>
-                <a href="#Resources">
-                  <span class="icon pr-5 has-text-info"><i class="fa fa-cogs"></i></span>
-                  <b>Resources</b>
-                </a>
-                <ul class="menu-list">
-                  <li><a href="#API">API</a></li>
-                </ul>
-              </li>
-            </ul>
-          </aside>
-        </div>
+        <TableOfContent :links="content"/>
         <div id="documentation" class="column content has-text-justified">
           <p>
             Metabolic Atlas allows to vizualization of the content of the integrated
@@ -713,15 +649,26 @@
 
 <script>
 import RNALegend from '@/components/explorer/mapViewer/RNALegend.vue';
+import TableOfContent from '@/components/shared/TableOfContent.vue';
 
 export default {
   name: 'Help',
   components: {
     RNALegend,
+    TableOfContent,
   },
   data() {
     return {
       ftpUrl: 'ftp.metabolicatlas.org',
+      content: [
+          {"name": "GEM Browser", "icon": "fa-table", "link": "#GEM-Browser",
+           "subsections": [{"name": "Reaction page", "link": "#reaction-page"},
+                           {"name": "Metabolite page", "link": "#GEM-Browser-Metabolite"},
+                           {"name": "Gene page", "link": "#gene-page"},
+                           {"name": "Subsystem page", "link": "#subsystem-page"},
+                           {"name": "Compartment page", "link": "#compartment-page"},
+                           ]}
+          ],
     };
   },
 };

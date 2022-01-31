@@ -224,7 +224,44 @@ export default {
         },
         {
           displayName: 'About',
-          routeName: 'about',
+          subMenuElems: [
+            {
+              displayName: 'About MetAtlas',
+              routeName: 'about-metabolicatlas',
+            },
+            {
+              displayName: 'Our impact',
+              routeName: 'about-impact',
+            },
+            {
+              displayName: 'License & Disclaimer',
+              routeName: 'about',
+            },
+            {
+              displayName: 'Citing MetAtlas',
+              routeName: 'about',
+            },
+            {
+              displayName: 'Privacy policy',
+              routeName: 'about',
+            },
+            {
+              displayName: 'Related resources',
+              routeName: 'about',
+            },
+            {
+              displayName: 'News',
+              routeName: 'about',
+            },
+            {
+              displayName: 'The team',
+              routeName: 'about',
+            },
+            {
+              displayName: 'Contacts',
+              routeName: 'about',
+            },
+          ],
         },
       ],
       showCookieMsg: navigator.doNotTrack !== '1' && !isCookiePolicyAccepted(),

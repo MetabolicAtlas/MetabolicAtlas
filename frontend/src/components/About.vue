@@ -4,6 +4,27 @@
     <div class="container is-fullhd">
       <h3 class="title is-3">Metabolic Atlas</h3>
       <div class="columns is-variable is-8">
+        <div class="column is-narrow">
+          <aside class="menu">
+            <p class="menu-label">Table of Contents</p>
+            <ul class="menu-list">
+              <li>
+                <a href="about">
+                  <span class="icon pr-5 has-text-info"><i class="fa fa-table"></i></span>
+                  <b>About</b>
+                </a>
+                <a href="documentation">
+                  <span class="icon pr-5 has-text-info"><i class="fa fa-map-o"></i></span>
+                  <b>Doc</b>
+                </a>
+                <a href="search">
+                  <span class="icon pr-5 has-text-info"><i class="fa fa-connectdevelop"></i></span>
+                  <b>Search</b>
+                </a>
+              </li>
+            </ul>
+          </aside>
+        </div>
         <div class="column is-half has-text-justified">
           <div class="box is-hidden-tablet">
             <p class="subtitle has-text-weight-bold is-size-4 has-text-primary has-text-centered">
