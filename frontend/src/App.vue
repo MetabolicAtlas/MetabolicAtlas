@@ -82,11 +82,14 @@
                       >
                         {{ menuElem.displayName }}
                       </a>
-                      <div class="navbar-dropdown has-background-primary-lighter p-0">
+                      <div
+                        class="navbar-dropdown has-background-primary-lighter p-0"
+                        :class="{ ' is-right': menuElem.subMenuRight }"
+                      >
                         <template v-for="subMenuElem in menuElem.subMenuElems">
                           <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
                           <router-link
-                            class="navbar-item is-unselectable has-background-primary-lighter"
+                            class="navbar-item is-unselectable has-background-primary-lighter pr-4"
                             :to="{ name: subMenuElem.routeName }"
                             @click.native="isMobileMenu = false"
                           >
@@ -224,6 +227,7 @@ export default {
         },
         {
           displayName: 'About',
+          subMenuRight: true,
           subMenuElems: [
             {
               displayName: 'About MetAtlas',
