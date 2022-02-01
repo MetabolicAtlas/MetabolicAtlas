@@ -13,6 +13,8 @@ Metabolic Atlas is a web platform integrating open-source genome scale metabolic
 ## Contributing
 If you would like to contribute to the project, for example if you have ideas for new features, discovered a bug or if you would like to improve the code base, please have a look at [CONTRIBUTING.md](https://github.com/MetabolicAtlas/MetabolicAtlas/blob/develop/CONTRIBUTING.md). All ideas and contributions are highly appreciated.
 
+If you discover any potential vulnerabilities associated with the project, please reach out to us at [contact@metabolicatlas.org](mailto:contact@metabolicatlas.org).
+
 ## Get started
 The front-end uses [Vue.js](https://vuejs.org), with help of [Vue CLI](https://cli.vuejs.org/). The backend uses [ExpressJS](https://expressjs.com/) and [Neo4j](https://neo4j.com/) as the database.  
 
