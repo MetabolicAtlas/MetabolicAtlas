@@ -229,7 +229,7 @@ export default {
         {
           displayName: 'About',
           subMenuRight: true,
-          subMenuElems: about.map(({ name, routeName}) => ({ displayName: name, routeName })),
+          subMenuElems: about.map(({ name, routeName }) => ({ displayName: name, routeName })),
         },
       ],
       showCookieMsg: navigator.doNotTrack !== '1' && !isCookiePolicyAccepted(),

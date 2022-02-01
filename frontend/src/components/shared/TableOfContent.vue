@@ -4,13 +4,22 @@
       <p class="menu-label">Table of Contents</p>
       <ul class="menu-list">
         <li v-for="l in links" :key="l.name">
-          <a :href="l.link">
+          <router-link
+            :to="{ name: l.link }"
+            @click.native="isMobileMenu = false"
+          >
             <span v-if="l.icon" class="icon pr-5 has-text-info"><i class="fa" :class="l.icon"></i></span>
             <b>{{ l.name }}</b>
-          </a>
+          </router-link>
           <ul class="menu-list">
             <li v-for="sub in l.subsections" :key="sub.name">
               <a :href="sub.link">{{ sub.name }}</a>
+                          <router-link
+                            :to="{ name: sub.routeName }"
+                            @click.native="isMobileMenu = false"
+                          >
+                            {{ sub.displayName }}
+                          </router-link>
             </li>
           </ul>
         </li>
