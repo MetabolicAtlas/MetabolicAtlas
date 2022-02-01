@@ -21,6 +21,11 @@ import Resources from '@/components/Resources';
 import ExternalDb from '@/components/ExternalDb';
 import MetabolicAtlas from '@/components/about/MetabolicAtlas';
 import Impact from '@/components/about/Impact';
+import News from '@/components/about/News';
+import Privacy from '@/components/about/Privacy';
+import License from '@/components/about/License';
+import Contact from '@/components/about/Contact';
+import Citing from '@/components/about/Citing';
 
 Vue.use(VueRouter);
 
@@ -46,7 +51,13 @@ const routes = [
   },
   { path: '/about/metabolicatlas', name: 'about-metabolicatlas', component: MetabolicAtlas },
   { path: '/about/impact', name: 'about-impact', component: Impact },
+  { path: '/about/news', name: 'about-news', component: News },
+  { path: '/about/license', name: 'about-license', component: License },
+  { path: '/about/privacy', name: 'about-privacy', component: Privacy },
+  { path: '/about/contact', name: 'about-contact', component: Contact },
+  { path: '/about/citing', name: 'about-citing', component: Citing },
   { path: '/about', name: 'about', component: About },
+
   { path: '/gems/repository/:model_id?', name: 'gems', component: Repository },
   { path: '/gems/comparison', name: 'comparemodels', component: CompareModels },
   { path: '/resources', name: 'resources', component: Resources },
