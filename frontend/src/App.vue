@@ -188,6 +188,7 @@ import { mapState } from 'vuex';
 import ErrorPanel from '@/components/shared/ErrorPanel';
 import GemSearch from '@/components/explorer/gemBrowser/GemSearch';
 import { default as messages } from '@/content/messages';
+import { default as about } from '@/content/about';
 import { isCookiePolicyAccepted, acceptCookiePolicy } from '@/helpers/store';
 
 export default {
@@ -228,44 +229,7 @@ export default {
         {
           displayName: 'About',
           subMenuRight: true,
-          subMenuElems: [
-            {
-              displayName: 'About MetAtlas',
-              routeName: 'about-metabolicatlas',
-            },
-            {
-              displayName: 'Our impact',
-              routeName: 'about-impact',
-            },
-            {
-              displayName: 'License & Disclaimer',
-              routeName: 'about',
-            },
-            {
-              displayName: 'Citing MetAtlas',
-              routeName: 'about',
-            },
-            {
-              displayName: 'Privacy policy',
-              routeName: 'about',
-            },
-            {
-              displayName: 'Related resources',
-              routeName: 'about',
-            },
-            {
-              displayName: 'News',
-              routeName: 'about',
-            },
-            {
-              displayName: 'The team',
-              routeName: 'about',
-            },
-            {
-              displayName: 'Contacts',
-              routeName: 'about',
-            },
-          ],
+          subMenuElems: about.map(({ name, routeName}) => ({ displayName: name, routeName })),
         },
       ],
       showCookieMsg: navigator.doNotTrack !== '1' && !isCookiePolicyAccepted(),

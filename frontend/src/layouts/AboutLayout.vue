@@ -3,7 +3,7 @@
     <div class="container is-fullhd">
       <h3 class="title is-3">{{title}}</h3>
       <div class="columns is-variable is-8">
-        <TableOfContent :links="content"/>
+        <TableOfContent :links="tocLinks"/>
         <div class="column content has-text-justified">
           <slot name="contents" />
         </div>
@@ -14,6 +14,7 @@
 
 <script>
 import TableOfContent from '@/components/shared/TableOfContent.vue';
+import { default as about } from '@/content/about';
 
 export default {
   name: 'AboutLayout',
@@ -25,17 +26,7 @@ export default {
   },
   data() {
     return {
-      content: [
-        {"name": "About Metabolic Atlas",  "link": "/about/metabolicatlas"},
-        {"name": "Our impact", "link": "/about/impact"},
-        {"name": "License & Disclaimer", "link": "#"},
-        {"name": "Citing Metabolic Atlas", "link": "#"},
-        {"name": "Privacy policy", "link": "#"},
-        {"name": "Related resources", "link": "#"},
-        {"name": "News", "link": "#"},
-        {"name": "The team", "link": "#"},
-        {"name": "Contacts", "link": "#"},
-      ],
+      tocLinks: about,
     };
   },
 };

@@ -5,7 +5,7 @@
       <h3 class="title is-3">Documentation</h3>
       <br />
       <div class="columns is-variable is-8">
-        <TableOfContent :links="content"/>
+        <TableOfContent :links="tocLinks"/>
         <div id="documentation" class="column content has-text-justified">
           <p>
             Metabolic Atlas allows to vizualization of the content of the integrated
@@ -660,7 +660,7 @@ export default {
   data() {
     return {
       ftpUrl: 'ftp.metabolicatlas.org',
-      content: [
+      tocLinks: [
         {
           "name": "GEM Browser", "icon": "fa-table", "link": "#GEM-Browser",
           "subsections": [
