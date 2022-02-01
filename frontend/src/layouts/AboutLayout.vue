@@ -1,9 +1,9 @@
 <template>
   <section class="section extended-section">
     <div class="container is-fullhd">
-      <h3 class="title is-3">{{title}}</h3>
+      <h3 class="title is-3">{{ title }}</h3>
       <div class="columns is-variable is-8">
-        <TableOfContent :links="tocLinks"/>
+        <TableOfContent :links="tocLinks" />
         <div class="column content has-text-justified">
           <slot name="contents" />
         </div>

@@ -13,5 +13,5 @@ export default {
   components: {
     AboutLayout,
   },
-}
+};
 </script>
