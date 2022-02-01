@@ -5,21 +5,22 @@
       <ul class="menu-list">
         <li v-for="l in links" :key="l.name">
           <router-link
-            :to="{ name: l.link }"
+            :to="l.routeName ? { name: l.routeName } : l.link"
             @click.native="isMobileMenu = false"
           >
-            <span v-if="l.icon" class="icon pr-5 has-text-info"><i class="fa" :class="l.icon"></i></span>
+            <span v-if="l.icon" class="icon pr-5 has-text-info">
+              <i class="fa" :class="l.icon"></i>
+            </span>
             <b>{{ l.name }}</b>
           </router-link>
           <ul class="menu-list">
             <li v-for="sub in l.subsections" :key="sub.name">
-              <a :href="sub.link">{{ sub.name }}</a>
-                          <router-link
-                            :to="{ name: sub.routeName }"
-                            @click.native="isMobileMenu = false"
-                          >
-                            {{ sub.displayName }}
-                          </router-link>
+              <router-link
+                :to="sub.routeName ? { name: sub.routeName } : sub.link"
+                @click.native="isMobileMenu = false"
+              >
+                {{ sub.name }}
+              </router-link>
             </li>
           </ul>
         </li>
