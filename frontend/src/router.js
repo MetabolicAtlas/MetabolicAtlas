@@ -26,6 +26,8 @@ import Privacy from '@/components/about/Privacy';
 import License from '@/components/about/License';
 import Contact from '@/components/about/Contact';
 import Citing from '@/components/about/Citing';
+import Team from '@/components/about/Team';
+import AboutResources from '@/components/about/Resources';
 
 Vue.use(VueRouter);
 
@@ -56,6 +58,8 @@ const routes = [
   { path: '/about/privacy', name: 'about-privacy', component: Privacy },
   { path: '/about/contact', name: 'about-contact', component: Contact },
   { path: '/about/citing', name: 'about-citing', component: Citing },
+  { path: '/about/team', name: 'about-team', component: Team },
+  { path: '/about/resources', name: 'about-resources', component: AboutResources },
   { path: '/about', name: 'about', component: About },
 
   { path: '/gems/repository/:model_id?', name: 'gems', component: Repository },
