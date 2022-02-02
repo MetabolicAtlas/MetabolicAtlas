@@ -77,6 +77,11 @@ deploy-stack dev
 * To bootstrap the project: `build-stack`
 * To run the project: `start-stack`
 * To stop the project: `stop-stack`
+* To run a command inside a docker container: `ma-exec <CONTAINER_NAME> <COMMAND>`. Below is a list of useful container specific commands.
+  * Run API data validation tests: `ma-exec api yarn test`
+  * Use [prettier](CONTRIBUTING.md#prettier) to format frontend (also works for `api`) files: `ma-exec frontend yarn format`
+  * Run [eslint](CONTRIBUTING.md#eslint) for frontend (also works for `api`): `ma-exec frontend yarn lint`
+
 * To clean the project (delete containers and volumes): `clean-stack`
 * To display real-time logs: `logs [container-name: frontend/api/nginx/neo4j/ftp]`
 * To deploy the project: `deploy-stack`
