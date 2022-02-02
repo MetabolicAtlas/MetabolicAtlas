@@ -1,11 +1,13 @@
 <template>
   <section class="section extended-section">
     <div class="container is-fullhd">
-      <h3 class="title is-3">{{ title }}</h3>
       <div class="columns is-variable is-8">
         <TableOfContents :links="tocLinks" />
-        <div class="column content has-text-justified">
-          <slot name="contents" />
+        <div class="column content">
+          <h3 class="title is-3 mt-0">{{ title }}</h3>
+          <div :class="{ 'content-container': !fullContentWidth }">
+            <slot name="contents" />
+          </div>
         </div>
       </div>
     </div>
@@ -23,6 +25,7 @@ export default {
   },
   props: {
     title: { type: String, default: '' },
+    fullContentWidth: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -31,3 +34,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.content-container {
+  max-width: 800px;
+}
+</style>

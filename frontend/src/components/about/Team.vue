@@ -1,5 +1,5 @@
 <template>
-  <about-layout title="Team">
+  <about-layout title="Team" full-content-width>
     <template v-slot:contents>
       <div v-for="group in team" :key="group.name">
         <h3 class="title is-3">{{ group.name }}</h3>

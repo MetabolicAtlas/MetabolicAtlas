@@ -1,5 +1,5 @@
 <template>
-  <about-layout title="News">
+  <about-layout title="News" full-content-width>
     <template v-slot:contents>
       <div class="timeline is-centered">
         <header class="timeline-header">

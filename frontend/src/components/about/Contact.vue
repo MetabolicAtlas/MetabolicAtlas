@@ -1,7 +1,6 @@
 <template>
   <about-layout title="License">
     <template v-slot:contents>
-
       <p>
         For any questions, comments or suggestions please email us at
         <a href="mailto:">contact [at] metabolicatlas [dot] org</a>
