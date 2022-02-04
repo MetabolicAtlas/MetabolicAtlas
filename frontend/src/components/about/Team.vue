@@ -13,9 +13,7 @@
               <div class="card-content">
                 <div class="media">
                   <div class="media-left">
-                    <figure class="image is-64x64">
-                      <img :alt="member.name" :src="member.img" />
-                    </figure>
+                    <img class="square" :src="member.img" />
                   </div>
                   <div class="media-content">
                     <p class="title is-4">{{ member.name }}</p>
@@ -27,7 +25,7 @@
                           src="../../assets/orcid.gif"
                         />
                       </a>
-                      <a v-if="member.orcid" :href="member.linkedin" target="_blank">
+                      <a v-if="member.linkedin" :href="member.linkedin" target="_blank">
                         <span class="icon pl-3"><i class="fa fa-linkedin-square fa-lg"></i></span>
                       </a>
                       <a v-if="member.github" :href="member.github" target="_blank">
@@ -106,8 +104,41 @@ export default {
               name: 'Ingrid Hyltander',
               img: require('../../assets/pic-ingrid.jpg'),
               github: 'https://github.com/inghylt',
+              linkedin: 'https://www.linkedin.com/in/ingrid-hyltander-82128213a/',
               content:
-                '<a href="https://nbis.se/about/staff/ingrid-hyltander/" target="_blank">Developer at NBIS </a>',
+                '<a href="https://nbis.se/about/staff/ingrid-hyltander/" target="_blank">System Developer at NBIS</a>',
+            },
+            {
+              name: 'Malin Klang',
+              img: require('../../assets/pic-malin.jpg'),
+              github: 'https://github.com/MalinAhlberg',
+              linkedin: 'https://www.linkedin.com/in/malin-klang-7105562a/',
+              content:
+                '<a href="https://nbis.se/about/staff/malin-klang/" target="_blank">System Developer at NBIS</a>',
+            },
+            {
+              name: 'Mihail Anton',
+              img: require('../../assets/pic-mihail.jpg'),
+              github: 'https://github.com/mihai-sysbio',
+              linkedin: 'https://www.linkedin.com/in/mihail-anton/',
+              content:
+                '<a href="https://nbis.se/about/staff/mihail-anton/" target="_blank">NBIS expert and Project Manager for Metabolic Atlas</a>',
+            },
+            {
+              name: 'Nanjiang Shu',
+              img: require('../../assets/pic-nanjiang.jpg'),
+              github: 'https://github.com/nanjiangshu',
+              linkedin: 'https://www.linkedin.com/in/nanjiang-shu-95a49713/',
+              content:
+                '<a href="https://nbis.se/about/staff/nanjiang-shu/" target="_blank"> Deputy Head of System Development at NBIS </a>',
+            },
+            {
+              name: 'Shang Huang',
+              img: require('../../assets/pic-shan.jpg'),
+              github: 'https://github.com/e0',
+              linkedin: 'https://www.linkedin.com/in/shan-h-5b986383/',
+              content:
+                '<a href="https://www.linkedin.com/in/shan-h-5b986383/" target="_blank">Freelance Web Developer </a>',
             },
           ],
         },
@@ -128,4 +159,10 @@ export default {
   },
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+img.square {
+  width: 75px;
+  height: 75px;
+  object-fit: cover;
+}
+</style>
