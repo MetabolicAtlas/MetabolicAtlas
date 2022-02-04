@@ -5,7 +5,7 @@
       <h3 class="title is-3">Documentation</h3>
       <br />
       <div class="columns is-variable is-8">
-        <TableOfContent :links="tocLinks" />
+        <TableOfContents :links="tocLinks" />
         <div id="documentation" class="column content has-text-justified">
           <p>
             Metabolic Atlas allows to vizualization of the content of the integrated
@@ -649,13 +649,13 @@
 
 <script>
 import RNALegend from '@/components/explorer/mapViewer/RNALegend.vue';
-import TableOfContent from '@/components/shared/TableOfContent.vue';
+import TableOfContents from '@/components/shared/TableOfContents.vue';
 
 export default {
   name: 'Help',
   components: {
     RNALegend,
-    TableOfContent,
+    TableOfContents,
   },
   data() {
     return {

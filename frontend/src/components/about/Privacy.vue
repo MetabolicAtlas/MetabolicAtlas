@@ -5,14 +5,15 @@
         Metabolic Atlas gathers information about users solely to improve the usability and
         usefulness of the website. There are two types of cookies that are set by Metabolic Atlas:
         functionality cookies and tracking cookies.
-        <br />
-        Functionality cookies are used to personalize the appearence of the Metabolic Atlas.
-        <br />
+      </p>
+      Functionality cookies are used to personalize the appearence of the Metabolic Atlas.
+      <p>
         Tracking cookies are used by our private analytics to track the users on our website. We use
         these to observe the anonymized behaviour on our website in order to improve it. We store
         partial IP, operating system, browser and browser language. This information is stored
         permanently for statistics and is not shared with any third party.
-        <br />
+      </p>
+      <p>
         Additionally, we use the services of
         <a href="https://www.hotjar.com/" target="_blank">Hotjar</a>
         . This is an additional independent tracking service, which can produce a screen capture of
@@ -23,7 +24,8 @@
           see more on their website
         </a>
         .
-        <br />
+      </p>
+      <p>
         To opt out of any of these cookies, please set your browser to use the "DoNotTrack" header;
         doing this will disable the tracking. It is a good practice to enable this setting, here is
         how to do this for
@@ -40,7 +42,9 @@
           Hotjar's instructions on their website
         </a>
         .
-        <br />
+      </p>
+
+      <p>
         If you have any questions, please email us at
         <a href="mailto:">contact [at] metabolicatlas [dot] org</a>
         .

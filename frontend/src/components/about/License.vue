@@ -1,5 +1,5 @@
 <template>
-  <about-layout title="License">
+  <about-layout title="License and Disclaimer">
     <template v-slot:contents>
       <p>
         This project is licensed under the terms of the

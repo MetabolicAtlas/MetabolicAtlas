@@ -30,7 +30,7 @@
 </template>
 <script>
 export default {
-  name: 'TableOfContent',
+  name: 'TableOfContents',
   props: {
     links: {
       type: Array,
