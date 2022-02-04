@@ -7,7 +7,7 @@ export default [
   // { name: 'Our impact', link: '/about/impact', routeName: 'about-impact' },
   { name: 'News', link: '/about/news', routeName: 'about-news' },
   { name: 'Advisory Board', link: '/about/advisory', routeName: 'about-advisory' },
-  // { name: 'Team', link: '/about/team', routeName: 'about-team' },
+  { name: 'Team', link: '/about/team', routeName: 'about-team' },
   // { name: 'Related resources', link: '/about/resources', routeName: 'about-resources' },
   { name: 'Citing Metabolic Atlas', link: '/about/citing', routeName: 'about-citing' },
   { name: 'Contacts', link: '/about/contact', routeName: 'about-contact' },
