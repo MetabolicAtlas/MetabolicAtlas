@@ -102,7 +102,7 @@ export default {
             },
           ],
         },
-        {
+        /* {
           name: 'Previous Contributers',
           team: [
             {
@@ -113,7 +113,7 @@ export default {
                 '<a href="https://nbis.se/about/staff/ingrid-hyltander/" target="_blank">Developer at NBIS </a>',
             },
           ],
-        },
+        }, */
       ],
     };
   },
