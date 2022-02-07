@@ -13,5 +13,5 @@ export default [
   { name: 'Contact us', link: '/about/contact', routeName: 'about-contact' },
   { name: 'Privacy policy', link: '/about/privacy', routeName: 'about-privacy' },
   { name: 'License and Disclaimer', link: '/about/license', routeName: 'about-license' },
-  // { name: 'ELIXIR', link: '/about/elixir', routeName: 'about-elixir' },
+  { name: 'ELIXIR', link: '/about/elixir', routeName: 'about-elixir' },
 ];

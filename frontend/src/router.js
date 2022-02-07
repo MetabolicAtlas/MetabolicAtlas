@@ -29,6 +29,7 @@ import Citing from '@/components/about/Citing';
 import Team from '@/components/about/Team';
 import Advisory from '@/components/about/Advisory';
 import AboutResources from '@/components/about/Resources';
+import Elixir from '@/components/about/Elixir';
 
 Vue.use(VueRouter);
 
@@ -62,6 +63,7 @@ const routes = [
   { path: '/about/team', name: 'about-team', component: Team },
   { path: '/about/advisory', name: 'about-advisory', component: Advisory },
   { path: '/about/resources', name: 'about-resources', component: AboutResources },
+  { path: '/about/elixir', name: 'about-elixir', component: Elixir },
   { path: '/about', name: 'about', component: About },
 
   { path: '/gems/repository/:model_id?', name: 'gems', component: Repository },
