@@ -93,7 +93,7 @@ export default {
                 '<a href="https://nbis.se/about/staff/nanjiang-shu/" target="_blank"> Deputy Head of System Development at NBIS </a>',
             },
             {
-              name: 'Shang Huang',
+              name: 'Shan Huang',
               img: require('../../assets/pic-shan.jpg'),
               github: 'https://github.com/e0',
               linkedin: 'https://www.linkedin.com/in/shan-h-5b986383/',
