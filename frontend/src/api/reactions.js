@@ -35,8 +35,8 @@ const fetchRelatedReactionsForReaction = async ({ id, model, version, limit }) =
     }));
 };
 
-const fetchRelatedReactions = async (resourceType, id, model, version, limit) => {
-  const params = { model, version, limit };
+const fetchRelatedReactions = async (resourceType, id, model, version, limit, allCompartments) => {
+  const params = { model, version, limit, allCompartments };
   const { data } = await axios.get(`/${resourceType}s/${id}/related-reactions`, { params });
   return data.map(r => ({
     ...r,
@@ -50,7 +50,7 @@ const fetchRelatedReactions = async (resourceType, id, model, version, limit) =>
 const fetchRelatedReactionsForGene = async ({ id, model, version, limit }) =>
   fetchRelatedReactions('gene', id, model, version, limit);
 
-const fetchRelatedReactionsForMetabolite = async ({ id, model, version, limit }, allCompartments) =>
+const fetchRelatedReactionsForMetabolite = async ({ id, model, version, limit, allCompartments }) =>
   fetchRelatedReactions('metabolite', id, model, version, limit, allCompartments);
 
 const fetchRelatedReactionsForSubsystem = async ({ id, model, version, limit }) =>

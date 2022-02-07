@@ -41,12 +41,13 @@ const actions = {
     commit('setRelatedReactions', reactions);
     // commit('setRelatedReactionsLimit', limit);
   },
-  async getRelatedReactionsForMetabolite({ commit, state }, { model, id }) {
+  async getRelatedReactionsForMetabolite({ commit, state }, { model, id, allCompartments }) {
     const payload = {
       id,
       model: model.apiName,
       version: model.apiVersion,
       limit: state.relatedReactionsLimit,
+      allCompartments,
     };
     const reactions = await reactionsApi.fetchRelatedReactionsForMetabolite(payload);
     commit('setRelatedReactions', reactions);
