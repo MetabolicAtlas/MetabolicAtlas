@@ -5,7 +5,7 @@
         <div
           v-for="member in members"
           :key="member.name"
-          class="column is-half-tablet is-one-third-desktop"
+          class="column is-full is-half-desktop is-one-third-widescreen"
         >
           <div class="card card-fullheight">
             <div class="card-content">
