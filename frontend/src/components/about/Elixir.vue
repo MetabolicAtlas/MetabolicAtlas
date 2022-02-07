@@ -2,16 +2,23 @@
   <about-layout title="ELIXIR">
     <template v-slot:contents>
       <p>Metabolic Atlas would not be possible without the following excellent Elixir resources:</p>
-      <ul class="menu-list">
-        <li v-for="l in links" :key="l.name">
-          <a :href="l.link" target="_blank">
-            <span v-if="l.icon" class="icon pr-5 has-text-info">
-              <i class="fa" :class="l.icon">{{ l.icon }}</i>
-            </span>
-            <b>{{ l.name }}</b>
+      <br />
+      <div v-for="link in links" :key="link.name" class="columns">
+        <br />
+        <div class="column is-1">
+          <a :href="link.link" target="_blank">
+            <template v-if="link.icon">
+              <img :src="link.icon" />
+            </template>
           </a>
-        </li>
-      </ul>
+        </div>
+        <div class="text-column column has-text-justified">
+          <a :href="link.link" target="_blank">
+            <b>{{ link.name }}</b>
+          </a>
+          <br />
+        </div>
+      </div>
       <!-- and other essential sources of information:
             <li><a href="http://www.genome.jp/kegg/" target="_blank">
               KEGG: Kyoto Encyclopedia of Genes and Genomes
@@ -35,35 +42,36 @@ export default {
   data() {
     return {
       links: [
+        /* eslint-disable global-require */
         {
           name: 'The Human Protein Atlas',
-          icon: '',
+          icon: require('../../assets/hpa-icon.png'),
           link: 'https://proteinatlas.org',
         },
         {
           name: 'Ensembl',
-          icon: '',
+          icon: require('../../assets/ensembl-icon.png'),
           link: 'https://www.ensembl.org/',
         },
 
         {
           name: 'UniProt',
-          icon: '',
+          icon: require('../../assets/uniprot-icon.png'),
           link: 'https://www.uniprot.org',
         },
         {
           name: 'Euprope PMC',
-          icon: '',
+          icon: require('../../assets/europepmc-icon.jpeg'),
           link: 'https://europepmc.org',
         },
         {
           name: 'Identifiers.org',
-          icon: '',
+          icon: require('../../assets/identifiers-icon.jpeg'),
           link: 'https://identifiers.org',
         },
         {
           name: 'ChEBI',
-          icon: '',
+          icon: require('../../assets/chebi-icon.png'),
           link: 'https://www.ebi.ac.uk/chebi',
         },
       ],
@@ -71,3 +79,8 @@ export default {
   },
 };
 </script>
+<style>
+.text-column {
+  padding: 10px;
+}
+</style>
