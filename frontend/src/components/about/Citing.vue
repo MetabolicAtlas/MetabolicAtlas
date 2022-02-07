@@ -1,5 +1,5 @@
 <template>
-  <about-layout title="Citing Metabolic Atlas">
+  <about-layout title="Citation">
     <template v-slot:contents>
       <p>To cite us, please use:</p>
       <p>
