@@ -58,7 +58,7 @@ export default {
       /* eslint-disable global-require */
       team: [
         {
-          name: 'Developers',
+          name: '',
           members: [
             {
               name: 'Ingrid Hyltander',
