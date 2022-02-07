@@ -4,11 +4,27 @@
       <p>
         Metabolic Atlas is a web platform integrating open-source genome scale metabolic models
         (GEMs) for easy browsing and analysis. The goal is to collect many curated GEMs, and to
-        bring these models closer to FAIR principles. The website provides visualisations and
-        comparisons of the GEMs, and links to resourcess, algorithms, other databases, and more
-        general software applications. Metabolic Atlas is intended to be used for applications in
-        metabolomics, clinical chemistry, biomarker discovery and general education. In short, the
-        vision is to create a one-stop-shop for everything metabolism related.
+        bring these models closer to
+        <a href="https://en.wikipedia.org/wiki/FAIR_data" target="_new">FAIR principles</a>
+        . The website provides visualisations and comparisons of the GEMs, and links to
+        <a href="resources">resources</a>
+        , algorithms, other databases, and more general software applications. Metabolic Atlas is
+        intended to be used for applications in metabolomics, clinical chemistry, biomarker
+        discovery and general education. In short, the vision is to create a one-stop-shop for
+        everything metabolism related.
+      </p>
+
+      <p>
+        Metabolic Atlas is freely available and the detailed information about Genome-Scale
+        Metabolic Models (GEMs) is open-source. Specifically, the two reference models
+        <router-link :to="{ name: 'explorer', params: { model: 'Human-GEM' } }">
+          Human-GEM
+        </router-link>
+        and
+        <router-link :to="{ name: 'explorer', params: { model: 'Yeast-GEM' } }">
+          Yeast-GEM
+        </router-link>
+        contain all possible reactions that could occur in human, and yeast, respectively.
       </p>
 
       <p>
@@ -24,28 +40,16 @@
         </a>
         at Chalmers University of Technology and
         <a href="https://nbis.se" target="blank">National Bioinformatics Infrastructure Sweden</a>
+        . The research focus of the content of this website is
+        <b>metabolism in a systems biology context</b>
+        , starting with
+        <a href="https://www.sysbio.se/labs/nielsen/#publications">
+          the publications of the Nielsen lab
+        </a>
         .
       </p>
 
-      <p>
-        Metabolic Atlas is a freely available resource containing detailed information about a set
-        of open-source Genome-Scale Metabolic Models (GEMs), specifically
-        <router-link :to="{ name: 'explorer', params: { model: 'Human-GEM' } }">
-          Human-GEM
-        </router-link>
-        and
-        <router-link :to="{ name: 'explorer', params: { model: 'Yeast-GEM' } }">
-          Yeast-GEM
-        </router-link>
-        . These are two reference models containing all possible reactions that could occur in
-        human, and yeast, respectively.
-      </p>
-
-      <p>
-        The research focus of the content of this website is
-        <b>metabolism in a systems biology context</b>
-        . The goal is to collect many curated GEMs, and to bring these models closer to
-        <a href="https://en.wikipedia.org/wiki/FAIR_data" target="_new">FAIR principles</a>
+      <!--p>
         . To this end, the website also provides visualisations and comparisons of the GEMs, and
         links to
         <a href="resources">resources</a>
@@ -61,7 +65,7 @@
           the publications of the Nielsen lab
         </a>
         .
-      </p>
+      </p-->
     </template>
   </about-layout>
 </template>
