@@ -1,5 +1,5 @@
 <template>
-  <about-layout title="License">
+  <about-layout title="Contacts">
     <template v-slot:contents>
       <p>
         For any questions, comments or suggestions please email us at
@@ -13,7 +13,7 @@
 import AboutLayout from '@/layouts/AboutLayout';
 
 export default {
-  name: 'License',
+  name: 'Contact',
   components: {
     AboutLayout,
   },
