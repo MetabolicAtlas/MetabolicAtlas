@@ -1,5 +1,5 @@
 <template>
-  <about-layout title="Contacts">
+  <about-layout title="Contact us">
     <template v-slot:contents>
       <p>
         For any questions, comments or suggestions, or if you find any bugs or vulnerabilities

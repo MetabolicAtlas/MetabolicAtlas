@@ -10,7 +10,7 @@ export default [
   { name: 'Team', link: '/about/team', routeName: 'about-team' },
   // { name: 'Related resources', link: '/about/resources', routeName: 'about-resources' },
   { name: 'Citing Metabolic Atlas', link: '/about/citing', routeName: 'about-citing' },
-  { name: 'Contacts', link: '/about/contact', routeName: 'about-contact' },
+  { name: 'Contact us', link: '/about/contact', routeName: 'about-contact' },
   { name: 'Privacy policy', link: '/about/privacy', routeName: 'about-privacy' },
   { name: 'License and Disclaimer', link: '/about/license', routeName: 'about-license' },
   // { name: 'ELIXIR', link: '/about/elixir', routeName: 'about-elixir' },
