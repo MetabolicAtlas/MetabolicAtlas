@@ -19,15 +19,6 @@
           <br />
         </div>
       </div>
-      <!-- and other essential sources of information:
-            <li><a href="http://www.genome.jp/kegg/" target="_blank">
-              KEGG: Kyoto Encyclopedia of Genes and Genomes
-            </a></li>
-            <li><a href="http://www.hmdb.ca/" target="_blank">The Human Metabolome Database</a></li>
-            <li><a href="https://www.metanetx.org" target="_blank">MetaNetX</a></li>
-            <li><a href="http://bigg.ucsd.edu" target="_blank">BiGG</a></li>
-            <li><a href="https://www.ncbi.nlm.nih.gov" target="_blank">NCBI</a></li>
-            </ul-->
     </template>
   </about-layout>
 </template>
