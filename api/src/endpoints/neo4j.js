@@ -35,7 +35,7 @@ const fetchWith = async (req, res, queryHandler) => {
     full,
     searchTerm,
     componentTypes,
-    allCompartments,
+    isForAllCompartments,
   } = req.query;
 
   try {
@@ -52,8 +52,8 @@ const fetchWith = async (req, res, queryHandler) => {
       payload.componentTypes = JSON.parse(componentTypes);
     }
 
-    if (allCompartments) {
-      payload.allCompartments = JSON.parse(allCompartments);
+    if (isForAllCompartments) {
+      payload.isForAllCompartments = JSON.parse(isForAllCompartments);
     }
 
     const result = await queryHandler(payload);

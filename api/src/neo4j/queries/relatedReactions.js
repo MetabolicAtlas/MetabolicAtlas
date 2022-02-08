@@ -16,7 +16,7 @@ const getRelatedReactions = async ({
   model,
   version,
   limit,
-  allCompartments,
+  isForAllCompartments,
 }) => {
   const [m, v] = parseParams(model, version);
   let statement;
@@ -39,10 +39,10 @@ WHERE ccms1 = ccms3 and r1.id <> r.id`;
 MATCH (:Gene${m} {id: '${id}'})-[${v}]-(r:Reaction)`;
       break;
     case NODE_TYPES.metabolite:
-      // If `allCompartments` is true, all reactions associated with
+      // If `isForAllCompartments` is true, all reactions associated with
       // the metabolite are returned. Otherwise, only reactions associated
       // with the same compartmentalized metabolite are returned.
-      if (allCompartments) {
+      if (isForAllCompartments) {
         statement = `
 MATCH (:CompartmentalizedMetabolite${m} {id: '${id}'})-[${v}]-(m:Metabolite)
 WITH m
@@ -142,7 +142,7 @@ const getRelatedReactionsForMetabolite = ({
   model,
   version,
   limit,
-  allCompartments,
+  isForAllCompartments,
 }) =>
   getRelatedReactions({
     id,
@@ -150,7 +150,7 @@ const getRelatedReactionsForMetabolite = ({
     version,
     nodeType: NODE_TYPES.metabolite,
     limit,
-    allCompartments,
+    isForAllCompartments,
   });
 
 const getRelatedReactionsForSubsystem = ({ id, model, version, limit }) =>
