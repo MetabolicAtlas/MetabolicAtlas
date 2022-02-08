@@ -60,7 +60,7 @@ export default {
           link: 'https://www.uniprot.org',
         },
         {
-          name: 'Euprope PMC',
+          name: 'Europe PMC',
           icon: require('../../assets/europepmc-icon.jpeg'),
           link: 'https://europepmc.org',
         },
