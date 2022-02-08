@@ -6,7 +6,7 @@
           <!-- eslint-disable-next-line vue/require-v-for-key -->
           <div class="columns">
             <div class="column is-offset-2 has-text-centered-mobile">
-              <h3 class="title is-3">{{ category }}</h3>
+              <h3 class="title is-4">{{ category }}</h3>
             </div>
           </div>
           <div v-for="elem in elems" :key="elem.name" class="columns">
