@@ -204,7 +204,7 @@ export default {
         title: "What's new",
         text: '',
         img: require('../assets/gemBrowser.jpg'),
-        route: { name: 'about-news' },
+        route: { name: 'about-news', hash: '#News'},
         icon: 'newspaper-o',
       },
       tools: [
