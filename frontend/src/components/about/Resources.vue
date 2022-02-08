@@ -120,6 +120,18 @@ export default {
               'Manuel Garcia-Albornoz, Subazini Thankaswamy-Kosalai, Avlant Nilsson, Leif Väremo, Intawat Nookaew, Jens Nielsen. <i>BioMet Toolbox 2.0: genome-wide analysis of metabolism and omics data</i>. Nucleic Acids Research, Volume 42, Issue W1, 1 July 2014, Pages W175–W181',
             citation_url: 'https://academic.oup.com/nar/article/42/W1/W175/2436233',
           },
+          {
+            name: 'MetaNetX',
+            link: 'https://www.metanetx.org/',
+            img: require('../../assets/mnx_logo.png'),
+            title:
+              'MetaNetX is an online platform for accessing, analyzing and manipulating genome-scale metabolic networks (GSM) as well as biochemical pathways',
+            description:
+              'It is an automated model construction and genome annotation platform for large-scale metabolic network by integrating a great variety of data sources and tools.',
+            citation:
+              'Sébastien Moretti, Van Du T Tran, Florence Mehl, et al., (2021) <i>MetaNetX/MNXref: unified namespace for metabolites and biochemical reactions in the context of metabolic models, Nucleic Acids Research (2021), 49(D1):D570-D574',
+            citation_url: 'https://academic.oup.com/nar/article/49/D1/D570/5958493',
+          },
         ],
         Databases: [
           {
@@ -196,18 +208,6 @@ export default {
             citation:
               'Wishart DS, Guo AC, Oler E, et al., (2022) <i>HMDB 5.0: the Human Metabolome Database for 2022. Nucleic Acids Res. 2022. Jan 7;50(D1):D622–31',
             citation_url: 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8728138/',
-          },
-          {
-            name: 'MetaNetX',
-            link: 'https://www.metanetx.org/',
-            img: require('../../assets/mnx_logo.png'),
-            title:
-              'MetaNetX is an online platform for accessing, analyzing and manipulating genome-scale metabolic networks (GSM) as well as biochemical pathways',
-            description:
-              'It is an automated model construction and genome annotation platform for large-scale metabolic network by integrating a great variety of data sources and tools.',
-            citation:
-              'Sébastien Moretti, Van Du T Tran, Florence Mehl, et al., (2021) <i>MetaNetX/MNXref: unified namespace for metabolites and biochemical reactions in the context of metabolic models, Nucleic Acids Research (2021), 49(D1):D570-D574',
-            citation_url: 'https://academic.oup.com/nar/article/49/D1/D570/5958493',
           },
           {
             name: 'BiGG',
