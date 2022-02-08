@@ -3,7 +3,7 @@
     <template v-slot:contents>
       <p>Metabolic Atlas would not be possible without the following excellent Elixir resources:</p>
       <br />
-      <div v-for="link in links" :key="link.name" class="columns">
+      <div v-for="link in links" :key="link.name" class="columns is-vcentered">
         <br />
         <div class="column is-1">
           <a :href="link.link" target="_blank">
