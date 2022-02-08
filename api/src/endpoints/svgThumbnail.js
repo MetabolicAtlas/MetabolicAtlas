@@ -1,11 +1,17 @@
 import express from 'express';
 import fs from 'fs';
+import rateLimit from 'express-rate-limit';
 import getSvgThumbnail from 'utils/2d-map';
 import models from 'data/integratedModels.json';
 
 const VALID_MODELS = models.map(m => m.short_name);
 
 const routes = express.Router();
+
+const limiter = rateLimit({
+  windowMs: 1 * 1000, // 1 second
+  max: 200, // proteinatlas.org shows max 50 thumbnail images per page
+});
 
 function getDimension(dimensionString) {
   const minDim = 100;
@@ -25,7 +31,7 @@ function getDimension(dimensionString) {
   return myDimension || null;
 }
 
-routes.get('/:svgName', async (req, res) => {
+routes.get('/:svgName', limiter, async (req, res) => {
   const { svgName } = req.params;
   const { model, version, width, height } = req.query;
   try {
