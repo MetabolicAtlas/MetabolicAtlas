@@ -7,7 +7,7 @@
         bring these models closer to
         <a href="https://en.wikipedia.org/wiki/FAIR_data" target="_new">FAIR principles</a>
         . The website provides visualisations and comparisons of the GEMs, and links to
-        <a href="resources">resources</a>
+        <router-link :to="{ name: 'about-resources', hash: '#Resources' }">resources</router-link>
         , algorithms, other databases, and more general software applications. Metabolic Atlas is
         intended to be used for applications in metabolomics, clinical chemistry, biomarker
         discovery and general education. In short, the vision is to create a one-stop-shop for

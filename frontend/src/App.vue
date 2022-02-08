@@ -219,10 +219,6 @@ export default {
           ],
         },
         {
-          displayName: 'Resources',
-          routeName: 'resources',
-        },
-        {
           displayName: 'Documentation',
           routeName: 'documentation',
         },
