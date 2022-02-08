@@ -23,7 +23,7 @@ import News from '@/components/about/News';
 import Privacy from '@/components/about/Privacy';
 import License from '@/components/about/License';
 import Contact from '@/components/about/Contact';
-import Citing from '@/components/about/Citing';
+import Citation from '@/components/about/Citation';
 import Team from '@/components/about/Team';
 import Advisory from '@/components/about/Advisory';
 import AboutResources from '@/components/about/Resources';
@@ -57,7 +57,7 @@ const routes = [
   { path: '/about/license', name: 'about-license', component: License },
   { path: '/about/privacy', name: 'about-privacy', component: Privacy },
   { path: '/about/contact', name: 'about-contact', component: Contact },
-  { path: '/about/citing', name: 'about-citing', component: Citing },
+  { path: '/about/citation', name: 'about-citation', component: Citation },
   { path: '/about/team', name: 'about-team', component: Team },
   { path: '/about/advisory', name: 'about-advisory', component: Advisory },
   { path: '/about/resources', name: 'about-resources', component: AboutResources },

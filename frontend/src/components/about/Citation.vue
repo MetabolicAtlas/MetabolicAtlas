@@ -35,7 +35,7 @@
 import AboutLayout from '@/layouts/AboutLayout';
 
 export default {
-  name: 'Citing',
+  name: 'Citation',
   components: {
     AboutLayout,
   },
