@@ -173,6 +173,67 @@ export default {
             citation_url:
               'https://academic.oup.com/database/article/doi/10.1093/database/bav051/2433184',
           },
+          {
+            name: 'KEGG',
+            link: 'https://www.genome.jp/kegg/',
+            img: require('../../assets/kegg128.gif'),
+            title:
+              'Kyoto Encyclopedia of Genes and Genomes (KEGG) is a database resource for understanding high-level functions and utilities of the biological system',
+            description:
+              ' It is a computer representation of the biological system, consisting of molecular building blocks of genes and proteins (genomic information) and chemical substances (chemical information) that are integrated with the knowledge on molecular wiring diagrams of interaction, reaction and relation networks (systems information). It also contains disease and drug information (health information) as perturbations to the biological system.',
+            citation:
+              'Kanehisa, M., Sato, Y., and Kawashima, M. (2022) <i>KEGG mapping tools for uncovering hidden features in biological data. Protein Sci. 31, 47-53 (2022)',
+            citation_url: 'https://onlinelibrary.wiley.com/doi/epdf/10.1002/pro.4172',
+          },
+          {
+            name: 'HMDB',
+            link: 'https://hmdb.ca/',
+            img: require('../../assets/hmdb_logo.png'),
+            title:
+              'The Human Metabolome Database (HMDB) is a freely available electronic database containing detailed information about small molecule metabolites found in the human body',
+            description:
+              'It is intended to be used for applications in metabolomics, clinical chemistry, biomarker discovery and general education. The database is designed to contain or link three kinds of data: 1) chemical data, 2) clinical data, and 3) molecular biology/biochemistry data.',
+            citation:
+              'Wishart DS, Guo AC, Oler E, et al., (2022) <i>HMDB 5.0: the Human Metabolome Database for 2022. Nucleic Acids Res. 2022. Jan 7;50(D1):D622–31',
+            citation_url: 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8728138/',
+          },
+          {
+            name: 'MetaNetX',
+            link: 'https://www.metanetx.org/',
+            img: require('../../assets/mnx_logo.png'),
+            title:
+              'MetaNetX is an online platform for accessing, analyzing and manipulating genome-scale metabolic networks (GSM) as well as biochemical pathways',
+            description:
+              'It is an automated model construction and genome annotation platform for large-scale metabolic network by integrating a great variety of data sources and tools.',
+            citation:
+              'Sébastien Moretti, Van Du T Tran, Florence Mehl, et al., (2021) <i>MetaNetX/MNXref: unified namespace for metabolites and biochemical reactions in the context of metabolic models, Nucleic Acids Research (2021), 49(D1):D570-D574',
+            citation_url: 'https://academic.oup.com/nar/article/49/D1/D570/5958493',
+          },
+          {
+            name: 'BiGG',
+            link: 'http://bigg.ucsd.edu/',
+            img: require('../../assets/bigg_logo.png'),
+            title:
+              'BiGG Models is a knowledgebase of genome-scale metabolic network reconstructions',
+            description:
+              'BiGG Models integrates more than 70 published genome-scale metabolic networks into a single database with a set of stardized identifiers called BiGG IDs. Genes in the BiGG models are mapped to NCBI genome annotations, and metabolites are linked to many external databases (KEGG, PubChem, and many more).',
+            citation:
+              'King ZA, Lu JS, Dräger A, et al., (2016) <i>BiGG Models: A platform for integrating, standardizing, and sharing genome-scale models (2016) Nucleic Acids Research 44(D1):D515-D522',
+            citation_url: 'https://academic.oup.com/nar/article/44/D1/D515/2502593',
+          },
+          // {
+          //   name: 'NCBI',
+          //   link: 'https://www.ncbi.nlm.nih.gov/',
+          //   img: require('../../assets/ncbi_logo.gif'),
+          //   title:
+          //     'National Center for Biotechnology Information (NCBI) is a national resource for molecular biology information',
+          //   description:
+          //     'It provides a wealth of information in the fields of medicine and biological sciences.',
+          //   citation:
+          //     'Kanehisa, M., Sato, Y., and Kawashima, M. (2022) <i>',
+          //   citation_url:
+          //     '',
+          // },
         ],
         APIs: [
           {
