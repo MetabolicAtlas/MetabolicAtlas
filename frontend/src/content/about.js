@@ -1,6 +1,6 @@
 export default [
   {
-    name: 'About Metabolic Atlas',
+    name: 'Introduction',
     link: '/about/metabolicatlas',
     routeName: 'about-metabolicatlas',
   },

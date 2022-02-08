@@ -1,5 +1,5 @@
 <template>
-  <about-layout title="About Metabolic Atlas">
+  <about-layout title="Introduction">
     <template v-slot:contents>
       <p>
         Metabolic Atlas is a web platform integrating open-source genome scale metabolic models
@@ -15,8 +15,8 @@
       </p>
 
       <p>
-        Metabolic Atlas is freely available and the detailed information about Genome-Scale
-        Metabolic Models (GEMs) is open-source. Specifically, the two reference models
+        Metabolic Atlas is freely available and the detailed information about the GEMs is
+        open-source. Specifically, the two reference models
         <router-link :to="{ name: 'explorer', params: { model: 'Human-GEM' } }">
           Human-GEM
         </router-link>
@@ -35,12 +35,12 @@
         , Department of Biology and Biological Engineering at the
         <a href="https://www.chalmers.se" target="_new">Chalmers University of Technology</a>
         . The platform is developed by members of
+        <a href="https://nbis.se" target="blank">National Bioinformatics Infrastructure Sweden</a>
+        and
         <a href="https://www.chalmers.se/en/researchinfrastructure/csb/Pages/default.aspx">
           Computational Systems Biology Infrastructure
         </a>
-        at Chalmers University of Technology and
-        <a href="https://nbis.se" target="blank">National Bioinformatics Infrastructure Sweden</a>
-        . The research focus of the content of this website is
+        at Chalmers University of Technology. The research focus of the content of this website is
         <b>metabolism in a systems biology context</b>
         , starting with
         <a href="https://www.sysbio.se/labs/nielsen/#publications">
