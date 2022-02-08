@@ -73,7 +73,7 @@
 import AboutLayout from '@/layouts/AboutLayout';
 
 export default {
-  name: 'MetabolicAtlas',
+  name: 'Introduction',
   components: {
     AboutLayout,
   },

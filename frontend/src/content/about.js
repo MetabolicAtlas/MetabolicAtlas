@@ -1,8 +1,8 @@
 export default [
   {
     name: 'Introduction',
-    link: '/about/metabolicatlas',
-    routeName: 'about-metabolicatlas',
+    link: '/about/introduction',
+    routeName: 'about-introduction',
   },
   // { name: 'Our impact', link: '/about/impact', routeName: 'about-impact' },
   { name: 'News', link: '/about/news', routeName: 'about-news' },
