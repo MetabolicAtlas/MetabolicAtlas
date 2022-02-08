@@ -4,7 +4,7 @@ const data = {
   reaction: {},
   referenceList: [],
   relatedReactions: [],
-  relatedReactionsLimit: 200,
+  relatedReactionsLimit: 1000,
 };
 
 const actions = {
