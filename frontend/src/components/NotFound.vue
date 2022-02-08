@@ -32,7 +32,7 @@
         <br />
         <p class="is-size-5">
           The page requested does not exist on this
-          <router-link :to="{ name: 'about', hash: '#7-February-2020' }">
+          <router-link :to="{ name: 'about-news', hash: '#7-February-2020' }">
             <b>new version of Metabolic Atlas</b>
           </router-link>
           <br />

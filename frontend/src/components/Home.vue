@@ -91,7 +91,7 @@
                   <tr v-if="el.date">
                     <td class="has-nowrap">{{ el.date }}</td>
                     <td class="pl-3">
-                      <router-link :to="{ name: 'about', hash: `#${el.date}` }">
+                      <router-link :to="{ name: 'about-news', hash: `#${el.date}` }">
                         {{ el.title }}
                       </router-link>
                     </td>
@@ -204,7 +204,7 @@ export default {
         title: "What's new",
         text: '',
         img: require('../assets/gemBrowser.jpg'),
-        route: { name: 'about', hash: '#News' },
+        route: { name: 'about-news' },
         icon: 'newspaper-o',
       },
       tools: [
@@ -284,7 +284,7 @@ export default {
         {
           title: 'Resources',
           text: 'Working with metabolic models requires a set of tools and external databases, which we have collected together for one-click access.<br><br>Additionally, Metabolic Atlas is open to further integrations.',
-          route: { name: 'resources' },
+          route: { name: 'about-resources' },
           icon: 'gears',
         },
         {

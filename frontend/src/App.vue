@@ -159,10 +159,7 @@
         <div class="has-text-white">
           We use cookies to enhance the usability of our website. By continuing you are agreeing to
           our
-          <router-link
-            class="has-text-white has-text-weight-bold"
-            :to="{ name: 'about', hash: '#privacy' }"
-          >
+          <router-link class="has-text-white has-text-weight-bold" :to="{ name: 'about-privacy' }">
             Privacy Notice and Terms of Use
           </router-link>
           &emsp;

@@ -12,7 +12,6 @@ import Subsystem from '@/components/explorer/gemBrowser/Subsystem';
 import MapViewer from '@/components/explorer/MapViewer';
 import InteractionPartners from '@/components/explorer/InteractionPartners';
 import SearchTable from '@/components/SearchTable';
-import About from '@/components/About';
 import Documentation from '@/components/Documentation';
 import Repository from '@/components/Repository';
 import CompareModels from '@/components/CompareModels';
@@ -64,7 +63,6 @@ const routes = [
   { path: '/about/advisory', name: 'about-advisory', component: Advisory },
   { path: '/about/resources', name: 'about-resources', component: AboutResources },
   { path: '/about/elixir', name: 'about-elixir', component: Elixir },
-  { path: '/about', name: 'about', component: About },
 
   { path: '/gems/repository/:model_id?', name: 'gems', component: Repository },
   { path: '/gems/comparison', name: 'comparemodels', component: CompareModels },
