@@ -16,7 +16,6 @@ import Documentation from '@/components/Documentation';
 import Repository from '@/components/Repository';
 import CompareModels from '@/components/CompareModels';
 import FourOFour from '@/components/FourOFour';
-import Resources from '@/components/Resources';
 import ExternalDb from '@/components/ExternalDb';
 import MetabolicAtlas from '@/components/about/MetabolicAtlas';
 import Impact from '@/components/about/Impact';
@@ -66,7 +65,6 @@ const routes = [
 
   { path: '/gems/repository/:model_id?', name: 'gems', component: Repository },
   { path: '/gems/comparison', name: 'comparemodels', component: CompareModels },
-  { path: '/resources', name: 'resources', component: Resources },
   { path: '/documentation', name: 'documentation', component: Documentation },
   { path: '/identifier/:dbName/:identifierId', name: 'identifier', component: ExternalDb },
 

@@ -1,5 +1,5 @@
 <template>
-  <about-layout title="Privacy">
+  <about-layout id="Privacy" title="Privacy">
     <template v-slot:contents>
       <p>
         Metabolic Atlas gathers information about users solely to improve the usability and
@@ -17,8 +17,8 @@
         Additionally, we use the services of
         <a href="https://www.hotjar.com/" target="_blank">Hotjar</a>
         . This is an additional independent tracking service, which can produce a screen capture of
-        the interactions on our website, including mouse movement. We use it for the purpose of
-        figuring out how to improve our website, for example when the website interface is
+        the interactions on our website, including mouse movement. We use it solely for the purpose
+        of figuring out how to improve our website, for example when the website interface is
         confusing. The data is stored for at most 3 months. Hotjar adheres to GDPR,
         <a href="https://www.hotjar.com/legal/compliance/gdpr-commitment" target="_blank">
           see more on their website
@@ -46,7 +46,7 @@
 
       <p>
         If you have any questions, please email us at
-        <a href="mailto:">contact [at] metabolicatlas [dot] org</a>
+        <a href="mailto:contact@metabolicatlas.org">contact [at] metabolicatlas [dot] org</a>
         .
       </p>
     </template>
