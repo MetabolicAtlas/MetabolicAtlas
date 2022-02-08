@@ -25,7 +25,7 @@
                         src="../../assets/orcid.gif"
                       />
                     </a>
-                    <a v-if="member.orcid" :href="member.linkedin" target="_blank">
+                    <a v-if="member.linkedin" :href="member.linkedin" target="_blank">
                       <span class="icon pl-3"><i class="fa fa-linkedin-square fa-lg"></i></span>
                     </a>
                     <a v-if="member.github" :href="member.github" target="_blank">
