@@ -1,6 +1,7 @@
 import express from 'express';
 import fs from 'fs';
 import rateLimit from 'express-rate-limit';
+import sanitize from 'sanitize-filename';
 import getSvgThumbnail from 'utils/2d-map';
 import models from 'data/integratedModels.json';
 
@@ -38,7 +39,7 @@ routes.get('/:svgName', limiter, async (req, res) => {
     if (!VALID_MODELS.includes(model)) {
       throw new Error(`Invalid model provided: ${model}.`);
     }
-    const svgFile = `/project/svg/${model}/${svgName}.svg`;
+    const svgFile = `/project/svg/${sanitize(model)}/${sanitize(svgName)}.svg`;
     if (!fs.existsSync(svgFile)) {
       throw new Error(`2D map does not exist for ${svgName} in ${model}.`);
     }

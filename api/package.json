@@ -21,6 +21,7 @@
     "ngraph.forcelayout": "^3.3.0",
     "ngraph.graph": "^20.0.0",
     "node-fetch": "2",
+    "sanitize-filename": "^1.6.3",
     "sharp": "^0.29.0",
     "swagger-ui-express": "^4.3.0"
   },
