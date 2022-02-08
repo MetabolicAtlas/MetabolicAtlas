@@ -18,7 +18,7 @@ import CompareModels from '@/components/CompareModels';
 import FourOFour from '@/components/FourOFour';
 import ExternalDb from '@/components/ExternalDb';
 import MetabolicAtlas from '@/components/about/MetabolicAtlas';
-import Impact from '@/components/about/Impact';
+// import Impact from '@/components/about/Impact';
 import News from '@/components/about/News';
 import Privacy from '@/components/about/Privacy';
 import License from '@/components/about/License';
@@ -52,7 +52,7 @@ const routes = [
     component: InteractionPartners,
   },
   { path: '/about/metabolicatlas', name: 'about-metabolicatlas', component: MetabolicAtlas },
-  { path: '/about/impact', name: 'about-impact', component: Impact },
+  // { path: '/about/impact', name: 'about-impact', component: Impact },
   { path: '/about/news', name: 'about-news', component: News },
   { path: '/about/license', name: 'about-license', component: License },
   { path: '/about/privacy', name: 'about-privacy', component: Privacy },
