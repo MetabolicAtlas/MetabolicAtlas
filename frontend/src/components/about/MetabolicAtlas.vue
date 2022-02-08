@@ -1,5 +1,5 @@
 <template>
-  <about-layout title="Introduction">
+  <about-layout id="Introduction" title="Introduction">
     <template v-slot:contents>
       <p>
         Metabolic Atlas is a web platform integrating open-source genome scale metabolic models

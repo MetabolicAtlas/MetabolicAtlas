@@ -1,5 +1,5 @@
 <template>
-  <about-layout title="Related resources">
+  <about-layout id="Resources" title="Related resources">
     <template v-slot:contents>
       <div class="container is-fullhd">
         <template v-for="(elems, category) in resources">

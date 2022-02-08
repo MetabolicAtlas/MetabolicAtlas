@@ -1,5 +1,5 @@
 <template>
-  <about-layout title="Privacy">
+  <about-layout id="Privacy" title="Privacy">
     <template v-slot:contents>
       <p>
         Metabolic Atlas gathers information about users solely to improve the usability and

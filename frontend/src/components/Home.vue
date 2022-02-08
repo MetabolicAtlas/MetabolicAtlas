@@ -284,13 +284,13 @@ export default {
         {
           title: 'Resources',
           text: 'Working with metabolic models requires a set of tools and external databases, which we have collected together for one-click access.<br><br>Additionally, Metabolic Atlas is open to further integrations.',
-          route: { name: 'about-resources' },
+          route: { name: 'about-resources', hash: '#Resources' },
           icon: 'gears',
         },
         {
           title: 'Community',
           text: '<p>We are grateful for the efforts of scientists all over the world in creating the knowledge required to assemble high quality genome scale metabolic models. We are passionate about continuing on this journey of open curation of models.<br><br>We invite you to explore the world of GEMs through Metabolic Atlas, and hope it will enhance your interest in this field. We wish to continuously improve Metabolic Atlas for the community. Email us with any feedback, suggestions, or requests at <a href="mailto:contact@metabolicatlas.org">contact [at] metabolicatlas [dot] org</a>.</p>',
-          route: { name: 'about' },
+          route: { name: 'about-metabolicatlas', hash: '#Introduction' },
           icon: 'users',
         },
       ],
