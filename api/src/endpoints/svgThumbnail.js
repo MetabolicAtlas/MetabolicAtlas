@@ -49,7 +49,7 @@ routes.get('/:svgName', async (req, res) => {
       return res.sendStatus(404);
     }
 
-    res.status(400).send(e.message);
+    res.status(400).send(escape(e.message));
   }
 });
 
