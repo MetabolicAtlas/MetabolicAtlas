@@ -221,7 +221,7 @@ export default {
         const payload = {
           model: this.model,
           id: this.sourceName,
-          allCompartments: this.expandAllCompartment,
+          isForAllCompartments: this.expandAllCompartment,
         };
         await this.$store.dispatch(
           `reactions/getRelatedReactionsFor${this.type[0].toUpperCase()}${this.type.slice(1)}`,

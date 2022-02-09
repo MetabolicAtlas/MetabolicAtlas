@@ -160,7 +160,7 @@
             display additional reactions involving the metabolite in any compartment, click the
             button to
             <i>See reactions from all compartments</i>
-            . Note that the number of retrieved reactions is limited to 200. It is recommended to
+            . Note that the number of retrieved reactions is limited to 1000. It is recommended to
             use the
             <a href="#API">API</a>
             to retrieve all reactions.
@@ -189,10 +189,7 @@
             page is also similar to the
             <a href="#GEM-Browser-Metabolite">Metabolite</a>
             page except that the top table shows information on the current selected metabolic
-            subsystem instead of metabolites. In addition, the maximum number of reactions shown in
-            the
-            <i>Reactions</i>
-            tables is limited to 1000 instead of 200.
+            subsystem instead of metabolites.
           </p>
           <p>
             Subsystems correspond to a set of reactions that share a similar metabolic function.

@@ -28,13 +28,32 @@ const neo4jRoutes = express.Router();
 
 const fetchWith = async (req, res, queryHandler) => {
   const { id } = req.params;
-  const { model, version, limit, full, searchTerm, componentTypes } = req.query;
+  const {
+    model,
+    version,
+    limit,
+    full,
+    searchTerm,
+    componentTypes,
+    isForAllCompartments,
+  } = req.query;
 
   try {
-    const payload = { id, version, model, limit, full, searchTerm };
+    const payload = {
+      id,
+      version,
+      model,
+      limit,
+      full,
+      searchTerm,
+    };
 
     if (componentTypes) {
       payload.componentTypes = JSON.parse(componentTypes);
+    }
+
+    if (isForAllCompartments) {
+      payload.isForAllCompartments = JSON.parse(isForAllCompartments);
     }
 
     const result = await queryHandler(payload);
