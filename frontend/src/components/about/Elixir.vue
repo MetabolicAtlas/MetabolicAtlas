@@ -36,33 +36,33 @@ export default {
         /* eslint-disable global-require */
         {
           name: 'The Human Protein Atlas',
-          icon: require('../../assets/hpa-icon.png'),
+          icon: require('../../assets/logos/hpa.png'),
           link: 'https://proteinatlas.org',
         },
         {
           name: 'Ensembl',
-          icon: require('../../assets/ensembl-icon.png'),
+          icon: require('../../assets/logos/ensembl.jpg'),
           link: 'https://www.ensembl.org/',
         },
 
         {
           name: 'UniProt',
-          icon: require('../../assets/uniprot-icon.png'),
+          icon: require('../../assets/logos/uniprot.png'),
           link: 'https://www.uniprot.org',
         },
         {
           name: 'Europe PMC',
-          icon: require('../../assets/europepmc-icon.jpeg'),
+          icon: require('../../assets/logos/europepmc.jpg'),
           link: 'https://europepmc.org',
         },
         {
           name: 'Identifiers.org',
-          icon: require('../../assets/identifiers-icon.jpeg'),
+          icon: require('../../assets/logos/identifiers.jpg'),
           link: 'https://identifiers.org',
         },
         {
           name: 'ChEBI',
-          icon: require('../../assets/chebi-icon.png'),
+          icon: require('../../assets/logos/chebi.jpg'),
           link: 'https://www.ebi.ac.uk/chebi',
         },
       ],
