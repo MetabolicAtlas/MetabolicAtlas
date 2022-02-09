@@ -6,6 +6,7 @@
         <li v-for="l in links" :key="l.name">
           <router-link
             :to="l.routeName ? { name: l.routeName } : l.link"
+            active-class="has-background-white-ter"
             @click.native="isMobileMenu = false"
           >
             <span v-if="l.icon" class="icon pr-5 has-text-info">
@@ -17,6 +18,7 @@
             <li v-for="sub in l.subsections" :key="sub.name">
               <router-link
                 :to="sub.routeName ? { name: sub.routeName } : sub.link"
+                active-class="has-background-white-ter"
                 @click.native="isMobileMenu = false"
               >
                 {{ sub.name }}

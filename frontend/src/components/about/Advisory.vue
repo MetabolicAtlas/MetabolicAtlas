@@ -11,7 +11,7 @@
             <div class="card-content">
               <div class="media">
                 <div class="media-left">
-                  <figure class="image is-64x64">
+                  <figure class="image is-96x96 m-0">
                     <img :alt="member.name" :src="member.img" />
                   </figure>
                 </div>
@@ -22,7 +22,7 @@
                       <img
                         class="image is-16x16 is-inline"
                         alt="orcid"
-                        src="../../assets/orcid.gif"
+                        src="../../assets/logos/orcid.gif"
                       />
                     </a>
                     <a v-if="member.linkedin" :href="member.linkedin" target="_blank">
@@ -58,7 +58,7 @@ export default {
       members: [
         {
           name: 'Prof. Jens Nielsen',
-          img: require('../../assets/pic-jens.jpg'),
+          img: require('../../assets/pics/jens.jpg'),
           orcid: 'https://orcid.org/0000-0002-9955-6003',
           linkedin: 'https://www.linkedin.com/in/jens-nielsen-57a207181/',
           content:
@@ -66,7 +66,7 @@ export default {
         },
         {
           name: 'Dr. Jonathan Robinson',
-          img: require('../../assets/pic-jon.jpg'),
+          img: require('../../assets/pics/jon.jpg'),
           orcid: 'https://orcid.org/0000-0001-8567-5960',
           linkedin: 'https://www.linkedin.com/in/jonathanrob',
           github: 'https://github.com/JonathanRob',
@@ -75,7 +75,7 @@ export default {
         },
         {
           name: 'Dr. Hao Wang',
-          img: require('../../assets/pic-hao.jpg'),
+          img: require('../../assets/pics/hao.jpg'),
           orcid: 'https://orcid.org/0000-0001-7475-0136',
           linkedin: 'https://www.linkedin.com/in/hao-wang-9a66ba30',
           github: 'https://github.com/Hao-Chalmers',
@@ -84,7 +84,7 @@ export default {
         },
         {
           name: 'Dr. Rui Benfeitas',
-          img: require('../../assets/pic-rui.jpg'),
+          img: require('../../assets/pics/rui.jpg'),
           orcid: 'https://orcid.org/0000-0001-7972-0083',
           linkedin: 'https://www.linkedin.com/in/ruibenfeitas/',
           github: 'https://github.com/Benfeitas',

@@ -1,7 +1,11 @@
 <template>
   <about-layout title="ELIXIR">
     <template v-slot:contents>
-      <p>Metabolic Atlas would not be possible without the following excellent Elixir resources:</p>
+      <p>
+        Metabolic Atlas would not be possible without the following excellent
+        <a href="https://elixir-europe.org" target="_blank">ELIXIR</a>
+        resources:
+      </p>
       <br />
       <div v-for="link in links" :key="link.name" class="columns is-vcentered">
         <br />
@@ -12,7 +16,7 @@
             </template>
           </a>
         </div>
-        <div class="text-column column has-text-justified">
+        <div class="column has-text-justified">
           <a :href="link.link" target="_blank">
             <b>{{ link.name }}</b>
           </a>
@@ -36,42 +40,49 @@ export default {
         /* eslint-disable global-require */
         {
           name: 'The Human Protein Atlas',
-          icon: require('../../assets/hpa-icon.png'),
+          icon: require('../../assets/logos/hpa.png'),
           link: 'https://proteinatlas.org',
         },
         {
           name: 'Ensembl',
-          icon: require('../../assets/ensembl-icon.png'),
-          link: 'https://www.ensembl.org/',
+          icon: require('../../assets/logos/ensembl.jpg'),
+          link: 'https://www.ensembl.org',
         },
 
         {
           name: 'UniProt',
-          icon: require('../../assets/uniprot-icon.png'),
+          icon: require('../../assets/logos/uniprot.png'),
           link: 'https://www.uniprot.org',
         },
         {
           name: 'Europe PMC',
-          icon: require('../../assets/europepmc-icon.jpeg'),
+          icon: require('../../assets/logos/europepmc.jpg'),
           link: 'https://europepmc.org',
         },
         {
           name: 'Identifiers.org',
-          icon: require('../../assets/identifiers-icon.jpeg'),
+          icon: require('../../assets/logos/identifiers.jpg'),
           link: 'https://identifiers.org',
         },
         {
           name: 'ChEBI',
-          icon: require('../../assets/chebi-icon.png'),
+          icon: require('../../assets/logos/chebi.jpg'),
           link: 'https://www.ebi.ac.uk/chebi',
+        },
+        {
+          name: 'MetaNetX',
+          icon: require('../../assets/logos/mnx.png'),
+          link: 'https://www.metanetx.org',
+        },
+        {
+          name: 'BioSchemas',
+          icon: require('../../assets/logos/bioschemas.svg'),
+          link: 'https://bioschemas.org',
         },
       ],
     };
   },
 };
 </script>
-<style>
-.text-column {
-  padding: 10px;
-}
-</style>
+
+<style lang="scss"></style>

@@ -9,7 +9,7 @@
               <h3 class="title is-4">{{ category }}</h3>
             </div>
           </div>
-          <div v-for="elem in elems" :key="elem.name" class="columns">
+          <div v-for="elem in fullWidthResources(elems)" :key="elem.name" class="columns">
             <br />
             <div class="column is-2 has-text-centered">
               <a :href="elem.link" target="_blank">
@@ -29,6 +29,24 @@
               {{ elem.description }}
               <br />
               <a :href="elem.citation_url" target="_blank" v-html="elem.citation"></a>
+            </div>
+          </div>
+          <div
+            v-if="condensedResources(elems).length > 0"
+            :key="`${category}-condensed-resources`"
+            class="columns"
+          >
+            <div class="column is-offset-2 columns">
+              <div v-for="elem in condensedResources(elems)" :key="elem.name" class="column">
+                <a :href="elem.link" target="_blank">
+                  <template v-if="elem.img">
+                    <img :src="elem.img" />
+                  </template>
+                  <template v-else>
+                    <h4 class="has-text-centered title is-4">{{ elem.name }}</h4>
+                  </template>
+                </a>
+              </div>
             </div>
           </div>
         </template>
@@ -59,9 +77,9 @@ export default {
             citation_url: 'http://www.nature.com/articles/s41540-017-0004-5',
           },
           {
-            name: 'Gecko',
+            name: 'GECKO',
             link: 'https://github.com/SysBioChalmers/GECKO',
-            img: require('../../assets/gecko-logo.png'),
+            img: require('../../assets/logos/gecko.png'),
             title:
               'GECKO is a Matlab/Python package for enhancing Genome-scale metabolic models (GEMs) with Enzyme Constraints, using Kinetics and Omics',
             description:
@@ -73,7 +91,7 @@ export default {
           {
             name: 'Kiwi',
             link: 'https://github.com/SysBioChalmers/Kiwi',
-            img: require('../../assets/kiwi-logo.png'),
+            img: require('../../assets/logos/kiwi.png'),
             title:
               'The Kiwi module combines geneset analyses with biological networks to visualize the interactions between genesets that are significant in a given biological system',
             description:
@@ -86,7 +104,7 @@ export default {
           {
             name: 'Piano',
             link: 'https://varemo.github.io/piano/',
-            img: require('../../assets/piano-logo.jpg'),
+            img: require('../../assets/logos/piano.jpg'),
             title:
               'Platform for integrative analysis of omics data (PIANO) is an An R/Bioconductor package for gene set analysis',
             description:
@@ -98,7 +116,7 @@ export default {
           {
             name: 'RAVEN',
             link: 'https://github.com/SysBioChalmers/RAVEN/',
-            img: require('../../assets/raven-logo.jpg'),
+            img: require('../../assets/logos/raven.jpg'),
             title:
               'RAVEN (Reconstruction, Analysis and Visualization of Metabolic Networks) Toolbox is a software suite that allows for semi-automated reconstruction of genome-scale models',
             description:
@@ -110,8 +128,8 @@ export default {
           },
           {
             name: 'BioMet-toolbox',
-            link: 'http://biomet-toolbox.chalmers.se/',
-            img: require('../../assets/biomet-logo.png'),
+            link: 'http://www.biomet-toolbox.org/',
+            img: require('../../assets/logos/biomet.png'),
             title:
               'The BioMet Toolbox 2.0 integrates a number of functionalities enabling the user to work with biological data in a web interface',
             description:
@@ -120,24 +138,12 @@ export default {
               'Manuel Garcia-Albornoz, Subazini Thankaswamy-Kosalai, Avlant Nilsson, Leif Väremo, Intawat Nookaew, Jens Nielsen. <i>BioMet Toolbox 2.0: genome-wide analysis of metabolism and omics data</i>. Nucleic Acids Research, Volume 42, Issue W1, 1 July 2014, Pages W175–W181',
             citation_url: 'https://academic.oup.com/nar/article/42/W1/W175/2436233',
           },
-          {
-            name: 'MetaNetX',
-            link: 'https://www.metanetx.org/',
-            img: require('../../assets/mnx_logo.png'),
-            title:
-              'MetaNetX is an online platform for accessing, analyzing and manipulating genome-scale metabolic networks (GSM) as well as biochemical pathways',
-            description:
-              'It is an automated model construction and genome annotation platform for large-scale metabolic network by integrating a great variety of data sources and tools.',
-            citation:
-              'Sébastien Moretti, Van Du T Tran, Florence Mehl, et al., (2021) <i>MetaNetX/MNXref: unified namespace for metabolites and biochemical reactions in the context of metabolic models, Nucleic Acids Research (2021), 49(D1):D570-D574',
-            citation_url: 'https://academic.oup.com/nar/article/49/D1/D570/5958493',
-          },
         ],
         Databases: [
           {
             name: 'YSeq Browser',
             link: 'http://www.sysbio.se/Yseq/',
-            img: require('../../assets/YseqLogo.png'),
+            img: require('../../assets/logos/yseq.png'),
             title:
               'Genome and transcriptome (RNAseq and Microarray) browser of Saccharomyces cerevisiae',
             description:
@@ -149,7 +155,7 @@ export default {
           {
             name: 'yApoptosis',
             link: 'http://www.ycelldeath.com/yapoptosis/',
-            img: require('../../assets/YAp_logo.gif'),
+            img: require('../../assets/logos/yap.gif'),
             title:
               'yApoptosis is an extensively-curated database dedicated for researchers working on yeast apoptosis',
             description:
@@ -162,7 +168,7 @@ export default {
           {
             name: 'yStreX',
             link: 'http://www.ystrexdb.com/',
-            img: require('../../assets/logo_ystrex.png'),
+            img: require('../../assets/logos/ystrex.jpg'),
             title:
               'yStreX is an online database that collects, stores and distributes genome-wide expression data generated in the studies of stress responses',
             description:
@@ -175,7 +181,7 @@ export default {
           {
             name: 'HCSD',
             link: 'http://cancersecretome.org/',
-            img: require('../../assets/HCSD_logo.png'),
+            img: require('../../assets/logos/hcsd.jpg'),
             title:
               'The human cancer secretome database (HCSD) is a comprehensive database for human cancer secretome data',
             description:
@@ -185,55 +191,6 @@ export default {
             citation_url:
               'https://academic.oup.com/database/article/doi/10.1093/database/bav051/2433184',
           },
-          {
-            name: 'KEGG',
-            link: 'https://www.genome.jp/kegg/',
-            img: require('../../assets/kegg128.gif'),
-            title:
-              'Kyoto Encyclopedia of Genes and Genomes (KEGG) is a database resource for understanding high-level functions and utilities of the biological system',
-            description:
-              ' It is a computer representation of the biological system, consisting of molecular building blocks of genes and proteins (genomic information) and chemical substances (chemical information) that are integrated with the knowledge on molecular wiring diagrams of interaction, reaction and relation networks (systems information). It also contains disease and drug information (health information) as perturbations to the biological system.',
-            citation:
-              'Kanehisa, M., Sato, Y., and Kawashima, M. (2022) <i>KEGG mapping tools for uncovering hidden features in biological data. Protein Sci. 31, 47-53 (2022)',
-            citation_url: 'https://onlinelibrary.wiley.com/doi/epdf/10.1002/pro.4172',
-          },
-          {
-            name: 'HMDB',
-            link: 'https://hmdb.ca/',
-            img: require('../../assets/hmdb_logo.png'),
-            title:
-              'The Human Metabolome Database (HMDB) is a freely available electronic database containing detailed information about small molecule metabolites found in the human body',
-            description:
-              'It is intended to be used for applications in metabolomics, clinical chemistry, biomarker discovery and general education. The database is designed to contain or link three kinds of data: 1) chemical data, 2) clinical data, and 3) molecular biology/biochemistry data.',
-            citation:
-              'Wishart DS, Guo AC, Oler E, et al., (2022) <i>HMDB 5.0: the Human Metabolome Database for 2022. Nucleic Acids Res. 2022. Jan 7;50(D1):D622–31',
-            citation_url: 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8728138/',
-          },
-          {
-            name: 'BiGG',
-            link: 'http://bigg.ucsd.edu/',
-            img: require('../../assets/bigg_logo.png'),
-            title:
-              'BiGG Models is a knowledgebase of genome-scale metabolic network reconstructions',
-            description:
-              'BiGG Models integrates more than 70 published genome-scale metabolic networks into a single database with a set of stardized identifiers called BiGG IDs. Genes in the BiGG models are mapped to NCBI genome annotations, and metabolites are linked to many external databases (KEGG, PubChem, and many more).',
-            citation:
-              'King ZA, Lu JS, Dräger A, et al., (2016) <i>BiGG Models: A platform for integrating, standardizing, and sharing genome-scale models (2016) Nucleic Acids Research 44(D1):D515-D522',
-            citation_url: 'https://academic.oup.com/nar/article/44/D1/D515/2502593',
-          },
-          // {
-          //   name: 'NCBI',
-          //   link: 'https://www.ncbi.nlm.nih.gov/',
-          //   img: require('../../assets/ncbi_logo.gif'),
-          //   title:
-          //     'National Center for Biotechnology Information (NCBI) is a national resource for molecular biology information',
-          //   description:
-          //     'It provides a wealth of information in the fields of medicine and biological sciences.',
-          //   citation:
-          //     'Kanehisa, M., Sato, Y., and Kawashima, M. (2022) <i>',
-          //   citation_url:
-          //     '',
-          // },
         ],
         APIs: [
           {
@@ -247,10 +204,32 @@ export default {
           {
             name: 'Protein Atlas Programmatic data access',
             link: 'https://www.proteinatlas.org/about/help/dataaccess',
-            img: require('../../assets/hpa.png'),
+            img: require('../../assets/logos/hpa.png'),
             title: 'Access Protein Atlas programatically',
             description:
               'Download a subset of the data provided in XML, RDF or TSV format, either as individual queries or search queries. ',
+          },
+        ],
+        'Cross-references': [
+          {
+            name: 'KEGG',
+            link: 'https://www.genome.jp/kegg/',
+            img: require('../../assets/logos/kegg.jpg'),
+          },
+          {
+            name: 'HMDB',
+            link: 'https://hmdb.ca/',
+            img: require('../../assets/logos/hmdb.jpg'),
+          },
+          {
+            name: 'BiGG',
+            link: 'http://bigg.ucsd.edu/',
+            img: require('../../assets/logos/bigg.png'),
+          },
+          {
+            name: 'NCBI',
+            link: 'https://www.ncbi.nlm.nih.gov/',
+            img: require('../../assets/logos/ncbi.gif'),
           },
         ],
       },
@@ -258,6 +237,14 @@ export default {
   },
   components: {
     AboutLayout,
+  },
+  methods: {
+    fullWidthResources(resources) {
+      return resources.filter(e => e.title || e.description);
+    },
+    condensedResources(resources) {
+      return resources.filter(e => !e.title && !e.description);
+    },
   },
 };
 </script>

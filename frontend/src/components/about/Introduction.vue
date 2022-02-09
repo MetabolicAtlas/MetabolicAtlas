@@ -3,8 +3,8 @@
     <template v-slot:contents>
       <p>
         Metabolic Atlas is a web platform integrating open-source genome scale metabolic models
-        (GEMs) for easy browsing and analysis. The goal is to collect many curated GEMs, and to
-        bring these models closer to
+        (GEMs) for easy browsing and analysis. The goal is to collect curated GEMs, and to bring
+        these models closer to
         <a href="https://en.wikipedia.org/wiki/FAIR_data" target="_new">FAIR principles</a>
         . The website provides visualisations and comparisons of the GEMs, and links to
         <router-link :to="{ name: 'about-resources', hash: '#Resources' }">resources</router-link>
@@ -48,24 +48,6 @@
         </a>
         .
       </p>
-
-      <!--p>
-        . To this end, the website also provides visualisations and comparisons of the GEMs, and
-        links to
-        <a href="resources">resources</a>
-        : algorithms, other databases, and more general software applications (like RAVEN and
-        PIANO).
-      </p>
-
-      <p>
-        Metabolic Atlas is intended to be used for applications in metabolomics, clinical chemistry,
-        biomarker discovery and general education. In short, the vision is to create a one-stop-shop
-        for everything metabolism related, starting with
-        <a href="https://www.sysbio.se/labs/nielsen/#publications">
-          the publications of the Nielsen lab
-        </a>
-        .
-      </p-->
     </template>
   </about-layout>
 </template>

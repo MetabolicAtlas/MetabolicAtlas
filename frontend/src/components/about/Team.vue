@@ -13,7 +13,9 @@
               <div class="card-content">
                 <div class="media">
                   <div class="media-left">
-                    <img class="square" :src="member.img" />
+                    <figure class="image is-96x96 m-0">
+                      <img :alt="member.name" :src="member.img" >
+                    </figure>
                   </div>
                   <div class="media-content">
                     <p class="title is-4">{{ member.name }}</p>
@@ -22,7 +24,7 @@
                         <img
                           class="image is-16x16 is-inline"
                           alt="orcid"
-                          src="../../assets/orcid.gif"
+                          src="../../assets/logos/orcid.gif"
                         />
                       </a>
                       <a v-if="member.linkedin" :href="member.linkedin" target="_blank">
@@ -62,7 +64,7 @@ export default {
           members: [
             {
               name: 'Ingrid Hyltander',
-              img: require('../../assets/pic-ingrid.jpg'),
+              img: require('../../assets/pics/ingrid.jpg'),
               github: 'https://github.com/inghylt',
               linkedin: 'https://www.linkedin.com/in/ingrid-hyltander-82128213a/',
               content:
@@ -70,7 +72,7 @@ export default {
             },
             {
               name: 'Malin Klang',
-              img: require('../../assets/pic-malin.jpg'),
+              img: require('../../assets/pics/malin.jpg'),
               github: 'https://github.com/MalinAhlberg',
               linkedin: 'https://www.linkedin.com/in/malin-klang-7105562a/',
               content:
@@ -78,7 +80,7 @@ export default {
             },
             {
               name: 'Mihail Anton',
-              img: require('../../assets/pic-mihail.jpg'),
+              img: require('../../assets/pics/mihail.jpg'),
               github: 'https://github.com/mihai-sysbio',
               linkedin: 'https://www.linkedin.com/in/mihail-anton/',
               content:
@@ -86,7 +88,7 @@ export default {
             },
             {
               name: 'Nanjiang Shu',
-              img: require('../../assets/pic-nanjiang.jpg'),
+              img: require('../../assets/pics/nanjiang.jpg'),
               github: 'https://github.com/nanjiangshu',
               linkedin: 'https://www.linkedin.com/in/nanjiang-shu-95a49713/',
               content:
@@ -94,7 +96,7 @@ export default {
             },
             {
               name: 'Shan Huang',
-              img: require('../../assets/pic-shan.jpg'),
+              img: require('../../assets/pics/shan.jpg'),
               github: 'https://github.com/e0',
               linkedin: 'https://www.linkedin.com/in/shan-h-5b986383/',
               content:
@@ -107,7 +109,7 @@ export default {
           team: [
             {
               name: 'Ingrid Hyltander',
-              img: require('../../assets/pic-ingrid.jpg'),
+              img: require('../../assets/pics/ingrid.jpg'),
               github: 'https://github.com/inghylt',
               content:
                 '<a href="https://nbis.se/about/staff/ingrid-hyltander/" target="_blank">Developer at NBIS </a>',
@@ -119,10 +121,4 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-img.square {
-  width: 75px;
-  height: 75px;
-  object-fit: cover;
-}
-</style>
+<style lang="scss"></style>
