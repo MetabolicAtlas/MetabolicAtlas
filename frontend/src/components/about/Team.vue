@@ -13,7 +13,9 @@
               <div class="card-content">
                 <div class="media">
                   <div class="media-left">
-                    <img class="square" :src="member.img" />
+                    <figure class="image is-96x96 m-0">
+                      <img :alt="member.name" :src="member.img" >
+                    </figure>
                   </div>
                   <div class="media-content">
                     <p class="title is-4">{{ member.name }}</p>
@@ -119,10 +121,4 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-img.square {
-  width: 75px;
-  height: 75px;
-  object-fit: cover;
-}
-</style>
+<style lang="scss"></style>
