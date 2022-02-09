@@ -14,7 +14,7 @@
                 <div class="media">
                   <div class="media-left">
                     <figure class="image is-96x96 m-0">
-                      <img :alt="member.name" :src="member.img" >
+                      <img :alt="member.name" :src="member.img" />
                     </figure>
                   </div>
                   <div class="media-content">
