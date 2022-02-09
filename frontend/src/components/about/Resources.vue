@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       resources: {
-        Tools: [
+        "Tools": [
           {
             name: 'STIG-met',
             link: 'https://github.com/SysBioChalmers/STIG-met',
@@ -121,7 +121,7 @@ export default {
             citation_url: 'https://academic.oup.com/nar/article/42/W1/W175/2436233',
           },
         ],
-        Databases: [
+        "Databases": [
           {
             name: 'YSeq Browser',
             link: 'http://www.sysbio.se/Yseq/',
@@ -173,6 +173,26 @@ export default {
             citation_url:
               'https://academic.oup.com/database/article/doi/10.1093/database/bav051/2433184',
           },
+        ],
+        "APIs": [
+          {
+            name: 'Metabolic Atlas API',
+            link: 'api/',
+            img: '/img/logo.png',
+            title: 'Access Metabolic Atlas programatically',
+            description:
+              'The API is a set of URL requests that will respond to the query parameters with JSON formatted text. Our implementation gives the possibility of trying out different queries to see what the results would look like.',
+          },
+          {
+            name: 'Protein Atlas Programmatic data access',
+            link: 'https://www.proteinatlas.org/about/help/dataaccess',
+            img: require('../../assets/logos/hpa.png'),
+            title: 'Access Protein Atlas programatically',
+            description:
+              'Download a subset of the data provided in XML, RDF or TSV format, either as individual queries or search queries. ',
+          },
+        ],
+        "Cross-references": [
           {
             name: 'KEGG',
             link: 'https://www.genome.jp/kegg/',
@@ -192,24 +212,6 @@ export default {
             name: 'NCBI',
             link: 'https://www.ncbi.nlm.nih.gov/',
             img: require('../../assets/logos/ncbi.gif'),
-          },
-        ],
-        APIs: [
-          {
-            name: 'Metabolic Atlas API',
-            link: 'api/',
-            img: '/img/logo.png',
-            title: 'Access Metabolic Atlas programatically',
-            description:
-              'The API is a set of URL requests that will respond to the query parameters with JSON formatted text. Our implementation gives the possibility of trying out different queries to see what the results would look like.',
-          },
-          {
-            name: 'Protein Atlas Programmatic data access',
-            link: 'https://www.proteinatlas.org/about/help/dataaccess',
-            img: require('../../assets/logos/hpa.png'),
-            title: 'Access Protein Atlas programatically',
-            description:
-              'Download a subset of the data provided in XML, RDF or TSV format, either as individual queries or search queries. ',
           },
         ],
       },
