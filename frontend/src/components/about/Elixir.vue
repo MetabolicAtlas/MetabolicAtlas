@@ -2,10 +2,8 @@
   <about-layout title="ELIXIR">
     <template v-slot:contents>
       <p>
-        Metabolic Atlas would not be possible without the following excellent 
-        <a href="https://elixir-europe.org" target="_blank">
-          ELIXIR
-        </a>
+        Metabolic Atlas would not be possible without the following excellent
+        <a href="https://elixir-europe.org" target="_blank">ELIXIR</a>
         resources:
       </p>
       <br />

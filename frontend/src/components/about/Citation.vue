@@ -3,7 +3,9 @@
     <template v-slot:contents>
       <h4 class="title is-4">Latest publication</h4>
       <p>
-        If you use Metabolic Atlas in your work, or any of the animal models, please cite our latest publication. In addition, if you use Human-GEM, please also cite the corresponding publication.
+        If you use Metabolic Atlas in your work, or any of the animal models, please cite our latest
+        publication. In addition, if you use Human-GEM, please also cite the corresponding
+        publication.
       </p>
 
       <div class="columns is-mobile">
@@ -14,21 +16,20 @@
         </div>
         <div class="column is-mobile">
           <p>
-            Wang H, Robinson JL, Kocabas P, Gustafsson J, Anton M, Cholley PE, Huang S, Gobom J, Svensson T, Uhlén M, Zetterberg H, Nielsen J.
+            Wang H, Robinson JL, Kocabas P, Gustafsson J, Anton M, Cholley PE, Huang S, Gobom J,
+            Svensson T, Uhlén M, Zetterberg H, Nielsen J.
           </p>
           <p>
             <b>
               Genome-scale metabolic network reconstruction of model animals as a platform for
               translational research.
             </b>
-            <br>
+            <br />
             <i>PNAS 118 (2021): e2102344118</i>
           </p>
           <p>
             PubMed:
-            <a href="https://pubmed.ncbi.nlm.nih.gov/32209698/" target="_blank">
-              34282017
-            </a>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/32209698/" target="_blank">34282017</a>
             DOI:
             <a href="https://doi.org/10.1073/pnas.2102344118" target="_blank">
               10.1073/pnas.2102344118
@@ -39,12 +40,13 @@
 
       <h4 class="title is-4">Previous publications</h4>
       <p>
-        After its re-launch, 
+        After its re-launch,
         <i>Metabolic Atlas</i>
         was first made publicly available in 2019. Its strong ties with
         <i>Human-GEM</i>
         constituted the basis for the associated publication in
-        <i>Science Signaling</i>. If you use
+        <i>Science Signaling</i>
+        . If you use
         <i>Human-GEM</i>
         in your work, or have used
         <i>Metabolic Atlas</i>
@@ -58,17 +60,18 @@
         </div>
         <div class="column">
           <p>
-            Robinson JL, Kocabas P, Wang H, Cholley PE, Cook D, Nilsson A, Anton M, Ferreira R, Domenzain I, Billa V, Limeta A, Hedin A, Gustafsson J, Kerkhoven EJ, Svensson LT, Palsson BO, Mardinoglu A, Hansson L, Uhlén M, Nielsen J.
+            Robinson JL, Kocabas P, Wang H, Cholley PE, Cook D, Nilsson A, Anton M, Ferreira R,
+            Domenzain I, Billa V, Limeta A, Hedin A, Gustafsson J, Kerkhoven EJ, Svensson LT,
+            Palsson BO, Mardinoglu A, Hansson L, Uhlén M, Nielsen J.
           </p>
           <p>
-            <b>An atlas of human metabolism.</b><br>
+            <b>An atlas of human metabolism.</b>
+            <br />
             <i>Sci. Signal. 13.624 (2020): eaaz1482</i>
           </p>
           <p>
             PubMed:
-            <a href="https://pubmed.ncbi.nlm.nih.gov/32209698/" target="_blank">
-              32209698
-            </a>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/32209698/" target="_blank">32209698</a>
             DOI:
             <a href="https://doi.org/10.1126/scisignal.aaz1482" target="_blank">
               10.1126/scisignal.aaz1482

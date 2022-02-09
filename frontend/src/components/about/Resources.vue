@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       resources: {
-        "Tools": [
+        Tools: [
           {
             name: 'STIG-met',
             link: 'https://github.com/SysBioChalmers/STIG-met',
@@ -121,7 +121,7 @@ export default {
             citation_url: 'https://academic.oup.com/nar/article/42/W1/W175/2436233',
           },
         ],
-        "Databases": [
+        Databases: [
           {
             name: 'YSeq Browser',
             link: 'http://www.sysbio.se/Yseq/',
@@ -174,7 +174,7 @@ export default {
               'https://academic.oup.com/database/article/doi/10.1093/database/bav051/2433184',
           },
         ],
-        "APIs": [
+        APIs: [
           {
             name: 'Metabolic Atlas API',
             link: 'api/',
@@ -192,7 +192,7 @@ export default {
               'Download a subset of the data provided in XML, RDF or TSV format, either as individual queries or search queries. ',
           },
         ],
-        "Cross-references": [
+        'Cross-references': [
           {
             name: 'KEGG',
             link: 'https://www.genome.jp/kegg/',
