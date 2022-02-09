@@ -84,8 +84,5 @@ export default {
   },
 };
 </script>
-<style>
-.text-column {
-  padding: 10px;
-}
-</style>
+
+<style lang="scss"></style>
