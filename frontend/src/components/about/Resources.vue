@@ -9,7 +9,7 @@
               <h3 class="title is-4">{{ category }}</h3>
             </div>
           </div>
-          <div v-for="elem in elems" :key="elem.name" class="columns">
+          <div v-for="elem in fullWidthResources(elems)" :key="elem.name" class="columns">
             <br />
             <div class="column is-2 has-text-centered">
               <a :href="elem.link" target="_blank">
@@ -29,6 +29,24 @@
               {{ elem.description }}
               <br />
               <a :href="elem.citation_url" target="_blank" v-html="elem.citation"></a>
+            </div>
+          </div>
+          <div
+            v-if="condensedResources(elems).length > 0"
+            :key="`${category}-condensed-resources`"
+            class="columns"
+          >
+            <div class="column is-offset-2 columns">
+              <div v-for="elem in condensedResources(elems)" :key="elem.name" class="column">
+                <a :href="elem.link" target="_blank">
+                  <template v-if="elem.img">
+                    <img :src="elem.img" />
+                  </template>
+                  <template v-else>
+                    <h4 class="has-text-centered title is-4">{{ elem.name }}</h4>
+                  </template>
+                </a>
+              </div>
             </div>
           </div>
         </template>
@@ -219,6 +237,14 @@ export default {
   },
   components: {
     AboutLayout,
+  },
+  methods: {
+    fullWidthResources(resources) {
+      return resources.filter(e => e.title || e.description);
+    },
+    condensedResources(resources) {
+      return resources.filter(e => !e.title && !e.description);
+    },
   },
 };
 </script>
