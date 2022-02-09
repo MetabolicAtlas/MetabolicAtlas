@@ -1,41 +1,62 @@
 <template>
-  <section class="section extended-section">
-    <div class="container is-fullhd">
-      <template v-for="(elems, category) in resources">
-        <!-- eslint-disable-next-line vue/require-v-for-key -->
-        <div class="columns">
-          <div class="column is-offset-2 has-text-centered-mobile">
-            <h3 class="title is-3">{{ category }}</h3>
+  <about-layout id="Resources" title="Related resources">
+    <template v-slot:contents>
+      <div class="container is-fullhd">
+        <template v-for="(elems, category) in resources">
+          <!-- eslint-disable-next-line vue/require-v-for-key -->
+          <div class="columns">
+            <div class="column is-offset-2 has-text-centered-mobile">
+              <h3 class="title is-4">{{ category }}</h3>
+            </div>
           </div>
-        </div>
-        <div v-for="elem in elems" :key="elem.name" class="columns">
-          <br />
-          <div class="column is-2 has-text-centered">
-            <a :href="elem.link" target="_blank">
-              <template v-if="elem.img">
-                <img :src="elem.img" />
-              </template>
-              <template v-else>
-                <h4 class="has-text-centered title is-4">{{ elem.name }}</h4>
-              </template>
-            </a>
-          </div>
-          <div class="column has-text-justified">
-            <a :href="elem.link" target="_blank">
-              <b>{{ elem.title }}</b>
-            </a>
+          <div v-for="elem in fullWidthResources(elems)" :key="elem.name" class="columns">
             <br />
-            {{ elem.description }}
-            <br />
-            <a :href="elem.citation_url" target="_blank" v-html="elem.citation"></a>
+            <div class="column is-2 has-text-centered">
+              <a :href="elem.link" target="_blank">
+                <template v-if="elem.img">
+                  <img :src="elem.img" />
+                </template>
+                <template v-else>
+                  <h4 class="has-text-centered title is-4">{{ elem.name }}</h4>
+                </template>
+              </a>
+            </div>
+            <div class="column has-text-justified">
+              <a :href="elem.link" target="_blank">
+                <b>{{ elem.title }}</b>
+              </a>
+              <br />
+              {{ elem.description }}
+              <br />
+              <a :href="elem.citation_url" target="_blank" v-html="elem.citation"></a>
+            </div>
           </div>
-        </div>
-      </template>
-    </div>
-  </section>
+          <div
+            v-if="condensedResources(elems).length > 0"
+            :key="`${category}-condensed-resources`"
+            class="columns"
+          >
+            <div class="column is-offset-2 columns">
+              <div v-for="elem in condensedResources(elems)" :key="elem.name" class="column">
+                <a :href="elem.link" target="_blank">
+                  <template v-if="elem.img">
+                    <img :src="elem.img" />
+                  </template>
+                  <template v-else>
+                    <h4 class="has-text-centered title is-4">{{ elem.name }}</h4>
+                  </template>
+                </a>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </template>
+  </about-layout>
 </template>
-
 <script>
+import AboutLayout from '@/layouts/AboutLayout';
+
 /* eslint-disable global-require */
 export default {
   name: 'Resources',
@@ -56,9 +77,9 @@ export default {
             citation_url: 'http://www.nature.com/articles/s41540-017-0004-5',
           },
           {
-            name: 'Gecko',
+            name: 'GECKO',
             link: 'https://github.com/SysBioChalmers/GECKO',
-            img: require('../assets/gecko-logo.png'),
+            img: require('../../assets/logos/gecko.png'),
             title:
               'GECKO is a Matlab/Python package for enhancing Genome-scale metabolic models (GEMs) with Enzyme Constraints, using Kinetics and Omics',
             description:
@@ -70,7 +91,7 @@ export default {
           {
             name: 'Kiwi',
             link: 'https://github.com/SysBioChalmers/Kiwi',
-            img: require('../assets/kiwi-logo.png'),
+            img: require('../../assets/logos/kiwi.png'),
             title:
               'The Kiwi module combines geneset analyses with biological networks to visualize the interactions between genesets that are significant in a given biological system',
             description:
@@ -83,7 +104,7 @@ export default {
           {
             name: 'Piano',
             link: 'https://varemo.github.io/piano/',
-            img: require('../assets/piano-logo.jpg'),
+            img: require('../../assets/logos/piano.jpg'),
             title:
               'Platform for integrative analysis of omics data (PIANO) is an An R/Bioconductor package for gene set analysis',
             description:
@@ -95,7 +116,7 @@ export default {
           {
             name: 'RAVEN',
             link: 'https://github.com/SysBioChalmers/RAVEN/',
-            img: require('../assets/raven-logo.jpg'),
+            img: require('../../assets/logos/raven.jpg'),
             title:
               'RAVEN (Reconstruction, Analysis and Visualization of Metabolic Networks) Toolbox is a software suite that allows for semi-automated reconstruction of genome-scale models',
             description:
@@ -107,8 +128,8 @@ export default {
           },
           {
             name: 'BioMet-toolbox',
-            link: 'http://biomet-toolbox.chalmers.se/',
-            img: require('../assets/biomet-logo.png'),
+            link: 'http://www.biomet-toolbox.org/',
+            img: require('../../assets/logos/biomet.png'),
             title:
               'The BioMet Toolbox 2.0 integrates a number of functionalities enabling the user to work with biological data in a web interface',
             description:
@@ -122,7 +143,7 @@ export default {
           {
             name: 'YSeq Browser',
             link: 'http://www.sysbio.se/Yseq/',
-            img: require('../assets/YseqLogo.png'),
+            img: require('../../assets/logos/yseq.png'),
             title:
               'Genome and transcriptome (RNAseq and Microarray) browser of Saccharomyces cerevisiae',
             description:
@@ -134,7 +155,7 @@ export default {
           {
             name: 'yApoptosis',
             link: 'http://www.ycelldeath.com/yapoptosis/',
-            img: require('../assets/YAp_logo.gif'),
+            img: require('../../assets/logos/yap.gif'),
             title:
               'yApoptosis is an extensively-curated database dedicated for researchers working on yeast apoptosis',
             description:
@@ -147,7 +168,7 @@ export default {
           {
             name: 'yStreX',
             link: 'http://www.ystrexdb.com/',
-            img: require('../assets/logo_ystrex.png'),
+            img: require('../../assets/logos/ystrex.jpg'),
             title:
               'yStreX is an online database that collects, stores and distributes genome-wide expression data generated in the studies of stress responses',
             description:
@@ -160,7 +181,7 @@ export default {
           {
             name: 'HCSD',
             link: 'http://cancersecretome.org/',
-            img: require('../assets/HCSD_logo.png'),
+            img: require('../../assets/logos/hcsd.jpg'),
             title:
               'The human cancer secretome database (HCSD) is a comprehensive database for human cancer secretome data',
             description:
@@ -183,16 +204,47 @@ export default {
           {
             name: 'Protein Atlas Programmatic data access',
             link: 'https://www.proteinatlas.org/about/help/dataaccess',
-            img: require('../assets/hpa.png'),
+            img: require('../../assets/logos/hpa.png'),
             title: 'Access Protein Atlas programatically',
             description:
               'Download a subset of the data provided in XML, RDF or TSV format, either as individual queries or search queries. ',
           },
         ],
+        'Cross-references': [
+          {
+            name: 'KEGG',
+            link: 'https://www.genome.jp/kegg/',
+            img: require('../../assets/logos/kegg.jpg'),
+          },
+          {
+            name: 'HMDB',
+            link: 'https://hmdb.ca/',
+            img: require('../../assets/logos/hmdb.jpg'),
+          },
+          {
+            name: 'BiGG',
+            link: 'http://bigg.ucsd.edu/',
+            img: require('../../assets/logos/bigg.png'),
+          },
+          {
+            name: 'NCBI',
+            link: 'https://www.ncbi.nlm.nih.gov/',
+            img: require('../../assets/logos/ncbi.gif'),
+          },
+        ],
       },
     };
   },
+  components: {
+    AboutLayout,
+  },
+  methods: {
+    fullWidthResources(resources) {
+      return resources.filter(e => e.title || e.description);
+    },
+    condensedResources(resources) {
+      return resources.filter(e => !e.title && !e.description);
+    },
+  },
 };
 </script>
-
-<style lang="scss"></style>

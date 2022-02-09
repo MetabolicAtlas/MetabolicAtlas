@@ -91,7 +91,7 @@
                   <tr v-if="el.date">
                     <td class="has-nowrap">{{ el.date }}</td>
                     <td class="pl-3">
-                      <router-link :to="{ name: 'about', hash: `#${el.date}` }">
+                      <router-link :to="{ name: 'about-news', hash: `#${el.date}` }">
                         {{ el.title }}
                       </router-link>
                     </td>
@@ -204,7 +204,7 @@ export default {
         title: "What's new",
         text: '',
         img: require('../assets/gemBrowser.jpg'),
-        route: { name: 'about', hash: '#News' },
+        route: { name: 'about-news', hash: '#News' },
         icon: 'newspaper-o',
       },
       tools: [
@@ -284,13 +284,13 @@ export default {
         {
           title: 'Resources',
           text: 'Working with metabolic models requires a set of tools and external databases, which we have collected together for one-click access.<br><br>Additionally, Metabolic Atlas is open to further integrations.',
-          route: { name: 'resources' },
+          route: { name: 'about-resources', hash: '#Resources' },
           icon: 'gears',
         },
         {
           title: 'Community',
           text: '<p>We are grateful for the efforts of scientists all over the world in creating the knowledge required to assemble high quality genome scale metabolic models. We are passionate about continuing on this journey of open curation of models.<br><br>We invite you to explore the world of GEMs through Metabolic Atlas, and hope it will enhance your interest in this field. We wish to continuously improve Metabolic Atlas for the community. Email us with any feedback, suggestions, or requests at <a href="mailto:contact@metabolicatlas.org">contact [at] metabolicatlas [dot] org</a>.</p>',
-          route: { name: 'about' },
+          route: { name: 'about-introduction', hash: '#Introduction' },
           icon: 'users',
         },
       ],

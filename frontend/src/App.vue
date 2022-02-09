@@ -82,11 +82,14 @@
                       >
                         {{ menuElem.displayName }}
                       </a>
-                      <div class="navbar-dropdown has-background-primary-lighter p-0">
+                      <div
+                        class="navbar-dropdown has-background-primary-lighter p-0"
+                        :class="{ ' is-right': menuElem.subMenuRight }"
+                      >
                         <template v-for="subMenuElem in menuElem.subMenuElems">
                           <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
                           <router-link
-                            class="navbar-item is-unselectable has-background-primary-lighter"
+                            class="navbar-item is-unselectable has-background-primary-lighter pr-4"
                             :to="{ name: subMenuElem.routeName }"
                             @click.native="isMobileMenu = false"
                           >
@@ -158,7 +161,7 @@
           our
           <router-link
             class="has-text-white has-text-weight-bold"
-            :to="{ name: 'about', hash: '#privacy' }"
+            :to="{ name: 'about-privacy', hash: '#Privacy' }"
           >
             Privacy Notice and Terms of Use
           </router-link>
@@ -185,6 +188,7 @@ import { mapState } from 'vuex';
 import ErrorPanel from '@/components/shared/ErrorPanel';
 import GemSearch from '@/components/explorer/gemBrowser/GemSearch';
 import { default as messages } from '@/content/messages';
+import { default as about } from '@/content/about';
 import { isCookiePolicyAccepted, acceptCookiePolicy } from '@/helpers/store';
 
 export default {
@@ -215,16 +219,13 @@ export default {
           ],
         },
         {
-          displayName: 'Resources',
-          routeName: 'resources',
-        },
-        {
           displayName: 'Documentation',
           routeName: 'documentation',
         },
         {
           displayName: 'About',
-          routeName: 'about',
+          subMenuRight: true,
+          subMenuElems: about.map(({ name, routeName }) => ({ displayName: name, routeName })),
         },
       ],
       showCookieMsg: navigator.doNotTrack !== '1' && !isCookiePolicyAccepted(),

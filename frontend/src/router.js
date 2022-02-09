@@ -12,13 +12,22 @@ import Subsystem from '@/components/explorer/gemBrowser/Subsystem';
 import MapViewer from '@/components/explorer/MapViewer';
 import InteractionPartners from '@/components/explorer/InteractionPartners';
 import SearchTable from '@/components/SearchTable';
-import About from '@/components/About';
 import Documentation from '@/components/Documentation';
 import Repository from '@/components/Repository';
 import CompareModels from '@/components/CompareModels';
 import FourOFour from '@/components/FourOFour';
-import Resources from '@/components/Resources';
 import ExternalDb from '@/components/ExternalDb';
+import Introduction from '@/components/about/Introduction';
+// import Impact from '@/components/about/Impact';
+import News from '@/components/about/News';
+import Privacy from '@/components/about/Privacy';
+import License from '@/components/about/License';
+import Contact from '@/components/about/Contact';
+import Citation from '@/components/about/Citation';
+import Team from '@/components/about/Team';
+import Advisory from '@/components/about/Advisory';
+import AboutResources from '@/components/about/Resources';
+import Elixir from '@/components/about/Elixir';
 
 Vue.use(VueRouter);
 
@@ -42,10 +51,20 @@ const routes = [
     name: 'interaction',
     component: InteractionPartners,
   },
-  { path: '/about', name: 'about', component: About },
+  { path: '/about/introduction', name: 'about-introduction', component: Introduction },
+  // { path: '/about/impact', name: 'about-impact', component: Impact },
+  { path: '/about/news', name: 'about-news', component: News },
+  { path: '/about/license', name: 'about-license', component: License },
+  { path: '/about/privacy', name: 'about-privacy', component: Privacy },
+  { path: '/about/contact', name: 'about-contact', component: Contact },
+  { path: '/about/citation', name: 'about-citation', component: Citation },
+  { path: '/about/team', name: 'about-team', component: Team },
+  { path: '/about/advisory', name: 'about-advisory', component: Advisory },
+  { path: '/about/resources', name: 'about-resources', component: AboutResources },
+  { path: '/about/elixir', name: 'about-elixir', component: Elixir },
+
   { path: '/gems/repository/:model_id?', name: 'gems', component: Repository },
   { path: '/gems/comparison', name: 'comparemodels', component: CompareModels },
-  { path: '/resources', name: 'resources', component: Resources },
   { path: '/documentation', name: 'documentation', component: Documentation },
   { path: '/identifier/:dbName/:identifierId', name: 'identifier', component: ExternalDb },
 
