@@ -2,7 +2,8 @@ name: "Prettier"
 
 on:
   pull_request:
-    branches: [develop]
+    branches-ignore: 
+      - 'main'
 
 jobs:
 
