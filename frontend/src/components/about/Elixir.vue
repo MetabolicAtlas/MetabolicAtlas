@@ -1,7 +1,13 @@
 <template>
   <about-layout title="ELIXIR">
     <template v-slot:contents>
-      <p>Metabolic Atlas would not be possible without the following excellent Elixir resources:</p>
+      <p>
+        Metabolic Atlas would not be possible without the following excellent 
+        <a href="https://elixir-europe.org" target="_blank">
+          ELIXIR
+        </a>
+        resources:
+      </p>
       <br />
       <div v-for="link in links" :key="link.name" class="columns is-vcentered">
         <br />
@@ -12,7 +18,7 @@
             </template>
           </a>
         </div>
-        <div class="text-column column has-text-justified">
+        <div class="column has-text-justified">
           <a :href="link.link" target="_blank">
             <b>{{ link.name }}</b>
           </a>
@@ -42,7 +48,7 @@ export default {
         {
           name: 'Ensembl',
           icon: require('../../assets/logos/ensembl.jpg'),
-          link: 'https://www.ensembl.org/',
+          link: 'https://www.ensembl.org',
         },
 
         {
@@ -64,6 +70,16 @@ export default {
           name: 'ChEBI',
           icon: require('../../assets/logos/chebi.jpg'),
           link: 'https://www.ebi.ac.uk/chebi',
+        },
+        {
+          name: 'MetaNetX',
+          icon: require('../../assets/logos/mnx.png'),
+          link: 'https://www.metanetx.org',
+        },
+        {
+          name: 'BioSchemas',
+          icon: require('../../assets/logos/bioschemas.svg'),
+          link: 'https://bioschemas.org',
         },
       ],
     };

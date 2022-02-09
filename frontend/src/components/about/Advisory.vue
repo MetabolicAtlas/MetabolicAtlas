@@ -11,9 +11,7 @@
             <div class="card-content">
               <div class="media">
                 <div class="media-left">
-                  <figure class="image is-64x64">
-                    <img :alt="member.name" :src="member.img" />
-                  </figure>
+                  <img class="square" :alt="member.name" :src="member.img" />
                 </div>
                 <div class="media-content">
                   <p class="title is-4">{{ member.name }}</p>

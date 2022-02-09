@@ -22,7 +22,7 @@
                         <img
                           class="image is-16x16 is-inline"
                           alt="orcid"
-                          src="../../assets/orcid.gif"
+                          src="../../assets/logos/orcid.gif"
                         />
                       </a>
                       <a v-if="member.linkedin" :href="member.linkedin" target="_blank">

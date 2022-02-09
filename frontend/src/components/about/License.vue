@@ -7,7 +7,7 @@
       </p>
       <p>
         The maps are licensed under
-        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-SA 4.0a</a>
+        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-SA 4.0</a>
         .
       </p>
       <p>
