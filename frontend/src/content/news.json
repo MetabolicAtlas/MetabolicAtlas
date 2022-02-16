@@ -1,14 +1,31 @@
 {
+  "2022": [
+    {
+      "date": "2022-02-16",
+      "title": "Metabolic Atlas 2.3 adds info about the project",
+      "text": "<b>Metabolic Atlas 2.3</b> is out. In this incremental minor release, we have improved both the layout and the content on the <i>About</i> page, which now spans multiple sub-pages with a design similar to the existing <i>Documentation</i>. Moreover, we have resolved bugs in the <i>GEM Browser</i> and the <i>Map Viewer</i>, and improved documentation-related content. In addition, the process of deploying the software stack has seen some much-wanted attention to improve the robustness, thus paving the way for more regular releases. More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/2.3' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/badge/latestdoi/53664497' target='_blank'>on Zenodo</a>."
+    }
+  ],
   "2021": [
     {
       "date": "2021-12-06",
       "title": "Metabolic Atlas 2.2 fixes critical bugs",
-      "text": "<b>Metabolic Atlas 2.2</b> is out. In this minor release we focused on resolving several serious bugs that were discovered since the previous release, primarily around the Interaction Partner and Map Viewer tools, and also some smaller bugs that were previously reported. More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/2.2' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/badge/latestdoi/53664497' target='_blank'>on Zenodo</a>."
+      "text": "<b>Metabolic Atlas 2.2</b> is out. In this minor release we focused on resolving several serious bugs that were discovered since the previous release, primarily around the Interaction Partner and Map Viewer tools, and also some smaller bugs that were previously reported. More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/2.2' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/record/5760798' target='_blank'>on Zenodo</a>."
+    },
+    {
+      "date": "2021-12-02",
+      "title": "Metabolic Atlas was presented at the annual GOTBIN workshop",
+      "text": "<b>Metabolic Atlas</b> was presented an the <a href='https://www.gu.se/en/core-facilities/bioinformatics-bcf/gotbin' target='_blank'> Gothenburg Bioinformatics Network (GOTBIN)</a> annual <a href='https://drive.google.com/file/d/1eD1m1dzclxEw_RH465Mnp_WZvG03nzkS/viewe' target='_blank'>workshop</a>."
     },
     {
       "date": "2021-11-09",
       "title": "Metabolic Atlas 2.1 revamps Data overlay",
       "text": "<b>Metabolic Atlas 2.1</b> is out. In this minor release we focused on improving the usability of the website, either through feature re-implementation, as was the case for the <i>Data overlay</i>, or through independent fixes. Moreover, several small new features were added, for example the <i>Identifier</i> pages. More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/2.1' target='_blank'>on GitHub</a> or <a href='https://doi.org/10.5281/zenodo.5675262' target='_blank'>on Zenodo</a>."
+    },
+    {
+      "date": "2021-10-09",
+      "title": "Metabolic Atlas was presented in an ELIXIR course",
+      "text": "<b>Metabolic Atlas</b> was presented in the <a href='https://elixir-europe.org/' target='_blank'>ELIXIR</a> course <a href='https://tess.elixir-europe.org/events/elixir-omics-integration-and-systems-biology-online' target='_blank'>Omics Integration and Systems Biology</a> course given by <a href='https://nbis.se' target='_blank'>NBIS</a>, as the <a href='https://elixir-europe.org/about-us/who-we-are/nodes/sweden' target='_blank'>ELIXIR-SE node</a>, with materials being publicly available on the <a href='https://uppsala.instructure.com/courses/52162' target='_blank'>course homepage</a> and <a href='https://zenodo.org/record/4896710' target='_blank'>on Zenodo</a>."
     },
     {
       "date": "2021-07-20",
