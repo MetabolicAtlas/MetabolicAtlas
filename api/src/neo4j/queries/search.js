@@ -326,9 +326,17 @@ const _search = async ({
 
   // the EC field for reaction could contain ":", which is a special character
   // in this case th search term is modified to be escape and perform an exact match
-  const term = searchTerm.includes('EC:')
+  let term = searchTerm.includes('EC:')
     ? `\\"${searchTerm}~\\"`
     : `${searchTerm}~`;
+
+  // clean the search term and excape special characters that may cause errors
+  // in neo4j querying
+  term = term
+    .replace(/\s\s+/g, ' ')
+    .replace(/^\s|\s$/g, '')
+    .replace(/([\"])/g, '')
+    .replace(/([:/^!\"\(\)\[\]])/g, '\\$1');
 
   // Metabolites are not included as it would mess with the limit and
   // relevant metabolites should be matched through CompartmentalizedMetabolites
