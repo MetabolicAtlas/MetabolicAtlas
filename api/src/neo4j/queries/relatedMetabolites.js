@@ -20,5 +20,4 @@ RETURN {
   return queryListResult(statement);
 };
 
-
 export default getRelatedMetabolites;

@@ -22,7 +22,9 @@ RETURN { externalDb: properties(r), components: COLLECT(DISTINCT({component: r, 
 
   components = components.map(({ component, version }) => {
     const { labels, properties } = component;
-    const model = labels.find(l => l.indexOf('Gem') > -1).replace('Gem', '-GEM');
+    const model = labels
+      .find(l => l.indexOf('Gem') > -1)
+      .replace('Gem', '-GEM');
     const componentType = labels.find(l => l.indexOf('Gem') === -1);
 
     return {
@@ -37,7 +39,6 @@ RETURN { externalDb: properties(r), components: COLLECT(DISTINCT({component: r, 
     externalDb.dbName = dbName;
     externalDb.externalId = externalDb.id;
   }
-
 
   return { components, externalDb };
 };

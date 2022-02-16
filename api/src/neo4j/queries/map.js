@@ -6,9 +6,11 @@ import readline from 'readline';
 
 const mapReactionIdSet = async (map, modelShortName) => {
   const rl = readline.createInterface({
-      input: fs.createReadStream(`/project/svg/${modelShortName}/${map.filename}`),
-      output: process.stdout,
-      terminal: false
+    input: fs.createReadStream(
+      `/project/svg/${modelShortName}/${map.filename}`
+    ),
+    output: process.stdout,
+    terminal: false,
   });
 
   const mapReactionIdSet = new Set();
@@ -20,14 +22,18 @@ const mapReactionIdSet = async (map, modelShortName) => {
       }
     }
   }
-  return {...map, mapReactionIdSet: [...mapReactionIdSet]}
+  return { ...map, mapReactionIdSet: [...mapReactionIdSet] };
 };
 
 const mapComponents = async (componentList, modelShortName) =>
-  await Promise.all(componentList.map(async (component) => {
-    const svgs = await Promise.all(component.svgs.map((map) => mapReactionIdSet(map, modelShortName)));
-    return { ...component, svgs };
-  }));
+  await Promise.all(
+    componentList.map(async component => {
+      const svgs = await Promise.all(
+        component.svgs.map(map => mapReactionIdSet(map, modelShortName))
+      );
+      return { ...component, svgs };
+    })
+  );
 
 const getMapsListing = async ({ model, version }) => {
   const [m, v] = parseParams(model, version);
@@ -86,15 +92,25 @@ RETURN svg { id: svg.id, name: svg.customName, svgs: [svg {.*}]}
   ]);
 
   const mapListing = {
-    compartments: componentSvgs.filter(o => !!o.compartment).reduce((l, o) => [...l, o.compartment] , []),
-    subsystems: componentSvgs.filter(o => !!o.subsystem).reduce((l, o) => [...l, o.subsystem] , []),
+    compartments: componentSvgs
+      .filter(o => !!o.compartment)
+      .reduce((l, o) => [...l, o.compartment], []),
+    subsystems: componentSvgs
+      .filter(o => !!o.subsystem)
+      .reduce((l, o) => [...l, o.subsystem], []),
     customs,
   };
 
-  const compartments = await mapComponents(mapListing.compartments, `${model.slice(0, -3)}-GEM`);
-  const subsystems = await mapComponents(mapListing.subsystems, `${model.slice(0, -3)}-GEM`);
+  const compartments = await mapComponents(
+    mapListing.compartments,
+    `${model.slice(0, -3)}-GEM`
+  );
+  const subsystems = await mapComponents(
+    mapListing.subsystems,
+    `${model.slice(0, -3)}-GEM`
+  );
 
-  return {...mapListing, compartments, subsystems };
+  return { ...mapListing, compartments, subsystems };
 };
 
 const mapSearch = async ({ model, version, searchTerm }) => {

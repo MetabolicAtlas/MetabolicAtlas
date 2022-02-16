@@ -2,7 +2,8 @@
   <div class="card" title="Click on any of the links to directly load a map">
     <header class="card-header has-text-centered">
       <p class="card-header-title has-text-primary has-text-weight-bold is-size-5">
-        <span class="icon is-medium"><i class="fa fa-map-o"></i></span>&nbsp;
+        <span class="icon is-medium"><i class="fa fa-map-o"></i></span>
+        &nbsp;
         <span>{{ messages.mapViewerName }}</span>
       </p>
     </header>
@@ -10,20 +11,20 @@
       <table class="table maps-table">
         <tbody class="has-text-left">
           <tr v-for="component in mapsAvailable" :key="component.id">
-            <td class="break-word"> {{ component.customName }} </td>
-            <td v-if="component.svgMaps.length===0"> </td>
-            <td v-else-if="component.svgMaps.length===1">
-              <button class="button is-outlined is-small link-button"
-                      @click="routeSVGmap(component.svgMaps[0].id, '2d')">
-                <span class="has-text-link"> 2D </span>
+            <td class="break-word">{{ component.customName }}</td>
+            <td v-if="component.svgMaps.length === 0"></td>
+            <td v-else-if="component.svgMaps.length === 1">
+              <button
+                class="button is-outlined is-small link-button"
+                @click="routeSVGmap(component.svgMaps[0].id, '2d')"
+              >
+                <span class="has-text-link">2D</span>
               </button>
             </td>
             <td v-else>
               <div class="select is-small">
-                <select class="has-text-link" @change="(e) => routeSVGmap(e.target.value, '2d')">
-                  <option selected disabled>
-                    2D
-                  </option>
+                <select class="has-text-link" @change="e => routeSVGmap(e.target.value, '2d')">
+                  <option selected disabled>2D</option>
                   <option v-for="map in component.svgMaps" :key="map.id" :value="map.id">
                     {{ map.customName }}
                   </option>
@@ -31,9 +32,11 @@
               </div>
             </td>
             <td>
-              <button class="button is-outlined is-small link-button"
-                      @click="routeSVGmap(component.id, '3d')">
-                <span class="has-text-link"> 3D </span>
+              <button
+                class="button is-outlined is-small link-button"
+                @click="routeSVGmap(component.id, '3d')"
+              >
+                <span class="has-text-link">3D</span>
               </button>
             </td>
           </tr>

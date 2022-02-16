@@ -1,0 +1,42 @@
+name: "Prettier"
+
+on:
+  pull_request:
+    branches: [develop]
+
+jobs:
+
+  check_syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+
+      - name: "/frontend: Install Node.js dependencies"
+        working-directory: frontend
+        run: |
+          npm install -g yarn
+          yarn install --frozen-lockfile
+
+      - name: "/frontend: Check formatting"
+        working-directory: ./frontend
+        run: yarn run check-format
+
+      - name: "/frontend: Linting"
+        working-directory: ./frontend
+        run: yarn run lint
+
+      - name: "/api: Install dependencies"
+        working-directory: api
+        run: yarn install --frozen-lockfile
+
+      - name: "/api: Check formatting"
+        working-directory: ./api
+        run: yarn run check-format
+
+      - name: "/api: Linting"
+        working-directory: ./api
+        run: yarn run lint

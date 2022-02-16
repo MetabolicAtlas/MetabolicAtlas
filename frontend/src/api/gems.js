@@ -10,8 +10,13 @@ const fetchGems = async () => {
       ...g.sample,
       description: g.description || g.gemodelset.description,
       set_name: g.gemodelset.name,
-      tissue: [g.sample.tissue, g.sample.cell_type, g.sample.cell_line].filter(e => e).join(' ‒ ') || '-',
-      stats: `reactions:&nbsp;${g.reaction_count === null ? '-' : g.reaction_count}<br>metabolites:&nbsp;${g.metabolite_count === null ? '-' : g.metabolite_count}<br>genes:&nbsp;${g.gene_count === null ? '-' : g.gene_count}`,
+      tissue:
+        [g.sample.tissue, g.sample.cell_type, g.sample.cell_line].filter(e => e).join(' ‒ ') || '-',
+      stats: `reactions:&nbsp;${
+        g.reaction_count === null ? '-' : g.reaction_count
+      }<br>metabolites:&nbsp;${
+        g.metabolite_count === null ? '-' : g.metabolite_count
+      }<br>genes:&nbsp;${g.gene_count === null ? '-' : g.gene_count}`,
       maintained: g.maintained ? 'Yes' : 'No',
       organ_system: g.sample.organ_system || '-',
       condition: g.condition || '-',

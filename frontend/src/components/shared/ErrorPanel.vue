@@ -3,7 +3,12 @@
     <article v-if="message" id="errorPanel" class="message is-danger">
       <div class="message-header">
         <b>{{ title }}</b>
-        <button v-if="hasHideListener" class="delete" aria-label="delete" @click="$emit('hideErrorPanel')" />
+        <button
+          v-if="hasHideListener"
+          class="delete"
+          aria-label="delete"
+          @click="$emit('hideErrorPanel')"
+        />
       </div>
       <div class="message-body has-text-centered">
         <p class="title is-6" v-html="message" />
@@ -13,7 +18,6 @@
 </template>
 
 <script>
-
 /**
  * The ErrorPanel component is controlled by providing a `message`, and
  * an optional `title`.
@@ -41,11 +45,9 @@ export default {
     },
   },
 };
-
 </script>
 
 <style>
-
 #errorPanel {
   z-index: 11;
   position: fixed;
@@ -56,14 +58,14 @@ export default {
 }
 
 .slide-fade-enter-active {
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 }
 .slide-fade-leave-active {
-  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
 }
-.slide-fade-enter, .slide-fade-leave-to {
+.slide-fade-enter,
+.slide-fade-leave-to {
   transform: translateY(200px);
   opacity: 0;
 }
-
 </style>

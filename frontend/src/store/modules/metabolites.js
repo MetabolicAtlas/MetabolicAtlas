@@ -11,9 +11,9 @@ const actions = {
     const metabolite = await metabolitesApi.fetchMetaboliteData(payload);
     commit('setMetabolite', metabolite);
 
-    commit('maps/setAvailableMaps', [
-      ...metabolite.compartmentSVGs, ...metabolite.subsystemSVGs,
-    ], { root: true });
+    commit('maps/setAvailableMaps', [...metabolite.compartmentSVGs, ...metabolite.subsystemSVGs], {
+      root: true,
+    });
   },
   async getRelatedMetabolites({ commit }, { model, id }) {
     const payload = { id, model: model.apiName, version: model.apiVersion };

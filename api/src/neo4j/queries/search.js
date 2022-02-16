@@ -2,17 +2,23 @@ import queryListResult from 'neo4j/queryHandlers/list';
 const INTEGRATED_MODELS = require('data/integratedModels');
 
 const componentTypes = [
-  "CompartmentalizedMetabolite",
-  "Metabolite",
-  "Gene",
-  "Reaction",
-  "Subsystem",
-  "Compartment",
+  'CompartmentalizedMetabolite',
+  'Metabolite',
+  'Gene',
+  'Reaction',
+  'Subsystem',
+  'Compartment',
 ];
 
 const intersect = (a, b) => [...new Set(a)].filter(x => new Set(b).has(x));
 
-const fetchCompartmentalizedMetabolites = async ({ ids, model, version, limit, viaMetabolties }) => {
+const fetchCompartmentalizedMetabolites = async ({
+  ids,
+  model,
+  version,
+  limit,
+  viaMetabolties,
+}) => {
   if (!ids) {
     return null;
   }
@@ -64,7 +70,6 @@ LIMIT ${limit}
   return queryListResult(statement);
 };
 
-
 const fetchGenes = async ({ ids, model, version }) => {
   if (!ids) {
     return null;
@@ -101,7 +106,6 @@ RETURN apoc.map.mergeList(apoc.coll.flatten(
 
   return queryListResult(statement);
 };
-
 
 const fetchReactions = async ({ ids, model, version, includeMetabolites }) => {
   if (!ids) {
@@ -254,12 +258,23 @@ RETURN apoc.map.mergeList(apoc.coll.flatten(
   return queryListResult(statement);
 };
 
-const MODELS = INTEGRATED_MODELS.map(m => ({ label: m.short_name.replace('-GEM', 'Gem'), name: m.short_name }));
+const MODELS = INTEGRATED_MODELS.map(m => ({
+  label: m.short_name.replace('-GEM', 'Gem'),
+  name: m.short_name,
+}));
 
 const globalSearch = async ({ searchTerm, version, limit }) => {
-  const results = await Promise.all(MODELS.map(m =>
-    _search({ searchTerm, version, model: m.label, limit, includeCounts: true })
-  ));
+  const results = await Promise.all(
+    MODELS.map(m =>
+      _search({
+        searchTerm,
+        version,
+        model: m.label,
+        limit,
+        includeCounts: true,
+      })
+    )
+  );
 
   return MODELS.reduce((obj, m, i) => {
     obj[m.name] = {
@@ -275,15 +290,23 @@ const modelSearch = async ({ searchTerm, model, version, limit }) => {
   if (match.length === 0) {
     throw new Error(`Invalid model: ${model}`);
   }
-  
-  const results = await _search({ searchTerm, model, version, limit: limit || 50 });
+
+  const results = await _search({
+    searchTerm,
+    model,
+    version,
+    limit: limit || 50,
+  });
 
   return {
     [match[0].name]: {
       ...results,
       name: match[0].name,
-      metabolite: results.metabolite.map(m => ({ ...m, compartment: m.compartment.name })),
-    }
+      metabolite: results.metabolite.map(m => ({
+        ...m,
+        compartment: m.compartment.name,
+      })),
+    },
   };
 };
 
@@ -292,12 +315,20 @@ const modelSearch = async ({ searchTerm, model, version, limit }) => {
  * 1. Do a fuzzy search over all nodes covered by full-text search index
  * 2. Fetch results for each component type (parallelly) and return result
  */
-const _search = async ({ searchTerm, model, version, limit, includeCounts }) => {
+const _search = async ({
+  searchTerm,
+  model,
+  version,
+  limit,
+  includeCounts,
+}) => {
   const v = version ? `:V${version}` : '';
 
   // the EC field for reaction could contain ":", which is a special character
   // in this case th search term is modified to be escape and perform an exact match
-  const term = searchTerm.includes("EC:") ? `\\"${searchTerm}~\\"` : `${searchTerm}~`;
+  const term = searchTerm.includes('EC:')
+    ? `\\"${searchTerm}~\\"`
+    : `${searchTerm}~`;
 
   // Metabolites are not included as it would mess with the limit and
   // relevant metabolites should be matched through CompartmentalizedMetabolites
@@ -335,7 +366,10 @@ LIMIT ${limit}
     return o;
   }, {});
 
-  const ids = Object.assign({}, ...Object.keys(uniqueIds).map(c => ({ [c]: Array.from(uniqueIds[c]) })));
+  const ids = Object.assign(
+    {},
+    ...Object.keys(uniqueIds).map(c => ({ [c]: Array.from(uniqueIds[c]) }))
+  );
   const [
     compartmentalizedMetabolites,
     metabolites,
@@ -344,12 +378,38 @@ LIMIT ${limit}
     subsystems,
     compartments,
   ] = await Promise.all([
-    fetchCompartmentalizedMetabolites({ ids: ids["CompartmentalizedMetabolite"], model, version: v, limit }),
-    fetchCompartmentalizedMetabolites({ ids: ids["Metabolite"], model, version: v, limit, viaMetabolties: true }),
-    fetchGenes({ ids: ids["Gene"], model, version: v }),
-    fetchReactions({ ids: ids["Reaction"], model, version: v, includeMetabolites: !!limit }),
-    fetchSubsystems({ ids: ids["Subsystem"], model, version: v, includeCounts: true }),
-    fetchCompartments({ ids: ids["Compartment"], model, version: v, includeCounts: true }),
+    fetchCompartmentalizedMetabolites({
+      ids: ids['CompartmentalizedMetabolite'],
+      model,
+      version: v,
+      limit,
+    }),
+    fetchCompartmentalizedMetabolites({
+      ids: ids['Metabolite'],
+      model,
+      version: v,
+      limit,
+      viaMetabolties: true,
+    }),
+    fetchGenes({ ids: ids['Gene'], model, version: v }),
+    fetchReactions({
+      ids: ids['Reaction'],
+      model,
+      version: v,
+      includeMetabolites: !!limit,
+    }),
+    fetchSubsystems({
+      ids: ids['Subsystem'],
+      model,
+      version: v,
+      includeCounts: true,
+    }),
+    fetchCompartments({
+      ids: ids['Compartment'],
+      model,
+      version: v,
+      includeCounts: true,
+    }),
   ]);
 
   const resObj = {
@@ -358,7 +418,7 @@ LIMIT ${limit}
     genes,
     reactions,
     subsystems,
-    compartments
+    compartments,
   };
 
   const resWithScore = {};
@@ -366,7 +426,7 @@ LIMIT ${limit}
     if (result) {
       resWithScore[component] = result.map(obj => ({
         ...obj,
-        score: idsToScore[obj.id]
+        score: idsToScore[obj.id],
       }));
     } else {
       resWithScore[component] = [];
@@ -374,7 +434,10 @@ LIMIT ${limit}
   }
 
   return {
-    metabolite: [...resWithScore.compartmentalizedMetabolites, ...resWithScore.metabolites],
+    metabolite: [
+      ...resWithScore.compartmentalizedMetabolites,
+      ...resWithScore.metabolites,
+    ],
     gene: resWithScore.genes,
     reaction: resWithScore.reactions,
     subsystem: resWithScore.subsystems,
@@ -382,6 +445,7 @@ LIMIT ${limit}
   };
 };
 
-const search = async (params) => params.model ? modelSearch(params) : globalSearch(params);
+const search = async params =>
+  params.model ? modelSearch(params) : globalSearch(params);
 
 export { search };

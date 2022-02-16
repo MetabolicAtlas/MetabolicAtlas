@@ -1,30 +1,52 @@
 <template>
-  <div id="app" :class="{'fade-page': showGemSearch}">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <nav id="navbar" class="navbar has-background-primary-lighter" role="navigation" aria-label="main navigation">
+  <div id="app" :class="{ 'fade-page': showGemSearch }">
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <nav
+      id="navbar"
+      class="navbar has-background-primary-lighter"
+      role="navigation"
+      aria-label="main navigation"
+    >
       <transition name="fade">
-        <gem-search v-show="showGemSearch" :handle-clear="() => showGemSearch = false" />
+        <gem-search v-show="showGemSearch" :handle-clear="() => (showGemSearch = false)" />
       </transition>
       <transition name="fade">
         <div v-show="!showGemSearch" id="navbarContainer" class="container is-fullhd">
           <div class="navbar-brand">
-            <router-link class="navbar-item" :to="{ name: 'home' }" active-class=""
-                         @click.native="isMobileMenu = false">
+            <router-link
+              class="navbar-item"
+              :to="{ name: 'home' }"
+              active-class=""
+              @click.native="isMobileMenu = false"
+            >
               <img src="/img/logo.png" />
             </router-link>
-            <div class="navbar-burger pr-2" :class="{ 'is-active': isMobileMenu }"
-                 @click="isMobileMenu = !isMobileMenu">
+            <div
+              class="navbar-burger pr-2"
+              :class="{ 'is-active': isMobileMenu }"
+              @click="isMobileMenu = !isMobileMenu"
+            >
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
             </div>
           </div>
           <div id="#nav-menu" class="navbar-menu mr-2" :class="{ 'is-active': isMobileMenu }">
-            <div v-show="model" class="navbar-start has-text-centered" title="Click to change model or tool">
-              <router-link v-if="$route.path.includes('/explore')"
-                           id="selectedModelLink"
-                           :to="{ name: 'explorer' }"
-                           class="navbar-item is-size-4 has-text-primary has-text-weight-bold is-unselectable" exact>
+            <div
+              v-show="model"
+              class="navbar-start has-text-centered"
+              title="Click to change model or tool"
+            >
+              <router-link
+                v-if="$route.path.includes('/explore')"
+                id="selectedModelLink"
+                :to="{ name: 'explorer' }"
+                class="navbar-item is-size-4 has-text-primary has-text-weight-bold is-unselectable"
+                exact
+              >
                 {{ model ? model.short_name : '' }}
               </router-link>
             </div>
@@ -34,30 +56,44 @@
                   <i id="search-icon" class="fa fa-search" />
                 </span>
               </a>
-              <template v-for="(menuElem) in menuElems">
+              <template v-for="menuElem in menuElems">
                 <template v-if="menuElem.routeName">
                   <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
-                  <router-link class="navbar-item is-unselectable is-active-underline"
-                               :to="{ name: menuElem.routeName }"
-                               @click.native="isMobileMenu = false" v-html="menuElem.displayName">
-                  </router-link>
+                  <router-link
+                    class="navbar-item is-unselectable is-active-underline"
+                    :to="{ name: menuElem.routeName }"
+                    @click.native="isMobileMenu = false"
+                    v-html="menuElem.displayName"
+                  ></router-link>
                 </template>
                 <template v-else>
                   <template>
                     <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
-                    <div class="navbar-item has-dropdown is-hoverable is-unselectable has-background-primary-lighter">
-                      <a class="navbar-link is-active-underline"
-                         :class="{
-                           'router-link-active': menuElem.subMenuElems.map(sme => sme.routeName).includes($route.name)
-                         }">
+                    <div
+                      class="navbar-item has-dropdown is-hoverable is-unselectable has-background-primary-lighter"
+                    >
+                      <a
+                        class="navbar-link is-active-underline"
+                        :class="{
+                          'router-link-active': menuElem.subMenuElems
+                            .map(sme => sme.routeName)
+                            .includes($route.name),
+                        }"
+                      >
                         {{ menuElem.displayName }}
                       </a>
-                      <div class="navbar-dropdown has-background-primary-lighter p-0">
-                        <template v-for="(subMenuElem) in menuElem.subMenuElems">
+                      <div
+                        class="navbar-dropdown has-background-primary-lighter p-0"
+                        :class="{ ' is-right': menuElem.subMenuRight }"
+                      >
+                        <template v-for="subMenuElem in menuElem.subMenuElems">
                           <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
-                          <router-link class="navbar-item is-unselectable has-background-primary-lighter"
-                                       :to="{ name: subMenuElem.routeName }"
-                                       @click.native="isMobileMenu = false">{{ subMenuElem.displayName }}
+                          <router-link
+                            class="navbar-item is-unselectable has-background-primary-lighter pr-4"
+                            :to="{ name: subMenuElem.routeName }"
+                            @click.native="isMobileMenu = false"
+                          >
+                            {{ subMenuElem.displayName }}
                           </router-link>
                         </template>
                       </div>
@@ -71,7 +107,7 @@
       </transition>
     </nav>
     <router-view></router-view>
-    <ErrorPanel :message="errorMessage" @hideErrorPanel="errorMessage=''" />
+    <ErrorPanel :message="errorMessage" @hideErrorPanel="errorMessage = ''" />
     <footer id="footer" class="footer has-background-primary-lighter is-size-6 py-4">
       <div class="columns is-gapless mb-0">
         <div v-show="!showCompactFooter()" class="column is-full">
@@ -90,8 +126,11 @@
                 <img class="my-0 mx-2" src="/img/wpcr.jpg" />
               </a>
               <a href="https://nbis.se/">
-                <img class="my-0 mx-2" src="/img/nbislogo-green.png"
-                     title="National Bioinformatics Infrastructure Sweden" />
+                <img
+                  class="my-0 mx-2"
+                  src="/img/nbislogo-green.png"
+                  title="National Bioinformatics Infrastructure Sweden"
+                />
               </a>
               <a href="https://www.scilifelab.se" title="Science for Life Laboratory (SciLifeLab)">
                 <img class="my-0 mx-2" src="/img/scilifelab.png" />
@@ -102,11 +141,13 @@
       </div>
       <div class="columns is-gapless">
         <div v-show="!showCompactFooter()" class="column has-text-centered mt-1">
-          <p>2021 ©
+          <p>
+            2021 ©
             <span class="is-hidden-touch">
               &nbsp;Department of Biology and Biological Engineering |
             </span>
-            &nbsp;Chalmers University of Technology</p>
+            &nbsp;Chalmers University of Technology
+          </p>
         </div>
         <div v-show="showCompactFooter()" class="column has-text-centered-mobile">
           <p>2021 © &nbsp;Chalmers University of Technology</p>
@@ -116,14 +157,22 @@
     <div v-if="showCookieMsg" id="cookies" class="has-background-grey">
       <div class="column has-text-centered p-1">
         <div class="has-text-white">
-          We use cookies to enhance the usability of our website.
-          By continuing you are agreeing to our
-          <router-link class="has-text-white has-text-weight-bold"
-                       :to="{ name: 'about', hash: '#privacy' }">
+          We use cookies to enhance the usability of our website. By continuing you are agreeing to
+          our
+          <router-link
+            class="has-text-white has-text-weight-bold"
+            :to="{ name: 'about-privacy', hash: '#Privacy' }"
+          >
             Privacy Notice and Terms of Use
-          </router-link>&emsp;
-          <p class="button is-small is-rounded has-background-danger has-text-white has-text-weight-bold"
-             @click="showCookieMsg=false; acceptCookiePolicy()">
+          </router-link>
+          &emsp;
+          <p
+            class="button is-small is-rounded has-background-danger has-text-white has-text-weight-bold"
+            @click="
+              showCookieMsg = false;
+              acceptCookiePolicy();
+            "
+          >
             <span class="icon is-small"><i class="fa fa-check"></i></span>
             <span>OKAY</span>
           </p>
@@ -134,12 +183,12 @@
 </template>
 
 <script>
-
 import axios from 'axios';
 import { mapState } from 'vuex';
 import ErrorPanel from '@/components/shared/ErrorPanel';
 import GemSearch from '@/components/explorer/gemBrowser/GemSearch';
 import { default as messages } from '@/content/messages';
+import { default as about } from '@/content/about';
 import { isCookiePolicyAccepted, acceptCookiePolicy } from '@/helpers/store';
 
 export default {
@@ -170,16 +219,13 @@ export default {
           ],
         },
         {
-          displayName: 'Resources',
-          routeName: 'resources',
-        },
-        {
           displayName: 'Documentation',
           routeName: 'documentation',
         },
         {
           displayName: 'About',
-          routeName: 'about',
+          subMenuRight: true,
+          subMenuElems: about.map(({ name, routeName }) => ({ displayName: name, routeName })),
         },
       ],
       showCookieMsg: navigator.doNotTrack !== '1' && !isCookiePolicyAccepted(),
@@ -214,7 +260,7 @@ export default {
     setupErrorCatcher() {
       axios.interceptors.response.use(
         response => response,
-        (error) => {
+        error => {
           if (error.response && error.response.status === 404) {
             this.errorMessage = messages.notFoundError;
           } else {
@@ -237,11 +283,9 @@ export default {
 };
 </script>
 
-<style lang='scss'>
-
+<style lang="scss">
 @import '~bulma';
 @import '~bulma-timeline';
-
 
 html {
   @include mobile {
@@ -267,7 +311,12 @@ html {
   background-color: lightgray;
 }
 
-.content h1,h2,h3,h4,h5,h6 {
+.content h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin-top: 1em;
 }
 
@@ -292,7 +341,7 @@ html {
       position: absolute;
       width: 100vw;
       height: 100vh;
-      content: "";
+      content: '';
       background: rgba(0, 0, 0, 0.75);
       z-index: 10;
     }
@@ -309,11 +358,10 @@ html {
   @media screen and (min-width: $desktop) and (max-width: $fullhd + $navbar-margin-threshold) {
     margin-left: 50px;
   }
-  @media screen  and (max-width: $desktop) {
+  @media screen and (max-width: $desktop) {
     margin-left: 10px;
   }
 }
-
 
 #navbar {
   min-height: 52px;
@@ -326,11 +374,13 @@ html {
     min-height: 64px;
   }
 
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity .3s ease-in-out;
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.3s ease-in-out;
   }
 
-  .fade-enter, .fade-leave-to {
+  .fade-enter,
+  .fade-leave-to {
     opacity: 0;
   }
 
@@ -339,7 +389,7 @@ html {
       font-size: 1.15em;
       color: $black-ter;
     }
-    a:hover{
+    a:hover {
       color: $black-bis;
       background-color: $light;
     }
@@ -361,7 +411,7 @@ html {
         font-weight: 400;
       }
     }
-    .navbar-burger{
+    .navbar-burger {
       height: 4rem;
       span {
         height: 2px;
@@ -377,7 +427,8 @@ html {
     #search-icon {
       font-size: 1.8rem;
     }
-    #selectedModelLink .router-link-exact-active, .router-link-active {
+    #selectedModelLink .router-link-exact-active,
+    .router-link-active {
       background-color: $primary-lighter;
     }
   }
@@ -389,8 +440,10 @@ html {
   }
 }
 
-#comparison-details, .table-template {
-  .main-table tr td.td-key, #ed-table tr td.td-key {
+#comparison-details,
+.table-template {
+  .main-table tr td.td-key,
+  #ed-table tr td.td-key {
     width: 150px;
   }
   font-size: 0.93em;
@@ -454,5 +507,4 @@ span.sc {
 .has-text-icon-interaction-partner {
   color: $icon-interaction-partner;
 }
-
 </style>

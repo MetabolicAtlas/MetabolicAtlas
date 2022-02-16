@@ -18,6 +18,8 @@ services:
     volumes:
       - ./frontend/src:/project/src
       - ./frontend/public:/project/public
+      - ./frontend/.eslintrc.js:/project/.eslintrc.js
+      - ./frontend/.prettierrc.json:/project/.prettierrc.json
     networks:
       - nginx-network
     ports:
@@ -36,14 +38,15 @@ services:
       - "127.0.0.1:${PORT_NEO4J_2:-7687}:7687"
 
   api:
-    environment:
-      - NODE_ENV=develop
     volumes:
       - ./api/src:/project/src
       - ./api/svg:/project/svg
       - ./api/repository:/project/repository
       - ./api/public:/project/public
       - ./api/dataOverlay:/project/dataOverlay
+      - ./api/.eslintrc.js:/project/.eslintrc.js
+      - ./api/.prettierrc.json:/project/.prettierrc.json
+      - ./api/test:/project/test
     command: yarn develop
 
   ftp:

@@ -1,6 +1,6 @@
 import driver from 'neo4j/driver';
 
-const queryListResult = async (statement) => {
+const queryListResult = async statement => {
   const session = driver.session();
 
   let result;
@@ -8,7 +8,7 @@ const queryListResult = async (statement) => {
 
   try {
     const response = await session.readTransaction(t => t.run(statement));
-    result = response.records.map((r) => r.get(0));
+    result = response.records.map(r => r.get(0));
   } catch (e) {
     error = e;
   } finally {

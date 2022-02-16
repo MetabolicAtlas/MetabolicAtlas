@@ -10,7 +10,14 @@ const NODE_TYPES = {
 };
 
 // TODO: add pagination and search
-const getRelatedReactions = async ({ nodeType, id, model,  version, limit }) => {
+const getRelatedReactions = async ({
+  nodeType,
+  id,
+  model,
+  version,
+  limit,
+  isForAllCompartments,
+}) => {
   const [m, v] = parseParams(model, version);
   let statement;
 
@@ -32,8 +39,18 @@ WHERE ccms1 = ccms3 and r1.id <> r.id`;
 MATCH (:Gene${m} {id: '${id}'})-[${v}]-(r:Reaction)`;
       break;
     case NODE_TYPES.metabolite:
-      statement = `
+      // If `isForAllCompartments` is true, all reactions associated with
+      // the metabolite are returned. Otherwise, only reactions associated
+      // with the same compartmentalized metabolite are returned.
+      if (isForAllCompartments) {
+        statement = `
+MATCH (:CompartmentalizedMetabolite${m} {id: '${id}'})-[${v}]-(m:Metabolite)
+WITH m
+MATCH (m)-[${v}]-(:CompartmentalizedMetabolite${m})-[${v}]-(r:Reaction)`;
+      } else {
+        statement = `
 MATCH (:CompartmentalizedMetabolite${m} {id: '${id}'})-[${v}]-(r:Reaction)`;
+      }
       break;
     case NODE_TYPES.subsystem:
       statement = `
@@ -102,25 +119,56 @@ RETURN apoc.map.mergeList(apoc.coll.flatten(
   return queryListResult(statement);
 };
 
-
-const getRelatedReactionsForReaction = ({ id, model, version, limit }) => getRelatedReactions({
-  id, model, version, nodeType: NODE_TYPES.reaction, limit,
+const getRelatedReactionsForReaction = ({ id, model, version, limit }) =>
+  getRelatedReactions({
+    id,
+    model,
+    version,
+    nodeType: NODE_TYPES.reaction,
+    limit,
   });
 
-const getRelatedReactionsForGene = ({ id, model, version, limit }) => getRelatedReactions({
-  id, model, version, nodeType: NODE_TYPES.gene, limit,
+const getRelatedReactionsForGene = ({ id, model, version, limit }) =>
+  getRelatedReactions({
+    id,
+    model,
+    version,
+    nodeType: NODE_TYPES.gene,
+    limit,
   });
 
-const getRelatedReactionsForMetabolite = ({ id, model, version, limit }) => getRelatedReactions({
-  id, model, version, nodeType: NODE_TYPES.metabolite, limit,
+const getRelatedReactionsForMetabolite = ({
+  id,
+  model,
+  version,
+  limit,
+  isForAllCompartments,
+}) =>
+  getRelatedReactions({
+    id,
+    model,
+    version,
+    nodeType: NODE_TYPES.metabolite,
+    limit,
+    isForAllCompartments,
   });
 
-const getRelatedReactionsForSubsystem = ({ id, model, version, limit }) => getRelatedReactions({
-  id, model, version, nodeType: NODE_TYPES.subsystem, limit,
+const getRelatedReactionsForSubsystem = ({ id, model, version, limit }) =>
+  getRelatedReactions({
+    id,
+    model,
+    version,
+    nodeType: NODE_TYPES.subsystem,
+    limit,
   });
 
-const getRelatedReactionsForCompartment = ({ id, model, version, limit }) => getRelatedReactions({
-  id, model, version, nodeType: NODE_TYPES.compartment, limit,
+const getRelatedReactionsForCompartment = ({ id, model, version, limit }) =>
+  getRelatedReactions({
+    id,
+    model,
+    version,
+    nodeType: NODE_TYPES.compartment,
+    limit,
   });
 
 export {

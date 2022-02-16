@@ -7,6 +7,13 @@ If you use *Metabolic Atlas* in your scientific work, please cite:
 >
 > Robinson, J., et al, 2020. _An atlas of human metabolism_. Science Signaling 13 [doi:10.1126/scisignal.aaz1482 ](https://doi.org/10.1126/scisignal.aaz1482)
 
+## About Metabolic Atlas
+Metabolic Atlas is a web platform integrating open-source genome scale metabolic models (GEMs) for easy browsing and analysis. The goal is to collect many curated GEMs, and to bring these models closer to [FAIR principles](https://en.wikipedia.org/wiki/FAIR_data). The website provides visualisations and comparisons of the GEMs, and links to resourcess, algorithms, other databases, and more general software applications. In short, the vision is to create a one-stop-shop for everything metabolism related. 
+
+## Contributing
+If you would like to contribute to the project, for example if you have ideas for new features, discovered a bug or if you would like to improve the code base, please have a look at [CONTRIBUTING.md](https://github.com/MetabolicAtlas/MetabolicAtlas/blob/develop/CONTRIBUTING.md). All ideas and contributions are highly appreciated.
+
+If you discover any potential vulnerabilities associated with the project, please reach out to us at [contact@metabolicatlas.org](mailto:contact@metabolicatlas.org).
 
 ## Get started
 The front-end uses [Vue.js](https://vuejs.org), with help of [Vue CLI](https://cli.vuejs.org/). The backend uses [ExpressJS](https://expressjs.com/) and [Neo4j](https://neo4j.com/) as the database.  
@@ -28,38 +35,15 @@ Clone the three required repositories by
     git clone https://github.com/MetabolicAtlas/data-files && pushd data-files; git lfs pull; popd
 
 
-Go to the repository `data-generation` and follow the
-[instructions](https://github.com/MetabolicAtlas/data-generation#readme) on how to generate the data files required by MetabolicAtlas.
+Go to the repository `data-generation` and follow the [instructions](https://github.com/MetabolicAtlas/data-generation#readme) on how to generate the data files required by Metabolic Atlas.
 
-In the folder `MetabolicAtlas` that has been cloned, add a `.env` file based on the `.env.sample` file:
+In the folder `MetabolicAtlas` that has been cloned, add a `env-local.env` file based on the `env-local.env.sample` file:
 ```bash
-cp .env.sample .env
+cp env-local.env.sample env-local.env
 ```
-and modify this `.env` file.
+and modify this `env-local.env` file.
 
-The content of the file `.env` that has just been copied from `.env.sample` is shown below. Make sure the paths for `DATA_FILES_PATH` and `DATA_GENERATOR_PATH` are correct for your setup,
-eg. the paths to where you have downloaded the repositories `data-files` and `data-generation`.
-
-
-```
-CERTBOT_EMAIL=
-SERVER_NAME=localhost
-DATA_FILES_PATH=../data-files
-DATA_GENERATOR_PATH=../data-generation
-
-NEO4J_USERNAME=neo4j
-NEO4J_PASSWORD=password-unhackable
-
-FTP_MIN_PORT=30000
-FTP_MAX_PORT=31000
-
-PORT_NGINX=80
-PORT_FRONTEND=81
-PORT_NEO4J_1=7474
-PORT_NEO4J_2=7687
-
-IP_FILTER=""
-```
+Make sure the paths for `DATA_FILES_PATH` and `DATA_GENERATOR_PATH` are correct for your setup, eg. the paths to where you have downloaded the repositories `data-files` and `data-generation`.
 
 To load the list of helper commands run:
 ```bash
@@ -78,11 +62,26 @@ start-stack
 
 Given successful deployment, the frontend should be accessible at: `http://localhost/`. If you encounter any problems try looking at the logs `logs api` / `logs frontend`.
 
+To deploy the stack to a remote server, create another `ENV` file, e.g. `env-dev.env`, and modify it accordingly:
+```bash
+cp env-local.env.sample env-dev.env
+```
+
+Use the tag of the file (`dev` in the previous example) as an argument to the `deploy-stack` command to pass the `ENV` file to the Docker command and the Docker compose file:
+```bash
+deploy-stack dev
+```
+
 ## Description of helper commands
 
 * To bootstrap the project: `build-stack`
 * To run the project: `start-stack`
 * To stop the project: `stop-stack`
+* To run a command inside a docker container: `ma-exec <CONTAINER_NAME> <COMMAND>`. Below is a list of useful container specific commands.
+  * Run API data validation tests: `ma-exec api yarn test`
+  * Use [prettier](CONTRIBUTING.md#prettier) to format frontend (also works for `api`) files: `ma-exec frontend yarn format`
+  * Run [eslint](CONTRIBUTING.md#eslint) for frontend (also works for `api`): `ma-exec frontend yarn lint`
+
 * To clean the project (delete containers and volumes): `clean-stack`
 * To display real-time logs: `logs [container-name: frontend/api/nginx/neo4j/ftp]`
 * To deploy the project: `deploy-stack`
@@ -94,9 +93,7 @@ When rebuilding the stack, you might have to change the ownership of the directo
 ```
 sudo chown -R <user> neo4j
 ```
-Replace `<user>` with your user name.
-The ownership will be automatically reset when running the project, so you will
-have to repeat this step for every rebuild.
+Replace `<user>` with your user name. The ownership will be automatically reset when running the project, so you will have to repeat this step for every rebuild.
 
 
 ## Licenses

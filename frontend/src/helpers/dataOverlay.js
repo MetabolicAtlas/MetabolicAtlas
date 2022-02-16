@@ -14,7 +14,7 @@ const DATA_TYPES_COMPONENTS = {
   },
 };
 
-const parseFile = async (file) => {
+const parseFile = async file => {
   let dataSets = [];
   const levels = { 'n/a': 'n/a' };
 
@@ -64,9 +64,4 @@ const parseFile = async (file) => {
   };
 };
 
-export {
-  DEFAULT_GENE_COLOR,
-  DEFAULT_METABOLITE_COLOR,
-  DATA_TYPES_COMPONENTS,
-  parseFile,
-};
+export { DEFAULT_GENE_COLOR, DEFAULT_METABOLITE_COLOR, DATA_TYPES_COMPONENTS, parseFile };

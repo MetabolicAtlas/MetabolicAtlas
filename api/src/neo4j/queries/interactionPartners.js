@@ -50,5 +50,4 @@ RETURN { component: component, reactions: COLLECT(reaction)}
   return querySingleResult(statement);
 };
 
-
 export default getInteractionPartners;

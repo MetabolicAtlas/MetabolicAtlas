@@ -1,5 +1,9 @@
 import querySingleResult from 'neo4j/queryHandlers/single';
-import { reformatExternalDbs, reformatCompartmentSVGs, reformatSubsystemSVGs } from 'neo4j/shared/formatter';
+import {
+  reformatExternalDbs,
+  reformatCompartmentSVGs,
+  reformatSubsystemSVGs,
+} from 'neo4j/shared/formatter';
 import parseParams from 'neo4j/shared/helper';
 
 const getMetabolite = async ({ id, model, version }) => {
@@ -45,7 +49,12 @@ RETURN apoc.map.mergeList(COLLECT(value.data)) as metabolite
 `;
   const metabolite = await querySingleResult(statement);
   metabolite.compartments = [metabolite.compartment];
-  return { ...metabolite, compartmentSVGs: reformatCompartmentSVGs(metabolite), subsystemSVGs: reformatSubsystemSVGs(metabolite), externalDbs: reformatExternalDbs(metabolite.externalDbs) };
+  return {
+    ...metabolite,
+    compartmentSVGs: reformatCompartmentSVGs(metabolite),
+    subsystemSVGs: reformatSubsystemSVGs(metabolite),
+    externalDbs: reformatExternalDbs(metabolite.externalDbs),
+  };
 };
 
 const getMetaboliteCount = async (model, version) => {

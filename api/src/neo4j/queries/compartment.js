@@ -15,15 +15,21 @@ CALL apoc.cypher.run("
   USING JOIN on r
   RETURN {
     subsystems: COLLECT(DISTINCT({id: s.id, name: ss.name})) ,
-    reactionsCount: COUNT(DISTINCT(r)) ${ full ? ', reactions: COLLECT(DISTINCT(r))' : ''},
-    metabolitesCount: COUNT(DISTINCT(cm)) ${ full ? ', metabolites: COLLECT(DISTINCT(cm))' : ''}
+    reactionsCount: COUNT(DISTINCT(r)) ${
+      full ? ', reactions: COLLECT(DISTINCT(r))' : ''
+    },
+    metabolitesCount: COUNT(DISTINCT(cm)) ${
+      full ? ', metabolites: COLLECT(DISTINCT(cm))' : ''
+    }
   } as data
 
   UNION
   
   MATCH (:Compartment${m} {id: '${id}'})-[${v}]-(:CompartmentalizedMetabolite)-[${v}]-(r:Reaction)-[${v}]-(g:Gene)
   USING JOIN on r
-  RETURN { genesCount: COUNT(DISTINCT(g)) ${ full ? ', genes: COLLECT(DISTINCT(g))' : ''} } as data
+  RETURN { genesCount: COUNT(DISTINCT(g)) ${
+    full ? ', genes: COLLECT(DISTINCT(g))' : ''
+  } } as data
 
   UNION
 
@@ -39,22 +45,27 @@ CALL apoc.cypher.run("
 RETURN apoc.map.mergeList(COLLECT(value.data)) as compartment
 `;
 
-  const { subsystems, compartmentSVGs, externalDbs, ...info } = await querySingleResult(statement);
+  const { subsystems, compartmentSVGs, externalDbs, ...info } =
+    await querySingleResult(statement);
   return {
     info: {
       ...info,
       subsystemCount: subsystems.length,
     },
-    compartmentSVGs: [{
-      id: info.id,
-      customName: info.name,
-      svgMaps: compartmentSVGs[0] ? compartmentSVGs[0].compartmentSVGs.sort((a, b) => a.id.localeCompare(b.id)) : [],
-    }],
+    compartmentSVGs: [
+      {
+        id: info.id,
+        customName: info.name,
+        svgMaps: compartmentSVGs[0]
+          ? compartmentSVGs[0].compartmentSVGs.sort((a, b) =>
+              a.id.localeCompare(b.id)
+            )
+          : [],
+      },
+    ],
     externalDbs,
     subsystems,
   };
-
 };
-
 
 export default getCompartment;
