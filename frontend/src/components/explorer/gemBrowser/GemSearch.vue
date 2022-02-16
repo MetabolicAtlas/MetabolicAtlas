@@ -115,7 +115,6 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import $ from 'jquery';
 import { default as messages } from '@/content/messages';
 
 export default {
@@ -202,7 +201,7 @@ export default {
       }
     },
     async search() {
-      $('#search').focus();
+      document.getElementById('search').focus();
       if (this.searchTermString.length < 2) {
         return;
       }
@@ -277,9 +276,9 @@ export default {
         } else if (
           document.getElementById('model-select').contains(document.activeElement) === false
         ) {
-          $('#search').focus();
+          document.getElementById('search').focus();
         }
-      });
+      }, 100);
     },
   },
 };
