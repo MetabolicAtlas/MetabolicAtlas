@@ -335,7 +335,7 @@ const _search = async ({
   term = term
     .replace(/\s\s+/g, ' ')
     .replace(/^\s|\s$/g, '')
-    .replace(/([\"])/g, '')
+    .replace(/([\"\\])/g, '')
     .replace(/([:/^!\"\(\)\[\]])/g, '\\$1');
 
   // Metabolites are not included as it would mess with the limit and
