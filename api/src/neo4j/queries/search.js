@@ -330,7 +330,6 @@ const _search = async ({
     ? `\\"${searchTerm}~\\"`
     : `${searchTerm}~`;
 
-  console.log(`term: ${term}`); //eslint-disable-line
   // Metabolites are not included as it would mess with the limit and
   // relevant metabolites should be matched through CompartmentalizedMetabolites
   let statement = `
