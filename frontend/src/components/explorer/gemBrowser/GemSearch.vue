@@ -117,6 +117,7 @@
 import { mapGetters, mapState } from 'vuex';
 import $ from 'jquery';
 import { default as messages } from '@/content/messages';
+import { sanitizeSearchString } from '@/helpers/utils';
 
 export default {
   name: 'GemSearch',
@@ -203,7 +204,7 @@ export default {
     },
     async search() {
       $('#search').focus();
-      if (this.searchTermString.length < 2) {
+      if (sanitizeSearchString(this.searchTermString, false).length < 2) {
         return;
       }
 
@@ -241,7 +242,7 @@ export default {
       this.$router.push({ name: 'search', query: { term: this.searchTermString } });
     },
     formatSearchResultLabel(type, element, searchTerm) {
-      const re = new RegExp(`(${searchTerm})`, 'ig');
+      const re = new RegExp(`(${sanitizeSearchString(searchTerm)})`, 'ig');
       let s = '';
       this.itemKeys[type]
         .filter(key => element[key])
