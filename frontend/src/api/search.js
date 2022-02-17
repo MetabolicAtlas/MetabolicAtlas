@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { reformatChemicalReactionHTML } from '@/helpers/utils';
+import { reformatChemicalReactionHTML, sanitizeSearchString } from '@/helpers/utils';
 
 const search = async ({ searchTerm, model, version, limit }) => {
-  const params = { searchTerm, model, version, limit };
+  const params = { searchTerm: sanitizeSearchString(searchTerm), model, version, limit };
   const { data } = await axios.get('/search', { params });
 
   // the metabolites are returned ONLY if limit is provided
