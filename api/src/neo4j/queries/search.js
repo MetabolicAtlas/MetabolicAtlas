@@ -328,9 +328,7 @@ const _search = async ({
   let term = sanitizeSearchString(searchTerm, true);
   // the EC field for reaction could contain ":", which is a special character
   // in this case th search term is modified to be escape and perform an exact match
-  term = term.includes('EC\\:')
-    ? `\\"${term}~\\"`
-    : `${term}~`;
+  term = term.includes('EC\\:') ? `\\"${term}~\\"` : `${term}~`;
 
   // Metabolites are not included as it would mess with the limit and
   // relevant metabolites should be matched through CompartmentalizedMetabolites
