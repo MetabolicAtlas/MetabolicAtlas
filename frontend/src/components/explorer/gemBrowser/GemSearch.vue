@@ -27,7 +27,6 @@
           type="text"
           class="input"
           :placeholder="placeholder"
-          :value="searchTermString"
           @keyup.esc="handleClear()"
           @focus="showResults = true"
           @blur="blur()"
@@ -115,7 +114,6 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import $ from 'jquery';
 import { default as messages } from '@/content/messages';
 import { sanitizeSearchString } from '@/helpers/utils';
 
@@ -190,20 +188,20 @@ export default {
       }
     },
     async searchDebounce(searchTerm) {
+      this.$store.dispatch('search/setSearchTermString', searchTerm);
       this.noResult = false;
       this.showSearchCharAlert = searchTerm.length === 1;
-      this.$store.dispatch('search/setSearchTermString', searchTerm);
 
       const canSearch = searchTerm.length > 1;
 
       this.showLoader = canSearch;
       this.showResults = canSearch;
       if (canSearch) {
-        await this.search(searchTerm);
+        await this.search();
       }
     },
     async search() {
-      $('#search').focus();
+      document.getElementById('search').focus();
       if (sanitizeSearchString(this.searchTermString, false).length < 2) {
         return;
       }
@@ -278,9 +276,9 @@ export default {
         } else if (
           document.getElementById('model-select').contains(document.activeElement) === false
         ) {
-          $('#search').focus();
+          document.getElementById('search').focus();
         }
-      });
+      }, 100);
     },
   },
 };
