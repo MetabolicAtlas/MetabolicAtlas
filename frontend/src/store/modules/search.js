@@ -10,7 +10,7 @@ const data = {
 
 const categorizeResults = results => {
   const categorizedResults = data.categories.reduce(
-    (obj, category) => ({ ...obj, [category]: [] }),
+    (obj, category) => ({ ...obj, [category]: { maxScore: undefined, results: [] } }),
     {}
   );
   Object.keys(results).forEach(model => {
@@ -18,13 +18,19 @@ const categorizeResults = results => {
     data.categories
       .filter(resultType => resultsModel[resultType])
       .forEach(resultType => {
-        categorizedResults[resultType] = categorizedResults[resultType].concat(
+        let categoryScore = categorizedResults[resultType].maxScore;
+        categorizedResults[resultType].results = categorizedResults[resultType].results.concat(
           resultsModel[resultType].map(e => {
             const d = e;
+            if (e.score > categoryScore || !categoryScore) {
+              categoryScore = e.score;
+            }
+            categoryScore = e.score > categoryScore ? e.score : categoryScore;
             d.model = { id: model, name: resultsModel.name };
             return d;
           })
         );
+        categorizedResults[resultType].maxScore = categoryScore;
       });
   });
   return categorizedResults;
@@ -57,10 +63,13 @@ const getters = {
       Object.entries(results).map(([k, v]) => [
         k,
         (() => {
-          if (v === 0) {
-            return v;
+          if (v.results === 0) {
+            return { maxScore: v.maxScore, results: v.results };
           }
-          return v.sort((a, b) => sortResultsSearchTerm(a, b, state.searchTermString));
+          return {
+            maxScore: v.maxScore,
+            results: v.results.sort((a, b) => sortResultsSearchTerm(a, b, state.searchTermString)),
+          };
         })(),
       ])
     );

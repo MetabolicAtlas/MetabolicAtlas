@@ -55,38 +55,49 @@
       <div v-show="!showLoader" v-if="searchResults.length !== 0" class="resList">
         <template v-for="type in resultsOrder">
           <div
-            v-for="(r, i2) in searchResults[type]"
-            :key="`${r.id}-${i2}`"
-            class="searchResultSection px-1 py-0"
+            v-if="searchResults[type] && searchResults[type]['results'].length !== 0"
+            :key="type"
           >
-            <hr v-if="i2 !== 0" class="m-0" />
-            <div>
-              <span v-if="type === 'metabolite' || type === 'gene'" class="pr-1">
-                <span class="has-text-primary is-clickable" @mousedown="handleClickResult(type, r)">
-                  <span class="icon is-medium is-left" title="Gem Browser">
-                    <i class="fa fa-table" />
+            <div
+              v-for="(r, i2) in searchResults[type]['results']"
+              :key="`${r.id}-${i2}`"
+              class="searchResultSection px-1 py-0"
+            >
+              <hr v-if="i2 !== 0" class="m-0" />
+              <div>
+                <span v-if="type === 'metabolite' || type === 'gene'" class="pr-1">
+                  <span
+                    class="has-text-primary is-clickable"
+                    @mousedown="handleClickResult(type, r)"
+                  >
+                    <span class="icon is-medium is-left" title="Gem Browser">
+                      <i class="fa fa-table" />
+                    </span>
+                  </span>
+                  <span
+                    class="has-text-icon-interaction-partner is-clickable"
+                    @mousedown="handleClickResult('interaction', r)"
+                  >
+                    <span class="icon is-medium is-left" title="Interaction Partners">
+                      <i class="fa fa-connectdevelop" />
+                    </span>
                   </span>
                 </span>
-                <span
-                  class="has-text-icon-interaction-partner is-clickable"
-                  @mousedown="handleClickResult('interaction', r)"
-                >
-                  <span class="icon is-medium is-left" title="Interaction Partners">
-                    <i class="fa fa-connectdevelop" />
-                  </span>
+                <span class="has-text-link is-clickable" @mousedown="handleClickResult(type, r)">
+                  <b class="is-capitalized">{{ type }}:</b>
+                  <label
+                    class="is-clickable"
+                    v-html="formatSearchResultLabel(type, r, searchTermString)"
+                  ></label>
                 </span>
-              </span>
-              <span class="has-text-link is-clickable" @mousedown="handleClickResult(type, r)">
-                <b class="is-capitalized">{{ type }}:</b>
-                <label
-                  class="is-clickable"
-                  v-html="formatSearchResultLabel(type, r, searchTermString)"
-                ></label>
-              </span>
+              </div>
             </div>
           </div>
           <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
-          <hr v-if="searchResults[type] && searchResults[type].length !== 0" class="bhr p-0" />
+          <hr
+            v-if="searchResults[type] && searchResults[type].results.length !== 0"
+            class="bhr p-0"
+          />
         </template>
       </div>
       <div v-show="showLoader" class="has-text-centered">
@@ -215,7 +226,7 @@ export default {
         const keyList = Object.keys(this.searchResults);
         for (let i = 0; i < keyList.length; i += 1) {
           const k = keyList[i];
-          if (this.searchResults[k].length) {
+          if (this.searchResults[k].results.length) {
             this.showSearchCharAlert = false;
             this.noResult = false;
             break;
