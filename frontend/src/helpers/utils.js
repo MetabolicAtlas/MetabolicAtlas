@@ -210,7 +210,7 @@ export function sanitizeSearchString(term, isAddBackSlash = true) {
     .replace(/^\s|\s$/g, '')
     .replace(/["\\]/g, '');
   if (isAddBackSlash === true) {
-    newTerm = newTerm.replace(/[~^!-:/\\^$*+?.()|[\]{}]/g, '\\$&');
+    newTerm = newTerm.replace(/[~^!\-:/\\^$*+?.()|[\]{}]/g, '\\$&');
   }
   return newTerm;
 }
