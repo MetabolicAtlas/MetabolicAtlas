@@ -93,9 +93,7 @@
                 <b>
                   <i>{{ searchedTerm }}</i>
                 </b>
-                <br />
-                If this is an alias or external identifier, it means it is not present in any of the
-                models.
+                among all {{ Object.keys(models).length }} integrated GEMs
               </div>
               <div class="content">
                 <span>Metabolites</span>
@@ -530,6 +528,7 @@ export default {
       searchResults: 'search/categorizedGlobalResults',
       searchResultsEmpty: 'search/globalResultsEmpty',
       resultsCount: 'search/categorizedGlobalResultsCount',
+      models: 'models/models',
     }),
   },
   // eslint-disable-next-line no-unused-vars
