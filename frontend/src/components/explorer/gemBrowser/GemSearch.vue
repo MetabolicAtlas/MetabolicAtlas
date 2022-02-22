@@ -164,6 +164,7 @@ export default {
     placeholder() {
       return 'uracil, SULT1A3, ATP => cAMP + PPi, subsystem or compartment';
     },
+
     categoryOrder() {
       function compare(a, b) {
         if (b[1].maxScore < a[1].maxScore) {

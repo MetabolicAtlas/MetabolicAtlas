@@ -10,7 +10,7 @@ const data = {
 
 const categorizeResults = results => {
   const categorizedResults = data.categories.reduce(
-    (obj, category) => ({ ...obj, [category]: { maxScore: undefined, results: [] } }),
+    (obj, category) => ({ ...obj, [category]: { maxScore: 0, results: [] } }),
     {}
   );
   Object.keys(results).forEach(model => {
@@ -22,6 +22,9 @@ const categorizeResults = results => {
         categorizedResults[resultType].results = categorizedResults[resultType].results.concat(
           resultsModel[resultType].map(e => {
             const d = e;
+            if (d.score === undefined) {
+                d.score = 0;
+            }
             if (e.score > categoryScore || !categoryScore) {
               categoryScore = e.score;
             }
