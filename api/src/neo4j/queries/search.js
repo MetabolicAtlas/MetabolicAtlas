@@ -329,6 +329,8 @@ const _search = async ({
 
   // Metabolites are not included as it would mess with the limit and
   // relevant metabolites should be matched through CompartmentalizedMetabolites
+  // The search term is used twice, once with exact match and once with
+  // fuzzy match. This seems to produce optimal results.
   let statement = `
 CALL db.index.fulltext.queryNodes("fulltext", "${term} ${term}~")
 YIELD node, score
