@@ -23,7 +23,7 @@ const categorizeResults = results => {
           resultsModel[resultType].map(e => {
             const d = e;
             if (d.score === undefined) {
-                d.score = 0;
+              d.score = 0;
             }
             if (e.score > categoryScore || !categoryScore) {
               categoryScore = e.score;
@@ -46,7 +46,10 @@ const getters = {
       return s + components.reduce((t, c) => t + r[c].length, 0);
     }, 0) === 0,
 
-  categorizedGlobalResults: state => categorizeResults(state.globalResults),
+  categorizedGlobalResults: state => {
+    const results = categorizeResults(state.globalResults);
+    return Object.fromEntries(Object.entries(results).map(([k, v]) => [k, v.results]));
+  },
 
   // eslint-disable-next-line no-unused-vars
   categorizedGlobalResultsCount: (state, _getters) =>
@@ -71,7 +74,9 @@ const getters = {
           }
           return {
             maxScore: v.maxScore,
-            results: v.results.sort((a, b) => sortResultsSearchTerm(a, b, state.searchTermString)).slice(0, 6),
+            results: v.results
+              .sort((a, b) => sortResultsSearchTerm(a, b, state.searchTermString))
+              .slice(0, 6),
           };
         })(),
       ])
