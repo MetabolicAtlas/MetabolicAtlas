@@ -325,15 +325,12 @@ const _search = async ({
 }) => {
   const v = version ? `:V${version}` : '';
 
-  let term = sanitizeSearchString(searchTerm, true);
-  // the EC field for reaction could contain ":", which is a special character
-  // in this case th search term is modified to be escape and perform an exact match
-  term = term.includes('EC\\:') ? `\\"${term}~\\"` : `${term}~`;
+  const term = sanitizeSearchString(searchTerm, true);
 
   // Metabolites are not included as it would mess with the limit and
   // relevant metabolites should be matched through CompartmentalizedMetabolites
   let statement = `
-CALL db.index.fulltext.queryNodes("fulltext", "${term}")
+CALL db.index.fulltext.queryNodes("fulltext", "${term} ${term}~")
 YIELD node, score
 WITH node, score, LABELS(node) as labelList
 OPTIONAL MATCH (node)-[${v}]-(parentNode:${model})
