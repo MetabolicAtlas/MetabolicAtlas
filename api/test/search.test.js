@@ -18,4 +18,23 @@ describe('search', () => {
     const { metabolite } = data['Human-GEM'];
     expect(metabolite.length).toBe(50);
   });
+
+  test('model search with special characters should not fail', async () => {
+    const [data1, data2] = await Promise.all([
+      search({
+        searchTerm: 'rna/dna: (met)',
+        model: 'HumanGem',
+        version: HUMAN_GEM_VERSION,
+      }),
+      search({
+        searchTerm: 'cy\\|+ {zinc}! glyco/mg',
+        model: 'HumanGem',
+        version: HUMAN_GEM_VERSION,
+      }),
+    ]);
+    for (const data of [data1, data2]) {
+      const { name } = data['Human-GEM'];
+      expect(name).toEqual('Human-GEM');
+    }
+  });
 });
