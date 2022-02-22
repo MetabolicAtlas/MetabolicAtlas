@@ -175,8 +175,8 @@
                   </li>
                   <li>
                     Cross references (e.g.
-                    <router-link :to="{ name: 'search', query: { term: 'R03004' } }">
-                      R03004
+                    <router-link :to="{ name: 'search', query: { term: 'RCR13746' } }">
+                      RCR13746
                     </router-link>
                     )
                   </li>
