@@ -101,15 +101,15 @@
                 <ul>
                   <li>
                     ID (e.g.
-                    <router-link :to="{ name: 'search', query: { term: 'MAM03146l' } }">
-                      MAM03146l
+                    <router-link :to="{ name: 'search', query: { term: 'MAM01738p' } }">
+                      MAM01738p
                     </router-link>
                     )
                   </li>
                   <li>
                     Name or aliases (e.g.
-                    <router-link :to="{ name: 'search', query: { term: 'VLDL remnant' } }">
-                      VLDL remnant
+                    <router-link :to="{ name: 'search', query: { term: 'dopamine-O-quinone' } }">
+                      dopamine-O-quinone
                     </router-link>
                     )
                   </li>
@@ -118,17 +118,17 @@
                     <router-link
                       :to="{
                         name: 'search',
-                        query: { term: 'C136286H232084N13476O38613P3271S174R7267' },
+                        query: { term: 'C8H10NO2' },
                       }"
                     >
-                      C136286H232084N13476O38613P3271S174R7267
+                      C8H10NO2
                     </router-link>
                     )
                   </li>
                   <li>
                     Cross references (e.g.
-                    <router-link :to="{ name: 'search', query: { term: 'M03146' } }">
-                      M03146
+                    <router-link :to="{ name: 'search', query: { term: 'CE5276' } }">
+                      CE5276
                     </router-link>
                     )
                   </li>
