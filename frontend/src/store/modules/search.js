@@ -68,7 +68,7 @@ const getters = {
           }
           return {
             maxScore: v.maxScore,
-            results: v.results.sort((a, b) => sortResultsSearchTerm(a, b, state.searchTermString)),
+            results: v.results.sort((a, b) => sortResultsSearchTerm(a, b, state.searchTermString)).slice(0, 6),
           };
         })(),
       ])
