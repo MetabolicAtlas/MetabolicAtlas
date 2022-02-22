@@ -202,6 +202,8 @@ export default {
     },
     async search() {
       document.getElementById('search').focus();
+      // sanitize the searchTerm without adding backslashes when doing minimal
+      // length checking, so that backslashes are not counted
       if (sanitizeSearchString(this.searchTermString, false).length < 2) {
         return;
       }
