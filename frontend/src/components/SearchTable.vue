@@ -96,30 +96,30 @@
                 among all {{ Object.keys(models).length }} integrated GEMs
               </div>
               <div class="content">
-                <span>Metabolites</span>
+                <h5 class="title is-5">You may search for the following items:</h5>
+                <h6 class="title is-6 m-0">Metabolites</h6>
                 <ul>
-                  <li>ID</li>
-                  <li>Name or aliases</li>
-                  <li>Formula without charge</li>
-                  <li>External identifiers</li>
+                  <li>ID (e.g. MAM03146l)</li>
+                  <li>Name or aliases (e.g. VLDL remnant)</li>
+                  <li>Formula without charge (e.g. C136286H232084N13476O38613P3271S174R7267)</li>
+                  <li>Cross references (e.g. M03146)</li>
                 </ul>
-                <span>Genes</span>
+                <h6 class="title is-6 m-0">Genes</h6>
                 <ul>
-                  <li>ID</li>
-                  <li>Name or aliases</li>
-                  <li>External identifiers</li>
+                  <li>ID (e.g. ENSG00000151883)</li>
+                  <li>Name or aliases (e.g. PARP8)</li>
+                  <li>Cross references (e.g. Q8N3A8)</li>
                 </ul>
-                <span>Reactions</span>
+                <h6 class="title is-6 m-0">Reactions</h6>
                 <ul>
-                  <li>ID</li>
-                  <li>EC code</li>
-                  <li>External identifiers</li>
-                  <li>PMID</li>
+                  <li>ID (e.g. MAR04255)</li>
+                  <li>EC code (e.g. 3.6.1.22;3.6.1.9)</li>
+                  <li>Cross references (e.g. R03004)</li>
+                  <li>PMID (e.g. 11579996)</li>
                 </ul>
-                <span>Subsystems and compartments</span>
+                <h6 class="title is-6 m-0">Subsystems and compartments</h6>
                 <ul>
-                  <li>Name</li>
-                  <li>External identifiers (subsystem only)</li>
+                  <li>Name (e.g. Keratan sulfate degradation)</li>
                 </ul>
               </div>
             </div>
