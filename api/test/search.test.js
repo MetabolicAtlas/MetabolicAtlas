@@ -43,7 +43,7 @@ describe('search', () => {
     expect(firstGene.name).toBe('POLR3F');
     expect(firstMetabolite.name).toMatch(/Asparaginyl-Cysteinyl/);
   });
-  
+
   test('model search with special characters should not fail', async () => {
     const [data1, data2] = await Promise.all([
       search({
