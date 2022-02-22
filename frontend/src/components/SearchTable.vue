@@ -99,27 +99,106 @@
                 <h5 class="title is-5">You may search for the following items:</h5>
                 <h6 class="title is-6 m-0">Metabolites</h6>
                 <ul>
-                  <li>ID (e.g. MAM03146l)</li>
-                  <li>Name or aliases (e.g. VLDL remnant)</li>
-                  <li>Formula without charge (e.g. C136286H232084N13476O38613P3271S174R7267)</li>
-                  <li>Cross references (e.g. M03146)</li>
+                  <li>
+                    ID (e.g.
+                    <router-link :to="{ name: 'search', query: { term: 'MAM03146l' } }">
+                      MAM03146l
+                    </router-link>
+                    )
+                  </li>
+                  <li>
+                    Name or aliases (e.g.
+                    <router-link :to="{ name: 'search', query: { term: 'VLDL remnant' } }">
+                      VLDL remnant
+                    </router-link>
+                    )
+                  </li>
+                  <li>
+                    Formula without charge (e.g.
+                    <router-link
+                      :to="{
+                        name: 'search',
+                        query: { term: 'C136286H232084N13476O38613P3271S174R7267' },
+                      }"
+                    >
+                      C136286H232084N13476O38613P3271S174R7267
+                    </router-link>
+                    )
+                  </li>
+                  <li>
+                    Cross references (e.g.
+                    <router-link :to="{ name: 'search', query: { term: 'M03146' } }">
+                      M03146
+                    </router-link>
+                    )
+                  </li>
                 </ul>
                 <h6 class="title is-6 m-0">Genes</h6>
                 <ul>
-                  <li>ID (e.g. ENSG00000151883)</li>
-                  <li>Name or aliases (e.g. PARP8)</li>
-                  <li>Cross references (e.g. Q8N3A8)</li>
+                  <li>
+                    ID (e.g.
+                    <router-link :to="{ name: 'search', query: { term: 'ENSG00000151883' } }">
+                      ENSG00000151883
+                    </router-link>
+                    )
+                  </li>
+                  <li>
+                    Name or aliases (e.g.
+                    <router-link :to="{ name: 'search', query: { term: 'PARP8' } }">
+                      PARP8
+                    </router-link>
+                    )
+                  </li>
+                  <li>
+                    Cross references (e.g.
+                    <router-link :to="{ name: 'search', query: { term: 'Q8N3A8' } }">
+                      Q8N3A8
+                    </router-link>
+                    )
+                  </li>
                 </ul>
                 <h6 class="title is-6 m-0">Reactions</h6>
                 <ul>
-                  <li>ID (e.g. MAR04255)</li>
-                  <li>EC code (e.g. 3.6.1.22;3.6.1.9)</li>
-                  <li>Cross references (e.g. R03004)</li>
-                  <li>PMID (e.g. 11579996)</li>
+                  <li>
+                    ID (e.g.
+                    <router-link :to="{ name: 'search', query: { term: 'MAR04255' } }">
+                      MAR04255
+                    </router-link>
+                    )
+                  </li>
+                  <li>
+                    EC code (e.g.
+                    <router-link :to="{ name: 'search', query: { term: '3.6.1.22;3.6.1.9' } }">
+                      3.6.1.22;3.6.1.9
+                    </router-link>
+                    )
+                  </li>
+                  <li>
+                    Cross references (e.g.
+                    <router-link :to="{ name: 'search', query: { term: 'R03004' } }">
+                      R03004
+                    </router-link>
+                    )
+                  </li>
+                  <li>
+                    PMID (e.g.
+                    <router-link :to="{ name: 'search', query: { term: '11579996' } }">
+                      11579996
+                    </router-link>
+                    )
+                  </li>
                 </ul>
                 <h6 class="title is-6 m-0">Subsystems and compartments</h6>
                 <ul>
-                  <li>Name (e.g. Keratan sulfate degradation)</li>
+                  <li>
+                    Name (e.g.
+                    <router-link
+                      :to="{ name: 'search', query: { term: 'Keratan sulfate degradation' } }"
+                    >
+                      Keratan sulfate degradation
+                    </router-link>
+                    )
+                  </li>
                 </ul>
               </div>
             </div>
