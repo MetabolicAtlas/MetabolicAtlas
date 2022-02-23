@@ -53,7 +53,7 @@
         Limited to 10 results per type. Click here to search all integrated GEMs
       </div>
       <div v-show="!showLoader" v-if="searchResults.length !== 0" class="resList">
-        <template v-for="type in categoryOrder">
+        <template v-for="type in componentTypeOrder">
           <div
             v-if="searchResults[type] && searchResults[type]['results'].length !== 0"
             :key="type"
@@ -160,16 +160,10 @@ export default {
     ...mapGetters({
       models: 'models/models',
       searchResults: 'search/categorizedAndSortedResults',
+      componentTypeOrder: 'search/resultsComponentTypeOrder',
     }),
     placeholder() {
       return 'uracil, SULT1A3, ATP => cAMP + PPi, subsystem or compartment';
-    },
-
-    categoryOrder() {
-      const compare = (a, b) => b[1].topScore - a[1].topScore;
-      const cats = Object.entries(this.searchResults).sort(compare);
-
-      return cats.map(x => x[0]);
     },
   },
   watch: {

@@ -530,6 +530,7 @@ export default {
       searchResults: 'search/categorizedGlobalResults',
       searchResultsEmpty: 'search/globalResultsEmpty',
       resultsCount: 'search/categorizedGlobalResultsCount',
+      componentTypeOrder: 'search/globalResultsComponentTypeOrder',
     }),
   },
   // eslint-disable-next-line no-unused-vars
@@ -758,13 +759,9 @@ export default {
         this.loading = false;
         // get filters
         this.fillFilterFields();
-        // select the active tab
-        Object.keys(this.resultsCount)
-          .filter(key => this.resultsCount[key] !== 0)
-          .every(key => {
-            this.showTabType = key;
-            return false;
-          });
+        // select the tab with the highest ranked result
+        const [topRankedComponetType] = this.componentTypeOrder;
+        this.showTabType = topRankedComponetType;
       }
     },
     formatToTSV(index) {

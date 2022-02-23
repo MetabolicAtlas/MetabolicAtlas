@@ -39,6 +39,11 @@ const categorizeResults = results => {
   return categorizedResults;
 };
 
+const componentTypeOrder = results =>
+  Object.entries(results)
+    .sort((a, b) => b[1].topScore - a[1].topScore)
+    .map(([k]) => k);
+
 const getters = {
   globalResultsEmpty: state =>
     Object.values(state.globalResults).reduce((s, r) => {
@@ -46,17 +51,17 @@ const getters = {
       return s + components.reduce((t, c) => t + r[c].length, 0);
     }, 0) === 0,
 
-  categorizedGlobalResults: state => {
-    const results = categorizeResults(state.globalResults);
-    return Object.fromEntries(Object.entries(results).map(([k, v]) => [k, v.results]));
-  },
-
-  // eslint-disable-next-line no-unused-vars
-  categorizedGlobalResultsCount: (state, _getters) =>
+  categorizedGlobalResultsWithScores: state => categorizeResults(state.globalResults),
+  categorizedGlobalResults: (_, _getters) =>
+    Object.fromEntries(
+      Object.entries(_getters.categorizedGlobalResultsWithScores).map(([k, v]) => [k, v.results])
+    ),
+  categorizedGlobalResultsCount: (_, _getters) =>
     Object.fromEntries(
       Object.entries(_getters.categorizedGlobalResults).map(([k, v]) => [k, v.length])
     ),
-
+  globalResultsComponentTypeOrder: (_, _getters) =>
+    componentTypeOrder(_getters.categorizedGlobalResultsWithScores),
   categorizedAndSortedResults: state => {
     if (Object.keys(state.results).length === 0) {
       return {};
@@ -82,6 +87,8 @@ const getters = {
       ])
     );
   },
+  resultsComponentTypeOrder: (_, _getters) =>
+    componentTypeOrder(_getters.categorizedAndSortedResults),
 };
 
 const actions = {
