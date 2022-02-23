@@ -10,7 +10,7 @@ const data = {
 
 const categorizeResults = results => {
   const categorizedResults = data.categories.reduce(
-    (obj, category) => ({ ...obj, [category]: { maxScore: 0, results: [] } }),
+    (obj, category) => ({ ...obj, [category]: { topScore: 0, results: [] } }),
     {}
   );
   Object.keys(results).forEach(model => {
@@ -18,7 +18,7 @@ const categorizeResults = results => {
     data.categories
       .filter(resultType => resultsModel[resultType])
       .forEach(resultType => {
-        let categoryScore = categorizedResults[resultType].maxScore;
+        let categoryScore = categorizedResults[resultType].topScore;
         categorizedResults[resultType].results = categorizedResults[resultType].results.concat(
           resultsModel[resultType].map(e => {
             const d = e;
@@ -33,7 +33,7 @@ const categorizeResults = results => {
             return d;
           })
         );
-        categorizedResults[resultType].maxScore = categoryScore;
+        categorizedResults[resultType].topScore = categoryScore;
       });
   });
   return categorizedResults;
@@ -70,10 +70,10 @@ const getters = {
         k,
         (() => {
           if (v.results === 0) {
-            return { maxScore: v.maxScore, results: v.results };
+            return { topScore: v.topScore, results: v.results };
           }
           return {
-            maxScore: v.maxScore,
+            topScore: v.topScore,
             results: v.results
               .sort((a, b) => sortResultsSearchTerm(a, b, state.searchTermString))
               .slice(0, 6),

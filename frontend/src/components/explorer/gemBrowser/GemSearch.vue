@@ -167,7 +167,7 @@ export default {
 
     categoryOrder() {
       function compare(a, b) {
-        if (b[1].maxScore < a[1].maxScore) {
+        if (b[1].topScore < a[1].topScore) {
           return -1;
         }
         return 1;
