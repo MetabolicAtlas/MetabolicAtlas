@@ -1,4 +1,5 @@
 import queryListResult from 'neo4j/queryHandlers/list';
+import { sanitizeSearchString } from 'utils/utils';
 const INTEGRATED_MODELS = require('data/integratedModels');
 
 const componentTypes = [
@@ -324,11 +325,7 @@ const _search = async ({
 }) => {
   const v = version ? `:V${version}` : '';
 
-  // the EC field for reaction could contain ":", which is a special character
-  // in this case th search term is modified to be escape and perform an exact match
-  const term = searchTerm.includes('EC:')
-    ? `\\"${searchTerm}\\"`
-    : `${searchTerm}`;
+  const term = sanitizeSearchString(searchTerm, true);
 
   // Metabolites are not included as it would mess with the limit and
   // relevant metabolites should be matched through CompartmentalizedMetabolites

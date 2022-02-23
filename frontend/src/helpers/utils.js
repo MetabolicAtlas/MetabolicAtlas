@@ -203,3 +203,14 @@ export const generateSocialMetaTags = ({ title, description }) => [
   { property: 'twitter:title', vmid: 'twitter:title', content: title },
   { property: 'twitter:description', vmid: 'twitter:description', content: description },
 ];
+
+export function sanitizeSearchString(term, isAddBackSlash = true) {
+  let newTerm = term
+    .replace(/\s\s+/g, ' ')
+    .replace(/^\s|\s$/g, '')
+    .replace(/["\\]/g, '');
+  if (isAddBackSlash === true) {
+    newTerm = newTerm.replace(/[~^!\-:/\\^$*+?.()|[\]{}]/g, '\\$&');
+  }
+  return newTerm;
+}
