@@ -166,12 +166,7 @@ export default {
     },
 
     categoryOrder() {
-      function compare(a, b) {
-        if (b[1].topScore < a[1].topScore) {
-          return -1;
-        }
-        return 1;
-      }
+      const compare = (a, b) => b[1].topScore - a[1].topScore;
       const cats = Object.entries(this.searchResults).sort(compare);
 
       return cats.map(x => x[0]);
