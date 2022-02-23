@@ -69,7 +69,7 @@ const getters = {
       Object.entries(results).map(([k, v]) => [
         k,
         (() => {
-          if (v.results === 0) {
+          if (v.results.length === 0) {
             return { topScore: v.topScore, results: v.results };
           }
           return {
