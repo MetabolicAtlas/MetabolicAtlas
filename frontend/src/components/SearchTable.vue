@@ -93,35 +93,112 @@
                 <b>
                   <i>{{ searchedTerm }}</i>
                 </b>
-                <br />
-                If this is an alias or external identifier, it means it is not present in any of the
-                models.
+                among all {{ Object.keys(models).length }} integrated GEMs
               </div>
               <div class="content">
-                <span>Metabolites</span>
+                <h5 class="title is-5">You may search for the following items:</h5>
+                <h6 class="title is-6 m-0">Metabolites</h6>
                 <ul>
-                  <li>ID</li>
-                  <li>Name or aliases</li>
-                  <li>Formula without charge</li>
-                  <li>External identifiers</li>
+                  <li>
+                    ID (e.g.
+                    <router-link :to="{ name: 'search', query: { term: 'MAM01738p' } }">
+                      MAM01738p
+                    </router-link>
+                    )
+                  </li>
+                  <li>
+                    Name or aliases (e.g.
+                    <router-link :to="{ name: 'search', query: { term: 'dopamine-O-quinone' } }">
+                      dopamine-O-quinone
+                    </router-link>
+                    )
+                  </li>
+                  <li>
+                    Formula without charge (e.g.
+                    <router-link
+                      :to="{
+                        name: 'search',
+                        query: { term: 'C8H10NO2' },
+                      }"
+                    >
+                      C8H10NO2
+                    </router-link>
+                    )
+                  </li>
+                  <li>
+                    Cross references (e.g.
+                    <router-link :to="{ name: 'search', query: { term: 'CE5276' } }">
+                      CE5276
+                    </router-link>
+                    )
+                  </li>
                 </ul>
-                <span>Genes</span>
+                <h6 class="title is-6 m-0">Genes</h6>
                 <ul>
-                  <li>ID</li>
-                  <li>Name or aliases</li>
-                  <li>External identifiers</li>
+                  <li>
+                    ID (e.g.
+                    <router-link :to="{ name: 'search', query: { term: 'ENSG00000151883' } }">
+                      ENSG00000151883
+                    </router-link>
+                    )
+                  </li>
+                  <li>
+                    Name or aliases (e.g.
+                    <router-link :to="{ name: 'search', query: { term: 'PARP8' } }">
+                      PARP8
+                    </router-link>
+                    )
+                  </li>
+                  <li>
+                    Cross references (e.g.
+                    <router-link :to="{ name: 'search', query: { term: 'Q8N3A8' } }">
+                      Q8N3A8
+                    </router-link>
+                    )
+                  </li>
                 </ul>
-                <span>Reactions</span>
+                <h6 class="title is-6 m-0">Reactions</h6>
                 <ul>
-                  <li>ID</li>
-                  <li>EC code</li>
-                  <li>External identifiers</li>
-                  <li>PMID</li>
+                  <li>
+                    ID (e.g.
+                    <router-link :to="{ name: 'search', query: { term: 'MAR04255' } }">
+                      MAR04255
+                    </router-link>
+                    )
+                  </li>
+                  <li>
+                    EC code (e.g.
+                    <router-link :to="{ name: 'search', query: { term: '3.6.1.22;3.6.1.9' } }">
+                      3.6.1.22;3.6.1.9
+                    </router-link>
+                    )
+                  </li>
+                  <li>
+                    Cross references (e.g.
+                    <router-link :to="{ name: 'search', query: { term: 'RCR13746' } }">
+                      RCR13746
+                    </router-link>
+                    )
+                  </li>
+                  <li>
+                    PMID (e.g.
+                    <router-link :to="{ name: 'search', query: { term: '11579996' } }">
+                      11579996
+                    </router-link>
+                    )
+                  </li>
                 </ul>
-                <span>Subsystems and compartments</span>
+                <h6 class="title is-6 m-0">Subsystems and compartments</h6>
                 <ul>
-                  <li>Name</li>
-                  <li>External identifiers (subsystem only)</li>
+                  <li>
+                    Name (e.g.
+                    <router-link
+                      :to="{ name: 'search', query: { term: 'Keratan sulfate degradation' } }"
+                    >
+                      Keratan sulfate degradation
+                    </router-link>
+                    )
+                  </li>
                 </ul>
               </div>
             </div>
@@ -530,6 +607,7 @@ export default {
       searchResults: 'search/categorizedGlobalResults',
       searchResultsEmpty: 'search/globalResultsEmpty',
       resultsCount: 'search/categorizedGlobalResultsCount',
+      models: 'models/models',
     }),
   },
   // eslint-disable-next-line no-unused-vars
