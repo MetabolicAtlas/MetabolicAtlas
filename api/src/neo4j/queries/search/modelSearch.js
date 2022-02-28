@@ -4,32 +4,24 @@ import { MODELS, COMPONENT_TYPES } from 'neo4j/queries/search/helper';
 
 const fetchCompartmentalizedMetabolites = async ({
   ids,
+  metaboliteIds,
   model,
   version,
   limit,
-  viaMetabolties,
 }) => {
   if (!ids) {
     return null;
   }
 
-  let statement = ``;
-
-  if (viaMetabolties) {
-    statement += `
-WITH ${JSON.stringify(ids)} as mids
+  let statement = `
+WITH ${JSON.stringify(metaboliteIds)} as mids
 UNWIND mids as mid
 MATCH (:Metabolite:${model} {id:mid})-[${version}]-(cm:CompartmentalizedMetabolite)
-WITH DISTINCT(cm.id) as cmid
-`;
-  } else {
-    statement += `
-WITH ${JSON.stringify(ids)} as cmids
+WITH cm.id as cmid1
+WITH ${JSON.stringify(ids)} as cmids2, cmid1
+WITH collect(cmid1)+cmids2 as cmids
 UNWIND cmids as cmid
-`;
-  }
 
-  statement += `
 CALL apoc.cypher.run('
   MATCH (ms:MetaboliteState)-[${version}]-(:Metabolite)-[${version}]-(:CompartmentalizedMetabolite:${model} {id: $cmid})
   RETURN { id: $cmid, name: ms.name } as data
@@ -216,49 +208,36 @@ LIMIT ${limit}
     {},
     ...Object.keys(uniqueIds).map(c => ({ [c]: Array.from(uniqueIds[c]) }))
   );
-  const [
-    compartmentalizedMetabolites,
-    metabolites,
-    genes,
-    reactions,
-    subsystems,
-    compartments,
-  ] = await Promise.all([
-    fetchCompartmentalizedMetabolites({
-      ids: ids['CompartmentalizedMetabolite'],
-      model,
-      version: v,
-      limit,
-    }),
-    fetchCompartmentalizedMetabolites({
-      ids: ids['Metabolite'],
-      model,
-      version: v,
-      limit,
-      viaMetabolties: true,
-    }),
-    fetchGenes({ ids: ids['Gene'], model, version: v }),
-    fetchReactions({
-      ids: ids['Reaction'],
-      model,
-      version: v,
-    }),
-    fetchSubsystems({
-      ids: ids['Subsystem'],
-      model,
-      version: v,
-      includeCounts: true,
-    }),
-    fetchCompartments({
-      ids: ids['Compartment'],
-      model,
-      version: v,
-      includeCounts: true,
-    }),
-  ]);
+  const [metabolites, genes, reactions, subsystems, compartments] =
+    await Promise.all([
+      fetchCompartmentalizedMetabolites({
+        ids: ids['CompartmentalizedMetabolite'] || [],
+        metaboliteIds: ids['Metabolite'] || [],
+        model,
+        version: v,
+        limit,
+      }),
+      fetchGenes({ ids: ids['Gene'], model, version: v }),
+      fetchReactions({
+        ids: ids['Reaction'],
+        model,
+        version: v,
+      }),
+      fetchSubsystems({
+        ids: ids['Subsystem'],
+        model,
+        version: v,
+        includeCounts: true,
+      }),
+      fetchCompartments({
+        ids: ids['Compartment'],
+        model,
+        version: v,
+        includeCounts: true,
+      }),
+    ]);
 
   const resObj = {
-    compartmentalizedMetabolites,
     metabolites,
     genes,
     reactions,
@@ -279,10 +258,7 @@ LIMIT ${limit}
   }
 
   return {
-    metabolite: [
-      ...resWithScore.compartmentalizedMetabolites,
-      ...resWithScore.metabolites,
-    ],
+    metabolite: resWithScore.metabolites,
     gene: resWithScore.genes,
     reaction: resWithScore.reactions,
     subsystem: resWithScore.subsystems,

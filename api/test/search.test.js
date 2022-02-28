@@ -6,7 +6,7 @@ describe('search', () => {
     await driver.close();
   });
 
-  test('model search to have 50 results per component type if it exceeds the limit 50', async () => {
+  test('model search should have max 50 results per component type', async () => {
     const data = await search({
       searchTerm: 'H2O',
       model: 'HumanGem',
@@ -16,7 +16,8 @@ describe('search', () => {
     expect(Object.keys(data)).toContain('Human-GEM');
 
     const { metabolite } = data['Human-GEM'];
-    expect(metabolite.length).toBe(50);
+    expect(metabolite.length).toBeGreaterThan(0);
+    expect(metabolite.length).toBeLessThan(50);
   });
 
   test('model search should receive sensible ranking scores', async () => {
