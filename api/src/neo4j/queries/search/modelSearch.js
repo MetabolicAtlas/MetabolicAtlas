@@ -32,19 +32,12 @@ UNWIND cmids as cmid
   statement += `
 CALL apoc.cypher.run('
   MATCH (ms:MetaboliteState)-[${version}]-(:Metabolite)-[${version}]-(:CompartmentalizedMetabolite:${model} {id: $cmid})
-  RETURN ms { id: $cmid, .* } as data
+  RETURN { id: $cmid, name: ms.name } as data
   
   UNION
   
   MATCH (:CompartmentalizedMetabolite:${model} {id: $cmid})-[${version}]-(c:Compartment)-[${version}]-(cs:CompartmentState)
-  RETURN { id: $cmid, compartment: cs { id: c.id, .* } } as data
-  
-  UNION
-  
-  MATCH (:CompartmentalizedMetabolite:${model} {id: $cmid})-[${version}]-(:Reaction)-[${version}]-(s:Subsystem)
-  WITH DISTINCT s
-  MATCH (s)-[${version}]-(ss:SubsystemState)
-  RETURN { id: $cmid, subsystem: COLLECT({id: s.id, name: ss.name}) } as data
+  RETURN { id: $cmid, compartment: cs.name } as data
 ', {cmid:cmid}) yield value
 RETURN apoc.map.mergeList(apoc.coll.flatten(
 	apoc.map.values(apoc.map.groupByMulti(COLLECT(value.data), "id"), [value.data.id])
@@ -71,23 +64,6 @@ UNWIND gids as gid
 CALL apoc.cypher.run("
   MATCH (gs:GeneState)-[${version}]-(:Gene:${model} {id: $gid})
   RETURN { id: $gid, name: gs.name } as data
-  
-  UNION
-  
-  MATCH (:Gene:${model} {id: $gid})-[${version}]-(r:Reaction)
-  WITH DISTINCT r
-  MATCH (r)-[${version}]-(s:Subsystem)
-  WITH DISTINCT s
-  MATCH (s)-[${version}]-(ss:SubsystemState)
-  RETURN { id: $gid, subsystem: COLLECT({ id: s.id, name: ss.name }) } as data
-  
-  UNION
-  
-  MATCH (:Gene:${model} {id: $gid})-[${version}]-(:Reaction)-[${version}]-(cm:CompartmentalizedMetabolite)
-  WITH DISTINCT cm
-  MATCH (cm)-[${version}]-(c:Compartment)-[${version}]-(cs:CompartmentState)
-  USING JOIN on c
-  RETURN { id: $gid, compartment: COLLECT(DISTINCT({ id: c.id, name: cs.name })) } as data
 ", {gid:gid}) yield value
 RETURN apoc.map.mergeList(apoc.coll.flatten(
 	apoc.map.values(apoc.map.groupByMulti(COLLECT(value.data), "id"), [value.data.id])
@@ -97,37 +73,20 @@ RETURN apoc.map.mergeList(apoc.coll.flatten(
   return queryListResult(statement);
 };
 
-const fetchReactions = async ({ ids, model, version, includeMetabolites }) => {
+const fetchReactions = async ({ ids, model, version }) => {
   if (!ids) {
     return null;
   }
 
-  let statement = `
+  const statement = `
 WITH ${JSON.stringify(ids)} as rids
 UNWIND rids as rid
 CALL apoc.cypher.run("
-  MATCH (rs:ReactionState)-[${version}]-(:Reaction:${model} {id: $rid})
-  RETURN rs { id: $rid, .* } as data
-`;
-
-  if (includeMetabolites) {
-    statement += `
-  UNION
-  
   MATCH (r:Reaction:${model} {id: $rid})-[cmE${version}]-(cm:CompartmentalizedMetabolite)-[${version}]-(:Metabolite)-[${version}]-(ms:MetaboliteState)
   MATCH (cm)-[${version}]-(c:Compartment)-[${version}]-(cs:CompartmentState)
   USING JOIN on c
   RETURN { id: $rid, metabolites: COLLECT(DISTINCT(ms {id: cm.id, compartment: cs.name, fullName: COALESCE(ms.name, '') + ' [' + COALESCE(cs.letterCode, '') + ']', stoichiometry: cmE.stoichiometry, outgoing: startnode(cmE)=cm, .*})) } as data
-`;
-  }
 
-  statement += `
-  UNION
-  
-  MATCH (:Reaction:${model} {id: $rid})-[${version}]-(s:Subsystem)-[${version}]-(ss:SubsystemState)
-  USING JOIN on s
-  RETURN { id: $rid, subsystem: COLLECT(DISTINCT({ id: s.id, name: ss.name })) } as data
-  
   UNION
   
   MATCH (:Reaction:${model} {id: $rid})-[${version}]-(cm:CompartmentalizedMetabolite)
@@ -144,50 +103,17 @@ RETURN apoc.map.mergeList(apoc.coll.flatten(
   return queryListResult(statement);
 };
 
-const fetchSubsystems = async ({ ids, model, version, includeCounts }) => {
+const fetchSubsystems = async ({ ids, model, version }) => {
   if (!ids) {
     return null;
   }
 
-  let statement = `
+  const statement = `
 WITH ${JSON.stringify(ids)} as sids
 UNWIND sids as sid
 CALL apoc.cypher.run("
   MATCH (ss:SubsystemState)-[${version}]-(:Subsystem:${model} {id: $sid})
   RETURN { id: $sid, name: ss.name } as data
-`;
-
-  if (includeCounts) {
-    statement += ` 
-  UNION
-  
-  MATCH (:Subsystem:${model} {id: $sid})-[${version}]-(r:Reaction)
-  RETURN { id: $sid, reactionCount: COUNT(DISTINCT(r)) } as data
-  
-  UNION
-  
-  MATCH (:Subsystem:${model} {id: $sid})-[${version}]-(r:Reaction)
-  WITH DISTINCT r
-  MATCH (r)-[${version}]-(cm:CompartmentalizedMetabolite)
-  RETURN { id: $sid, compartmentalizedMetaboliteCount: COUNT(DISTINCT cm) } as data
-  
-  UNION
-  
-  MATCH (:Subsystem:${model} {id: $sid})-[${version}]-(r:Reaction)
-  WITH DISTINCT r
-  MATCH (r)-[${version}]-(g:Gene)
-  RETURN { id: $sid, geneCount: COUNT(DISTINCT g) } as data
-`;
-  }
-
-  statement += ` 
-  UNION
-  
-  MATCH (:Subsystem:${model} {id: $sid})-[${version}]-(:Reaction)-[${version}]-(cm:CompartmentalizedMetabolite)
-  WITH DISTINCT cm
-  MATCH (cm)-[${version}]-(c:Compartment)-[${version}]-(cs:CompartmentState)
-  USING JOIN on c
-  RETURN { id: $sid, compartment: COLLECT(DISTINCT({ id: c.id, name: cs.name })) } as data
 ", {sid:sid}) yield value
 RETURN apoc.map.mergeList(apoc.coll.flatten(
 	apoc.map.values(apoc.map.groupByMulti(COLLECT(value.data), "id"), [value.data.id])
@@ -197,48 +123,17 @@ RETURN apoc.map.mergeList(apoc.coll.flatten(
   return queryListResult(statement);
 };
 
-const fetchCompartments = async ({ ids, model, version, includeCounts }) => {
+const fetchCompartments = async ({ ids, model, version }) => {
   if (!ids) {
     return null;
   }
 
-  let statement = `
+  const statement = `
 WITH ${JSON.stringify(ids)} as cids
 UNWIND cids as cid
 CALL apoc.cypher.run("
   MATCH (cs:CompartmentState)-[${version}]-(:Compartment:${model} {id: $cid})
   RETURN cs { id: $cid, .* } as data
-`;
-
-  if (includeCounts) {
-    statement += ` 
-  UNION
-  
-  MATCH (:Compartment:${model} {id: $cid})-[${version}]-(:CompartmentalizedMetabolite)-[${version}]-(r:Reaction)
-  RETURN { id: $cid, reactionCount: COUNT(DISTINCT(r)) } as data
-  
-  UNION
-  
-  MATCH (:Compartment:${model} {id: $cid})-[${version}]-(cm:CompartmentalizedMetabolite)
-  RETURN { id: $cid, compartmentalizedMetaboliteCount: COUNT(DISTINCT cm) } as data
-  
-  UNION
-  
-  MATCH (:Compartment:${model} {id: $cid})-[${version}]-(:CompartmentalizedMetabolite)-[${version}]-(r:Reaction)
-  WITH DISTINCT r
-  MATCH (r)-[${version}]-(g:Gene)
-  RETURN { id: $cid, geneCount: COUNT(DISTINCT g) } as data
-  
-  UNION
-  
-  MATCH (:Compartment:${model} {id: $cid})-[${version}]-(:CompartmentalizedMetabolite)-[${version}]-(r:Reaction)
-  WITH DISTINCT r
-  MATCH (r)-[${version}]-(s:Subsystem)
-  RETURN { id: $cid, subsystemCount: COUNT(DISTINCT s) } as data
-`;
-  }
-
-  statement += ` 
 ", {cid:cid}) yield value
 RETURN apoc.map.mergeList(apoc.coll.flatten(
 	apoc.map.values(apoc.map.groupByMulti(COLLECT(value.data), "id"), [value.data.id])
@@ -265,10 +160,6 @@ const modelSearch = async ({ searchTerm, model, version, limit }) => {
     [match[0].name]: {
       ...results,
       name: match[0].name,
-      metabolite: results.metabolite.map(m => ({
-        ...m,
-        compartment: m.compartment.name,
-      })),
     },
   };
 };
@@ -351,7 +242,6 @@ LIMIT ${limit}
       ids: ids['Reaction'],
       model,
       version: v,
-      includeMetabolites: !!limit,
     }),
     fetchSubsystems({
       ids: ids['Subsystem'],
