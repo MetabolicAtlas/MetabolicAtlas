@@ -52,16 +52,20 @@ const getters = {
     }, 0) === 0,
 
   categorizedGlobalResultsWithScores: state => categorizeResults(state.globalResults),
+
   categorizedGlobalResults: (_, _getters) =>
     Object.fromEntries(
       Object.entries(_getters.categorizedGlobalResultsWithScores).map(([k, v]) => [k, v.results])
     ),
+
   categorizedGlobalResultsCount: (_, _getters) =>
     Object.fromEntries(
       Object.entries(_getters.categorizedGlobalResults).map(([k, v]) => [k, v.length])
     ),
+
   globalResultsComponentTypeOrder: (_, _getters) =>
     componentTypeOrder(_getters.categorizedGlobalResultsWithScores),
+
   categorizedAndSortedResults: state => {
     if (Object.keys(state.results).length === 0) {
       return {};
