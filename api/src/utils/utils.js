@@ -1,4 +1,4 @@
-export function sanitizeSearchString(term, isAddBackSlash = true) {
+const sanitizeSearchString = (term, isAddBackSlash = true) => {
   let newTerm = term
     .replace(/\s\s+/g, ' ')
     .replace(/^\s|\s$/g, '')
@@ -7,4 +7,7 @@ export function sanitizeSearchString(term, isAddBackSlash = true) {
     newTerm = newTerm.replace(/[~^!\-:/\\^$*+?.()|[\]{}]/g, '\\$&');
   }
   return newTerm;
-}
+};
+const intersect = (a, b) => [...new Set(a)].filter(x => new Set(b).has(x));
+
+export { sanitizeSearchString, intersect };

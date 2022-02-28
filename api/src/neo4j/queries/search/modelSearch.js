@@ -1,17 +1,6 @@
 import queryListResult from 'neo4j/queryHandlers/list';
-import { sanitizeSearchString } from 'utils/utils';
-const INTEGRATED_MODELS = require('data/integratedModels');
-
-const componentTypes = [
-  'CompartmentalizedMetabolite',
-  'Metabolite',
-  'Gene',
-  'Reaction',
-  'Subsystem',
-  'Compartment',
-];
-
-const intersect = (a, b) => [...new Set(a)].filter(x => new Set(b).has(x));
+import { sanitizeSearchString, intersect } from 'utils/utils';
+import { MODELS, COMPONENT_TYPES } from 'neo4j/queries/search/helper';
 
 const fetchCompartmentalizedMetabolites = async ({
   ids,
@@ -259,40 +248,13 @@ RETURN apoc.map.mergeList(apoc.coll.flatten(
   return queryListResult(statement);
 };
 
-const MODELS = INTEGRATED_MODELS.map(m => ({
-  label: m.short_name.replace('-GEM', 'Gem'),
-  name: m.short_name,
-}));
-
-const globalSearch = async ({ searchTerm, version, limit }) => {
-  const results = await Promise.all(
-    MODELS.map(m =>
-      _search({
-        searchTerm,
-        version,
-        model: m.label,
-        limit,
-        includeCounts: true,
-      })
-    )
-  );
-
-  return MODELS.reduce((obj, m, i) => {
-    obj[m.name] = {
-      ...results[i],
-      name: m.name,
-    };
-    return obj;
-  }, {});
-};
-
 const modelSearch = async ({ searchTerm, model, version, limit }) => {
   const match = MODELS.filter(m => m.label == model);
   if (match.length === 0) {
     throw new Error(`Invalid model: ${model}`);
   }
 
-  const results = await _search({
+  const results = await search({
     searchTerm,
     model,
     version,
@@ -316,13 +278,7 @@ const modelSearch = async ({ searchTerm, model, version, limit }) => {
  * 1. Do a fuzzy search over all nodes covered by full-text search index
  * 2. Fetch results for each component type (parallelly) and return result
  */
-const _search = async ({
-  searchTerm,
-  model,
-  version,
-  limit,
-  includeCounts,
-}) => {
+const search = async ({ searchTerm, model, version, limit, includeCounts }) => {
   const v = version ? `:V${version}` : '';
 
   const term = sanitizeSearchString(searchTerm, true);
@@ -356,7 +312,7 @@ LIMIT ${limit}
 
   const idsToScore = {};
   const uniqueIds = results.reduce((o, r) => {
-    const c = intersect(componentTypes, r.labels);
+    const c = intersect(COMPONENT_TYPES, r.labels);
     if (!o[c]) {
       o[c] = new Set();
     }
@@ -444,7 +400,4 @@ LIMIT ${limit}
   };
 };
 
-const search = async params =>
-  params.model ? modelSearch(params) : globalSearch(params);
-
-export { search };
+export { modelSearch };

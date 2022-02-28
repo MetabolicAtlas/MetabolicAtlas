@@ -62,4 +62,16 @@ describe('search', () => {
       expect(name).toEqual('Human-GEM');
     }
   });
+
+  test('global search should return 50 results for multiple models', async () => {
+    const data = await search({
+      searchTerm: 'POLR3F',
+    });
+
+    expect(data['Human-GEM'].gene.length).toBeGreaterThan(0);
+    expect(data['Mouse-GEM'].gene.length).toBeGreaterThan(0);
+    expect(data['Rat-GEM'].gene.length).toBeGreaterThan(0);
+    expect(data['Fruitfly-GEM'].gene.length).toBeGreaterThan(0);
+    expect(data['Zebrafish-GEM'].gene.length).toBeGreaterThan(0);
+  });
 });
