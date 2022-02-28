@@ -306,7 +306,7 @@ export default {
   .field,
   #searchResults {
     width: 100%;
-    max-width: 800px;
+    max-width: 950px;
   }
 
   .field {
