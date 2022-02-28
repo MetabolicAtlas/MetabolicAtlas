@@ -81,7 +81,7 @@ const getters = {
             topScore: v.topScore,
             results: v.results
               .sort((a, b) => sortResultsSearchTerm(a, b, state.searchTermString))
-              .slice(0, 10),
+              .slice(0, 5),
           };
         })(),
       ])
