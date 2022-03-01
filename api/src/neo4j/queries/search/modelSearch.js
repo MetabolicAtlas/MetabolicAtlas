@@ -166,8 +166,6 @@ const search = async ({ searchTerm, model, version, limit, includeCounts }) => {
 
   const term = sanitizeSearchString(searchTerm, true);
 
-  // Metabolites are not included as it would mess with the limit and
-  // relevant metabolites should be matched through CompartmentalizedMetabolites
   // The search term is used twice, once with exact match and once with
   // fuzzy match. This seems to produce optimal results.
   let statement = `
