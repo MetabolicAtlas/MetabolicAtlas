@@ -64,7 +64,7 @@ describe('search', () => {
     }
   });
 
-  test('global search should return 50 results for multiple models', async () => {
+  test('global search should return results for multiple models', async () => {
     const data = await search({
       searchTerm: 'POLR3F',
     });
