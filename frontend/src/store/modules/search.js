@@ -1,5 +1,5 @@
 import searchApi from '@/api/search';
-import { sortResultsSearchTerm } from '@/helpers/utils';
+import { sortResultsScore } from '@/helpers/utils';
 
 const data = {
   categories: ['metabolite', 'gene', 'reaction', 'subsystem', 'compartment'],
@@ -84,7 +84,7 @@ const getters = {
           return {
             topScore: v.topScore,
             results: v.results
-              .sort((a, b) => sortResultsSearchTerm(a, b, state.searchTermString))
+              .sort((a, b) => sortResultsScore(a, b, state.searchTermString))
               .slice(0, 5),
           };
         })(),

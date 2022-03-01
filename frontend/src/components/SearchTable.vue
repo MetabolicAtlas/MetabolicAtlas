@@ -322,7 +322,7 @@ import Loader from '@/components/Loader';
 import ExportTSV from '@/components/shared/ExportTSV';
 import 'vue-good-table/dist/vue-good-table.css';
 import { default as chemicalFormula } from '@/helpers/chemical-formatters';
-import { sortResultsScore, sortResultsSearchTerm } from '@/helpers/utils';
+import { sortResultsScore } from '@/helpers/utils';
 import { default as messages } from '@/content/messages';
 
 export default {
@@ -677,7 +677,6 @@ export default {
         are not 100% as desired (e.g, searching for 'POLR3F' and gene POLR2A has a higher score than gene POLR3F)
         */
         compoList.sort((a, b) => sortResultsScore(a, b));
-        compoList.sort((a, b) => sortResultsSearchTerm(a, b, this.searchedTerm));
         compoList.forEach(el => {
           // e.g. results list for metabolites
           if (componentType === 'metabolite') {
