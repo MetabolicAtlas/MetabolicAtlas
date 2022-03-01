@@ -77,7 +77,7 @@ CALL apoc.cypher.run("
   MATCH (r:Reaction:${model} {id: $rid})-[cmE${version}]-(cm:CompartmentalizedMetabolite)-[${version}]-(:Metabolite)-[${version}]-(ms:MetaboliteState)
   MATCH (cm)-[${version}]-(c:Compartment)-[${version}]-(cs:CompartmentState)
   USING JOIN on c
-  RETURN { id: $rid, metabolites: COLLECT(DISTINCT({id: cm.id, name: ms.name, fullName: COALESCE(ms.name, '') + ' [' + COALESCE(cs.letterCode, '') + ']', stoichiometry: cmE.stoichiometry, outgoing: startnode(cmE)=cm})) } as data
+  RETURN { id: $rid, metabolites: COLLECT(DISTINCT({name: ms.name, fullName: COALESCE(ms.name, '') + ' [' + COALESCE(cs.letterCode, '') + ']', stoichiometry: cmE.stoichiometry, outgoing: startnode(cmE)=cm})) } as data
 
   UNION
   
