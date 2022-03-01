@@ -1,4 +1,5 @@
 import queryListResult from 'neo4j/queryHandlers/list';
+import { sanitizeSearchString } from 'utils/utils';
 const INTEGRATED_MODELS = require('data/integratedModels');
 
 const componentTypes = [
@@ -324,16 +325,14 @@ const _search = async ({
 }) => {
   const v = version ? `:V${version}` : '';
 
-  // the EC field for reaction could contain ":", which is a special character
-  // in this case th search term is modified to be escape and perform an exact match
-  const term = searchTerm.includes('EC:')
-    ? `\\"${searchTerm}~\\"`
-    : `${searchTerm}~`;
+  const term = sanitizeSearchString(searchTerm, true);
 
   // Metabolites are not included as it would mess with the limit and
   // relevant metabolites should be matched through CompartmentalizedMetabolites
+  // The search term is used twice, once with exact match and once with
+  // fuzzy match. This seems to produce optimal results.
   let statement = `
-CALL db.index.fulltext.queryNodes("fulltext", "${term}")
+CALL db.index.fulltext.queryNodes("fulltext", "${term} ${term}~")
 YIELD node, score
 WITH node, score, LABELS(node) as labelList
 OPTIONAL MATCH (node)-[${v}]-(parentNode:${model})
