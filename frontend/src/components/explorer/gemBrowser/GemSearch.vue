@@ -26,7 +26,6 @@
           data-hj-whitelist
           type="text"
           class="input"
-          :placeholder="placeholder"
           @keyup.esc="handleClear()"
           @focus="showResults = true"
           @blur="blur()"
@@ -163,9 +162,6 @@ export default {
       searchResults: 'search/categorizedAndSortedResults',
       componentTypeOrder: 'search/resultsComponentTypeOrder',
     }),
-    placeholder() {
-      return 'uracil, SULT1A3, ATP => cAMP + PPi, subsystem or compartment';
-    },
   },
   watch: {
     model(m) {
