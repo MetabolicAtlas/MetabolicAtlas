@@ -244,6 +244,11 @@ export default {
       model: state => state.models.model,
     }),
   },
+  metaInfo() {
+    return {
+      title: 'Metabolic Atlas',
+    };
+  },
   watch: {
     showGemSearch(show) {
       if (show) {
