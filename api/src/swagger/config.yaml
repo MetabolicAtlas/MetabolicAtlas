@@ -113,7 +113,7 @@ paths:
     get:
       tags:
         - 'Genes'
-      summary: 'Get information on a specific gene.'
+      summary: 'Get information for a given gene.'
       description: 'This query retrieves all the information for a given gene.'
       operationId: 'geneInfo'
       produces:
@@ -323,7 +323,7 @@ paths:
         - 'Subsystems'
       summary: 'Get related reactions for a given subsystem.'
       description:
-        'This query retrieves all the reactions for the specified subsystem.
+        'This query retrieves all the reactions for a specified subsystem.
         The query limits the results to 200 reactions.'
       operationId: 'subsystemRelatedReactionInfo'
       produces:
@@ -378,7 +378,7 @@ paths:
       summary: 'List all compartments and subsystems for a GEM.'
       description:
         'This query retrieves a list of all compartments and subsystems that are
-        available on Metabolic Atlas for the specified GEM. This includes identifiers
+        available on Metabolic Atlas for a specified GEM. This includes identifiers
         for the SVG maps.'
       operationId: 'mapListing'
       produces:
@@ -400,7 +400,7 @@ paths:
         - 'Miscellaneous'
       summary: 'Get random components for a GEM.'
       description:
-        'This query retrieves detailed informat for a random sample of
+        'This query retrieves detailed information for a random sample of
         genes, metabolites, compartments, reactions and subsystems.'
       operationId: 'randomComponentInfo'
       parameters:
