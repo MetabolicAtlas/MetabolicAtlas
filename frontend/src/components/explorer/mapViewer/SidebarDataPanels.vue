@@ -20,7 +20,7 @@
           {{ currentMap.type }} are not shown on any of the {{ currentMap.name }} maps
         </template>
         <span class="p-0 has-nowrap">
-          <router-link :to="{ name: 'documentation', hash: '#2D-Viewer' }">
+          <router-link :to="{ name: 'documentation', hash: '#2d-viewer' }">
             <span class="icon"><i class="fa fa-info-circle"></i></span>
           </router-link>
         </span>
