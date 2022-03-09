@@ -189,7 +189,7 @@ paths:
       tags:
         - 'Metabolites'
       summary: 'Get related reactions for a given metabolite.'
-      description: 'This query retrives all the related reactions that involve the specified metabolite.'
+      description: 'This query retrieves all the related reactions that involve the specified metabolite.'
       operationId: 'metaboliteRelatedReactionInfo'
       produces:
         - 'application/json'
