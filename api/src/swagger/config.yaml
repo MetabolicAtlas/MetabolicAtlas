@@ -348,7 +348,7 @@ paths:
     get:
       tags:
         - 'Interaction Partners'
-      summary: 'Get interaction partners for a given gene.'
+      summary: 'Get interaction partners for a given gene or metabolite.'
       description:
         'This query retrieves all first the order interaction partners for
         a given gene or metabolite.'
