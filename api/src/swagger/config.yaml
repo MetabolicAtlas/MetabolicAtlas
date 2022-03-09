@@ -269,7 +269,7 @@ paths:
       summary: 'Get related reactions involving a given reaction.'
       description:
         'This query retrieves all related reactions involving a given reaction.
-        A limit of 200 related reactions is applied. These related reactions are
+        A limit of 1000 related reactions is applied. These related reactions are
         computed based on the sharing of related (equivalent) metabolites.'
       operationId: 'reactionRelatedReactionInfo'
       produces:
@@ -324,7 +324,7 @@ paths:
       summary: 'Get related reactions for a given subsystem.'
       description:
         'This query retrieves all the reactions for a specified subsystem.
-        The query limits the results to 200 reactions.'
+        The query limits the results to 1000 related reactions.'
       operationId: 'subsystemRelatedReactionInfo'
       produces:
         - 'application/json'
