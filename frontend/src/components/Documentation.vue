@@ -469,7 +469,7 @@
           </p>
 
           <hr class="mt-6" />
-          <h4 id="search" class="is-size-4">
+          <h4 id="searching" class="is-size-4">
             <span class="icon pr-5 is-large has-text-info"><i class="fa fa-search"></i></span>
             Search
           </h4>
@@ -693,7 +693,7 @@ export default {
         {
           name: 'Search',
           icon: 'fa-search',
-          link: '#search',
+          link: '#searching',
           subsections: [
             { name: 'Quick search', link: '#quick-search' },
             { name: 'Global search', link: '#global-search' },
