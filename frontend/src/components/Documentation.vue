@@ -9,13 +9,13 @@
         <div id="documentation" class="column content has-text-justified">
           <p>
             Metabolic Atlas allows to vizualization of the content of the integrated
-            <a href="#Integrated-models">Genome-scale metabolic models (GEMs)</a>
+            <a href="#integrated-models">Genome-scale metabolic models (GEMs)</a>
             by using the
-            <a href="#GEM-Browser">GEM Browser</a>
+            <a href="#gem-browser">GEM Browser</a>
             tool, and enables navigation of the metabolic network maps via the
-            <a href="#Map-Viewer">Map viewer</a>
+            <a href="#map-viewer">Map viewer</a>
             tool. Moreover, interactions betweeen metabolites and genes can be explored with the
-            <a href="#Interaction-Partners">Interaction Partners</a>
+            <a href="#interaction-partners">Interaction Partners</a>
             tool. These three tools are available upon selecting one of the integrated models. The
             selected model is indicated to the right of the Metabolic Atlas logo in the top
             navigation bar. Leaving the
@@ -28,14 +28,14 @@
           </p>
           <p>
             To read more details about each of the integrated models, visit the
-            <router-link :to="{ name: 'gems', hash: '#Integrated-models' }">
+            <router-link :to="{ name: 'gems', hash: '#integrated-models' }">
               GEM Repository
             </router-link>
             page.
           </p>
 
           <hr class="mt-6" />
-          <h4 id="GEM-Browser" class="is-info is-size-4">
+          <h4 id="gem-browser" class="is-info is-size-4">
             <span class="icon pr-5 is-large has-text-info"><i class="fa fa-table"></i></span>
             GEM Browser
           </h4>
@@ -61,11 +61,11 @@
             <i>References</i>
             tables respectively. On the right side of the page there is a list of links pointing to
             2D or 3D
-            <a href="#Map-Viewer">Map Viewer</a>
+            <a href="#map-viewer">Map Viewer</a>
             pages in which this reaction is involved.
           </p>
 
-          <h5 id="GEM-Browser-Metabolite" class="is-size-5">Metabolite page</h5>
+          <h5 id="gem-browser-metabolite" class="is-size-5">Metabolite page</h5>
           <p>
             The
             <i>Metabolite</i>
@@ -98,23 +98,23 @@
             <i>See reactions from all compartments</i>
             . Note that the number of retrieved reactions is limited to 1000. It is recommended to
             use the
-            <a href="#API">API</a>
+            <a href="#api">API</a>
             to retrieve all reactions.
           </p>
           <p>
             On the top right of the page, the
-            <a href="#Interaction-Partners">Interaction Partners</a>
+            <a href="#interaction-partners">Interaction Partners</a>
             tool for that metabolite can be accessed by clicking the button
             <i>Interaction Partners</i>
             . Below this button there is a widget to access the corresponding 2D or 3D
-            <a href="#Map-Viewer">Map Viewer</a>
+            <a href="#map-viewer">Map Viewer</a>
             pages for this metabolite.
           </p>
 
           <h5 id="gene-page" class="is-size-5">Gene page</h5>
           <p>
             The layout of the Gene page is the same as the
-            <a href="#GEM-Browser-Metabolite">Metabolite</a>
+            <a href="#gem-browser-metabolite">Metabolite</a>
             page except that the top table shows the information about the currently selected gene.
           </p>
 
@@ -123,7 +123,7 @@
             The layout of the
             <i>Subsystem</i>
             page is also similar to the
-            <a href="#GEM-Browser-Metabolite">Metabolite</a>
+            <a href="#gem-browser-metabolite">Metabolite</a>
             page except that the top table shows information on the current selected metabolic
             subsystem instead of metabolites.
           </p>
@@ -135,7 +135,7 @@
           <p>
             The lists of metabolites and genes contained within the current subsystem are shown in
             the top table, but are restricted to a maximum of 1000 for each category. Use the
-            <a href="#API">API</a>
+            <a href="#api">API</a>
             to retrieve a complete set of metabolites and genes for the selected subsystem. Note
             that, in some GEMs, a given reaction can be associated with multiple subsystems.
           </p>
@@ -147,15 +147,15 @@
             page shows the information of the currently selected compartment. It is only the number
             of metabolites, genes and reactions is shown in the top table. To retrieve a full list
             of metabolites, genes and reactions for a comparment, the use of the
-            <a href="#API">API</a>
+            <a href="#api">API</a>
             is advised. Similarly to the
-            <a href="#GEM-Browser-Metabolite">Metabolite</a>
+            <a href="#gem-browser-metabolite">Metabolite</a>
             page the list of links to the 2D or 3D Map Viewer pages where this compartment can be
             visualized is displayed on the right side of the page.
           </p>
 
           <hr class="mt-6" />
-          <h4 id="Map-Viewer" class="is-size-4">
+          <h4 id="map-viewer" class="is-size-4">
             <span class="icon pr-5 is-large has-text-info"><i class="fa fa-map-o"></i></span>
             Map Viewer
           </h4>
@@ -163,7 +163,7 @@
             The
             <i>Map Viewer</i>
             is, similar to the
-            <a href="#GEM-Browser">GEM Browser</a>
+            <a href="#gem-browser">GEM Browser</a>
             , accessible after an integrated model has been selected. It includes a 2D viewer to
             vizualize metabolic maps in SVG format, and a 3D viewer to explore the metabolic network
             in 3 dimensions. One can easly go back and forth between the
@@ -191,7 +191,7 @@
             corresponding item on the left sidebar.
           </p>
 
-          <h5 id="2D-Viewer" class="is-size-5">2D Viewer</h5>
+          <h5 id="2d-viewer" class="is-size-5">2D Viewer</h5>
           <p>
             The 2D maps in SVG format are provided for integrated GEMs. They represent either a cell
             compartment or a subsystem/pathway. While a very high percentage of the reactions in the
@@ -231,7 +231,7 @@
             panel of the selected element on the left sidebar.
           </p>
 
-          <h5 id="3D-Viewer" class="is-size-5">3D Viewer</h5>
+          <h5 id="3d-viewer" class="is-size-5">3D Viewer</h5>
           <p>
             The 3D renderings of the metabolic network are automatically generated from the GEM
             data, with the help of
@@ -276,7 +276,7 @@
             sidebar.
           </p>
 
-          <h5 id="Data-overlay" class="is-size-5">Data overlay</h5>
+          <h5 id="data-overlay" class="is-size-5">Data overlay</h5>
           <div class="columns ml-0">
             <div class="column pl-0 is-8 content">
               <p>
@@ -363,7 +363,7 @@
           </div>
 
           <hr class="mt-6" />
-          <h4 id="Interaction-Partners" class="is-size-4">
+          <h4 id="interaction-partners" class="is-size-4">
             <span class="icon pr-5 is-large has-text-info">
               <i class="fa fa-connectdevelop"></i>
             </span>
@@ -417,7 +417,7 @@
             sidebar to quickly reset the
             <i>Interaction Partners</i>
             for that node or navigate to the corresponding
-            <a href="#GEM-Browser">GEM Browser</a>
+            <a href="#gem-browser">GEM Browser</a>
             page.
           </p>
           <p>
@@ -437,7 +437,7 @@
             color corresponds to the n/a color.
           </p>
 
-          <h5 id="Interaction-Partners-Export" class="is-size-5">Export graph</h5>
+          <h5 id="interaction-partners-export" class="is-size-5">Export graph</h5>
           The graph of
           <i>Interaction Partners</i>
           can be exported by clicking the button
@@ -446,7 +446,7 @@
           Cytoscape compatible format. Currently, color format is not supported for the GraphML
           option.
 
-          <h5 id="Interaction-Partners-Highlights" class="is-size-5">Highlights</h5>
+          <h5 id="interaction-partners-highlights" class="is-size-5">Highlights</h5>
           <p>
             Nodes may belong to multiple compartments and/or subsystems. The filter box enables
             highlighting (red label color) the nodes belonging to a given subsystem or compartment.
@@ -455,7 +455,7 @@
             graph.
           </p>
 
-          <h5 id="Interaction-Partners-Reactions" class="is-size-5">Reactions table</h5>
+          <h5 id="interaction-partners-reactions" class="is-size-5">Reactions table</h5>
           <p>
             Information of the reactions are listed in
             <i>Reactions</i>
@@ -469,7 +469,7 @@
           </p>
 
           <hr class="mt-6" />
-          <h4 id="Search" class="is-size-4">
+          <h4 id="searching" class="is-size-4">
             <span class="icon pr-5 is-large has-text-info"><i class="fa fa-search"></i></span>
             Search
           </h4>
@@ -484,7 +484,7 @@
             the input keywords but also try to find hits that are similar to the input keywords.
           </p>
 
-          <h5 id="Quick-search" class="is-size-5">Quick search</h5>
+          <h5 id="quick-search" class="is-size-5">Quick search</h5>
           <p>
             By clicking the icon
             <span><i class="fa fa-search"></i></span>
@@ -513,11 +513,11 @@
             <i>Global Search</i>
             , where the term is searched among all the integrated models' components and is
             unrestricted. To learn more about the search term possiblities, go to the
-            <a href="#Global-Search">Global Search</a>
+            <a href="#global-search">Global Search</a>
             section of this page.
           </p>
 
-          <h5 id="Global-search" class="is-size-5">Global search</h5>
+          <h5 id="global-search" class="is-size-5">Global search</h5>
           <p>
             The
             <i>Global search</i>
@@ -533,7 +533,7 @@
           </p>
 
           <hr class="mt-6" />
-          <h4 id="GEM" class="is-size-4">
+          <h4 id="gem" class="is-size-4">
             <span class="icon pr-5 is-large has-text-info"><i class="fa fa-files-o"></i></span>
             GEM
           </h4>
@@ -542,7 +542,7 @@
             reaction network.
           </p>
 
-          <h5 id="Integrated-models" class="is-size-5">Integrated GEMs</h5>
+          <h5 id="integrated-models" class="is-size-5">Integrated GEMs</h5>
           <p>
             Currently, Metabolic Atlas contains seven integrated models, i.e.,
             <i>Fruitfly-GEM</i>
@@ -559,13 +559,13 @@
             and
             <i>Zebrafish-GEM</i>
             . Details can be found at the
-            <router-link :to="{ name: 'gems', hash: '#Integrated-models' }">
+            <router-link :to="{ name: 'gems', hash: '#integrated-models' }">
               GEM Repository
             </router-link>
             page.
           </p>
 
-          <h5 id="Repository" class="is-size-5">GEM Repository</h5>
+          <h5 id="repository" class="is-size-5">GEM Repository</h5>
           <p>
             The repository lists all models constructed by the SysBio research group; this includes
             older models that may no longer be maintained (for example HMR 2.0), and others that
@@ -580,7 +580,7 @@
             models in various file formats (when available).
           </p>
 
-          <h5 id="Comparison" class="is-size-5">Comparison</h5>
+          <h5 id="comparison" class="is-size-5">Comparison</h5>
           <p>
             In the first section of the page one can select 2 or 3 integrated GEMs to compare. The
             comparison is performed dynamically, by inspecting the cross references to other models
@@ -598,7 +598,7 @@
             an early verion of Human-GEM, and will not be updated.
           </p>
 
-          <h5 id="FTP-access" class="is-size-5">FTP access</h5>
+          <h5 id="ftp-access" class="is-size-5">FTP access</h5>
           <p>
             Genome-Scale Metabolic model files can be downloaded from
             <a :href="`ftp://${ftpUrl}/`">ftp://{{ ftpUrl }}</a>
@@ -619,7 +619,7 @@
           21
 
           <hr class="mt-6" />
-          <h4 id="Resources" class="is-size-4">
+          <h4 id="resources" class="is-size-4">
             <span class="icon pr-5 is-large has-text-info"><i class="fa fa-cogs"></i></span>
             Resources
           </h4>
@@ -628,7 +628,7 @@
             SysBio group.
           </p>
 
-          <h5 id="API" class="is-size-5">API</h5>
+          <h5 id="api" class="is-size-5">API</h5>
           <p>
             Metabolic Atlas has a
             <a href="/api/v2/" target="_blank">
@@ -661,10 +661,10 @@ export default {
         {
           name: 'GEM Browser',
           icon: 'fa-table',
-          link: '#GEM-Browser',
+          link: '#gem-browser',
           subsections: [
             { name: 'Reaction page', link: '#reaction-page' },
-            { name: 'Metabolite page', link: '#GEM-Browser-Metabolite' },
+            { name: 'Metabolite page', link: '#gem-browser-metabolite' },
             { name: 'Gene page', link: '#gene-page' },
             { name: 'Subsystem page', link: '#subsystem-page' },
             { name: 'Compartment page', link: '#compartment-page' },
@@ -673,48 +673,48 @@ export default {
         {
           name: 'Map Viewer',
           icon: 'fa-map-o',
-          link: '#Map-Viewer',
+          link: '#map-viewer',
           subsections: [
-            { name: '2D Viewer', link: '#2D-Viewer' },
-            { name: '3D Viewer', link: '#3D-Viewer' },
-            { name: 'Data Overlay', link: '#Data-overlay' },
+            { name: '2D Viewer', link: '#2d-viewer' },
+            { name: '3D Viewer', link: '#3d-viewer' },
+            { name: 'Data Overlay', link: '#data-overlay' },
           ],
         },
         {
           name: 'Interaction Partners',
           icon: 'fa-connectdevelop',
-          link: '#Interaction-Partners',
+          link: '#interaction-partners',
           subsections: [
-            { name: 'Export graph', link: '#Interaction-Partners-Export' },
-            { name: 'Highlights', link: '#Interaction-Partners-Highlights' },
-            { name: 'Reactions table', link: '#Interaction-Partners-Reactions' },
+            { name: 'Export graph', link: '#interaction-partners-export' },
+            { name: 'Highlights', link: '#interaction-partners-highlights' },
+            { name: 'Reactions table', link: '#interaction-partners-reactions' },
           ],
         },
         {
           name: 'Search',
           icon: 'fa-search',
-          link: '#Search',
+          link: '#searching',
           subsections: [
-            { name: 'Quick search', link: '#Quick-search' },
-            { name: 'Global search', link: '#Global-search' },
+            { name: 'Quick search', link: '#quick-search' },
+            { name: 'Global search', link: '#global-search' },
           ],
         },
         {
           name: 'GEM',
           icon: 'fa-files-o',
-          link: '#GEM',
+          link: '#gem',
           subsections: [
-            { name: 'Integrated models', link: '#Integrated-models' },
-            { name: 'Repository', link: '#Repository' },
-            { name: 'Comparison', link: '#Comparison' },
-            { name: 'FTP access', link: '#FTP-access' },
+            { name: 'Integrated models', link: '#integrated-models' },
+            { name: 'Repository', link: '#repository' },
+            { name: 'Comparison', link: '#comparison' },
+            { name: 'FTP access', link: '#ftp-access' },
           ],
         },
         {
           name: 'Resources',
           icon: 'fa-cogs',
-          link: '#Resources',
-          subsections: [{ name: 'API', link: '#API' }],
+          link: '#resources',
+          subsections: [{ name: 'API', link: '#api' }],
         },
       ],
     };
