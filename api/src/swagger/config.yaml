@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  description: "Metabolic Atlas can be accessed programmatically using this web API. Here we provide endpoints to get global information on the list of models integrated in Metabolic Atlas and to retrieve bulk or details information on those models. The API is still under developpment and might change without notice.\n\nThe results are returned in JSON format."
+  description: "Metabolic Atlas can be accessed programmatically using this web API. Here we provide endpoints to get global information on the list of models integrated in Metabolic Atlas and to retrieve bulk or detailed information on those models. The API is still under development and might change without notice.\n\nThe results are returned in JSON format."
   version: '2.0'
   title: 'Metabolic Atlas API'
   termsOfService: 'https://metabolicatlas.org/about'
@@ -138,7 +138,7 @@ paths:
     get:
       tags:
         - 'Genes'
-      summary: 'Get related reations for a given gene.'
+      summary: 'Get related reactions for a given gene.'
       description: 'This query retrieve all the reactions related to the specified gene.'
       operationId: 'geneRelatedReactionInfo'
       produces:
@@ -350,7 +350,7 @@ paths:
         - 'Interaction Partners'
       summary: 'Get interaction partners for a given gene or metabolite.'
       description:
-        'This query retrieves all first the order interaction partners for
+        'This query retrieves all first order interaction partners for
         a given gene or metabolite.'
       operationId: 'geneInteractionPartners'
       produces:
