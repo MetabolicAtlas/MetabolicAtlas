@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  description: "Metabolic Atlas can be accessed programmatically using this web API. Here we provide endpoints to get global information on the list of models integrated in Metabolic Atlas and to retrieve bulk or details information on those models. The API is still under developpment and might change without notice.\n\nThe results are returned in JSON format."
+  description: "Metabolic Atlas can be accessed programmatically using this web API. Here we provide endpoints to get global information on the list of models integrated in Metabolic Atlas and to retrieve bulk or detailed information on those models. The API is still under development and might change without notice.\n\nThe results are returned in JSON format."
   version: '2.0'
   title: 'Metabolic Atlas API'
   termsOfService: 'https://metabolicatlas.org/about'
@@ -113,7 +113,7 @@ paths:
     get:
       tags:
         - 'Genes'
-      summary: 'Get information on a specific gene.'
+      summary: 'Get information for a given gene.'
       description: 'This query retrieves all the information for a given gene.'
       operationId: 'geneInfo'
       produces:
@@ -138,7 +138,7 @@ paths:
     get:
       tags:
         - 'Genes'
-      summary: 'Get related reations for a given gene.'
+      summary: 'Get related reactions for a given gene.'
       description: 'This query retrieve all the reactions related to the specified gene.'
       operationId: 'geneRelatedReactionInfo'
       produces:
@@ -189,7 +189,7 @@ paths:
       tags:
         - 'Metabolites'
       summary: 'Get related reactions for a given metabolite.'
-      description: 'This query retrives all the related reactions that involve the specified metabolite.'
+      description: 'This query retrieves all the related reactions that involve the specified metabolite.'
       operationId: 'metaboliteRelatedReactionInfo'
       produces:
         - 'application/json'
@@ -269,7 +269,7 @@ paths:
       summary: 'Get related reactions involving a given reaction.'
       description:
         'This query retrieves all related reactions involving a given reaction.
-        A limit of 200 related reactions is applied. These related reactions are
+        A limit of 1000 related reactions is applied. These related reactions are
         computed based on the sharing of related (equivalent) metabolites.'
       operationId: 'reactionRelatedReactionInfo'
       produces:
@@ -323,8 +323,8 @@ paths:
         - 'Subsystems'
       summary: 'Get related reactions for a given subsystem.'
       description:
-        'This query retrieves all the reactions for the specified subsystem.
-        The query limits the results to 200 reactions.'
+        'This query retrieves all the reactions for a specified subsystem.
+        The query limits the results to 1000 related reactions.'
       operationId: 'subsystemRelatedReactionInfo'
       produces:
         - 'application/json'
@@ -348,9 +348,9 @@ paths:
     get:
       tags:
         - 'Interaction Partners'
-      summary: 'Get interaction partners for a given gene.'
+      summary: 'Get interaction partners for a given gene or metabolite.'
       description:
-        'This query retrieves all first the order interaction partners for
+        'This query retrieves all first order interaction partners for
         a given gene or metabolite.'
       operationId: 'geneInteractionPartners'
       produces:
@@ -378,7 +378,7 @@ paths:
       summary: 'List all compartments and subsystems for a GEM.'
       description:
         'This query retrieves a list of all compartments and subsystems that are
-        available on Metabolic Atlas for the specified GEM. This includes identifiers
+        available on Metabolic Atlas for a specified GEM. This includes identifiers
         for the SVG maps.'
       operationId: 'mapListing'
       produces:
@@ -400,7 +400,7 @@ paths:
         - 'Miscellaneous'
       summary: 'Get random components for a GEM.'
       description:
-        'This query retrieves detailed informat for a random sample of
+        'This query retrieves detailed information for a random sample of
         genes, metabolites, compartments, reactions and subsystems.'
       operationId: 'randomComponentInfo'
       parameters:
