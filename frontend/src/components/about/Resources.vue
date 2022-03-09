@@ -195,9 +195,9 @@ export default {
         APIs: [
           {
             name: 'Metabolic Atlas API',
-            link: 'api/',
+            link: '/api/v2/',
             img: '/img/logo.png',
-            title: 'Access Metabolic Atlas programatically',
+            title: 'Access Metabolic Atlas programmatically',
             description:
               'The API is a set of URL requests that will respond to the query parameters with JSON formatted text. Our implementation gives the possibility of trying out different queries to see what the results would look like.',
           },
@@ -205,7 +205,7 @@ export default {
             name: 'Protein Atlas Programmatic data access',
             link: 'https://www.proteinatlas.org/about/help/dataaccess',
             img: require('../../assets/logos/hpa.png'),
-            title: 'Access Protein Atlas programatically',
+            title: 'Access Protein Atlas programmatically',
             description:
               'Download a subset of the data provided in XML, RDF or TSV format, either as individual queries or search queries. ',
           },
