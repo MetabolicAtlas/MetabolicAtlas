@@ -58,7 +58,7 @@ paths:
           description: 'Successful query'
         '404':
           description: 'Invalid input'
-  /compartments/{id}?model={model}:
+  /compartments/{id}?model={model}&full=true:
     get:
       tags:
         - 'Compartments'
