@@ -33,7 +33,7 @@
             <p v-if="model && !externalDbs">
               The
               <a
-                :href="`/api/v2/${model.apiVersion}/compartments/${componentId}?full=true`"
+                :href="`/api/v2/compartments/${componentId}?model=${model.apiName}&version=${model.apiVersion}&full=true`"
                 target="_blank"
               >
                 complete list in JSON format
