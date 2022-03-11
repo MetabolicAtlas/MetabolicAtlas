@@ -15,7 +15,7 @@ As a [type of user], I want [an action] so that [a benefit/a value].
 - [ ] Tests verifying the changes are added
 - [ ] The same data as before is returned by the API
 - [ ] The changes do not affect the deployment
-- [ ] The changes does not reduce the performance
+- [ ] The changes do not reduce the performance
 
 **Additional context**
 <!-- Add any other context or screenshots about the feature request here -->
