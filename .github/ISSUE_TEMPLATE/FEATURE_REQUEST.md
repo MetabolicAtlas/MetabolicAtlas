@@ -13,7 +13,7 @@ As a [type of user], I want [an action] so that [a benefit/a value].
 - [ ] The documentation is updated accordingly
 - [ ] The changes are tested on multiple models and browsers
 - [ ] Tests verifying the changes are added
-- [ ] The same data as before is returned by the API
+- [ ] The API response is the same as before
 - [ ] The changes do not affect the deployment
 - [ ] The changes do not reduce the performance
 
