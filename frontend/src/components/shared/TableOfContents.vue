@@ -1,5 +1,5 @@
 <template>
-  <div class="column is-narrow">
+  <div id="table-of-contents" class="column is-narrow">
     <aside class="menu">
       <p class="menu-label">Table of Contents</p>
       <ul class="menu-list">
@@ -43,6 +43,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@media screen and (min-width: $tablet) {
+  #table-of-contents {
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    max-height: 100vh;
+    overflow: auto;
+  }
+}
+
 .menu-list {
   ul {
     margin-top: 0;
