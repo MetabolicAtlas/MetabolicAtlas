@@ -6,7 +6,8 @@
         <li v-for="l in links" :key="l.name">
           <router-link
             :to="l.routeName ? { name: l.routeName } : l.link"
-            active-class="has-background-white-ter"
+            :class="{ 'has-background-white-ter': hasActiveSubsection(l) }"
+            active-class="has-background-link-light"
             @click.native="isMobileMenu = false"
           >
             <span v-if="l.icon" class="icon pr-5 has-text-info">
@@ -18,7 +19,7 @@
             <li v-for="sub in l.subsections" :key="sub.name">
               <router-link
                 :to="sub.routeName ? { name: sub.routeName } : sub.link"
-                active-class="has-background-white-ter"
+                active-class="has-background-link-light"
                 @click.native="isMobileMenu = false"
               >
                 {{ sub.name }}
@@ -37,6 +38,11 @@ export default {
     links: {
       type: Array,
       default: () => [],
+    },
+  },
+  methods: {
+    hasActiveSubsection({ subsections }) {
+      return (subsections ?? []).map(s => s.link).includes(this.$route.hash);
     },
   },
 };
