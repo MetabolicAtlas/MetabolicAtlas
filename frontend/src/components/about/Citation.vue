@@ -37,6 +37,7 @@
           </p>
         </div>
       </div>
+      <citation-widget doi="10.1073/pnas.2102344118" />
 
       <h4 class="title is-4">Previous publications</h4>
       <p>
@@ -89,16 +90,19 @@
           Database (Oxford). 2015:bav068.
         </a>
       </p>
+      <citation-widget doi="10.1126/scisignal.aaz1482" />
     </template>
   </about-layout>
 </template>
 <script>
 import AboutLayout from '@/layouts/AboutLayout';
+import CitationWidget from '@/components/about/CitationWidget';
 
 export default {
   name: 'Citation',
   components: {
     AboutLayout,
+    CitationWidget,
   },
 };
 </script>
