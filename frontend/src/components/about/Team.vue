@@ -104,18 +104,78 @@ export default {
             },
           ],
         },
-        /* {
-          name: 'Previous Contributers',
-          team: [
+        {
+          name: 'Previous Contributors',
+          members: [
             {
-              name: 'Ingrid Hyltander',
-              img: require('../../assets/pics/ingrid.jpg'),
-              github: 'https://github.com/inghylt',
+              name: 'Sergiu Netotea',
+              img: require('../../assets/pics/sergiu.jpg'),
+              linkedin: 'https://se.linkedin.com/in/sergiu-netotea-753068182',
               content:
-                '<a href="https://nbis.se/about/staff/ingrid-hyltander/" target="_blank">Developer at NBIS </a>',
+                '<a href="https://nbis.se/about/staff/sergiu-netotea/" target="_blank">Researcher at NBIS </a>',
+            },
+            {
+              name: 'Martin Norling',
+              img: require('../../assets/pics/martin.jpg'),
+              github: 'https://github.com/norling',
+              content:
+                '<a href="https://nbis.se/about/staff/martin-norling/" target="_blank">System Developer at NBIS </a>',
+            },
+            {
+              // below not ok:ed
+              name: 'Virinchi Billa',
+              img: require('../../assets/pics/virinchi.jpeg'),
+              github: 'https://github.com/virinchi22',
+              // linkedin: 'https://www.linkedin.com/in/nanjiang-shu-95a49713/',  virinchi@chalmers.se
+              content:
+                '<a href="https://www.chalmers.se/en/staff/Pages/virinchi.aspx" target="_blank">Research engineer at Chalmers? </a>',
+            },
+            {
+              name: 'Jorrit Boekel',
+              github: 'https://github.com/glorpmph',
+              content:
+                '<a href="https://staff.ki.se/people/jorrit-boekel" target="_blank">Developer at SciLifeLab</a>',
+            },
+            {
+              name: 'Pierre-Etienne Cholley',
+              img: require('../../assets/pics/pierre.jpeg'),
+              github: 'https://github.com/pecholleyc',
+              linkedin: 'https://nl.linkedin.com/in/pierre-etienne-cholley-337177127',
+              content: '<a href="" target="_blank">Developer at X</a>', //  cholley@chalmers.se',
+            },
+            {
+              name: 'Lena Hansson',
+              // img: require('../../assets/pics/ingrid.jpg'),
+              // github: 'https://github.com/inghylt',
+              linkedin: 'https://se.linkedin.com/in/lena-hansson-0534ab14',
+              content: '<a href="" target="_blank">X at x</a>',
+            },
+            {
+              name: 'Natapol Pornputtapong',
+              img: require('../../assets/pics/natapol.jpeg'),
+              // github: 'https://github.com/inghylt',
+              linkedin: 'https://th.linkedin.com/in/natapol-pornputtapong-316a9347',
+
+              content: '<a href="" target="_blank">X at x </a>',
+            },
+            // {
+            //   name: 'grokkaine?',
+            //   // img: require('../../assets/pics/ingrid.jpg'),
+            //   github: 'https://github.com/inghylt',
+            //   linkedin: 'https://www.linkedin.com/in/nanjiang-shu-95a49713/',
+            //   content:
+            //     '<a href="https://nbis.se/about/staff/ingrid-hyltander/" target="_blank">Developer at NBIS </a>',
+            // },
+            {
+              name: 'Hao Wang?',
+              img: require('../../assets/pics/hao.jpg'),
+              linkedin: 'https://www.linkedin.com/in/hao-wang-9a66ba30',
+              github: 'https://github.com/Hao-Chalmers',
+              content:
+                '<a href="https://github.com/Hao-Chalmers" target="_blank">Researcher at Chalmers University of Technology</a>',
             },
           ],
-        }, */
+        },
       ],
     };
   },
