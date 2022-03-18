@@ -63,6 +63,22 @@ export default {
           name: '',
           members: [
             {
+              name: 'Mihail Anton',
+              img: require('../../assets/pics/mihail.jpg'),
+              github: 'https://github.com/mihai-sysbio',
+              linkedin: 'https://www.linkedin.com/in/mihail-anton/',
+              content:
+                '<a href="https://nbis.se/about/staff/mihail-anton/" target="_blank">NBIS expert and Project Manager for Metabolic Atlas</a>',
+            },
+            {
+              name: 'Shan Huang',
+              img: require('../../assets/pics/shan.jpg'),
+              github: 'https://github.com/e0',
+              linkedin: 'https://www.linkedin.com/in/shan-h-5b986383/',
+              content:
+                '<a href="https://www.linkedin.com/in/shan-h-5b986383/" target="_blank">Freelance Web Developer </a>',
+            },
+            {
               name: 'Ingrid Hyltander',
               img: require('../../assets/pics/ingrid.jpg'),
               github: 'https://github.com/inghylt',
@@ -79,28 +95,12 @@ export default {
                 '<a href="https://nbis.se/about/staff/malin-klang/" target="_blank">System Developer at NBIS</a>',
             },
             {
-              name: 'Mihail Anton',
-              img: require('../../assets/pics/mihail.jpg'),
-              github: 'https://github.com/mihai-sysbio',
-              linkedin: 'https://www.linkedin.com/in/mihail-anton/',
-              content:
-                '<a href="https://nbis.se/about/staff/mihail-anton/" target="_blank">NBIS expert and Project Manager for Metabolic Atlas</a>',
-            },
-            {
               name: 'Nanjiang Shu',
               img: require('../../assets/pics/nanjiang.jpg'),
               github: 'https://github.com/nanjiangshu',
               linkedin: 'https://www.linkedin.com/in/nanjiang-shu-95a49713/',
               content:
                 '<a href="https://nbis.se/about/staff/nanjiang-shu/" target="_blank"> Deputy Head of System Development at NBIS </a>',
-            },
-            {
-              name: 'Shan Huang',
-              img: require('../../assets/pics/shan.jpg'),
-              github: 'https://github.com/e0',
-              linkedin: 'https://www.linkedin.com/in/shan-h-5b986383/',
-              content:
-                '<a href="https://www.linkedin.com/in/shan-h-5b986383/" target="_blank">Freelance Web Developer </a>',
             },
           ],
         },
