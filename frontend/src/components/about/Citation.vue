@@ -35,9 +35,9 @@
               10.1073/pnas.2102344118
             </a>
           </p>
+          <citation-widget doi="10.1073/pnas.2102344118" />
         </div>
       </div>
-      <citation-widget doi="10.1073/pnas.2102344118" />
 
       <h4 class="title is-4">Previous publications</h4>
       <p>
@@ -78,6 +78,7 @@
               10.1126/scisignal.aaz1482
             </a>
           </p>
+          <citation-widget doi="10.1126/scisignal.aaz1482" />
         </div>
       </div>
       <p>
@@ -90,7 +91,6 @@
           Database (Oxford). 2015:bav068.
         </a>
       </p>
-      <citation-widget doi="10.1126/scisignal.aaz1482" />
     </template>
   </about-layout>
 </template>

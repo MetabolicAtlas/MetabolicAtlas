@@ -1,5 +1,5 @@
 <template>
-  <div class="is-flex is-justify-content-center">
+  <div class="is-flex is-justify-content-flex-start">
     <a
       :href="plumxref()"
       data-popup="right"
