@@ -3,7 +3,7 @@
     <template v-slot:contents>
       <div v-for="group in team" :key="group.name">
         <h3 class="title is-3">{{ group.name }}</h3>
-        <div class="columns is-multiline">
+        <div class="pb-6 columns is-multiline">
           <div
             v-for="member in group.members"
             :key="member.name"
