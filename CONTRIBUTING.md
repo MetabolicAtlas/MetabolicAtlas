@@ -12,6 +12,8 @@ _As a TYPE_OF_USER, I want to ACCOMPLISH_A_GOAL, so that I REASON_FOR_ACCOMPLISH
 
 For example: _As a developer, I would like to have a Contribution Guidelines document available, so that I can learn how to contribute to Metabolic Atlas._
 
+If possible, please also add Acceptance Criteria so it is clear what is required for the issue to be considered completed.
+
 ## Making Changes
 
 The production website, https://metabolicatlas.org, is based on the `main` branch. For development, new work should be based on the `develop` branch.
