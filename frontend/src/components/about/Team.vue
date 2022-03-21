@@ -121,43 +121,6 @@ export default {
               content:
                 '<a href="https://nbis.se/about/staff/martin-norling/" target="_blank">System Developer at NBIS </a>',
             },
-            {
-              // below not ok:ed
-              name: 'Jorrit Boekel',
-              github: 'https://github.com/glorpmph',
-              content:
-                '<a href="https://staff.ki.se/people/jorrit-boekel" target="_blank">Developer at SciLifeLab</a>',
-            },
-            {
-              name: 'Pierre-Etienne Cholley',
-              img: require('../../assets/pics/pierre.jpeg'),
-              github: 'https://github.com/pecholleyc',
-              linkedin: 'https://nl.linkedin.com/in/pierre-etienne-cholley-337177127',
-              content: '<a href="" target="_blank">Developer at X</a>', //  cholley@chalmers.se',
-            },
-            {
-              name: 'Lena Hansson',
-              // img: require('../../assets/pics/ingrid.jpg'),
-              // github: 'https://github.com/inghylt',
-              linkedin: 'https://se.linkedin.com/in/lena-hansson-0534ab14',
-              content: '<a href="" target="_blank">X at x</a>',
-            },
-            {
-              name: 'Natapol Pornputtapong',
-              img: require('../../assets/pics/natapol.jpeg'),
-              // github: 'https://github.com/inghylt',
-              linkedin: 'https://th.linkedin.com/in/natapol-pornputtapong-316a9347',
-
-              content: '<a href="" target="_blank">X at x </a>',
-            },
-            // {
-            //   name: 'grokkaine?',
-            //   // img: require('../../assets/pics/ingrid.jpg'),
-            //   github: 'https://github.com/inghylt',
-            //   linkedin: 'https://www.linkedin.com/in/nanjiang-shu-95a49713/',
-            //   content:
-            //     '<a href="https://nbis.se/about/staff/ingrid-hyltander/" target="_blank">Developer at NBIS </a>',
-            // },
           ],
         },
       ],
