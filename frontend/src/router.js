@@ -57,7 +57,7 @@ const routes = [
   { path: '/about/license', name: 'about-license', component: License },
   { path: '/about/privacy', name: 'about-privacy', component: Privacy },
   { path: '/about/contact', name: 'about-contact', component: Contact },
-  { path: '/about/citation', name: 'about-citation', component: Citation },
+  { path: '/about/citation', name: 'about-citation', component: Citation, meta: { reload: true } },
   { path: '/about/team', name: 'about-team', component: Team },
   { path: '/about/advisory', name: 'about-advisory', component: Advisory },
   { path: '/about/resources', name: 'about-resources', component: AboutResources },
