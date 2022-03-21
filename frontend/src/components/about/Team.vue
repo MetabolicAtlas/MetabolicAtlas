@@ -123,14 +123,6 @@ export default {
             },
             {
               // below not ok:ed
-              name: 'Virinchi Billa',
-              img: require('../../assets/pics/virinchi.jpeg'),
-              github: 'https://github.com/virinchi22',
-              // linkedin: 'https://www.linkedin.com/in/nanjiang-shu-95a49713/',  virinchi@chalmers.se
-              content:
-                '<a href="https://www.chalmers.se/en/staff/Pages/virinchi.aspx" target="_blank">Research engineer at Chalmers? </a>',
-            },
-            {
               name: 'Jorrit Boekel',
               github: 'https://github.com/glorpmph',
               content:
@@ -166,14 +158,6 @@ export default {
             //   content:
             //     '<a href="https://nbis.se/about/staff/ingrid-hyltander/" target="_blank">Developer at NBIS </a>',
             // },
-            {
-              name: 'Hao Wang?',
-              img: require('../../assets/pics/hao.jpg'),
-              linkedin: 'https://www.linkedin.com/in/hao-wang-9a66ba30',
-              github: 'https://github.com/Hao-Chalmers',
-              content:
-                '<a href="https://github.com/Hao-Chalmers" target="_blank">Researcher at Chalmers University of Technology</a>',
-            },
           ],
         },
       ],
