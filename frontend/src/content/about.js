@@ -22,7 +22,7 @@ export default [
     link: '/about/license',
     routeName: 'about-license',
   },
-  { name: 'ELIXIR', link: '/about/elixir', routeName: 'about-elixir' },
+  { name: 'ELIXIR', icon: 'fa-asterisk', link: '/about/elixir', routeName: 'about-elixir' },
   {
     name: 'Related resources',
     icon: 'fa-external-link',
