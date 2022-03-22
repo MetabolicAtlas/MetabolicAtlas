@@ -15,6 +15,7 @@
       data-hide-no-mentions="true"
       class="altmetric-embed px-2"
     ></div>
+    <div class="__dimensions_badge_embed__ px-2" :data-doi="doi" data-style="small_circle"></div>
     <div
       class="scite-badge px-2"
       :data-doi="doi"
@@ -22,7 +23,6 @@
       data-show-zero="false"
       data-small="true"
     ></div>
-    <div class="__dimensions_badge_embed__ px-2" :data-doi="doi" data-style="small_circle"></div>
   </div>
 </template>
 <script>
