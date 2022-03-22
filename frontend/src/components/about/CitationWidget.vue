@@ -7,9 +7,7 @@
       class="plumx-plum-print-popup"
       data-site="plum"
       data-hide-when-empty="true"
-    >
-      An atlas of human metabolism
-    </a>
+    ></a>
     <div
       data-badge-popover="right"
       data-badge-type="donut"
