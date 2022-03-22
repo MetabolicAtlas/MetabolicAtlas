@@ -3,7 +3,7 @@
     {
       "date": "2022-03-21",
       "title": "Metabolic Atlas 2.4 improves search functionality",
-      "text": "<b>Metabolic Atlas 2.4</b> is out. In this minor release we have focused on improving the search functionality. The improvement has been achieved for both the <i>Gem search</i> and the </i>Global search</i> by a better scoring of searching items and a more logical presentation of found results. Moreover, we have resolved a number of small bugs that affected the user experience. More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/2.4' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/badge/latestdoi/53664497' target='_blank'>on Zenodo</a>."
+      "text": "<b>Metabolic Atlas 2.4</b> is out. In this minor release we have focused on improving the search functionality. The improvement has been achieved for both the <i>GEM Search</i> and the <i>Global Search</i> by a better scoring of searching items and a more logical presentation of found results. Moreover, we have resolved a number of small bugs that affected the user experience. More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/2.4' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/badge/latestdoi/53664497' target='_blank'>on Zenodo</a>."
     },
     {
       "date": "2022-02-16",
