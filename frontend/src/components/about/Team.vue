@@ -44,6 +44,16 @@
           </div>
         </div>
       </div>
+      <p>
+        For more detailed information about the contributions to Metabolic Atlas, please see our
+        <a
+          href="https://github.com/MetabolicAtlas/MetabolicAtlas/graphs/contributors"
+          target="_blank"
+        >
+          GitHub page
+        </a>
+        .
+      </p>
     </template>
   </about-layout>
 </template>
