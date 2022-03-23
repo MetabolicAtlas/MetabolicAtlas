@@ -146,7 +146,7 @@ export default {
     }
 
     const [compartments, compartmentLabel] = combineWords({
-      items: this.reaction.compartments.map(s => s.name),
+      items: this.reaction.compartments.map(c => c.name),
       itemType: 'compartment',
     });
 
