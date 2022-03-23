@@ -214,3 +214,10 @@ export function sanitizeSearchString(term, isAddBackSlash = true) {
   }
   return newTerm;
 }
+
+export const combineWords = ({ items, itemType }) => {
+  const joiner = items.length === 2 ? 'and' : ',';
+  const combined = items.join(` ${joiner} `);
+  const pluralizedType = `${itemType}${items.length === 1 ? '' : 's'}`;
+  return [combined, pluralizedType];
+};
