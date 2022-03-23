@@ -16,7 +16,7 @@
       Load custom expression
       <span class="has-nowrap">
         data
-        <router-link :to="{ name: 'documentation', hash: '#Data-overlay' }">
+        <router-link :to="{ name: 'documentation', hash: '#data-overlay' }">
           <span class="icon"><i class="fa fa-info-circle"></i></span>
         </router-link>
       </span>

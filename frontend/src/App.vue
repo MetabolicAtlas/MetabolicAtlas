@@ -142,7 +142,7 @@
       <div class="columns is-gapless">
         <div v-show="!showCompactFooter()" class="column has-text-centered mt-1">
           <p>
-            2021 ©
+            {{ currentYear }} ©
             <span class="is-hidden-touch">
               &nbsp;Department of Biology and Biological Engineering |
             </span>
@@ -150,7 +150,7 @@
           </p>
         </div>
         <div v-show="showCompactFooter()" class="column has-text-centered-mobile">
-          <p>2021 © &nbsp;Chalmers University of Technology</p>
+          <p>{{ currentYear }} © &nbsp;Chalmers University of Technology</p>
         </div>
       </div>
     </footer>
@@ -237,12 +237,18 @@ export default {
       showGemSearch: false,
       messages,
       errorMessage: '',
+      currentYear: new Date().getFullYear(),
     };
   },
   computed: {
     ...mapState({
       model: state => state.models.model,
     }),
+  },
+  metaInfo() {
+    return {
+      title: 'Metabolic Atlas',
+    };
   },
   watch: {
     showGemSearch(show) {

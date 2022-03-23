@@ -70,5 +70,7 @@ export default {
 <style lang="scss" scoped>
 code {
   font-size: 1em;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 </style>

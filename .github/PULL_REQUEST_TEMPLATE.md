@@ -26,11 +26,9 @@ This PR closes [issue number] and relates to [issue or PR number].
 **Further comments**  
 <!-- Specify questions or related information -->
 
-**Checklist**  
-<!-- Please delete options that are not relevant -->
+**Definition of Done checklist**  
+- [ ] My code meets the Acceptance Criteria
 - [ ] My code follows the [NBIS style guidelines](https://github.com/NBISweden/development-guidelines)
-- [ ] I have performed a self-review of my own code
-- [ ] I have commented my code, particularly in hard-to-understand areas
-- [ ] I have made corresponding changes to the documentation
+- [ ] I have performed a self-review of my own code and commented any hard-to-understand areas
+- [ ] Tests and lint/format validations are passing
 - [ ] My changes generate no new warnings
-- [ ] I have checked so that the same data as before is returned by the API

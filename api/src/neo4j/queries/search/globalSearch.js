@@ -1,16 +1,6 @@
 import queryListResult from 'neo4j/queryHandlers/list';
-const INTEGRATED_MODELS = require('data/integratedModels');
-
-const componentTypes = [
-  'CompartmentalizedMetabolite',
-  'Metabolite',
-  'Gene',
-  'Reaction',
-  'Subsystem',
-  'Compartment',
-];
-
-const intersect = (a, b) => [...new Set(a)].filter(x => new Set(b).has(x));
+import { sanitizeSearchString, intersect } from 'utils/utils';
+import { MODELS, COMPONENT_TYPES } from 'neo4j/queries/search/helper';
 
 const fetchCompartmentalizedMetabolites = async ({
   ids,
@@ -258,15 +248,10 @@ RETURN apoc.map.mergeList(apoc.coll.flatten(
   return queryListResult(statement);
 };
 
-const MODELS = INTEGRATED_MODELS.map(m => ({
-  label: m.short_name.replace('-GEM', 'Gem'),
-  name: m.short_name,
-}));
-
 const globalSearch = async ({ searchTerm, version, limit }) => {
   const results = await Promise.all(
     MODELS.map(m =>
-      _search({
+      search({
         searchTerm,
         version,
         model: m.label,
@@ -285,55 +270,20 @@ const globalSearch = async ({ searchTerm, version, limit }) => {
   }, {});
 };
 
-const modelSearch = async ({ searchTerm, model, version, limit }) => {
-  const match = MODELS.filter(m => m.label == model);
-  if (match.length === 0) {
-    throw new Error(`Invalid model: ${model}`);
-  }
-
-  const results = await _search({
-    searchTerm,
-    model,
-    version,
-    limit: limit || 50,
-  });
-
-  return {
-    [match[0].name]: {
-      ...results,
-      name: match[0].name,
-      metabolite: results.metabolite.map(m => ({
-        ...m,
-        compartment: m.compartment.name,
-      })),
-    },
-  };
-};
-
 /*
  * The search consists of two steps
  * 1. Do a fuzzy search over all nodes covered by full-text search index
  * 2. Fetch results for each component type (parallelly) and return result
  */
-const _search = async ({
-  searchTerm,
-  model,
-  version,
-  limit,
-  includeCounts,
-}) => {
+const search = async ({ searchTerm, model, version, limit, includeCounts }) => {
   const v = version ? `:V${version}` : '';
 
-  // the EC field for reaction could contain ":", which is a special character
-  // in this case th search term is modified to be escape and perform an exact match
-  const term = searchTerm.includes('EC:')
-    ? `\\"${searchTerm}~\\"`
-    : `${searchTerm}~`;
+  const term = sanitizeSearchString(searchTerm, true);
 
-  // Metabolites are not included as it would mess with the limit and
-  // relevant metabolites should be matched through CompartmentalizedMetabolites
+  // The search term is used twice, once with exact match and once with
+  // fuzzy match. This seems to produce optimal results.
   let statement = `
-CALL db.index.fulltext.queryNodes("fulltext", "${term}")
+CALL db.index.fulltext.queryNodes("fulltext", "${term} ${term}~")
 YIELD node, score
 WITH node, score, LABELS(node) as labelList
 OPTIONAL MATCH (node)-[${v}]-(parentNode:${model})
@@ -357,7 +307,7 @@ LIMIT ${limit}
 
   const idsToScore = {};
   const uniqueIds = results.reduce((o, r) => {
-    const c = intersect(componentTypes, r.labels);
+    const c = intersect(COMPONENT_TYPES, r.labels);
     if (!o[c]) {
       o[c] = new Set();
     }
@@ -445,7 +395,4 @@ LIMIT ${limit}
   };
 };
 
-const search = async params =>
-  params.model ? modelSearch(params) : globalSearch(params);
-
-export { search };
+export { globalSearch };

@@ -1,5 +1,5 @@
 import searchApi from '@/api/search';
-import { sortResultsSearchTerm } from '@/helpers/utils';
+import { sortResultsScore } from '@/helpers/utils';
 
 const data = {
   categories: ['metabolite', 'gene', 'reaction', 'subsystem', 'compartment'],
@@ -10,7 +10,7 @@ const data = {
 
 const categorizeResults = results => {
   const categorizedResults = data.categories.reduce(
-    (obj, category) => ({ ...obj, [category]: [] }),
+    (obj, category) => ({ ...obj, [category]: { topScore: 0, results: [] } }),
     {}
   );
   Object.keys(results).forEach(model => {
@@ -18,17 +18,31 @@ const categorizeResults = results => {
     data.categories
       .filter(resultType => resultsModel[resultType])
       .forEach(resultType => {
-        categorizedResults[resultType] = categorizedResults[resultType].concat(
+        let categoryScore = categorizedResults[resultType].topScore;
+        categorizedResults[resultType].results = categorizedResults[resultType].results.concat(
           resultsModel[resultType].map(e => {
             const d = e;
+            if (d.score === undefined) {
+              d.score = 0;
+            }
+            if (e.score > categoryScore || !categoryScore) {
+              categoryScore = e.score;
+            }
+            categoryScore = e.score > categoryScore ? e.score : categoryScore;
             d.model = { id: model, name: resultsModel.name };
             return d;
           })
         );
+        categorizedResults[resultType].topScore = categoryScore;
       });
   });
   return categorizedResults;
 };
+
+const componentTypeOrder = results =>
+  Object.entries(results)
+    .sort((a, b) => b[1].topScore - a[1].topScore)
+    .map(([k]) => k);
 
 const getters = {
   globalResultsEmpty: state =>
@@ -37,13 +51,20 @@ const getters = {
       return s + components.reduce((t, c) => t + r[c].length, 0);
     }, 0) === 0,
 
-  categorizedGlobalResults: state => categorizeResults(state.globalResults),
+  categorizedGlobalResultsWithScores: state => categorizeResults(state.globalResults),
 
-  // eslint-disable-next-line no-unused-vars
-  categorizedGlobalResultsCount: (state, _getters) =>
+  categorizedGlobalResults: (_, _getters) =>
+    Object.fromEntries(
+      Object.entries(_getters.categorizedGlobalResultsWithScores).map(([k, v]) => [k, v.results])
+    ),
+
+  categorizedGlobalResultsCount: (_, _getters) =>
     Object.fromEntries(
       Object.entries(_getters.categorizedGlobalResults).map(([k, v]) => [k, v.length])
     ),
+
+  globalResultsComponentTypeOrder: (_, _getters) =>
+    componentTypeOrder(_getters.categorizedGlobalResultsWithScores),
 
   categorizedAndSortedResults: state => {
     if (Object.keys(state.results).length === 0) {
@@ -57,14 +78,21 @@ const getters = {
       Object.entries(results).map(([k, v]) => [
         k,
         (() => {
-          if (v === 0) {
-            return v;
+          if (v.results.length === 0) {
+            return { topScore: v.topScore, results: v.results };
           }
-          return v.sort((a, b) => sortResultsSearchTerm(a, b, state.searchTermString));
+          return {
+            topScore: v.topScore,
+            results: v.results
+              .sort((a, b) => sortResultsScore(a, b, state.searchTermString))
+              .slice(0, 5),
+          };
         })(),
       ])
     );
   },
+  resultsComponentTypeOrder: (_, _getters) =>
+    componentTypeOrder(_getters.categorizedAndSortedResults),
 };
 
 const actions = {

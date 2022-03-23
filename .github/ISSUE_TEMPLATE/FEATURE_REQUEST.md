@@ -5,11 +5,17 @@ about: Suggest an idea for this project
 ---
 
 **Please describe the feature**
-<!-- Please fill in the brakets -->
+<!-- Please fill in the brackets -->
 As a [type of user], I want [an action] so that [a benefit/a value].
 
-**Describe the solution you would like**
-<!-- A clear and concise description of what you want to happen -->
+**Acceptance Criteria**
+<!-- What should be done for the issue to be considered completed. Add checklist item(s) and remove examples not applicable -->
+- [ ] The documentation is updated accordingly
+- [ ] The changes are tested on multiple models and browsers
+- [ ] Tests verifying the changes are added
+- [ ] The API response is the same as before
+- [ ] The changes do not affect the deployment
+- [ ] The changes do not reduce the performance
 
 **Additional context**
 <!-- Add any other context or screenshots about the feature request here -->

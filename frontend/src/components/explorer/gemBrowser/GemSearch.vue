@@ -26,8 +26,6 @@
           data-hj-whitelist
           type="text"
           class="input"
-          :placeholder="placeholder"
-          :value="searchTermString"
           @keyup.esc="handleClear()"
           @focus="showResults = true"
           @blur="blur()"
@@ -51,43 +49,54 @@
         class="notification is-large is-unselectable has-text-centered is-clickable py-1 mb-1"
         @mousedown="globalSearch()"
       >
-        Limited to 50 results per type. Click here to search all integrated GEMs
+        Limited to 5 results per type. Click here to search all integrated GEMs
       </div>
       <div v-show="!showLoader" v-if="searchResults.length !== 0" class="resList">
-        <template v-for="type in resultsOrder">
+        <template v-for="type in componentTypeOrder">
           <div
-            v-for="(r, i2) in searchResults[type]"
-            :key="`${r.id}-${i2}`"
-            class="searchResultSection px-1 py-0"
+            v-if="searchResults[type] && searchResults[type]['results'].length !== 0"
+            :key="type"
           >
-            <hr v-if="i2 !== 0" class="m-0" />
-            <div>
-              <span v-if="type === 'metabolite' || type === 'gene'" class="pr-1">
-                <span class="has-text-primary is-clickable" @mousedown="handleClickResult(type, r)">
-                  <span class="icon is-medium is-left" title="Gem Browser">
-                    <i class="fa fa-table" />
+            <div
+              v-for="(r, i2) in searchResults[type]['results']"
+              :key="`${r.id}-${i2}`"
+              class="searchResultSection px-1 py-0"
+            >
+              <hr v-if="i2 !== 0" class="m-0" />
+              <div>
+                <span v-if="type === 'metabolite' || type === 'gene'" class="pr-1">
+                  <span
+                    class="has-text-primary is-clickable"
+                    @mousedown="handleClickResult(type, r)"
+                  >
+                    <span class="icon is-medium is-left" title="Gem Browser">
+                      <i class="fa fa-table" />
+                    </span>
+                  </span>
+                  <span
+                    class="has-text-icon-interaction-partner is-clickable"
+                    @mousedown="handleClickResult('interaction', r)"
+                  >
+                    <span class="icon is-medium is-left" title="Interaction Partners">
+                      <i class="fa fa-connectdevelop" />
+                    </span>
                   </span>
                 </span>
-                <span
-                  class="has-text-icon-interaction-partner is-clickable"
-                  @mousedown="handleClickResult('interaction', r)"
-                >
-                  <span class="icon is-medium is-left" title="Interaction Partners">
-                    <i class="fa fa-connectdevelop" />
-                  </span>
+                <span class="has-text-link is-clickable" @mousedown="handleClickResult(type, r)">
+                  <b class="is-capitalized">{{ type }}:</b>
+                  <label
+                    class="is-clickable"
+                    v-html="formatSearchResultLabel(type, r, searchTermString)"
+                  ></label>
                 </span>
-              </span>
-              <span class="has-text-link is-clickable" @mousedown="handleClickResult(type, r)">
-                <b class="is-capitalized">{{ type }}:</b>
-                <label
-                  class="is-clickable"
-                  v-html="formatSearchResultLabel(type, r, searchTermString)"
-                ></label>
-              </span>
+              </div>
             </div>
           </div>
           <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
-          <hr v-if="searchResults[type] && searchResults[type].length !== 0" class="bhr p-0" />
+          <hr
+            v-if="searchResults[type] && searchResults[type].results.length !== 0"
+            class="bhr p-0"
+          />
         </template>
       </div>
       <div v-show="showLoader" class="has-text-centered">
@@ -115,8 +124,8 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import $ from 'jquery';
 import { default as messages } from '@/content/messages';
+import { sanitizeSearchString } from '@/helpers/utils';
 
 export default {
   name: 'GemSearch',
@@ -146,16 +155,13 @@ export default {
   computed: {
     ...mapState({
       model: state => state.models.model,
-      resultsOrder: state => state.search.categories,
       searchTermString: state => state.search.searchTermString,
     }),
     ...mapGetters({
       models: 'models/models',
       searchResults: 'search/categorizedAndSortedResults',
+      componentTypeOrder: 'search/resultsComponentTypeOrder',
     }),
-    placeholder() {
-      return 'uracil, SULT1A3, ATP => cAMP + PPi, subsystem or compartment';
-    },
   },
   watch: {
     model(m) {
@@ -189,21 +195,23 @@ export default {
       }
     },
     async searchDebounce(searchTerm) {
+      this.$store.dispatch('search/setSearchTermString', searchTerm);
       this.noResult = false;
       this.showSearchCharAlert = searchTerm.length === 1;
-      this.$store.dispatch('search/setSearchTermString', searchTerm);
 
       const canSearch = searchTerm.length > 1;
 
       this.showLoader = canSearch;
       this.showResults = canSearch;
       if (canSearch) {
-        await this.search(searchTerm);
+        await this.search();
       }
     },
     async search() {
-      $('#search').focus();
-      if (this.searchTermString.length < 2) {
+      document.getElementById('search').focus();
+      // sanitize the searchTerm without adding backslashes when doing minimal
+      // length checking, so that backslashes are not counted
+      if (sanitizeSearchString(this.searchTermString, false).length < 2) {
         return;
       }
 
@@ -217,7 +225,7 @@ export default {
         const keyList = Object.keys(this.searchResults);
         for (let i = 0; i < keyList.length; i += 1) {
           const k = keyList[i];
-          if (this.searchResults[k].length) {
+          if (this.searchResults[k].results.length) {
             this.showSearchCharAlert = false;
             this.noResult = false;
             break;
@@ -241,7 +249,7 @@ export default {
       this.$router.push({ name: 'search', query: { term: this.searchTermString } });
     },
     formatSearchResultLabel(type, element, searchTerm) {
-      const re = new RegExp(`(${searchTerm})`, 'ig');
+      const re = new RegExp(`(${sanitizeSearchString(searchTerm)})`, 'ig');
       let s = '';
       this.itemKeys[type]
         .filter(key => element[key])
@@ -277,9 +285,9 @@ export default {
         } else if (
           document.getElementById('model-select').contains(document.activeElement) === false
         ) {
-          $('#search').focus();
+          document.getElementById('search').focus();
         }
-      });
+      }, 100);
     },
   },
 };
@@ -297,7 +305,7 @@ export default {
   .field,
   #searchResults {
     width: 100%;
-    max-width: 800px;
+    max-width: 950px;
   }
 
   .field {
@@ -319,7 +327,7 @@ export default {
     z-index: 30;
 
     .resList {
-      max-height: 22rem;
+      max-height: 27rem;
       overflow-y: auto;
     }
 
