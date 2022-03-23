@@ -9,8 +9,8 @@
             active-class="has-background-white-ter"
             @click.native="isMobileMenu = false"
           >
-            <span v-if="l.icon" class="icon pr-5 has-text-info">
-              <i class="fa" :class="l.icon"></i>
+            <span class="icon pr-5 has-text-info">
+              <i class="fa" :class="l.icon || 'fa-caret-right'"></i>
             </span>
             <b>{{ l.name }}</b>
           </router-link>
