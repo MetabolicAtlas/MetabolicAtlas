@@ -37,7 +37,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex';
 import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout';
-import { generateSocialMetaTags, reformatTableKey } from '@/helpers/utils';
+import { generateSocialMetaTags, reformatTableKey, combineWords } from '@/helpers/utils';
 
 export default {
   name: 'Gene',
@@ -72,8 +72,18 @@ export default {
       return {};
     }
 
+    const [compartments, compartmentLabel] = combineWords({
+      items: this.gene.compartments.map(c => c.name),
+      itemType: 'compartment',
+    });
+
+    const [subsystems, subsystemLabel] = combineWords({
+      items: this.gene.subsystems.map(s => s.name),
+      itemType: 'subsystem',
+    });
+
     const title = `${this.gene.geneName}, Gene in ${this.model.short_name}`;
-    const description = `The gene ${this.gene.geneName} in ${this.model.short_name} (version ${this.model.version}) can be found in the ${this.gene.compartments[0].name} compartment and the ${this.gene.subsystems[0].name} subsystem.`;
+    const description = `The gene ${this.gene.geneName} in ${this.model.short_name} (version ${this.model.version}) can be found in the  ${compartments} ${compartmentLabel} and the ${subsystems} ${subsystemLabel}.`;
 
     return {
       title,
