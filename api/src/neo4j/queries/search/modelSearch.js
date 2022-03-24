@@ -15,8 +15,12 @@ const fetchCompartmentalizedMetabolites = async ({
 
   let statement = `
 WITH ${JSON.stringify(metaboliteIds)} as mids
-UNWIND mids as mid
-MATCH (:Metabolite:${model} {id:mid})-[${version}]-(cm:CompartmentalizedMetabolite)
+UNWIND
+  CASE
+      WHEN mids = [] THEN [null]
+      ELSE mids
+  END AS mid
+OPTIONAL MATCH (:Metabolite:${model} {id:mid})-[${version}]-(cm:CompartmentalizedMetabolite)
 WITH cm.id as cmid1
 WITH ${JSON.stringify(ids)} as cmids2, cmid1
 WITH collect(cmid1)+cmids2 as cmids
@@ -41,7 +45,6 @@ RETURN apoc.map.mergeList(apoc.coll.flatten(
 LIMIT ${limit}
 `;
   }
-
   return queryListResult(statement);
 };
 
