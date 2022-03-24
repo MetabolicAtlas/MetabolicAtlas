@@ -200,8 +200,12 @@ LIMIT ${limit}
     if (!o[c]) {
       o[c] = new Set();
     }
-    o[c].add(r.id);
-    idsToScore[r.id] = r.score;
+    // Sometimes there are duplicate components with different score, and the lower score
+    // will then override the higher score without this if statement
+    if (!idsToScore[r.id]) {
+      o[c].add(r.id);
+      idsToScore[r.id] = r.score;
+    }
     return o;
   }, {});
 
