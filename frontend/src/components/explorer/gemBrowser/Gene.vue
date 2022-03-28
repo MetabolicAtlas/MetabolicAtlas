@@ -83,7 +83,7 @@ export default {
     });
 
     const title = `${this.gene.geneName}, Gene in ${this.model.short_name}`;
-    const description = `The gene ${this.gene.geneName} in ${this.model.short_name} (version ${this.model.version}) can be found in the  ${compartments} ${compartmentLabel} and the ${subsystems} ${subsystemLabel}.`;
+    const description = `The gene ${this.gene.geneName} in ${this.model.short_name} (version ${this.model.version}) can be found in the ${compartmentLabel} ${compartments}; and the ${subsystemLabel} ${subsystems}.`;
 
     return {
       title,
