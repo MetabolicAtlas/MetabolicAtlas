@@ -14,4 +14,6 @@ const COMPONENT_TYPES = [
   'Compartment',
 ];
 
-export { MODELS, COMPONENT_TYPES };
+const CHILD_LABELS = ['ExternalDb', 'PubmedReference'];
+
+export { MODELS, COMPONENT_TYPES, CHILD_LABELS };
