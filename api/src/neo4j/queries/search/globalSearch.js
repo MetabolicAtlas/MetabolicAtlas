@@ -279,6 +279,7 @@ const search = async ({ searchTerm, model, version, limit, includeCounts }) => {
   const v = version ? `:V${version}` : '';
 
   const term = sanitizeSearchString(searchTerm, true);
+  const childLabels = "['ExternalDb', 'PubmedReference']"
 
   // The search term is used twice, once with exact match and once with
   // fuzzy match. This seems to produce optimal results.
@@ -290,7 +291,7 @@ OPTIONAL MATCH (node)-[${v}]-(parentNode:${model})
 WHERE node:${model} OR parentNode:${model}
 WITH DISTINCT(
 	CASE
-		WHEN EXISTS(node.id) AND NOT EXISTS(node.externalId) AND NOT 'PubmedReference' in LABELS(node)
+                WHEN EXISTS(node.id) AND NOT apoc.coll.intersection(${childLabels}, LABELS(node))
                 THEN { id: node.id, labels: labelList, score: score }
 		ELSE { id: parentNode.id, labels: LABELS(parentNode), score: score }
 	END
