@@ -165,7 +165,7 @@ const search = async ({ searchTerm, model, version, limit, includeCounts }) => {
   const v = version ? `:V${version}` : '';
 
   const term = sanitizeSearchString(searchTerm, true);
-  const childLabels = "['ExternalDb', 'PubmedReference']"
+  const childLabels = "['ExternalDb', 'PubmedReference']";
 
   // The search term is used twice, once with exact match and once with
   // fuzzy match. This seems to produce optimal results.
