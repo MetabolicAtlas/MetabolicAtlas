@@ -251,7 +251,7 @@ LIMIT ${limit}
     if (result) {
       resWithScore[component] = result.map(obj => ({
         ...obj,
-        score: uniqueIds[obj.id]['score'],
+        score: obj.id in uniqueIds ? uniqueIds[obj.id]['score'] : 0,
       }));
     } else {
       resWithScore[component] = [];
