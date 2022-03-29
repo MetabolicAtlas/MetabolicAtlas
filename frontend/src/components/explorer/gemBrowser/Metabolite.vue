@@ -93,7 +93,7 @@
 import { mapState } from 'vuex';
 import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout';
 import { default as chemicalFormula } from '@/helpers/chemical-formatters';
-import { generateSocialMetaTags, reformatTableKey } from '@/helpers/utils';
+import { generateSocialMetaTags, reformatTableKey, combineWords } from '@/helpers/utils';
 
 export default {
   name: 'Metabolite',
@@ -129,8 +129,18 @@ export default {
       return {};
     }
 
+    const [compartments, compartmentLabel] = combineWords({
+      items: this.metabolite.compartments.map(c => c.name),
+      itemType: 'compartment',
+    });
+
+    const [subsystems, subsystemLabel] = combineWords({
+      items: this.metabolite.subsystems.map(s => s.name),
+      itemType: 'subsystem',
+    });
+
     const title = `${this.metabolite.name}, Metabolite in ${this.model.short_name}`;
-    const description = `The metabolite ${this.metabolite.name} in ${this.model.short_name} (version ${this.model.version}) can be found in the ${this.metabolite.compartment.name} compartment and the ${this.metabolite.subsystems[0].name} subsystem.`;
+    const description = `The metabolite ${this.metabolite.name} in ${this.model.short_name} (version ${this.model.version}) can be found in the ${compartmentLabel} ${compartments}; and the ${subsystemLabel} ${subsystems}.`;
 
     return {
       title,
