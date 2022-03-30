@@ -313,21 +313,21 @@ LIMIT ${limit}
 
   const results = await queryListResult(statement);
 
-  const idsToScore = {};
-  const uniqueIds = results.reduce((o, r) => {
-    const c = intersect(COMPONENT_TYPES, r.labels);
-    if (!o[c]) {
-      o[c] = new Set();
+  const uniqueIds = {};
+  for (let [pos, node] of Object.entries(results)) {
+    if (!(node['id'] in uniqueIds)) {
+      uniqueIds[node['id']] = node;
     }
-    o[c].add(r.id);
-    idsToScore[r.id] = r.score;
-    return o;
-  }, {});
+  }
+  const groupedByComponents = {};
+  for (let [id, properties] of Object.entries(uniqueIds)) {
+    const c = intersect(COMPONENT_TYPES, properties.labels);
+    if (!groupedByComponents[c]) {
+      groupedByComponents[c] = [];
+    }
+    groupedByComponents[c].push(id);
+  }
 
-  const ids = Object.assign(
-    {},
-    ...Object.keys(uniqueIds).map(c => ({ [c]: Array.from(uniqueIds[c]) }))
-  );
   const [
     compartmentalizedMetabolites,
     metabolites,
@@ -337,33 +337,33 @@ LIMIT ${limit}
     compartments,
   ] = await Promise.all([
     fetchCompartmentalizedMetabolites({
-      ids: ids['CompartmentalizedMetabolite'],
+      ids: groupedByComponents['CompartmentalizedMetabolite'],
       model,
       version: v,
       limit,
     }),
     fetchCompartmentalizedMetabolites({
-      ids: ids['Metabolite'],
+      ids: groupedByComponents['Metabolite'],
       model,
       version: v,
       limit,
       viaMetabolties: true,
     }),
-    fetchGenes({ ids: ids['Gene'], model, version: v }),
+    fetchGenes({ ids: groupedByComponents['Gene'], model, version: v }),
     fetchReactions({
-      ids: ids['Reaction'],
+      ids: groupedByComponents['Reaction'],
       model,
       version: v,
       includeMetabolites: !!limit,
     }),
     fetchSubsystems({
-      ids: ids['Subsystem'],
+      ids: groupedByComponents['Subsystem'],
       model,
       version: v,
       includeCounts: true,
     }),
     fetchCompartments({
-      ids: ids['Compartment'],
+      ids: groupedByComponents['Compartment'],
       model,
       version: v,
       includeCounts: true,
@@ -384,7 +384,7 @@ LIMIT ${limit}
     if (result) {
       resWithScore[component] = result.map(obj => ({
         ...obj,
-        score: idsToScore[obj.id],
+        score: obj.id in uniqueIds ? uniqueIds[obj.id]['score'] : 0,
       }));
     } else {
       resWithScore[component] = [];
