@@ -22,9 +22,6 @@ const categorizeResults = results => {
         categorizedResults[resultType].results = categorizedResults[resultType].results.concat(
           resultsModel[resultType].map(e => {
             const d = e;
-            if (d.score === undefined) {
-              d.score = 0;
-            }
             if (e.score > categoryScore || !categoryScore) {
               categoryScore = e.score;
             }
