@@ -18,14 +18,22 @@ const fetchCompartmentalizedMetabolites = async ({
   if (viaMetabolties) {
     statement += `
 WITH ${JSON.stringify(ids)} as mids
-UNWIND mids as mid
+UNWIND
+  CASE
+      WHEN mids = [] THEN [null]
+      ELSE mids
+  END AS mid
 MATCH (:Metabolite:${model} {id:mid})-[${version}]-(cm:CompartmentalizedMetabolite)
 WITH DISTINCT(cm.id) as cmid
 `;
   } else {
     statement += `
 WITH ${JSON.stringify(ids)} as cmids
-UNWIND cmids as cmid
+UNWIND
+  CASE
+      WHEN cmids = [] THEN [null]
+      ELSE cmids
+  END AS cmid
 `;
   }
 
