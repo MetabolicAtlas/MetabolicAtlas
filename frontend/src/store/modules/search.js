@@ -24,8 +24,7 @@ const categorizeResults = results => {
             if (e.score > categoryScore || !categoryScore) {
               categoryScore = e.score;
             }
-            e.model = { id: model, name: resultsModel.name };
-            return e;
+            return { ...e, model: { id: model, name: resultsModel.name } };
           })
         );
         categorizedResults[resultType].topScore = categoryScore;
