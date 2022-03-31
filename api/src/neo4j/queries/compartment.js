@@ -39,7 +39,12 @@ CALL apoc.cypher.run("
   UNION
   
   MATCH (:Compartment${m} {id: '${id}'})-[${v}]-(csvg:SvgMap)
-  WITH {compartmentId: '${id}', compartmentSVGs: COLLECT(DISTINCT(csvg {.*}))} as compartmentSVG
+  WITH  COLLECT(DISTINCT(csvg {.*})) as csvgs
+  WITH CASE
+    WHEN size(csvgs) > 0
+    THEN {compartmentId: '${id}', compartmentSVGs: csvgs}
+    ELSE null
+  END as compartmentSVG
   RETURN { compartmentSVGs: COLLECT(compartmentSVG) } as data
 ", {}) yield value
 RETURN apoc.map.mergeList(COLLECT(value.data)) as compartment
