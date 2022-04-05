@@ -65,6 +65,15 @@ export default {
             '<a href="https://bii.dk/team/jens-nielsen" target="_blank">CEO at BioInnovation Institute</a> and <a href="https://www.sysbio.se/labs/nielsen/" target="_blank">Prof. of Systems and Synthetic Biology at Chalmers University of Technology</a>',
         },
         {
+          name: 'Dr. Rui Benfeitas',
+          img: require('../../assets/pics/rui.jpg'),
+          orcid: 'https://orcid.org/0000-0001-7972-0083',
+          linkedin: 'https://www.linkedin.com/in/ruibenfeitas/',
+          github: 'https://github.com/Benfeitas',
+          content:
+            '<a href="https://www.benfeitas.net" target="_blank">Senior Bioinformatician at NBIS, SciLifeLab</a>',
+        },
+        {
           name: 'Dr. Jonathan Robinson',
           img: require('../../assets/pics/jon.jpg'),
           orcid: 'https://orcid.org/0000-0001-8567-5960',
@@ -81,15 +90,6 @@ export default {
           github: 'https://github.com/Hao-Chalmers',
           content:
             '<a href="https://github.com/Hao-Chalmers" target="_blank">Researcher at Chalmers University of Technology</a>',
-        },
-        {
-          name: 'Dr. Rui Benfeitas',
-          img: require('../../assets/pics/rui.jpg'),
-          orcid: 'https://orcid.org/0000-0001-7972-0083',
-          linkedin: 'https://www.linkedin.com/in/ruibenfeitas/',
-          github: 'https://github.com/Benfeitas',
-          content:
-            '<a href="https://www.benfeitas.net" target="_blank">Senior Bioinformatician at NBIS, SciLifeLab</a>',
         },
       ],
     };

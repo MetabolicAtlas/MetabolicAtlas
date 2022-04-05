@@ -83,7 +83,12 @@
 <script>
 import { mapGetters, mapState } from 'vuex';
 import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout';
-import { buildCustomLink, generateSocialMetaTags, reformatTableKey } from '@/helpers/utils';
+import {
+  buildCustomLink,
+  generateSocialMetaTags,
+  reformatTableKey,
+  combineWords,
+} from '@/helpers/utils';
 
 export default {
   name: 'Subsystem',
@@ -105,8 +110,13 @@ export default {
       return {};
     }
 
+    const [compartments, compartmentLabel] = combineWords({
+      items: this.info.compartments.map(c => c.name),
+      itemType: 'compartment',
+    });
+
     const title = `${this.info.name}, Subsystem in ${this.model.short_name}`;
-    const description = `The subsystem ${this.info.name} in ${this.model.short_name} (version ${this.model.version}) can be found in ${this.info.compartments.length} compartments, and contains ${this.metabolites.length} metabolites and ${this.genes.length} genes.`;
+    const description = `The subsystem ${this.info.name} in ${this.model.short_name} (version ${this.model.version}) can be found in the ${compartmentLabel} ${compartments}; and contains ${this.metabolites.length} metabolites and ${this.genes.length} genes.`;
 
     return {
       title,

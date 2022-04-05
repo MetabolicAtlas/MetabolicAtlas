@@ -3,7 +3,7 @@
     <template v-slot:contents>
       <div v-for="group in team" :key="group.name">
         <h3 class="title is-3">{{ group.name }}</h3>
-        <div class="columns is-multiline">
+        <div class="pb-6 columns is-multiline">
           <div
             v-for="member in group.members"
             :key="member.name"
@@ -44,6 +44,16 @@
           </div>
         </div>
       </div>
+      <p>
+        For more detailed information about the contributions to Metabolic Atlas, please see our
+        <a
+          href="https://github.com/MetabolicAtlas/MetabolicAtlas/graphs/contributors"
+          target="_blank"
+        >
+          GitHub page
+        </a>
+        .
+      </p>
     </template>
   </about-layout>
 </template>
@@ -63,6 +73,22 @@ export default {
           name: '',
           members: [
             {
+              name: 'Mihail Anton',
+              img: require('../../assets/pics/mihail.jpg'),
+              github: 'https://github.com/mihai-sysbio',
+              linkedin: 'https://www.linkedin.com/in/mihail-anton/',
+              content:
+                '<a href="https://nbis.se/about/staff/mihail-anton/" target="_blank">NBIS expert and Project Manager for Metabolic Atlas</a>',
+            },
+            {
+              name: 'Shan Huang',
+              img: require('../../assets/pics/shan.jpg'),
+              github: 'https://github.com/e0',
+              linkedin: 'https://www.linkedin.com/in/shan-h-5b986383/',
+              content:
+                '<a href="https://www.linkedin.com/in/shan-h-5b986383/" target="_blank">Freelance Web Developer </a>',
+            },
+            {
               name: 'Ingrid Hyltander',
               img: require('../../assets/pics/ingrid.jpg'),
               github: 'https://github.com/inghylt',
@@ -79,14 +105,6 @@ export default {
                 '<a href="https://nbis.se/about/staff/malin-klang/" target="_blank">System Developer at NBIS</a>',
             },
             {
-              name: 'Mihail Anton',
-              img: require('../../assets/pics/mihail.jpg'),
-              github: 'https://github.com/mihai-sysbio',
-              linkedin: 'https://www.linkedin.com/in/mihail-anton/',
-              content:
-                '<a href="https://nbis.se/about/staff/mihail-anton/" target="_blank">NBIS expert and Project Manager for Metabolic Atlas</a>',
-            },
-            {
               name: 'Nanjiang Shu',
               img: require('../../assets/pics/nanjiang.jpg'),
               github: 'https://github.com/nanjiangshu',
@@ -94,28 +112,27 @@ export default {
               content:
                 '<a href="https://nbis.se/about/staff/nanjiang-shu/" target="_blank"> Deputy Head of System Development at NBIS </a>',
             },
+          ],
+        },
+        {
+          name: 'Previous Contributors',
+          members: [
             {
-              name: 'Shan Huang',
-              img: require('../../assets/pics/shan.jpg'),
-              github: 'https://github.com/e0',
-              linkedin: 'https://www.linkedin.com/in/shan-h-5b986383/',
+              name: 'Sergiu Netotea',
+              img: require('../../assets/pics/sergiu.jpg'),
+              linkedin: 'https://se.linkedin.com/in/sergiu-netotea-753068182',
               content:
-                '<a href="https://www.linkedin.com/in/shan-h-5b986383/" target="_blank">Freelance Web Developer </a>',
+                '<a href="https://nbis.se/about/staff/sergiu-netotea/" target="_blank">Researcher at NBIS </a>',
+            },
+            {
+              name: 'Martin Norling',
+              img: require('../../assets/pics/martin.jpg'),
+              github: 'https://github.com/norling',
+              content:
+                '<a href="https://nbis.se/about/staff/martin-norling/" target="_blank">System Developer at NBIS </a>',
             },
           ],
         },
-        /* {
-          name: 'Previous Contributers',
-          team: [
-            {
-              name: 'Ingrid Hyltander',
-              img: require('../../assets/pics/ingrid.jpg'),
-              github: 'https://github.com/inghylt',
-              content:
-                '<a href="https://nbis.se/about/staff/ingrid-hyltander/" target="_blank">Developer at NBIS </a>',
-            },
-          ],
-        }, */
       ],
     };
   },

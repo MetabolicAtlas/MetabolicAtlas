@@ -41,7 +41,12 @@ CALL apoc.cypher.run("
   UNION
   
   MATCH (:Subsystem${m} {id: '${id}'})-[${v}]-(ssvg:SvgMap)
-  WITH {subsystemId: '${id}', subsystemSVGs: COLLECT(DISTINCT(ssvg {.*}))} as subsystemSVG
+  WITH COLLECT(DISTINCT(ssvg {.*})) as ssvgs
+  WITH CASE
+    WHEN size(ssvgs)> 0
+    THEN {subsystemId: '${id}', subsystemSVGs: ssvgs}
+    ELSE null
+  END as subsystemSVG
   RETURN { subsystemSVGs: COLLECT(subsystemSVG) } as data
 ", {}) yield value
 RETURN apoc.map.mergeList(COLLECT(value.data)) as subsystem

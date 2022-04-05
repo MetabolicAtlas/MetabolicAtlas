@@ -91,9 +91,10 @@
                   <tr v-if="el.date">
                     <td class="has-nowrap">{{ el.date }}</td>
                     <td class="pl-3">
-                      <router-link :to="{ name: 'about-news', hash: `#${el.date}` }">
-                        {{ el.title }}
-                      </router-link>
+                      <router-link
+                        :to="{ name: 'about-news', hash: `#${el.date}` }"
+                        v-html="el.title"
+                      />
                     </td>
                   </tr>
                   <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->

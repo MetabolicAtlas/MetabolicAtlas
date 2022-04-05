@@ -21,16 +21,10 @@ const categorizeResults = results => {
         let categoryScore = categorizedResults[resultType].topScore;
         categorizedResults[resultType].results = categorizedResults[resultType].results.concat(
           resultsModel[resultType].map(e => {
-            const d = e;
-            if (d.score === undefined) {
-              d.score = 0;
-            }
             if (e.score > categoryScore || !categoryScore) {
               categoryScore = e.score;
             }
-            categoryScore = e.score > categoryScore ? e.score : categoryScore;
-            d.model = { id: model, name: resultsModel.name };
-            return d;
+            return { ...e, model: { id: model, name: resultsModel.name } };
           })
         );
         categorizedResults[resultType].topScore = categoryScore;
