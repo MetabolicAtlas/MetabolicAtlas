@@ -3,7 +3,7 @@
     {
       "date": "2022-04-04",
       "title": "Metabolic Atlas 2.5 improves the about pages and fixes bugs",
-      "text": "<b>Metabolic Atlas 2.5</b> is out. In this minor release we have focused on maintenance, fixing a number of bugs related to search and routing. General improvements for the content pages, including the <i>About</i> pages and <i>Documentation</i>, have been added as well. More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/2.5' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/badge/latestdoi/53664497' target='_blank'>on Zenodo</a>."
+      "text": "<b>Metabolic Atlas 2.5</b> is out. In this minor release we have focused on maintenance, fixing a number of bugs related to search and broken links. General improvements for the content pages, including the <i>About</i> pages and <i>Documentation</i>, have been added as well. More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/2.5' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/badge/latestdoi/53664497' target='_blank'>on Zenodo</a>."
     },
     {
       "date": "2022-03-21",
