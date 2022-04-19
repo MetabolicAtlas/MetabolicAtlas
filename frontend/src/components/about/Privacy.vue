@@ -15,15 +15,14 @@
       </p>
       <p>
         Additionally, we use the services of
-        <a href="https://www.hotjar.com/" target="_blank">Hotjar</a>
-        . This is an additional independent tracking service, which can produce a screen capture of
-        the interactions on our website, including mouse movement. We use it solely for the purpose
-        of figuring out how to improve our website, for example when the website interface is
-        confusing. The data is stored for at most 3 months. Hotjar adheres to GDPR,
+        <a href="https://www.hotjar.com/" target="_blank">Hotjar</a>. This is an additional
+        independent tracking service, which can produce a screen capture of the interactions on our
+        website, including mouse movement. We use it solely for the purpose of figuring out how to
+        improve our website, for example when the website interface is confusing. The data is stored
+        for at most 3 months. Hotjar adheres to GDPR,
         <a href="https://www.hotjar.com/legal/compliance/gdpr-commitment" target="_blank">
-          see more on their website
-        </a>
-        .
+          see more on their website</a
+        >.
       </p>
       <p>
         To opt out of any of these cookies, please set your browser to use the "DoNotTrack" header;
@@ -39,15 +38,13 @@
         </a>
         (in Safari this is enabled by default). Alternatively, see
         <a href="https://www.hotjar.com/legal/compliance/opt-out" target="_blank">
-          Hotjar's instructions on their website
-        </a>
-        .
+          Hotjar's instructions on their website</a
+        >.
       </p>
 
       <p>
         If you have any questions, please email us at
-        <a href="mailto:contact@metabolicatlas.org">contact [at] metabolicatlas [dot] org</a>
-        .
+        <a href="mailto:contact@metabolicatlas.org">contact [at] metabolicatlas [dot] org</a>.
       </p>
     </template>
   </about-layout>

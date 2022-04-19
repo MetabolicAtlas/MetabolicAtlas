@@ -50,9 +50,8 @@
           href="https://github.com/MetabolicAtlas/MetabolicAtlas/graphs/contributors"
           target="_blank"
         >
-          GitHub page
-        </a>
-        .
+          GitHub page</a
+        >.
       </p>
     </template>
   </about-layout>
