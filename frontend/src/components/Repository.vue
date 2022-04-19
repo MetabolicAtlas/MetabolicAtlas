@@ -4,6 +4,7 @@
       <div v-if="errorMessage" v-html="errorMessage" />
       <div v-else>
         <h3 id="Integrated-models" class="title is-3">Integrated models</h3>
+        <gem-history />
         <p class="has-text-justified">
           These models are integrated into the Metabolic Atlas database; they can be explored via
           {{ messages.gemBrowserName }}, {{ messages.mapViewerName }} and
@@ -200,6 +201,7 @@ import { VueGoodTable } from 'vue-good-table';
 import 'vue-good-table/dist/vue-good-table.css';
 import Loader from '@/components/Loader';
 import References from '@/components/shared/References';
+import GemHistory from '@/components/GemHistory';
 import { default as messages } from '@/content/messages';
 
 export default {
@@ -208,6 +210,7 @@ export default {
     Loader,
     VueGoodTable,
     References,
+    GemHistory,
   },
   data() {
     return {
