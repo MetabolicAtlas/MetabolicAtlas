@@ -42,7 +42,7 @@
         at Chalmers University of Technology. The research focus of the content of this website is
         <b>metabolism in a systems biology context</b>, starting with
         <a href="https://www.sysbio.se/labs/nielsen/#publications">
-          the publications of the Nielsen lab </a
+          the publications of the Nielsen lab</a
         >.
       </p>
     </template>
