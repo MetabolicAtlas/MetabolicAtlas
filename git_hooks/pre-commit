@@ -1,39 +1,78 @@
 #!/bin/bash
 
-# run_lint: runs prettier and eslint on all staged files inside docker
-# files will be reformatted by prettier and the script will fail if there are
-# any warnings from eslint
-#  $1: container name
-#  $2: file names as in container
-#  $3: local file names
-run_lint () {
 
-  if [[ ! -z "$2" ]]
-  then
-    # Prettify all selected files
-    echo "$2" | xargs docker compose -f docker-compose.yml -f docker-compose-local.yml exec $1 ./node_modules/.bin/prettier --ignore-unknown --write
 
-    # Exit if there are lint problems
-    if ! docker compose -f docker-compose.yml -f docker-compose-local.yml exec $1 yarn run eslint $2 --ext .js,.vue; then
-      exit 1
-    fi
+# docker_exec:	Helper function
+docker_exec () {
+	local container="$1"
+	shift	# We don't need $1 any longer.
 
-    # Add back the modified/prettified files to staging
-    echo "$3" | xargs git add
-
-  fi
-
+	docker compose \
+		-f docker-compose.yml \
+		-f docker-compose-local.yml \
+                --env-file env-local.env \
+		exec "$container" \
+		"$@"
 }
 
-# List all backend files
-A_FILES=$(git diff --cached --name-only --diff-filter=ACMR -- api/src/ api/test/ | sed 's| |\\ |g')
-API_FILES=${A_FILES//api\/}
-F_FILES=$(git diff --cached --name-only --diff-filter=ACMR -- frontend/src/ | sed 's| |\\ |g')
-FRONTEND_FILES=${F_FILES//frontend\/}
+# run_lint:     Runs prettier and eslint on all staged files inside
+#               Docker. The files will be reformatted by prettier and the
+#               script will fail if there are any errors from eslint.
 
-echo "Running prettier and eslint on staged files"
-run_lint api $API_FILES $A_FILES
-run_lint frontend $FRONTEND_FILES $F_FILES
-echo "Files ok"
+# Arguments:
+#	$1:	Container name
+# 	$2 ...:	List of pathnames
+#
+# The pathnames will have their first pathname component stripped off to
+# generate the corresponding pathnames in the container.
 
-exit 0
+run_lint () {
+	local container="$1"
+	shift	# We don't need $1 any longer.
+
+	# "$@" is now the list of relative pathnames.
+
+        # "${@#*/}" is the list of pathnames with the first
+        # pathname component stripped off ("api/file" --> "file",
+        # "frontend/some/path" --> "some/path")
+
+	# Prettify all selected files in the container.
+	docker_exec "$container" ./node_modules/.bin/prettier \
+		--ignore-unknown \
+		--write \
+		"${@#*/}"
+
+        # Lint selected files in the container, and bail out if there
+        # are errors. Warnings are reported, but won't stop the commit
+	if ! docker_exec "$container" yarn run eslint "${@#*/}"
+	then
+		return 1
+	fi
+
+	# Add prettified files.
+	git add "$@"
+}
+
+for dir in api/src api/test frontend/src; do
+
+	# List changed staged files and add them to an array.
+	readarray -d '' -t list < <(
+		git diff -z --staged --name-only --diff-filter=ACMR -- "$dir"
+	)
+
+	# Skip directory if no changed files.
+	[ "${#list[@]}" -eq 0 ] && continue
+
+	# Lint files.
+        # The container name is taken from the first pathname component
+        # of the first entry in the list.
+	if ! run_lint "${list[0]%%/*}" "${list[@]}"; then
+		printf 'Aborted. Some files in "%s" failed linting\n.' "$dir" >&2
+		exit 1
+	fi
+
+	printf 'All files in "%s" ok\n' "$dir"
+
+done
+
+echo 'Done.'
