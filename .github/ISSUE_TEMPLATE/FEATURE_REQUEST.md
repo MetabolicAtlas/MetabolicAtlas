@@ -10,7 +10,7 @@ As a [type of user], I want [an action] so that [a benefit/a value].
 
 **Acceptance Criteria**
 <!-- What should be done for the issue to be considered completed. Add checklist item(s) and remove examples not applicable -->
-- [ ] <!-- Issue specific criteria -->
+- [ ] Placeholder for issue specific criterion
 - [ ] The web page documentation is updated accordingly
 - [ ] The changes are in alignment with the privacy policy
 - [ ] The changes are tested on multiple models and browsers
