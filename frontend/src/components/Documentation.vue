@@ -232,7 +232,7 @@
             The 3D renderings of the metabolic network are automatically generated from the GEM
             data, with the help of
             <a href="https://github.com/MetabolicAtlas/3d-network-viewer" target="_blank">
-              a force-directed graph JavaScript library </a
+              a force-directed graph JavaScript library</a
             >. This 3D graph contains all the reactions in the model, grouped by cellular
             compartment or subsystem.
           </p>
@@ -304,7 +304,7 @@
                 <i>Data overlay</i>
                 sidebar allows uploading of the custom data in
                 <a target="_blank" href="https://en.wikipedia.org/wiki/Tab-separated_values">
-                  TSV format </a
+                  TSV format</a
                 >. If the file is parsed correctly, the file name will be highlighted in green; in
                 case errors are detected, it will be highlighted in red. The expected custom data
                 file should contain at least two columns with headers and using tab delimiter. The
@@ -324,7 +324,7 @@
                   target="_blank"
                   href="https://github.com/MetabolicAtlas/data-files/blob/main/DATA_OVERLAY.md#data-source-file-requirements"
                 >
-                  here </a
+                  here</a
                 >. The headers of these data series will be shown automatically in the dropdown
                 options for the uploaded data. The values are expected in TPM.
               </p>
@@ -551,7 +551,7 @@
             older models that may no longer be maintained (for example HMR 2.0), and others that
             were recently published. The more recent GEMs can also be found in the
             <a href="https://www.github.com/SysBioChalmers/" target="_blank">
-              SysBioChalmers organization GitHub </a
+              SysBioChalmers organization GitHub</a
             >.
           </p>
           <p>
@@ -611,7 +611,7 @@
           <p>
             Metabolic Atlas has a
             <a href="/api/v2/" target="_blank">
-              dedicated interface to facilite the use of the API </a
+              dedicated interface to facilite the use of the API</a
             >, with output provided in JSON format. When using this service, kindly use a limit of
             10 requests per second. The API is still undergoing development; while it is covers the
             entire content of the models, it might change without prior notice.

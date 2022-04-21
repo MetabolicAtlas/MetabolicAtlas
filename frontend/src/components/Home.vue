@@ -66,7 +66,7 @@
                     Wang, H., et al, 2021.
                     <i>
                       Genome-scale metabolic network reconstruction of model animals as a platform
-                      for translational research </i
+                      for translational research</i
                     >. PNAS 118, e2102344118
                   </a>
                 </p>
