@@ -2,5 +2,5 @@
   "semi": true,
   "arrowParens": "avoid",
   "singleQuote": true,
-  "htmlWhitespaceSensitivity": "ignore"
+  "htmlWhitespaceSensitivity": "css"
 }

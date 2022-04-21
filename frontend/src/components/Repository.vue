@@ -67,8 +67,8 @@
           <i>References</i>
           section of each model. Click on a row to display more information. To download multiple
           models at once use the
-          <router-link :to="{ name: 'documentation', hash: '#ftp-access' }">FTP server</router-link>
-          .
+          <router-link :to="{ name: 'documentation', hash: '#ftp-access' }">FTP server</router-link
+          >.
         </p>
         <br />
         <loader v-show="showLoader"></loader>
@@ -181,9 +181,8 @@
                 <div class="notification mt-4">
                   To download multiple models at once use the
                   <router-link :to="{ name: 'documentation', hash: '#ftp-access' }">
-                    FTP server
-                  </router-link>
-                  .
+                    FTP server</router-link
+                  >.
                 </div>
               </template>
             </div>
