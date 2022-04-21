@@ -1,6 +1,6 @@
 #!/bin/bash
 
-
+shopt -s globstar nullglob
 
 # docker_exec:	Helper function
 docker_exec () {
@@ -55,9 +55,16 @@ run_lint () {
 
 for dir in api/src api/test frontend/src; do
 
+  	# Match all relevant file types under the given directory.
+	files=( "$dir"/**/*.{vue,js,html,css,ts,yaml} )
+
+	# Skip if no files.
+	[ "${#files[@]}" -eq 0 ] && continue
+
 	# List changed staged files and add them to an array.
 	readarray -d '' -t list < <(
-		git diff -z --staged --name-only --diff-filter=ACMR -- "$dir"
+		git diff -z --staged --name-only --diff-filter=ACMR -- \
+                  "${files[@]}"
 	)
 
 	# Skip directory if no changed files.
