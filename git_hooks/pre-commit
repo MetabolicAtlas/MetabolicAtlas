@@ -1,19 +1,9 @@
 #!/bin/bash
 
+# import ma-exec, but don't print available commannds from proj.sh
+source proj.sh > /dev/null
+
 shopt -s globstar nullglob
-
-# docker_exec:	Helper function
-docker_exec () {
-	local container="$1"
-	shift	# We don't need $1 any longer.
-
-	docker compose \
-		-f docker-compose.yml \
-		-f docker-compose-local.yml \
-                --env-file env-local.env \
-		exec "$container" \
-		"$@"
-}
 
 # run_lint:     Runs prettier and eslint on all staged files inside
 #               Docker. The files will be reformatted by prettier and the
@@ -37,14 +27,14 @@ run_lint () {
         # "frontend/some/path" --> "some/path")
 
 	# Prettify all selected files in the container.
-	docker_exec "$container" ./node_modules/.bin/prettier \
+        ma-exec "$container" ./node_modules/.bin/prettier \
 		--ignore-unknown \
 		--write \
 		"${@#*/}"
 
         # Lint selected files in the container, and bail out if there
         # are errors. Warnings are reported, but won't stop the commit
-	if ! docker_exec "$container" yarn run eslint "${@#*/}"
+	if ! ma-exec "$container" yarn run eslint "${@#*/}"
 	then
 		return 1
 	fi
