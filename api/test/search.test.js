@@ -17,7 +17,7 @@ describe('search', () => {
 
     const { metabolite } = data['Human-GEM'];
     expect(metabolite.length).toBeGreaterThan(0);
-    expect(metabolite.length).toBeLessThan(50);
+    expect(metabolite.length).toBeLessThan(51);
   });
 
   test('model search should receive sensible ranking scores', async () => {
