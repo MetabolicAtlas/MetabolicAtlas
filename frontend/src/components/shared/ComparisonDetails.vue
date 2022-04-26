@@ -16,9 +16,8 @@
           <router-link :to="{ name: 'explorer', params: { model: currentModel.short_name } }">
             <b>{{ currentModel.short_name }}</b>
           </router-link>
-          has
-          {{ comparisonDetails.details['Reaction'].own }} reactions and
-          {{ comparisonDetails.details['CompartmentalizedMetabolite'].own }} metabolites.
+          v{{ currentModel.version }} has {{ comparisonDetails.details['Reaction'].own }} reactions
+          and {{ comparisonDetails.details['CompartmentalizedMetabolite'].own }} metabolites.
         </p>
         <div v-if="selectedCell.position.row !== selectedCell.position.col">
           Compared to
