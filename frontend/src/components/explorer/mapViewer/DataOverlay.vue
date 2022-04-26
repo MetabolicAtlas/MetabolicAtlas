@@ -198,9 +198,6 @@ export default {
     const dataSet = this.validDataSourceDataSetInQuery() ? this.$route.query.dataSet : 'None';
     await this.setDataSet(dataSet);
   },
-  destroyed() {
-    this.resetDataValues();
-  },
   methods: {
     ...mapActions({
       getDataSourcesIndex: 'dataOverlay/getIndex',
