@@ -79,7 +79,44 @@ describe('search', () => {
   test('search for metabolite name gives valid score for metabolites', async () => {
     const data = await search({
       searchTerm: 'pyridoxine',
+      model: 'HumanGem',
+      version: HUMAN_GEM_VERSION,
     });
-    expect(data['Human-GEM'].metabolite[0].score).toBeGreaterThan(0);
+    const [firstMetabolite] = data['Human-GEM'].metabolite.sort(
+      (a, b) => b.score - a.score
+    );
+    expect(firstMetabolite.score).toBeGreaterThan(0);
+  });
+
+  test('search for metabolite id gives matches', async () => {
+    const data = await search({
+      searchTerm: 'MAM01513s',
+    });
+    expect(data['Human-GEM'].metabolite.length).toBeGreaterThan(0);
+    expect(data['Mouse-GEM'].metabolite.length).toBeGreaterThan(0);
+    expect(data['Rat-GEM'].metabolite.length).toBeGreaterThan(0);
+    expect(data['Zebrafish-GEM'].metabolite.length).toBeGreaterThan(0);
+    expect(data['Worm-GEM'].metabolite.length).toBeGreaterThan(0);
+  });
+
+  test('search by gene name or id both finds the gene', async () => {
+    const data = await search({
+      searchTerm: 'NEURL1B',
+      model: 'HumanGem',
+      version: HUMAN_GEM_VERSION,
+    });
+    const data2 = await search({
+      searchTerm: 'ENSG00000214357',
+      model: 'HumanGem',
+      version: HUMAN_GEM_VERSION,
+    });
+    const [firstGene] = data['Human-GEM'].gene.sort(
+      (a, b) => b.score - a.score
+    );
+    const [firstGene2] = data['Human-GEM'].gene.sort(
+      (a, b) => b.score - a.score
+    );
+    expect(firstGene.name).toEqual('NEURL1B');
+    expect(firstGene2.name).toEqual('NEURL1B');
   });
 });
