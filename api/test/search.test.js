@@ -75,4 +75,11 @@ describe('search', () => {
     expect(data['Fruitfly-GEM'].gene.length).toBeGreaterThan(0);
     expect(data['Zebrafish-GEM'].gene.length).toBeGreaterThan(0);
   });
+
+  test('search for metabolite name gives valid score for metabolites', async () => {
+    const data = await search({
+      searchTerm: 'pyridoxine',
+    });
+    expect(data['Human-GEM'].metabolite[0].score).toBeGreaterThan(0);
+  });
 });
