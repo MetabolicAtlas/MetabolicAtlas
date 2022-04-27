@@ -259,4 +259,14 @@ describe('search', () => {
     );
     expect(firstSubsystem.score).toBeGreaterThan(0);
   });
+
+  test('gem search on name should find compartment', async () => {
+    const data = await search({
+      searchTerm: 'Extracellular',
+      model: 'HumanGem',
+    });
+    const [firstCompartment] = data['Human-GEM'].compartment;
+    expect(firstCompartment.name).toEqual('Extracellular');
+    expect(firstCompartment.score).toBeGreaterThan(0);
+  });
 });
