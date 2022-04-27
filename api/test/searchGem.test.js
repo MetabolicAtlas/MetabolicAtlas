@@ -6,7 +6,7 @@ describe('search', () => {
     await driver.close();
   });
 
-  test('model search should have max 50 results per component type', async () => {
+  test('gem search should have max 50 results per component type', async () => {
     const data = await search({
       searchTerm: 'H2O',
       model: 'HumanGem',
@@ -20,7 +20,7 @@ describe('search', () => {
     expect(metabolite.length).toBeLessThan(51);
   });
 
-  test('model search should receive sensible ranking scores', async () => {
+  test('gem search should receive sensible ranking scores', async () => {
     const [data1, data2] = await Promise.all([
       search({
         searchTerm: 'POLR3F',
@@ -45,7 +45,7 @@ describe('search', () => {
     expect(firstMetabolite.name).toMatch(/Asparaginyl-Cysteinyl/);
   });
 
-  test('model search with special characters should not fail', async () => {
+  test('gem search with special characters should not fail', async () => {
     const [data1, data2] = await Promise.all([
       search({
         searchTerm: 'rna/dna: (met)',
@@ -64,19 +64,7 @@ describe('search', () => {
     }
   });
 
-  test('global search should return results for multiple models', async () => {
-    const data = await search({
-      searchTerm: 'POLR3F',
-    });
-
-    expect(data['Human-GEM'].gene.length).toBeGreaterThan(0);
-    expect(data['Mouse-GEM'].gene.length).toBeGreaterThan(0);
-    expect(data['Rat-GEM'].gene.length).toBeGreaterThan(0);
-    expect(data['Fruitfly-GEM'].gene.length).toBeGreaterThan(0);
-    expect(data['Zebrafish-GEM'].gene.length).toBeGreaterThan(0);
-  });
-
-  test('search for metabolite name gives valid score for metabolites', async () => {
+  test('gem search for metabolite name gives valid score for metabolites', async () => {
     const data = await search({
       searchTerm: 'pyridoxine',
       model: 'HumanGem',
@@ -88,18 +76,14 @@ describe('search', () => {
     expect(firstMetabolite.score).toBeGreaterThan(0);
   });
 
-  test('search for metabolite id gives matches', async () => {
+  test('gem search for metabolite id gives matches', async () => {
     const data = await search({
       searchTerm: 'MAM01513s',
     });
     expect(data['Human-GEM'].metabolite.length).toBeGreaterThan(0);
-    expect(data['Mouse-GEM'].metabolite.length).toBeGreaterThan(0);
-    expect(data['Rat-GEM'].metabolite.length).toBeGreaterThan(0);
-    expect(data['Zebrafish-GEM'].metabolite.length).toBeGreaterThan(0);
-    expect(data['Worm-GEM'].metabolite.length).toBeGreaterThan(0);
   });
 
-  test('search by gene name or id both finds the gene', async () => {
+  test('gem search by gene name or id both finds the gene', async () => {
     const data = await search({
       searchTerm: 'NEURL1B',
       model: 'HumanGem',
