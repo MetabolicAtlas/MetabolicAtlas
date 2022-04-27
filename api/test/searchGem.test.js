@@ -202,4 +202,61 @@ describe('search', () => {
     expect(firstReaction2.id).toEqual('MAR03893');
     expect(firstReaction3.id).toEqual('MAR00973');
   });
+
+  test('gem search by cross reference finds the reaction', async () => {
+    const [data1, data2, data3, data4, data5] = await Promise.all([
+      search({
+        searchTerm: 'RE3476C',
+        model: 'HumanGem',
+        version: HUMAN_GEM_VERSION,
+      }),
+      search({
+        searchTerm: 'HMR_0973',
+        model: 'HumanGem',
+        version: HUMAN_GEM_VERSION,
+      }),
+      search({
+        searchTerm: 'MNXR103919',
+        model: 'HumanGem',
+        version: HUMAN_GEM_VERSION,
+      }),
+      search({
+        searchTerm: 'RCR12105',
+        model: 'HumanGem',
+        version: HUMAN_GEM_VERSION,
+      }),
+      search({
+        searchTerm: 'RE3476C',
+        model: 'HumanGem',
+        version: HUMAN_GEM_VERSION,
+      }),
+    ]);
+
+    const [firstReaction1] = data1['Human-GEM'].reaction;
+    expect(firstReaction1.id).toEqual('MAR00973');
+
+    const [firstReaction2] = data2['Human-GEM'].reaction;
+    expect(firstReaction2.id).toEqual('MAR00973');
+
+    // Multiple reactions share MetaNetX id
+    const [firstReaction3] = data3['Human-GEM'].reaction;
+    expect(firstReaction3.id).toEqual('MAR03896');
+
+    const [firstReaction4] = data4['Human-GEM'].reaction;
+    expect(firstReaction4.id).toEqual('MAR00973');
+
+    const [firstReaction5] = data5['Human-GEM'].reaction;
+    expect(firstReaction5.id).toEqual('MAR00973');
+  });
+  test('gem search on name should find subsystem', async () => {
+    const data = await search({
+      searchTerm: 'Beta oxidation of even-chain fatty acids (peroxisomal)',
+      model: 'HumanGem',
+    });
+    const [firstSubsystem] = data['Human-GEM'].subsystem;
+    expect(firstSubsystem.name).toEqual(
+      'Beta oxidation of even-chain fatty acids (peroxisomal)'
+    );
+    expect(firstSubsystem.score).toBeGreaterThan(0);
+  });
 });
