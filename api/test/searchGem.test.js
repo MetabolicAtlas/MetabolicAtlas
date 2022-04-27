@@ -93,6 +93,16 @@ describe('search', () => {
   test('gem search for metabolite id gives matches', async () => {
     const data = await search({
       searchTerm: 'MAM01513s',
+      model: 'HumanGem',
+    });
+    expect(data['Human-GEM'].metabolite.length).toBeGreaterThan(0);
+  });
+  
+ 
+  test('gem search for metabolite formula gives matches', async () => {
+    const data = await search({
+      searchTerm: 'C21H44NO7P',
+      model: 'HumanGem',
     });
     expect(data['Human-GEM'].metabolite.length).toBeGreaterThan(0);
   });
