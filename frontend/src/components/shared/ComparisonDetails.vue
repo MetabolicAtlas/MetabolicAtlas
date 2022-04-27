@@ -23,13 +23,13 @@
           Compared to
           <span v-for="(cm, i) in comparedModels" :key="cm.short_name" class="compared-models">
             <router-link :to="{ name: 'explorer', params: { model: cm.short_name } }">
-              {{ cm.short_name }}
+              {{ cm.short_name }}{{ currentModel.version }}
             </router-link>
             <span v-if="i < comparedModels.length - 1">and</span>
           </span>
           ,
-          <b>{{ currentModel.short_name }}</b>
-          has:
+          <b>{{ currentModel.short_name }}</b
+          >{{ currentModel.version }} has:
           <ul>
             <li>
               {{ comparisonDetails.details['Reaction'].common }} reactions and
