@@ -67,15 +67,27 @@ describe('search', () => {
   });
 
   test('gem search for metabolite name gives valid score for metabolites', async () => {
-    const data = await search({
-      searchTerm: 'pyridoxine',
-      model: 'HumanGem',
-      version: HUMAN_GEM_VERSION,
-    });
-    const [firstMetabolite] = data['Human-GEM'].metabolite.sort(
+    const [data1, data2] = await Promise.all([
+      search({
+        searchTerm: 'pyridoxine',
+        model: 'HumanGem',
+        version: HUMAN_GEM_VERSION,
+      }),
+      search({
+        searchTerm: '3(R)-hydroxy-(2S,6R,10)-trimethyl-hendecanoyl',
+        model: 'HumanGem',
+        version: HUMAN_GEM_VERSION,
+      }),
+    ]);
+    const [data1Metabolite] = data1['Human-GEM'].metabolite.sort(
       (a, b) => b.score - a.score
     );
-    expect(firstMetabolite.score).toBeGreaterThan(0);
+    expect(data1Metabolite.score).toBeGreaterThan(0);
+
+    const [data2Metabolite] = data2['Human-GEM'].metabolite.sort(
+      (a, b) => b.score - a.score
+    );
+    expect(data2Metabolite.score).toBeGreaterThan(0);
   });
 
   test('gem search for metabolite id gives matches', async () => {
