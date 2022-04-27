@@ -23,9 +23,9 @@ describe('search', () => {
   test('gem search should receive sensible ranking scores', async () => {
     const [data1, data2] = await Promise.all([
       search({
-        searchTerm: 'POLR3F',
-        model: 'HumanGem',
-        version: HUMAN_GEM_VERSION,
+        searchTerm: 'Polr3f',
+        model: 'MouseGem',
+        version: MOUSE_GEM_VERSION,
       }),
       search({
         searchTerm: 'Asparaginyl-Cysteinyl',
@@ -34,14 +34,14 @@ describe('search', () => {
       }),
     ]);
 
-    const { gene } = data1['Human-GEM'];
+    const { gene } = data1['Mouse-GEM'];
 
     const { metabolite } = data2['Human-GEM'];
 
     const [firstGene] = gene.sort((a, b) => b.score - a.score);
     const [firstMetabolite] = metabolite.sort((a, b) => b.score - a.score);
 
-    expect(firstGene.name).toBe('POLR3F');
+    expect(firstGene.id).toBe('Polr3f');
     expect(firstGene.score).toBeGreaterThan(0);
     expect(firstMetabolite.name).toMatch(/Asparaginyl-Cysteinyl/);
     expect(firstMetabolite.score).toBeGreaterThan(0);
@@ -69,9 +69,9 @@ describe('search', () => {
   test('gem search for metabolite name gives valid score for metabolites', async () => {
     const [data1, data2] = await Promise.all([
       search({
-        searchTerm: 'pyridoxine',
-        model: 'HumanGem',
-        version: HUMAN_GEM_VERSION,
+        searchTerm: 'coenzyme A',
+        model: 'YeastGem',
+        version: YEAST_GEM_VERSION,
       }),
       search({
         searchTerm: '3(R)-hydroxy-(2S,6R,10)-trimethyl-hendecanoyl',
@@ -79,7 +79,7 @@ describe('search', () => {
         version: HUMAN_GEM_VERSION,
       }),
     ]);
-    const [data1Metabolite] = data1['Human-GEM'].metabolite.sort(
+    const [data1Metabolite] = data1['Yeast-GEM'].metabolite.sort(
       (a, b) => b.score - a.score
     );
     expect(data1Metabolite.score).toBeGreaterThan(0);
@@ -91,19 +91,34 @@ describe('search', () => {
   });
 
   test('gem search for metabolite id gives matches', async () => {
-    const data = await search({
-      searchTerm: 'MAM01513s',
-      model: 'HumanGem',
-    });
-    expect(data['Human-GEM'].metabolite.length).toBeGreaterThan(0);
+    const [data1, data2] = await Promise.all([
+      search({
+        searchTerm: 'MAM01513s',
+        model: 'HumanGem',
+      }),
+      search({
+        searchTerm: 'MAM00715c',
+        model: 'FruitflyGem',
+      }),
+    ]);
+    expect(data1['Human-GEM'].metabolite.length).toBeGreaterThan(0);
+    expect(data2['Fruitfly-GEM'].metabolite.length).toBeGreaterThan(0);
   });
 
   test('gem search for metabolite formula gives matches', async () => {
-    const data = await search({
+    const [data1, data2] = await Promise.all([
+    search({
       searchTerm: 'C21H44NO7P',
       model: 'HumanGem',
-    });
-    expect(data['Human-GEM'].metabolite.length).toBeGreaterThan(0);
+    }),
+    search({
+      searchTerm: 'C31H53NO4',
+      model: 'ZebrafishGem',
+    }),
+    ]);
+    expect(data1['Human-GEM'].metabolite.length).toBeGreaterThan(0);
+    expect(data2['Zebrafish-GEM'].metabolite.length).toBeGreaterThan(0);
+    expect(data2['Zebrafish-GEM'].metabolite[0].id).toEqual('MAM00130m');
   });
 
   test('gem search by gene name, alternate name or id finds the gene', async () => {
