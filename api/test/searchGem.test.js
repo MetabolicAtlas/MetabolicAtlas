@@ -137,4 +137,36 @@ describe('search', () => {
     expect(firstGene2.name).toEqual('NEURL1B');
     expect(firstGene3.name).toEqual('NEURL1B');
   });
+
+  test('gem search by cross reference finds the gene', async () => {
+    const data = await search({
+      searchTerm: 'ENST00000415826',
+      model: 'HumanGem',
+      version: HUMAN_GEM_VERSION,
+    });
+
+    const data2 = await search({
+      searchTerm: '11145',
+      model: 'HumanGem',
+      version: HUMAN_GEM_VERSION,
+    });
+
+    const data3 = await search({
+      searchTerm: 'P53816',
+      model: 'HumanGem',
+      version: HUMAN_GEM_VERSION,
+    });
+    const [firstGene] = data['Human-GEM'].gene.sort(
+      (a, b) => b.score - a.score
+    );
+    const [firstGene2] = data2['Human-GEM'].gene.sort(
+      (a, b) => b.score - a.score
+    );
+    const [firstGene3] = data3['Human-GEM'].gene.sort(
+      (a, b) => b.score - a.score
+    );
+    expect(firstGene.name).toEqual('PLAAT3');
+    expect(firstGene2.name).toEqual('PLAAT3');
+    expect(firstGene3.name).toEqual('PLAAT3');
+  });
 });
