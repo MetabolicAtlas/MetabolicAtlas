@@ -195,7 +195,7 @@ export default {
       filename: datasource,
       propagate: false,
     });
-    const dataSet = this.validDataSourceDataSetInQuery() ? this.$route.query.dataSet : 'None';
+    const dataSet = this.validDataSourceDataSetInQuery() ? this.dataSet : 'None';
     await this.setDataSet(dataSet);
   },
   methods: {
@@ -273,9 +273,9 @@ export default {
     },
     validDataSourceDataSetInQuery() {
       return (
-        this.$route.query.dataSet && // eslint-disable-line operator-linebreak
+        this.dataSet && // eslint-disable-line operator-linebreak
         this.dataSource && // eslint-disable-line operator-linebreak
-        this.dataSource.dataSets.indexOf(this.$route.query.dataSet) > -1
+        this.dataSource.dataSets.indexOf(this.dataSet) > -1
       );
     },
   },
