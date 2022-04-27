@@ -42,7 +42,9 @@ describe('search', () => {
     const [firstMetabolite] = metabolite.sort((a, b) => b.score - a.score);
 
     expect(firstGene.name).toBe('POLR3F');
+    expect(firstGene.score).toBeGreaterThan(0);
     expect(firstMetabolite.name).toMatch(/Asparaginyl-Cysteinyl/);
+    expect(firstMetabolite.score).toBeGreaterThan(0);
   });
 
   test('gem search with special characters should not fail', async () => {
