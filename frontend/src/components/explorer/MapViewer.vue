@@ -160,7 +160,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapGetters, mapState, mapActions } from 'vuex';
 import { debounce } from 'vue-debounce';
 import DataOverlay from '@/components/explorer/mapViewer/DataOverlay.vue';
 import ErrorPanel from '@/components/shared/ErrorPanel';
@@ -249,6 +249,9 @@ export default {
     this.loadMapFromParams();
   },
   methods: {
+    ...mapActions({
+      resetOverlay: 'dataOverlay/resetValues',
+    }),
     handleSidebarScroll() {
       if (this.$refs.mapSidebar.scrollTop > 0) {
         this.sidebarLayoutReset = false;
@@ -301,6 +304,7 @@ export default {
       }
     },
     loadMapFromParams() {
+      this.resetOverlay();
       const id = this.$route.params.map_id;
       if (id) {
         const categories = Object.keys(this.mapsListing);

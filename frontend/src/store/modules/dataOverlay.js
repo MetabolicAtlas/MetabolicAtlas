@@ -105,9 +105,7 @@ const actions = {
     commit('setCustomDataSet', dataSet);
   },
   resetValues({ commit }) {
-    commit('setIndex', {});
-    commit('setCurrentDataType', null);
-    commit('setCurrentDataSource', null);
+    // Used to reset overlay values when switching maps
     commit('setDataSet', 'None');
   },
 };
