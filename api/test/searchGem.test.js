@@ -97,8 +97,7 @@ describe('search', () => {
     });
     expect(data['Human-GEM'].metabolite.length).toBeGreaterThan(0);
   });
-  
- 
+
   test('gem search for metabolite formula gives matches', async () => {
     const data = await search({
       searchTerm: 'C21H44NO7P',
@@ -107,13 +106,20 @@ describe('search', () => {
     expect(data['Human-GEM'].metabolite.length).toBeGreaterThan(0);
   });
 
-  test('gem search by gene name or id both finds the gene', async () => {
+  test('gem search by gene name, alternate name or id finds the gene', async () => {
     const data = await search({
       searchTerm: 'NEURL1B',
       model: 'HumanGem',
       version: HUMAN_GEM_VERSION,
     });
+
     const data2 = await search({
+      searchTerm: 'neuralized E3 ubiquitin protein ligase 1B',
+      model: 'HumanGem',
+      version: HUMAN_GEM_VERSION,
+    });
+
+    const data3 = await search({
       searchTerm: 'ENSG00000214357',
       model: 'HumanGem',
       version: HUMAN_GEM_VERSION,
@@ -121,10 +127,14 @@ describe('search', () => {
     const [firstGene] = data['Human-GEM'].gene.sort(
       (a, b) => b.score - a.score
     );
-    const [firstGene2] = data['Human-GEM'].gene.sort(
+    const [firstGene2] = data2['Human-GEM'].gene.sort(
+      (a, b) => b.score - a.score
+    );
+    const [firstGene3] = data3['Human-GEM'].gene.sort(
       (a, b) => b.score - a.score
     );
     expect(firstGene.name).toEqual('NEURL1B');
     expect(firstGene2.name).toEqual('NEURL1B');
+    expect(firstGene3.name).toEqual('NEURL1B');
   });
 });
