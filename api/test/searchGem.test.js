@@ -169,4 +169,37 @@ describe('search', () => {
     expect(firstGene2.name).toEqual('PLAAT3');
     expect(firstGene3.name).toEqual('PLAAT3');
   });
+
+  test('gem search by id, EC code and PMID finds the reaction', async () => {
+    const data = await search({
+      searchTerm: 'MAR03893',
+      model: 'HumanGem',
+      version: HUMAN_GEM_VERSION,
+    });
+
+    const data2 = await search({
+      searchTerm: '1.13.11.34',
+      model: 'HumanGem',
+      version: HUMAN_GEM_VERSION,
+    });
+
+    const data3 = await search({
+      searchTerm: '7929234',
+      model: 'HumanGem',
+      version: HUMAN_GEM_VERSION,
+    });
+    const [firstReaction] = data['Human-GEM'].reaction.sort(
+      (a, b) => b.score - a.score
+    );
+    const [firstReaction2] = data2['Human-GEM'].reaction.sort(
+      (a, b) => b.score - a.score
+    );
+    const [firstReaction3] = data3['Human-GEM'].reaction.sort(
+      (a, b) => b.score - a.score
+    );
+    expect(firstReaction.id).toEqual('MAR03893');
+    // Multiple reactions share EC code and PMID
+    expect(firstReaction2.id).toEqual('MAR03893');
+    expect(firstReaction3.id).toEqual('MAR00973');
+  });
 });
