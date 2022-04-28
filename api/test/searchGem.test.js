@@ -118,23 +118,23 @@ describe('search', () => {
   });
 
   test('gem search by gene name, alternate name or id finds the gene', async () => {
-    const data1 = await search({
-      searchTerm: 'NEURL1B',
-      model: 'HumanGem',
-      version: HUMAN_GEM_VERSION,
-    });
-
-    const data2 = await search({
-      searchTerm: 'neuralized E3 ubiquitin protein ligase 1B',
-      model: 'HumanGem',
-      version: HUMAN_GEM_VERSION,
-    });
-
-    const data3 = await search({
-      searchTerm: 'ENSG00000214357',
-      model: 'HumanGem',
-      version: HUMAN_GEM_VERSION,
-    });
+    const [data1, data2, data3] = await Promise.all([
+      search({
+        searchTerm: 'NEURL1B',
+        model: 'HumanGem',
+        version: HUMAN_GEM_VERSION,
+      }),
+      search({
+        searchTerm: 'neuralized E3 ubiquitin protein ligase 1B',
+        model: 'HumanGem',
+        version: HUMAN_GEM_VERSION,
+      }),
+      search({
+        searchTerm: 'ENSG00000214357',
+        model: 'HumanGem',
+        version: HUMAN_GEM_VERSION,
+      }),
+    ]);
     const [firstGene1] = data1['Human-GEM'].gene;
     const [firstGene2] = data2['Human-GEM'].gene;
     const [firstGene3] = data3['Human-GEM'].gene;
@@ -145,23 +145,24 @@ describe('search', () => {
   });
 
   test('gem search by cross reference finds the gene', async () => {
-    const data1 = await search({
-      searchTerm: 'ENST00000415826',
-      model: 'HumanGem',
-      version: HUMAN_GEM_VERSION,
-    });
+    const [data1, data2, data3] = await Promise.all([
+      search({
+        searchTerm: 'ENST00000415826',
+        model: 'HumanGem',
+        version: HUMAN_GEM_VERSION,
+      }),
+      search({
+        searchTerm: '11145',
+        model: 'HumanGem',
+        version: HUMAN_GEM_VERSION,
+      }),
+      search({
+        searchTerm: 'P53816',
+        model: 'HumanGem',
+        version: HUMAN_GEM_VERSION,
+      }),
+    ]);
 
-    const data2 = await search({
-      searchTerm: '11145',
-      model: 'HumanGem',
-      version: HUMAN_GEM_VERSION,
-    });
-
-    const data3 = await search({
-      searchTerm: 'P53816',
-      model: 'HumanGem',
-      version: HUMAN_GEM_VERSION,
-    });
     const [firstGene1] = data1['Human-GEM'].gene;
     const [firstGene2] = data2['Human-GEM'].gene;
     const [firstGene3] = data3['Human-GEM'].gene;
@@ -172,23 +173,23 @@ describe('search', () => {
   });
 
   test('gem search by id, EC code and PMID finds the reaction', async () => {
-    const data1 = await search({
-      searchTerm: 'MAR03893',
-      model: 'HumanGem',
-      version: HUMAN_GEM_VERSION,
-    });
-
-    const data2 = await search({
-      searchTerm: '1.13.11.34',
-      model: 'HumanGem',
-      version: HUMAN_GEM_VERSION,
-    });
-
-    const data3 = await search({
-      searchTerm: '7929234',
-      model: 'HumanGem',
-      version: HUMAN_GEM_VERSION,
-    });
+    const [data1, data2, data3] = await Promise.all([
+      search({
+        searchTerm: 'MAR03893',
+        model: 'HumanGem',
+        version: HUMAN_GEM_VERSION,
+      }),
+      search({
+        searchTerm: '1.13.11.34',
+        model: 'HumanGem',
+        version: HUMAN_GEM_VERSION,
+      }),
+      search({
+        searchTerm: '7929234',
+        model: 'HumanGem',
+        version: HUMAN_GEM_VERSION,
+      }),
+    ]);
     const [firstReaction1] = data1['Human-GEM'].reaction;
     const [firstReaction2] = data2['Human-GEM'].reaction;
     const [firstReaction3] = data3['Human-GEM'].reaction;
@@ -228,19 +229,16 @@ describe('search', () => {
     ]);
 
     const [firstReaction1] = data1['Human-GEM'].reaction;
-    expect(firstReaction1.id).toEqual('MAR00973');
-
     const [firstReaction2] = data2['Human-GEM'].reaction;
-    expect(firstReaction2.id).toEqual('MAR00973');
-
     // Multiple reactions share MetaNetX id
     const [firstReaction3] = data3['Human-GEM'].reaction;
-    expect(firstReaction3.id).toEqual('MAR03896');
-
     const [firstReaction4] = data4['Human-GEM'].reaction;
-    expect(firstReaction4.id).toEqual('MAR00973');
-
     const [firstReaction5] = data5['Human-GEM'].reaction;
+
+    expect(firstReaction1.id).toEqual('MAR00973');
+    expect(firstReaction2.id).toEqual('MAR00973');
+    expect(firstReaction3.id).toEqual('MAR03896');
+    expect(firstReaction4.id).toEqual('MAR00973');
     expect(firstReaction5.id).toEqual('MAR00973');
   });
 
