@@ -95,10 +95,12 @@ describe('search', () => {
       search({
         searchTerm: 'MAM01513s',
         model: 'HumanGem',
+        version: HUMAN_GEM_VERSION,
       }),
       search({
         searchTerm: 'MAM00715c',
         model: 'FruitflyGem',
+        version: FRUITFLY_GEM_VERSION,
       }),
     ]);
     expect(data1['Human-GEM'].metabolite.length).toBeGreaterThan(0);
@@ -110,10 +112,12 @@ describe('search', () => {
     search({
       searchTerm: 'C21H44NO7P',
       model: 'HumanGem',
+      version: HUMAN_GEM_VERSION,
     }),
     search({
       searchTerm: 'C31H53NO4',
       model: 'ZebrafishGem',
+      version: ZEBRAFISH_GEM_VERSION,
     }),
     ]);
     expect(data1['Human-GEM'].metabolite.length).toBeGreaterThan(0);
@@ -267,6 +271,7 @@ describe('search', () => {
     const data = await search({
       searchTerm: 'Beta oxidation of even-chain fatty acids (peroxisomal)',
       model: 'HumanGem',
+      version: HUMAN_GEM_VERSION,
     });
     const [firstSubsystem] = data['Human-GEM'].subsystem;
     expect(firstSubsystem.name).toEqual(
@@ -279,6 +284,7 @@ describe('search', () => {
     const data = await search({
       searchTerm: 'Extracellular',
       model: 'HumanGem',
+      version: HUMAN_GEM_VERSION,
     });
     const [firstCompartment] = data['Human-GEM'].compartment;
     expect(firstCompartment.name).toEqual('Extracellular');
