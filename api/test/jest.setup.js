@@ -7,7 +7,7 @@ global.beforeAll(() => {
   global.WORM_GEM_VERSION = '1_1_0';
   global.YEAST_GEM_VERSION = '8_4_2';
   global.ZEBRAFISH_GEM_VERSION = '1_1_0';
-  global.COMPARTMENTS = [
+  global.COMPONENTS = [
     'metabolite',
     'gene',
     'reaction',

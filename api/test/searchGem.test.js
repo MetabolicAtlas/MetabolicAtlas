@@ -292,20 +292,20 @@ describe('gem search', () => {
       model: 'HumanGem',
       version: 'abcd',
     });
-    for (const compartment of COMPARTMENTS) {
-      expect(data['Human-GEM'][compartment].length).toEqual(0);
+    for (const component of COMPONENTS) {
+      expect(data['Human-GEM'][component].length).toEqual(0);
     }
   });
 
   test('search for subsystem id should give highest score to subsystems', async () => {
-    // test all compartments?
+    // test all components?
     const data = await search({
       searchTerm: 'Retinol metabolism',
       model: 'HumanGem',
       version: HUMAN_GEM_VERSION,
     });
 
-    const scores = COMPARTMENTS.map(c =>
+    const scores = COMPONENTS.map(c =>
       data['Human-GEM'][c][0] ? data['Human-GEM'][c][0].score : 0
     );
     const subsystemScore = data['Human-GEM']['subsystem'][0].score;
@@ -338,11 +338,11 @@ describe('gem search', () => {
         limit: 10,
       }),
     ]);
-    for (const compartment of COMPARTMENTS) {
-      expect(lim1['Human-GEM'][compartment].length).toBeLessThan(2);
+    for (const component of COMPONENTS) {
+      expect(lim1['Human-GEM'][component].length).toBeLessThan(2);
     }
-    for (const compartment of COMPARTMENTS) {
-      expect(lim10['Human-GEM'][compartment].length).toBeLessThan(11);
+    for (const component of COMPONENTS) {
+      expect(lim10['Human-GEM'][component].length).toBeLessThan(11);
     }
   });
 });

@@ -17,7 +17,7 @@ module.exports = {
     RAT_GEM_VERSION: 'writable',
     YEAST_GEM_VERSION: 'writable',
     ZEBRAFISH_GEM_VERSION: 'writable',
-    COMPARTMENTS: 'writable',
+    COMPONENTS: 'writable',
   },
   parserOptions: {
     ecmaVersion: 2018,
