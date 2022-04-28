@@ -284,9 +284,32 @@ describe('gem search', () => {
       version: HUMAN_GEM_VERSION,
     });
 
-    const scores = COMPARTMENTS.map(c => data['Human-GEM'][c][0] ? data['Human-GEM'][c][0].score : 0)
-    const subsystemScore = data['Human-GEM']['subsystem'][0].score
-    expect(subsystemScore).toEqual(Math.max(...scores))
+    const scores = COMPARTMENTS.map(c =>
+      data['Human-GEM'][c][0] ? data['Human-GEM'][c][0].score : 0
+    );
+    const subsystemScore = data['Human-GEM']['subsystem'][0].score;
+    expect(subsystemScore).toEqual(Math.max(...scores));
   });
 
+  test('search results can be limited', async () => {
+    // TODO: behaves weirdly, test 2 vs 3 vs 5
+    const [lim1, lim10] = await Promise.all([
+      search({
+        searchTerm: 'h20',
+        model: 'HumanGem',
+        limit: 1,
+      }),
+      search({
+        searchTerm: 'h20',
+        model: 'HumanGem',
+        limit: 10,
+      }),
+    ]);
+    for (const compartment of COMPARTMENTS) {
+      expect(lim1['Human-GEM'][compartment].length).toBeLessThan(2);
+    }
+    for (const compartment of COMPARTMENTS) {
+      expect(lim10['Human-GEM'][compartment].length).toBeLessThan(11);
+    }
+  });
 });
