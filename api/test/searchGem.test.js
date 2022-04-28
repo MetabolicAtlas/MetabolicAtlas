@@ -17,7 +17,7 @@ describe('gem search', () => {
 
     const { metabolite } = data['Human-GEM'];
     expect(metabolite.length).toBeGreaterThan(0);
-    expect(metabolite.length).toBeLessThan(51);
+    expect(metabolite.length).toBeLessThanOrEqual(50);
   });
 
   test('gem search should receive sensible ranking scores', async () => {
@@ -339,10 +339,10 @@ describe('gem search', () => {
       }),
     ]);
     for (const component of COMPONENTS) {
-      expect(lim1['Human-GEM'][component].length).toBeLessThan(2);
+      expect(lim1['Human-GEM'][component].length).toBeLessThanOrEqual(1);
     }
     for (const component of COMPONENTS) {
-      expect(lim10['Human-GEM'][component].length).toBeLessThan(11);
+      expect(lim10['Human-GEM'][component].length).toBeLessThanOrEqual(10);
     }
   });
 });
