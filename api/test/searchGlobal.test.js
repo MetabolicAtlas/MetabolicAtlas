@@ -41,4 +41,18 @@ describe('search', () => {
     const yeastScore = data['Yeast-GEM']['reaction'][0].score;
     expect(yeastScore).toBeGreaterThan(topscore);
   });
+
+  test('search for Nucleus should give same highest score in all models', async () => {
+    const data = await search({
+      searchTerm: 'Nucleus',
+    });
+    const scores = Object.values(data).map(m => {
+      return m.compartment[0].score;
+    });
+    const scoreSet = new Set(scores);
+
+    expect(scores.length).toEqual(7);
+    expect(scoreSet.size).toEqual(1);
+    expect(scoreSet.has(9.740471839904785)).toEqual(true);
+  });
 });
