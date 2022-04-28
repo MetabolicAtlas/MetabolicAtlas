@@ -313,8 +313,18 @@ describe('gem search', () => {
     expect(subsystemScore).toEqual(Math.max(...scores));
   });
 
+  test('search in mouse gem should not give match in a other model', async () => {
+    const data = await search({
+      searchTerm: 'h20',
+      model: 'MouseGem',
+      version: MOUSE_GEM_VERSION,
+    });
+    for (const model of Object.keys(data)) {
+      expect(model).not.toEqual('Human-GEM');
+    }
+  });
+
   test('search results can be limited', async () => {
-    // TODO: behaves weirdly, test 2 vs 3 vs 5
     const [lim1, lim10] = await Promise.all([
       search({
         searchTerm: 'h20',
