@@ -298,7 +298,6 @@ describe('gem search', () => {
   });
 
   test('search for subsystem id should give highest score to subsystems', async () => {
-    // test all components?
     const data = await search({
       searchTerm: 'Retinol metabolism',
       model: 'HumanGem',
@@ -313,7 +312,6 @@ describe('gem search', () => {
   });
 
   test('search in mouse gem should not give match in a other model', async () => {
-    // rewrite to: all models == MouseGem??
     const data = await search({
       searchTerm: 'H2O',
       model: 'MouseGem',
@@ -325,7 +323,6 @@ describe('gem search', () => {
   });
 
   test('search results can be limited', async () => {
-    // TODO: behaves weirdly, test 2 vs 3 vs 5
     const [lim1, lim10] = await Promise.all([
       search({
         searchTerm: 'H2O',
