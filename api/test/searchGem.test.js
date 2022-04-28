@@ -1,7 +1,7 @@
 import driver from 'neo4j/driver';
 import { search } from 'neo4j/queries/search';
 
-describe('search', () => {
+describe('gem search', () => {
   afterAll(async () => {
     await driver.close();
   });
