@@ -4,6 +4,7 @@ global.beforeAll(() => {
   global.HUMAN_GEM_VERSION = '1_10_0';
   global.MOUSE_GEM_VERSION = '1_2_0';
   global.RAT_GEM_VERSION = '1_2_0';
+  global.WORM_GEM_VERSION = '1_1_0';
   global.YEAST_GEM_VERSION = '8_4_2';
   global.ZEBRAFISH_GEM_VERSION = '1_1_0';
   global.COMPARTMENTS = [

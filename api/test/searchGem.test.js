@@ -243,26 +243,48 @@ describe('gem search', () => {
   });
 
   test('gem search on name should find subsystem', async () => {
-    const data = await search({
-      searchTerm: 'Beta oxidation of even-chain fatty acids (peroxisomal)',
-      model: 'HumanGem',
-      version: HUMAN_GEM_VERSION,
-    });
-    const [firstSubsystem] = data['Human-GEM'].subsystem;
-    expect(firstSubsystem.name).toEqual(
+    const [data1, data2] = await Promise.all([
+      search({
+        searchTerm: 'Beta oxidation of even-chain fatty acids (peroxisomal)',
+        model: 'HumanGem',
+        version: HUMAN_GEM_VERSION,
+      }),
+      search({
+        searchTerm: 'Alkaloids biosynthesis',
+        model: 'RatGem',
+        version: RAT_GEM_VERSION,
+      }),
+    ]);
+    const [firstSubsystem1] = data1['Human-GEM'].subsystem;
+    const [firstSubsystem2] = data2['Rat-GEM'].subsystem;
+    expect(firstSubsystem1.name).toEqual(
       'Beta oxidation of even-chain fatty acids (peroxisomal)'
     );
-    expect(firstSubsystem.score).toBeGreaterThan(0);
+    expect(firstSubsystem2.name).toEqual(
+      'Alkaloids biosynthesis'
+    );
+    expect(firstSubsystem1.score).toBeGreaterThan(0);
+    expect(firstSubsystem2.score).toBeGreaterThan(0);
   });
 
   test('gem search on name should find compartment', async () => {
-    const data = await search({
-      searchTerm: 'Extracellular',
-      model: 'HumanGem',
-      version: HUMAN_GEM_VERSION,
-    });
-    const [firstCompartment] = data['Human-GEM'].compartment;
-    expect(firstCompartment.name).toEqual('Extracellular');
-    expect(firstCompartment.score).toBeGreaterThan(0);
+    const [data1, data2] = await Promise.all([
+      search({
+        searchTerm: 'Extracellular',
+        model: 'HumanGem',
+        version: HUMAN_GEM_VERSION,
+      }),
+      search({
+        searchTerm: 'Golgi apparatus',
+        model: 'WormGem',
+        version: WORM_GEM_VERSION,
+      }),
+    ]);
+    const [firstCompartment1] = data1['Human-GEM'].compartment;
+    const [firstCompartment2] = data2['Worm-GEM'].compartment;
+    expect(firstCompartment1.name).toEqual('Extracellular');
+    expect(firstCompartment2.name).toEqual('Golgi apparatus');
+    expect(firstCompartment1.score).toBeGreaterThan(0);
+    expect(firstCompartment2.score).toBeGreaterThan(0);
   });
 });
