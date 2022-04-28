@@ -288,7 +288,7 @@ describe('gem search', () => {
 
   test('search for invalid version does not give results', async () => {
     const data = await search({
-      searchTerm: 'h20',
+      searchTerm: 'H2O',
       model: 'HumanGem',
       version: 'abcd',
     });
@@ -298,6 +298,7 @@ describe('gem search', () => {
   });
 
   test('search for subsystem id should give highest score to subsystems', async () => {
+    // test all compartments?
     const data = await search({
       searchTerm: 'Retinol metabolism',
       model: 'HumanGem',
@@ -312,8 +313,9 @@ describe('gem search', () => {
   });
 
   test('search in mouse gem should not give match in a other model', async () => {
+    // rewrite to: all models == MouseGem??
     const data = await search({
-      searchTerm: 'h20',
+      searchTerm: 'H2O',
       model: 'MouseGem',
       version: MOUSE_GEM_VERSION,
     });
@@ -323,14 +325,15 @@ describe('gem search', () => {
   });
 
   test('search results can be limited', async () => {
+    // TODO: behaves weirdly, test 2 vs 3 vs 5
     const [lim1, lim10] = await Promise.all([
       search({
-        searchTerm: 'h20',
+        searchTerm: 'H2O',
         model: 'HumanGem',
         limit: 1,
       }),
       search({
-        searchTerm: 'h20',
+        searchTerm: 'H2O',
         model: 'HumanGem',
         limit: 10,
       }),
