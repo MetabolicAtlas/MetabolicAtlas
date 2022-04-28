@@ -260,9 +260,7 @@ describe('gem search', () => {
     expect(firstSubsystem1.name).toEqual(
       'Beta oxidation of even-chain fatty acids (peroxisomal)'
     );
-    expect(firstSubsystem2.name).toEqual(
-      'Alkaloids biosynthesis'
-    );
+    expect(firstSubsystem2.name).toEqual('Alkaloids biosynthesis');
     expect(firstSubsystem1.score).toBeGreaterThan(0);
     expect(firstSubsystem2.score).toBeGreaterThan(0);
   });

@@ -13,6 +13,7 @@ module.exports = {
     HUMAN_GEM_VERSION: 'writable',
     FRUITFLY_GEM_VERSION: 'writable',
     MOUSE_GEM_VERSION: 'writable',
+    WORM_GEM_VERSION: 'writable',
     RAT_GEM_VERSION: 'writable',
     YEAST_GEM_VERSION: 'writable',
     ZEBRAFISH_GEM_VERSION: 'writable',
