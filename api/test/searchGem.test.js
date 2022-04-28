@@ -34,12 +34,8 @@ describe('search', () => {
       }),
     ]);
 
-    const { gene } = data1['Mouse-GEM'];
-
-    const { metabolite } = data2['Human-GEM'];
-
-    const [firstGene] = gene.sort((a, b) => b.score - a.score);
-    const [firstMetabolite] = metabolite.sort((a, b) => b.score - a.score);
+    const [firstGene] = data1['Mouse-GEM'].gene;
+    const [firstMetabolite] = data2['Human-GEM'].metabolite;
 
     expect(firstGene.id).toBe('Polr3f');
     expect(firstGene.score).toBeGreaterThan(0);
@@ -79,14 +75,10 @@ describe('search', () => {
         version: HUMAN_GEM_VERSION,
       }),
     ]);
-    const [data1Metabolite] = data1['Yeast-GEM'].metabolite.sort(
-      (a, b) => b.score - a.score
-    );
+    const [data1Metabolite] = data1['Yeast-GEM'].metabolite;
     expect(data1Metabolite.score).toBeGreaterThan(0);
 
-    const [data2Metabolite] = data2['Human-GEM'].metabolite.sort(
-      (a, b) => b.score - a.score
-    );
+    const [data2Metabolite] = data2['Human-GEM'].metabolite;
     expect(data2Metabolite.score).toBeGreaterThan(0);
   });
 
@@ -109,16 +101,16 @@ describe('search', () => {
 
   test('gem search for metabolite formula gives matches', async () => {
     const [data1, data2] = await Promise.all([
-    search({
-      searchTerm: 'C21H44NO7P',
-      model: 'HumanGem',
-      version: HUMAN_GEM_VERSION,
-    }),
-    search({
-      searchTerm: 'C31H53NO4',
-      model: 'ZebrafishGem',
-      version: ZEBRAFISH_GEM_VERSION,
-    }),
+      search({
+        searchTerm: 'C21H44NO7P',
+        model: 'HumanGem',
+        version: HUMAN_GEM_VERSION,
+      }),
+      search({
+        searchTerm: 'C31H53NO4',
+        model: 'ZebrafishGem',
+        version: ZEBRAFISH_GEM_VERSION,
+      }),
     ]);
     expect(data1['Human-GEM'].metabolite.length).toBeGreaterThan(0);
     expect(data2['Zebrafish-GEM'].metabolite.length).toBeGreaterThan(0);
@@ -126,7 +118,7 @@ describe('search', () => {
   });
 
   test('gem search by gene name, alternate name or id finds the gene', async () => {
-    const data = await search({
+    const data1 = await search({
       searchTerm: 'NEURL1B',
       model: 'HumanGem',
       version: HUMAN_GEM_VERSION,
@@ -143,22 +135,17 @@ describe('search', () => {
       model: 'HumanGem',
       version: HUMAN_GEM_VERSION,
     });
-    const [firstGene] = data['Human-GEM'].gene.sort(
-      (a, b) => b.score - a.score
-    );
-    const [firstGene2] = data2['Human-GEM'].gene.sort(
-      (a, b) => b.score - a.score
-    );
-    const [firstGene3] = data3['Human-GEM'].gene.sort(
-      (a, b) => b.score - a.score
-    );
-    expect(firstGene.name).toEqual('NEURL1B');
+    const [firstGene1] = data1['Human-GEM'].gene;
+    const [firstGene2] = data2['Human-GEM'].gene;
+    const [firstGene3] = data3['Human-GEM'].gene;
+
+    expect(firstGene1.name).toEqual('NEURL1B');
     expect(firstGene2.name).toEqual('NEURL1B');
     expect(firstGene3.name).toEqual('NEURL1B');
   });
 
   test('gem search by cross reference finds the gene', async () => {
-    const data = await search({
+    const data1 = await search({
       searchTerm: 'ENST00000415826',
       model: 'HumanGem',
       version: HUMAN_GEM_VERSION,
@@ -175,22 +162,17 @@ describe('search', () => {
       model: 'HumanGem',
       version: HUMAN_GEM_VERSION,
     });
-    const [firstGene] = data['Human-GEM'].gene.sort(
-      (a, b) => b.score - a.score
-    );
-    const [firstGene2] = data2['Human-GEM'].gene.sort(
-      (a, b) => b.score - a.score
-    );
-    const [firstGene3] = data3['Human-GEM'].gene.sort(
-      (a, b) => b.score - a.score
-    );
-    expect(firstGene.name).toEqual('PLAAT3');
+    const [firstGene1] = data1['Human-GEM'].gene;
+    const [firstGene2] = data2['Human-GEM'].gene;
+    const [firstGene3] = data3['Human-GEM'].gene;
+
+    expect(firstGene1.name).toEqual('PLAAT3');
     expect(firstGene2.name).toEqual('PLAAT3');
     expect(firstGene3.name).toEqual('PLAAT3');
   });
 
   test('gem search by id, EC code and PMID finds the reaction', async () => {
-    const data = await search({
+    const data1 = await search({
       searchTerm: 'MAR03893',
       model: 'HumanGem',
       version: HUMAN_GEM_VERSION,
@@ -207,16 +189,10 @@ describe('search', () => {
       model: 'HumanGem',
       version: HUMAN_GEM_VERSION,
     });
-    const [firstReaction] = data['Human-GEM'].reaction.sort(
-      (a, b) => b.score - a.score
-    );
-    const [firstReaction2] = data2['Human-GEM'].reaction.sort(
-      (a, b) => b.score - a.score
-    );
-    const [firstReaction3] = data3['Human-GEM'].reaction.sort(
-      (a, b) => b.score - a.score
-    );
-    expect(firstReaction.id).toEqual('MAR03893');
+    const [firstReaction1] = data1['Human-GEM'].reaction;
+    const [firstReaction2] = data2['Human-GEM'].reaction;
+    const [firstReaction3] = data3['Human-GEM'].reaction;
+    expect(firstReaction1.id).toEqual('MAR03893');
     // Multiple reactions share EC code and PMID
     expect(firstReaction2.id).toEqual('MAR03893');
     expect(firstReaction3.id).toEqual('MAR00973');
@@ -267,6 +243,7 @@ describe('search', () => {
     const [firstReaction5] = data5['Human-GEM'].reaction;
     expect(firstReaction5.id).toEqual('MAR00973');
   });
+
   test('gem search on name should find subsystem', async () => {
     const data = await search({
       searchTerm: 'Beta oxidation of even-chain fatty acids (peroxisomal)',
