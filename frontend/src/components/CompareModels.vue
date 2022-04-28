@@ -46,7 +46,7 @@
         >
         and <b><a href="https://vmh.life/#home">Recon</a></b
         >. Since then, Human-GEM has been extensively curated and new versions are continuously
-        published. The tables below give an overview of how previous versions of Human-GEM relate to
+        published. The tables below give an overview of how version 1.0.2 of Human-GEM relates to
         HMR and Recon. More information can be found in
         <a href="https://europepmc.org/article/MED/32209698">this publication</a>.
       </div>
