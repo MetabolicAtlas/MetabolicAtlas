@@ -287,4 +287,51 @@ describe('gem search', () => {
     expect(firstCompartment1.score).toBeGreaterThan(0);
     expect(firstCompartment2.score).toBeGreaterThan(0);
   });
+
+  test('search for invalid version does not give results', async () => {
+    const data = await search({
+      searchTerm: 'h20',
+      model: 'HumanGem',
+      version: 'abcd',
+    });
+    for (const compartment of COMPARTMENTS) {
+      expect(data['Human-GEM'][compartment].length).toEqual(0);
+    }
+  });
+
+  test('search for subsystem id should give highest score to subsystems', async () => {
+    const data = await search({
+      searchTerm: 'Retinol metabolism',
+      model: 'HumanGem',
+      version: HUMAN_GEM_VERSION,
+    });
+
+    const scores = COMPARTMENTS.map(c =>
+      data['Human-GEM'][c][0] ? data['Human-GEM'][c][0].score : 0
+    );
+    const subsystemScore = data['Human-GEM']['subsystem'][0].score;
+    expect(subsystemScore).toEqual(Math.max(...scores));
+  });
+
+  test('search results can be limited', async () => {
+    // TODO: behaves weirdly, test 2 vs 3 vs 5
+    const [lim1, lim10] = await Promise.all([
+      search({
+        searchTerm: 'h20',
+        model: 'HumanGem',
+        limit: 1,
+      }),
+      search({
+        searchTerm: 'h20',
+        model: 'HumanGem',
+        limit: 10,
+      }),
+    ]);
+    for (const compartment of COMPARTMENTS) {
+      expect(lim1['Human-GEM'][compartment].length).toBeLessThan(2);
+    }
+    for (const compartment of COMPARTMENTS) {
+      expect(lim10['Human-GEM'][compartment].length).toBeLessThan(11);
+    }
+  });
 });
