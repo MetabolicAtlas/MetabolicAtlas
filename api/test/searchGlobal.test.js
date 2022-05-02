@@ -46,9 +46,7 @@ describe('search', () => {
     const data = await search({
       searchTerm: 'Nucleus',
     });
-    const scores = Object.values(data).map(m => {
-      return m.compartment[0].score;
-    });
+    const scores = Object.values(data).map(m => m.compartment[0].score);
     const scoreSet = new Set(scores);
 
     expect(scores.length).toEqual(7);
