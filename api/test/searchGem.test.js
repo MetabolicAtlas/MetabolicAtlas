@@ -182,23 +182,22 @@ describe('gem search', () => {
         version: HUMAN_GEM_VERSION,
       }),
       search({
-        searchTerm: '1.13.11.34',
-        model: 'HumanGem',
-        version: HUMAN_GEM_VERSION,
+        searchTerm: '2.4.2.9',
+        model: 'WormGem',
+        version: WORM_GEM_VERSION,
       }),
       search({
-        searchTerm: '7929234',
-        model: 'HumanGem',
-        version: HUMAN_GEM_VERSION,
+        searchTerm: '17267599',
+        model: 'MouseGem',
+        version: MOUSE_GEM_VERSION,
       }),
     ]);
     const [firstReaction1] = data1['Human-GEM'].reaction;
-    const [firstReaction2] = data2['Human-GEM'].reaction;
-    const [firstReaction3] = data3['Human-GEM'].reaction;
+    const [firstReaction2] = data2['Worm-GEM'].reaction;
+    const [firstReaction3] = data3['Mouse-GEM'].reaction;
     expect(firstReaction1.id).toEqual('MAR03893');
-    // Multiple reactions share EC code and PMID
-    expect(firstReaction2.id).toEqual('MAR03893');
-    expect(firstReaction3.id).toEqual('MAR00973');
+    expect(firstReaction2.id).toEqual('MAR04343');
+    expect(firstReaction3.id).toMatch(/MAR03986|MAR09166|MAR03987/);
   });
 
   test('gem search by cross reference finds the reaction', async () => {
