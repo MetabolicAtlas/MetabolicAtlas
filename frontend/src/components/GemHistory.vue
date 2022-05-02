@@ -52,7 +52,7 @@ export default {
   },
   mounted() {
     const chart = createTimelineChart();
-    this.$refs.svg = chart
+    this.$refs.svg = chart;
     this.$refs.wrapper.append(chart);
     this.setupInteractivity();
   },
@@ -68,7 +68,10 @@ export default {
       const { model, version } = this.selectedVersion;
       const integratedModel = this.integratedModels.find(m => m.short_name === model);
 
-      if (integratedModel.version !== version) {
+      // Patch versions are not shown, so only major and minor numbers are compared
+      const [major, minor] = integratedModel.version.split('.');
+      const [selectedMajor, selectedMinor] = version.split('.');
+      if (major !== selectedMajor || minor !== selectedMinor) {
         return null;
       }
 
@@ -124,6 +127,8 @@ export default {
 <style lang="scss">
 #timeline-wrapper {
   position: relative;
+  max-width: calc(100vw - 80px);
+  overflow-x: auto;
 
   svg {
     .circle {
