@@ -114,7 +114,9 @@ describe('gem search', () => {
     ]);
     expect(data1['Human-GEM'].metabolite.length).toBeGreaterThan(0);
     expect(data2['Zebrafish-GEM'].metabolite.length).toBeGreaterThan(0);
-    expect(data2['Zebrafish-GEM'].metabolite[0].id).toEqual('MAM00130m');
+    expect(data2['Zebrafish-GEM'].metabolite[0].id).toMatch(
+      /MAM00130|MAM00316/
+    );
   });
 
   test('gem search by gene name, alternate name or id finds the gene', async () => {
