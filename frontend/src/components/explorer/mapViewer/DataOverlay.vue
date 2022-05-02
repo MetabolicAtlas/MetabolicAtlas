@@ -195,7 +195,7 @@ export default {
       filename: datasource,
       propagate: false,
     });
-    const dataSet = this.validDataSourceDataSetInQuery() ? this.dataSet : 'None';
+    const dataSet = this.validDataSourceDataSetInQuery() ? this.currentDataSet() : 'None';
     await this.setDataSet(dataSet);
   },
   methods: {
@@ -271,11 +271,14 @@ export default {
     modelHasOverlayData() {
       return Object.keys(this.dataSourcesIndex).length > 0;
     },
+    currentDataSet() {
+      return this.dataSet !== 'None' ? this.dataSet : this.$route.query.dataSet;
+    },
     validDataSourceDataSetInQuery() {
       return (
-        this.dataSet && // eslint-disable-line operator-linebreak
+        this.currentDataSet() && // eslint-disable-line operator-linebreak
         this.dataSource && // eslint-disable-line operator-linebreak
-        this.dataSource.dataSets.indexOf(this.dataSet) > -1
+        this.dataSource.dataSets.indexOf(this.currentDataSet()) > -1
       );
     },
   },
