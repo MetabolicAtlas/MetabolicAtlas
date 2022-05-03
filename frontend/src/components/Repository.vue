@@ -4,7 +4,6 @@
       <div v-if="errorMessage" v-html="errorMessage" />
       <div v-else>
         <h3 id="Integrated-models" class="title is-3">Integrated models</h3>
-        <gem-history />
         <p class="has-text-justified">
           These models are integrated into the Metabolic Atlas database; they can be explored via
           {{ messages.gemBrowserName }}, {{ messages.mapViewerName }} and
@@ -60,7 +59,8 @@
             </div>
           </div>
         </div>
-        <br />
+        <h4 id="integrated-models-history" class="title is-4">History of integrated models</h4>
+        <gem-history />
         <h3 id="GEM-repository" class="title is-3">GEM Repository</h3>
         <p class="has-text-justified">
           While we do not provide support for these models, we are making them available to

@@ -1,6 +1,11 @@
 <template>
   <div id="timeline-wrapper">
-    <div id="timeline-svg-wrapper" ref="wrapper" />
+    <div id="timeline-svg-wrapper" ref="wrapper">
+      <inline-svg
+        ref="inlineSvg"
+        :src="require('../assets/gemRepository/integratedModelsTimeline.svg')"
+      />
+    </div>
     <div
       v-if="selectedVersion"
       id="timeline-popover"
@@ -49,10 +54,13 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import InlineSvg from 'vue-inline-svg';
 import { default as messages } from '@/content/messages';
-import { createTimelineChart } from '@/helpers/gemHistory';
 
 export default {
+  components: {
+    InlineSvg,
+  },
   data() {
     return {
       selectedVersion: null,
@@ -105,11 +113,14 @@ export default {
       return major === selectedMajor && minor === selectedMinor ? integratedModel : null;
     },
     setupChart() {
-      const chart = createTimelineChart();
-      this.$refs.svg = chart;
-      this.$refs.wrapper.append(chart);
+      const circles = this.$refs.inlineSvg.$el.getElementsByTagName('circle');
 
-      const circles = this.$refs.svg.getElementsByTagName('circle');
+      // add some bottom spacing to make sure the X Axis shows
+      this.$refs.inlineSvg.$el.setAttribute(
+        'height',
+        parseFloat(this.$refs.inlineSvg.$el.getAttribute('height')) + 50
+      );
+
       Array.from(circles).forEach(circle => {
         const { model, version } = { ...circle.dataset };
         const matchingModel = this.getMatchingModel(model, version);
@@ -119,7 +130,7 @@ export default {
       });
     },
     setupInteractivity() {
-      const circles = this.$refs.svg.getElementsByTagName('circle');
+      const circles = this.$refs.inlineSvg.$el.getElementsByTagName('circle');
 
       Array.from(circles).forEach(circle => {
         circle.addEventListener('click', e => {
@@ -147,7 +158,7 @@ export default {
         });
       });
 
-      this.$refs.svg.addEventListener('click', e => {
+      this.$refs.inlineSvg.$el.addEventListener('click', e => {
         const el = e.path[0];
         if (el.tagName !== 'circle') {
           this.clearSelection();
@@ -167,7 +178,6 @@ export default {
 <style lang="scss">
 #timeline-wrapper {
   position: relative;
-  padding-bottom: 2rem;
 
   #timeline-svg-wrapper {
     overflow-x: auto;
