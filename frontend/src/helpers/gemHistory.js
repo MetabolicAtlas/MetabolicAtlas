@@ -157,7 +157,8 @@ const addGemVersions = svg => {
       .attr('data-version', (_d, i) => versions[i].id.split('-')[2])
       .attr('data-release-date', (_d, i) => versions[i].releaseDate)
       .attr('data-release-link', (_d, i) => versions[i].releaseLink)
-      .attr('data-pmid', (_d, i) => versions[i].PMID);
+      .attr('data-pmid', (_d, i) => versions[i].PMID)
+      .attr('data-external-parent-ids', (_d, i) => JSON.stringify(versions[i].externalParentId));
 
     svg
       .append('g')

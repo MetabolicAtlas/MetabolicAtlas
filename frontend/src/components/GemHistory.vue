@@ -29,6 +29,14 @@
       <div class="pt-2 is-size-7">
         <p>Model: {{ selectedVersion.model }}</p>
         <p>Released: {{ selectedVersion.releaseDate }}</p>
+        <div v-if="selectedVersion.externalParentIds.length > 0">
+          <p>Citations:</p>
+          <ul>
+            <li v-for="{ id, citLink } in selectedVersion.externalParentIds" :key="id">
+              <a :href="citLink" target="_blank">{{ id }}</a>
+            </li>
+          </ul>
+        </div>
         <div v-if="currentVersionData">
           <p>Reactions: {{ currentVersionData.reactionCount }}</p>
           <p>Metabolites: {{ currentVersionData.metaboliteCount }}</p>
@@ -121,6 +129,7 @@ export default {
           c.classList.add('selected');
           this.selectedVersion = {
             ...c.dataset,
+            externalParentIds: JSON.parse(c.dataset.externalParentIds),
             element: c,
           };
 
@@ -195,6 +204,11 @@ export default {
       border-style: solid;
       border-width: 0 12px 12px 12px;
       border-color: transparent transparent hsl(0, 0%, 97%) transparent;
+    }
+
+    ul {
+      list-style-position: inside;
+      list-style-type: circle;
     }
   }
 }
