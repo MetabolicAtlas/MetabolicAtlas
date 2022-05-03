@@ -1,5 +1,6 @@
 <template>
-  <div id="timeline-wrapper" ref="wrapper">
+  <div id="timeline-wrapper">
+    <div id="timeline-svg-wrapper" ref="wrapper" />
     <div
       v-if="selectedVersion"
       id="timeline-popover"
@@ -25,10 +26,14 @@
         <span class="icon pr-2"><i class="fa fa-github"></i></span>
         Release notes
       </a>
-      <div v-if="currentVersionData" class="pt-2 is-size-7">
-        <p>Reactions: {{ currentVersionData.reactionCount }}</p>
-        <p>Metabolites: {{ currentVersionData.metaboliteCount }}</p>
-        <p>Genes: {{ currentVersionData.geneCount }}</p>
+      <div class="pt-2 is-size-7">
+        <p>Model: {{ selectedVersion.model }}</p>
+        <p>Released: {{ selectedVersion.releaseDate }}</p>
+        <div v-if="currentVersionData">
+          <p>Reactions: {{ currentVersionData.reactionCount }}</p>
+          <p>Metabolites: {{ currentVersionData.metaboliteCount }}</p>
+          <p>Genes: {{ currentVersionData.geneCount }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -50,12 +55,6 @@ export default {
       messages,
     };
   },
-  mounted() {
-    const chart = createTimelineChart();
-    this.$refs.svg = chart;
-    this.$refs.wrapper.append(chart);
-    this.setupInteractivity();
-  },
   computed: {
     ...mapGetters({
       integratedModels: 'models/integratedModels',
@@ -66,23 +65,51 @@ export default {
       }
 
       const { model, version } = this.selectedVersion;
+      const matchingModel = this.getMatchingModel(model, version);
+
+      if (!matchingModel) {
+        return null;
+      }
+
+      return {
+        reactionCount: matchingModel.reaction_count,
+        metaboliteCount: matchingModel.metabolite_count,
+        geneCount: matchingModel.gene_count,
+      };
+    },
+  },
+  watch: {
+    integratedModels(models) {
+      if (models && models.length > 0) {
+        this.setupChart();
+        this.setupInteractivity();
+      }
+    },
+  },
+  methods: {
+    getMatchingModel(model, version) {
       const integratedModel = this.integratedModels.find(m => m.short_name === model);
 
       // Patch versions are not shown, so only major and minor numbers are compared
       const [major, minor] = integratedModel.version.split('.');
       const [selectedMajor, selectedMinor] = version.split('.');
-      if (major !== selectedMajor || minor !== selectedMinor) {
-        return null;
-      }
 
-      return {
-        reactionCount: integratedModel.reaction_count,
-        metaboliteCount: integratedModel.metabolite_count,
-        geneCount: integratedModel.gene_count,
-      };
+      return major === selectedMajor && minor === selectedMinor ? integratedModel : null;
     },
-  },
-  methods: {
+    setupChart() {
+      const chart = createTimelineChart();
+      this.$refs.svg = chart;
+      this.$refs.wrapper.append(chart);
+
+      const circles = this.$refs.svg.getElementsByTagName('circle');
+      Array.from(circles).forEach(circle => {
+        const { model, version } = { ...circle.dataset };
+        const matchingModel = this.getMatchingModel(model, version);
+        if (matchingModel) {
+          circle.style.fill = '#25543c'; // eslint-disable-line no-param-reassign
+        }
+      });
+    },
     setupInteractivity() {
       const circles = this.$refs.svg.getElementsByTagName('circle');
 
@@ -100,8 +127,12 @@ export default {
           // timeout is needed to make sure the popover element appears before calculation
           setTimeout(() => {
             this.popoverOffset = {
-              top: `${parseFloat(c.getAttribute('cy')) + 30}px`, // below version number
-              left: `${parseFloat(c.getAttribute('cx')) - this.$refs.popover.offsetWidth / 2}px`,
+              top: `${parseFloat(c.getAttribute('cy')) + 30 + this.$refs.wrapper.scrollTop}px`, // below version number
+              left: `${
+                parseFloat(c.getAttribute('cx')) -
+                this.$refs.popover.offsetWidth / 2 -
+                this.$refs.wrapper.scrollLeft
+              }px`,
             };
           }, 0);
         });
@@ -127,27 +158,31 @@ export default {
 <style lang="scss">
 #timeline-wrapper {
   position: relative;
-  max-width: calc(100vw - 80px);
-  overflow-x: auto;
+  padding-bottom: 2rem;
 
-  svg {
-    .circle {
-      cursor: pointer;
+  #timeline-svg-wrapper {
+    overflow-x: auto;
 
-      &:hover,
-      &.selected {
-        fill: $primary;
+    svg {
+      .circle {
+        cursor: pointer;
+        fill: $link;
+
+        &:hover,
+        &.selected {
+          fill: $icon-interaction-partner !important;
+        }
       }
-    }
 
-    .label {
-      pointer-events: none;
+      .label {
+        pointer-events: none;
+      }
     }
   }
 
   #timeline-popover {
     position: absolute;
-    min-width: 150px;
+    min-width: 175px;
     background-color: hsl(0, 0%, 97%);
     box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0px 0 0 rgb(10 10 10 / 2%);
 

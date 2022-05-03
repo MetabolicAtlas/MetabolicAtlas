@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 
 const d3Curve = d3.line().curve(d3.curveNatural);
-const WIDTH = 1600;
+const WIDTH = 1500;
 let HEIGHT, GEM_POSITIONS, BRANCH_POINTS, TIME_SCALE;
 
 const createTimelineChart = () => {
@@ -46,20 +46,21 @@ const getBranchPoints = () => {
 };
 
 const createTimeScale = () => {
-  const allFirstVersionDates = GEMS.map(([v]) => new Date(v.releaseDate));
-  const earliestDate = allFirstVersionDates.sort((a, b) => a - b)[0];
-  const timePadding = 60 * 60 * 24 * 30 * 3 * 1000;
+  const allVersionDates = GEMS.flat().map(v => new Date(v.releaseDate));
+  const earliestDate = allVersionDates.sort((a, b) => a - b)[0];
+  const timePadding = 60 * 60 * 24 * 30 * 3 * 1000; // 3 months
   const startDate = new Date(earliestDate - timePadding);
   const currentDate = new Date();
-  return d3
-    .scaleTime()
-    .domain([startDate, currentDate])
-    .range([0, WIDTH - 100]);
+  return d3.scaleTime().domain([startDate, currentDate]).range([0, WIDTH]);
 };
 
 const addTimeAxis = svg => {
   const xAxis = d3.axisTop().scale(TIME_SCALE);
-  svg.append('g').attr('transform', `translate(0, ${HEIGHT})`).call(xAxis);
+  svg
+    .append('g')
+    .attr('transform', `translate(0, ${HEIGHT})`)
+    .style('font-weight', 'bold')
+    .call(xAxis);
   return svg;
 };
 
@@ -73,14 +74,14 @@ const addGemsAxis = svg => {
     .axisRight(yScaleLeft)
     .tickValues(Object.keys(kvFlippedGemPositions))
     .tickFormat(x => kvFlippedGemPositions[x]);
-  svg.append('g').call(yAxisLeft);
+  svg.append('g').style('font-size', '12px').style('font-weight', 'bold').call(yAxisLeft);
 
-  const yScaleRight = d3.scaleLinear().domain([0, HEIGHT]).range([HEIGHT, 0]);
-  const yAxisRight = d3
-    .axisLeft(yScaleRight)
-    .tickValues(Object.keys(kvFlippedGemPositions))
-    .tickFormat(x => kvFlippedGemPositions[x]);
-  svg.append('g').attr('transform', `translate(${WIDTH}, 0)`).call(yAxisRight);
+  // const yScaleRight = d3.scaleLinear().domain([0, HEIGHT]).range([HEIGHT, 0]);
+  // const yAxisRight = d3
+  //   .axisLeft(yScaleRight)
+  //   .tickValues(Object.keys(kvFlippedGemPositions))
+  //   .tickFormat(x => kvFlippedGemPositions[x]);
+  // svg.append('g').attr('transform', `translate(${WIDTH}, 0)`).call(yAxisRight);
 
   return svg;
 };
@@ -96,15 +97,13 @@ const addBranchPoints = svg => {
       const parentVersion = allGemVersions.find(v => v.id === id);
       const parentModel = getModelFromId(parentVersion.id);
 
-      const curveOffset =
-        (TIME_SCALE(new Date(childVersion.releaseDate)) -
-          TIME_SCALE(new Date(parentVersion.releaseDate))) /
-        5;
-
       const curve = [
         [TIME_SCALE(new Date(parentVersion.releaseDate)), HEIGHT - GEM_POSITIONS[parentModel]],
         [
-          TIME_SCALE(new Date(parentVersion.releaseDate)) + curveOffset,
+          TIME_SCALE(new Date(parentVersion.releaseDate)) +
+            (TIME_SCALE(new Date(childVersion.releaseDate)) -
+              TIME_SCALE(new Date(parentVersion.releaseDate))) /
+              5,
           HEIGHT -
             GEM_POSITIONS[childModel] -
             (HEIGHT - GEM_POSITIONS[childModel] - (HEIGHT - GEM_POSITIONS[parentModel])) / 5,
