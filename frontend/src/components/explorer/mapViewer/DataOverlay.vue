@@ -206,7 +206,6 @@ export default {
       setDataSet: 'dataOverlay/setDataSet',
       setCustomDataSource: 'dataOverlay/setCustomDataSource',
       setCustomDataSet: 'dataOverlay/setCustomDataSet',
-      resetDataValues: 'dataOverlay/resetValues',
     }),
     async handleDataTypeSelect(e) {
       const payload = {

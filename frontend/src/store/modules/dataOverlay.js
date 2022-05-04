@@ -104,10 +104,6 @@ const actions = {
     }
     commit('setCustomDataSet', dataSet);
   },
-  resetValues({ commit }) {
-    // Used to reset overlay values when switching maps
-    commit('setDataSet', 'None');
-  },
 };
 
 const mutations = {
