@@ -115,12 +115,6 @@ export default {
     setupChart() {
       const circles = this.$refs.inlineSvg.$el.getElementsByTagName('circle');
 
-      // add some bottom spacing to make sure the X Axis shows
-      this.$refs.inlineSvg.$el.setAttribute(
-        'height',
-        parseFloat(this.$refs.inlineSvg.$el.getAttribute('height')) + 50
-      );
-
       Array.from(circles).forEach(circle => {
         const { model, version } = { ...circle.dataset };
         const matchingModel = this.getMatchingModel(model, version);
