@@ -199,7 +199,7 @@ export default {
 
         &.integrated {
           stroke: $primary;
-          stroke-width: 3;
+          stroke-width: 2;
         }
       }
 
