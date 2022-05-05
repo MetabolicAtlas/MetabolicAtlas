@@ -59,8 +59,10 @@
             </div>
           </div>
         </div>
-        <h4 id="integrated-models-history" class="title is-4">History of integrated models</h4>
-        <gem-history />
+        <div class="my-6">
+          <h4 id="integrated-models-history" class="title is-4">History of integrated models</h4>
+          <gem-history />
+        </div>
         <h3 id="GEM-repository" class="title is-3">GEM Repository</h3>
         <p class="has-text-justified">
           While we do not provide support for these models, we are making them available to
