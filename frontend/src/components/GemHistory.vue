@@ -149,13 +149,6 @@ export default {
             element: c,
           };
 
-          this.selectedVersion.externalParentIds.forEach(({ id }) => {
-            const p = Array.from(circles).find(
-              _c => id === `${_c.dataset.model}-${_c.dataset.version}`
-            );
-            p.classList.add('selected');
-          });
-
           // timeout is needed to make sure the popover element appears before calculation
           setTimeout(() => {
             this.popoverOffset = {
@@ -179,9 +172,7 @@ export default {
     },
     clearSelection() {
       if (this.selectedVersion) {
-        document.querySelectorAll('svg .selected').forEach(c => {
-          c.classList.remove('selected');
-        });
+        this.selectedVersion.element.classList.remove('selected');
         this.selectedVersion = null;
       }
     },
