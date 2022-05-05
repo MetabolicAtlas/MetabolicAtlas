@@ -33,7 +33,6 @@
         Release notes
       </a>
       <div class="pt-2 is-size-7">
-        <p>Model: {{ selectedVersion.model }}</p>
         <p>Released: {{ selectedVersion.releaseDate }}</p>
         <div v-if="selectedVersion.externalParentIds.length > 0">
           <p>Based on:</p>
