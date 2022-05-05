@@ -63,7 +63,7 @@
           <h4 id="integrated-models-history" class="title is-4">History of integrated models</h4>
           <gem-history />
         </div>
-        <h3 id="GEM-repository" class="title is-3">GEM Repository</h3>
+        <h3 id="GEM-repository" class="title is-3 pt-6">GEM Repository</h3>
         <p class="has-text-justified">
           While we do not provide support for these models, we are making them available to
           download. For support, the authors should be contacted. They are listed in the
