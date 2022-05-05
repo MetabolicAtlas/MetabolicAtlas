@@ -13,6 +13,7 @@
       class="box"
       :style="{ top: popoverOffset.top, left: popoverOffset.left }"
     >
+      <h5 class="is-size-5 mt-0 mb-2">{{ selectedVersion.model }} {{ selectedVersion.version }}</h5>
       <div v-if="currentVersionData">
         <p>
           <router-link :to="{ name: 'browser', params: { model: selectedVersion.model } }">
@@ -35,10 +36,10 @@
         <p>Model: {{ selectedVersion.model }}</p>
         <p>Released: {{ selectedVersion.releaseDate }}</p>
         <div v-if="selectedVersion.externalParentIds.length > 0">
-          <p>Citations:</p>
+          <p>Based on:</p>
           <ul>
             <li v-for="{ id, citLink } in selectedVersion.externalParentIds" :key="id">
-              <a :href="citLink" target="_blank">{{ id }}</a>
+              {{ id }} (<a :href="citLink" target="_blank">source</a>)
             </li>
           </ul>
         </div>
