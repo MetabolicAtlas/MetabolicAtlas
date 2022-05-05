@@ -109,7 +109,7 @@ export default {
       return major === selectedMajor && minor === selectedMinor ? integratedModel : null;
     },
     setup() {
-      // Make sure that both the integrated models and SVG 
+      // Make sure that both the integrated models and SVG
       // are loaded before setting up the chart.
       if (
         !this.setupComplete &&
