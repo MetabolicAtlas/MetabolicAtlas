@@ -63,6 +63,7 @@ export default {
   },
   data() {
     return {
+      setupComplete: false,
       selectedVersion: null,
       popoverOffset: {
         top: 0,
@@ -94,13 +95,8 @@ export default {
       };
     },
   },
-  watch: {
-    integratedModels(models) {
-      if (models && models.length > 0) {
-        this.setupChart();
-        this.setupInteractivity();
-      }
-    },
+  mounted() {
+    this.setup();
   },
   methods: {
     getMatchingModel(model, version) {
@@ -111,6 +107,21 @@ export default {
       const [selectedMajor, selectedMinor] = version.split('.');
 
       return major === selectedMajor && minor === selectedMinor ? integratedModel : null;
+    },
+    setup() {
+      // Make sure that both the integrated models and SVG 
+      // are loaded before setting up the chart.
+      if (
+        !this.setupComplete &&
+        this.integratedModels.length > 0 &&
+        this.$refs.inlineSvg.$el.nodeName === 'svg'
+      ) {
+        this.setupChart();
+        this.setupInteractivity();
+        this.setupComplete = true;
+        return;
+      }
+      setTimeout(this.setup, 50);
     },
     setupChart() {
       const circles = this.$refs.inlineSvg.$el.getElementsByTagName('circle');
@@ -130,7 +141,7 @@ export default {
         circle.addEventListener('click', e => {
           this.clearSelection();
 
-          const c = e.path[0];
+          const c = e.target;
           c.classList.add('selected');
           this.selectedVersion = {
             ...c.dataset,
@@ -153,7 +164,7 @@ export default {
       });
 
       this.$refs.inlineSvg.$el.addEventListener('click', e => {
-        const el = e.path[0];
+        const el = e.target;
         if (el.tagName !== 'circle') {
           this.clearSelection();
         }
