@@ -59,8 +59,11 @@
             </div>
           </div>
         </div>
-        <br />
-        <h3 id="GEM-repository" class="title is-3">GEM Repository</h3>
+        <div class="my-6">
+          <h4 id="integrated-models-history" class="title is-4">History of integrated models</h4>
+          <gem-history />
+        </div>
+        <h3 id="GEM-repository" class="title is-3 pt-6">GEM Repository</h3>
         <p class="has-text-justified">
           While we do not provide support for these models, we are making them available to
           download. For support, the authors should be contacted. They are listed in the
@@ -200,6 +203,7 @@ import { VueGoodTable } from 'vue-good-table';
 import 'vue-good-table/dist/vue-good-table.css';
 import Loader from '@/components/Loader';
 import References from '@/components/shared/References';
+import GemHistory from '@/components/GemHistory';
 import { default as messages } from '@/content/messages';
 
 export default {
@@ -208,6 +212,7 @@ export default {
     Loader,
     VueGoodTable,
     References,
+    GemHistory,
   },
   data() {
     return {
