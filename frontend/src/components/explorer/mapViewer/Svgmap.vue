@@ -161,6 +161,7 @@ export default {
       const payload = { model: this.model.short_name, svgName: this.mapData.svgs[0].filename };
       await this.$store.dispatch('maps/getSvgMap', payload);
       this.bindKeyboardShortcuts();
+      this.applyLevelsOnMap();
     },
     setupHoverEventHandlers() {
       const self = this;
