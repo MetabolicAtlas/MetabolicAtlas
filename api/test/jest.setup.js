@@ -18,8 +18,8 @@ global.beforeAll(() => {
 });
 
 function readModelInfo() {
-  let json = require('../src/data/integratedModels.json');
-  let result = {};
+  const json = require('../src/data/integratedModels.json');
+  const result = {};
   for (const obj of json) {
     result[obj.short_name] = obj.version.replace(/\./g, '_');
   }
