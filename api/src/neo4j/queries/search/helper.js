@@ -21,5 +21,4 @@ const getScore = (node, uniqueIds) => {
   return id in uniqueIds ? uniqueIds[id]['score'] : 0;
 };
 
-
 export { MODELS, COMPONENT_TYPES, CHILD_LABELS, getScore };
