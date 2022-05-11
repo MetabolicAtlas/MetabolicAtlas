@@ -605,11 +605,10 @@
           <h5 id="api" class="is-size-5">API</h5>
           <p>
             Metabolic Atlas has a
-            <a href="/api" target="_blank">
-              dedicated interface to facilite the use of the API</a
-            >, with output provided in JSON format. When using this service, kindly use a limit of
-            10 requests per second. The API is still undergoing development; while it covers the
-            entire content of the models, it might change without prior notice.
+            <a href="/api" target="_blank"> dedicated interface to facilite the use of the API</a>,
+            with output provided in JSON format. When using this service, kindly use a limit of 10
+            requests per second. The API is still undergoing development; while it covers the entire
+            content of the models, it might change without prior notice.
           </p>
           <h5 id="related-resources" class="is-size-5">Related resources</h5>
           <p>
