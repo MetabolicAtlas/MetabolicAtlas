@@ -4,6 +4,7 @@ import {
   MODELS,
   COMPONENT_TYPES,
   CHILD_LABELS,
+  getScore,
 } from 'neo4j/queries/search/helper';
 
 const fetchCompartmentalizedMetabolites = async ({
@@ -28,11 +29,11 @@ UNWIND
       ELSE mids
   END AS mid
 MATCH (:Metabolite:${model} {id:mid})-[${version}]-(cm:CompartmentalizedMetabolite)
-WITH DISTINCT(cm.id) as cmid
+WITH DISTINCT(cm.id) as cmid, mid
 `;
   } else {
     statement += `
-WITH ${JSON.stringify(ids)} as cmids
+WITH ${JSON.stringify(ids)} as cmids, null as mid
 UNWIND
   CASE
       WHEN cmids = [] THEN [null]
@@ -58,9 +59,10 @@ CALL apoc.cypher.run('
   MATCH (s)-[${version}]-(ss:SubsystemState)
   RETURN { id: $cmid, subsystem: COLLECT({id: s.id, name: ss.name}) } as data
 ', {cmid:cmid}) yield value
-RETURN apoc.map.mergeList(apoc.coll.flatten(
+WITH apoc.map.mergeList(apoc.coll.flatten(
 	apoc.map.values(apoc.map.groupByMulti(COLLECT(value.data), "id"), [value.data.id])
-)) as metabolites
+)) as metabolites, mid
+RETURN metabolites {.*, mid: mid} as metabolites
 `;
 
   if (limit) {
@@ -391,7 +393,7 @@ LIMIT ${limit}
     if (result) {
       resWithScore[component] = result.map(obj => ({
         ...obj,
-        score: obj.id in uniqueIds ? uniqueIds[obj.id]['score'] : 0,
+        score: getScore(obj, uniqueIds),
       }));
     } else {
       resWithScore[component] = [];
