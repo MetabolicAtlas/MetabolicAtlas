@@ -71,6 +71,7 @@ const routes = [
   // redirects
   { path: '/explore/gem-browser/human1*', redirect: '/explore/Human-GEM/gem-browser*' },
   { path: '/explore/map-viewer/human1*', redirect: '/explore/Human-GEM/map-viewer*' },
+  { path: '/about', redirect: '/about/introduction' },
 
   // catch rest
   { path: '/*', name: 'fourOfour', component: FourOFour },
