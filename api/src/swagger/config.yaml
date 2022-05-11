@@ -352,7 +352,7 @@ paths:
       description:
         'This query retrieves all first order interaction partners for
         a given gene or metabolite.'
-      operationId: 'geneInteractionPartners'
+      operationId: 'interactionPartners'
       produces:
         - 'application/json'
       parameters:
