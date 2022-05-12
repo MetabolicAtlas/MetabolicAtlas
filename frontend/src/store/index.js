@@ -13,7 +13,7 @@ import interactionPartners from './modules/interactionPartners';
 import search from './modules/search';
 import europepmc from './modules/europepmc';
 import compare from './modules/compare';
-import externalDb from './modules/externalDb';
+import externalDb from './modules/idInModels';
 import dataOverlay from './modules/dataOverlay';
 
 Vue.use(Vuex);
