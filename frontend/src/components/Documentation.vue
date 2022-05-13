@@ -602,19 +602,19 @@
             <span class="icon pr-5 is-large has-text-info"><i class="fa fa-cogs"></i></span>
             Resources
           </h4>
-          <p>
-            Lists of the most relevant software tools, algorithms, or databases published by the
-            SysBio group.
-          </p>
-
           <h5 id="api" class="is-size-5">API</h5>
           <p>
             Metabolic Atlas has a
-            <a href="/api/v2/" target="_blank">
-              dedicated interface to facilite the use of the API</a
-            >, with output provided in JSON format. When using this service, kindly use a limit of
-            10 requests per second. The API is still undergoing development; while it is covers the
-            entire content of the models, it might change without prior notice.
+            <a href="/api" target="_blank"> dedicated interface to facilite the use of the API</a>,
+            with output provided in JSON format. When using this service, kindly use a limit of 10
+            requests per second. The API is still undergoing development; while it covers the entire
+            content of the models, it might change without prior notice.
+          </p>
+          <h5 id="related-resources" class="is-size-5">Related resources</h5>
+          <p>
+            Metabolic Atlas is associated with other software tools, algorithms, and databases
+            published by the SysBio group. Visit the
+            <a href="/about/resources/"> about page section</a> to browse the lists.
           </p>
         </div>
       </div>
@@ -692,7 +692,10 @@ export default {
           name: 'Resources',
           icon: 'fa-cogs',
           link: '#resources',
-          subsections: [{ name: 'API', link: '#api' }],
+          subsections: [
+            { name: 'API', link: '#api' },
+            { name: 'Related resources', link: '#related-resources' },
+          ],
         },
       ],
     };
