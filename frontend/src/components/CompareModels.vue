@@ -34,9 +34,7 @@
         </div>
         <comparison-details v-if="validModels && !comparisonsEmpty" />
       </div>
-      <br />
-      <br />
-      <h3 class="title is-size-3">Historical comparisions</h3>
+      <h3 class="title is-size-3 mt-6">Historical comparisions</h3>
       <div>
         <b>Human-GEM</b> was created by unifying several model lineages, including
         <b
@@ -50,7 +48,7 @@
         HMR and Recon. More information can be found in
         <a href="https://europepmc.org/article/MED/32209698">this publication</a>.
       </div>
-      <div v-for="(c, id) in comparison" :key="id">
+      <div v-for="(c, id) in comparison" :key="id" class="mb-6">
         <h4 class="title is-size-4">{{ c.models.A.modelId }} vs. {{ c.models.B.modelId }}</h4>
         <div class="table-container">
           <table class="is-fullwidth table is-narrow">
@@ -126,8 +124,6 @@
             </div>
           </div>
         </div>
-        <br />
-        <br />
       </div>
     </div>
   </section>
