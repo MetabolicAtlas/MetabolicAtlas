@@ -24,8 +24,9 @@
               Genome-scale metabolic network reconstruction of model animals as a platform for
               translational research.
             </b>
-            <br />
-            <i>PNAS 118 (2021): e2102344118</i>
+            <span class="is-block">
+              <i>PNAS 118 (2021): e2102344118</i>
+            </span>
           </p>
           <p>
             PubMed:
@@ -65,8 +66,7 @@
           </p>
           <p>
             <b>An atlas of human metabolism.</b>
-            <br />
-            <i>Sci. Signal. 13.624 (2020): eaaz1482</i>
+            <span class="is-block"><i>Sci. Signal. 13.624 (2020): eaaz1482</i></span>
           </p>
           <p>
             PubMed:

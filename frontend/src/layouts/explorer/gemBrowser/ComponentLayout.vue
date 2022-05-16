@@ -56,13 +56,14 @@
               &nbsp;
               <span>{{ messages.interPartName }}</span>
             </router-link>
-            <br />
-            <maps-available
-              :id="componentId"
-              :type="componentType"
-              :viewer-selected-i-d="viewerSelectedID"
-            ></maps-available>
-            <gem-contact :id="componentId" :type="componentType" />
+            <div class="mt-5">
+              <maps-available
+                :id="componentId"
+                :type="componentType"
+                :viewer-selected-i-d="viewerSelectedID"
+              ></maps-available>
+              <gem-contact :id="componentId" :type="componentType" />
+            </div>
           </div>
         </div>
         <references v-if="referenceList && !showLoaderMessage" :reference-list="referenceList" />

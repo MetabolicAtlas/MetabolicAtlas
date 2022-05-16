@@ -9,9 +9,7 @@
           {{ messages.gemBrowserName }}, {{ messages.mapViewerName }} and
           {{ messages.interPartName }}.
         </p>
-        <br />
-        <br />
-        <div id="integrated" class="columns is-multiline is-variable is-6 is-centered">
+        <div id="integrated" class="columns is-multiline is-variable is-6 is-centered mt-5">
           <div
             v-for="model in integratedModels"
             :key="model.short_name"
@@ -73,9 +71,8 @@
           <router-link :to="{ name: 'documentation', hash: '#ftp-access' }">FTP server</router-link
           >.
         </p>
-        <br />
         <loader v-show="showLoader"></loader>
-        <div v-if="gems.length != 0">
+        <div v-if="gems.length != 0" class="my-5">
           <vue-good-table
             :columns="columns"
             :rows="gems"
@@ -89,7 +86,6 @@
         <div v-else>
           <span v-if="!showLoader">No models available</span>
         </div>
-        <br />
         <div v-if="showModelId" id="gem-list-modal" class="modal is-active">
           <div class="modal-background" @click="selectModel(null)"></div>
           <div
@@ -115,9 +111,7 @@
                 </template>
               </h4>
               {{ selectedModel.description }}
-              <br />
-              <br />
-              <table class="table main-table is-fullwidth m-0">
+              <table class="table main-table is-fullwidth mx-0 mt-5 mb-6">
                 <tbody>
                   <tr v-for="field in model_fields" :key="field.name">
                     <template
@@ -170,11 +164,9 @@
                   </tr>
                 </tbody>
               </table>
-              <br />
               <references :reference-list="selectedModel.ref" />
-              <br />
               <template v-if="selectedModel.files">
-                <h4 class="subtitle is-size-4">Files</h4>
+                <h4 class="subtitle is-size-4 mt-6">Files</h4>
                 <template v-for="file in selectedModel.files">
                   <a :key="file.path" class="button" :href="`/api/v2/repository/${file.path}`">
                     {{ file.format }}
