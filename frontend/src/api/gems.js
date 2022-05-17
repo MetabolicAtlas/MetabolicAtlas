@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const fetchGems = async () => {
   const { data } = await axios.get('repository/models/');
-  // TODO consider moving this mapping logic into store
 
   return data.reduce((dict, g) => {
     const gem = {

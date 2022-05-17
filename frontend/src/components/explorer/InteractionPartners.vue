@@ -569,8 +569,6 @@ export default {
         const payload = { model: this.model, id: this.mainNodeID };
         await this.$store.dispatch('interactionPartners/getInteractionPartners', payload);
 
-        // TODO: consider refactoring the following lines in this try block into Vuex,
-        //       as well as duplication with the loadExpansion method
         this.componentNotFound = false;
         this.showGraphContextMenu = false;
         if (this.tooLargeNetworkGraph) {

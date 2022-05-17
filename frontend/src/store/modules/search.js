@@ -67,7 +67,6 @@ const getters = {
 
     const results = categorizeResults(state.results);
 
-    // TODO: consider rewriting this return so it's more readable
     return Object.fromEntries(
       Object.entries(results).map(([k, v]) => [
         k,
