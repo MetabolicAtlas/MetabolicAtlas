@@ -5,12 +5,11 @@
         {{ dbNameToDisplay }} {{ components[0].componentType }} {{ externalDb.externalId }}
       </h3>
       <p class="my-3">
-        <template v-if="externalDb.url">
+        <span v-if="externalDb.url" class="is-block">
           Visit
           <a :href="externalDb.url" target="_blank">{{ externalDb.url }}</a>
           for more details.
-          <br />
-        </template>
+        </span>
         This database identifier is associated with the following Metabolic Atlas
         {{ components.length === 1 ? 'component' : 'components' }}:
       </p>

@@ -1,14 +1,12 @@
 <template>
   <about-layout title="ELIXIR">
     <template v-slot:contents>
-      <p>
+      <p class="pb-5">
         Metabolic Atlas would not be possible without the following excellent
         <a href="https://elixir-europe.org" target="_blank">ELIXIR</a>
         resources:
       </p>
-      <br />
       <div v-for="link in links" :key="link.name" class="columns is-vcentered">
-        <br />
         <div class="column is-1">
           <a :href="link.link" target="_blank">
             <template v-if="link.icon">
@@ -20,7 +18,6 @@
           <a :href="link.link" target="_blank">
             <b>{{ link.name }}</b>
           </a>
-          <br />
         </div>
       </div>
     </template>

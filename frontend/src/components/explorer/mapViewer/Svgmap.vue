@@ -3,11 +3,11 @@
     <div class="svgbox p-0 m-0">
       <div v-if="errorMessage" class="columns is-centered">
         <div class="column is-half has-text-centered">
-          <p
+          <div
             class="notification has-background-danger-light"
             style="margin-top: 30%"
             v-html="errorMessage"
-          ></p>
+          ></div>
         </div>
       </div>
       <MapLoader />

@@ -52,8 +52,7 @@
         <tr v-if="relatedMetabolites.length !== 0">
           <td class="td-key has-background-primary has-text-white-bis">Related metabolite(s)</td>
           <td>
-            <span v-for="(rm, i) in relatedMetabolites" :key="rm.id">
-              <br v-if="i !== 0" />
+            <p v-for="rm in relatedMetabolites" :key="rm.id">
               <!-- eslint-disable-next-line max-len -->
               <router-link
                 :to="{ name: 'metabolite', params: { model: model.short_name, id: rm.id } }"
@@ -61,7 +60,7 @@
                 {{ rm.fullName }}
               </router-link>
               in {{ rm.compartment.name }}
-            </span>
+            </p>
           </td>
         </tr>
       </table>

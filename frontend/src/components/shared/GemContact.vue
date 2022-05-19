@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <br />
+  <div class="mt-5">
     <article class="message">
       <!-- <div class="message-header"> -->
       <a class="button is-grey is-fullwidth" @click="isExpanded = !isExpanded">

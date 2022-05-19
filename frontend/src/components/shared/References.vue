@@ -10,8 +10,7 @@
       <p>There are no associated references.</p>
     </template>
     <template v-else>
-      <br />
-      <table class="main-table table is-fullwidth">
+      <table class="main-table table is-fullwidth mt-5">
         <tr v-for="pmid in referenceList" :key="pmid">
           <td class="td-key has-background-primary has-text-white-bis">{{ pmid }}</td>
           <td v-if="formattedRefs[pmid]">

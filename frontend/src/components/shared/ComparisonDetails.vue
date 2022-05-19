@@ -40,7 +40,6 @@
               <span v-if="comparisonDetails.details[types[t]].unique.length > 20">
                 (showing 20)
               </span>
-              <br />
               <div class="tags">
                 <span
                   v-for="id in comparisonDetails.details[types[t]].unique.slice(0, 20)"
