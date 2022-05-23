@@ -250,7 +250,7 @@ export default {
       this.showFileLoader = false;
     },
     customErrorMessage() {
-      return this.errorCustomFileMsg.join('<br>');
+      return this.errorCustomFileMsg.map(m => `<p>${m}</p>`).join('');
     },
     validDataTypeInQuery() {
       return (

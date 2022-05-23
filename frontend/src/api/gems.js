@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const fetchGems = async () => {
   const { data } = await axios.get('repository/models/');
-  // TODO consider moving this mapping logic into store
 
   return data.reduce((dict, g) => {
     const gem = {
@@ -12,11 +11,11 @@ const fetchGems = async () => {
       set_name: g.gemodelset.name,
       tissue:
         [g.sample.tissue, g.sample.cell_type, g.sample.cell_line].filter(e => e).join(' ‒ ') || '-',
-      stats: `reactions:&nbsp;${
+      stats: `<p>reactions:&nbsp;${
         g.reaction_count === null ? '-' : g.reaction_count
-      }<br>metabolites:&nbsp;${
+      }</p><p>metabolites:&nbsp;${
         g.metabolite_count === null ? '-' : g.metabolite_count
-      }<br>genes:&nbsp;${g.gene_count === null ? '-' : g.gene_count}`,
+      }</p><p>genes:&nbsp;${g.gene_count === null ? '-' : g.gene_count}</p>`,
       maintained: g.maintained ? 'Yes' : 'No',
       organ_system: g.sample.organ_system || '-',
       condition: g.condition || '-',

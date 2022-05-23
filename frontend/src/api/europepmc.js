@@ -34,9 +34,7 @@ const searchReferences = async queryIds => {
         refDetails.title
       }</i> ${refDetails.journal}`;
       refs[details.id] = refDetails;
-    } catch {
-      // TODO: handle exception
-    }
+    } catch {} // eslint-disable-line no-empty
   });
 
   return refs;

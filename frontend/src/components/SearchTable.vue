@@ -2,8 +2,7 @@
   <section class="extended-section">
     <div id="search-table" class="container is-fullhd pb-6">
       <div class="columns">
-        <div class="column has-text-centered content">
-          <br />
+        <div class="column has-text-centered content mt-5">
           <h3 class="title is-3">Search within all integrated GEMs</h3>
           <h5 class="subtitle is-5 has-text-weight-normal">
             for reactions, metabolites, genes, subsystems and compartments

@@ -43,8 +43,10 @@
           <td class="td-key has-background-primary has-text-white-bis">Metabolites</td>
           <td>
             <div v-html="metabolitesListHtml"></div>
-            <div v-if="!showFullMetabolite && metabolites.length > displayedMetabolite">
-              <br />
+            <div
+              v-if="!showFullMetabolite && metabolites.length > displayedMetabolite"
+              class="mt-5"
+            >
               <button class="is-small button" @click="showFullMetabolite = true">
                 ... and {{ metabolites.length - displayedMetabolite }} more
               </button>
@@ -61,8 +63,7 @@
           <td class="td-key has-background-primary has-text-white-bis">Genes</td>
           <td>
             <div v-html="genesListHtml"></div>
-            <div v-if="!showFullGene && genes.length > displayedGene">
-              <br />
+            <div v-if="!showFullGene && genes.length > displayedGene" class="mt-5">
               <button class="is-small button" @click="showFullGene = true">
                 ... and {{ genes.length - displayedGene }} more
               </button>

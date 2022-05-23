@@ -3,8 +3,7 @@
   <section class="section extended-section">
     <div class="container is-fullhd">
       <h3 class="title is-3">Documentation</h3>
-      <br />
-      <div class="columns is-variable is-8">
+      <div class="columns is-variable is-8 pt-5">
         <TableOfContents :links="tocLinks" />
         <div id="documentation" class="column content has-text-justified">
           <p>
@@ -338,15 +337,11 @@
                 </b>
               </p>
 
-              <br />
-              <blockquote>
-                id&emsp;heart&emsp;liver
-                <br />
-                ENSG00000177666&emsp;0.484&emsp;0.349
-                <br />
-                ENSG00000175535&emsp;0.564&emsp;0
-                <br />
-                ENSG00000187021&emsp;0.114&emsp;0
+              <blockquote class="mt-6">
+                <span class="is-block">id&emsp;heart&emsp;liver</span>
+                <span class="is-block">ENSG00000177666&emsp;0.484&emsp;0.349</span>
+                <span class="is-block">ENSG00000175535&emsp;0.564&emsp;0</span>
+                <span class="is-block">ENSG00000187021&emsp;0.114&emsp;0</span>
               </blockquote>
               <p style="font-size: 80%">
                 <b>Figure 2: Example file for custom data to be uploaded in Data overlay</b>
@@ -403,8 +398,7 @@
               </ul>
             </div>
           </div>
-          <br />
-          <p>
+          <p class="mt-5">
             Clicking/selecting a node (shown as black colored node) also shows links on the right
             sidebar to quickly reset the
             <i>Interaction Partners</i>
@@ -585,36 +579,41 @@
             <a href="https://filezilla-project.org/">FileZilla</a>
             ).
           </p>
-          <span class="has-text-weight-bold lab">Host:</span>
-          <a :href="`ftp://${ftpUrl}/`">ftp://{{ ftpUrl }}</a>
-          <br />
-          <span class="has-text-weight-bold lab">Login:</span>
-          leave blank
-          <br />
-          <span class="has-text-weight-bold lab">Password:</span>
-          leave blank
-          <br />
-          <span class="has-text-weight-bold lab">Port:</span>
-          21
+          <span class="is-block">
+            <span class="has-text-weight-bold lab">Host:</span>
+            <a :href="`ftp://${ftpUrl}/`">ftp://{{ ftpUrl }}</a>
+          </span>
+          <span class="is-block">
+            <span class="has-text-weight-bold lab">Login:</span>
+            leave blank
+          </span>
+          <span class="is-block">
+            <span class="has-text-weight-bold lab">Password:</span>
+            leave blank
+          </span>
+          <span class="is-block">
+            <span class="has-text-weight-bold lab">Port:</span>
+            21
+          </span>
 
           <hr class="mt-6" />
           <h4 id="resources" class="is-size-4">
             <span class="icon pr-5 is-large has-text-info"><i class="fa fa-cogs"></i></span>
             Resources
           </h4>
-          <p>
-            Lists of the most relevant software tools, algorithms, or databases published by the
-            SysBio group.
-          </p>
-
           <h5 id="api" class="is-size-5">API</h5>
           <p>
             Metabolic Atlas has a
-            <a href="/api/v2/" target="_blank">
-              dedicated interface to facilite the use of the API</a
-            >, with output provided in JSON format. When using this service, kindly use a limit of
-            10 requests per second. The API is still undergoing development; while it is covers the
-            entire content of the models, it might change without prior notice.
+            <a href="/api" target="_blank"> dedicated interface to facilite the use of the API</a>,
+            with output provided in JSON format. When using this service, kindly use a limit of 10
+            requests per second. The API is still undergoing development; while it covers the entire
+            content of the models, it might change without prior notice.
+          </p>
+          <h5 id="related-resources" class="is-size-5">Related resources</h5>
+          <p>
+            Metabolic Atlas is associated with other software tools, algorithms, and databases
+            published by the SysBio group. Visit the
+            <a href="/about/resources/"> about page section</a> to browse the lists.
           </p>
         </div>
       </div>
@@ -692,7 +691,10 @@ export default {
           name: 'Resources',
           icon: 'fa-cogs',
           link: '#resources',
-          subsections: [{ name: 'API', link: '#api' }],
+          subsections: [
+            { name: 'API', link: '#api' },
+            { name: 'Related resources', link: '#related-resources' },
+          ],
         },
       ],
     };

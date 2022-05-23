@@ -6,8 +6,7 @@
           <h3 class="title is-size-3">Explore the integrated models</h3>
         </div>
       </div>
-      <br />
-      <div class="columns">
+      <div class="columns mt-5">
         <div class="column has-text-centered">
           <p class="has-text-weight-bold is-size-5">1. Select a model:</p>
         </div>
@@ -48,10 +47,7 @@
           </div>
         </div>
       </div>
-      <br />
-      <br />
-      <br />
-      <div class="columns">
+      <div class="columns mt-6">
         <div class="column has-text-centered">
           <p class="has-text-weight-bold is-size-5">2. Select a tool:</p>
         </div>
