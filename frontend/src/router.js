@@ -16,7 +16,7 @@ import Documentation from '@/components/Documentation';
 import Repository from '@/components/Repository';
 import CompareModels from '@/components/CompareModels';
 import FourOFour from '@/components/FourOFour';
-import ExternalDb from '@/components/ExternalDb';
+import IdInModels from '@/components/IdInModels';
 import Introduction from '@/components/about/Introduction';
 // import Impact from '@/components/about/Impact';
 import News from '@/components/about/News';
@@ -66,7 +66,7 @@ const routes = [
   { path: '/gems/repository/:model_id?', name: 'gems', component: Repository },
   { path: '/gems/comparison', name: 'comparemodels', component: CompareModels },
   { path: '/documentation', name: 'documentation', component: Documentation },
-  { path: '/identifier/:dbName/:identifierId', name: 'identifier', component: ExternalDb },
+  { path: '/identifier/:dbName/:identifierId', name: 'identifier', component: IdInModels },
 
   // redirects
   { path: '/explore/gem-browser/human1*', redirect: '/explore/Human-GEM/gem-browser*' },

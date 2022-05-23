@@ -48,7 +48,7 @@ import { mapState } from 'vuex';
 import { default as messages } from '@/content/messages';
 
 export default {
-  name: 'ExternalDb',
+  name: 'IdInModels',
   data() {
     return {
       errorMessage: '',
