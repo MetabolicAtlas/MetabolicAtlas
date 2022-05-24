@@ -40,7 +40,10 @@ const actions = {
       return strippedGem;
     });
 
-    commit('setGems', formattedGems);
+    commit(
+      'setGems',
+      formattedGems.sort((a, b) => a.id - b.id)
+    );
   },
   getGemData({ commit, state }, id) {
     const gem = state.gems.find(g => g.id === id);
