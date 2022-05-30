@@ -34,9 +34,7 @@ function stop-stack {
 }
 
 function clean-stack {
-  docker stop $(docker ps -a -q) || true
-  docker rm $(docker ps -a -q) || true
-  docker volume prune --force || true
+  docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-local.yml down --rmi all --remove-orphans -v
 }
 
 function logs {
