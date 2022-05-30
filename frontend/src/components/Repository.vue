@@ -327,13 +327,13 @@ export default {
   computed: {
     ...mapState({
       gem: state => state.gems.gem,
+      gems: state => state.gems.gems,
     }),
     ...mapGetters({
       integratedModels: 'models/integratedModels',
       setFilterOptions: 'gems/setFilterOptions',
       systemFilterOptions: 'gems/systemFilterOptions',
       conditionFilterOptions: 'gems/conditionFilterOptions',
-      gems: 'gems/gemList',
     }),
   },
   watch: {
