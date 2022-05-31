@@ -34,8 +34,8 @@ const compareThree = async ({ type, models }) => {
 
   const statement = `
 MATCH (a:${type}:${ma.model})-[:V${ma.version}]-(e:ExternalDb)-[:V${mb.version}]-(b:${type}:${mb.model})
+USING JOIN on e
 MATCH (a)-[:V${ma.version}]-(e)-[:V${mc.version}]-(c:${type}:${mc.model})
-MATCH (b)-[:V${mb.version}]-(e)-[:V${mc.version}]-(c)
 RETURN { ${ma.model}: COUNT(DISTINCT(a)), ${mb.model}: COUNT(DISTINCT(b)), ${mc.model}: COUNT(DISTINCT(c)) }
 `;
 
@@ -129,8 +129,8 @@ RETURN { own: COUNT(DISTINCT(a)) }
   if (mc) {
     commonStatement = `
 MATCH (a:${type}:${ma.model})-[:V${ma.version}]-(e:ExternalDb)-[:V${mb.version}]-(b:${type}:${mb.model})
+USING JOIN on e
 MATCH (a)-[:V${ma.version}]-(e)-[:V${mc.version}]-(c:${type}:${mc.model})
-MATCH (b)-[:V${mb.version}]-(e)-[:V${mc.version}]-(c)
 RETURN { common: COUNT(DISTINCT(a)) }
 `;
 
