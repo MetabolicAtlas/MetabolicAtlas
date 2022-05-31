@@ -82,6 +82,7 @@ export default {
       dataOverlayPanelVisible: state => state.maps.dataOverlayPanelVisible,
       dataSet: state => state.dataOverlay.dataSet,
       customDataSet: state => state.dataOverlay.customDataSet,
+      searchTerm: state => state.maps.searchTerm,
     }),
     ...mapGetters({
       queryParams: 'maps/queryParams',
@@ -161,9 +162,13 @@ export default {
 
       this.processURLQuery();
     },
+
     processURLQuery() {
       const { lx, ly, lz } = this.coords;
       this.controller.setCamera({ x: lx, y: ly, z: lz });
+      if (this.searchTerm) {
+        this.$refs.mapsearch.search(this.searchTerm);
+      }
 
       const id = this.queryParams.sel;
 
