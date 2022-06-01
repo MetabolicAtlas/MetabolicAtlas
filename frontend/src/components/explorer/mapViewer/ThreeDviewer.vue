@@ -310,11 +310,13 @@ export default {
             group: n.g,
           }));
 
-        if (centerId) {
-          const centerNode = this.searchedNodesOnMap.filter(n => n.id === centerId)[0];
-          await this.centerElement(centerNode);
-        } else if (this.searchedNodesOnMap.length > 0) {
-          await this.centerElement(this.searchedNodesOnMap[0]);
+        // center the selected node if there is such, else the first search result
+        const matches = centerId
+          ? this.searchedNodesOnMap.filter(n => n.id === centerId)
+          : this.searchedNodesOnMap;
+
+        if (matches.length > 0) {
+          await this.centerElement(matches[0]);
         }
       }
     },
