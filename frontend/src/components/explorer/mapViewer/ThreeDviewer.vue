@@ -82,6 +82,7 @@ export default {
       dataOverlayPanelVisible: state => state.maps.dataOverlayPanelVisible,
       dataSet: state => state.dataOverlay.dataSet,
       customDataSet: state => state.dataOverlay.customDataSet,
+      searchTerm: state => state.maps.searchTerm,
     }),
     ...mapGetters({
       queryParams: 'maps/queryParams',
@@ -161,16 +162,19 @@ export default {
 
       this.processURLQuery();
     },
+
     processURLQuery() {
       const { lx, ly, lz } = this.coords;
       this.controller.setCamera({ x: lx, y: ly, z: lz });
 
       const id = this.queryParams.sel;
 
-      if (id) {
-        setTimeout(async () => {
-          await this.searchIDsOnMap([id]);
-        }, 200);
+      if (this.searchTerm) {
+        // redo the search and highlight the selected node
+        this.$refs.mapsearch.search(this.searchTerm, id);
+      } else {
+        // highlight the selected node
+        this.searchIDsOnMap([id]);
       }
     },
     async selectElement(element) {
@@ -294,7 +298,7 @@ export default {
       this.$store.dispatch('maps/toggleBackgroundColor');
       this.controller.setBackgroundColor(this.backgroundColor);
     },
-    async searchIDsOnMap(ids) {
+    async searchIDsOnMap(ids, centerId) {
       this.searchedNodesOnMap = [];
 
       if (ids && ids.length > 0) {
@@ -306,8 +310,13 @@ export default {
             group: n.g,
           }));
 
-        if (this.searchedNodesOnMap.length > 0) {
-          await this.centerElement(this.searchedNodesOnMap[0]);
+        // center the selected node if there is such, else the first search result
+        const matches = centerId
+          ? this.searchedNodesOnMap.filter(n => n.id === centerId)
+          : this.searchedNodesOnMap;
+
+        if (matches.length > 0) {
+          await this.centerElement(matches[0]);
         }
       }
     },
