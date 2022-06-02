@@ -3,7 +3,7 @@
     {
       "date": "2022-06-01",
       "title": "Metabolic Atlas 2.6 adds a new feature for GEM timeline visualization and updates models",
-      "text": "<b>Metabolic Atlas 2.6</b> is out. In this minor release we have added a new feature for visualizing the history and development of the integrated GEMs, updated the model versions, improved the GEM comparison and the search functionality and fixed a number of bugs. Improvements of the readability and ease of navigation of the web page have been added as well. More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/2.6' target='_blank'>on GitHub</a> or <a href='https://doi.org/10.5281/zenodo.5115437' target='_blank'>on Zenodo</a>."
+      "text": "<b>Metabolic Atlas 2.6</b> is out. In this minor release we have added a new feature for visualizing the history and development of the integrated GEMs, updated the model versions, improved the GEM comparison and the search functionality and fixed a number of bugs. Improvements of the readability and ease of navigation of the web page have been added as well. More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/2.6' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/badge/latestdoi/53664497' target='_blank'>on Zenodo</a>."
     },
     {
       "date": "2022-04-04",
