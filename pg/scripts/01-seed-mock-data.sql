@@ -7,7 +7,10 @@ select
     'D' || c as domain,
     'K' || a as ko,
     'R' || d as reaction_id,
-    '1.1.1.' || d as ec_number,
+    case when floor(random() + 0.5) = 1
+        then '1.1.1.' || 1
+        else '1.1.1.' || d || ';1.1.1.' || (d + 1 )
+    end as ec_number,
     'C' || c as compound,
     round((random() * 50)::numeric, 4) as kcat_values,
     round(random()::numeric, 4) as km_values
