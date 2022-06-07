@@ -53,3 +53,8 @@ services:
     environment:
       - FTP_IP=127.0.0.1
       - FLAGS=-Y 0 -d -d
+  pg:
+    volumes:
+      - ./pg/scripts:/scripts
+    ports:
+      - "127.0.0.1:5432:5432"

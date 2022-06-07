@@ -47,6 +47,13 @@ services:
     ports:
       - "21:21"
       - "${FTP_MIN_PORT}-${FTP_MAX_PORT}:${FTP_MIN_PORT}-${FTP_MAX_PORT}"
+  pg:
+    container_name: pg
+    image: postgres:14.3
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      - db-network
 
 networks:
   db-network:
