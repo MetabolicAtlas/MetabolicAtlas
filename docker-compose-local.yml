@@ -56,5 +56,6 @@ services:
   pg:
     volumes:
       - ./pg/scripts:/scripts
+      - ./pg/input_data:/input_data
     ports:
       - "127.0.0.1:5432:5432"

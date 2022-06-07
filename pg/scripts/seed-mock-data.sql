@@ -1,4 +1,4 @@
--- ma-exec pg psql -f scripts/01-seed-mock-data.sql -U postgres
+-- ma-exec pg psql -f scripts/seed-mock-data.sql -U postgres
 
 insert into enzymes
 select
