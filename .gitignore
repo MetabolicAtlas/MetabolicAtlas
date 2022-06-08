@@ -89,3 +89,6 @@ api/src/data/*.json
 
 # dataOverlay folder in API
 api/dataOverlay
+
+# PostgreSQL data
+pg/input_data/**/*.txt
