@@ -71,8 +71,5 @@ services:
           cpus: '0.10'
           memory: 200M
 
-  pg:
-    restart: always
-
 volumes:
   letsencrypt:
