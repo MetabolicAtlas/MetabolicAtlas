@@ -42,7 +42,7 @@ function logs {
 }
 
 function ma-exec {
-  docker compose --env-file "$CHOSEN_ENV"  -f docker-compose.yml -f docker-compose-local.yml exec "$@"
+  docker compose --env-file $CHOSEN_ENV  -f docker-compose.yml -f docker-compose-local.yml exec $@
 }
 
 function deploy-stack {
