@@ -8,8 +8,8 @@ create table enzymes (
     reaction_id char(6),
     ec_number varchar(255) not null,
     compound char(6),
-    kcat_values varchar(12),
-    km_values varchar(12)
+    kcat_values numeric,
+    km_values numeric
 );
 
 create table compounds (
