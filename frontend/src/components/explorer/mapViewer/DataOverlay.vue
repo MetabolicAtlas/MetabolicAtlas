@@ -195,11 +195,8 @@ export default {
       filename: datasource,
       propagate: false,
     });
-    const dataSet = this.validDataSourceDataSetInQuery() ? this.$route.query.dataSet : 'None';
+    const dataSet = this.validDataSourceDataSetInQuery() ? this.currentDataSet() : 'None';
     await this.setDataSet(dataSet);
-  },
-  destroyed() {
-    this.resetDataValues();
   },
   methods: {
     ...mapActions({
@@ -209,7 +206,6 @@ export default {
       setDataSet: 'dataOverlay/setDataSet',
       setCustomDataSource: 'dataOverlay/setCustomDataSource',
       setCustomDataSet: 'dataOverlay/setCustomDataSet',
-      resetDataValues: 'dataOverlay/resetValues',
     }),
     async handleDataTypeSelect(e) {
       const payload = {
@@ -254,7 +250,7 @@ export default {
       this.showFileLoader = false;
     },
     customErrorMessage() {
-      return this.errorCustomFileMsg.join('<br>');
+      return this.errorCustomFileMsg.map(m => `<p>${m}</p>`).join('');
     },
     validDataTypeInQuery() {
       return (
@@ -274,11 +270,14 @@ export default {
     modelHasOverlayData() {
       return Object.keys(this.dataSourcesIndex).length > 0;
     },
+    currentDataSet() {
+      return this.dataSet !== 'None' ? this.dataSet : this.$route.query.dataSet;
+    },
     validDataSourceDataSetInQuery() {
       return (
-        this.$route.query.dataSet && // eslint-disable-line operator-linebreak
+        this.currentDataSet() && // eslint-disable-line operator-linebreak
         this.dataSource && // eslint-disable-line operator-linebreak
-        this.dataSource.dataSets.indexOf(this.$route.query.dataSet) > -1
+        this.dataSource.dataSets.indexOf(this.currentDataSet()) > -1
       );
     },
   },

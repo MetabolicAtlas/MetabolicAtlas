@@ -24,8 +24,9 @@
               Genome-scale metabolic network reconstruction of model animals as a platform for
               translational research.
             </b>
-            <br />
-            <i>PNAS 118 (2021): e2102344118</i>
+            <span class="is-block">
+              <i>PNAS 118 (2021): e2102344118</i>
+            </span>
           </p>
           <p>
             PubMed:
@@ -45,8 +46,7 @@
         was first made publicly available in 2019. Its strong ties with
         <i>Human-GEM</i>
         constituted the basis for the associated publication in
-        <i>Science Signaling</i>
-        . If you use
+        <i>Science Signaling</i>. If you use
         <i>Human-GEM</i>
         in your work, or have used
         <i>Metabolic Atlas</i>
@@ -66,8 +66,7 @@
           </p>
           <p>
             <b>An atlas of human metabolism.</b>
-            <br />
-            <i>Sci. Signal. 13.624 (2020): eaaz1482</i>
+            <span class="is-block"><i>Sci. Signal. 13.624 (2020): eaaz1482</i></span>
           </p>
           <p>
             PubMed:
@@ -81,8 +80,8 @@
       </div>
       <p>
         Initially called
-        <i>Human Metabolic Atlas</i>
-        , the first publication that was cited for this project dates from 2015:
+        <i>Human Metabolic Atlas</i>, the first publication that was cited for this project dates
+        from 2015:
         <a href="https://doi.org/10.1093/database/bav068" target="_blank">
           Pornputtapong, N., et al, 2015.
           <i>Human metabolic atlas: an online resource for human metabolism.</i>

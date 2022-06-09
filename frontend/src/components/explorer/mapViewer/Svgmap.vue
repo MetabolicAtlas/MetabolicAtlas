@@ -3,11 +3,11 @@
     <div class="svgbox p-0 m-0">
       <div v-if="errorMessage" class="columns is-centered">
         <div class="column is-half has-text-centered">
-          <p
+          <div
             class="notification has-background-danger-light"
             style="margin-top: 30%"
             v-html="errorMessage"
-          ></p>
+          ></div>
         </div>
       </div>
       <MapLoader />
@@ -161,6 +161,7 @@ export default {
       const payload = { model: this.model.short_name, svgName: this.mapData.svgs[0].filename };
       await this.$store.dispatch('maps/getSvgMap', payload);
       this.bindKeyboardShortcuts();
+      this.applyLevelsOnMap();
     },
     setupHoverEventHandlers() {
       const self = this;

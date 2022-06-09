@@ -109,7 +109,6 @@ const actions = {
         apiFunc = metabolitesApi.fetchMetaboliteData;
         break;
       default:
-        // TODO: handle unexpected type
         break;
     }
 
@@ -165,7 +164,6 @@ const actions = {
   },
 
   initFromQueryParams({ commit }, { dim, panel, coords, sel, search }) {
-    // TODO: handle errors
     commit('setShowing2D', dim !== '3d');
     commit('setDataOverlayPanelVisible', panel === '1');
     commit('setSelectedElementId', sel);

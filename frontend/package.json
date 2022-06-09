@@ -29,6 +29,7 @@
     "vue-cookie": "^1.1.4",
     "vue-debounce": "^3.0.2",
     "vue-good-table": "^2.21.11",
+    "vue-inline-svg": "^2.1.0",
     "vue-lodash": "^2.1.2",
     "vue-matomo": "^4.1.0",
     "vue-meta": "^2.4.0",

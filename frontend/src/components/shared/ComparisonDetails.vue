@@ -16,21 +16,19 @@
           <router-link :to="{ name: 'explorer', params: { model: currentModel.short_name } }">
             <b>{{ currentModel.short_name }}</b>
           </router-link>
-          has
-          {{ comparisonDetails.details['Reaction'].own }} reactions and
-          {{ comparisonDetails.details['CompartmentalizedMetabolite'].own }} metabolites.
+          {{ currentModel.version }} has {{ comparisonDetails.details['Reaction'].own }} reactions
+          and {{ comparisonDetails.details['CompartmentalizedMetabolite'].own }} metabolites.
         </p>
         <div v-if="selectedCell.position.row !== selectedCell.position.col">
           Compared to
           <span v-for="(cm, i) in comparedModels" :key="cm.short_name" class="compared-models">
             <router-link :to="{ name: 'explorer', params: { model: cm.short_name } }">
-              {{ cm.short_name }}
+              {{ cm.short_name }} {{ currentModel.version }}
             </router-link>
             <span v-if="i < comparedModels.length - 1">and</span>
           </span>
           ,
-          <b>{{ currentModel.short_name }}</b>
-          has:
+          <b>{{ currentModel.short_name }} </b>{{ currentModel.version }} has:
           <ul>
             <li>
               {{ comparisonDetails.details['Reaction'].common }} reactions and
@@ -42,7 +40,6 @@
               <span v-if="comparisonDetails.details[types[t]].unique.length > 20">
                 (showing 20)
               </span>
-              <br />
               <div class="tags">
                 <span
                   v-for="id in comparisonDetails.details[types[t]].unique.slice(0, 20)"

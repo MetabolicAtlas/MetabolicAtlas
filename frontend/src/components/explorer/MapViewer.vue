@@ -114,30 +114,14 @@
                 }"
               ></i>
             </span>
-            <br />
-            D
-            <br />
-            A
-            <br />
-            T
-            <br />
-            A
-            <br />
-            <br />
-            O
-            <br />
-            V
-            <br />
-            E
-            <br />
-            R
-            <br />
-            L
-            <br />
-            A
-            <br />
-            Y
-            <br />
+            <span
+              v-for="(c, i) in 'DATA OVERLAY'"
+              :key="i"
+              :class="c === ' ' ? 'mt-4' : ''"
+              class="is-block"
+            >
+              {{ c }}
+            </span>
             <span class="icon">
               <i
                 class="fa"

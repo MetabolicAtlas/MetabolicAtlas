@@ -44,68 +44,42 @@
                 </th>
               </tr>
             </thead>
-            <tbody id="machingTableBody" ref="machingTableBody">
-              <tr v-for="r in matchingReactions" :key="r.id">
-                <td v-for="s in columns" :key="s.field">
-                  <template v-if="s.field === 'id'">
-                    <span
-                      class="tag is-rounded is-clickable"
-                      :class="[{ hl: isSelected(r.id) }, '']"
-                      @click="HLreaction(r.id)"
-                    >
-                      <span class="is-size-6">{{ r.id }}</span>
-                    </span>
-                  </template>
-                  <template v-else-if="['reactants', 'products', 'genes'].includes(s.field)">
-                    <template v-for="el in r[s.field]">
-                      <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
+            <template v-for="tb in tableBodies">
+              <tbody :id="tb.id" :ref="tb.id" :key="tb.id">
+                <tr v-for="r in tb.reactions" :key="r.id">
+                  <td v-for="s in columns" :key="s.field">
+                    <template v-if="s.field === 'id'">
                       <span
-                        class="tag is-rounded is-clickable is-medium"
-                        :title="s.field !== 'genes' ? `${el.id} - ${el.compartment_str}` : el.id"
-                        :class="[{ hl: isSelected(el.id) }, '']"
-                        @click="highlight(el.id)"
+                        class="tag is-rounded is-clickable"
+                        :class="[{ hl: isSelected(r.id) }, '']"
+                        @click="HLreaction(r.id)"
                       >
-                        <span class="">{{ el.name || el.id }}</span>
+                        <span class="is-size-6">{{ r.id }}</span>
                       </span>
                     </template>
-                  </template>
-                  <template v-else>
-                    {{ r[s.field] }}
-                  </template>
-                </td>
-              </tr>
-            </tbody>
-            <tbody id="unmachingTableBody" ref="unmachingTableBody">
-              <tr v-for="r in unMatchingReactions" :key="r.id">
-                <td v-for="s in columns" :key="s.field">
-                  <template v-if="s.field === 'id'">
-                    <span
-                      class="tag is-rounded is-clickable"
-                      :class="[{ hl: isSelected(r.id) }, '']"
-                      @click="HLreaction(r.id)"
-                    >
-                      <span class="is-size-6">{{ r.id }}</span>
-                    </span>
-                  </template>
-                  <template v-else-if="['reactants', 'products', 'genes'].includes(s.field)">
-                    <template v-for="el in r[s.field]">
-                      <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
-                      <span
-                        class="tag is-rounded is-clickable is-medium"
-                        :title="s.field !== 'genes' ? `${el.id} - ${el.compartment_str}` : el.id"
-                        :class="[{ hl: isSelected(el.id) }, '']"
-                        @click="highlight(el.id)"
-                      >
-                        <span class="">{{ el.name || el.id }}</span>
-                      </span>
+                    <template v-else-if="['reactants', 'products', 'genes'].includes(s.field)">
+                      <template v-for="el in r[s.field]">
+                        <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
+                        <span
+                          class="tag is-rounded is-clickable is-medium"
+                          :title="s.field !== 'genes' ? `${el.id} - ${el.compartment_str}` : el.id"
+                          :class="[{ hl: isSelected(el.id) }, '']"
+                          @click="highlight(el.id)"
+                        >
+                          <span class="">{{ el.name || el.id }}</span>
+                        </span>
+                      </template>
                     </template>
-                  </template>
-                  <template v-else>
-                    {{ r[s.field] }}
-                  </template>
-                </td>
-              </tr>
-            </tbody>
+                    <template v-else>
+                      <compartment-links
+                        :compartment-string="r.compartment"
+                        :is-reversible="r.reversible"
+                      />
+                    </template>
+                  </td>
+                </tr>
+              </tbody>
+            </template>
           </table>
         </div>
       </div>
@@ -114,12 +88,14 @@
 </template>
 
 <script>
+import CompartmentLinks from '@/components/shared/CompartmentLinks';
 import ExportTSV from '@/components/shared/ExportTSV';
 import { default as compare } from '@/helpers/compare';
 
 export default {
   name: 'CytoscapeTable',
   components: {
+    CompartmentLinks,
     ExportTSV,
   },
   props: {
@@ -139,7 +115,7 @@ export default {
         { field: 'compartment', display: 'Compartment' },
       ],
       matchingReactions: [],
-      unMatchingReactions: [],
+      unmatchingReactions: [],
       sortAsc: true,
       sortField: null,
       tableSearch: '',
@@ -148,6 +124,12 @@ export default {
     };
   },
   computed: {
+    tableBodies() {
+      return [
+        { id: 'matchingTableBody', reactions: this.matchingReactions },
+        { id: 'unmatchingTableBody', reactions: this.unmatchingReactions },
+      ];
+    },
     sortedReactions() {
       const reactions = Array.prototype.slice.call(this.reactions); // Do not mutate original elms;
       return reactions.sort(compare(this.sortField, null, this.sortAsc ? 'asc' : 'desc'));
@@ -209,11 +191,13 @@ export default {
     updateTable() {
       if (this.tableSearch === '') {
         this.matchingReactions = Array.prototype.slice.call(this.sortedReactions);
-        this.unMatchingReactions = [];
-        this.$refs.machingTableBody.style.display = '';
+        this.unmatchingReactions = [];
+        if (this.$refs.matchingTableBody.style) {
+          this.$refs.matchingTableBody.style.display = '';
+        }
       } else {
         this.matchingReactions = [];
-        this.unMatchingReactions = [];
+        this.unmatchingReactions = [];
         const t = this.tableSearch.toLowerCase();
         this.sortedReactions.forEach(elm => {
           let matches = false;
@@ -243,15 +227,15 @@ export default {
           if (matches) {
             this.matchingReactions.push(elm);
           } else {
-            this.unMatchingReactions.push(elm);
+            this.unmatchingReactions.push(elm);
           }
         });
 
         // fix disappearing row/cell borders
         if (this.matchingReactions.length === 0) {
-          this.$refs.machingTableBody.style.display = 'none';
+          this.$refs.matchingTableBody.style.display = 'none';
         } else {
-          this.$refs.machingTableBody.style.display = '';
+          this.$refs.matchingTableBody.style.display = '';
         }
       }
     },
@@ -276,7 +260,7 @@ export default {
 
 <style lang="scss">
 .cytoscape-table {
-  #unmachingTableBody {
+  #unmatchingTableBody {
     opacity: 0.3;
   }
 

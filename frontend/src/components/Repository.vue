@@ -9,9 +9,7 @@
           {{ messages.gemBrowserName }}, {{ messages.mapViewerName }} and
           {{ messages.interPartName }}.
         </p>
-        <br />
-        <br />
-        <div id="integrated" class="columns is-multiline is-variable is-6 is-centered">
+        <div id="integrated" class="columns is-multiline is-variable is-6 is-centered mt-5">
           <div
             v-for="model in integratedModels"
             :key="model.short_name"
@@ -59,20 +57,22 @@
             </div>
           </div>
         </div>
-        <br />
-        <h3 id="GEM-repository" class="title is-3">GEM Repository</h3>
+        <div class="my-6">
+          <h4 id="integrated-models-history" class="title is-4">History of integrated models</h4>
+          <gem-history />
+        </div>
+        <h3 id="GEM-repository" class="title is-3 pt-6">GEM Repository</h3>
         <p class="has-text-justified">
           While we do not provide support for these models, we are making them available to
           download. For support, the authors should be contacted. They are listed in the
           <i>References</i>
           section of each model. Click on a row to display more information. To download multiple
           models at once use the
-          <router-link :to="{ name: 'documentation', hash: '#ftp-access' }">FTP server</router-link>
-          .
+          <router-link :to="{ name: 'documentation', hash: '#ftp-access' }">FTP server</router-link
+          >.
         </p>
-        <br />
         <loader v-show="showLoader"></loader>
-        <div v-if="gems.length != 0">
+        <div v-if="gems.length != 0" class="my-5">
           <vue-good-table
             :columns="columns"
             :rows="gems"
@@ -86,7 +86,6 @@
         <div v-else>
           <span v-if="!showLoader">No models available</span>
         </div>
-        <br />
         <div v-if="showModelId" id="gem-list-modal" class="modal is-active">
           <div class="modal-background" @click="selectModel(null)"></div>
           <div
@@ -112,9 +111,7 @@
                 </template>
               </h4>
               {{ selectedModel.description }}
-              <br />
-              <br />
-              <table class="table main-table is-fullwidth m-0">
+              <table class="table main-table is-fullwidth mx-0 mt-5 mb-6">
                 <tbody>
                   <tr v-for="field in model_fields" :key="field.name">
                     <template
@@ -167,11 +164,9 @@
                   </tr>
                 </tbody>
               </table>
-              <br />
               <references :reference-list="selectedModel.ref" />
-              <br />
               <template v-if="selectedModel.files">
-                <h4 class="subtitle is-size-4">Files</h4>
+                <h4 class="subtitle is-size-4 mt-6">Files</h4>
                 <template v-for="file in selectedModel.files">
                   <a :key="file.path" class="button" :href="`/api/v2/repository/${file.path}`">
                     {{ file.format }}
@@ -181,9 +176,8 @@
                 <div class="notification mt-4">
                   To download multiple models at once use the
                   <router-link :to="{ name: 'documentation', hash: '#ftp-access' }">
-                    FTP server
-                  </router-link>
-                  .
+                    FTP server</router-link
+                  >.
                 </div>
               </template>
             </div>
@@ -201,6 +195,7 @@ import { VueGoodTable } from 'vue-good-table';
 import 'vue-good-table/dist/vue-good-table.css';
 import Loader from '@/components/Loader';
 import References from '@/components/shared/References';
+import GemHistory from '@/components/GemHistory';
 import { default as messages } from '@/content/messages';
 
 export default {
@@ -209,6 +204,7 @@ export default {
     Loader,
     VueGoodTable,
     References,
+    GemHistory,
   },
   data() {
     return {
@@ -331,13 +327,13 @@ export default {
   computed: {
     ...mapState({
       gem: state => state.gems.gem,
+      gems: state => state.gems.gems,
     }),
     ...mapGetters({
       integratedModels: 'models/integratedModels',
       setFilterOptions: 'gems/setFilterOptions',
       systemFilterOptions: 'gems/systemFilterOptions',
       conditionFilterOptions: 'gems/conditionFilterOptions',
-      gems: 'gems/gemList',
     }),
   },
   watch: {

@@ -3,8 +3,7 @@
   <section class="section extended-section">
     <div class="container is-fullhd">
       <h3 class="title is-3">Documentation</h3>
-      <br />
-      <div class="columns is-variable is-8">
+      <div class="columns is-variable is-8 pt-5">
         <TableOfContents :links="tocLinks" />
         <div id="documentation" class="column content has-text-justified">
           <p>
@@ -45,8 +44,8 @@
             is a set of dedicated pages for various components, i.e., reactions, metabolites, genes,
             subsystems and compartments of the selected model, which is indicated on the left side
             of the top navigation bar. Each page contains a button on the right to
-            <i>Report an issue</i>
-            . Click this button to report a problem or ask questions to the modellers.
+            <i>Report an issue</i>. Click this button to report a problem or ask questions to the
+            modellers.
           </p>
 
           <h5 id="reaction-page" class="is-size-5">Reaction page</h5>
@@ -86,18 +85,14 @@
             Below the
             <i>Cross references</i>
             table comes the
-            <i>Reactions</i>
-            table. It lists all reactions involving the current metabolite as a reactant or product.
-            The current metabolite is highlighted in black in the reaction equations. This table can
-            be exported by clicking the button
-            <i>Export to TSV</i>
-            . Since metabolites are specific to a cell compartment, only reactions involving the
-            metabolite in its specific compartment are displayed. To remove this restriction and
-            display additional reactions involving the metabolite in any compartment, click the
-            button to
-            <i>See reactions from all compartments</i>
-            . Note that the number of retrieved reactions is limited to 1000. It is recommended to
-            use the
+            <i>Reactions</i> table. It lists all reactions involving the current metabolite as a
+            reactant or product. The current metabolite is highlighted in black in the reaction
+            equations. This table can be exported by clicking the button <i>Export to TSV</i>. Since
+            metabolites are specific to a cell compartment, only reactions involving the metabolite
+            in its specific compartment are displayed. To remove this restriction and display
+            additional reactions involving the metabolite in any compartment, click the button to
+            <i>See reactions from all compartments</i>. Note that the number of retrieved reactions
+            is limited to 1000. It is recommended to use the
             <a href="#api">API</a>
             to retrieve all reactions.
           </p>
@@ -105,8 +100,8 @@
             On the top right of the page, the
             <a href="#interaction-partners">Interaction Partners</a>
             tool for that metabolite can be accessed by clicking the button
-            <i>Interaction Partners</i>
-            . Below this button there is a widget to access the corresponding 2D or 3D
+            <i>Interaction Partners</i>. Below this button there is a widget to access the
+            corresponding 2D or 3D
             <a href="#map-viewer">Map Viewer</a>
             pages for this metabolite.
           </p>
@@ -163,10 +158,10 @@
             The
             <i>Map Viewer</i>
             is, similar to the
-            <a href="#gem-browser">GEM Browser</a>
-            , accessible after an integrated model has been selected. It includes a 2D viewer to
-            vizualize metabolic maps in SVG format, and a 3D viewer to explore the metabolic network
-            in 3 dimensions. One can easly go back and forth between the
+            <a href="#gem-browser">GEM Browser</a>, accessible after an integrated model has been
+            selected. It includes a 2D viewer to vizualize metabolic maps in SVG format, and a 3D
+            viewer to explore the metabolic network in 3 dimensions. One can easly go back and forth
+            between the
             <i>GEM Browser</i>
             and
             <i>Map Viewer</i>
@@ -197,9 +192,9 @@
             compartment or a subsystem/pathway. While a very high percentage of the reactions in the
             model are represented on the 2D maps, some may be unavailable. SVG maps were produced
             with
-            <a target="_blank" href="https://www.omix-visualization.com/">Omix Vizualization</a>
-            , a customizable tool for editing biochemical networks. A custom plug-in was developed
-            to enable the creation of compact maps with consistent layout.
+            <a target="_blank" href="https://www.omix-visualization.com/">Omix Vizualization</a>, a
+            customizable tool for editing biochemical networks. A custom plug-in was developed to
+            enable the creation of compact maps with consistent layout.
           </p>
           <p>
             All these 2D maps are manually curated to achieve state-of-the-art quality. However,
@@ -236,10 +231,9 @@
             The 3D renderings of the metabolic network are automatically generated from the GEM
             data, with the help of
             <a href="https://github.com/MetabolicAtlas/3d-network-viewer" target="_blank">
-              a force-directed graph JavaScript library
-            </a>
-            . This 3D graph contains all the reactions in the model, grouped by cellular compartment
-            or subsystem.
+              a force-directed graph JavaScript library</a
+            >. This 3D graph contains all the reactions in the model, grouped by cellular
+            compartment or subsystem.
           </p>
           <p>
             There are six buttons on the top left of the 3D graph that allow one to (from top to
@@ -283,8 +277,7 @@
                 The
                 <i>Data overlay</i>
                 panel is by default hidden in the
-                <i>Map Viewer</i>
-                . By clicking the
+                <i>Map Viewer</i>. By clicking the
                 <i>Data overlay</i>
                 button on the right side of the page, one can toggle the hidden/display of this
                 panel. For Human-GEM, the gene expression levels for genes from
@@ -310,9 +303,8 @@
                 <i>Data overlay</i>
                 sidebar allows uploading of the custom data in
                 <a target="_blank" href="https://en.wikipedia.org/wiki/Tab-separated_values">
-                  TSV format
-                </a>
-                . If the file is parsed correctly, the file name will be highlighted in green; in
+                  TSV format</a
+                >. If the file is parsed correctly, the file name will be highlighted in green; in
                 case errors are detected, it will be highlighted in red. The expected custom data
                 file should contain at least two columns with headers and using tab delimiter. The
                 first column has to contain gene IDs, identical to the ones in the model. The header
@@ -331,9 +323,8 @@
                   target="_blank"
                   href="https://github.com/MetabolicAtlas/data-files/blob/main/DATA_OVERLAY.md#data-source-file-requirements"
                 >
-                  here
-                </a>
-                . The headers of these data series will be shown automatically in the dropdown
+                  here</a
+                >. The headers of these data series will be shown automatically in the dropdown
                 options for the uploaded data. The values are expected in TPM.
               </p>
             </div>
@@ -346,15 +337,11 @@
                 </b>
               </p>
 
-              <br />
-              <blockquote>
-                id&emsp;heart&emsp;liver
-                <br />
-                ENSG00000177666&emsp;0.484&emsp;0.349
-                <br />
-                ENSG00000175535&emsp;0.564&emsp;0
-                <br />
-                ENSG00000187021&emsp;0.114&emsp;0
+              <blockquote class="mt-6">
+                <span class="is-block">id&emsp;heart&emsp;liver</span>
+                <span class="is-block">ENSG00000177666&emsp;0.484&emsp;0.349</span>
+                <span class="is-block">ENSG00000175535&emsp;0.564&emsp;0</span>
+                <span class="is-block">ENSG00000187021&emsp;0.114&emsp;0</span>
               </blockquote>
               <p style="font-size: 80%">
                 <b>Figure 2: Example file for custom data to be uploaded in Data overlay</b>
@@ -411,8 +398,7 @@
               </ul>
             </div>
           </div>
-          <br />
-          <p>
+          <p class="mt-5">
             Clicking/selecting a node (shown as black colored node) also shows links on the right
             sidebar to quickly reset the
             <i>Interaction Partners</i>
@@ -441,10 +427,9 @@
           The graph of
           <i>Interaction Partners</i>
           can be exported by clicking the button
-          <i>Export graph</i>
-          . There are two options of graph exporting: GraphML Interaction-Partners PNGhML is a
-          Cytoscape compatible format. Currently, color format is not supported for the GraphML
-          option.
+          <i>Export graph</i>. There are two options of graph exporting: GraphML
+          Interaction-Partners PNGhML is a Cytoscape compatible format. Currently, color format is
+          not supported for the GraphML option.
 
           <h5 id="interaction-partners-highlights" class="is-size-5">Highlights</h5>
           <p>
@@ -464,8 +449,7 @@
             Selecting a reaction ID label highlight the reaction on the graph. The search bar above
             the table can be used to filter out rows to find a given component. This table can be
             exported by clicking the button
-            <i>Export to TSV</i>
-            .
+            <i>Export to TSV</i>.
           </p>
 
           <hr class="mt-6" />
@@ -477,11 +461,11 @@
             For convenience, Metabolic Atlas provides two ways of searching:
             <i>Quick search</i>
             and
-            <i>Global search</i>
-            . One can search for any terms in metabolites, genes, reactions, subsystems or
-            compartments information with both searching methods. In addition, proximity searching
-            is enabled so that the searching algorithm will not only search for exact matching of
-            the input keywords but also try to find hits that are similar to the input keywords.
+            <i>Global search</i>. One can search for any terms in metabolites, genes, reactions,
+            subsystems or compartments information with both searching methods. In addition,
+            proximity searching is enabled so that the searching algorithm will not only search for
+            exact matching of the input keywords but also try to find hits that are similar to the
+            input keywords.
           </p>
 
           <h5 id="quick-search" class="is-size-5">Quick search</h5>
@@ -491,8 +475,7 @@
             in the top navigation bar, one can perform a quick search of any terms in metabolites,
             genes, reactions, subsystems or compartments. The found hits will be shown directly
             under the searching bar if there is any or prompted with
-            <i>No matches</i>
-            . The results links redirect to the corresponding
+            <i>No matches</i>. The results links redirect to the corresponding
             <i>GEM Browser</i>
             page of the component clicked. One can also click the icon
             <span><i class="fa fa-table"></i></span>
@@ -510,9 +493,9 @@
             is restricted to the selected GEM on the left side of searching bar and limited to 50
             results per component type. Alternatively, one can click on the banner under the search
             input field to run a
-            <i>Global Search</i>
-            , where the term is searched among all the integrated models' components and is
-            unrestricted. To learn more about the search term possiblities, go to the
+            <i>Global Search</i>, where the term is searched among all the integrated models'
+            components and is unrestricted. To learn more about the search term possiblities, go to
+            the
             <a href="#global-search">Global Search</a>
             section of this page.
           </p>
@@ -545,20 +528,11 @@
           <h5 id="integrated-models" class="is-size-5">Integrated GEMs</h5>
           <p>
             Currently, Metabolic Atlas contains seven integrated models, i.e.,
-            <i>Fruitfly-GEM</i>
-            ,
-            <i>Human-GEM</i>
-            ,
-            <i>Mouse-GEM</i>
-            ,
-            <i>Rat-GEM</i>
-            ,
-            <i>Worm-GEM</i>
-            ,
+            <i>Fruitfly-GEM</i>, <i>Human-GEM</i>, <i>Mouse-GEM</i>, <i>Rat-GEM</i>,
+            <i>Worm-GEM</i>,
             <i>Yeast-GEM</i>
             and
-            <i>Zebrafish-GEM</i>
-            . Details can be found at the
+            <i>Zebrafish-GEM</i>. Details can be found at the
             <router-link :to="{ name: 'gems', hash: '#integrated-models' }">
               GEM Repository
             </router-link>
@@ -571,9 +545,8 @@
             older models that may no longer be maintained (for example HMR 2.0), and others that
             were recently published. The more recent GEMs can also be found in the
             <a href="https://www.github.com/SysBioChalmers/" target="_blank">
-              SysBioChalmers organization GitHub
-            </a>
-            .
+              SysBioChalmers organization GitHub</a
+            >.
           </p>
           <p>
             Click on a row in the table to show more information about a GEM. One can download
@@ -606,37 +579,41 @@
             <a href="https://filezilla-project.org/">FileZilla</a>
             ).
           </p>
-          <span class="has-text-weight-bold lab">Host:</span>
-          <a :href="`ftp://${ftpUrl}/`">ftp://{{ ftpUrl }}</a>
-          <br />
-          <span class="has-text-weight-bold lab">Login:</span>
-          leave blank
-          <br />
-          <span class="has-text-weight-bold lab">Password:</span>
-          leave blank
-          <br />
-          <span class="has-text-weight-bold lab">Port:</span>
-          21
+          <span class="is-block">
+            <span class="has-text-weight-bold lab">Host:</span>
+            <a :href="`ftp://${ftpUrl}/`">ftp://{{ ftpUrl }}</a>
+          </span>
+          <span class="is-block">
+            <span class="has-text-weight-bold lab">Login:</span>
+            leave blank
+          </span>
+          <span class="is-block">
+            <span class="has-text-weight-bold lab">Password:</span>
+            leave blank
+          </span>
+          <span class="is-block">
+            <span class="has-text-weight-bold lab">Port:</span>
+            21
+          </span>
 
           <hr class="mt-6" />
           <h4 id="resources" class="is-size-4">
             <span class="icon pr-5 is-large has-text-info"><i class="fa fa-cogs"></i></span>
             Resources
           </h4>
-          <p>
-            Lists of the most relevant software tools, algorithms, or databases published by the
-            SysBio group.
-          </p>
-
           <h5 id="api" class="is-size-5">API</h5>
           <p>
             Metabolic Atlas has a
-            <a href="/api/v2/" target="_blank">
-              dedicated interface to facilite the use of the API
-            </a>
-            , with output provided in JSON format. When using this service, kindly use a limit of 10
-            requests per second. The API is still undergoing development; while it is covers the
-            entire content of the models, it might change without prior notice.
+            <a href="/api" target="_blank"> dedicated interface to facilite the use of the API</a>,
+            with output provided in JSON format. When using this service, kindly use a limit of 10
+            requests per second. The API is still undergoing development; while it covers the entire
+            content of the models, it might change without prior notice.
+          </p>
+          <h5 id="related-resources" class="is-size-5">Related resources</h5>
+          <p>
+            Metabolic Atlas is associated with other software tools, algorithms, and databases
+            published by the SysBio group. Visit the
+            <a href="/about/resources/"> about page section</a> to browse the lists.
           </p>
         </div>
       </div>
@@ -714,7 +691,10 @@ export default {
           name: 'Resources',
           icon: 'fa-cogs',
           link: '#resources',
-          subsections: [{ name: 'API', link: '#api' }],
+          subsections: [
+            { name: 'API', link: '#api' },
+            { name: 'Related resources', link: '#related-resources' },
+          ],
         },
       ],
     };

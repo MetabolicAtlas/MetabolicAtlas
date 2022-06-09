@@ -104,12 +104,6 @@ const actions = {
     }
     commit('setCustomDataSet', dataSet);
   },
-  resetValues({ commit }) {
-    commit('setIndex', {});
-    commit('setCurrentDataType', null);
-    commit('setCurrentDataSource', null);
-    commit('setDataSet', 'None');
-  },
 };
 
 const mutations = {

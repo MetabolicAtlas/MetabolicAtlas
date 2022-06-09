@@ -15,31 +15,34 @@
         </p>
         <p v-if="type === 'model'">{{ messages.modelNotFound }}</p>
         <p v-else>
-          Probably there is a typo in the {{ type }} identifier in the URL
-          <br />
-          Use the
-          <span v-if="type === 'map'">list of {{ type }}s</span>
-          <span v-else>search bar above</span>
-          to find other {{ type }}s
+          <span class="is-block">
+            Probably there is a typo in the {{ type }} identifier in the URL
+          </span>
+          <span class="is-block">
+            Use the
+            <span v-if="type === 'map'">list of {{ type }}s</span>
+            <span v-else>search bar above</span>
+            to find other {{ type }}s
+          </span>
         </p>
       </template>
       <template v-else>
         <h1 class="is-size-1 has-text-weight-bold">
-          ¯\_(ツ)_/¯
-          <br />
-          404
+          <span class="is-block">¯\_(ツ)_/¯</span>
+          <span class="is-block">404</span>
         </h1>
-        <br />
-        <p class="is-size-5">
-          The page requested does not exist on this
-          <router-link :to="{ name: 'about-news', hash: '#7-February-2020' }">
-            <b>new version of Metabolic Atlas</b>
-          </router-link>
-          <br />
-          If you are looking to download a GEM, look in the menu for
-          <router-link :to="{ name: 'gems' }"><b>GEM > Repository</b></router-link>
+        <p class="is-size-5 my-6">
+          <span class="is-block">
+            The page requested does not exist on this
+            <router-link :to="{ name: 'about-news', hash: '#7-February-2020' }">
+              <b>new version of Metabolic Atlas</b>
+            </router-link>
+          </span>
+          <span class="is-block">
+            If you are looking to download a GEM, look in the menu for
+            <router-link :to="{ name: 'gems' }"><b>GEM > Repository</b></router-link>
+          </span>
         </p>
-        <br />
       </template>
     </div>
   </div>

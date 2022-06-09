@@ -28,5 +28,11 @@ export default [
     icon: 'fa-external-link',
     link: '/about/resources',
     routeName: 'about-resources',
+    subsections: [
+      { name: 'Tools', link: '#tools' },
+      { name: 'Databases', link: '#databases' },
+      { name: 'APIs', link: '#apis' },
+      { name: 'Cross-references', link: '#cross-references' },
+    ],
   },
 ];

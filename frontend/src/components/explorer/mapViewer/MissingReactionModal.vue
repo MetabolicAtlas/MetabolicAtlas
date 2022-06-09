@@ -37,8 +37,8 @@
                 v-if="
                   !showFullReactionListMissing && missingReactionList.length > displayedReaction
                 "
+                class="mt-5"
               >
-                <br />
                 <button class="is-small button" @click="showFullReactionListMissing = true">
                   ... and {{ missingReactionList.length - displayedReaction }} more
                 </button>
@@ -56,8 +56,10 @@
             </td>
             <td>
               <div v-html="mapReactionIdListHtml"></div>
-              <div v-if="!showFullReactionListMap && mapReactionList.length > displayedReaction">
-                <br />
+              <div
+                v-if="!showFullReactionListMap && mapReactionList.length > displayedReaction"
+                class="mt-5"
+              >
                 <button class="is-small button" @click="showFullReactionListMap = true">
                   ... and {{ mapReactionList.length - displayedReaction }} more
                 </button>

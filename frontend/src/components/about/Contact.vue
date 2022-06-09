@@ -4,13 +4,11 @@
       <p>
         For any questions, comments or suggestions, or if you find any bugs or vulnerabilities
         regarding Metabolic Atlas, please email us at
-        <a href="mailto:contact@metabolicatlas.org">contact [at] metabolicatlas [dot] org</a>
-        .
+        <a href="mailto:contact@metabolicatlas.org">contact [at] metabolicatlas [dot] org</a>.
       </p>
       <p>
         For any management related issues, such as collaborations or funding, please email us at
-        <a href="mailto:management@metabolicatlas.org">management [at] metabolicatlas [dot] org</a>
-        .
+        <a href="mailto:management@metabolicatlas.org">management [at] metabolicatlas [dot] org</a>.
       </p>
     </template>
   </about-layout>

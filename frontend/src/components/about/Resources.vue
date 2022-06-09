@@ -6,11 +6,10 @@
           <!-- eslint-disable-next-line vue/require-v-for-key -->
           <div class="columns">
             <div class="column is-offset-2 has-text-centered-mobile">
-              <h3 class="title is-4">{{ category }}</h3>
+              <h4 :id="category.toLowerCase()" class="title is-4">{{ category }}</h4>
             </div>
           </div>
           <div v-for="elem in fullWidthResources(elems)" :key="elem.name" class="columns">
-            <br />
             <div class="column is-2 has-text-centered">
               <a :href="elem.link" target="_blank">
                 <template v-if="elem.img">
@@ -21,15 +20,19 @@
                 </template>
               </a>
             </div>
-            <div class="column has-text-justified">
-              <a :href="elem.link" target="_blank">
-                <b>{{ elem.title }}</b>
-              </a>
-              <br />
-              {{ elem.description }}
-              <br />
-              <a :href="elem.citation_url" target="_blank" v-html="elem.citation"></a>
-            </div>
+            <p class="column has-text-justified">
+              <span class="is-block">
+                <a :href="elem.link" target="_blank">
+                  <b>{{ elem.title }}</b>
+                </a>
+              </span>
+              <span class="is-block">
+                {{ elem.description }}
+              </span>
+              <span class="is-block">
+                <a :href="elem.citation_url" target="_blank" v-html="elem.citation"></a>
+              </span>
+            </p>
           </div>
           <div
             v-if="condensedResources(elems).length > 0"
