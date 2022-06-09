@@ -1,7 +1,7 @@
 <template>
   <details-page
-    component-type="Reaction"
-    :component-id="reactionId"
+    component-type="EC"
+    :component-id="ecValue"
     :enzymes-table-initial-filter="enzymesTableInitialFilter"
   />
 </template>
@@ -10,18 +10,18 @@
 import DetailsPage from '@/components/enzymeDb/DetailsPage';
 
 export default {
-  name: 'EnzymeReaction',
+  name: 'EnzymeEC',
   components: {
     DetailsPage,
   },
   data() {
     return {
-      reactionId: this.$route.params.id,
+      ecValue: this.$route.params.ecValue,
     };
   },
   computed: {
     enzymesTableInitialFilter() {
-      return { reaction_id: this.reactionId };
+      return { ec_number: this.ecValue };
     },
   },
 };

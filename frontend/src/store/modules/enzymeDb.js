@@ -8,12 +8,22 @@ const data = {
 };
 
 const actions = {
-  async getReactionData({ commit }, reactionId) {
-    const reaction = await enzymeDbApi.fetchReaction(reactionId);
-    const { info, crossReferences } = reaction;
+  async getReactionData({ commit }, id) {
+    const { info, crossReferences } = await enzymeDbApi.fetchReaction(id);
 
     commit('setInfo', info);
     commit('setCrossReferences', crossReferences);
+  },
+  async getCompoundData({ commit }, id) {
+    const { info, crossReferences } = await enzymeDbApi.fetchCompound(id);
+
+    commit('setInfo', info);
+    commit('setCrossReferences', crossReferences);
+  },
+  async getECData({ commit }, ecValue) {
+    const { info } = await enzymeDbApi.fetchEC(ecValue);
+
+    commit('setInfo', info);
   },
   async getEnzymes({ commit }, payload) {
     const { enzymes, totalCount } = await enzymeDbApi.fetchEnzymes(payload);
