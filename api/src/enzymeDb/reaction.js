@@ -1,4 +1,5 @@
 import sql from 'enzymeDb/db.js';
+import crossReferencesMapping from 'enzymeDb/crossReferencesMapping.js';
 
 const getReaction = async id => {
   const reactions = await sql`
@@ -12,7 +13,32 @@ const getReaction = async id => {
     );
   }
 
-  return reactions[0];
+  const reaction = reactions[0];
+  const { name, equation, ...rawCrossReferences } = reaction;
+
+  const info = Object.fromEntries(
+    Object.entries({ name, equation }).filter(([_, v]) => v)
+  );
+
+  const crossReferences = Object.fromEntries(
+    Object.entries(rawCrossReferences)
+      .filter(([_, v]) => v)
+      .map(([k, v]) => {
+        const { db, dbPrefix, reactionSuffix } = crossReferencesMapping[k];
+        return [
+          db,
+          v.split(';').map(id => ({
+            id,
+            url: `https://identifiers.org/${dbPrefix}${reactionSuffix}:${id}`,
+          })),
+        ];
+      })
+  );
+
+  return {
+    info,
+    crossReferences,
+  };
 };
 
 export default getReaction;

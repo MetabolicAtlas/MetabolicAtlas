@@ -12,7 +12,7 @@
           <div class="table-template column">
             <div class="table-container">
               <table class="table main-table is-fullwidth">
-                <tr v-for="[k, v] in Object.entries(info).filter(([_, v]) => v)" :key="k">
+                <tr v-for="[k, v] in Object.entries(info)" :key="k">
                   <td class="td-key has-background-primary has-text-white-bis is-capitalized">
                     {{ k }}
                   </td>
@@ -21,20 +21,7 @@
               </table>
             </div>
             <div v-if="Object.keys(crossReferences).length > 0">
-              <h4 class="subtitle is-4">Cross references</h4>
-              <div class="table-container">
-                <table class="table main-table is-fullwidth">
-                  <tr
-                    v-for="[k, v] in Object.entries(crossReferences).filter(([_, v]) => v)"
-                    :key="k"
-                  >
-                    <td class="td-key has-background-primary has-text-white-bis is-uppercase">
-                      {{ reformatTableKey(k) }}
-                    </td>
-                    <td>{{ v }}</td>
-                  </tr>
-                </table>
-              </div>
+              <ext-id-table type="enzyme" :external-dbs="crossReferences" />
             </div>
           </div>
         </div>
@@ -59,6 +46,7 @@
 import { mapState } from 'vuex';
 import { VueGoodTable } from 'vue-good-table';
 import Loader from '@/components/Loader';
+import ExtIdTable from '@/components/explorer/gemBrowser/ExtIdTable';
 import { default as messages } from '@/content/messages';
 import { reformatTableKey } from '@/helpers/utils';
 
@@ -66,6 +54,7 @@ export default {
   name: 'EnzymeReaction',
   components: {
     Loader,
+    ExtIdTable,
     VueGoodTable,
   },
   data() {

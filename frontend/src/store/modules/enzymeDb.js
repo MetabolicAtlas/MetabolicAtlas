@@ -10,8 +10,9 @@ const data = {
 const actions = {
   async getReactionData({ commit }, reactionId) {
     const reaction = await enzymeDbApi.fetchReaction(reactionId);
-    const { name, equation, ...crossReferences } = reaction;
-    commit('setInfo', { name, equation });
+    const { info, crossReferences } = reaction;
+
+    commit('setInfo', info);
     commit('setCrossReferences', crossReferences);
   },
   async getEnzymes({ commit }, payload) {
