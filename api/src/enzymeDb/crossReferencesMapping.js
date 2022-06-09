@@ -17,6 +17,13 @@ export default {
     compoundSuffix: '',
     reactionSuffix: '',
   },
+  model_seed: {
+    db: 'ModelSEED',
+    dbPrefix: 'seed',
+    compoundSuffix: '.compound',
+    reactionSuffix: '.reaction',
+  },
+
   // model_seed:  '???',
   bigg: {
     db: 'BiGG',
