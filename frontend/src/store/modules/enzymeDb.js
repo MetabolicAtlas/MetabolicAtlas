@@ -4,6 +4,7 @@ const data = {
   info: {},
   crossReferences: {},
   enzymes: [],
+  totalEnzymes: 0,
 };
 
 const actions = {
@@ -13,6 +14,11 @@ const actions = {
     commit('setInfo', { name, equation });
     commit('setCrossReferences', crossReferences);
   },
+  async getEnzymes({ commit }, payload) {
+    const { enzymes, totalCount } = await enzymeDbApi.fetchEnzymes(payload);
+    commit('setEnzymes', enzymes);
+    commit('setTotalEnzymes', totalCount);
+  },
 };
 
 const mutations = {
@@ -21,6 +27,12 @@ const mutations = {
   },
   setCrossReferences: (state, crossReferences) => {
     state.crossReferences = crossReferences;
+  },
+  setEnzymes: (state, enzymes) => {
+    state.enzymes = enzymes;
+  },
+  setTotalEnzymes: (state, totalEnzymes) => {
+    state.totalEnzymes = totalEnzymes;
   },
 };
 
