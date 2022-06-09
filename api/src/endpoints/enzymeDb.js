@@ -19,10 +19,10 @@ enzymeDbRoutes.get('/reactions/:id', async (req, res) => {
 });
 
 enzymeDbRoutes.get('/enzymes', async (req, res) => {
-  const { filters, page, pageSize } = req.query;
+  const { filters, pagination } = req.query;
 
   try {
-    const enzymes = await getEnzymes({ filters, page, pageSize });
+    const enzymes = await getEnzymes({ filters, pagination });
     if (enzymes) {
       res.json(enzymes);
     } else {

@@ -30,12 +30,19 @@ const getFiltersQueries = filters => {
   return filtersQueries;
 };
 
-const getEnzymes = async ({ filters, pageSize, page }) => {
-  const filtersQueries = getFiltersQueries;
-  const limit = pageSize || 50;
-  const offset = ((page || 1) - 1) * limit;
+const getEnzymes = async ({
+  filters,
+  pagination: {
+    column = 'protein',
+    isAscending = 'true',
+    pageSize = 50,
+    page = 1,
+  } = {},
+}) => {
+  const filtersQueries = getFiltersQueries(filters);
+  const order = isAscending.toLowerCase() === 'true' ? sql`asc` : sql`desc`;
 
-  const enzymes = await sql`
+  const enzymesQuery = sql`
     select * from enzymes
     ${
       filtersQueries.length > 0
@@ -45,10 +52,24 @@ const getEnzymes = async ({ filters, pageSize, page }) => {
           )}`
         : sql``
     }
-    limit ${limit} offset ${offset}
+    order by ${sql(column)} ${order}
+    limit ${pageSize} offset ${(page - 1) * pageSize}
   `;
 
-  return enzymes;
+  const countQuery = sql`
+    select count(*) from enzymes
+    ${
+      filtersQueries.length > 0
+        ? sql`where ${filtersQueries.reduce(
+            (qs, q) => sql`${qs} and ${q}`,
+            sql`true`
+          )}`
+        : sql``
+    }
+  `;
+
+  const [enzymes, totalCount] = await Promise.all([enzymesQuery, countQuery]);
+  return { enzymes, totalCount };
 };
 
 export default getEnzymes;
