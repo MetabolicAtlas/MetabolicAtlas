@@ -28,6 +28,7 @@ import Team from '@/components/about/Team';
 import Advisory from '@/components/about/Advisory';
 import AboutResources from '@/components/about/Resources';
 import Elixir from '@/components/about/Elixir';
+import EnzymeReaction from '@/components/enzymeDb/Reaction';
 
 Vue.use(VueRouter);
 
@@ -67,6 +68,8 @@ const routes = [
   { path: '/gems/comparison', name: 'comparemodels', component: CompareModels },
   { path: '/documentation', name: 'documentation', component: Documentation },
   { path: '/identifier/:dbName/:identifierId', name: 'identifier', component: IdInModels },
+
+  { path: '/enzymedb/reaction/:id', name: 'enzymedb-reaction', component: EnzymeReaction },
 
   // redirects
   { path: '/explore/gem-browser/human1*', redirect: '/explore/Human-GEM/gem-browser*' },
