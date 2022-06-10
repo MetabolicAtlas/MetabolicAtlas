@@ -23,7 +23,7 @@ export default {
     VueGoodTable,
   },
   props: {
-    initialFilter: { type: Object, default: {} },
+    initialFilter: { type: Object, default: () => {} },
   },
   data() {
     return {

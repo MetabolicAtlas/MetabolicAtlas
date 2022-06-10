@@ -45,12 +45,12 @@ export default {
   },
   chebi: {
     db: 'ChEBI',
-    dbPrefix: 'chebi',
+    dbPrefix: 'CHEBI',
     compoundSuffix: '',
   },
   reactome: {
     db: 'Reactome',
-    dbPrefix: 'rectome',
+    dbPrefix: 'reactome',
     compoundSuffix: '',
   },
 };

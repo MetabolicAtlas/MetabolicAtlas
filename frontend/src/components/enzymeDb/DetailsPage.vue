@@ -21,7 +21,11 @@
               </table>
             </div>
             <div v-if="Object.keys(crossReferences).length > 0">
-              <ext-id-table type="enzyme" :external-dbs="crossReferences" />
+              <ext-id-table
+                type="enzyme"
+                :reference-type="componentType"
+                :external-dbs="crossReferences"
+              />
             </div>
           </div>
         </div>
@@ -47,7 +51,7 @@ export default {
   props: {
     componentId: { type: String },
     componentType: { type: String },
-    enzymesTableInitialFilter: { type: Object, default: {} },
+    enzymesTableInitialFilter: { type: Object, default: () => {} },
   },
   data() {
     return {
