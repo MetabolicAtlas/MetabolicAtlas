@@ -16,7 +16,7 @@ If possible, please also add Acceptance Criteria so it is clear what is required
 
 ## Making Changes
 
-The production website, https://metabolicatlas.org, is based on the `main` branch. For development, new work should be based on the `develop` branch.
+The production website, https://metabolicatlas.org, is based on the `main` branch. All new development should be based on this branch.
 
 ### Getting Started
 
@@ -24,7 +24,7 @@ To get started with running the project on your local development machine, pleas
 
 ### Creating a branch
 
-Once you have the project running locally, create a new branch based on the `develop` branch. The branch name should start with `feat/` or `fix/` (inspired by the [Semantic Commit Messages](https://www.conventionalcommits.org/en/v1.0.0/)) and have a relatively short dash-separated name, for example `feat/contribution-guidelines`.
+Once you have the project running locally, create a new branch based on the `main` branch. The branch name should start with `feat/` or `fix/` (inspired by the [Semantic Commit Messages](https://www.conventionalcommits.org/en/v1.0.0/)) and have a relatively short dash-separated name, for example `feat/contribution-guidelines`.
 
 ### Adding a commit
 
@@ -65,7 +65,7 @@ Once the `node_modules` are mounted to the local file system, the text editor in
 
 ### Creating a PR
 
-1. When you are finished with the changes, [initiate a new PR](https://github.com/MetabolicAtlas/MetabolicAtlas/compare) from your branch with `develop` as the base branch.
+1. When you are finished with the changes, [initiate a new PR](https://github.com/MetabolicAtlas/MetabolicAtlas/compare) from your branch with `main` as the base branch.
 2. The PR title should also follow the style of Semantic Commit Messages, for example `docs: add contribution guidelines`.
 3. The PR description should include which corresponding issue it closes, as well as any instructions for how reviewers can verify the PR. For example:
    > This PR closes #682.
