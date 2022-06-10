@@ -20,7 +20,7 @@ The production website, https://metabolicatlas.org, is based on the `main` branc
 
 ### Getting Started
 
-To get started with running the project on your local development machine, please follow the [README](https://github.com/MetabolicAtlas/MetabolicAtlas/blob/develop/README.md)
+To get started with running the project on your local development machine, please follow the [README](https://github.com/MetabolicAtlas/MetabolicAtlas/blob/main/README.md)
 
 ### Creating a branch
 
