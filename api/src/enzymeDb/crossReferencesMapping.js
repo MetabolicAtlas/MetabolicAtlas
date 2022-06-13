@@ -23,8 +23,6 @@ export default {
     compoundSuffix: '.compound',
     reactionSuffix: '.reaction',
   },
-
-  // model_seed:  '???',
   bigg: {
     db: 'BiGG',
     dbPrefix: 'bigg',
