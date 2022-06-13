@@ -8,28 +8,30 @@
           </div>
         </div>
         <loader v-if="showLoaderMessage" :message="showLoaderMessage" class="columns" />
-        <div v-else class="columns is-8 is-centered">
-          <div class="table-template column">
-            <div class="table-container">
-              <table class="table main-table is-fullwidth">
-                <tr v-for="[k, v] in Object.entries(info)" :key="k">
-                  <td class="td-key has-background-primary has-text-white-bis is-capitalized">
-                    {{ k }}
-                  </td>
-                  <td>{{ v }}</td>
-                </tr>
-              </table>
-            </div>
-            <div v-if="Object.keys(crossReferences).length > 0">
-              <ext-id-table
-                type="enzyme"
-                :reference-type="componentType"
-                :external-dbs="crossReferences"
-              />
+        <template v-else-if="!notFound">
+          <div class="columns is-8 is-centered">
+            <div class="table-template column">
+              <div class="table-container">
+                <table class="table main-table is-fullwidth">
+                  <tr v-for="[k, v] in Object.entries(info)" :key="k">
+                    <td class="td-key has-background-primary has-text-white-bis is-capitalized">
+                      {{ k }}
+                    </td>
+                    <td>{{ v }}</td>
+                  </tr>
+                </table>
+              </div>
+              <div v-if="Object.keys(crossReferences).length > 0">
+                <ext-id-table
+                  type="enzyme"
+                  :reference-type="componentType"
+                  :external-dbs="crossReferences"
+                />
+              </div>
             </div>
           </div>
-        </div>
-        <enzymes-table :initial-filter="enzymesTableInitialFilter" />
+          <enzymes-table :initial-filter="enzymesTableInitialFilter" />
+        </template>
       </div>
     </div>
   </div>
