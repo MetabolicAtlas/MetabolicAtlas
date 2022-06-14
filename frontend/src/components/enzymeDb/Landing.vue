@@ -20,6 +20,7 @@
               type="text"
               placeholder="search"
               @keyup.enter="updateSearch()"
+              @input="searchStringChange()"
             />
             <span
               v-show="showSearchCharAlert"
@@ -32,6 +33,17 @@
               <i class="fa fa-search is-primary"></i>
             </span>
           </p>
+          <div
+            v-if="searchResultsEmpty"
+            class="column is-three-fifths-desktop is-three-quarters-tablet is-fullwidth-mobile"
+          >
+            <div v-if="searchTerm" class="has-text-centered notification">
+              {{ messages.searchNoResult }} for
+              <b>
+                <i>{{ searchTerm }}</i>
+              </b>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -125,6 +137,7 @@
 
 <script>
 import TableOfContents from '@/components/shared/TableOfContents.vue';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'EnzymeLanding',
@@ -134,6 +147,8 @@ export default {
   data() {
     return {
       searchTerm: '',
+      searchResultsEmpty: false,
+      showSearchCharAlert: false,
       tocLinks: [
         {
           name: 'Intro - value',
@@ -155,18 +170,27 @@ export default {
           link: '#citation',
         },
       ],
+      messages,
     };
   },
   computed: {},
   methods: {
     updateSearch() {
-      if (this.searchTerm.startsWith('R')) {
+      this.searchResultsEmpty = false;
+      if (this.searchTerm.length === 1) {
+        this.showSearchCharAlert = true;
+      } else if (this.searchTerm.startsWith('R')) {
         this.$router.push(`/enzymedb/reaction/${this.searchTerm}`);
       } else if (this.searchTerm.startsWith('C')) {
         this.$router.push(`/enzymedb/compound/${this.searchTerm}`);
       } else if (this.searchTerm.match(/^\d+\.\d+\.\d+\.\d+/)) {
         this.$router.push(`/enzymedb/ec/${this.searchTerm}`);
+      } else {
+        this.searchResultsEmpty = true;
       }
+    },
+    searchStringChange() {
+      this.searchResultsEmpty = false;
     },
   },
 };
