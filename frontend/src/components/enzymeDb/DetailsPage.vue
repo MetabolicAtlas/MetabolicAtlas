@@ -2,15 +2,11 @@
   <div class="section extended-section">
     <div class="container is-fullhd">
       <div>
-        <div class="columns">
-          <div class="column">
-            <h3 class="title is-3">{{ componentType }} {{ componentId }}</h3>
-          </div>
-        </div>
+        <h3 class="title is-3">{{ componentType }} {{ componentId }}</h3>
         <loader v-if="showLoaderMessage" :message="showLoaderMessage" class="columns" />
         <template v-else-if="!notFound">
-          <div class="columns is-8 is-centered">
-            <div class="table-template column">
+          <div class="columns">
+            <div class="table-template column is-8-desktop">
               <div class="table-container">
                 <table class="table main-table is-fullwidth">
                   <tr v-for="[k, v] in Object.entries(info)" :key="k">
