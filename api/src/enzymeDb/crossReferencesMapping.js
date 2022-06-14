@@ -1,6 +1,6 @@
 export default {
   kegg: {
-    db: 'Kegg',
+    db: 'KEGG',
     dbPrefix: 'kegg',
     compoundSuffix: '.compound',
     reactionSuffix: '.reaction',
