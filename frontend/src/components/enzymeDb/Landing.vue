@@ -33,15 +33,12 @@
               <i class="fa fa-search is-primary"></i>
             </span>
           </p>
-          <div
-            v-if="searchResultsEmpty"
-            class="column is-three-fifths-desktop is-three-quarters-tablet is-fullwidth-mobile"
-          >
+          <div v-if="searchResultsEmpty" class="mt-2">
             <div v-if="searchTerm" class="has-text-centered notification">
               {{ messages.searchNoResult }} for
               <b>
-                <i>{{ searchTerm }}</i>
-              </b>
+                <i>{{ searchTerm }}</i> </b
+              >. Please search using a valid EC code or KEGG id for reaction or compound.
             </div>
           </div>
         </div>
@@ -64,7 +61,7 @@
               )
             </li>
             <li>
-              Compound (e.g.
+              compound (e.g.
               <router-link to="/enzymedb/compound/C00003">C00003</router-link>
               )
             </li>
