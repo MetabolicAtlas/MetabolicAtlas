@@ -24,6 +24,7 @@ const actions = {
     const { info } = await enzymeDbApi.fetchEC(ecValue);
 
     commit('setInfo', info);
+    commit('setCrossReferences', []);
   },
   async getEnzymes({ commit }, payload) {
     const { enzymes, totalCount } = await enzymeDbApi.fetchEnzymes(payload);
