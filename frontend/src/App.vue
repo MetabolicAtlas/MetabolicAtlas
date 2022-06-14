@@ -219,6 +219,10 @@ export default {
           ],
         },
         {
+          displayName: 'EnzymeDB',
+          routeName: 'enzymedb',
+        },
+        {
           displayName: 'Documentation',
           routeName: 'documentation',
         },
