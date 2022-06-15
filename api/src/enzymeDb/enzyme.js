@@ -31,7 +31,7 @@ const getFiltersQueries = filters => {
 };
 
 const getEnzymes = async ({
-  filters,
+  filters = {},
   pagination: {
     column = 'protein',
     isAscending = 'true',
