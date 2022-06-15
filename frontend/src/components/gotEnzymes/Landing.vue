@@ -3,7 +3,7 @@
     <section class="hero is-primary is-bold py-6">
       <div class="hero-body has-text-centered">
         <p class="is-size-1 title">GotEnzymes</p>
-        <p class="is-size-5">The final solution for your enzymatic needs</p>
+        <p class="is-size-5">We've got the enzymes you need</p>
       </div>
     </section>
     <div class="columns is-centered pt-6">
@@ -77,26 +77,20 @@
           <TableOfContents :links="tocLinks" />
           <div id="intro" class="column content has-text-justified">
             <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-              has been the industry's standard dummy text ever since the 1500s, when an unknown
-              printer took a galley of type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into electronic typesetting,
-              remaining essentially unchanged. It was popularised in the 1960s with the release of
-              Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+              GotEnzymes provides open access to over XYZ million predicted kinetic data for XYZ
+              unique sequences and XYZ compounds from XYZ species with the cutting-edge artificial
+              intelligence tools. Data in this database are predicted from available advanced deep
+              learning tools: kcat[reference] and KM [reference]. Our vision for this database is to
+              store every possible predicted parameter for any available enzyme to facilitate better
+              science.
             </p>
 
             <hr class="mt-6" />
             <h4 id="how-to-use-it" class="is-info is-size-4">How to use it</h4>
             <p>
-              It is a long established fact that a reader will be distracted by the readable content
-              of a page when looking at its layout. The point of using Lorem Ipsum is that it has a
-              more-or-less normal distribution of letters, as opposed to using 'Content here,
-              content here', making it look like readable English. Many desktop publishing packages
-              and web page editors now use Lorem Ipsum as their default model text, and a search for
-              'lorem ipsum' will uncover many web sites still in their infancy. Various versions
-              have evolved over the years, sometimes by accident, sometimes on purpose (injected
-              humour and the like).
+              We now support searches by reaction, compound, EC number. Each predicted parameter is
+              filterable. Feel free to contact us if you find any issue. To report a technical error
+              on the webpage please email contact@metabolicatlas.org.
             </p>
             <hr class="mt-6" />
             <h4 id="how-it-was-made" class="is-info is-size-4">How it was made</h4>
@@ -115,15 +109,8 @@
             <hr class="mt-6" />
             <h4 id="citation" class="is-info is-size-4">Citation</h4>
             <p>
-              There are many variations of passages of Lorem Ipsum available, but the majority have
-              suffered alteration in some form, by injected humour, or randomised words which don't
-              look even slightly believable. If you are going to use a passage of Lorem Ipsum, you
-              need to be sure there isn't anything embarrassing hidden in the middle of text. All
-              the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as
-              necessary, making this the first true generator on the Internet. It uses a dictionary
-              of over 200 Latin words, combined with a handful of model sentence structures, to
-              generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore
-              always free from repetition, injected humour, or non-characteristic words etc.
+              To cite Gotzymes please use this [link]. For more information about the prediction
+              methods, have a look at eference title [link] for kcat prediction and KM prediction.
             </p>
           </div>
         </div>
