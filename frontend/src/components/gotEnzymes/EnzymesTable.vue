@@ -108,8 +108,8 @@ export default {
   },
   computed: {
     ...mapState({
-      enzymes: state => state.enzymeDb.enzymes,
-      totalRows: state => state.enzymeDb.totalEnzymes,
+      enzymes: state => state.gotEnzymes.enzymes,
+      totalRows: state => state.gotEnzymes.totalEnzymes,
     }),
   },
   async mounted() {
@@ -125,7 +125,7 @@ export default {
         },
       };
 
-      await this.$store.dispatch('enzymeDb/getEnzymes', this.serverPaginationOptions);
+      await this.$store.dispatch('gotEnzymes/getEnzymes', this.serverPaginationOptions);
     },
     async onPageChange({ currentPage }) {
       this.serverPaginationOptions = {
@@ -136,7 +136,7 @@ export default {
         },
       };
 
-      await this.$store.dispatch('enzymeDb/getEnzymes', this.serverPaginationOptions);
+      await this.$store.dispatch('gotEnzymes/getEnzymes', this.serverPaginationOptions);
     },
     async onSortChange([{ field, type }]) {
       this.serverPaginationOptions = {
@@ -148,7 +148,7 @@ export default {
         },
       };
 
-      await this.$store.dispatch('enzymeDb/getEnzymes', this.serverPaginationOptions);
+      await this.$store.dispatch('gotEnzymes/getEnzymes', this.serverPaginationOptions);
     },
     async onColumnFilter({ columnFilters }) {
       this.serverPaginationOptions = {
@@ -159,7 +159,7 @@ export default {
         },
       };
 
-      await this.$store.dispatch('enzymeDb/getEnzymes', this.serverPaginationOptions);
+      await this.$store.dispatch('gotEnzymes/getEnzymes', this.serverPaginationOptions);
     },
   },
 };

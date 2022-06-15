@@ -1,4 +1,4 @@
-import sql from 'enzymeDb/db.js';
+import sql from 'gotEnzymes/db';
 
 const VALID_FIELDS = [
   'protein',

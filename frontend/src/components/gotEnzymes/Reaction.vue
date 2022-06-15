@@ -1,27 +1,27 @@
 <template>
   <details-page
-    component-type="Compound"
-    :component-id="compoundId"
+    component-type="Reaction"
+    :component-id="reactionId"
     :enzymes-table-initial-filter="enzymesTableInitialFilter"
   />
 </template>
 
 <script>
-import DetailsPage from '@/components/enzymeDb/DetailsPage';
+import DetailsPage from '@/components/gotEnzymes/DetailsPage';
 
 export default {
-  name: 'EnzymeCompound',
+  name: 'EnzymeReaction',
   components: {
     DetailsPage,
   },
   data() {
     return {
-      compoundId: this.$route.params.id,
+      reactionId: this.$route.params.id,
     };
   },
   computed: {
     enzymesTableInitialFilter() {
-      return { compound: this.compoundId };
+      return { reaction_id: this.reactionId };
     },
   },
 };

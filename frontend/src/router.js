@@ -28,10 +28,10 @@ import Team from '@/components/about/Team';
 import Advisory from '@/components/about/Advisory';
 import AboutResources from '@/components/about/Resources';
 import Elixir from '@/components/about/Elixir';
-import EnzymeReaction from '@/components/enzymeDb/Reaction';
-import EnzymeCompound from '@/components/enzymeDb/Compound';
-import EnzymeEC from '@/components/enzymeDb/EC';
-import EnzymeLanding from '@/components/enzymeDb/Landing';
+import EnzymeReaction from '@/components/gotEnzymes/Reaction';
+import EnzymeCompound from '@/components/gotEnzymes/Compound';
+import EnzymeEC from '@/components/gotEnzymes/EC';
+import EnzymeLanding from '@/components/gotEnzymes/Landing';
 
 Vue.use(VueRouter);
 
@@ -72,10 +72,10 @@ const routes = [
   { path: '/documentation', name: 'documentation', component: Documentation },
   { path: '/identifier/:dbName/:identifierId', name: 'identifier', component: IdInModels },
 
-  { path: '/enzymedb', name: 'enzymedb', component: EnzymeLanding },
-  { path: '/enzymedb/reaction/:id', name: 'enzymedb-reaction', component: EnzymeReaction },
-  { path: '/enzymedb/compound/:id', name: 'enzymedb-compound', component: EnzymeCompound },
-  { path: '/enzymedb/ec/:ecValue', name: 'enzymedb-ec', component: EnzymeEC },
+  { path: '/gotEnzymes', name: 'gotenzymes', component: EnzymeLanding },
+  { path: '/gotEnzymes/reaction/:id', name: 'gotenzymes-reaction', component: EnzymeReaction },
+  { path: '/gotEnzymes/compound/:id', name: 'gotenzymes-compound', component: EnzymeCompound },
+  { path: '/gotEnzymes/ec/:ecValue', name: 'gotenzymes-ec', component: EnzymeEC },
 
   // redirects
   { path: '/explore/gem-browser/human1*', redirect: '/explore/Human-GEM/gem-browser*' },

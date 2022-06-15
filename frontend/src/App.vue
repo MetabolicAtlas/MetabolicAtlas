@@ -219,8 +219,8 @@ export default {
           ],
         },
         {
-          displayName: 'EnzymeDB',
-          routeName: 'enzymedb',
+          displayName: 'GotEnzymes',
+          routeName: 'gotenzymes',
         },
         {
           displayName: 'Documentation',

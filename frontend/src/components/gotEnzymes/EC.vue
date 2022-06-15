@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import DetailsPage from '@/components/enzymeDb/DetailsPage';
+import DetailsPage from '@/components/gotEnzymes/DetailsPage';
 
 export default {
   name: 'EnzymeEC',

@@ -1,17 +1,17 @@
 import axios from 'axios';
 
 const fetchReaction = async keggId => {
-  const { data } = await axios.get(`/enzymedb/reactions/${keggId}`);
+  const { data } = await axios.get(`/gotEnzymes/reactions/${keggId}`);
   return data;
 };
 
 const fetchCompound = async keggId => {
-  const { data } = await axios.get(`/enzymedb/compounds/${keggId}`);
+  const { data } = await axios.get(`/gotEnzymes/compounds/${keggId}`);
   return data;
 };
 
 const fetchEC = async ecValue => {
-  const { data } = await axios.get(`/enzymedb/ecs/${ecValue}`);
+  const { data } = await axios.get(`/gotEnzymes/ecs/${ecValue}`);
   return data;
 };
 
@@ -30,7 +30,7 @@ const createQueryString = params => {
 const fetchEnzymes = async params => {
   const queryString = createQueryString(params);
 
-  const { data } = await axios.get(`/enzymedb/enzymes${queryString}`);
+  const { data } = await axios.get(`/gotEnzymes/enzymes${queryString}`);
   return data;
 };
 

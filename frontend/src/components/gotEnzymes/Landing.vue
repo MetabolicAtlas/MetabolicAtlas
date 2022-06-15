@@ -2,7 +2,7 @@
   <div>
     <section class="hero is-primary is-bold py-6">
       <div class="hero-body has-text-centered">
-        <p class="is-size-1 title">EnzymeDB</p>
+        <p class="is-size-1 title">GotEnzymes</p>
         <p class="is-size-5">The final solution for your enzymatic needs</p>
       </div>
     </section>
@@ -52,17 +52,17 @@
           <ul>
             <li>
               reaction (e.g.
-              <router-link to="/enzymedb/reaction/R01234"> R01234 </router-link>
+              <router-link to="/gotEnzymes/reaction/R01234"> R01234 </router-link>
               )
             </li>
             <li>
               EC code (e.g.
-              <router-link to="/enzymedb/ec/2.5.1.19">2.5.1.19</router-link>
+              <router-link to="/gotEnzymes/ec/2.5.1.19">2.5.1.19</router-link>
               )
             </li>
             <li>
               compound (e.g.
-              <router-link to="/enzymedb/compound/C00003">C00003</router-link>
+              <router-link to="/gotEnzymes/compound/C00003">C00003</router-link>
               )
             </li>
           </ul>
@@ -177,11 +177,11 @@ export default {
       if (this.searchTerm.length === 1) {
         this.showSearchCharAlert = true;
       } else if (this.searchTerm.startsWith('R')) {
-        this.$router.push(`/enzymedb/reaction/${this.searchTerm}`);
+        this.$router.push(`/gotEnzymes/reaction/${this.searchTerm}`);
       } else if (this.searchTerm.startsWith('C')) {
-        this.$router.push(`/enzymedb/compound/${this.searchTerm}`);
+        this.$router.push(`/gotEnzymes/compound/${this.searchTerm}`);
       } else if (this.searchTerm.match(/^\d+\.\d+\.\d+\.\d+/)) {
-        this.$router.push(`/enzymedb/ec/${this.searchTerm}`);
+        this.$router.push(`/gotEnzymes/ec/${this.searchTerm}`);
       } else {
         this.searchResultsEmpty = true;
       }
