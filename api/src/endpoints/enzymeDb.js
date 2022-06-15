@@ -15,7 +15,7 @@ enzymeDbRoutes.get('/compounds/:id', async (req, res) => {
     }
   } catch (e) {
     console.error(e.message);
-    res.sendStatus(400);
+    res.sendStatus(500);
   }
 });
 
@@ -31,7 +31,7 @@ enzymeDbRoutes.get('/ecs/:value', async (req, res) => {
     }
   } catch (e) {
     console.error(e.message);
-    res.sendStatus(400);
+    res.sendStatus(500);
   }
 });
 
@@ -47,7 +47,7 @@ enzymeDbRoutes.get('/reactions/:id', async (req, res) => {
     }
   } catch (e) {
     console.error(e.message);
-    res.sendStatus(400);
+    res.sendStatus(500);
   }
 });
 
@@ -56,14 +56,10 @@ enzymeDbRoutes.get('/enzymes', async (req, res) => {
 
   try {
     const enzymes = await getEnzymes({ filters, pagination });
-    if (enzymes) {
-      res.json(enzymes);
-    } else {
-      res.sendStatus(404);
-    }
+    res.json(enzymes);
   } catch (e) {
     console.error(e.message);
-    res.sendStatus(400);
+    res.sendStatus(500);
   }
 });
 
