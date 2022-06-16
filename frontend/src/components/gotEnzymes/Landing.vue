@@ -6,66 +6,68 @@
         <p class="is-size-5">We've got the enzymes you need</p>
       </div>
     </section>
-    <div class="columns is-centered pt-6">
-      <div
-        class="column is-three-fifths-desktop is-three-quarters-tablet is-fullwidth-mobile control"
-      >
-        <div>
-          <p class="control has-icons-right has-icons-left">
-            <input
-              id="search"
-              v-model="searchTerm"
-              data-hj-whitelist
-              class="input"
-              type="text"
-              placeholder="search"
-              @keyup.enter="updateSearch()"
-              @input="searchStringChange()"
-            />
-            <span
-              v-show="showSearchCharAlert"
-              class="has-text-info icon is-right"
-              style="width: 220px"
-            >
-              Type at least 2 characters
-            </span>
-            <span class="icon is-medium is-left">
-              <i class="fa fa-search is-primary"></i>
-            </span>
-          </p>
-          <div v-if="searchResultsEmpty" class="mt-2">
-            <div v-if="searchTerm" class="has-text-centered notification">
-              {{ messages.searchNoResult }} for
-              <b>
-                <i>{{ searchTerm }}</i> </b
-              >. Please search using a valid EC code or KEGG id for reaction or compound.
+    <div class="container is-fullhd">
+      <div class="columns is-centered pt-6">
+        <div
+          class="column is-three-fifths-desktop is-three-quarters-tablet is-fullwidth-mobile control"
+        >
+          <div>
+            <p class="control has-icons-right has-icons-left">
+              <input
+                id="search"
+                v-model="searchTerm"
+                data-hj-whitelist
+                class="input"
+                type="text"
+                placeholder="search"
+                @keyup.enter="updateSearch()"
+                @input="searchStringChange()"
+              />
+              <span
+                v-show="showSearchCharAlert"
+                class="has-text-info icon is-right"
+                style="width: 220px"
+              >
+                Type at least 2 characters
+              </span>
+              <span class="icon is-medium is-left">
+                <i class="fa fa-search is-primary"></i>
+              </span>
+            </p>
+            <div v-if="searchResultsEmpty" class="mt-2">
+              <div v-if="searchTerm" class="has-text-centered notification">
+                {{ messages.searchNoResult }} for
+                <b>
+                  <i>{{ searchTerm }}</i> </b
+                >. Please search using a valid EC code or KEGG id for reaction or compound.
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="columns is-centered pb-6">
-      <div class="column is-three-fifths-desktop is-three-quarters-tablet is-fullwidth-mobile">
-        <div class="content">
-          <h5 class="title is-5">You can search for a:</h5>
-          <ul>
-            <li>
-              reaction (e.g.
-              <router-link to="/gotEnzymes/reaction/R01234"> R01234 </router-link>
-              )
-            </li>
-            <li>
-              EC code (e.g.
-              <router-link to="/gotEnzymes/ec/2.5.1.19">2.5.1.19</router-link>
-              )
-            </li>
-            <li>
-              compound (e.g.
-              <router-link to="/gotEnzymes/compound/C00003">C00003</router-link>
-              )
-            </li>
-          </ul>
+      <div class="columns is-centered pb-6">
+        <div class="column is-three-fifths-desktop is-three-quarters-tablet is-fullwidth-mobile">
+          <div class="content">
+            <h5 class="title is-5">You can search for a:</h5>
+            <ul>
+              <li>
+                reaction (e.g.
+                <router-link to="/gotEnzymes/reaction/R01234"> R01234 </router-link>
+                )
+              </li>
+              <li>
+                EC code (e.g.
+                <router-link to="/gotEnzymes/ec/2.5.1.19">2.5.1.19</router-link>
+                )
+              </li>
+              <li>
+                compound (e.g.
+                <router-link to="/gotEnzymes/compound/C00003">C00003</router-link>
+                )
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
