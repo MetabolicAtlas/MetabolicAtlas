@@ -89,7 +89,12 @@
               <p>
                 We currently support searches by reaction, compound, EC number. Each predicted
                 parameter is filterable. Feel free to contact us if you find any issue. To report a
-                technical error on the webpage please email contact@metabolicatlas.org.
+                technical error on the webpage please email
+                <a href="mailto:contact@metabolicatlas.org">contact [at] metabolicatlas [dot] org</a
+                >. For questions about the scientific methods, please reach out to
+                <a href="mailto:gotenzymes@metabolicatlas.org"
+                  >gotenzymes [at] metabolicatlas [dot] org</a
+                >.
               </p>
               <hr class="mt-6" />
               <h4 id="how-it-was-made" class="is-info is-size-4">How it was made</h4>
