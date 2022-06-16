@@ -53,24 +53,23 @@
             <ul>
               <li>
                 reaction (e.g.
-                <router-link to="/gotEnzymes/reaction/R01234"> R01234 </router-link>
+                <router-link to="/gotenzymes/reaction/R01234"> R01234 </router-link>
                 )
               </li>
               <li>
                 EC code (e.g.
-                <router-link to="/gotEnzymes/ec/2.5.1.19">2.5.1.19</router-link>
+                <router-link to="/gotenzymes/ec/2.5.1.19">2.5.1.19</router-link>
                 )
               </li>
               <li>
                 compound (e.g.
-                <router-link to="/gotEnzymes/compound/C00003">C00003</router-link>
+                <router-link to="/gotenzymes/compound/C00003">C00003</router-link>
                 )
               </li>
             </ul>
           </div>
         </div>
       </div>
-    </div>
 
     <section class="section extended-section">
       <div class="container is-fullhd">
@@ -118,6 +117,7 @@
         </div>
       </div>
     </section>
+    </div>
   </div>
 </template>
 
@@ -166,11 +166,11 @@ export default {
       if (this.searchTerm.length === 1) {
         this.showSearchCharAlert = true;
       } else if (this.searchTerm.startsWith('R')) {
-        this.$router.push(`/gotEnzymes/reaction/${this.searchTerm}`);
+        this.$router.push(`/gotenzymes/reaction/${this.searchTerm}`);
       } else if (this.searchTerm.startsWith('C')) {
-        this.$router.push(`/gotEnzymes/compound/${this.searchTerm}`);
+        this.$router.push(`/gotenzymes/compound/${this.searchTerm}`);
       } else if (this.searchTerm.match(/^\d+\.\d+\.\d+\.\d+/)) {
-        this.$router.push(`/gotEnzymes/ec/${this.searchTerm}`);
+        this.$router.push(`/gotenzymes/ec/${this.searchTerm}`);
       } else {
         this.searchResultsEmpty = true;
       }

@@ -72,10 +72,10 @@ const routes = [
   { path: '/documentation', name: 'documentation', component: Documentation },
   { path: '/identifier/:dbName/:identifierId', name: 'identifier', component: IdInModels },
 
-  { path: '/gotEnzymes', name: 'gotenzymes', component: EnzymeLanding },
-  { path: '/gotEnzymes/reaction/:id', name: 'gotenzymes-reaction', component: EnzymeReaction },
-  { path: '/gotEnzymes/compound/:id', name: 'gotenzymes-compound', component: EnzymeCompound },
-  { path: '/gotEnzymes/ec/:ecValue', name: 'gotenzymes-ec', component: EnzymeEC },
+  { path: '/gotenzymes', name: 'gotenzymes', component: EnzymeLanding },
+  { path: '/gotenzymes/reaction/:id', name: 'gotenzymes-reaction', component: EnzymeReaction },
+  { path: '/gotenzymes/compound/:id', name: 'gotenzymes-compound', component: EnzymeCompound },
+  { path: '/gotenzymes/ec/:ecValue', name: 'gotenzymes-ec', component: EnzymeEC },
 
   // redirects
   { path: '/explore/gem-browser/human1*', redirect: '/explore/Human-GEM/gem-browser*' },
