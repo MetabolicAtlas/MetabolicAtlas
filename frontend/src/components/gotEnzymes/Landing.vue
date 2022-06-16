@@ -53,7 +53,7 @@
             <ul>
               <li>
                 reaction (e.g.
-                <router-link to="/gotenzymes/reaction/R01234"> R01234 </router-link>
+                <router-link to="/gotenzymes/reaction/R01234">R01234</router-link>
                 )
               </li>
               <li>
