@@ -34,13 +34,11 @@
                 <i class="fa fa-search is-primary"></i>
               </span>
             </p>
-            <div v-if="searchResultsEmpty" class="mt-2">
-              <div v-if="searchTerm" class="has-text-centered notification">
-                {{ messages.searchNoResult }} for
-                <b>
-                  <i>{{ searchTerm }}</i> </b
-                >. Please search using a valid EC code or KEGG id for reaction or compound.
-              </div>
+            <div v-if="!searchTermValid && searchTerm" class="has-text-centered notification mt-2">
+              {{ messages.searchNoResult }} for
+              <b>
+                <i>{{ searchTerm }}</i> </b
+              >. Please search using a valid EC code or KEGG id for reaction or compound.
             </div>
           </div>
         </div>
@@ -135,7 +133,7 @@ export default {
   data() {
     return {
       searchTerm: '',
-      searchResultsEmpty: false,
+      searchTermValid: false,
       showSearchCharAlert: false,
       tocLinks: [
         {
@@ -164,7 +162,7 @@ export default {
   computed: {},
   methods: {
     updateSearch() {
-      this.searchResultsEmpty = false;
+      this.searchTermValid = true;
       if (this.searchTerm.length === 1) {
         this.showSearchCharAlert = true;
       } else if (this.searchTerm.startsWith('R')) {
@@ -174,11 +172,11 @@ export default {
       } else if (this.searchTerm.match(/^\d+\.\d+\.\d+\.\d+/)) {
         this.$router.push(`/gotenzymes/ec/${this.searchTerm}`);
       } else {
-        this.searchResultsEmpty = true;
+        this.searchTermValid = false;
       }
     },
     searchStringChange() {
-      this.searchResultsEmpty = false;
+      this.searchTermValid = true;
     },
   },
 };
