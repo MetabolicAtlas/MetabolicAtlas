@@ -111,7 +111,7 @@
               <hr class="mt-6" />
               <h4 id="citation" class="is-info is-size-4">Citation</h4>
               <p>
-                To cite Gotzymes please use this [link]. For more information about the prediction
+                To cite GotEnzymes please use this [link]. For more information about the prediction
                 methods, have a look at reference title [link] for kcat prediction and KM
                 prediction.
               </p>
