@@ -71,52 +71,54 @@
         </div>
       </div>
 
-    <section class="section extended-section">
-      <div class="container is-fullhd">
-        <h3 class="title is-3">About the project</h3>
-        <div class="columns is-variable is-8 pt-5">
-          <TableOfContents :links="tocLinks" />
-          <div id="intro" class="column content has-text-justified">
-            <p>
-              GotEnzymes provides open access to over XYZ million predicted kinetic data for XYZ
-              unique sequences and XYZ compounds from XYZ species with the cutting-edge artificial
-              intelligence tools. Data in this database are predicted from available advanced deep
-              learning tools: kcat[reference] and KM [reference]. Our vision for this database is to
-              store every possible predicted parameter for any available enzyme to facilitate better
-              science.
-            </p>
+      <div class="columns is-centered">
+        <div class="column is-8-desktop is-10-tablet is-fullwidth-mobile control">
+          <h3 class="title is-3">About the project</h3>
+          <div class="columns is-variable is-8 pt-5">
+            <TableOfContents :links="tocLinks" />
+            <div id="intro" class="column content has-text-justified">
+              <p>
+                GotEnzymes provides open access to over XYZ million predicted kinetic data for XYZ
+                unique sequences and XYZ compounds from XYZ species with the cutting-edge artificial
+                intelligence tools. Data in this database are predicted from available advanced deep
+                learning tools: kcat[reference] and KM [reference]. Our vision for this database is
+                to store every possible predicted parameter for any available enzyme to facilitate
+                better science.
+              </p>
 
-            <hr class="mt-6" />
-            <h4 id="how-to-use-it" class="is-info is-size-4">How to use it</h4>
-            <p>
-              We currently support searches by reaction, compound, EC number. Each predicted parameter is
-              filterable. Feel free to contact us if you find any issue. To report a technical error
-              on the webpage please email contact@metabolicatlas.org.
-            </p>
-            <hr class="mt-6" />
-            <h4 id="how-it-was-made" class="is-info is-size-4">How it was made</h4>
-            <p>
-              Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a
-              piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard
-              McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of
-              the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going
-              through the cites of the word in classical literature, discovered the undoubtable
-              source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et
-              Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a
-              treatise on the theory of ethics, very popular during the Renaissance. The first line
-              of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-            </p>
+              <hr class="mt-6" />
+              <h4 id="how-to-use-it" class="is-info is-size-4">How to use it</h4>
+              <p>
+                We currently support searches by reaction, compound, EC number. Each predicted
+                parameter is filterable. Feel free to contact us if you find any issue. To report a
+                technical error on the webpage please email contact@metabolicatlas.org.
+              </p>
+              <hr class="mt-6" />
+              <h4 id="how-it-was-made" class="is-info is-size-4">How it was made</h4>
+              <p>
+                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a
+                piece of classical Latin literature from 45 BC, making it over 2000 years old.
+                Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked
+                up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and
+                going through the cites of the word in classical literature, discovered the
+                undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de
+                Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45
+                BC. This book is a treatise on the theory of ethics, very popular during the
+                Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes
+                from a line in section 1.10.32.
+              </p>
 
-            <hr class="mt-6" />
-            <h4 id="citation" class="is-info is-size-4">Citation</h4>
-            <p>
-              To cite Gotzymes please use this [link]. For more information about the prediction
-              methods, have a look at reference title [link] for kcat prediction and KM prediction.
-            </p>
+              <hr class="mt-6" />
+              <h4 id="citation" class="is-info is-size-4">Citation</h4>
+              <p>
+                To cite Gotzymes please use this [link]. For more information about the prediction
+                methods, have a look at reference title [link] for kcat prediction and KM
+                prediction.
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </section>
     </div>
   </div>
 </template>
