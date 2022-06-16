@@ -1,6 +1,11 @@
 import querySingleResult from 'neo4j/queryHandlers/single';
+import crossReferencesMapping from 'enzymeDb/crossReferencesMapping.js';
 
-const getComponentsForExternalDb = async ({ dbName, externalId }) => {
+const getComponentsForExternalDb = async ({
+  dbName,
+  externalId,
+  referenceType,
+}) => {
   let statement = `
 MATCH (db:ExternalDb {dbName: '${dbName}', externalId: '${externalId}'})-[v]-(c)
 RETURN { externalDb: properties(db), components: COLLECT({ component: c, version: type(v) }) }
@@ -18,29 +23,57 @@ RETURN { externalDb: properties(r), components: COLLECT(DISTINCT({component: r, 
 `;
   }
 
-  let { externalDb, components } = await querySingleResult(statement);
+  try {
+    let { externalDb, components } = await querySingleResult(statement);
 
-  components = components.map(({ component, version }) => {
-    const { labels, properties } = component;
-    const model = labels
-      .find(l => l.indexOf('Gem') > -1)
-      .replace('Gem', '-GEM');
-    const componentType = labels.find(l => l.indexOf('Gem') === -1);
+    components = components.map(({ component, version }) => {
+      const { labels, properties } = component;
+      const model = labels
+        .find(l => l.indexOf('Gem') > -1)
+        .replace('Gem', '-GEM');
+      const componentType = labels.find(l => l.indexOf('Gem') === -1);
+
+      return {
+        id: properties.id,
+        model,
+        componentType,
+        version: version.replace('V', '').replace(/_/g, '.'),
+      };
+    });
+
+    if (dbName === 'MetabolicAtlas') {
+      externalDb.dbName = dbName;
+      externalDb.externalId = externalDb.id;
+    }
+
+    return { components, externalDb };
+  } catch (e) {
+    const VALID_REFERENCE_TYPES = ['compound', 'reaction'];
+    if (!VALID_REFERENCE_TYPES.includes(referenceType)) {
+      throw e;
+    }
+    const dbMapping = Object.values(crossReferencesMapping).find(
+      x => x.db === dbName
+    );
+    if (!dbMapping) {
+      throw e;
+    }
+    const { dbPrefix } = dbMapping;
+    const dbSuffix = dbMapping[`${referenceType}Suffix`];
+
+    if (dbSuffix === undefined) {
+      throw e;
+    }
 
     return {
-      id: properties.id,
-      model,
-      componentType,
-      version: version.replace('V', '').replace(/_/g, '.'),
+      externalDb: {
+        dbName,
+        externalId,
+        url: `https://identifiers.org/${dbPrefix}${dbSuffix}:${externalId}`,
+      },
+      components: [],
     };
-  });
-
-  if (dbName === 'MetabolicAtlas') {
-    externalDb.dbName = dbName;
-    externalDb.externalId = externalDb.id;
   }
-
-  return { components, externalDb };
 };
 
 export default getComponentsForExternalDb;

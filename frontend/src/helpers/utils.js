@@ -19,7 +19,7 @@ export function idfy(value) {
 }
 
 export function replaceUnderscores(value) {
-  return `${value.replace('_', ' ')}`;
+  return `${value.replaceAll('_', ' ')}`;
 }
 
 export const convertCamelCase = str =>

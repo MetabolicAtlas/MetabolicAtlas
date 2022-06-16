@@ -15,6 +15,7 @@ import europepmc from './modules/europepmc';
 import compare from './modules/compare';
 import externalDb from './modules/idInModels';
 import dataOverlay from './modules/dataOverlay';
+import enzymeDb from './modules/enzymeDb';
 
 Vue.use(Vuex);
 
@@ -35,5 +36,6 @@ export default new Vuex.Store({
     compare,
     externalDb,
     dataOverlay,
+    enzymeDb,
   },
 });

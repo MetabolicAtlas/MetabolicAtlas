@@ -11,7 +11,12 @@
             <td>
               <template v-for="(el, index) in externalDbs[k]">
                 <template v-if="index !== 0">{{ '; ' }}</template>
-                <a :key="el.id" :href="`/identifier/${k}/${el.id}`" target="_blank">{{ el.id }}</a>
+                <a
+                  :key="el.id"
+                  :href="`/identifier/${k}/${el.id}${referenceTypeQueryParam}`"
+                  target="_blank"
+                  >{{ el.id }}</a
+                >
               </template>
             </td>
           </tr>
@@ -31,11 +36,15 @@ export default {
   name: 'ExtIdTable',
   props: {
     type: String,
+    referenceType: String,
     externalDbs: Object,
   },
   computed: {
     extDbListOrdered() {
       return Object.keys(this.externalDbs).sort();
+    },
+    referenceTypeQueryParam() {
+      return this.referenceType ? `?referenceType=${this.referenceType.toLowerCase()}` : '';
     },
   },
   methods: {

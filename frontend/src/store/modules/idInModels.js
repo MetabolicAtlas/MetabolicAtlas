@@ -6,10 +6,11 @@ const data = {
 };
 
 const actions = {
-  async getComponentsForExternalDb({ commit }, { dbName, externalId }) {
+  async getComponentsForExternalDb({ commit }, { dbName, externalId, referenceType }) {
     const { components, externalDb } = await idInModelsApi.fetchComponentsForExternalDb({
       dbName,
       externalId,
+      referenceType,
     });
     commit('setComponents', components);
     commit('setExternalDb', externalDb);
