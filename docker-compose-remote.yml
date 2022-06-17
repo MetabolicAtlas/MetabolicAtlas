@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 
 services:
   nginx:
@@ -22,10 +22,10 @@ services:
     deploy:
       resources:
         reservations:
-          memory: 2.5G
+          memory: 0.5G
         limits:
-          cpus: '0.40'
-          memory: 3G
+          cpus: "0.40"
+          memory: 1G
 
   api:
     command: yarn start
@@ -33,10 +33,10 @@ services:
     deploy:
       resources:
         reservations:
-          memory: 1.5G
+          memory: 0.5G
         limits:
-          cpus: '0.30'
-          memory: 2G
+          cpus: "0.30"
+          memory: 1G
 
   neo4j:
     environment:
@@ -49,7 +49,7 @@ services:
         reservations:
           memory: 9G
         limits:
-          cpus: '1.15'
+          cpus: "0.65"
           memory: 10G
     ulimits:
       nofile:
@@ -68,11 +68,23 @@ services:
         reservations:
           memory: 150M
         limits:
-          cpus: '0.10'
+          cpus: "0.10"
           memory: 200M
 
   pg:
+    build:
+      context: pg
     restart: always
+    command: postgres -c stats_temp_directory=/tmp
+    volumes:
+      - ./pg/postgres-data:/var/lib/postgresql/data
+    deploy:
+      resources:
+        reservations:
+          memory: 3G
+        limits:
+          cpus: "0.50"
+          memory: 4G
 
 volumes:
   letsencrypt:
