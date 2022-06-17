@@ -54,8 +54,5 @@ services:
       - FTP_IP=127.0.0.1
       - FLAGS=-Y 0 -d -d
   pg:
-    volumes:
-      - ./pg/scripts:/scripts
-      - ./pg/input_data:/input_data
     ports:
       - "127.0.0.1:5432:5432"

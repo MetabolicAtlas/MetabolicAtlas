@@ -18,7 +18,6 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     depends_on:
       - neo4j
-      - pg
     networks:
       - nginx-network
       - db-network
@@ -51,9 +50,13 @@ services:
       - "${FTP_MIN_PORT}-${FTP_MAX_PORT}:${FTP_MIN_PORT}-${FTP_MAX_PORT}"
   pg:
     container_name: pg
-    image: postgres:14.3-alpine
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    build:
+      context: pg
+    command: postgres -c stats_temp_directory=/tmp
+    volumes:
+      - ./pg/postgres-data:/var/lib/postgresql/data
     networks:
       - db-network
 
