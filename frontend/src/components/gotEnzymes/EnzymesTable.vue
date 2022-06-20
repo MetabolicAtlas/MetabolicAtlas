@@ -1,29 +1,44 @@
 <template>
-  <vue-good-table
-    mode="remote"
-    style-class="vgt-table striped"
-    :columns="columns"
-    :rows="enzymes"
-    :sort-options="{ enabled: true }"
-    :pagination-options="tablePaginationOptions"
-    :total-rows="totalRows"
-    @on-page-change="onPageChange"
-    @on-sort-change="onSortChange"
-    @on-column-filter="onColumnFilter"
-  />
+  <div>
+    <div class="field columns">
+      <div class="column"></div>
+      <div class="column is-narrow">
+        <ExportTSV
+          :filename="`Enzymes for ${componentType} ${componentId}.tsv`"
+          :format-function="formatToTSV"
+        ></ExportTSV>
+      </div>
+    </div>
+    <vue-good-table
+      mode="remote"
+      style-class="vgt-table striped"
+      :columns="columns"
+      :rows="enzymes"
+      :sort-options="{ enabled: true }"
+      :pagination-options="tablePaginationOptions"
+      :total-rows="totalRows"
+      @on-page-change="onPageChange"
+      @on-sort-change="onSortChange"
+      @on-column-filter="onColumnFilter"
+    />
+  </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import { VueGoodTable } from 'vue-good-table';
+import ExportTSV from '@/components/shared/ExportTSV';
 
 export default {
   name: 'EnzymesTable',
   components: {
     VueGoodTable,
+    ExportTSV,
   },
   props: {
     initialFilter: { type: Object, default: () => {} },
+    componentId: { type: String },
+    componentType: { type: String },
   },
   data() {
     return {
@@ -160,6 +175,19 @@ export default {
       };
 
       await this.$store.dispatch('gotEnzymes/getEnzymes', this.serverPaginationOptions);
+    },
+    formatToTSV() {
+      let tsvContent = `${this.columns.map(e => e.label).join('\t')}\n`;
+      tsvContent += this.enzymes
+        .map(e => {
+          const arr = [];
+          this.columns.forEach(field => {
+            arr.push(e[field.field]);
+          });
+          return arr.join('\t');
+        })
+        .join('\n');
+      return tsvContent;
     },
   },
 };

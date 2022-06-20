@@ -26,7 +26,11 @@
               </div>
             </div>
           </div>
-          <enzymes-table :initial-filter="enzymesTableInitialFilter" />
+          <enzymes-table
+            :initial-filter="enzymesTableInitialFilter"
+            :component-type="componentType"
+            :component-id="componentId"
+          />
         </template>
       </div>
     </div>
