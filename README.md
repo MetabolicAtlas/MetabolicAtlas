@@ -79,7 +79,7 @@ To reconstruct the database for GotEnzymes on the local (development) machine. R
  ma-exec pg psql -f scripts/init.sql -U postgres
  ```
 
-For remote servers, the init script is configured to run automatically if the database has not been initialized. To reconstruct the database, delete the mounted volume for the database on the remote server and deploy again.
+For remote servers, the init script is configured to run automatically if the database has not been initialized. To reconstruct the database, delete the mounted volume for the database on the remote server (located at `/var/lib/docker-volumes/pg/postgres-data`) and deploy again.
 
 ## Description of helper commands
 

@@ -77,7 +77,7 @@ services:
     restart: always
     command: postgres -c stats_temp_directory=/tmp
     volumes:
-      - ./pg/postgres-data:/var/lib/postgresql/data
+      - /var/lib/docker-volumes/pg/postgres-data:/var/lib/postgresql/data
     deploy:
       resources:
         reservations:
