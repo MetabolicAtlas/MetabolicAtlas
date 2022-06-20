@@ -6,13 +6,13 @@ create schema public;
 
 -- create tables and indexes
 create table enzymes (
-    protein varchar(32) not null,
-    organism varchar(4) not null,
-    domain varchar(7),
-    ko char(6),
-    reaction_id char(6),
-    ec_number varchar(255) not null,
-    compound char(6),
+    protein text not null,
+    organism text not null,
+    domain text,
+    ko text,
+    reaction_id text,
+    ec_number text not null,
+    compound text,
     kcat_values float(53)
 );
 create index on enzymes("protein");
@@ -23,27 +23,25 @@ create index on enzymes("compound");
 create index on enzymes using gin (string_to_array(ec_number, ';'));
 
 create table compounds (
-    kegg char(6) not null,
-    name varchar(255),
-    formula varchar(50),
-    meta_net_x varchar(12),
-    model_seed varchar(50),
-    bigg varchar(50),
-    chebi varchar(255),
-    metacyc varchar(255),
-    sabio_rk varchar(20),
-    reactome varchar(500)
+    kegg text primary key not null,
+    name text,
+    formula text,
+    meta_net_x text,
+    model_seed text,
+    bigg text,
+    chebi text,
+    metacyc text,
+    sabio_rk text,
+    reactome text
 );
-create index on compounds("kegg");
 
 create table ec (
-    ec varchar(50) not null,
-    name varchar(5000)
+    ec text primary key not null,
+    name text
 );
-create index on ec("ec");
 
 create table reactions (
-    kegg char(6) not null,
+    kegg text primary key not null,
     name text,
     equation text,
     meta_net_x text,
@@ -51,9 +49,8 @@ create table reactions (
     model_seed text,
     bigg text,
     metacyc text,
-    sabio_rk varchar(20)
+    sabio_rk text
 );
-create index on reactions("kegg");
 
 
 
