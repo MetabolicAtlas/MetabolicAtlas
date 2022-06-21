@@ -60,11 +60,6 @@
                 )
               </li>
               <li>
-                organism (e.g.
-                <router-link to="/gotenzymes/organism/hsa">hsa</router-link>
-                )
-              </li>
-              <li>
                 EC code (e.g.
                 <router-link to="/gotenzymes/ec/2.5.1.19">2.5.1.19</router-link>
                 )
@@ -72,6 +67,16 @@
               <li>
                 compound (e.g.
                 <router-link to="/gotenzymes/compound/C00003">C00003</router-link>
+                )
+              </li>
+              <li>
+                organism (e.g.
+                <router-link to="/gotenzymes/organism/hsa">hsa</router-link>
+                )
+              </li>
+              <li>
+                domain (e.g.
+                <router-link to="/gotenzymes/domain/E">E</router-link>
                 )
               </li>
             </ul>

@@ -34,6 +34,7 @@ import EnzymeEC from '@/components/gotEnzymes/EC';
 import EnzymeLanding from '@/components/gotEnzymes/Landing';
 import EnzymeProtein from '@/components/gotEnzymes/Protein';
 import EnzymeOrganism from '@/components/gotEnzymes/Organism';
+import EnzymeDomain from '@/components/gotEnzymes/Domain';
 
 Vue.use(VueRouter);
 
@@ -80,6 +81,7 @@ const routes = [
   { path: '/gotenzymes/ec/:ecValue', name: 'gotenzymes-ec', component: EnzymeEC },
   { path: '/gotenzymes/protein/:id', name: 'gotenzymes-protein', component: EnzymeProtein },
   { path: '/gotenzymes/organism/:id', name: 'gotenzymes-organism', component: EnzymeOrganism },
+  { path: '/gotenzymes/domain/:id', name: 'gotenzymes-domain', component: EnzymeDomain },
 
   // redirects
   { path: '/explore/gem-browser/human1*', redirect: '/explore/Human-GEM/gem-browser*' },
