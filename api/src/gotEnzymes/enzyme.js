@@ -1,6 +1,6 @@
 import sql from 'gotEnzymes/db';
 
-const VALID_FIELDS = [
+const MATCH_FIELDS = [
   'protein',
   'organism',
   'domain',
@@ -10,10 +10,12 @@ const VALID_FIELDS = [
   'compound',
 ];
 
+const RANGE_FIELDS = ['kcat_values'];
+
 const getFiltersQueries = filters => {
   const filtersQueries = [];
 
-  for (let field of VALID_FIELDS) {
+  for (let field of MATCH_FIELDS) {
     const value = filters[field];
 
     if (value && value.length > 0) {
@@ -23,6 +25,21 @@ const getFiltersQueries = filters => {
         );
       } else {
         filtersQueries.push(sql`${sql(field)} = ${value.toString()}`);
+      }
+    }
+  }
+
+  for (let field of RANGE_FIELDS) {
+    const value = filters[field];
+    if (value) {
+      const { min, max } = JSON.parse(value);
+
+      if (min !== undefined) {
+        filtersQueries.push(sql`${sql(field)} >= ${min}`);
+      }
+
+      if (max !== undefined) {
+        filtersQueries.push(sql`${sql(field)} <= ${max}`);
       }
     }
   }
