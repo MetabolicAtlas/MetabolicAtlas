@@ -24,7 +24,6 @@ services:
         reservations:
           memory: 0.5G
         limits:
-          cpus: "0.40"
           memory: 1G
 
   api:
