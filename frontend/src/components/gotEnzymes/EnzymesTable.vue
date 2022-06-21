@@ -195,7 +195,7 @@ export default {
     async handleRangeFilterUpdate({ field, remove, ...payload }) {
       // payload can look like { min: 0, max: 1 }
 
-      let filters = { ...this.serverPaginationOptions.filters };
+      const filters = { ...this.serverPaginationOptions.filters };
       if (remove) {
         delete filters[field];
       } else {
