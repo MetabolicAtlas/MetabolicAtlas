@@ -97,7 +97,7 @@ export default {
           sortable: true,
           filterOptions: { enabled: false },
         },
-      ],
+      ].filter(col => col.label !== this.componentType),
       tablePaginationOptions: {
         enabled: true,
         mode: 'pages',
