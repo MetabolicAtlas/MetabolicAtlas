@@ -5,7 +5,7 @@ create table enzymes (
     organism text not null,
     domain text,
     ko text,
-    reaction_id text,
+    reaction_id text not null,
     ec_number text not null,
     compound text,
     kcat_values float(53)
