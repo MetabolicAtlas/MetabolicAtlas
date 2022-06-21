@@ -219,6 +219,10 @@ export default {
           ],
         },
         {
+          displayName: 'GotEnzymes',
+          routeName: 'gotenzymes',
+        },
+        {
           displayName: 'Documentation',
           routeName: 'documentation',
         },

@@ -1,5 +1,5 @@
-import sql from 'enzymeDb/db.js';
-import crossReferencesMapping from 'enzymeDb/crossReferencesMapping.js';
+import sql from 'gotEnzymes/db';
+import crossReferencesMapping from 'gotEnzymes/crossReferencesMapping';
 
 const getCompound = async id => {
   const compounds = await sql`

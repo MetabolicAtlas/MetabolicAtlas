@@ -1,4 +1,4 @@
-import enzymeDbApi from '@/api/enzymeDb';
+import gotEnzymesApi from '@/api/gotEnzymes';
 
 const data = {
   info: {},
@@ -9,24 +9,25 @@ const data = {
 
 const actions = {
   async getReactionData({ commit }, id) {
-    const { info, crossReferences } = await enzymeDbApi.fetchReaction(id);
+    const { info, crossReferences } = await gotEnzymesApi.fetchReaction(id);
 
     commit('setInfo', info);
     commit('setCrossReferences', crossReferences);
   },
   async getCompoundData({ commit }, id) {
-    const { info, crossReferences } = await enzymeDbApi.fetchCompound(id);
+    const { info, crossReferences } = await gotEnzymesApi.fetchCompound(id);
 
     commit('setInfo', info);
     commit('setCrossReferences', crossReferences);
   },
   async getECData({ commit }, ecValue) {
-    const { info } = await enzymeDbApi.fetchEC(ecValue);
+    const { info } = await gotEnzymesApi.fetchEC(ecValue);
 
     commit('setInfo', info);
+    commit('setCrossReferences', []);
   },
   async getEnzymes({ commit }, payload) {
-    const { enzymes, totalCount } = await enzymeDbApi.fetchEnzymes(payload);
+    const { enzymes, totalCount } = await gotEnzymesApi.fetchEnzymes(payload);
     commit('setEnzymes', enzymes);
     commit('setTotalEnzymes', totalCount);
   },

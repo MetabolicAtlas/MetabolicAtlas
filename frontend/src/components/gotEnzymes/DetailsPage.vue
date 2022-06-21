@@ -37,7 +37,7 @@
 import { mapState } from 'vuex';
 import Loader from '@/components/Loader';
 import ExtIdTable from '@/components/explorer/gemBrowser/ExtIdTable';
-import EnzymesTable from '@/components/enzymeDb/EnzymesTable';
+import EnzymesTable from '@/components/gotEnzymes/EnzymesTable';
 
 export default {
   name: 'DetailsPage',
@@ -59,8 +59,8 @@ export default {
   },
   computed: {
     ...mapState({
-      info: state => state.enzymeDb.info,
-      crossReferences: state => state.enzymeDb.crossReferences,
+      info: state => state.gotEnzymes.info,
+      crossReferences: state => state.gotEnzymes.crossReferences,
     }),
   },
   async mounted() {
@@ -71,7 +71,7 @@ export default {
       this.showLoaderMessage = `Loading ${this.componentType} data`;
 
       try {
-        await this.$store.dispatch(`enzymeDb/get${this.componentType}Data`, this.componentId);
+        await this.$store.dispatch(`gotEnzymes/get${this.componentType}Data`, this.componentId);
         this.notFound = false;
         this.showLoaderMessage = '';
       } catch {

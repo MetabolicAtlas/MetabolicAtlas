@@ -3,7 +3,7 @@ import neo4jRoutes from 'endpoints/neo4j';
 import repoRoutes from 'endpoints/repository';
 import dataOverlayRoutes from 'endpoints/dataOverlay';
 import svgThumbRoutes from 'endpoints/svgThumbnail';
-import enzymeDbRoutes from 'endpoints/enzymeDb';
+import gotEnzymesRoutes from 'endpoints/gotEnzymes';
 import swaggerRoutes from 'endpoints/swagger';
 
 const router = express.Router();
@@ -12,7 +12,7 @@ router.use(neo4jRoutes);
 router.use('/repository', repoRoutes);
 router.use('/data-overlay', dataOverlayRoutes);
 router.use('/svg-thumbnail', svgThumbRoutes);
-router.use('/enzymedb', enzymeDbRoutes);
+router.use('/gotenzymes', gotEnzymesRoutes);
 router.use(swaggerRoutes);
 
 export default router;

@@ -1,9 +1,9 @@
 import express from 'express';
-import { getCompound, getEc, getReaction, getEnzymes } from 'enzymeDb/index';
+import { getCompound, getEc, getReaction, getEnzymes } from 'gotEnzymes/index';
 
-const enzymeDbRoutes = express.Router();
+const gotEnzymesRoutes = express.Router();
 
-enzymeDbRoutes.get('/compounds/:id', async (req, res) => {
+gotEnzymesRoutes.get('/compounds/:id', async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -19,7 +19,7 @@ enzymeDbRoutes.get('/compounds/:id', async (req, res) => {
   }
 });
 
-enzymeDbRoutes.get('/ecs/:value', async (req, res) => {
+gotEnzymesRoutes.get('/ecs/:value', async (req, res) => {
   const { value } = req.params;
 
   try {
@@ -35,7 +35,7 @@ enzymeDbRoutes.get('/ecs/:value', async (req, res) => {
   }
 });
 
-enzymeDbRoutes.get('/reactions/:id', async (req, res) => {
+gotEnzymesRoutes.get('/reactions/:id', async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -51,7 +51,7 @@ enzymeDbRoutes.get('/reactions/:id', async (req, res) => {
   }
 });
 
-enzymeDbRoutes.get('/enzymes', async (req, res) => {
+gotEnzymesRoutes.get('/enzymes', async (req, res) => {
   const { filters, pagination } = req.query;
 
   try {
@@ -63,4 +63,4 @@ enzymeDbRoutes.get('/enzymes', async (req, res) => {
   }
 });
 
-export default enzymeDbRoutes;
+export default gotEnzymesRoutes;

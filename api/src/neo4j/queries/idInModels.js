@@ -1,5 +1,5 @@
 import querySingleResult from 'neo4j/queryHandlers/single';
-import crossReferencesMapping from 'enzymeDb/crossReferencesMapping.js';
+import crossReferencesMapping from 'gotEnzymes/crossReferencesMapping';
 
 const getComponentsForExternalDb = async ({
   dbName,
