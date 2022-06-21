@@ -23,13 +23,6 @@
                 @keyup.enter="updateSearch()"
                 @input="searchStringChange()"
               />
-              <span
-                v-show="showSearchCharAlert"
-                class="has-text-info icon is-right"
-                style="width: 220px"
-              >
-                Type at least 2 characters
-              </span>
               <span class="icon is-medium is-left">
                 <i class="fa fa-search is-primary"></i>
               </span>
@@ -154,7 +147,6 @@ export default {
     return {
       searchTerm: '',
       searchTermValid: false,
-      showSearchCharAlert: false,
       tocLinks: [
         {
           name: 'Intro - value',
@@ -183,16 +175,18 @@ export default {
   methods: {
     updateSearch() {
       this.searchTermValid = true;
-      if (this.searchTerm.length === 1) {
-        this.showSearchCharAlert = true;
+      if (this.searchTerm.match(/^[A-Z]/)) {
+        this.$router.push(`/gotenzymes/domain/${this.searchTerm.toUpperCase()}`);
       } else if (this.searchTerm.startsWith('R')) {
         this.$router.push(`/gotenzymes/reaction/${this.searchTerm}`);
       } else if (this.searchTerm.startsWith('C')) {
         this.$router.push(`/gotenzymes/compound/${this.searchTerm}`);
       } else if (this.searchTerm.match(/^\d+\.\d+\.\d+\.\d+/)) {
         this.$router.push(`/gotenzymes/ec/${this.searchTerm}`);
+      } else if (this.searchTerm.match(/^[a-z]{3}/)) {
+        this.$router.push(`/gotenzymes/organism/${this.searchTerm}`);
       } else {
-        this.searchTermValid = false;
+        this.$router.push(`/gotenzymes/protein/${this.searchTerm}`);
       }
     },
     searchStringChange() {
