@@ -7,7 +7,7 @@ create table enzymes (
     ko text,
     reaction_id text not null,
     ec_number text not null,
-    compound text,
+    compound text not null,
     kcat_values float(53)
 );
 create index on enzymes("protein");
