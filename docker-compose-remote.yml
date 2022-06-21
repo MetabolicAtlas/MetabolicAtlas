@@ -83,7 +83,7 @@ services:
           memory: 3G
         limits:
           cpus: "0.50"
-          memory: 4G
+          memory: 3G
 
 volumes:
   letsencrypt:
