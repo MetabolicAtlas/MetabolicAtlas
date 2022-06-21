@@ -169,21 +169,51 @@ export default {
         },
       ],
       messages,
+      organismResemblingProtein: [
+        'dcd',
+        'dfp',
+        'dut',
+        'dxs',
+        'fbp',
+        'fmt',
+        'gmk',
+        'gnd',
+        'hom',
+        'kat',
+        'ldh',
+        'lig',
+        'pgk',
+        'pyk',
+        'tdk',
+        'tgt',
+        'tkt',
+        'tmk',
+        'udk',
+        'ugd',
+        'upp',
+        'zwf',
+      ],
     };
   },
   computed: {},
   methods: {
+    isOrganism(searchString) {
+      return (
+        searchString.match(/^[a-z]{3}/) && !this.organismResemblingProtein.includes(searchString)
+      );
+    },
     updateSearch() {
       this.searchTermValid = true;
       if (this.searchTerm.match(/^[A-Z]/)) {
+        // allow lower case searches for domain names
         this.$router.push(`/gotenzymes/domain/${this.searchTerm.toUpperCase()}`);
-      } else if (this.searchTerm.startsWith('R')) {
+      } else if (this.searchTerm.match(/^R\d*/)) {
         this.$router.push(`/gotenzymes/reaction/${this.searchTerm}`);
-      } else if (this.searchTerm.startsWith('C')) {
+      } else if (this.searchTerm.match(/^C\d*/)) {
         this.$router.push(`/gotenzymes/compound/${this.searchTerm}`);
       } else if (this.searchTerm.match(/^\d+\.\d+\.\d+\.\d+/)) {
         this.$router.push(`/gotenzymes/ec/${this.searchTerm}`);
-      } else if (this.searchTerm.match(/^[a-z]{3}/)) {
+      } else if (this.isOrganism(this.searchTerm)) {
         this.$router.push(`/gotenzymes/organism/${this.searchTerm}`);
       } else {
         this.$router.push(`/gotenzymes/protein/${this.searchTerm}`);
