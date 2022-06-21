@@ -55,6 +55,11 @@
                 )
               </li>
               <li>
+                protein (e.g.
+                <router-link to="/gotenzymes/protein/zwf">zwf</router-link>
+                )
+              </li>
+              <li>
                 EC code (e.g.
                 <router-link to="/gotenzymes/ec/2.5.1.19">2.5.1.19</router-link>
                 )
