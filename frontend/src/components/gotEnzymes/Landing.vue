@@ -77,7 +77,7 @@
         </div>
       </div>
 
-      <div class="columns is-centered">
+      <div class="columns is-centered pb-6">
         <div class="column is-8-desktop is-10-tablet is-fullwidth-mobile control">
           <h3 class="title is-3">About the project</h3>
           <div class="columns is-variable is-8 pt-5">
