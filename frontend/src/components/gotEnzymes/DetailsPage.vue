@@ -43,6 +43,8 @@ import Loader from '@/components/Loader';
 import ExtIdTable from '@/components/explorer/gemBrowser/ExtIdTable';
 import EnzymesTable from '@/components/gotEnzymes/EnzymesTable';
 
+const SUPPLEMENTARY_INFO_TYPES = ['Reaction', 'EC', 'Compound'];
+
 export default {
   name: 'DetailsPage',
   components: {
@@ -72,8 +74,7 @@ export default {
   },
   methods: {
     async setup() {
-      const detailPages = ['Reaction', 'EC', 'Compoun'];
-      if (!detailPages.includes(this.componentType)) {
+      if (!SUPPLEMENTARY_INFO_TYPES.includes(this.componentType)) {
         this.$store.dispatch(`gotEnzymes/resetInfoAndCrossReferences`);
         return;
       }
