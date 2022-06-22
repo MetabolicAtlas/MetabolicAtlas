@@ -20,7 +20,29 @@
       @on-page-change="onPageChange"
       @on-sort-change="onSortChange"
       @on-column-filter="onColumnFilter"
-    />
+    >
+      <template slot="table-row" slot-scope="props">
+        <template v-if="linkableFields.includes(props.column.field)">
+          <template v-if="props.column.field === 'ec_number'">
+            <template v-for="(ec, index) in props.row[props.column.field].split(';')">
+              <template v-if="index > 0">; </template>
+              <router-link :key="ec" :to="`/gotenzymes/ec/${ec}`">
+                {{ ec }}
+              </router-link>
+            </template>
+          </template>
+          <router-link
+            v-else
+            :to="`/gotenzymes/${props.column.field.split('_')[0]}/${props.row[props.column.field]}`"
+          >
+            {{ props.row[props.column.field] }}
+          </router-link>
+        </template>
+        <template v-else>
+          {{ props.formattedRow[props.column.field] }}
+        </template>
+      </template>
+    </vue-good-table>
   </div>
 </template>
 
@@ -42,6 +64,7 @@ export default {
   },
   data() {
     return {
+      linkableFields: ['compound', 'domain', 'ec_number', 'protein', 'organism', 'reaction_id'],
       columns: [
         {
           label: 'Protein',
