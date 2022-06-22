@@ -204,8 +204,7 @@ export default {
     },
     updateSearch() {
       this.searchTermValid = true;
-      if (this.searchTerm.match(/^[A-Z]/)) {
-        // allow lower case searches for domain names
+      if (this.searchTerm.match(/^[A-Z]/i)) {
         this.$router.push(`/gotenzymes/domain/${this.searchTerm.toUpperCase()}`);
       } else if (this.searchTerm.match(/^R\d*/)) {
         this.$router.push(`/gotenzymes/reaction/${this.searchTerm}`);
