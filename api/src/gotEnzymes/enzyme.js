@@ -19,7 +19,7 @@ const getFiltersQueries = filters => {
     if (value && value.length > 0) {
       if (field === 'ec_number') {
         filtersQueries.push(
-          sql`${value.toString()} = ${sql`any(${sql`string_to_array(ec_number, ';'))`}`}`
+          sql`array[${sql`${value.toString()}`}] <@ ${sql`string_to_array(ec_number, ';')`}`
         );
       } else {
         filtersQueries.push(sql`${sql(field)} = ${value.toString()}`);

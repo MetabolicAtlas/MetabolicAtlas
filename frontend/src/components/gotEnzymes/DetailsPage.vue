@@ -63,7 +63,7 @@ export default {
       crossReferences: state => state.gotEnzymes.crossReferences,
     }),
   },
-  async mounted() {
+  async beforeMount() {
     await this.setup();
   },
   methods: {

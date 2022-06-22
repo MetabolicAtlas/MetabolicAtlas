@@ -76,12 +76,6 @@ export default {
           sortable: true,
           filterOptions: { enabled: false },
         },
-        {
-          label: 'km',
-          field: 'km_values',
-          sortable: true,
-          filterOptions: { enabled: false },
-        },
       ],
       tablePaginationOptions: {
         enabled: true,
@@ -112,7 +106,7 @@ export default {
       totalRows: state => state.gotEnzymes.totalEnzymes,
     }),
   },
-  async mounted() {
+  async beforeMount() {
     await this.setup();
   },
   methods: {

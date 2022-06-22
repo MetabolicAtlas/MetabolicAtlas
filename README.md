@@ -72,6 +72,15 @@ Use the tag of the file (`dev` in the previous example) as an argument to the `d
 deploy-stack dev
 ```
 
+### GotEnzymes
+
+To reconstruct the database for GotEnzymes on the local (development) machine. Run the following. This should take ~10 minutes.
+```bash
+ ma-exec pg psql -f scripts/init.sql -U postgres
+ ```
+
+For remote servers, the init script is configured to run automatically if the database has not been initialized. To reconstruct the database, delete the mounted volume for the database on the remote server (located at `/var/lib/docker-volumes/pg/postgres-data`) and deploy again.
+
 ## Description of helper commands
 
 * To bootstrap the project: `build-stack`
