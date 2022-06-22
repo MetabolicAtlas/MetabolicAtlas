@@ -72,8 +72,12 @@ export default {
   },
   methods: {
     async setup() {
+      const detailPages = ['Reaction', 'EC', 'Compoun'];
+      if (!detailPages.includes(this.componentType)) {
+        this.$store.dispatch(`gotEnzymes/resetInfoAndCrossReferences`);
+        return;
+      }
       this.showLoaderMessage = `Loading ${this.componentType} data`;
-
       try {
         await this.$store.dispatch(`gotEnzymes/get${this.componentType}Data`, this.componentId);
         this.notFound = false;
