@@ -47,7 +47,7 @@
       <div class="columns is-centered pb-6">
         <div class="column is-three-fifths-desktop is-three-quarters-tablet is-fullwidth-mobile">
           <div class="content">
-            <h5 class="title is-5">With KEGG ids or EC codes, you can search for a:</h5>
+            <h5 class="title is-5">One can search for a:</h5>
             <ul>
               <li>
                 reaction (e.g.
