@@ -58,5 +58,6 @@ services:
     volumes:
       - ./pg/scripts:/scripts
       - ./pg/input_data:/input_data
+    command: postgres -c maintenance_work_mem=3276800
     ports:
       - "127.0.0.1:5432:5432"
