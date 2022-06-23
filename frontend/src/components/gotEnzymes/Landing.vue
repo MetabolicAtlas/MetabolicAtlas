@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="extended-section">
     <section class="hero is-primary is-bold py-6">
       <div class="hero-body has-text-centered">
         <p class="is-size-1 title">GotEnzymes</p>
