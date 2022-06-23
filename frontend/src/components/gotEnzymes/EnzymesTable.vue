@@ -71,7 +71,7 @@ export default {
           filterOptions: { enabled: true },
         },
         {
-          label: 'kcat',
+          label: 'kcat[1/s]',
           field: 'kcat_values',
           sortable: true,
           filterOptions: { enabled: false },
