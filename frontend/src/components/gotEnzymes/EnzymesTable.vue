@@ -33,7 +33,9 @@
           </template>
           <router-link
             v-else
-            :to="`/gotenzymes/${props.column.field.split('_')[0]}/${props.row[props.column.field]}`"
+            :to="`/gotenzymes/${props.column.field.split('_')[0].replace('protein', 'gene')}/${
+              props.row[props.column.field]
+            }`"
           >
             {{ props.row[props.column.field] }}
           </router-link>
@@ -41,6 +43,13 @@
         <template v-else>
           {{ props.formattedRow[props.column.field] }}
         </template>
+      </template>
+      <template slot="column-filter" slot-scope="props">
+        <range-filter
+          v-if="props.column.filterOptions.customFilter"
+          :field="props.column.field"
+          :handle-update="handleRangeFilterUpdate"
+        />
       </template>
     </vue-good-table>
   </div>
@@ -50,12 +59,14 @@
 import { mapState } from 'vuex';
 import { VueGoodTable } from 'vue-good-table';
 import ExportTSV from '@/components/shared/ExportTSV';
+import RangeFilter from '@/components/shared/RangeFilter';
 
 export default {
   name: 'EnzymesTable',
   components: {
     VueGoodTable,
     ExportTSV,
+    RangeFilter,
   },
   props: {
     initialFilter: { type: Object, default: () => {} },
@@ -112,9 +123,9 @@ export default {
           label: 'kcat',
           field: 'kcat_values',
           sortable: true,
-          filterOptions: { enabled: false },
+          filterOptions: { customFilter: true },
         },
-      ],
+      ].filter(col => col.label !== this.componentType),
       tablePaginationOptions: {
         enabled: true,
         mode: 'pages',
@@ -205,6 +216,23 @@ export default {
         })
         .join('\n');
       return tsvContent;
+    },
+    async handleRangeFilterUpdate({ field, remove, ...payload }) {
+      // payload can look like { min: 0, max: 1 }
+
+      const filters = { ...this.serverPaginationOptions.filters };
+      if (remove) {
+        delete filters[field];
+      } else {
+        filters[field] = payload;
+      }
+
+      this.serverPaginationOptions = {
+        ...this.serverPaginationOptions,
+        filters,
+      };
+
+      await this.$store.dispatch('gotEnzymes/getEnzymes', this.serverPaginationOptions);
     },
   },
 };

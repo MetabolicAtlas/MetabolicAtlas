@@ -1,0 +1,87 @@
+<template>
+  <div class="is-flex">
+    <input
+      v-model.number="min"
+      :class="{ 'input is-danger': !validMin }"
+      :title="validMin ? '' : 'Please enter a valid number, e.g. 1.23'"
+      class="vgt-input px-2 mr-1"
+      type="number"
+      placeholder="min"
+    />
+    <input
+      v-model.number="max"
+      :class="{ 'input is-danger': !validMax }"
+      :title="validMax ? '' : 'Please enter a valid number, e.g. 1.23'"
+      class="vgt-input px-2 mr-1"
+      type="number"
+      placeholder="max"
+    />
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'RangeFilter',
+  props: {
+    field: { type: String, required: true },
+    handleUpdate: { type: Function, required: true },
+  },
+  data() {
+    return {
+      min: null,
+      max: null,
+    };
+  },
+  computed: {
+    validMin() {
+      return this.inputValid(this.min);
+    },
+    validMax() {
+      return this.inputValid(this.max);
+    },
+    rangePayload() {
+      const payload = { field: this.field };
+
+      if (Number.isFinite(this.min)) {
+        payload.min = this.min;
+      }
+      if (Number.isFinite(this.max)) {
+        payload.max = this.max;
+      }
+      if (Object.keys(payload).length === 1) {
+        payload.remove = true;
+      }
+
+      return payload;
+    },
+  },
+  watch: {
+    min(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.handleUpdate(this.rangePayload);
+      }
+    },
+    max(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.handleUpdate(this.rangePayload);
+      }
+    },
+  },
+  methods: {
+    inputValid(maybeNumber) {
+      if (maybeNumber === null || maybeNumber === '') {
+        return true;
+      }
+
+      const numberRegex = /^-?\d+\.?\d*$/;
+      return maybeNumber.toString().match(numberRegex);
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+div {
+  width: 125px;
+}
+</style>
