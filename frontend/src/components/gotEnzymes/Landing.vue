@@ -199,7 +199,7 @@ export default {
   methods: {
     isOrganism(searchString) {
       return (
-        searchString.match(/^[a-z]{3}/) && !this.organismResemblingProtein.includes(searchString)
+        searchString.match(/^[a-z]{3,4}$/) && !this.organismResemblingProtein.includes(searchString)
       );
     },
     updateSearch() {
