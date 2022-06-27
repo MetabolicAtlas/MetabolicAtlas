@@ -192,6 +192,7 @@ export default {
         })
         .join('\n');
       return tsvContent;
+    },
     async handleRangeFilterUpdate({ field, remove, ...payload }) {
       // payload can look like { min: 0, max: 1 }
 

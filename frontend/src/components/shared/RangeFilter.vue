@@ -1,7 +1,21 @@
 <template>
   <div class="is-flex">
-    <input v-model.number="min" class="vgt-input px-2 mr-1" type="number" placeholder="min" />
-    <input v-model.number="max" class="vgt-input px-2" type="number" placeholder="max" />
+    <input
+      v-model.number="min"
+      :class="{ 'input is-danger': !validMin }"
+      :title="validMin ? '' : 'Please enter a valid number, e.g. 1.23'"
+      class="vgt-input px-2 mr-1"
+      type="number"
+      placeholder="min"
+    />
+    <input
+      v-model.number="max"
+      :class="{ 'input is-danger': !validMax }"
+      :title="validMax ? '' : 'Please enter a valid number, e.g. 1.23'"
+      class="vgt-input px-2 mr-1"
+      type="number"
+      placeholder="max"
+    />
   </div>
 </template>
 
@@ -19,6 +33,12 @@ export default {
     };
   },
   computed: {
+    validMin() {
+      return this.inputValid(this.min);
+    },
+    validMax() {
+      return this.inputValid(this.max);
+    },
     rangePayload() {
       const payload = { field: this.field };
 
@@ -45,6 +65,16 @@ export default {
       if (newValue !== oldValue) {
         this.handleUpdate(this.rangePayload);
       }
+    },
+  },
+  methods: {
+    inputValid(maybeNumber) {
+      if (maybeNumber === null) {
+        return true;
+      }
+
+      const numberRegex = /^-?\d+\.?\d*$/;
+      return maybeNumber.toString().match(numberRegex);
     },
   },
 };
