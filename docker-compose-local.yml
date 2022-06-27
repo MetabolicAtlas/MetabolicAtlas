@@ -54,6 +54,7 @@ services:
       - FTP_IP=127.0.0.1
       - FLAGS=-Y 0 -d -d
   pg:
+    image: postgres:14.3-alpine
     volumes:
       - ./pg/scripts:/scripts
       - ./pg/input_data:/input_data

@@ -11,7 +11,7 @@ If you use *Metabolic Atlas* in your scientific work, please cite:
 Metabolic Atlas is a web platform integrating open-source genome scale metabolic models (GEMs) for easy browsing and analysis. The goal is to collect many curated GEMs, and to bring these models closer to [FAIR principles](https://en.wikipedia.org/wiki/FAIR_data). The website provides visualisations and comparisons of the GEMs, and links to resourcess, algorithms, other databases, and more general software applications. In short, the vision is to create a one-stop-shop for everything metabolism related. 
 
 ## Contributing
-If you would like to contribute to the project, for example if you have ideas for new features, discovered a bug or if you would like to improve the code base, please have a look at [CONTRIBUTING.md](https://github.com/MetabolicAtlas/MetabolicAtlas/blob/develop/CONTRIBUTING.md). All ideas and contributions are highly appreciated.
+If you would like to contribute to the project, for example if you have ideas for new features, discovered a bug or if you would like to improve the code base, please have a look at [CONTRIBUTING.md](https://github.com/MetabolicAtlas/MetabolicAtlas/blob/main/CONTRIBUTING.md). All ideas and contributions are highly appreciated.
 
 If you discover any potential vulnerabilities associated with the project, please reach out to us at [contact@metabolicatlas.org](mailto:contact@metabolicatlas.org).
 
@@ -20,7 +20,7 @@ The front-end uses [Vue.js](https://vuejs.org), with help of [Vue CLI](https://c
 
 [Docker](https://www.docker.com/products/docker) and docker-compose are used to manage the dependencies of this project. Start by installing these if they are not present on the system.
 
-If you want to try out the latest features of MetabolicAtlas, change the branch to `develop`.
+If you want to try out the latest features of MetabolicAtlas, change the branch to `main`.
 
 Apart from the current repository, two additional repositories are required in
 order to deploy Metabolic Atlas locally, they are
@@ -71,6 +71,15 @@ Use the tag of the file (`dev` in the previous example) as an argument to the `d
 ```bash
 deploy-stack dev
 ```
+
+### GotEnzymes
+
+To reconstruct the database for GotEnzymes on the local (development) machine. Run the following. This should take ~10 minutes.
+```bash
+ ma-exec pg psql -f scripts/init.sql -U postgres
+ ```
+
+For remote servers, the init script is configured to run automatically if the database has not been initialized. To reconstruct the database, delete the mounted volume for the database on the remote server (located at `/var/lib/docker-volumes/pg/postgres-data`) and deploy again.
 
 ## Description of helper commands
 

@@ -84,12 +84,12 @@
             <TableOfContents :links="tocLinks" />
             <div id="intro" class="column content has-text-justified">
               <p>
-                GotEnzymes provides open access to over XYZ million predicted kinetic data for XYZ
-                unique sequences and XYZ compounds from XYZ species with the cutting-edge artificial
-                intelligence tools. Data in this database are predicted from available advanced deep
-                learning tools: kcat[reference] and KM [reference]. Our vision for this database is
-                to store every possible predicted parameter for any available enzyme to facilitate
-                better science.
+                GotEnzymes provides open access to over XYZ million predicted kinetic data points
+                for XYZ unique sequences and XYZ compounds from XYZ species with the cutting-edge
+                artificial intelligence tools. The values for kcat [reference] and KM [reference] in
+                this database are predicted from available advanced deep learning tools. Our vision
+                for this database is to store every possible predicted parameter for any available
+                enzyme to facilitate better science.
               </p>
 
               <hr class="mt-6" />
