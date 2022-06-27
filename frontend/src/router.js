@@ -32,9 +32,9 @@ import EnzymeReaction from '@/components/gotEnzymes/Reaction';
 import EnzymeCompound from '@/components/gotEnzymes/Compound';
 import EnzymeEC from '@/components/gotEnzymes/EC';
 import EnzymeLanding from '@/components/gotEnzymes/Landing';
-import EnzymeProtein from '@/components/gotEnzymes/Protein';
 import EnzymeOrganism from '@/components/gotEnzymes/Organism';
 import EnzymeDomain from '@/components/gotEnzymes/Domain';
+import EnzymeGene from '@/components/gotEnzymes/Gene';
 
 Vue.use(VueRouter);
 
@@ -79,7 +79,7 @@ const routes = [
   { path: '/gotenzymes/reaction/:id', name: 'gotenzymes-reaction', component: EnzymeReaction },
   { path: '/gotenzymes/compound/:id', name: 'gotenzymes-compound', component: EnzymeCompound },
   { path: '/gotenzymes/ec/:ecValue', name: 'gotenzymes-ec', component: EnzymeEC },
-  { path: '/gotenzymes/protein/:id', name: 'gotenzymes-protein', component: EnzymeProtein },
+  { path: '/gotenzymes/gene/:id', name: 'gotenzymes-gene', component: EnzymeGene },
   { path: '/gotenzymes/organism/:id', name: 'gotenzymes-organism', component: EnzymeOrganism },
   { path: '/gotenzymes/domain/:id', name: 'gotenzymes-domain', component: EnzymeDomain },
 

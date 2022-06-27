@@ -67,7 +67,7 @@ export default {
       linkableFields: ['compound', 'domain', 'ec_number', 'protein', 'organism', 'reaction_id'],
       columns: [
         {
-          label: 'Protein',
+          label: 'Gene',
           field: 'protein',
           sortable: true,
           filterOptions: { enabled: true },

@@ -48,8 +48,8 @@
                 )
               </li>
               <li>
-                protein (e.g.
-                <router-link to="/gotenzymes/protein/zwf">zwf</router-link>
+                gene (e.g.
+                <router-link to="/gotenzymes/gene/zwf">zwf</router-link>
                 )
               </li>
               <li>

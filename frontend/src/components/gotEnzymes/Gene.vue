@@ -1,7 +1,7 @@
 <template>
   <details-page
-    component-type="Protein"
-    :component-id="proteinId"
+    component-type="Gene"
+    :component-id="geneId"
     :enzymes-table-initial-filter="enzymesTableInitialFilter"
   />
 </template>
@@ -10,18 +10,18 @@
 import DetailsPage from '@/components/gotEnzymes/DetailsPage';
 
 export default {
-  name: 'EnzymeProtein',
+  name: 'EnzymeGene',
   components: {
     DetailsPage,
   },
   data() {
     return {
-      proteinId: this.$route.params.id,
+      geneId: this.$route.params.id,
     };
   },
   computed: {
     enzymesTableInitialFilter() {
-      return { protein: this.proteinId };
+      return { gene: this.geneId };
     },
   },
 };
