@@ -215,7 +215,7 @@ export default {
       } else if (this.isOrganism(this.searchTerm)) {
         this.$router.push(`/gotenzymes/organism/${this.searchTerm}`);
       } else {
-        this.$router.push(`/gotenzymes/protein/${this.searchTerm}`);
+        this.$router.push(`/gotenzymes/gene/${this.searchTerm}`);
       }
     },
     searchStringChange() {
