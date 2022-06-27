@@ -20,7 +20,8 @@ const createQueryString = params => {
 
   Object.entries(params).forEach(([key, obj]) => {
     Object.entries(obj).forEach(([childKey, v]) => {
-      parts.push(`${key}[${childKey}]=${encodeURIComponent(v)}`);
+      const value = typeof v === 'object' ? JSON.stringify(v) : v;
+      parts.push(`${key}[${childKey}]=${encodeURIComponent(value)}`);
     });
   });
 
