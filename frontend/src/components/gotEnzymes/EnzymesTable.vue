@@ -21,6 +21,29 @@
       @on-sort-change="onSortChange"
       @on-column-filter="onColumnFilter"
     >
+      <template slot="table-row" slot-scope="props">
+        <template v-if="linkableFields.includes(props.column.field)">
+          <template v-if="props.column.field === 'ec_number'">
+            <template v-for="(ec, index) in props.row[props.column.field].split(';')">
+              <template v-if="index > 0">; </template>
+              <router-link :key="ec" :to="`/gotenzymes/ec/${ec}`">
+                {{ ec }}
+              </router-link>
+            </template>
+          </template>
+          <router-link
+            v-else
+            :to="`/gotenzymes/${props.column.field.split('_')[0].replace('protein', 'gene')}/${
+              props.row[props.column.field]
+            }`"
+          >
+            {{ props.row[props.column.field] }}
+          </router-link>
+        </template>
+        <template v-else>
+          {{ props.formattedRow[props.column.field] }}
+        </template>
+      </template>
       <template slot="column-filter" slot-scope="props">
         <range-filter
           v-if="props.column.filterOptions.customFilter"
@@ -52,9 +75,10 @@ export default {
   },
   data() {
     return {
+      linkableFields: ['compound', 'domain', 'ec_number', 'protein', 'organism', 'reaction_id'],
       columns: [
         {
-          label: 'Protein',
+          label: 'Gene',
           field: 'protein',
           sortable: true,
           filterOptions: { enabled: true },
@@ -101,7 +125,7 @@ export default {
           sortable: true,
           filterOptions: { customFilter: true },
         },
-      ],
+      ].filter(col => col.label !== this.componentType),
       tablePaginationOptions: {
         enabled: true,
         mode: 'pages',

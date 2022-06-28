@@ -23,13 +23,6 @@
                 @keyup.enter="updateSearch()"
                 @input="searchStringChange()"
               />
-              <span
-                v-show="showSearchCharAlert"
-                class="has-text-info icon is-right"
-                style="width: 220px"
-              >
-                Type at least 2 characters
-              </span>
               <span class="icon is-medium is-left">
                 <i class="fa fa-search is-primary"></i>
               </span>
@@ -55,6 +48,11 @@
                 )
               </li>
               <li>
+                gene (e.g.
+                <router-link to="/gotenzymes/gene/zwf">zwf</router-link>
+                )
+              </li>
+              <li>
                 EC code (e.g.
                 <router-link to="/gotenzymes/ec/2.5.1.19">2.5.1.19</router-link>
                 )
@@ -64,12 +62,22 @@
                 <router-link to="/gotenzymes/compound/C00003">C00003</router-link>
                 )
               </li>
+              <li>
+                organism (e.g.
+                <router-link to="/gotenzymes/organism/hsa">hsa</router-link>
+                )
+              </li>
+              <li>
+                domain (e.g.
+                <router-link to="/gotenzymes/domain/E">E</router-link>
+                )
+              </li>
             </ul>
           </div>
         </div>
       </div>
 
-      <div class="columns is-centered">
+      <div class="columns is-centered pb-6">
         <div class="column is-8-desktop is-10-tablet is-fullwidth-mobile control">
           <h3 class="title is-3">About the project</h3>
           <div class="columns is-variable is-8 pt-5">
@@ -139,7 +147,6 @@ export default {
     return {
       searchTerm: '',
       searchTermValid: false,
-      showSearchCharAlert: false,
       tocLinks: [
         {
           name: 'Intro - value',
@@ -162,22 +169,53 @@ export default {
         },
       ],
       messages,
+      organismResemblingProtein: [
+        'dcd',
+        'dfp',
+        'dut',
+        'dxs',
+        'fbp',
+        'fmt',
+        'gmk',
+        'gnd',
+        'hom',
+        'kat',
+        'ldh',
+        'lig',
+        'pgk',
+        'pyk',
+        'tdk',
+        'tgt',
+        'tkt',
+        'tmk',
+        'udk',
+        'ugd',
+        'upp',
+        'zwf',
+      ],
     };
   },
   computed: {},
   methods: {
+    isOrganism(searchString) {
+      return (
+        searchString.match(/^[a-z]{3,4}$/) && !this.organismResemblingProtein.includes(searchString)
+      );
+    },
     updateSearch() {
       this.searchTermValid = true;
-      if (this.searchTerm.length === 1) {
-        this.showSearchCharAlert = true;
-      } else if (this.searchTerm.startsWith('R')) {
+      if (this.searchTerm.match(/^[A-Z]$/i)) {
+        this.$router.push(`/gotenzymes/domain/${this.searchTerm.toUpperCase()}`);
+      } else if (this.searchTerm.match(/^R\d*/)) {
         this.$router.push(`/gotenzymes/reaction/${this.searchTerm}`);
-      } else if (this.searchTerm.startsWith('C')) {
+      } else if (this.searchTerm.match(/^C\d*/)) {
         this.$router.push(`/gotenzymes/compound/${this.searchTerm}`);
       } else if (this.searchTerm.match(/^\d+\.\d+\.\d+\.\d+/)) {
         this.$router.push(`/gotenzymes/ec/${this.searchTerm}`);
+      } else if (this.isOrganism(this.searchTerm)) {
+        this.$router.push(`/gotenzymes/organism/${this.searchTerm}`);
       } else {
-        this.searchTermValid = false;
+        this.$router.push(`/gotenzymes/gene/${this.searchTerm}`);
       }
     },
     searchStringChange() {

@@ -31,6 +31,10 @@ const actions = {
     commit('setEnzymes', enzymes);
     commit('setTotalEnzymes', totalCount);
   },
+  resetInfoAndCrossReferences({ commit }) {
+    commit('setInfo', {});
+    commit('setCrossReferences', []);
+  },
 };
 
 const mutations = {
