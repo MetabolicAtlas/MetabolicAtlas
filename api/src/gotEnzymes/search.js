@@ -10,19 +10,19 @@ const search = async searchTerm => {
     limit 10
   `;
 
-  const proteinMatchQuery = sql`
-    select 'gene' as type, protein as id, protein as match, 1 as score
+  const geneMatchQuery = sql`
+    select 'gene' as type, gene as id, gene as match, 1 as score
     from enzymes
-    where protein = ${term}
-    group by protein
+    where gene = ${term}
+    group by gene
   `;
 
-  const [fuzzyResults, proteinResults] = await Promise.all([
+  const [fuzzyResults, geneResults] = await Promise.all([
     fuzzyQuery,
-    proteinMatchQuery,
+    geneMatchQuery,
   ]);
 
-  return [...proteinResults, ...fuzzyResults].slice(0, 10);
+  return [...geneResults, ...fuzzyResults].slice(0, 10);
 };
 
 export default search;

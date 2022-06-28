@@ -12,7 +12,7 @@ create extension btree_gist;
 
 -- create tables
 create table enzymes (
-    protein text not null,
+    gene text not null,
     organism text not null,
     domain text,
     ko text,
@@ -64,7 +64,7 @@ copy reactions from '/input_data/supplementary/reaction.txt' delimiter E'\t' CSV
 
 
 -- create lookup indexes
-create index on enzymes("protein");
+create index on enzymes("gene");
 create index on enzymes("organism");
 create index on enzymes("domain");
 create index on enzymes("reaction_id");
@@ -73,13 +73,13 @@ create index on enzymes using gin (string_to_array(ec_number, ';'));
 
 
 
--- create search indexes along with materialized views (proteins disabled for now for performance reasons)
+-- create search indexes along with materialized views (genes disabled for now for performance reasons)
 create index on compounds using gist(name);
 create index on ec using gist(name);
 create index on reactions using gist(name);
 
--- create materialized view enzymes_proteins as select protein from enzymes group by protein;
--- create index on enzymes_proteins using gist(protein);
+-- create materialized view enzymes_genes as select gene from enzymes group by gene;
+-- create index on enzymes_genes using gist(gene);
 create materialized view enzymes_organisms as select organism from enzymes group by organism;
 create index on enzymes_organisms using gist(organism);
 create materialized view enzymes_domains as select domain from enzymes group by domain;

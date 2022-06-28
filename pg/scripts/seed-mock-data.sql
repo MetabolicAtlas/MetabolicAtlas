@@ -2,7 +2,7 @@
 
 insert into enzymes
 select
-    'P' || a as protein,
+    'G' || a as gene,
     'O' || b as organism,
     'D' || c as domain,
     'K' || a as ko,

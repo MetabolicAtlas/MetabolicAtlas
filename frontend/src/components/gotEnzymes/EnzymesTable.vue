@@ -33,7 +33,7 @@
           </template>
           <router-link
             v-else
-            :to="`/gotenzymes/${props.column.field.split('_')[0].replace('protein', 'gene')}/${
+            :to="`/gotenzymes/${props.column.field.split('_')[0]}/${
               props.row[props.column.field]
             }`"
           >
@@ -75,11 +75,11 @@ export default {
   },
   data() {
     return {
-      linkableFields: ['compound', 'domain', 'ec_number', 'protein', 'organism', 'reaction_id'],
+      linkableFields: ['compound', 'domain', 'ec_number', 'gene', 'organism', 'reaction_id'],
       columns: [
         {
           label: 'Gene',
-          field: 'protein',
+          field: 'gene',
           sortable: true,
           filterOptions: { enabled: true },
         },
@@ -143,7 +143,7 @@ export default {
         pagination: {
           page: 1,
           pageSize: 50,
-          column: 'protein',
+          column: 'gene',
           isAscending: true,
         },
       },
