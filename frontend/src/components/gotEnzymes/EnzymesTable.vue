@@ -33,9 +33,7 @@
           </template>
           <router-link
             v-else
-            :to="`/gotenzymes/${props.column.field.split('_')[0]}/${
-              props.row[props.column.field]
-            }`"
+            :to="`/gotenzymes/${props.column.field.split('_')[0]}/${props.row[props.column.field]}`"
           >
             {{ props.row[props.column.field] }}
           </router-link>

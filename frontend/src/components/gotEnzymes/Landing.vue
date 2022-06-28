@@ -19,7 +19,7 @@
                 data-hj-whitelist
                 class="input"
                 type="text"
-                placeholder="search"
+                placeholder="search (for genes, please provide the exact KEGG ID)"
                 @input="searchStringChange()"
               />
               <span class="icon is-medium is-left">
@@ -35,7 +35,7 @@
                   {{ messages.searchNoResult }} for
                   <b>
                     <i>{{ searchTerm }}</i> </b
-                  >. Please search using a valid EC code or KEGG id for reaction or compound.
+                  >.
                 </div>
                 <ul v-else>
                   <li v-for="(r, i) in searchResults" :key="i">
