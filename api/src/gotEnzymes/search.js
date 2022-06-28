@@ -13,7 +13,7 @@ const search = async searchTerm => {
   const geneMatchQuery = sql`
     select 'gene' as type, gene as id, gene as match, 1 as score
     from enzymes
-    where gene = ${term}
+    where gene = ${searchTerm}
     group by gene
   `;
 
