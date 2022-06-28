@@ -28,38 +28,47 @@
                 <i class="fa fa-search is-primary"></i>
               </span>
             </p>
-            <div v-if="!searchTermValid && searchTerm" class="has-text-centered notification mt-2">
-              {{ messages.searchNoResult }} for
-              <b>
-                <i>{{ searchTerm }}</i> </b
-              >. Please search using a valid EC code or KEGG id for reaction or compound.
-            </div>
-            <div v-if="searchTermValid" id="quick-search-results" class="is-block">
-              <div v-show="searching" class="has-text-centered">
-                <a class="button is-primary is-inverted is-outlined is-large is-loading" />
+            <div v-if="searchTerm.length > 0" id="quick-search-results" class="is-block">
+              <div v-if="searching" class="has-text-centered">
+                <a class="button is-primary is-inverted is-outlined is-loading my-1" />
               </div>
-              <ul>
-                <li v-for="(r, i) in searchResults" :key="i">
-                  <router-link :to="`/gotenzymes/${r.type}/${r.id}`" class="is-flex is-justify-content-space-between px-3 py-2">
-                    <span v-if="r.id === r.match">
-                      <span v-for="(char, j) in r.id.split('')" :key="j">
-                        <mark v-if="isMatch(char)" class="has-background-warning">{{ char }}</mark>
-                        <span v-else>{{ char }}</span>
-                      </span>
-                    </span>
-                    <span v-else>
-                      {{ r.id }}
-                      <span class="ml-2 is-size-7 is-italic">
-                        <span v-for="(char, j) in r.match.split('')" :key="j">
-                          <mark v-if="isMatch(char)" class="has-background-warning">{{ char }}</mark>
+              <div v-else>
+                <div v-if="searchResults.length === 0" class="p-3">
+                  {{ messages.searchNoResult }} for
+                  <b>
+                    <i>{{ searchTerm }}</i> </b
+                  >. Please search using a valid EC code or KEGG id for reaction or compound.
+                </div>
+                <ul v-else>
+                  <li v-for="(r, i) in searchResults" :key="i">
+                    <router-link
+                      :to="`/gotenzymes/${r.type}/${r.id}`"
+                      class="is-flex is-justify-content-space-between px-3 py-2"
+                    >
+                      <span v-if="r.id === r.match">
+                        <span v-for="(char, j) in r.id.split('')" :key="j">
+                          <mark v-if="isMatch(char)" class="has-background-warning">{{
+                            char
+                          }}</mark>
                           <span v-else>{{ char }}</span>
                         </span>
                       </span>
-                    </span>
-                    <span class="tag is-link is-light">{{ r.type }}</span>
-                  </router-link>
-                </li>
-              </ul>
+                      <span v-else>
+                        {{ r.id }}
+                        <span class="ml-2 is-size-7 is-italic">
+                          <span v-for="(char, j) in r.match.split('')" :key="j">
+                            <mark v-if="isMatch(char)" class="has-background-warning">{{
+                              char
+                            }}</mark>
+                            <span v-else>{{ char }}</span>
+                          </span>
+                        </span>
+                      </span>
+                      <span class="tag is-link is-light">{{ r.type }}</span>
+                    </router-link>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -265,6 +274,7 @@ export default {
       }
     },
     searchStringChange() {
+      this.searching = true;
       this.searchTermValid = true;
     },
     isMatch(char) {
