@@ -14,14 +14,12 @@
           <div>
             <p class="control has-icons-right has-icons-left">
               <input
-                id="search"
                 v-model="searchTerm"
                 v-debounce:100="searchDebounce"
                 data-hj-whitelist
                 class="input"
                 type="text"
                 placeholder="search"
-                @keyup.enter="updateSearch()"
                 @input="searchStringChange()"
               />
               <span class="icon is-medium is-left">
@@ -45,23 +43,15 @@
                       :to="`/gotenzymes/${r.type}/${r.id}`"
                       class="is-flex is-justify-content-space-between px-3 py-2"
                     >
-                      <span v-if="r.id === r.match">
-                        <span v-for="(char, j) in r.id.split('')" :key="j">
-                          <mark v-if="isMatch(char)" class="has-background-warning">{{
-                            char
-                          }}</mark>
-                          <span v-else>{{ char }}</span>
-                        </span>
-                      </span>
+                      <search-highlighter
+                        v-if="r.id === r.match"
+                        :match-term="r.id"
+                        :search-term="searchTerm"
+                      />
                       <span v-else>
                         {{ r.id }}
                         <span class="ml-2 is-size-7 is-italic">
-                          <span v-for="(char, j) in r.match.split('')" :key="j">
-                            <mark v-if="isMatch(char)" class="has-background-warning">{{
-                              char
-                            }}</mark>
-                            <span v-else>{{ char }}</span>
-                          </span>
+                          <search-highlighter :match-term="r.match" :search-term="searchTerm" />
                         </span>
                       </span>
                       <span class="tag is-link is-light">{{ r.type }}</span>
@@ -173,19 +163,19 @@
 
 <script>
 import { mapState } from 'vuex';
+import SearchHighlighter from '@/components/shared/SearchHighlighter.vue';
 import TableOfContents from '@/components/shared/TableOfContents.vue';
 import { default as messages } from '@/content/messages';
 
 export default {
   name: 'EnzymeLanding',
   components: {
+    SearchHighlighter,
     TableOfContents,
   },
   data() {
     return {
       searchTerm: '',
-      searchTermValid: false,
-      showSearchCharAlert: false,
       searching: false,
       tocLinks: [
         {
@@ -209,30 +199,6 @@ export default {
         },
       ],
       messages,
-      organismResemblingProtein: [
-        'dcd',
-        'dfp',
-        'dut',
-        'dxs',
-        'fbp',
-        'fmt',
-        'gmk',
-        'gnd',
-        'hom',
-        'kat',
-        'ldh',
-        'lig',
-        'pgk',
-        'pyk',
-        'tdk',
-        'tgt',
-        'tkt',
-        'tmk',
-        'udk',
-        'ugd',
-        'upp',
-        'zwf',
-      ],
     };
   },
   beforeDestroy() {
@@ -244,11 +210,6 @@ export default {
     }),
   },
   methods: {
-    isOrganism(searchString) {
-      return (
-        searchString.match(/^[a-z]{3,4}$/) && !this.organismResemblingProtein.includes(searchString)
-      );
-    },
     async searchDebounce() {
       this.searching = true;
       this.$store.dispatch('gotEnzymes/resetSearch');
@@ -257,28 +218,8 @@ export default {
 
       this.searching = false;
     },
-    updateSearch() {
-      this.searchTermValid = true;
-      if (this.searchTerm.match(/^[A-Z]$/i)) {
-        this.$router.push(`/gotenzymes/domain/${this.searchTerm.toUpperCase()}`);
-      } else if (this.searchTerm.match(/^R\d*/)) {
-        this.$router.push(`/gotenzymes/reaction/${this.searchTerm}`);
-      } else if (this.searchTerm.match(/^C\d*/)) {
-        this.$router.push(`/gotenzymes/compound/${this.searchTerm}`);
-      } else if (this.searchTerm.match(/^\d+\.\d+\.\d+\.\d+/)) {
-        this.$router.push(`/gotenzymes/ec/${this.searchTerm}`);
-      } else if (this.isOrganism(this.searchTerm)) {
-        this.$router.push(`/gotenzymes/organism/${this.searchTerm}`);
-      } else {
-        this.$router.push(`/gotenzymes/gene/${this.searchTerm}`);
-      }
-    },
     searchStringChange() {
       this.searching = true;
-      this.searchTermValid = true;
-    },
-    isMatch(char) {
-      return this.searchTerm.toLowerCase().includes(char.toLowerCase());
     },
   },
 };
