@@ -101,7 +101,7 @@
                   href="https://doi.org/10.1038/s41929-022-00798-z"
                   >doi:10.1038/s41929-022-00798-z</a
                 >). Our vision for this database is to store every possible predicted parameter for
-                any available enzyme to facilitate
+                any available enzyme to facilitate improved predictions.
               </p>
 
               <hr class="mt-6" />
