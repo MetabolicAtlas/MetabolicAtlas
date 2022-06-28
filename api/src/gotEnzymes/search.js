@@ -17,6 +17,7 @@ const search = async searchTerm => {
     group by gene
   `;
 
+  await sql`set pg_trgm.similarity_threshold = 0.25`; // this allows more matches, default is 0.3
   const [fuzzyResults, geneResults] = await Promise.all([
     fuzzyQuery,
     geneMatchQuery,
