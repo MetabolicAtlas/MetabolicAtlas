@@ -34,28 +34,33 @@
                 <i>{{ searchTerm }}</i> </b
               >. Please search using a valid EC code or KEGG id for reaction or compound.
             </div>
-            <ul v-if="searchTermValid" id="quick-search-results" class="is-block">
-              <li v-for="(r, i) in searchResults" :key="i">
-                <router-link :to="`/gotenzymes/${r.type}/${r.id}`" class="is-flex is-justify-content-space-between px-3 py-2">
-                  <span v-if="r.id === r.match">
-                    <template v-for="char in r.id.split('')">
-                      <mark v-if="isMatch(char)" class="has-background-warning">{{ char }}</mark>
-                      <span v-else>{{ char }}</span>
-                    </template>
-                  </span>
-                  <span v-else>
-                    {{ r.id }}
-                    <span class="ml-2 is-size-7 is-italic">
-                      <template v-for="char in r.match.split('')">
+            <div v-if="searchTermValid" id="quick-search-results" class="is-block">
+              <div v-show="searching" class="has-text-centered">
+                <a class="button is-primary is-inverted is-outlined is-large is-loading" />
+              </div>
+              <ul>
+                <li v-for="(r, i) in searchResults" :key="i">
+                  <router-link :to="`/gotenzymes/${r.type}/${r.id}`" class="is-flex is-justify-content-space-between px-3 py-2">
+                    <span v-if="r.id === r.match">
+                      <span v-for="(char, j) in r.id.split('')" :key="j">
                         <mark v-if="isMatch(char)" class="has-background-warning">{{ char }}</mark>
                         <span v-else>{{ char }}</span>
-                      </template>
+                      </span>
                     </span>
-                  </span>
-                  <span class="tag is-link is-light">{{ r.type }}</span>
-                </router-link>
-              </li>
-            </ul>
+                    <span v-else>
+                      {{ r.id }}
+                      <span class="ml-2 is-size-7 is-italic">
+                        <span v-for="(char, j) in r.match.split('')" :key="j">
+                          <mark v-if="isMatch(char)" class="has-background-warning">{{ char }}</mark>
+                          <span v-else>{{ char }}</span>
+                        </span>
+                      </span>
+                    </span>
+                    <span class="tag is-link is-light">{{ r.type }}</span>
+                  </router-link>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -171,6 +176,8 @@ export default {
     return {
       searchTerm: '',
       searchTermValid: false,
+      showSearchCharAlert: false,
+      searching: false,
       tocLinks: [
         {
           name: 'Intro - value',
@@ -234,7 +241,12 @@ export default {
       );
     },
     async searchDebounce() {
+      this.searching = true;
+      this.$store.dispatch('gotEnzymes/resetSearch');
+
       await this.$store.dispatch('gotEnzymes/search', this.searchTerm);
+
+      this.searching = false;
     },
     updateSearch() {
       this.searchTermValid = true;
