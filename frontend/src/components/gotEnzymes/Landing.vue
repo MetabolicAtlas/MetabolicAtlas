@@ -16,6 +16,7 @@
               <input
                 id="search"
                 v-model="searchTerm"
+                v-debounce:100="searchDebounce"
                 data-hj-whitelist
                 class="input"
                 type="text"
@@ -33,6 +34,28 @@
                 <i>{{ searchTerm }}</i> </b
               >. Please search using a valid EC code or KEGG id for reaction or compound.
             </div>
+            <ul v-if="searchTermValid" id="quick-search-results" class="is-block">
+              <li v-for="(r, i) in searchResults" :key="i">
+                <router-link :to="`/gotenzymes/${r.type}/${r.id}`" class="is-flex is-justify-content-space-between px-3 py-2">
+                  <span v-if="r.id === r.match">
+                    <template v-for="char in r.id.split('')">
+                      <mark v-if="isMatch(char)" class="has-background-warning">{{ char }}</mark>
+                      <span v-else>{{ char }}</span>
+                    </template>
+                  </span>
+                  <span v-else>
+                    {{ r.id }}
+                    <span class="ml-2 is-size-7 is-italic">
+                      <template v-for="char in r.match.split('')">
+                        <mark v-if="isMatch(char)" class="has-background-warning">{{ char }}</mark>
+                        <span v-else>{{ char }}</span>
+                      </template>
+                    </span>
+                  </span>
+                  <span class="tag is-link is-light">{{ r.type }}</span>
+                </router-link>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -135,6 +158,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import TableOfContents from '@/components/shared/TableOfContents.vue';
 import { default as messages } from '@/content/messages';
 
@@ -195,12 +219,22 @@ export default {
       ],
     };
   },
-  computed: {},
+  beforeDestroy() {
+    this.$store.dispatch('gotEnzymes/resetSearch');
+  },
+  computed: {
+    ...mapState({
+      searchResults: state => state.gotEnzymes.searchResults,
+    }),
+  },
   methods: {
     isOrganism(searchString) {
       return (
         searchString.match(/^[a-z]{3,4}$/) && !this.organismResemblingProtein.includes(searchString)
       );
+    },
+    async searchDebounce() {
+      await this.$store.dispatch('gotEnzymes/search', this.searchTerm);
     },
     updateSearch() {
       this.searchTermValid = true;
@@ -221,8 +255,29 @@ export default {
     searchStringChange() {
       this.searchTermValid = true;
     },
+    isMatch(char) {
+      return this.searchTerm.toLowerCase().includes(char.toLowerCase());
+    },
   },
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+#quick-search-results {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%);
+
+  li {
+    cursor: pointer;
+
+    &:hover {
+      background: $white-bis;
+    }
+
+    &:not(:last-child) {
+      border-bottom: 1px solid $white-ter;
+    }
+  }
+}
+</style>

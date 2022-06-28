@@ -95,18 +95,18 @@ create index on enzymes_compounds using gist(compound);
 
 -- create view for fuzzy search through multiple tables and views
 create view multi_search as
-select text 'reactions' as origin_table, kegg as id, name as search_field from reactions
+select text 'reaction' as type, kegg as id, name as match from reactions
 union all
-select text 'compounds' as origin_table, kegg as id, name as search_field from compounds
+select text 'compound' as type, kegg as id, name as match from compounds
 union all
-select text 'ec' as origin_table, ec as id, name as search_field from ec
+select text 'ec' as type, ec as id, name as match from ec
 union all
-select text 'enzymes_organisms' as origin_table, organism as id, organism as search_field from enzymes_organisms
+select text 'organism' as type, organism as id, organism as match from enzymes_organisms
 union all
-select text 'enzymes_domains' as origin_table, domain as id, domain as search_field from enzymes_domains
+select text 'domain' as type, domain as id, domain as match from enzymes_domains
 union all
-select text 'enzymes_reaction_ids' as origin_table, reaction_id as id, reaction_id as search_field from enzymes_reaction_ids
+select text 'reaction' as type, reaction_id as id, reaction_id as match from enzymes_reaction_ids
 union all
-select text 'enzymes_ec_numbers' as origin_table, ec_number as id, ec_number as search_field from enzymes_ec_numbers
+select text 'ec' as type, ec_number as id, ec_number as match from enzymes_ec_numbers
 union all
-select text 'enzymes_compounds' as origin_table, compound as id, compound as search_field from enzymes_compounds;
+select text 'compound' as type, compound as id, compound as match from enzymes_compounds;

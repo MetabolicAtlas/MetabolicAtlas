@@ -5,6 +5,7 @@ const data = {
   crossReferences: {},
   enzymes: [],
   totalEnzymes: 0,
+  searchResults: [],
 };
 
 const actions = {
@@ -35,6 +36,18 @@ const actions = {
     commit('setInfo', {});
     commit('setCrossReferences', []);
   },
+  async search({ commit }, searchTerm) {
+    if (!searchTerm || searchTerm.length === 0) {
+      commit('setSearchResults', []);
+      return;
+    }
+
+    const results = await gotEnzymesApi.search(searchTerm);
+    commit('setSearchResults', results);
+  },
+  resetSearch({ commit }) {
+    commit('setSearchResults', []);
+  },
 };
 
 const mutations = {
@@ -49,6 +62,9 @@ const mutations = {
   },
   setTotalEnzymes: (state, totalEnzymes) => {
     state.totalEnzymes = totalEnzymes;
+  },
+  setSearchResults: (state, searchResults) => {
+    state.searchResults = searchResults;
   },
 };
 

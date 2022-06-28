@@ -35,4 +35,9 @@ const fetchEnzymes = async params => {
   return data;
 };
 
-export default { fetchReaction, fetchCompound, fetchEC, fetchEnzymes };
+const search = async searchTerm => {
+  const { data } = await axios.get(`/gotenzymes/search/${searchTerm}`);
+  return data;
+};
+
+export default { fetchReaction, fetchCompound, fetchEC, fetchEnzymes, search };
