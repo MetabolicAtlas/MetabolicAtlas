@@ -84,7 +84,8 @@
               <hr class="mt-6" />
               <h4 id="how-to-use-it" class="is-info is-size-4">How to use it</h4>
               <p>
-                We currently support searches by reaction, compound, and EC number. Each predicted
+                We currently support fuzzy searches by reaction, compound, and EC number, organism
+                and domain, and exact searches for KEGG protein identifiers. Each predicted
                 parameter is filterable. Feel free to contact us if you find any issue. To report a
                 technical error on the webpage please email
                 <a href="mailto:contact@metabolicatlas.org">contact [at] metabolicatlas [dot] org</a
