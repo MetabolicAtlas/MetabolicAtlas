@@ -84,10 +84,11 @@
               <hr class="mt-6" />
               <h4 id="how-to-use-it" class="is-info is-size-4">How to use it</h4>
               <p>
-                We currently support fuzzy searches by reaction, compound, EC number, organism
-                and domain, and exact searches for KEGG protein identifiers. Each predicted
-                parameter is filterable. Feel free to contact us if you find any issue. To report a
-                technical error on the webpage please email
+                We currently support fuzzy searches by reaction, compound, EC number, organism and
+                domain, and exact searches for KEGG gene identifiers. All table columns are
+                filterable and sortable, including the predicted numberical values. Feel free to
+                contact us if you find any issue. To report a technical error on the webpage please
+                email
                 <a href="mailto:contact@metabolicatlas.org">contact [at] metabolicatlas [dot] org</a
                 >. For questions about the scientific methods, please reach out to
                 <a href="mailto:gotenzymes@metabolicatlas.org"
@@ -97,19 +98,23 @@
               <hr class="mt-6" />
               <h4 id="how-it-was-made" class="is-info is-size-4">How it was made</h4>
               <p>
-                Data in this database are predicted from available advanced deep learning tools:
-                k<sub>cat</sub> published in <i>Nature Catalysis</i> in 2022 (<a
+                The data in this database are predicted with available advanced deep learning tools,
+                such as <i>DLKcat</i> for k<sub>cat</sub> prediction published in
+                <i>Nature Catalysis</i> in 2022 (<a
                   href="https://doi.org/10.1038/s41929-022-00798-z"
                   >doi:10.1038/s41929-022-00798-z</a
-                >). Our vision for this database is to store every possible predicted parameter for
-                any available enzyme to facilitate computational applications such as
-                flux simulations, and for use in metabolic engineering.
+                >). Our vision for GotEnzymes is to facilitate computational applications, such as
+                flux simulations, and to improve the Design-Build-Test-Learn cycle in metabolic
+                engineering, by suggesting candidate alternative enzymes. To this end, we aim to
+                store every possible predicted parameter for all available enzyme in a single
+                database that is equally easy to use manually and programatically.
               </p>
 
               <hr class="mt-6" />
               <h4 id="citation" class="is-info is-size-4">Citation</h4>
               <p>
-                <i>Manuscript under consideration</i>. For more information about the k<sub>cat</sub
+                <i>Manuscript under consideration</i>. For more information about the k<sub
+                  >cat</sub
                 >
                 prediction methods, please have a look at
                 <i
