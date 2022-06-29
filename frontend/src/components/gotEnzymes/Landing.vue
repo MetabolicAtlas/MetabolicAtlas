@@ -19,7 +19,7 @@
                 class="input"
                 type="text"
                 placeholder="search (for genes, please provide the exact KEGG ID)"
-                @input="search()"
+                @input="handleInputUpdate()"
               />
               <span class="icon is-medium is-left">
                 <i class="fa fa-search is-primary"></i>
@@ -214,12 +214,15 @@ export default {
   },
   methods: {
     async search() {
-      this.searching = true;
       this.$store.dispatch('gotEnzymes/resetSearch');
 
       await this.$store.dispatch('gotEnzymes/search', this.searchTerm);
 
       this.searching = false;
+    },
+    async handleInputUpdate() {
+      this.searching = true;
+      await this.search();
     },
   },
 };
