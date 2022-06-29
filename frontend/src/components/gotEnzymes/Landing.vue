@@ -15,12 +15,11 @@
             <p class="control has-icons-right has-icons-left">
               <input
                 v-model="searchTerm"
-                v-debounce:100="searchDebounce"
                 data-hj-whitelist
                 class="input"
                 type="text"
                 placeholder="search (for genes, please provide the exact KEGG ID)"
-                @input="searchStringChange()"
+                @input="search()"
               />
               <span class="icon is-medium is-left">
                 <i class="fa fa-search is-primary"></i>
@@ -163,6 +162,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import { debounce } from 'vue-debounce';
 import SearchHighlighter from '@/components/shared/SearchHighlighter.vue';
 import TableOfContents from '@/components/shared/TableOfContents.vue';
 import { default as messages } from '@/content/messages';
@@ -201,6 +201,9 @@ export default {
       messages,
     };
   },
+  created() {
+    this.search = debounce(this.search, 200);
+  },
   beforeDestroy() {
     this.$store.dispatch('gotEnzymes/resetSearch');
   },
@@ -210,16 +213,13 @@ export default {
     }),
   },
   methods: {
-    async searchDebounce() {
+    async search() {
       this.searching = true;
       this.$store.dispatch('gotEnzymes/resetSearch');
 
       await this.$store.dispatch('gotEnzymes/search', this.searchTerm);
 
       this.searching = false;
-    },
-    searchStringChange() {
-      this.searching = true;
     },
   },
 };
