@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="enzymes-table">
     <div class="field columns">
       <div class="column"></div>
       <div class="column is-narrow">
@@ -238,4 +238,8 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+#enzymes-table .footer__navigation__page-info__current-entry {
+  width: 50px;
+}
+</style>
