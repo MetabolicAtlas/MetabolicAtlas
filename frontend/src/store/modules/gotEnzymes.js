@@ -1,5 +1,4 @@
 import gotEnzymesApi from '@/api/gotEnzymes';
-import { sanitizeSearchTerm } from '@/helpers/utils';
 
 const data = {
   info: {},
@@ -38,7 +37,8 @@ const actions = {
     commit('setCrossReferences', []);
   },
   async search({ commit }, searchTerm) {
-    const term = sanitizeSearchTerm(searchTerm);
+    const term = encodeURIComponent(searchTerm);
+
     if (term.length === 0) {
       commit('setSearchResults', []);
       return;

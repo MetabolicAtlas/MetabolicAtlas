@@ -215,14 +215,6 @@ export function sanitizeSearchString(term, isAddBackSlash = true) {
   return newTerm;
 }
 
-export const sanitizeSearchTerm = term => {
-  if (!term) {
-    return '';
-  }
-
-  return sanitizeSearchString(term).replace(/#/g, '');
-};
-
 export const combineWords = ({ items, itemType }) => {
   let combined;
 
