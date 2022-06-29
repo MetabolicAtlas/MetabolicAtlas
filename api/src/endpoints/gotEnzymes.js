@@ -1,5 +1,11 @@
 import express from 'express';
-import { getCompound, getEc, getReaction, getEnzymes } from 'gotEnzymes/index';
+import {
+  getCompound,
+  getEc,
+  getReaction,
+  getEnzymes,
+  search,
+} from 'gotEnzymes/index';
 
 const gotEnzymesRoutes = express.Router();
 
@@ -57,6 +63,18 @@ gotEnzymesRoutes.get('/enzymes', async (req, res) => {
   try {
     const enzymes = await getEnzymes({ filters, pagination });
     res.json(enzymes);
+  } catch (e) {
+    console.error(e.message);
+    res.sendStatus(500);
+  }
+});
+
+gotEnzymesRoutes.get('/search/:term', async (req, res) => {
+  const { term } = req.params;
+
+  try {
+    const results = await search(term);
+    res.json(results);
   } catch (e) {
     console.error(e.message);
     res.sendStatus(500);

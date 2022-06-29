@@ -1,7 +1,7 @@
 import sql from 'gotEnzymes/db';
 
 const MATCH_FIELDS = [
-  'protein',
+  'gene',
   'organism',
   'domain',
   'ko',
@@ -50,7 +50,7 @@ const getFiltersQueries = filters => {
 const getEnzymes = async ({
   filters = {},
   pagination: {
-    column = 'protein',
+    column = 'gene',
     isAscending = 'true',
     pageSize = 50,
     page = 1,

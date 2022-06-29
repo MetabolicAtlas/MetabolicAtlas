@@ -14,24 +14,50 @@
           <div>
             <p class="control has-icons-right has-icons-left">
               <input
-                id="search"
                 v-model="searchTerm"
                 data-hj-whitelist
                 class="input"
                 type="text"
-                placeholder="search"
-                @keyup.enter="updateSearch()"
-                @input="searchStringChange()"
+                placeholder="search (for genes, please provide the exact KEGG ID)"
+                @input="handleInputUpdate()"
               />
               <span class="icon is-medium is-left">
                 <i class="fa fa-search is-primary"></i>
               </span>
             </p>
-            <div v-if="!searchTermValid && searchTerm" class="has-text-centered notification mt-2">
-              {{ messages.searchNoResult }} for
-              <b>
-                <i>{{ searchTerm }}</i> </b
-              >. Please search using a valid EC code or KEGG id for reaction or compound.
+            <div v-if="searchTerm.length > 0" id="quick-search-results" class="is-block">
+              <div v-if="searching" class="has-text-centered">
+                <a class="button is-primary is-inverted is-outlined is-loading my-1" />
+              </div>
+              <div v-else>
+                <div v-if="searchResults.length === 0" class="p-3">
+                  {{ messages.searchNoResult }} for
+                  <b>
+                    <i>{{ searchTerm }}</i> </b
+                  >.
+                </div>
+                <ul v-else>
+                  <li v-for="(r, i) in searchResults" :key="i">
+                    <router-link
+                      :to="`/gotenzymes/${r.type}/${r.id}`"
+                      class="is-flex is-justify-content-space-between px-3 py-2"
+                    >
+                      <search-highlighter
+                        v-if="r.id === r.match"
+                        :match-term="r.id"
+                        :search-term="searchTerm"
+                      />
+                      <span v-else>
+                        {{ r.id }}
+                        <span class="ml-2 is-size-7 is-italic">
+                          <search-highlighter :match-term="r.match" :search-term="searchTerm" />
+                        </span>
+                      </span>
+                      <span class="tag is-link is-light">{{ r.type }}</span>
+                    </router-link>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -135,18 +161,22 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import { debounce } from 'vue-debounce';
+import SearchHighlighter from '@/components/shared/SearchHighlighter.vue';
 import TableOfContents from '@/components/shared/TableOfContents.vue';
 import { default as messages } from '@/content/messages';
 
 export default {
   name: 'EnzymeLanding',
   components: {
+    SearchHighlighter,
     TableOfContents,
   },
   data() {
     return {
       searchTerm: '',
-      searchTermValid: false,
+      searching: false,
       tocLinks: [
         {
           name: 'Intro - value',
@@ -169,60 +199,51 @@ export default {
         },
       ],
       messages,
-      organismResemblingProtein: [
-        'dcd',
-        'dfp',
-        'dut',
-        'dxs',
-        'fbp',
-        'fmt',
-        'gmk',
-        'gnd',
-        'hom',
-        'kat',
-        'ldh',
-        'lig',
-        'pgk',
-        'pyk',
-        'tdk',
-        'tgt',
-        'tkt',
-        'tmk',
-        'udk',
-        'ugd',
-        'upp',
-        'zwf',
-      ],
     };
   },
-  computed: {},
+  created() {
+    this.search = debounce(this.search, 200);
+  },
+  beforeDestroy() {
+    this.$store.dispatch('gotEnzymes/resetSearch');
+  },
+  computed: {
+    ...mapState({
+      searchResults: state => state.gotEnzymes.searchResults,
+    }),
+  },
   methods: {
-    isOrganism(searchString) {
-      return (
-        searchString.match(/^[a-z]{3,4}$/) && !this.organismResemblingProtein.includes(searchString)
-      );
+    async search() {
+      this.$store.dispatch('gotEnzymes/resetSearch');
+
+      await this.$store.dispatch('gotEnzymes/search', this.searchTerm);
+
+      this.searching = false;
     },
-    updateSearch() {
-      this.searchTermValid = true;
-      if (this.searchTerm.match(/^[A-Z]$/i)) {
-        this.$router.push(`/gotenzymes/domain/${this.searchTerm.toUpperCase()}`);
-      } else if (this.searchTerm.match(/^R\d*/)) {
-        this.$router.push(`/gotenzymes/reaction/${this.searchTerm}`);
-      } else if (this.searchTerm.match(/^C\d*/)) {
-        this.$router.push(`/gotenzymes/compound/${this.searchTerm}`);
-      } else if (this.searchTerm.match(/^\d+\.\d+\.\d+\.\d+/)) {
-        this.$router.push(`/gotenzymes/ec/${this.searchTerm}`);
-      } else if (this.isOrganism(this.searchTerm)) {
-        this.$router.push(`/gotenzymes/organism/${this.searchTerm}`);
-      } else {
-        this.$router.push(`/gotenzymes/gene/${this.searchTerm}`);
-      }
-    },
-    searchStringChange() {
-      this.searchTermValid = true;
+    async handleInputUpdate() {
+      this.searching = true;
+      await this.search();
     },
   },
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+#quick-search-results {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%);
+
+  li {
+    cursor: pointer;
+
+    &:hover {
+      background: $white-bis;
+    }
+
+    &:not(:last-child) {
+      border-bottom: 1px solid $white-ter;
+    }
+  }
+}
+</style>
