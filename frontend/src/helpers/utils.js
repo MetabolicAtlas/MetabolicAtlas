@@ -220,7 +220,7 @@ export const sanitizeSearchTerm = term => {
     return '';
   }
 
-  return sanitizeSearchString(term).replace('#', '');
+  return sanitizeSearchString(term).replace(/#/g, '');
 };
 
 export const combineWords = ({ items, itemType }) => {
