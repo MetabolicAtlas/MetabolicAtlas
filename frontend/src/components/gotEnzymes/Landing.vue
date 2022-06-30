@@ -106,7 +106,7 @@
                 >). Our vision for GotEnzymes is to facilitate computational applications, such as
                 flux simulations, and to improve the Design-Build-Test-Learn cycle in metabolic
                 engineering, by suggesting candidate alternative enzymes. To this end, we aim to
-                store every possible predicted parameter for all available enzyme in a single
+                store every possible predicted parameter for all available enzymes in a single
                 database that is equally easy to use manually and programatically.
               </p>
 
