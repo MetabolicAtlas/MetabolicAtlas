@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="extended-section">
     <section class="hero is-primary is-bold py-6">
       <div class="hero-body has-text-centered">
         <p class="is-size-1 title">GotEnzymes</p>
@@ -66,7 +66,7 @@
       <div class="columns is-centered pb-6">
         <div class="column is-three-fifths-desktop is-three-quarters-tablet is-fullwidth-mobile">
           <div class="content">
-            <h5 class="title is-5">You can search for a:</h5>
+            <h5 class="title is-5">One can search for a:</h5>
             <ul>
               <li>
                 reaction (e.g.
@@ -110,20 +110,19 @@
             <TableOfContents :links="tocLinks" />
             <div id="intro" class="column content has-text-justified">
               <p>
-                GotEnzymes provides open access to over XYZ million predicted kinetic data points
-                for XYZ unique sequences and XYZ compounds from XYZ species with the cutting-edge
-                artificial intelligence tools. The values for kcat [reference] and KM [reference] in
-                this database are predicted from available advanced deep learning tools. Our vision
-                for this database is to store every possible predicted parameter for any available
-                enzyme to facilitate better science.
+                GotEnzymes provides open access to over 25,794,195 million predicted k<sub>cat</sub>
+                for 5,825,213 unique sequences and 4,147 compounds from 8,099 species with the
+                cutting-edge artificial intelligence tools.
               </p>
 
               <hr class="mt-6" />
               <h4 id="how-to-use-it" class="is-info is-size-4">How to use it</h4>
               <p>
-                We currently support searches by reaction, compound, EC number. Each predicted
-                parameter is filterable. Feel free to contact us if you find any issue. To report a
-                technical error on the webpage please email
+                We currently support fuzzy searches by reaction, compound, EC number, organism and
+                domain, and exact searches for KEGG gene identifiers. All table columns are
+                filterable and sortable, including the predicted numberical values. Feel free to
+                contact us if you find any issue. To report a technical error on the webpage please
+                email
                 <a href="mailto:contact@metabolicatlas.org">contact [at] metabolicatlas [dot] org</a
                 >. For questions about the scientific methods, please reach out to
                 <a href="mailto:gotenzymes@metabolicatlas.org"
@@ -133,24 +132,32 @@
               <hr class="mt-6" />
               <h4 id="how-it-was-made" class="is-info is-size-4">How it was made</h4>
               <p>
-                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a
-                piece of classical Latin literature from 45 BC, making it over 2000 years old.
-                Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked
-                up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and
-                going through the cites of the word in classical literature, discovered the
-                undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de
-                Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45
-                BC. This book is a treatise on the theory of ethics, very popular during the
-                Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes
-                from a line in section 1.10.32.
+                The data in this database are predicted with available advanced deep learning tools,
+                such as <i>DLKcat</i> for k<sub>cat</sub> prediction published in
+                <i>Nature Catalysis</i> in 2022 (<a
+                  href="https://doi.org/10.1038/s41929-022-00798-z"
+                  >doi:10.1038/s41929-022-00798-z</a
+                >). Our vision for GotEnzymes is to facilitate computational applications, such as
+                flux simulations, and to improve the Design-Build-Test-Learn cycle in metabolic
+                engineering, by suggesting candidate alternative enzymes. To this end, we aim to
+                store every possible predicted parameter for all available enzymes in a single
+                database that is equally easy to use manually and programatically.
               </p>
 
               <hr class="mt-6" />
               <h4 id="citation" class="is-info is-size-4">Citation</h4>
               <p>
-                To cite GotEnzymes please use this [link]. For more information about the prediction
-                methods, have a look at reference title [link] for kcat prediction and KM
-                prediction.
+                <i>Manuscript under consideration</i>. For more information about the k<sub
+                  >cat</sub
+                >
+                prediction methods, please have a look at
+                <i
+                  >Deep learning-based k<sub>cat</sub> prediction enables improved
+                  enzyme-constrained model reconstruction</i
+                >
+                (<a href="https://doi.org/10.1038/s41929-022-00798-z"
+                  >doi:10.1038/s41929-022-00798-z</a
+                >).
               </p>
             </div>
           </div>
