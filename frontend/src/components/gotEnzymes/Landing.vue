@@ -70,7 +70,9 @@
             <ul>
               <li>
                 reaction (e.g.
-                <router-link to="/gotenzymes/reaction/R01234">R01234</router-link>
+                <router-link to="/gotenzymes/reaction/R01677">R01677</router-link>
+                or
+                <router-link to="/gotenzymes/reaction/R01677">guanosine ribohydrolase</router-link>
                 )
               </li>
               <li>
@@ -86,16 +88,20 @@
               <li>
                 compound (e.g.
                 <router-link to="/gotenzymes/compound/C00003">C00003</router-link>
+                or
+                <router-link to="/gotenzymes/compound/C00003">NAD+</router-link>
                 )
               </li>
               <li>
                 organism (e.g.
                 <router-link to="/gotenzymes/organism/hsa">hsa</router-link>
+                or
+                <router-link to="/gotenzymes/organism/hsa">Homo sapiens</router-link>
                 )
               </li>
               <li>
                 domain (e.g.
-                <router-link to="/gotenzymes/domain/E">E</router-link>
+                <router-link to="/gotenzymes/domain/E">eukaryotes</router-link>
                 )
               </li>
             </ul>
