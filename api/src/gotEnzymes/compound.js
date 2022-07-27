@@ -14,10 +14,10 @@ const getCompound = async id => {
   }
 
   const compound = compounds[0];
-  const { name, formula, ...rawCrossReferences } = compound;
+  const { name, formula, smiles, ...rawCrossReferences } = compound;
 
   const info = Object.fromEntries(
-    Object.entries({ name, formula }).filter(([_, v]) => v)
+    Object.entries({ name, formula, smiles }).filter(([_, v]) => v)
   );
 
   const crossReferences = Object.fromEntries(

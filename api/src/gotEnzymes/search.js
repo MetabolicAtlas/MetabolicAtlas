@@ -11,10 +11,9 @@ const search = async searchTerm => {
   `;
 
   const geneMatchQuery = sql`
-    select 'gene' as type, gene as id, gene as match, 1 as score
-    from enzymes
-    where gene = ${searchTerm}
-    group by gene
+    select 'gene' as type, kegg as id, kegg as match, 1 as score
+    from genes
+    where kegg = ${searchTerm}
   `;
 
   await sql`set pg_trgm.similarity_threshold = 0.25`; // this allows more matches, default is 0.3
