@@ -2,8 +2,9 @@ import sql from 'gotEnzymes/db';
 
 const getGene = async value => {
   const gene = await sql`
-    select * from genes
+    select kegg, string_agg(ncbi, '; ') from genes
     where kegg = ${value.toString()}
+    group by kegg
   `;
 
   if (gene.length !== 1) {
