@@ -77,16 +77,17 @@ copy domains from '/input_data/supplementary/domain.txt' delimiter E'\t' CSV HEA
 copy genes from program 'cat /input_data/supplementary/gene/*.txt' delimiter E'\t';
 
 -- create lookup indexes
-create index on genes (kegg);
-create index on organisms (kegg);
-create index on domains (abbreviation);
-
--- create search indexes along with materialized views (genes disabled for now for performance reasons)
+create index on reactions using gist (name, kegg);
 create index on compounds using gist (name, kegg);
 create index on ec using gist (name, ec);
-create index on reactions using gist (name, kegg);
+create index on organisms (kegg);
 create index on organisms using gist (name);
+create index on domains (abbreviation);
 create index on domains using gist (name);
+
+-- create indexes for the enzymes table
+create index on enzymes (gene, organism, domain, reaction_id, compound);
+create index on enzymes using gin (string_to_array(ec_number, ';'));
 
 -- create view for fuzzy search through multiple tables and views
 create view multi_search as
