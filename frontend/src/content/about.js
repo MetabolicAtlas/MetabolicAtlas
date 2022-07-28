@@ -1,19 +1,18 @@
 export default [
-  {
-    name: 'Introduction',
-    link: '/about/introduction',
-    routeName: 'about-introduction',
-  },
   // { name: 'Our impact', link: '/about/impact', routeName: 'about-impact' },
-  { name: 'News', icon: 'fa-newspaper-o', link: '/about/news', routeName: 'about-news' },
   {
-    name: 'Advisory Board',
-    icon: 'fa-compass',
-    link: '/about/advisory',
-    routeName: 'about-advisory',
+    name: 'About',
+    icon: 'fa-external-link',
+    link: '/about/platform',
+    routeName: 'about-platform',
+    subsections: [
+      { name: 'Introduction', link: '/about/platform#introduction' },
+      { name: 'Citation', link: '/about/platform#citation' },
+      { name: 'Advisory Board', link: '/about/platform#advisory-board' },
+      { name: 'Development', link: '/about/platform#development' },
+    ],
   },
-  { name: 'Team', icon: 'fa-users', link: '/about/team', routeName: 'about-team' },
-  { name: 'Citation', icon: 'fa-quote-left', link: '/about/citation', routeName: 'about-citation' },
+  { name: 'News', icon: 'fa-newspaper-o', link: '/about/news', routeName: 'about-news' },
   { name: 'Contact us', icon: 'fa-envelope-o', link: '/about/contact', routeName: 'about-contact' },
   { name: 'Privacy policy', icon: 'fa-shield', link: '/about/privacy', routeName: 'about-privacy' },
   {

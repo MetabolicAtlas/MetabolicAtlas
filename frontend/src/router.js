@@ -17,16 +17,13 @@ import Repository from '@/components/Repository';
 import CompareModels from '@/components/CompareModels';
 import FourOFour from '@/components/FourOFour';
 import IdInModels from '@/components/IdInModels';
-import Introduction from '@/components/about/Introduction';
+import AboutPlatform from '@/components/about/Platform';
+import AboutResources from '@/components/about/Resources';
 // import Impact from '@/components/about/Impact';
 import News from '@/components/about/News';
 import Privacy from '@/components/about/Privacy';
 import License from '@/components/about/License';
 import Contact from '@/components/about/Contact';
-import Citation from '@/components/about/Citation';
-import Team from '@/components/about/Team';
-import Advisory from '@/components/about/Advisory';
-import AboutResources from '@/components/about/Resources';
 import Elixir from '@/components/about/Elixir';
 import EnzymeReaction from '@/components/gotEnzymes/Reaction';
 import EnzymeCompound from '@/components/gotEnzymes/Compound';
@@ -58,15 +55,12 @@ const routes = [
     name: 'interaction',
     component: InteractionPartners,
   },
-  { path: '/about/introduction', name: 'about-introduction', component: Introduction },
   // { path: '/about/impact', name: 'about-impact', component: Impact },
+  { path: '/about/platform', name: 'about-platform', component: AboutPlatform },
   { path: '/about/news', name: 'about-news', component: News },
   { path: '/about/license', name: 'about-license', component: License },
   { path: '/about/privacy', name: 'about-privacy', component: Privacy },
   { path: '/about/contact', name: 'about-contact', component: Contact },
-  { path: '/about/citation', name: 'about-citation', component: Citation },
-  { path: '/about/team', name: 'about-team', component: Team },
-  { path: '/about/advisory', name: 'about-advisory', component: Advisory },
   { path: '/about/resources', name: 'about-resources', component: AboutResources },
   { path: '/about/elixir', name: 'about-elixir', component: Elixir },
 
