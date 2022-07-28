@@ -1,7 +1,8 @@
 <template>
   <about-layout id="Platform" title="">
     <template v-slot:contents>
-      <h3 class="title is-3" id="introduction">Introduction</h3>
+      
+      <h3 class="title is-3 mt-0" id="introduction">Introduction</h3>
 
       <p>
         Metabolic Atlas is a web platform integrating open-source genome scale metabolic models
@@ -234,6 +235,18 @@
         >
           GitHub page</a
         >.
+      </p>
+
+      <h3 class="title is-3 pt-6" id="contact-us">Contact us</h3>
+
+      <p>
+        For any questions, comments or suggestions, or if you find any bugs or vulnerabilities
+        regarding Metabolic Atlas, please email us at
+        <a href="mailto:contact@metabolicatlas.org">contact [at] metabolicatlas [dot] org</a>.
+      </p>
+      <p>
+        For any management related issues, such as collaborations or funding, please email us at
+        <a href="mailto:management@metabolicatlas.org">management [at] metabolicatlas [dot] org</a>.
       </p>
 
     </template>

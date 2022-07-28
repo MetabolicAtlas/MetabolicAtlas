@@ -1,7 +1,7 @@
 export default [
   // { name: 'Our impact', link: '/about/impact', routeName: 'about-impact' },
   {
-    name: 'About',
+    name: 'Platform',
     icon: 'fa-external-link',
     link: '/about/platform',
     routeName: 'about-platform',
@@ -10,16 +10,19 @@ export default [
       { name: 'Citation', link: '/about/platform#citation' },
       { name: 'Advisory Board', link: '/about/platform#advisory-board' },
       { name: 'Development', link: '/about/platform#development' },
+      { name: 'Contact us', link: '/about/platform#contact-us' },
     ],
   },
   { name: 'News', icon: 'fa-newspaper-o', link: '/about/news', routeName: 'about-news' },
-  { name: 'Contact us', icon: 'fa-envelope-o', link: '/about/contact', routeName: 'about-contact' },
-  { name: 'Privacy policy', icon: 'fa-shield', link: '/about/privacy', routeName: 'about-privacy' },
   {
-    name: 'License and Disclaimer',
-    icon: 'fa-book',
-    link: '/about/license',
-    routeName: 'about-license',
+    name: 'Terms',
+    icon: 'fa-shield',
+    link: '/about/terms',
+    routeName: 'about-terms',
+    subsections: [
+      { name: 'Introduction', link: '/about/terms#privacy-policy' },
+      { name: 'License and disclaimer', link: '/about/terms#license' },
+    ],
   },
   { name: 'ELIXIR', icon: 'fa-asterisk', link: '/about/elixir', routeName: 'about-elixir' },
   {

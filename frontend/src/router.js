@@ -17,13 +17,11 @@ import Repository from '@/components/Repository';
 import CompareModels from '@/components/CompareModels';
 import FourOFour from '@/components/FourOFour';
 import IdInModels from '@/components/IdInModels';
+import AboutTerms from '@/components/about/Terms';
 import AboutPlatform from '@/components/about/Platform';
 import AboutResources from '@/components/about/Resources';
 // import Impact from '@/components/about/Impact';
 import News from '@/components/about/News';
-import Privacy from '@/components/about/Privacy';
-import License from '@/components/about/License';
-import Contact from '@/components/about/Contact';
 import Elixir from '@/components/about/Elixir';
 import EnzymeReaction from '@/components/gotEnzymes/Reaction';
 import EnzymeCompound from '@/components/gotEnzymes/Compound';
@@ -58,9 +56,7 @@ const routes = [
   // { path: '/about/impact', name: 'about-impact', component: Impact },
   { path: '/about/platform', name: 'about-platform', component: AboutPlatform },
   { path: '/about/news', name: 'about-news', component: News },
-  { path: '/about/license', name: 'about-license', component: License },
-  { path: '/about/privacy', name: 'about-privacy', component: Privacy },
-  { path: '/about/contact', name: 'about-contact', component: Contact },
+  { path: '/about/terms', name: 'about-terms', component: AboutTerms },
   { path: '/about/resources', name: 'about-resources', component: AboutResources },
   { path: '/about/elixir', name: 'about-elixir', component: Elixir },
 
