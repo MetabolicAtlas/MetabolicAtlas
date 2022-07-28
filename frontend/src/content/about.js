@@ -29,10 +29,10 @@ export default [
     link: '/about/resources',
     routeName: 'about-resources',
     subsections: [
-      { name: 'Tools', link: '#tools' },
-      { name: 'Databases', link: '#databases' },
-      { name: 'APIs', link: '#apis' },
-      { name: 'Cross-references', link: '#cross-references' },
+      { name: 'Tools', link: '/about/resources#tools' },
+      { name: 'Databases', link: '/about/resources#databases' },
+      { name: 'APIs', link: '/about/resources#apis' },
+      { name: 'Cross-references', link: '/about/resources#cross-references' },
     ],
   },
 ];
