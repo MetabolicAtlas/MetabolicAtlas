@@ -55,4 +55,13 @@ const search = async searchTerm => {
   return data;
 };
 
-export default { fetchCompound, fetchDomain, fetchGene, fetchEC, fetchEnzymes, fetchReaction, fetchOrganism, search };
+export default {
+  fetchCompound,
+  fetchDomain,
+  fetchGene,
+  fetchEC,
+  fetchEnzymes,
+  fetchReaction,
+  fetchOrganism,
+  search,
+};
