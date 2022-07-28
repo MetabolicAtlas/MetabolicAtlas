@@ -141,7 +141,7 @@
 
       <h3 class="title is-3 pt-6" id="advisory-board">Advisory board</h3>
 
-      <div class="columns is-multiline">
+      <div class="columns is-multiline has-text-left">
         <div
           v-for="member in members"
           :key="member.name"
@@ -186,7 +186,7 @@
 
       <div v-for="group in team" :key="group.name">
         <h3 class="title is-4">{{ group.name }}</h3>
-        <div class="pb-6 columns is-multiline">
+        <div class="pb-6 columns is-multiline has-text-left">
           <div
             v-for="member in group.members"
             :key="member.name"
