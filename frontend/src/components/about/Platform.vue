@@ -1,8 +1,7 @@
 <template>
   <about-layout id="Platform" title="">
     <template v-slot:contents>
-      
-      <h3 class="title is-3 mt-0" id="introduction">Introduction</h3>
+      <h3 id="introduction" class="title is-3 mt-0">Introduction</h3>
 
       <p>
         Metabolic Atlas is a web platform integrating open-source genome scale metabolic models
@@ -49,8 +48,8 @@
         >.
       </p>
 
-      <h3 class="title is-3 pt-6" id="citation">Citation</h3>
-      
+      <h3 id="citation" class="title is-3 pt-6">Citation</h3>
+
       <h4 class="title is-4">Latest publication</h4>
       <p>
         If you use Metabolic Atlas in your work, or any of the animal models, please cite our latest
@@ -139,7 +138,7 @@
         </a>
       </p>
 
-      <h3 class="title is-3 pt-6" id="advisory-board">Advisory board</h3>
+      <h3 id="advisory-board" class="title is-3 pt-6">Advisory board</h3>
 
       <div class="columns is-multiline has-text-left">
         <div
@@ -182,7 +181,7 @@
         </div>
       </div>
 
-      <h3 class="title is-3 pt-6" id="development">Development team</h3>
+      <h3 id="development" class="title is-3 pt-6">Development team</h3>
 
       <div v-for="group in team" :key="group.name">
         <h3 class="title is-4">{{ group.name }}</h3>
@@ -237,7 +236,7 @@
         >.
       </p>
 
-      <h3 class="title is-3 pt-6" id="contact-us">Contact us</h3>
+      <h3 id="contact-us" class="title is-3 pt-6">Contact us</h3>
 
       <p>
         For any questions, comments or suggestions, or if you find any bugs or vulnerabilities
@@ -248,7 +247,6 @@
         For any management related issues, such as collaborations or funding, please email us at
         <a href="mailto:management@metabolicatlas.org">management [at] metabolicatlas [dot] org</a>.
       </p>
-
     </template>
   </about-layout>
 </template>

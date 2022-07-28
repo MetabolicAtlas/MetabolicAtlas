@@ -1,8 +1,7 @@
 <template>
   <about-layout id="Privacy" title="">
     <template v-slot:contents>
-
-      <h3 class="title is-3 mt-0" id="privacy-policy">Privacy policy</h3>
+      <h3 id="privacy-policy" class="title is-3 mt-0">Privacy policy</h3>
 
       <p>
         Metabolic Atlas gathers information about users solely to improve the usability and
@@ -50,8 +49,7 @@
         <a href="mailto:contact@metabolicatlas.org">contact [at] metabolicatlas [dot] org</a>.
       </p>
 
- 
-      <h3 class="title is-3" id="license">License and disclaimer</h3>
+      <h3 id="license" class="title is-3">License and disclaimer</h3>
 
       <p>
         This project is licensed under the terms of the
