@@ -4,7 +4,7 @@
       <div class="columns is-variable is-8 pt-5">
         <TableOfContents :links="tocLinks" />
         <div class="column content">
-          <h3 class="title is-3 mt-0">{{ title }}</h3>
+          <h3 v-if="title" class="title is-3 mt-0">{{ title }}</h3>
           <div :class="{ 'content-container': !fullContentWidth }">
             <slot name="contents" />
           </div>
