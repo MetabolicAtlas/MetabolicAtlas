@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     inputValid(maybeNumber) {
-      if (maybeNumber === null || maybeNumber === "") {
+      if (maybeNumber === null || maybeNumber === '') {
         return true;
       }
 

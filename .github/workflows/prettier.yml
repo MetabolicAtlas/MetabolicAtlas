@@ -1,43 +1,27 @@
 name: "Prettier"
 
-on:
-  pull_request:
-    branches-ignore: 
-      - 'main'
+on: [push, pull_request]
 
 jobs:
-
-  check_syntax:
+  prettier:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v2
+      - name: "/frontend: Prettify code"
+        uses: creyD/prettier_action@v4.2
         with:
-          node-version: "14.x"
+          prettier_options: "--check frontend/src --config frontend/.prettierrc.json --ignore-path frontend/.prettierignore "
+          # working_directory: frontend/
+          only_changed: False
+          dry: False
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: "/frontend: Install Node.js dependencies"
-        working-directory: frontend
-        run: |
-          npm install -g yarn
-          yarn install --frozen-lockfile
-
-      - name: "/frontend: Check formatting"
-        working-directory: ./frontend
-        run: yarn run check-format
-
-      - name: "/frontend: Linting"
-        working-directory: ./frontend
-        run: yarn run lint
-
-      - name: "/api: Install dependencies"
-        working-directory: api
-        run: yarn install --frozen-lockfile
-
-      - name: "/api: Check formatting"
-        working-directory: ./api
-        run: yarn run check-format
-
-      - name: "/api: Linting"
-        working-directory: ./api
-        run: yarn run lint
+      - name: "/api: Prettify code"
+        uses: creyD/prettier_action@v4.2
+        with:
+          prettier_options: "--check api/src api/test --config api/.prettierrc.json --ignore-path api/.prettierignore"
+          # working_directory: api/
+          only_changed: False
+          dry: False
+          github_token: ${{ secrets.GITHUB_TOKEN }}

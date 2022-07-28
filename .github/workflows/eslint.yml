@@ -1,0 +1,52 @@
+name: "ESLint"
+
+on: [push, pull_request]
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+
+      - name: "/frontend: Install Node.js dependencies"
+        run: |
+          cd frontend
+          npm install --location=global yarn
+          yarn install --frozen-lockfile
+
+      - name: "/frontend: Linting"
+        uses: sibiraj-s/action-eslint@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }} # Optional
+          eslint-args: "--config frontend/.eslintrc.js --resolve-plugins-relative-to frontend frontend/src/**"
+          extensions: ".js,.vue"
+          annotations: true
+          bin-path: "frontend/node_modules/eslint/bin"
+
+  api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+
+      - name: "/api: Install dependencies"
+        run: |
+          cd api
+          npm install --location=global yarn
+          yarn install --frozen-lockfile
+
+      - name: "/api: Linting"
+        uses: sibiraj-s/action-eslint@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }} # Optional
+          eslint-args: "--config api/.eslintrc.js --resolve-plugins-relative-to api api/src/**"
+          extensions: ".js"
+          annotations: true
+          bin-path: "api/node_modules/eslint/bin"
