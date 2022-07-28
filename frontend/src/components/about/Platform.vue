@@ -2,7 +2,7 @@
   <about-layout id="Platform" title="">
     <template v-slot:contents>
       <h3 class="title is-3" id="introduction">Introduction</h3>
-      
+
       <p>
         Metabolic Atlas is a web platform integrating open-source genome scale metabolic models
         (GEMs) for easy browsing and analysis. The goal is to collect curated GEMs, and to bring
@@ -48,7 +48,7 @@
         >.
       </p>
 
-      <h3 class="title is-3" id="citation">Citation</h3>
+      <h3 class="title is-3 pt-6" id="citation">Citation</h3>
       
       <h4 class="title is-4">Latest publication</h4>
       <p>
@@ -138,7 +138,7 @@
         </a>
       </p>
 
-      <h3 class="title is-3" id="advisory-board">Advisory board</h3>
+      <h3 class="title is-3 pt-6" id="advisory-board">Advisory board</h3>
 
       <div class="columns is-multiline">
         <div
@@ -181,10 +181,10 @@
         </div>
       </div>
 
-      <h3 class="title is-3" id="development">Development team</h3>
+      <h3 class="title is-3 pt-6" id="development">Development team</h3>
 
       <div v-for="group in team" :key="group.name">
-        <h3 class="title is-3">{{ group.name }}</h3>
+        <h3 class="title is-4">{{ group.name }}</h3>
         <div class="pb-6 columns is-multiline">
           <div
             v-for="member in group.members"
