@@ -1,6 +1,7 @@
 <template>
   <section class="section extended-section">
     <div class="container is-fullhd">
+      <h3 class="title is-3">About</h3>
       <div class="columns is-variable is-8 pt-5">
         <TableOfContents :links="tocLinks" />
         <div class="column content">
