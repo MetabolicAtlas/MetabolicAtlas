@@ -35,8 +35,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.content-container {
-  max-width: 800px;
-}
-</style>
+<style lang="scss" scoped></style>
