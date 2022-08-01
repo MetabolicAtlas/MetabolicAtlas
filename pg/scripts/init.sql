@@ -78,7 +78,8 @@ copy genes from program 'cat /input_data/supplementary/gene/*.txt' delimiter E'\
 
 -- create lookup indexes
 create index on reactions using gist (name, kegg);
-create index on compounds using gist (name, kegg);
+create index on compounds using gist (kegg);
+create index on compounds using gin (string_to_array(name, ';'));
 create index on ec using gist (name, ec);
 create index on organisms (kegg);
 create index on organisms using gist (name);
