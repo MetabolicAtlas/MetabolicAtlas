@@ -40,7 +40,7 @@ export default {
     dbPrefix: 'sabiork',
     compoundSuffix: '.compound',
     reactionSuffix: '.reaction',
-  },
+  }, 
   chebi: {
     db: 'ChEBI',
     dbPrefix: 'CHEBI',
@@ -50,5 +50,13 @@ export default {
     db: 'Reactome',
     dbPrefix: 'reactome',
     compoundSuffix: '',
+  },
+  ncbigene: {
+    db: 'NCBI Gene',
+    dbPrefix: 'ncbigene',
+  },
+  uniprot: {
+    db: 'UniProtKB',
+    dbPrefix: 'uniprot',
   },
 };

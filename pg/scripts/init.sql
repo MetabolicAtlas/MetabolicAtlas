@@ -63,7 +63,8 @@ create table domains (
 
 create table genes (
     kegg text,
-    ncbi text
+    ncbigene text,
+    uniprot text
 );
 
 -- import data

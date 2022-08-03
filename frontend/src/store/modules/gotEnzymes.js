@@ -27,8 +27,9 @@ const actions = {
   },
 
   async getGeneData({ commit }, id) {
-    const { info } = await gotEnzymesApi.fetchGene(id);
+    const { info, crossReferences } = await gotEnzymesApi.fetchGene(id);
     commit('setInfo', info);
+    commit('setCrossReferences', crossReferences);
   },
 
   async getOrganismData({ commit }, id) {
