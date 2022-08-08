@@ -79,12 +79,9 @@ copy genes from program 'cat /input_data/supplementary/gene/*.txt' delimiter E'\
 
 -- create lookup indexes
 create index on reactions using gist (name, kegg);
-create index on compounds using gist (kegg);
-create index on compounds using gin (string_to_array(name, ';'));
+create index on compounds using gist (name, kegg);
 create index on ec using gist (name, ec);
-create index on organisms (kegg);
-create index on organisms using gist (name);
-create index on domains (abbreviation);
+create index on organisms using gist (name, kegg);
 create index on domains using gist (name);
 
 -- create indexes for the enzymes table
@@ -106,5 +103,7 @@ union all
 select text 'ec' as type, ec as id, ec as match from ec
 union all
 select text 'organism' as type, kegg as id, name as match from organisms
+union all
+select text 'organism' as type, kegg as id, kegg as match from organisms
 union all
 select text 'domain' as type, abbreviation as id, name as match from domains
