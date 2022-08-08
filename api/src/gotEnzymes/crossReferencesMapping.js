@@ -52,7 +52,7 @@ export default {
     compoundSuffix: '',
   },
   ncbigene: {
-    db: 'NCBI Gene',
+    db: 'NCBI Protein',
     dbPrefix: 'ncbiprotein',
     geneSuffix: '',
   },
