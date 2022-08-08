@@ -15,12 +15,12 @@ export default [
   },
   { name: 'News', icon: 'fa-newspaper-o', link: '/about/news', routeName: 'about-news' },
   {
-    name: 'Terms',
+    name: 'Terms of use',
     icon: 'fa-shield',
     link: '/about/terms',
     routeName: 'about-terms',
     subsections: [
-      { name: 'Introduction', link: '/about/terms#privacy-policy' },
+      { name: 'Privacy policy', link: '/about/terms#privacy-policy' },
       { name: 'License and disclaimer', link: '/about/terms#license' },
     ],
   },
