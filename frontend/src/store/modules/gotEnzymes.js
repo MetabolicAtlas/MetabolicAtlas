@@ -16,14 +16,15 @@ const actions = {
   },
 
   async getDomainData({ commit }, id) {
-    const { info } = await gotEnzymesApi.fetchDomain(id);
+    const { info, crossReferences } = await gotEnzymesApi.fetchDomain(id);
     commit('setInfo', info);
+    commit('setCrossReferences', crossReferences);
   },
 
   async getECData({ commit }, ecValue) {
-    const { info } = await gotEnzymesApi.fetchEC(ecValue);
+    const { info, crossReferences } = await gotEnzymesApi.fetchEC(ecValue);
     commit('setInfo', info);
-    commit('setCrossReferences', []);
+    commit('setCrossReferences', crossReferences);
   },
 
   async getGeneData({ commit }, id) {
@@ -33,8 +34,9 @@ const actions = {
   },
 
   async getOrganismData({ commit }, id) {
-    const { info } = await gotEnzymesApi.fetchOrganism(id);
+    const { info, crossReferences } = await gotEnzymesApi.fetchOrganism(id);
     commit('setInfo', info);
+    commit('setCrossReferences', crossReferences);
   },
 
   async getReactionData({ commit }, id) {

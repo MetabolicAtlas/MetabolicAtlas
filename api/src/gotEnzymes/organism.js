@@ -10,7 +10,7 @@ const getOrganism = async value => {
     throw new Error(`Organism ${value} returned ${organism.length} results.`);
   }
 
-  return { info: organism[0] };
+  return { info: organism[0], crossReferences: [] };
 };
 
 export default getOrganism;

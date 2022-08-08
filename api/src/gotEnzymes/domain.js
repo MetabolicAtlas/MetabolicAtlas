@@ -10,7 +10,7 @@ const getDomain = async value => {
     throw new Error(`Domain ${value} returned ${domain.length} results.`);
   }
 
-  return { info: domain[0] };
+  return { info: domain[0], crossReferences: [] };
 };
 
 export default getDomain;
