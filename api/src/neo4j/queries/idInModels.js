@@ -48,7 +48,7 @@ RETURN { externalDb: properties(r), components: COLLECT(DISTINCT({component: r, 
 
     return { components, externalDb };
   } catch (e) {
-    const VALID_REFERENCE_TYPES = ['compound', 'reaction'];
+    const VALID_REFERENCE_TYPES = ['compound', 'reaction', 'gene'];
     if (!VALID_REFERENCE_TYPES.includes(referenceType)) {
       throw e;
     }

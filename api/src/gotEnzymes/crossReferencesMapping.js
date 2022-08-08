@@ -53,10 +53,12 @@ export default {
   },
   ncbigene: {
     db: 'NCBI Gene',
-    dbPrefix: 'ncbigene',
+    dbPrefix: 'ncbiprotein',
+    geneSuffix: '',
   },
   uniprot: {
     db: 'UniProtKB',
     dbPrefix: 'uniprot',
+    geneSuffix: '',
   },
 };
