@@ -3,7 +3,7 @@ export default [
   {
     name: 'Platform',
     icon: 'fa-external-link',
-    link: '/about/platform',
+    link: '/about/platform#introduction',
     routeName: 'about-platform',
     subsections: [
       { name: 'Introduction', link: '/about/platform#introduction' },
@@ -17,7 +17,7 @@ export default [
   {
     name: 'Terms of use',
     icon: 'fa-shield',
-    link: '/about/terms',
+    link: '/about/terms#privacy-policy',
     routeName: 'about-terms',
     subsections: [
       { name: 'Privacy policy', link: '/about/terms#privacy-policy' },
@@ -28,7 +28,7 @@ export default [
   {
     name: 'Related resources',
     icon: 'fa-external-link',
-    link: '/about/resources',
+    link: '/about/resources#tools',
     routeName: 'about-resources',
     subsections: [
       { name: 'Tools', link: '/about/resources#tools' },
