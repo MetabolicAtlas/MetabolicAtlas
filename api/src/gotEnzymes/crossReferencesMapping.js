@@ -40,7 +40,7 @@ export default {
     dbPrefix: 'sabiork',
     compoundSuffix: '.compound',
     reactionSuffix: '.reaction',
-  }, 
+  },
   chebi: {
     db: 'ChEBI',
     dbPrefix: 'CHEBI',
