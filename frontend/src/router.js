@@ -54,7 +54,12 @@ const routes = [
     component: InteractionPartners,
   },
   // { path: '/about/impact', name: 'about-impact', component: Impact },
-  { path: '/about/platform', name: 'about-platform', component: AboutPlatform },
+  {
+    path: '/about/platform',
+    name: 'about-platform',
+    component: AboutPlatform,
+    meta: { reload: true },
+  },
   { path: '/about/news', name: 'about-news', component: News },
   { path: '/about/terms', name: 'about-terms', component: AboutTerms },
   { path: '/about/resources', name: 'about-resources', component: AboutResources },

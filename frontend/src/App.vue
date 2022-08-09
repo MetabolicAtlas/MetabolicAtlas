@@ -255,6 +255,12 @@ export default {
     };
   },
   watch: {
+    // eslint-disable-next-line object-shorthand
+    $route(to) {
+      if (to.meta.reload === true) {
+        window.location.reload();
+      }
+    },
     showGemSearch(show) {
       if (show) {
         setTimeout(() => {
