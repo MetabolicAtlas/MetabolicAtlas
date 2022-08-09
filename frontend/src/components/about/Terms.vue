@@ -27,6 +27,14 @@
         >.
       </p>
       <p>
+        In addition, we also make use of external tools to enrich the citation information. For the
+        privacy policy of these tools please contact the services directly:
+        <a href="https://www.elsevier.com/legal/privacy-policy" target="_blank">Elsevier</a>,
+        <a href="https://www.altmetric.com/privacy-policy/" target="_blank">Altmetric</a>,
+        <a href="https://scite.ai/policy" target="_blank">Scite</a>,
+        <a href="https://www.dimensions.ai/privacy/" target="_blank">Dimensions</a>.
+      </p>
+      <p>
         To opt out of any of these cookies, please set your browser to use the "DoNotTrack" header;
         doing this will disable the tracking. It is a good practice to enable this setting, here is
         how to do this for
