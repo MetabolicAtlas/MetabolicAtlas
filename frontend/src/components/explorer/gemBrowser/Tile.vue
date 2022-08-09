@@ -34,39 +34,40 @@
         </p>
       </template>
       <template v-else-if="type === 'reaction'">
-        <b>{{ data.id }}</b>
-        is
-        <b>{{ data.isReversible ? 'reversible' : 'irreversible' }}</b>
-        and has the following equation:
-        <br />
+        <p>
+          <b>{{ data.id }}</b>
+          is
+          <b>{{ data.isReversible ? 'reversible' : 'irreversible' }}</b>
+          and has the following equation:
+        </p>
         <b v-html="getSimpleEquation(data)"></b>
-        <br />
-        <br />
-        This reaction is part of
-        <b>{{ data.subsystemCount }}</b>
-        subsystem(s) and
-        <b>{{ data.compartmentCount }}</b>
-        compartment(s) and is associated with
-        <b>{{ data.geneCount }}</b>
-        gene(s).
+        <p class="mt-5">
+          This reaction is part of
+          <b>{{ data.subsystemCount }}</b>
+          subsystem(s) and
+          <b>{{ data.compartmentCount }}</b>
+          compartment(s) and is associated with
+          <b>{{ data.geneCount }}</b>
+          gene(s).
+        </p>
       </template>
       <template v-else-if="type === 'compartment'">
-        <span class="is-capitalized">
-          <b>{{ data.name }}</b>
-        </span>
-        has
-        <b>{{ data.reactionCount }}</b>
-        reactions,
-        <b>{{ data.metaboliteCount }}</b>
-        metabolite(s) and
-        <b>{{ data.geneCount }}</b>
-        gene(s).
-        <br />
-        <br />
-        <b>Major subsystems</b>
-        :
-        <br />
-        <p />
+        <p>
+          <span class="is-capitalized">
+            <b>{{ data.name }}</b>
+          </span>
+          has
+          <b>{{ data.reactionCount }}</b>
+          reactions,
+          <b>{{ data.metaboliteCount }}</b>
+          metabolite(s) and
+          <b>{{ data.geneCount }}</b>
+          gene(s).
+        </p>
+        <p class="mt-5">
+          <b>Major subsystems</b>
+          :
+        </p>
         <ul>
           <li v-for="sub in data.majorSubsystems" :key="sub">{{ sub }}</li>
         </ul>

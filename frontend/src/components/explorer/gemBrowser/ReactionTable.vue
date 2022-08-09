@@ -104,19 +104,10 @@
                 <!-- eslint-enable vue/valid-v-for vue/require-v-for-key max-len -->
               </td>
               <td>
-                <template v-for="(w, i) in r.compartment_str.split(/⇔|⇒/)">
-                  <template v-if="i !== 0">{{ r.reversible ? ' ⇔ ' : ' ⇒ ' }}</template>
-                  <template v-for="(comp, j) in w.split(' + ')">
-                    <template v-if="j != 0">+</template>
-                    <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key max-len -->
-                    <a
-                      :href="`/explore/${model.short_name}/gem-browser/compartment/${idfy(comp)}`"
-                      @click="handleRouterClick"
-                    >
-                      {{ comp }}
-                    </a>
-                  </template>
-                </template>
+                <compartment-links
+                  :compartment-string="r.compartment_str"
+                  :is-reversible="r.reversible"
+                />
               </td>
             </tr>
           </tbody>
@@ -132,12 +123,14 @@ import Loader from '@/components/Loader';
 import { default as compare } from '@/helpers/compare';
 import ExportTSV from '@/components/shared/ExportTSV';
 import { idfy, reformatChemicalReactionHTML } from '@/helpers/utils';
+import CompartmentLinks from '@/components/shared/CompartmentLinks';
 
 export default {
   name: 'ReactionTable',
   components: {
     ExportTSV,
     Loader,
+    CompartmentLinks,
   },
   props: {
     sourceName: { type: String, required: true },

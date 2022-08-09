@@ -34,9 +34,21 @@
         </div>
         <comparison-details v-if="validModels && !comparisonsEmpty" />
       </div>
-      <br />
-      <br />
-      <div v-for="(c, id) in comparison" :key="id">
+      <h3 class="title is-size-3 mt-6">Historical comparisions</h3>
+      <div>
+        <b>Human-GEM</b> was created by unifying several model lineages, including
+        <b
+          ><a href="https://europepmc.org/article/PMC/2013923"
+            >Human Metabolic Reaction series (HMR)</a
+          ></b
+        >
+        and <b><a href="https://vmh.life/#home">Recon</a></b
+        >. Since then, Human-GEM has been extensively curated and new versions are continuously
+        published. The tables below give an overview of how version 1.0.2 of Human-GEM relates to
+        HMR and Recon. More information can be found in
+        <a href="https://europepmc.org/article/MED/32209698">this publication</a>.
+      </div>
+      <div v-for="(c, id) in comparison" :key="id" class="mb-6">
         <h4 class="title is-size-4">{{ c.models.A.modelId }} vs. {{ c.models.B.modelId }}</h4>
         <div class="table-container">
           <table class="is-fullwidth table is-narrow">
@@ -112,8 +124,6 @@
             </div>
           </div>
         </div>
-        <br />
-        <br />
       </div>
     </div>
   </section>
@@ -142,7 +152,7 @@ export default {
         {
           models: {
             A: {
-              modelId: 'Human-GEM v1.0.2',
+              modelId: 'Human-GEM 1.0.2',
               modelName:
                 'The generic genome-scale metabolic model of <i>Homo sapiens</i> integrated from HMR2 and Recon3D',
               totalReactions: 13520,
@@ -227,7 +237,7 @@ export default {
         {
           models: {
             A: {
-              modelId: 'Human-GEM v1.0.2',
+              modelId: 'Human-GEM 1.0.2',
               modelName:
                 'The generic genome-scale metabolic model of <i>Homo sapiens</i> integrated from HMR2 and Recon3D',
               totalReactions: 13520,

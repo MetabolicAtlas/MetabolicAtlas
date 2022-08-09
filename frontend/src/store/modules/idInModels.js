@@ -1,4 +1,4 @@
-import externalDbApi from '@/api/externalDb';
+import idInModelsApi from '@/api/idInModels';
 
 const data = {
   components: [],
@@ -6,10 +6,11 @@ const data = {
 };
 
 const actions = {
-  async getComponentsForExternalDb({ commit }, { dbName, externalId }) {
-    const { components, externalDb } = await externalDbApi.fetchComponentsForExternalDb({
+  async getComponentsForExternalDb({ commit }, { dbName, externalId, referenceType }) {
+    const { components, externalDb } = await idInModelsApi.fetchComponentsForExternalDb({
       dbName,
       externalId,
+      referenceType,
     });
     commit('setComponents', components);
     commit('setExternalDb', externalDb);

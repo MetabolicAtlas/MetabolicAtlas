@@ -31,17 +31,18 @@
         </tr>
       </tbody>
       <caption class="p-1">
-        click a cell to see the comparison details
-        <br />
-        legend:
-        <span
-          v-for="(type, k) of types"
-          :key="type"
-          :style="{ backgroundColor: colors[k] }"
-          class="p-1"
-        >
-          {{ type }}
-        </span>
+        <p>click a cell to see the comparison details</p>
+        <p>
+          legend:
+          <span
+            v-for="(type, k) of types"
+            :key="type"
+            :style="{ backgroundColor: colors[k] }"
+            class="p-1"
+          >
+            {{ type }}
+          </span>
+        </p>
       </caption>
     </table>
   </div>

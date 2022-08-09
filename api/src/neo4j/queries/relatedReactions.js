@@ -9,7 +9,6 @@ const NODE_TYPES = {
   compartment: 'Compartment',
 };
 
-// TODO: add pagination and search
 const getRelatedReactions = async ({
   nodeType,
   id,

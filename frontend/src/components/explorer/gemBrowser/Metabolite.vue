@@ -52,8 +52,7 @@
         <tr v-if="relatedMetabolites.length !== 0">
           <td class="td-key has-background-primary has-text-white-bis">Related metabolite(s)</td>
           <td>
-            <span v-for="(rm, i) in relatedMetabolites" :key="rm.id">
-              <br v-if="i !== 0" />
+            <p v-for="rm in relatedMetabolites" :key="rm.id">
               <!-- eslint-disable-next-line max-len -->
               <router-link
                 :to="{ name: 'metabolite', params: { model: model.short_name, id: rm.id } }"
@@ -61,7 +60,7 @@
                 {{ rm.fullName }}
               </router-link>
               in {{ rm.compartment.name }}
-            </span>
+            </p>
           </td>
         </tr>
       </table>
@@ -93,7 +92,7 @@
 import { mapState } from 'vuex';
 import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout';
 import { default as chemicalFormula } from '@/helpers/chemical-formatters';
-import { generateSocialMetaTags, reformatTableKey } from '@/helpers/utils';
+import { generateSocialMetaTags, reformatTableKey, combineWords } from '@/helpers/utils';
 
 export default {
   name: 'Metabolite',
@@ -129,8 +128,18 @@ export default {
       return {};
     }
 
+    const [compartments, compartmentLabel] = combineWords({
+      items: this.metabolite.compartments.map(c => c.name),
+      itemType: 'compartment',
+    });
+
+    const [subsystems, subsystemLabel] = combineWords({
+      items: this.metabolite.subsystems.map(s => s.name),
+      itemType: 'subsystem',
+    });
+
     const title = `${this.metabolite.name}, Metabolite in ${this.model.short_name}`;
-    const description = `The metabolite ${this.metabolite.name} in ${this.model.short_name} (version ${this.model.version}) can be found in the ${this.metabolite.compartment.name} compartment and the ${this.metabolite.subsystems[0].name} subsystem.`;
+    const description = `The metabolite ${this.metabolite.name} in ${this.model.short_name} (version ${this.model.version}) can be found in the ${compartmentLabel} ${compartments}; and the ${subsystemLabel} ${subsystems}.`;
 
     return {
       title,

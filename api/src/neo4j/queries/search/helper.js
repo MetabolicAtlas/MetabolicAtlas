@@ -14,4 +14,11 @@ const COMPONENT_TYPES = [
   'Compartment',
 ];
 
-export { MODELS, COMPONENT_TYPES };
+const CHILD_LABELS = ['ExternalDb', 'PubmedReference'];
+
+const getScore = (node, uniqueIds) => {
+  const id = node.mid || node.id;
+  return id in uniqueIds ? uniqueIds[id]['score'] : 0;
+};
+
+export { MODELS, COMPONENT_TYPES, CHILD_LABELS, getScore };

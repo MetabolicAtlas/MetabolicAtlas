@@ -10,6 +10,7 @@ function generate-data {
   source $CHOSEN_ENV && yarn --cwd $DATA_GENERATOR_PATH start $DATA_FILES_PATH "$@"
   /bin/cp -rf $DATA_GENERATOR_PATH/neo4j/* neo4j/import
   /bin/cp -rf $DATA_GENERATOR_PATH/dataOverlay api/
+  /bin/cp -rf $DATA_GENERATOR_PATH/gemRepository/* frontend/src/assets/gemRepository/
   /bin/cp  -f $DATA_FILES_PATH/integrated-models/integratedModels.json api/src/data/
   /bin/cp  -f $DATA_FILES_PATH/gemsRepository.json api/src/data/
   /bin/cp -rf $DATA_FILES_PATH/svg api/
@@ -33,9 +34,7 @@ function stop-stack {
 }
 
 function clean-stack {
-  docker stop $(docker ps -a -q) || true
-  docker rm $(docker ps -a -q) || true
-  docker volume prune --force || true
+  docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-local.yml down --rmi all --remove-orphans -v
 }
 
 function logs {
@@ -43,13 +42,14 @@ function logs {
 }
 
 function ma-exec {
-  docker compose --env-file $CHOSEN_ENV  -f docker-compose.yml -f docker-compose-local.yml exec $@
+  docker compose --env-file "$CHOSEN_ENV"  -f docker-compose.yml -f docker-compose-local.yml exec "$@"
 }
 
 function deploy-stack {
   CHOSEN_ENV="env-${1:-$LOCALENV}.env"
   generate-data
   docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-remote.yml --project-name metabolicatlas up --detach --build --force-recreate --remove-orphans --renew-anon-volumes
+  docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-remote.yml exec -d pg psql -U postgres -c "alter user postgres with password '${POSTGRES_PASSWORD}';"
   CHOSEN_ENV=$METATLAS_DEFAULT_ENV
 }
 

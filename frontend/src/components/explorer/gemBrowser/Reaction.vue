@@ -108,6 +108,7 @@ import {
   reformatChemicalReactionHTML,
   equationSign,
   generateSocialMetaTags,
+  combineWords,
 } from '@/helpers/utils';
 
 export default {
@@ -144,8 +145,18 @@ export default {
       return {};
     }
 
+    const [compartments, compartmentLabel] = combineWords({
+      items: this.reaction.compartments.map(c => c.name),
+      itemType: 'compartment',
+    });
+
+    const [subsystems, subsystemLabel] = combineWords({
+      items: this.reaction.subsystems.map(s => s.name),
+      itemType: 'subsystem',
+    });
+
     const title = `${this.reaction.id}, Reaction in ${this.model.short_name}`;
-    const description = `The reaction ${this.reaction.id} in ${this.model.short_name} (version ${this.model.version}) can be found in the ${this.reaction.compartments[0].name} compartment and the ${this.reaction.subsystems[0].name} subsystem.`;
+    const description = `The reaction ${this.reaction.id} in ${this.model.short_name} (version ${this.model.version}) can be found in the ${compartmentLabel} ${compartments}; and the ${subsystemLabel} ${subsystems}.`;
 
     return {
       title,

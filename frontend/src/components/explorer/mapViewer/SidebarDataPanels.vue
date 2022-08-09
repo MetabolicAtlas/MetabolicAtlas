@@ -24,9 +24,10 @@
             <span class="icon"><i class="fa fa-info-circle"></i></span>
           </router-link>
         </span>
-        <br />
-        For details
-        <a @click="$emit('update:showModal', true)">see the comparison</a>
+        <p>
+          For details
+          <a @click="$emit('update:showModal', true)">see the comparison</a>
+        </p>
       </div>
       <footer v-if="currentMap.type !== 'custom'" class="card-footer sidebarCardHover">
         <router-link
@@ -122,10 +123,9 @@
                   {{ capitalize(item.display || item.name) }}:
                 </span>
                 <p>
-                  <template v-for="s in selectionData.data[item.name].split('; ')">
+                  <span v-for="s in selectionData.data[item.name].split('; ')" :key="s">
                     &ndash;&nbsp;{{ s }}
-                    <br :key="s" />
-                  </template>
+                  </span>
                 </p>
               </template>
               <template v-else-if="item.name === 'subsystems'">
@@ -134,10 +134,9 @@
                   {{ capitalize(item.display || item.name) }}:
                 </span>
                 <p>
-                  <template v-for="s in selectionData.data[item.name]">
+                  <span v-for="s in selectionData.data[item.name]" :key="s.id" class="is-block">
                     &ndash;&nbsp;{{ s.name }}
-                    <br :key="s.id" />
-                  </template>
+                  </span>
                 </p>
               </template>
               <template v-else-if="item.name === 'compartment'">
@@ -151,10 +150,9 @@
                 <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
                 <p>
                   <span
-                    class="has-text-weight-bold"
+                    class="has-text-weight-bold is-block"
                     v-html="capitalize(item.display || item.name) + ':'"
-                  ></span>
-                  <br />
+                  />
                   <span
                     v-html="
                       reformatChemicalReactionHTML({
@@ -162,7 +160,7 @@
                         model: model.short_name,
                       })
                     "
-                  ></span>
+                  />
                 </p>
               </template>
               <template v-else-if="item.name === 'formula'">

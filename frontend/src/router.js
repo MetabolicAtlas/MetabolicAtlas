@@ -16,18 +16,20 @@ import Documentation from '@/components/Documentation';
 import Repository from '@/components/Repository';
 import CompareModels from '@/components/CompareModels';
 import FourOFour from '@/components/FourOFour';
-import ExternalDb from '@/components/ExternalDb';
-import Introduction from '@/components/about/Introduction';
+import IdInModels from '@/components/IdInModels';
+import AboutTerms from '@/components/about/Terms';
+import AboutPlatform from '@/components/about/Platform';
+import AboutResources from '@/components/about/Resources';
 // import Impact from '@/components/about/Impact';
 import News from '@/components/about/News';
-import Privacy from '@/components/about/Privacy';
-import License from '@/components/about/License';
-import Contact from '@/components/about/Contact';
-import Citation from '@/components/about/Citation';
-import Team from '@/components/about/Team';
-import Advisory from '@/components/about/Advisory';
-import AboutResources from '@/components/about/Resources';
 import Elixir from '@/components/about/Elixir';
+import EnzymeReaction from '@/components/gotEnzymes/Reaction';
+import EnzymeCompound from '@/components/gotEnzymes/Compound';
+import EnzymeEC from '@/components/gotEnzymes/EC';
+import EnzymeLanding from '@/components/gotEnzymes/Landing';
+import EnzymeOrganism from '@/components/gotEnzymes/Organism';
+import EnzymeDomain from '@/components/gotEnzymes/Domain';
+import EnzymeGene from '@/components/gotEnzymes/Gene';
 
 Vue.use(VueRouter);
 
@@ -51,26 +53,35 @@ const routes = [
     name: 'interaction',
     component: InteractionPartners,
   },
-  { path: '/about/introduction', name: 'about-introduction', component: Introduction },
   // { path: '/about/impact', name: 'about-impact', component: Impact },
+  {
+    path: '/about/platform',
+    name: 'about-platform',
+    component: AboutPlatform,
+    meta: { reload: true },
+  },
   { path: '/about/news', name: 'about-news', component: News },
-  { path: '/about/license', name: 'about-license', component: License },
-  { path: '/about/privacy', name: 'about-privacy', component: Privacy },
-  { path: '/about/contact', name: 'about-contact', component: Contact },
-  { path: '/about/citation', name: 'about-citation', component: Citation, meta: { reload: true } },
-  { path: '/about/team', name: 'about-team', component: Team },
-  { path: '/about/advisory', name: 'about-advisory', component: Advisory },
+  { path: '/about/terms', name: 'about-terms', component: AboutTerms },
   { path: '/about/resources', name: 'about-resources', component: AboutResources },
   { path: '/about/elixir', name: 'about-elixir', component: Elixir },
 
   { path: '/gems/repository/:model_id?', name: 'gems', component: Repository },
   { path: '/gems/comparison', name: 'comparemodels', component: CompareModels },
   { path: '/documentation', name: 'documentation', component: Documentation },
-  { path: '/identifier/:dbName/:identifierId', name: 'identifier', component: ExternalDb },
+  { path: '/identifier/:dbName/:identifierId', name: 'identifier', component: IdInModels },
+
+  { path: '/gotenzymes', name: 'gotenzymes', component: EnzymeLanding },
+  { path: '/gotenzymes/reaction/:id', name: 'gotenzymes-reaction', component: EnzymeReaction },
+  { path: '/gotenzymes/compound/:id', name: 'gotenzymes-compound', component: EnzymeCompound },
+  { path: '/gotenzymes/ec/:ecValue', name: 'gotenzymes-ec', component: EnzymeEC },
+  { path: '/gotenzymes/gene/:id', name: 'gotenzymes-gene', component: EnzymeGene },
+  { path: '/gotenzymes/organism/:id', name: 'gotenzymes-organism', component: EnzymeOrganism },
+  { path: '/gotenzymes/domain/:id', name: 'gotenzymes-domain', component: EnzymeDomain },
 
   // redirects
   { path: '/explore/gem-browser/human1*', redirect: '/explore/Human-GEM/gem-browser*' },
   { path: '/explore/map-viewer/human1*', redirect: '/explore/Human-GEM/map-viewer*' },
+  { path: '/about', redirect: '/about/introduction' },
 
   // catch rest
   { path: '/*', name: 'fourOfour', component: FourOFour },

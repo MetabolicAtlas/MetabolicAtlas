@@ -106,7 +106,7 @@ export default {
       this.currentSearchMatch = 0;
       this.searchInputClass = 'is-info';
     },
-    async search(term) {
+    async search(term, centerId) {
       this.$store.dispatch('maps/setIdsFound', []);
 
       if (!term) {
@@ -131,7 +131,7 @@ export default {
         this.isSearching = false;
         this.haveSearched = true;
         this.prevSearchTerm = term;
-        this.$emit('searchOnMap', this.idsFound); // let the view call its own search function
+        this.$emit('searchOnMap', this.idsFound, centerId); // let the view call its own search function
       }
     },
     centerViewOn(position) {

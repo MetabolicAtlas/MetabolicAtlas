@@ -161,7 +161,7 @@
           our
           <router-link
             class="has-text-white has-text-weight-bold"
-            :to="{ name: 'about-privacy', hash: '#Privacy' }"
+            :to="{ name: 'about-terms', hash: '#privacy' }"
           >
             Privacy Notice and Terms of Use
           </router-link>
@@ -217,6 +217,10 @@ export default {
               routeName: 'comparemodels',
             },
           ],
+        },
+        {
+          displayName: 'GotEnzymes',
+          routeName: 'gotenzymes',
         },
         {
           displayName: 'Documentation',

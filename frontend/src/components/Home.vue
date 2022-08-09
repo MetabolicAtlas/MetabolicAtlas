@@ -53,12 +53,11 @@
           </p>
           <div class="columns is-variable is-8 pt-3">
             <div class="column is-6 is-size-5">
-              <p>
+              <p class="mb-5">
                 The main versions of
                 <b>Metabolic Atlas</b>
                 are associated with scientific articles as follows.
               </p>
-              <br />
               <div class="box">
                 <p>
                   From version 2.0:
@@ -66,9 +65,8 @@
                     Wang, H., et al, 2021.
                     <i>
                       Genome-scale metabolic network reconstruction of model animals as a platform
-                      for translational research
-                    </i>
-                    . PNAS 118, e2102344118
+                      for translational research</i
+                    >. PNAS 118, e2102344118
                   </a>
                 </p>
               </div>
@@ -77,8 +75,7 @@
                   From version 1.0:
                   <a href="https://doi.org/10.1126/scisignal.aaz1482" target="_blank">
                     Robinson, J., et al, 2020.
-                    <i>An atlas of human metabolism</i>
-                    . Sci. Signal. 13, eaaz1482
+                    <i>An atlas of human metabolism</i>. Sci. Signal. 13, eaaz1482
                   </a>
                 </p>
               </div>
@@ -91,9 +88,10 @@
                   <tr v-if="el.date">
                     <td class="has-nowrap">{{ el.date }}</td>
                     <td class="pl-3">
-                      <router-link :to="{ name: 'about-news', hash: `#${el.date}` }">
-                        {{ el.title }}
-                      </router-link>
+                      <router-link
+                        :to="{ name: 'about-news', hash: `#${el.date}` }"
+                        v-html="el.title"
+                      />
                     </td>
                   </tr>
                   <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
@@ -122,7 +120,7 @@
               </p>
               <div class="columns pb-6">
                 <div class="column is-7 px-3">
-                  <p v-html="item.text"></p>
+                  <div v-html="item.text" />
                 </div>
                 <div class="column is-offset-1-mobile is-10-mobile">
                   <router-link :to="item.route">
@@ -153,7 +151,7 @@
                   {{ repository.title }}
                 </router-link>
               </p>
-              <p v-html="repository.text"></p>
+              <div v-html="repository.text" class="content" />
             </div>
             <div class="column is-5 is-offset-1-mobile is-10-mobile">
               <router-link :to="repository.route">
@@ -182,7 +180,7 @@
                   {{ item.title }}
                 </router-link>
               </p>
-              <p v-html="item.text"></p>
+              <div v-html="item.text" class="content" />
             </div>
           </div>
         </div>
@@ -210,7 +208,7 @@ export default {
       tools: [
         {
           title: messages.gemBrowserName,
-          text: 'The <b>GEM Browser</b> enables powerful query and exploration of model content in tabular format.<br><br>A wide range of attributes, including reaction equations, metabolite formulas, gene rules and subsystem contents, are presented as a detailed network of individual model components. They are highly interconnected and rationally associated to easily navigate and switch between them.<br><br>Visit the documentation to learn about the different functionalities provided by the GEM Browser.',
+          text: '<p>The <b>GEM Browser</b> enables powerful query and exploration of model content in tabular format.</p><p>A wide range of attributes, including reaction equations, metabolite formulas, gene rules and subsystem contents, are presented as a detailed network of individual model components. They are highly interconnected and rationally associated to easily navigate and switch between them.</p><p>Visit the documentation to learn about the different functionalities provided by the GEM Browser.</p>',
           img: require('../assets/gemBrowser.jpg'),
           cardLink: 'GEM Browser',
           route: { name: 'browser', params: { model: 'Human-GEM' } },
@@ -218,7 +216,7 @@ export default {
         },
         {
           title: messages.mapViewerName,
-          text: 'For easy visualization, <b>Metabolic Atlas</b> handles both 2D and 3D maps. For each of the integrated models, the website automatically generates 3D graphs at both compartment and subsystem level.<br><br>Both compartment and subsystem 2D maps of the Human-GEM have been created by Human-GEM contributors and are manually curated. On these maps, one can search for reactions, metabolites or genes. Moreover, RNA expression data from Human Protein Atlas can be overlaid.<br><br>By clicking on an element on the map, more information of that element will be shown on the left sidebar. From there, one can navigate back to the <b>GEM Browser</b> for detailed information.',
+          text: '<p>For easy visualization, <b>Metabolic Atlas</b> handles both 2D and 3D maps. For each of the integrated models, the website automatically generates 3D graphs at both compartment and subsystem level.</p><p>Both compartment and subsystem 2D maps of the Human-GEM have been created by Human-GEM contributors and are manually curated. On these maps, one can search for reactions, metabolites or genes. Moreover, RNA expression data from Human Protein Atlas can be overlaid.</p><p>By clicking on an element on the map, more information of that element will be shown on the left sidebar. From there, one can navigate back to the <b>GEM Browser</b> for detailed information.</p>',
           img: require('../assets/mapViewer.jpg'),
           cardLink: 'Map Viewer',
           route: {
@@ -230,7 +228,7 @@ export default {
         },
         {
           title: messages.interPartName,
-          text: `The <b>Interaction Partners</b> graph shows connectivity between metabolites and genes based on their associated reactions.<br><br>The graph is dynamically generated and is customizable. One can interact with a restricted part of the metabolic network, or further expand the interaction partners of any element already on the graph. Moreover, RNA expression data from the Human Protein Atlas can be overlaid onto the graph. <br><br>This feature is available only for metabolites and genes, and is accessible via the <b>${messages.gemBrowserName}</b>.`,
+          text: `<p>The <b>Interaction Partners</b> graph shows connectivity between metabolites and genes based on their associated reactions.</p><p>The graph is dynamically generated and is customizable. One can interact with a restricted part of the metabolic network, or further expand the interaction partners of any element already on the graph. Moreover, RNA expression data from the Human Protein Atlas can be overlaid onto the graph. </p><p>This feature is available only for metabolites and genes, and is accessible via the <b>${messages.gemBrowserName}</b>.</p>`,
           img: require('../assets/interaction.jpg'),
           cardLink: 'Interaction Partners',
           route: { name: 'interaction', params: { model: 'Human-GEM' } },
@@ -275,7 +273,7 @@ export default {
       ],
       repository: {
         title: 'GEM Repository',
-        text: 'Over 350 GEMs can be downloaded from the <b>GEM Repository</b> or directly from the <b>Metabolic Atlas FTP server</b>. The tabular view enables customized selection.<br><br>Clicking on each of the models brings up more information about the model, including a text description and, if available, references. For support, the original authors should be contacted.',
+        text: '<p>Over 350 GEMs can be downloaded from the <b>GEM Repository</b> or directly from the <b>Metabolic Atlas FTP server</b>. The tabular view enables customized selection.</p><p>Clicking on each of the models brings up more information about the model, including a text description and, if available, references. For support, the original authors should be contacted.</p>',
         img: require('../assets/gems.jpg'),
         route: { name: 'gems' },
         icon: 'files-o',
@@ -283,14 +281,14 @@ export default {
       comRes: [
         {
           title: 'Resources',
-          text: 'Working with metabolic models requires a set of tools and external databases, which we have collected together for one-click access.<br><br>Additionally, Metabolic Atlas is open to further integrations.',
+          text: '<p>Working with metabolic models requires a set of tools and external databases, which we have collected together for one-click access.</p><p>Additionally, Metabolic Atlas is open to further integrations.</p>',
           route: { name: 'about-resources', hash: '#Resources' },
           icon: 'gears',
         },
         {
           title: 'Community',
-          text: '<p>We are grateful for the efforts of scientists all over the world in creating the knowledge required to assemble high quality genome scale metabolic models. We are passionate about continuing on this journey of open curation of models.<br><br>We invite you to explore the world of GEMs through Metabolic Atlas, and hope it will enhance your interest in this field. We wish to continuously improve Metabolic Atlas for the community. Email us with any feedback, suggestions, or requests at <a href="mailto:contact@metabolicatlas.org">contact [at] metabolicatlas [dot] org</a>.</p>',
-          route: { name: 'about-introduction', hash: '#Introduction' },
+          text: '<p>We are grateful for the efforts of scientists all over the world in creating the knowledge required to assemble high quality genome scale metabolic models. We are passionate about continuing on this journey of open curation of models.</p><p>We invite you to explore the world of GEMs through Metabolic Atlas, and hope it will enhance your interest in this field. We wish to continuously improve Metabolic Atlas for the community. Email us with any feedback, suggestions, or requests at <a href="mailto:contact@metabolicatlas.org">contact [at] metabolicatlas [dot] org</a>.</p>',
+          route: { name: 'about-platform', hash: '#introduction' },
           icon: 'users',
         },
       ],

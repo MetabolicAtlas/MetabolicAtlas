@@ -1,6 +1,11 @@
 import queryListResult from 'neo4j/queryHandlers/list';
 import { sanitizeSearchString, intersect } from 'utils/utils';
-import { MODELS, COMPONENT_TYPES } from 'neo4j/queries/search/helper';
+import {
+  MODELS,
+  COMPONENT_TYPES,
+  CHILD_LABELS,
+  getScore,
+} from 'neo4j/queries/search/helper';
 
 const fetchCompartmentalizedMetabolites = async ({
   ids,
@@ -15,11 +20,15 @@ const fetchCompartmentalizedMetabolites = async ({
 
   let statement = `
 WITH ${JSON.stringify(metaboliteIds)} as mids
-UNWIND mids as mid
-MATCH (:Metabolite:${model} {id:mid})-[${version}]-(cm:CompartmentalizedMetabolite)
-WITH cm.id as cmid1
-WITH ${JSON.stringify(ids)} as cmids2, cmid1
-WITH collect(cmid1)+cmids2 as cmids
+UNWIND
+  CASE
+      WHEN mids = [] THEN [null]
+      ELSE mids
+  END AS mid
+OPTIONAL MATCH (:Metabolite:${model} {id:mid})-[${version}]-(cm:CompartmentalizedMetabolite)
+WITH cm.id as cmid1, mid
+WITH ${JSON.stringify(ids)} as cmids2, cmid1, mid
+WITH collect(cmid1)+cmids2 as cmids, mid
 UNWIND cmids as cmid
 
 CALL apoc.cypher.run('
@@ -31,9 +40,10 @@ CALL apoc.cypher.run('
   MATCH (:CompartmentalizedMetabolite:${model} {id: $cmid})-[${version}]-(c:Compartment)-[${version}]-(cs:CompartmentState)
   RETURN { id: $cmid, compartment: cs.name } as data
 ', {cmid:cmid}) yield value
-RETURN apoc.map.mergeList(apoc.coll.flatten(
+WITH apoc.map.mergeList(apoc.coll.flatten(
 	apoc.map.values(apoc.map.groupByMulti(COLLECT(value.data), "id"), [value.data.id])
-)) as metabolites
+)) as metabolites, mid
+RETURN metabolites {mid: mid, .*}
 `;
 
   if (limit) {
@@ -41,7 +51,6 @@ RETURN apoc.map.mergeList(apoc.coll.flatten(
 LIMIT ${limit}
 `;
   }
-
   return queryListResult(statement);
 };
 
@@ -176,7 +185,10 @@ OPTIONAL MATCH (node)-[${v}]-(parentNode:${model})
 WHERE node:${model} OR parentNode:${model}
 WITH DISTINCT(
 	CASE
-		WHEN EXISTS(node.id) AND NOT EXISTS(node.externalId) THEN { id: node.id, labels: labelList, score: score }
+                WHEN EXISTS(node.id) AND NOT apoc.coll.intersection(${JSON.stringify(
+                  CHILD_LABELS
+                )}, LABELS(node))
+                THEN { id: node.id, labels: labelList, score: score }
 		ELSE { id: parentNode.id, labels: LABELS(parentNode), score: score }
 	END
 ) as r 
@@ -191,44 +203,44 @@ LIMIT ${limit}
 
   const results = await queryListResult(statement);
 
-  const idsToScore = {};
-  const uniqueIds = results.reduce((o, r) => {
-    const c = intersect(COMPONENT_TYPES, r.labels);
-    if (!o[c]) {
-      o[c] = new Set();
+  const uniqueIds = {};
+  for (let [pos, node] of Object.entries(results)) {
+    if (!(node['id'] in uniqueIds)) {
+      uniqueIds[node['id']] = node;
     }
-    o[c].add(r.id);
-    idsToScore[r.id] = r.score;
-    return o;
-  }, {});
+  }
+  const groupedByComponents = {};
+  for (let [id, properties] of Object.entries(uniqueIds)) {
+    const c = intersect(COMPONENT_TYPES, properties.labels);
+    if (!groupedByComponents[c]) {
+      groupedByComponents[c] = [];
+    }
+    groupedByComponents[c].push(id);
+  }
 
-  const ids = Object.assign(
-    {},
-    ...Object.keys(uniqueIds).map(c => ({ [c]: Array.from(uniqueIds[c]) }))
-  );
   const [metabolites, genes, reactions, subsystems, compartments] =
     await Promise.all([
       fetchCompartmentalizedMetabolites({
-        ids: ids['CompartmentalizedMetabolite'] || [],
-        metaboliteIds: ids['Metabolite'] || [],
+        ids: groupedByComponents['CompartmentalizedMetabolite'] || [],
+        metaboliteIds: groupedByComponents['Metabolite'] || [],
         model,
         version: v,
         limit,
       }),
-      fetchGenes({ ids: ids['Gene'], model, version: v }),
+      fetchGenes({ ids: groupedByComponents['Gene'], model, version: v }),
       fetchReactions({
-        ids: ids['Reaction'],
+        ids: groupedByComponents['Reaction'],
         model,
         version: v,
       }),
       fetchSubsystems({
-        ids: ids['Subsystem'],
+        ids: groupedByComponents['Subsystem'],
         model,
         version: v,
         includeCounts: true,
       }),
       fetchCompartments({
-        ids: ids['Compartment'],
+        ids: groupedByComponents['Compartment'],
         model,
         version: v,
         includeCounts: true,
@@ -248,7 +260,7 @@ LIMIT ${limit}
     if (result) {
       resWithScore[component] = result.map(obj => ({
         ...obj,
-        score: idsToScore[obj.id],
+        score: getScore(obj, uniqueIds),
       }));
     } else {
       resWithScore[component] = [];

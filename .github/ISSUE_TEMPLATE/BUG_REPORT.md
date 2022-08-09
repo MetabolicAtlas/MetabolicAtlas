@@ -12,7 +12,9 @@ labels: bug
 <!-- Please describe in detail how the bug can be reproduced -->
 
 **Expected behavior**
-<!-- A clear and concise description of what you expected to happen -->
+<!-- A clear and concise description of what you expected to happen. Add checklist item(s) and remove examples not applicable -->
+- [ ] <!-- Issue specific criteria -->
+- [ ] Tests verifying the fix are added
 
 **Screenshots**
 <!-- If applicable, add screenshots/videos to help explain your problem -->

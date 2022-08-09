@@ -18,8 +18,7 @@
           <td class="td-key has-background-primary has-text-white-bis">Subsystems</td>
           <td>
             <div v-html="subsystemListHtml"></div>
-            <div v-if="!showFullSubsystem && subsystems.length > limitSubsystem">
-              <br />
+            <div v-if="!showFullSubsystem && subsystems.length > limitSubsystem" class="mt-5">
               <button class="is-small button" @click="showFullSubsystem = true">
                 ... and {{ subsystems.length - limitSubsystem }} more
               </button>

@@ -2,17 +2,20 @@
   <section class="section extended-section">
     <div v-if="externalDb" class="container is-fullhd">
       <h3 class="title is-3 mb-2">
-        {{ dbNameToDisplay }} {{ components[0].componentType }} {{ externalDb.externalId }}
+        {{ dbNameToDisplay }} {{ componentType }} {{ externalDb.externalId }}
       </h3>
       <p class="my-3">
-        <template v-if="externalDb.url">
+        <span v-if="externalDb.url" class="is-block">
           Visit
           <a :href="externalDb.url" target="_blank">{{ externalDb.url }}</a>
           for more details.
-          <br />
+        </span>
+        This database identifier is
+        <template v-if="components.length > 0">
+          associate with the following Metabolic Atlas
+          {{ components.length === 1 ? 'component' : 'components' }}:
         </template>
-        This database identifier is associated with the following Metabolic Atlas
-        {{ components.length === 1 ? 'component' : 'components' }}:
+        <template v-else> not used by any of the integrated models. </template>
       </p>
       <ul class="is-flex-direction-column is-align-items-flex-start mb-4 ml-5">
         <li v-for="(components, model) in compGroupedByModel" :key="model" class="my-1">
@@ -49,7 +52,7 @@ import { mapState } from 'vuex';
 import { default as messages } from '@/content/messages';
 
 export default {
-  name: 'ExternalDb',
+  name: 'IdInModels',
   data() {
     return {
       errorMessage: '',
@@ -77,6 +80,11 @@ export default {
         }, {});
       return orderedRst;
     },
+    componentType() {
+      return this.components.length > 0
+        ? this.components[0].componentType
+        : this.$route.query.referenceType;
+    },
     dbNameToDisplay() {
       return this.externalDb.dbName.replace('MetabolicAtlas', 'Metabolic Atlas');
     },
@@ -86,6 +94,7 @@ export default {
       await this.$store.dispatch('externalDb/getComponentsForExternalDb', {
         dbName: this.$route.params.dbName,
         externalId: this.$route.params.identifierId,
+        referenceType: this.$route.query.referenceType,
       });
     } catch {
       if (this.$route.params.dbName === 'MetabolicAtlas') {

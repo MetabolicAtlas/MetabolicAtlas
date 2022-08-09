@@ -35,11 +35,9 @@
               </span>
               <span v-if="model">random components of {{ model.short_name || 'a model' }}</span>
             </a>
-            <br />
           </div>
-          <br />
           <transition name="fade">
-            <div v-if="randomComponents" class="tile is-ancestor">
+            <div v-if="randomComponents" class="tile is-ancestor mt-3">
               <div class="tile is-vertical">
                 <tile
                   type="interaction"
@@ -133,9 +131,8 @@
             <template v-if="tooLargeNetworkGraph">
               <div class="column is-8-desktop is-fullwidth-tablet">
                 <div class="notification is-warning has-text-centered">
-                  The query has returned many nodes.
-                  <br />
-                  The network cannot been generated.
+                  <p>The query has returned many nodes.</p>
+                  <p>The network cannot been generated.</p>
                 </div>
               </div>
             </template>
@@ -143,9 +140,8 @@
               <div class="column is-8-desktop is-fullwidth-tablet">
                 <div class="notification is-warning has-text-centered">
                   <div>
-                    The query has returned many nodes.
-                    <br />
-                    The network has not been generated.
+                    <p>The query has returned many nodes.</p>
+                    <p>The network has not been generated.</p>
                   </div>
                   <span class="button" @click="generateGraph(fitGraph)">Generate</span>
                 </div>
@@ -203,8 +199,7 @@
                       ></compact-picker>
                     </span>
                   </div>
-                  <br />
-                  <span class="label">Metabolite</span>
+                  <span class="label mt-5">Metabolite</span>
                   <div class="comp">
                     <span>Shape:</span>
                     <div class="select">
@@ -279,7 +274,10 @@
                     />
                   </div>
                 </div>
-                <div v-if="compartmentList.length !== 0 || subsystemList.length != 0" class="card">
+                <div
+                  v-if="compartmentList.length !== 0 || subsystemList.length != 0"
+                  class="card mb-5"
+                >
                   <header class="card-header">
                     <p class="card-header-title">Highlight</p>
                   </header>
@@ -303,8 +301,7 @@
                       </select>
                     </div>
                     <div v-show="subsystemList.length !== 0">
-                      <br />
-                      <div class="select is-fullwidth">
+                      <div class="select is-fullwidth mt-5">
                         <select v-model="subsystemHL" @change.prevent="highlightSubsystem">
                           <option value="" disabled>Select a subsystem</option>
                           <option v-for="sub in subsystemList" :key="sub" :value="sub">
@@ -315,7 +312,6 @@
                     </div>
                   </div>
                 </div>
-                <br />
               </template>
             </div>
           </div>
@@ -569,8 +565,6 @@ export default {
         const payload = { model: this.model, id: this.mainNodeID };
         await this.$store.dispatch('interactionPartners/getInteractionPartners', payload);
 
-        // TODO: consider refactoring the following lines in this try block into Vuex,
-        //       as well as duplication with the loadExpansion method
         this.componentNotFound = false;
         this.showGraphContextMenu = false;
         if (this.tooLargeNetworkGraph) {

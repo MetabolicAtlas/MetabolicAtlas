@@ -34,7 +34,6 @@
                 </span>
                 <span v-if="model">random components of {{ model.short_name || 'a model' }}</span>
               </a>
-              <br />
             </div>
           </div>
           <div v-if="tileComponents" id="gem-browser-tiles" class="tile is-ancestor break-word">

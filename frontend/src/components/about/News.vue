@@ -1,7 +1,7 @@
 <template>
   <about-layout id="News" title="News" full-content-width>
     <template v-slot:contents>
-      <div class="timeline is-centered">
+      <div class="timeline">
         <header class="timeline-header">
           <span class="tag is-large has-text-primary has-text-weight-bold">today</span>
         </header>

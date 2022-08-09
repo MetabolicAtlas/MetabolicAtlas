@@ -15,7 +15,8 @@ services:
       - NODE_ENV=${NODE_ENV}
       - NEO4J_USERNAME=${NEO4J_USERNAME}
       - NEO4J_PASSWORD=${NEO4J_PASSWORD}
-    depends_on: 
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    depends_on:
       - neo4j
     networks:
       - nginx-network
@@ -47,6 +48,13 @@ services:
     ports:
       - "21:21"
       - "${FTP_MIN_PORT}-${FTP_MAX_PORT}:${FTP_MIN_PORT}-${FTP_MAX_PORT}"
+
+  pg:
+    container_name: pg
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      - db-network
 
 networks:
   db-network:
