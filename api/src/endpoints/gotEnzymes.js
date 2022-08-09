@@ -1,9 +1,12 @@
 import express from 'express';
 import {
   getCompound,
+  getDomain,
   getEc,
-  getReaction,
   getEnzymes,
+  getGene,
+  getOrganism,
+  getReaction,
   search,
 } from 'gotEnzymes/index';
 
@@ -30,6 +33,54 @@ gotEnzymesRoutes.get('/ecs/:value', async (req, res) => {
 
   try {
     const ec = await getEc(value);
+    if (ec) {
+      res.json(ec);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (e) {
+    console.error(e.message);
+    res.sendStatus(500);
+  }
+});
+
+gotEnzymesRoutes.get('/genes/:value', async (req, res) => {
+  const { value } = req.params;
+
+  try {
+    const ec = await getGene(value);
+    if (ec) {
+      res.json(ec);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (e) {
+    console.error(e.message);
+    res.sendStatus(500);
+  }
+});
+
+gotEnzymesRoutes.get('/organisms/:value', async (req, res) => {
+  const { value } = req.params;
+
+  try {
+    const ec = await getOrganism(value);
+    if (ec) {
+      res.json(ec);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (e) {
+    console.error(e.message);
+    res.sendStatus(500);
+  }
+});
+
+gotEnzymesRoutes.get('/domains/:value', async (req, res) => {
+  const { value } = req.params;
+
+  try {
+    const ec = await getDomain(value);
     if (ec) {
       res.json(ec);
     } else {

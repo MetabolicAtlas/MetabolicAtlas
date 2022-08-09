@@ -9,33 +9,53 @@ const data = {
 };
 
 const actions = {
-  async getReactionData({ commit }, id) {
-    const { info, crossReferences } = await gotEnzymesApi.fetchReaction(id);
-
-    commit('setInfo', info);
-    commit('setCrossReferences', crossReferences);
-  },
   async getCompoundData({ commit }, id) {
     const { info, crossReferences } = await gotEnzymesApi.fetchCompound(id);
-
     commit('setInfo', info);
     commit('setCrossReferences', crossReferences);
   },
-  async getECData({ commit }, ecValue) {
-    const { info } = await gotEnzymesApi.fetchEC(ecValue);
 
+  async getDomainData({ commit }, id) {
+    const { info, crossReferences } = await gotEnzymesApi.fetchDomain(id);
     commit('setInfo', info);
-    commit('setCrossReferences', []);
+    commit('setCrossReferences', crossReferences);
   },
+
+  async getECData({ commit }, ecValue) {
+    const { info, crossReferences } = await gotEnzymesApi.fetchEC(ecValue);
+    commit('setInfo', info);
+    commit('setCrossReferences', crossReferences);
+  },
+
+  async getGeneData({ commit }, id) {
+    const { info, crossReferences } = await gotEnzymesApi.fetchGene(id);
+    commit('setInfo', info);
+    commit('setCrossReferences', crossReferences);
+  },
+
+  async getOrganismData({ commit }, id) {
+    const { info, crossReferences } = await gotEnzymesApi.fetchOrganism(id);
+    commit('setInfo', info);
+    commit('setCrossReferences', crossReferences);
+  },
+
+  async getReactionData({ commit }, id) {
+    const { info, crossReferences } = await gotEnzymesApi.fetchReaction(id);
+    commit('setInfo', info);
+    commit('setCrossReferences', crossReferences);
+  },
+
   async getEnzymes({ commit }, payload) {
     const { enzymes, totalCount } = await gotEnzymesApi.fetchEnzymes(payload);
     commit('setEnzymes', enzymes);
     commit('setTotalEnzymes', totalCount);
   },
+
   resetInfoAndCrossReferences({ commit }) {
     commit('setInfo', {});
     commit('setCrossReferences', []);
   },
+
   async search({ commit }, searchTerm) {
     const term = encodeURIComponent(searchTerm);
 

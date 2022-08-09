@@ -10,7 +10,7 @@ const getEc = async value => {
     throw new Error(`EC ${value} returned ${ecs.length} results.`);
   }
 
-  return { info: ecs[0] };
+  return { info: ecs[0], crossReferences: [] };
 };
 
 export default getEc;

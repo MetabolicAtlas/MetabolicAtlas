@@ -1,17 +1,32 @@
 import axios from 'axios';
 
-const fetchReaction = async keggId => {
-  const { data } = await axios.get(`/gotenzymes/reactions/${keggId}`);
-  return data;
-};
-
 const fetchCompound = async keggId => {
   const { data } = await axios.get(`/gotenzymes/compounds/${keggId}`);
   return data;
 };
 
+const fetchDomain = async keggId => {
+  const { data } = await axios.get(`/gotenzymes/domains/${keggId}`);
+  return data;
+};
+
 const fetchEC = async ecValue => {
   const { data } = await axios.get(`/gotenzymes/ecs/${ecValue}`);
+  return data;
+};
+
+const fetchGene = async keggId => {
+  const { data } = await axios.get(`/gotenzymes/genes/${keggId}`);
+  return data;
+};
+
+const fetchOrganism = async keggId => {
+  const { data } = await axios.get(`/gotenzymes/organisms/${keggId}`);
+  return data;
+};
+
+const fetchReaction = async keggId => {
+  const { data } = await axios.get(`/gotenzymes/reactions/${keggId}`);
   return data;
 };
 
@@ -40,4 +55,13 @@ const search = async searchTerm => {
   return data;
 };
 
-export default { fetchReaction, fetchCompound, fetchEC, fetchEnzymes, search };
+export default {
+  fetchCompound,
+  fetchDomain,
+  fetchGene,
+  fetchEC,
+  fetchEnzymes,
+  fetchReaction,
+  fetchOrganism,
+  search,
+};

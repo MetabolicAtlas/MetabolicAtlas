@@ -51,4 +51,14 @@ export default {
     dbPrefix: 'reactome',
     compoundSuffix: '',
   },
+  ncbigene: {
+    db: 'NCBI Protein',
+    dbPrefix: 'ncbiprotein',
+    geneSuffix: '',
+  },
+  uniprot: {
+    db: 'UniProtKB',
+    dbPrefix: 'uniprot',
+    geneSuffix: '',
+  },
 };
