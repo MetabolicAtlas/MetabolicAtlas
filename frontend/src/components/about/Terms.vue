@@ -1,6 +1,8 @@
 <template>
-  <about-layout id="Privacy" title="Privacy">
+  <about-layout id="Privacy" title="">
     <template v-slot:contents>
+      <h3 id="privacy-policy" class="title is-3 mt-0">Privacy policy</h3>
+
       <p>
         Metabolic Atlas gathers information about users solely to improve the usability and
         usefulness of the website. There are two types of cookies that are set by Metabolic Atlas:
@@ -45,6 +47,23 @@
       <p>
         If you have any questions, please email us at
         <a href="mailto:contact@metabolicatlas.org">contact [at] metabolicatlas [dot] org</a>.
+      </p>
+
+      <h3 id="license" class="title is-3">License and disclaimer</h3>
+
+      <p>
+        This project is licensed under the terms of the
+        <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU General Public License v3.0.</a>
+      </p>
+      <p>
+        The maps are licensed under
+        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-SA 4.0</a>.
+      </p>
+      <p>
+        We do not guarantee the accuracy of any provided data, generated database, software or
+        online service nor the suitability of databases, software and online services for any
+        purpose. The content presented on Metabolic Atlas is contributed by members of the community
+        who remain owners of said content.
       </p>
     </template>
   </about-layout>

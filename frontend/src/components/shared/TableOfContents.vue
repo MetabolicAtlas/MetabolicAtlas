@@ -5,7 +5,7 @@
       <ul class="menu-list">
         <li v-for="l in links" :key="l.name">
           <router-link
-            :to="l.routeName ? { name: l.routeName } : l.link"
+            :to="l.link"
             :class="{ 'has-background-white-ter': hasActiveSubsection(l) }"
             active-class="has-background-link-light"
             @click.native="isMobileMenu = false"
