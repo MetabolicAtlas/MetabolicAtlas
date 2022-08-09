@@ -23,7 +23,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }} # Optional
           eslint-args: "--config frontend/.eslintrc.js --resolve-plugins-relative-to frontend frontend/src/**"
-          extensions: ".js,.vue"
+          extensions: "js,vue"
           annotations: true
           bin-path: "frontend/node_modules/eslint/bin"
 
@@ -47,6 +47,6 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }} # Optional
           eslint-args: "--config api/.eslintrc.js --resolve-plugins-relative-to api api/src/**"
-          extensions: ".js"
+          extensions: "js"
           annotations: true
           bin-path: "api/node_modules/eslint/bin"
