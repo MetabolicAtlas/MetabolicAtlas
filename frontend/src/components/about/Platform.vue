@@ -85,6 +85,7 @@
               10.1073/pnas.2102344118
             </a>
           </p>
+          <citation-widget doi="10.1073/pnas.2102344118" />
         </div>
       </div>
 
@@ -125,6 +126,7 @@
               10.1126/scisignal.aaz1482
             </a>
           </p>
+          <citation-widget doi="10.1126/scisignal.aaz1482" />
         </div>
       </div>
       <p>
@@ -252,11 +254,25 @@
 </template>
 <script>
 import AboutLayout from '@/layouts/AboutLayout';
+import CitationWidget from '@/components/about/CitationWidget';
 
 export default {
   name: 'Introduction',
   components: {
     AboutLayout,
+    CitationWidget,
+  },
+  beforeCreate() {
+    const addScript = (type, src) => {
+      const script = document.createElement('script');
+      script.type = type;
+      script.src = src;
+      document.body.appendChild(script);
+    };
+    addScript('text/javascript', '//cdn.plu.mx/widget-popup.js');
+    addScript('text/javascript', 'https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js');
+    addScript('application/javascript', 'https://cdn.scite.ai/badge/scite-badge-latest.min.js');
+    addScript('application/javascript', 'https://badge.dimensions.ai/badge.js');
   },
   data() {
     return {
