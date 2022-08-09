@@ -7,4 +7,13 @@ import getOrganism from 'gotEnzymes/organism';
 import getReaction from 'gotEnzymes/reaction';
 import search from 'gotEnzymes/search';
 
-export { getCompound, getDomain, getEc, getEnzymes, getGene, getReaction, getOrganism, search };
+export {
+  getCompound,
+  getDomain,
+  getEc,
+  getEnzymes,
+  getGene,
+  getReaction,
+  getOrganism,
+  search,
+};
