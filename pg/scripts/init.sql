@@ -85,7 +85,11 @@ create index on organisms using gist (name, kegg);
 create index on domains using gist (name);
 
 -- create indexes for the enzymes table
-create index on enzymes (gene, organism, domain, reaction_id, compound);
+create index on enzymes("gene");
+create index on enzymes("organism");
+create index on enzymes("domain");
+create index on enzymes("reaction_id");
+create index on enzymes("compound");
 create index on enzymes using gin (string_to_array(ec_number, ';'));
 
 -- create view for fuzzy search through multiple tables and views
