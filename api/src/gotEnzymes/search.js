@@ -16,13 +16,20 @@ const search = async searchTerm => {
     where kegg = ${searchTerm}
   `;
 
+  const ecMatchQuery = sql`
+    select 'ec' as type, ec as id, ec as match, ${sql`similarity(ec, ${searchTerm})`} as score
+    from ec
+    where ec LIKE ${searchTerm} || '%'
+  `;
+
   await sql`set pg_trgm.similarity_threshold = 0.25`; // this allows more matches, default is 0.3
-  const [fuzzyResults, geneResults] = await Promise.all([
+  const [fuzzyResults, geneResults, ecResults] = await Promise.all([
     fuzzyQuery,
     geneMatchQuery,
+    ecMatchQuery,
   ]);
 
-  return [...geneResults, ...fuzzyResults].slice(0, 10);
+  return [...geneResults, ...ecResults, ...fuzzyResults].slice(0, 10);
 };
 
 export default search;
