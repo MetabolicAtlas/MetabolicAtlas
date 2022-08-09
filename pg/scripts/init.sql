@@ -78,18 +78,22 @@ copy domains from '/input_data/supplementary/domain.txt' delimiter E'\t' CSV HEA
 copy genes from program 'cat /input_data/supplementary/gene/*.txt' delimiter E'\t';
 
 -- create lookup indexes
-create index on reactions using gist (name, kegg);
-create index on compounds using gist (name, kegg);
-create index on ec using gist (name, ec);
-create index on organisms using gist (name, kegg);
+create index on reactions using gist (name);
+create index on reactions using gist (kegg);
+create index on compounds using gist (name);
+create index on compounds using gist (kegg);
+create index on ec using gist (name);
+create index on ec using gist (ec);
+create index on organisms using gist (name);
+create index on organisms using gist (kegg);
 create index on domains using gist (name);
 
 -- create indexes for the enzymes table
-create index on enzymes("gene");
-create index on enzymes("organism");
-create index on enzymes("domain");
-create index on enzymes("reaction_id");
-create index on enzymes("compound");
+create index on enzymes(gene);
+create index on enzymes(organism);
+create index on enzymes(domain);
+create index on enzymes(reaction_id);
+create index on enzymes(compound);
 create index on enzymes using gin (string_to_array(ec_number, ';'));
 
 -- create view for fuzzy search through multiple tables and views
