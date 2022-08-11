@@ -6,7 +6,7 @@
         <p class="is-size-5">We've got the enzymes you need</p>
       </div>
     </section>
-    <div class="container is-fullhd">
+    <div class="container is-fullhd px-3">
       <div class="columns is-centered pt-6">
         <div
           class="column is-three-fifths-desktop is-three-quarters-tablet is-fullwidth-mobile control"
