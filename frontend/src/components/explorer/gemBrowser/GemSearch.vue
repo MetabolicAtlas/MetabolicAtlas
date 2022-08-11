@@ -49,7 +49,7 @@
         class="notification is-large is-unselectable has-text-centered is-clickable py-1 mb-1"
         @mousedown="globalSearch()"
       >
-        Limited to 5 results per type. Click here to search all integrated GEMs
+        Limited to 10 results per type. Click here to search all integrated GEMs
       </div>
       <div v-show="!showLoader" v-if="searchResults.length !== 0" class="resList">
         <template v-for="type in componentTypeOrder">
@@ -327,7 +327,7 @@ export default {
     z-index: 30;
 
     .resList {
-      max-height: 27rem;
+      max-height: 33rem;
       overflow-y: auto;
     }
 
