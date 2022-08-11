@@ -13,19 +13,14 @@ jobs:
           node-version: "16.x"
 
       - name: "/frontend: Install Node.js dependencies"
+        working-directory: frontend
         run: |
-          cd frontend
-          npm install --location=global yarn
+          npm install -g yarn
           yarn install --frozen-lockfile
 
       - name: "/frontend: Linting"
-        uses: sibiraj-s/action-eslint@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }} # Optional
-          eslint-args: "--config frontend/.eslintrc.js --resolve-plugins-relative-to frontend frontend/src/**"
-          extensions: "js,vue"
-          annotations: true
-          bin-path: "frontend/node_modules/eslint/bin"
+        working-directory: frontend
+        run: yarn run lint
 
   api:
     runs-on: ubuntu-latest
