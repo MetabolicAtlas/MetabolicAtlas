@@ -552,7 +552,7 @@ paths:
         - name: 'filters[domain]'
           in: 'query'
           type: 'string'
-          description: 'the organism id, e.g. **B** (or leave empty for more results)'
+          description: 'the domain id, e.g. **B** (or leave empty for more results)'
           default: 'B'
         - name: 'pagination[pageSize]'
           in: 'query'
