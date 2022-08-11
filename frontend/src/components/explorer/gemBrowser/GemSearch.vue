@@ -327,7 +327,7 @@ export default {
     z-index: 30;
 
     .resList {
-      max-height: 27rem;
+      max-height: 33rem;
       overflow-y: auto;
     }
 
