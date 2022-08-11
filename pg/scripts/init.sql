@@ -62,7 +62,7 @@ create table domains (
 );
 
 create table genes (
-    kegg text,
+    kegg text primary key not null,
     ncbigene text,
     uniprot text
 );
@@ -75,7 +75,7 @@ copy ec from '/input_data/supplementary/ec.txt' quote E'\u0007' delimiter E'\t' 
 copy reactions from '/input_data/supplementary/reaction.txt' delimiter E'\t' CSV HEADER;
 copy organisms from '/input_data/supplementary/organism.txt' delimiter E'\t' CSV HEADER;
 copy domains from '/input_data/supplementary/domain.txt' delimiter E'\t' CSV HEADER;
-copy genes from program 'cat /input_data/supplementary/gene/*.txt' delimiter E'\t';
+copy genes from '/input_data/supplementary/gene.txt' delimiter E'\t' CSV HEADER;
 
 -- create lookup indexes
 create index on reactions using gist (name);
