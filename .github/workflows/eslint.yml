@@ -38,10 +38,6 @@ jobs:
           yarn install --frozen-lockfile
 
       - name: "/api: Linting"
-        uses: sibiraj-s/action-eslint@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }} # Optional
-          eslint-args: "--config api/.eslintrc.js --resolve-plugins-relative-to api api/src/**"
-          extensions: "js"
-          annotations: true
-          bin-path: "api/node_modules/eslint/bin"
+        working-directory: api
+        run: yarn run lint
+
