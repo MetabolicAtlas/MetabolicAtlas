@@ -32,8 +32,8 @@ jobs:
           node-version: "16.x"
 
       - name: "/api: Install dependencies"
+        working-directory: api
         run: |
-          cd api
           npm install --location=global yarn
           yarn install --frozen-lockfile
 
