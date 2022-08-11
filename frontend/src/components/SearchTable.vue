@@ -1,5 +1,5 @@
 <template>
-  <section class="extended-section">
+  <section class="extended-section px-2">
     <div id="search-table" class="container is-fullhd pb-6">
       <div class="columns">
         <div class="column has-text-centered content mt-5">
