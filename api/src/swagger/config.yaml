@@ -19,6 +19,7 @@ tags:
   - name: 'Subsystems'
   - name: 'Interaction Partners'
   - name: 'Miscellaneous'
+  - name: 'GotEnzymes'
 paths:
   /repository/integrated_models:
     get:
@@ -420,3 +421,164 @@ paths:
           description: 'Successful query'
         '404':
           description: 'Invalid input'
+  /gotenzymes/reactions/{reactionId}:
+    get:
+      tags:
+        - 'GotEnzymes'
+      summary: 'Get information and cross references for the given reaction.'
+      operationId: 'gotEnzymesReactionInfo'
+      parameters:
+        - name: 'reactionId'
+          in: 'path'
+          required: true
+          type: 'string'
+          description: 'the reaction id, e.g. **R01677**'
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'Successful query'
+        '500':
+          description: 'Invalid input'
+  /gotenzymes/genes/{geneId}:
+    get:
+      tags:
+        - 'GotEnzymes'
+      summary: 'Get information and cross references for the given gene.'
+      operationId: 'gotEnzymesReactionInfo'
+      parameters:
+        - name: 'geneId'
+          in: 'path'
+          required: true
+          type: 'string'
+          description: 'the gene id, e.g. **zwf**'
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'Successful query'
+        '500':
+          description: 'Invalid input'
+  /gotenzymes/ecs/{ecNumber}:
+    get:
+      tags:
+        - 'GotEnzymes'
+      summary: 'Get information and cross references for the given ec number.'
+      operationId: 'gotEnzymesReactionInfo'
+      parameters:
+        - name: 'ecNumber'
+          in: 'path'
+          required: true
+          type: 'string'
+          description: 'the ec number, e.g. **2.5.1.19**'
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'Successful query'
+        '500':
+          description: 'Invalid input'
+  /gotenzymes/compounds/{compoundId}:
+    get:
+      tags:
+        - 'GotEnzymes'
+      summary: 'Get information and cross references for the given compound.'
+      operationId: 'gotEnzymesReactionInfo'
+      parameters:
+        - name: 'compoundId'
+          in: 'path'
+          required: true
+          type: 'string'
+          description: 'the compound id, e.g. **C00003**'
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'Successful query'
+        '500':
+          description: 'Invalid input'
+  /gotenzymes/organisms/{organismId}:
+    get:
+      tags:
+        - 'GotEnzymes'
+      summary: 'Get information and cross references for the given organism.'
+      operationId: 'gotEnzymesReactionInfo'
+      parameters:
+        - name: 'organismId'
+          in: 'path'
+          required: true
+          type: 'string'
+          description: 'the organism id, e.g. **hsa**'
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'Successful query'
+        '500':
+          description: 'Invalid input'
+  /gotenzymes/enzymes?:
+    get:
+      tags:
+        - 'GotEnzymes'
+      summary: 'Search for GotEnzymes predicted kcat.'
+      description: 'This query retrieves the predicted kcat for reactions, genes, ec numbers, compounds, organisms and domains matching the provided parameters. The results are paginated to handle large results, this can also be configured through parameters provided.'
+      operationId: 'gotEnzymes'
+      parameters:
+        - name: 'filters[reaction_id]'
+          in: 'query'
+          type: 'string'
+          description: 'the reaction id, e.g. **R00835** (or leave empty for more results)'
+          default: 'R00835'
+        - name: 'filters[gene]'
+          in: 'query'
+          type: 'string'
+          description: 'the gene id, e.g. **zwf** (or leave empty for more results)'
+          default: 'zwf'
+        - name: 'filters[ec_number]'
+          in: 'query'
+          type: 'string'
+          description: 'the ec number, e.g. **1.1.1.49** (or leave empty for more results)'
+          default: '1.1.1.49'
+        - name: 'filters[compound]'
+          in: 'query'
+          type: 'string'
+          description: 'the compound id, e.g. **C00092** (or leave empty for more results)'
+          example: 'C00092'
+        - name: 'filters[organism]'
+          in: 'query'
+          type: 'string'
+          description: 'the organism id, e.g. **cpj** (or leave empty for more results)'
+          default: 'cpj'
+        - name: 'filters[domain]'
+          in: 'query'
+          type: 'string'
+          description: 'the domain id, e.g. **B** (or leave empty for more results)'
+          default: 'B'
+        - name: 'pagination[pageSize]'
+          in: 'query'
+          type: 'integer'
+          description: 'How many results to return by each page, e.g. **50** (50 by default if left empty)'
+          default: '50'
+        - name: 'pagination[page]'
+          in: 'query'
+          type: 'integer'
+          description: 'Which result page to return, e.g. **1** (1 by default if left empty)'
+          default: '1'
+        - name: 'pagination[column]'
+          in: 'query'
+          type: 'string'
+          description: 'Which column to sort on, e.g. **gene** (gene by default if left empty)'
+          default: 'gene'
+        - name: 'pagination[isAscending]'
+          in: 'query'
+          type: 'boolean'
+          description: 'If result should be in ascending or descending order (true by default if left empty)'
+          default: 'true'
+          enum:
+            - 'true'
+            - 'false'
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'Successful query'

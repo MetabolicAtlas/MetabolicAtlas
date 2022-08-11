@@ -605,9 +605,14 @@
           <p>
             Metabolic Atlas has a
             <a href="/api" target="_blank"> dedicated interface to facilite the use of the API</a>,
-            with output provided in JSON format. When using this service, kindly use a limit of 10
-            requests per second. The API is still undergoing development; while it covers the entire
-            content of the models, it might change without prior notice.
+            with output provided in JSON format. The API lets you retrieve data from the integrated
+            models of Metabolic Atlas (eg. genes, metabolites, maps...) as well as the
+            <a href="/gotenzymes">GotEnzymes database</a>.
+          </p>
+          <p>
+            When using this service, kindly use a limit of 10 requests per second. The API is still
+            undergoing development; while it covers the entire content of the models, it might
+            change without prior notice.
           </p>
           <h5 id="related-resources" class="is-size-5">Related resources</h5>
           <p>
