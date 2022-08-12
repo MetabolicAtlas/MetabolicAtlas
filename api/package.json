@@ -8,8 +8,8 @@
     "start": "webpack && node ./dist/bundle.js",
     "develop": "webpack --watch",
     "lint": "eslint src test --ext .js",
-    "check-format": "prettier -l src test",
-    "format": "prettier -w src test",
+    "check-format": "prettier --check src test",
+    "format": "prettier --write src test",
     "test": "jest"
   },
   "dependencies": {

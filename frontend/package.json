@@ -9,8 +9,8 @@
     "serve": "vue-cli-service serve --mode local",
     "build": "vue-cli-service build --mode production",
     "lint": "eslint src --ext .js,.vue",
-    "check-format": "prettier -l src",
-    "format": "prettier -w src"
+    "check-format": "prettier --check src",
+    "format": "prettier --write src"
   },
   "dependencies": {
     "@metabolicatlas/3d-network-viewer": "^0.1.18",

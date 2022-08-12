@@ -1,0 +1,43 @@
+name: "ESLint"
+
+on: [push, pull_request]
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+
+      - name: "/frontend: Install Node.js dependencies"
+        working-directory: frontend
+        run: |
+          npm install -g yarn
+          yarn install --frozen-lockfile
+
+      - name: "/frontend: Linting"
+        working-directory: frontend
+        run: yarn run lint
+
+  api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+
+      - name: "/api: Install dependencies"
+        working-directory: api
+        run: |
+          npm install --location=global yarn
+          yarn install --frozen-lockfile
+
+      - name: "/api: Linting"
+        working-directory: api
+        run: yarn run lint
+
