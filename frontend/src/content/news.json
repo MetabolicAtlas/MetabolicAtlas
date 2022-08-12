@@ -2,7 +2,7 @@
   "2022": [
     {
       "date": "2022-08-12",
-      "title": "Metabolic Atlas 3.0",
+      "title": "Metabolic Atlas 3.0 presents GotEnzymes",
       "text": "<b>Metabolic Atlas 3.0</b> is out! In this major release we provide access to the newly created database <i>GotEnzymes</i>. This contains over 25,794,195 predicted k<sub>cat</sub> from 8,099 species. The values are predicted by cutting-edge artificial intelligence tools. For more information about the prediction methods, please have a look at <a href='https://doi.org/10.1038/s41929-022-00798-z'><i>Deep learning-based k<sub>cat</sub> prediction enables improved enzyme-constrained model reconstruction</i></a>. <br> More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/3.0' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/badge/latestdoi/53664497' target='_blank'>on Zenodo</a>."
     },
     {
