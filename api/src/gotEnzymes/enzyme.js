@@ -4,7 +4,6 @@ const MATCH_FIELDS = [
   'gene',
   'organism',
   'domain',
-  'ko',
   'reaction_id',
   'ec_number',
   'compound',
@@ -60,7 +59,7 @@ const getEnzymes = async ({
   const order = isAscending.toLowerCase() === 'true' ? sql`asc` : sql`desc`;
 
   const enzymesQuery = sql`
-    select * from enzymes
+    select gene, organism, domain, reaction_id, ec_number, compound, kcat_values from enzymes
     ${
       filtersQueries.length > 0
         ? sql`where ${filtersQueries.reduce(
