@@ -94,12 +94,6 @@ export default {
           filterOptions: { enabled: true },
         },
         {
-          label: 'KO',
-          field: 'ko',
-          sortable: true,
-          filterOptions: { enabled: true },
-        },
-        {
           label: 'Reaction',
           field: 'reaction_id',
           sortable: true,
