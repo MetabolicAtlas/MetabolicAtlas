@@ -12,7 +12,7 @@ ignorePaths:
 language: 'en-GB'
 dictionaryDefinitions:
   - name: project-words
-    path: './project-words.txt'
+    path: '../project-words.txt'
     addWords: true
 dictionaries:
   - project-words
