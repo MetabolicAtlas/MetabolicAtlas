@@ -438,6 +438,8 @@ paths:
       responses:
         '200':
           description: 'Successful query'
+        '404':
+          description: 'Not found'
         '500':
           description: 'Invalid input'
   /gotenzymes/genes/{geneId}:
@@ -457,6 +459,8 @@ paths:
       responses:
         '200':
           description: 'Successful query'
+        '404':
+          description: 'Not found'
         '500':
           description: 'Invalid input'
   /gotenzymes/ecs/{ecNumber}:
@@ -476,6 +480,8 @@ paths:
       responses:
         '200':
           description: 'Successful query'
+        '404':
+          description: 'Not found'
         '500':
           description: 'Invalid input'
   /gotenzymes/compounds/{compoundId}:
@@ -495,6 +501,8 @@ paths:
       responses:
         '200':
           description: 'Successful query'
+        '404':
+          description: 'Not found'
         '500':
           description: 'Invalid input'
   /gotenzymes/organisms/{organismId}:
@@ -514,6 +522,8 @@ paths:
       responses:
         '200':
           description: 'Successful query'
+        '404':
+          description: 'Not found'
         '500':
           description: 'Invalid input'
   /gotenzymes/enzymes?:
