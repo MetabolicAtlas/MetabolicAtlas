@@ -9,6 +9,7 @@ ignorePaths:
   - '**/data-mappers/**'
   - '**/graph-stylers/**'
   - '**/graph-ml-converter.js'
+  - '**/src/data/'
 language: 'en-GB'
 dictionaryDefinitions:
   - name: project-words
