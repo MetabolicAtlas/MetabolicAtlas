@@ -8,7 +8,7 @@ const getGene = async value => {
   `;
 
   if (genes.length !== 1) {
-    throw new Error(`Gene ${value} returned ${gene.length} results.`);
+    throw new Error(`Gene ${value} returned ${genes.length} results.`);
   }
 
   const gene = genes[0];
