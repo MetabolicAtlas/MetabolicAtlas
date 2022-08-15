@@ -215,7 +215,13 @@ export default {
         let color = colorToRGBArray(this.defaultMetaboliteColor);
 
         if (node.g === 'r') {
-          color = colorToRGBArray('#fff');
+          if (this.componentType === 'reaction' && Object.keys(this.computedLevels).length > 0) {
+            const partialID = node.id.split('-')[0];
+            const key = this.computedLevels[partialID] !== undefined ? partialID : 'n/a';
+            color = colorToRGBArray(this.computedLevels[key][0]);
+          } else {
+            color = colorToRGBArray(this.defaultReactionColor);
+          }
         }
 
         if (node.g === 'e') {

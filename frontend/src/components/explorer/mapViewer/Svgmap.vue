@@ -356,7 +356,7 @@ export default {
       const allComponents = $(`#svg-wrapper .${this.componentClassName}`);
       Object.values(allComponents).forEach(node => {
         try {
-          const ID = node.classList[1];
+          const ID = node.classList.length > 1 ? node.classList[1] : node.id;
           if (this.computedLevels[ID] !== undefined) {
             node.children[0].setAttribute('fill', this.computedLevels[ID][0]); // 0 is the float value, 1 the color hex
           } else {
