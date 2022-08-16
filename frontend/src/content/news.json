@@ -99,7 +99,7 @@
     {
       "date": "2019-09-05",
       "title": "Metabolic Atlas 1.4 enables gene expression comparison",
-      "text": "<b>Metabolic Atlas 1.4</b> is out. The main feature of this release is the <i>Data overlay</i> panel on the <i>Map Viewer</i>, currently enabling data upload and comparison for gene expression. Other small tweaks on the <i>Map Viwewer</i> are: the full screen mode, hiding genes or subsystem highlights, some button layout changes. The RNA legend was refactored but maintains the same functionality. The <i>GEM Browser</i> tiles can be randomized by clicking a button. More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/1.4' target='_blank'>on GitHub</a>."
+      "text": "<b>Metabolic Atlas 1.4</b> is out. The main feature of this release is the <i>Data overlay</i> panel on the <i>Map Viewer</i>, currently enabling data upload and comparison for gene expression. Other small tweaks on the <i>Map Viewer</i> are: the full screen mode, hiding genes or subsystem highlights, some button layout changes. The RNA legend was refactored but maintains the same functionality. The <i>GEM Browser</i> tiles can be randomized by clicking a button. More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/1.4' target='_blank'>on GitHub</a>."
     },
     {
       "date": "2019-08-01",

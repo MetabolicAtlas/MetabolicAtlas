@@ -3,7 +3,6 @@ Zenodo
 GOTBIN
 Omics
 NBIS
-Viwewer
 Mihail
 Hansson
 metabolicatlas
