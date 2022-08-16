@@ -85,7 +85,7 @@
                 <a :href="dataSource.link" target="_blank">{{ dataSource.name }}</a>
               </p>
               <div class="select is-fullwidth">
-                <select :disabled="levelsDisabled" @change="e => setDataSet(e.target.value)">
+                <select :disabled="levelsDisabled" @change="handleDataSetSelect">
                   <option>None</option>
                   <option
                     v-for="t in dataSource.dataSets"
@@ -196,14 +196,19 @@ export default {
       propagate: false,
     });
     const dataSet = this.validDataSourceDataSetInQuery() ? this.currentDataSet() : 'None';
-    await this.setDataSet(dataSet);
+    await this.getDataSet({
+      model: this.model.short_name,
+      type: datatype,
+      filename: datasource,
+      dataSet,
+    });
   },
   methods: {
     ...mapActions({
       getDataSourcesIndex: 'dataOverlay/getIndex',
       setCurrentDataType: 'dataOverlay/setCurrentDataType',
       getDataSource: 'dataOverlay/getDataSource',
-      setDataSet: 'dataOverlay/setDataSet',
+      getDataSet: 'dataOverlay/getDataSet',
       setCustomDataSource: 'dataOverlay/setCustomDataSource',
       setCustomDataSet: 'dataOverlay/setCustomDataSet',
     }),
@@ -225,6 +230,15 @@ export default {
       };
 
       await this.getDataSource(payload);
+    },
+    async handleDataSetSelect(e) {
+      const payload = {
+        model: this.model.short_name,
+        type: this.dataType.name,
+        filename: this.dataSource.filename,
+        dataSet: e.target.value,
+      };
+      await this.getDataSet(payload);
     },
     async getFileName(file) {
       this.customFileName = file.name;
