@@ -116,9 +116,9 @@
             <TableOfContents :links="tocLinks" />
             <div id="intro" class="column content has-text-justified">
               <p>
-                GotEnzymes provides open access to over 25,794,195 million predicted k<sub>cat</sub>
-                for 5,825,213 unique sequences and 4,147 compounds from 8,099 species with the
-                cutting-edge artificial intelligence tools.
+                GotEnzymes provides open access to over 25.7 million predicted k<sub>cat</sub>
+                for +5.8 million unique sequences and 4147 compounds, across 8099 species, predicted
+                with cutting-edge artificial intelligence tools.
               </p>
 
               <hr class="mt-6" />
