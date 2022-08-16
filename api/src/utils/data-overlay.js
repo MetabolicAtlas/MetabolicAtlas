@@ -3,7 +3,14 @@ import models from 'data/integratedModels.json';
 
 const VALID_MODELS = models.map(m => m.short_name);
 
+const cachedDataSourceFiles = {};
+
 const getDataSourceFile = async (model, dataType, filename) => {
+  const key = `${model}_${dataType}_${filename}`;
+  if (cachedDataSourceFiles[key]) {
+    return cachedDataSourceFiles[key];
+  }
+
   if (!VALID_MODELS.includes(model)) {
     throw new Error(`Invalid model provided: ${model}.`);
   }
@@ -23,6 +30,7 @@ const getDataSourceFile = async (model, dataType, filename) => {
     'utf8'
   );
 
+  cachedDataSourceFiles[key] = dataSourceFile;
   return dataSourceFile;
 };
 

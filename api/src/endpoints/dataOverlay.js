@@ -26,19 +26,6 @@ routes.get('/:model', async (req, res) => {
   }
 });
 
-routes.get('/:model/:dataType/:filename', async (req, res) => {
-  const { model, dataType, filename } = req.params;
-  try {
-    const dataSourceFile = await getDataSourceFile(model, dataType, filename);
-
-    res.setHeader('Content-Type', 'text/tsv');
-    res.send(dataSourceFile);
-  } catch (e) {
-    console.error(e.message);
-    res.sendStatus(404);
-  }
-});
-
 routes.get('/:model/:dataType/:filename/data-sets', async (req, res) => {
   const { model, dataType, filename } = req.params;
   try {
