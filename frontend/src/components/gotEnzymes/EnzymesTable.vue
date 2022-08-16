@@ -16,11 +16,17 @@
       :rows="enzymes"
       :sort-options="{ enabled: true }"
       :pagination-options="tablePaginationOptions"
+      :is-loading="showEnzymesLoader"
       :total-rows="totalRows"
       @on-page-change="onPageChange"
       @on-sort-change="onSortChange"
       @on-column-filter="onColumnFilter"
     >
+      <div slot="emptystate">No enzymes found</div>
+      <template slot="loadingContent">
+        <div>
+          <loader /></div
+      ></template>
       <template slot="table-row" slot-scope="props">
         <template v-if="linkableFields.includes(props.column.field)">
           <template v-if="props.column.field === 'ec_number'">
@@ -55,6 +61,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import Loader from '@/components/Loader';
 import { VueGoodTable } from 'vue-good-table';
 import ExportTSV from '@/components/shared/ExportTSV';
 import RangeFilter from '@/components/shared/RangeFilter';
@@ -65,6 +72,7 @@ export default {
     VueGoodTable,
     ExportTSV,
     RangeFilter,
+    Loader,
   },
   props: {
     initialFilter: { type: Object, default: () => {} },
@@ -74,6 +82,7 @@ export default {
   data() {
     return {
       linkableFields: ['compound', 'domain', 'ec_number', 'gene', 'organism', 'reaction_id'],
+      showEnzymesLoader: true,
       columns: [
         {
           label: 'Gene',
@@ -152,6 +161,7 @@ export default {
   },
   methods: {
     async setup() {
+      this.showEnzymesLoader = true;
       this.serverPaginationOptions = {
         ...this.serverPaginationOptions,
         filters: {
@@ -161,6 +171,7 @@ export default {
       };
 
       await this.$store.dispatch('gotEnzymes/getEnzymes', this.serverPaginationOptions);
+      this.showEnzymesLoader = false;
     },
     async onPageChange({ currentPage }) {
       this.serverPaginationOptions = {
@@ -186,6 +197,7 @@ export default {
       await this.$store.dispatch('gotEnzymes/getEnzymes', this.serverPaginationOptions);
     },
     async onColumnFilter({ columnFilters }) {
+      this.showEnzymesLoader = true;
       this.serverPaginationOptions = {
         ...this.serverPaginationOptions,
         filters: {
@@ -195,6 +207,7 @@ export default {
       };
 
       await this.$store.dispatch('gotEnzymes/getEnzymes', this.serverPaginationOptions);
+      this.showEnzymesLoader = false;
     },
     formatToTSV() {
       let tsvContent = `${this.columns.map(e => e.label).join('\t')}\n`;
@@ -212,6 +225,7 @@ export default {
     async handleRangeFilterUpdate({ field, remove, ...payload }) {
       // payload can look like { min: 0, max: 1 }
 
+      this.showEnzymesLoader = true;
       const filters = { ...this.serverPaginationOptions.filters };
       if (remove) {
         delete filters[field];
@@ -225,6 +239,7 @@ export default {
       };
 
       await this.$store.dispatch('gotEnzymes/getEnzymes', this.serverPaginationOptions);
+      this.showEnzymesLoader = false;
     },
   },
 };
