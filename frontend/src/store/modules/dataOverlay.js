@@ -37,7 +37,7 @@ const getters = {
     };
 
     Object.keys(l[t]).forEach(id => {
-      const val = Math.round((l[t][id] + 0.00001) * 100) / 100;
+      const val = l[t][id];
       computedLevels[id] = [getSingleExpressionColor(val), val];
     });
 
