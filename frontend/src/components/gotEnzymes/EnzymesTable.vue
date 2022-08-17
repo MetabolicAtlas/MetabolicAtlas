@@ -174,6 +174,7 @@ export default {
       this.showEnzymesLoader = false;
     },
     async onPageChange({ currentPage }) {
+      this.showEnzymesLoader = true;
       this.serverPaginationOptions = {
         ...this.serverPaginationOptions,
         pagination: {
@@ -183,8 +184,10 @@ export default {
       };
 
       await this.$store.dispatch('gotEnzymes/getEnzymes', this.serverPaginationOptions);
+      this.showEnzymesLoader = false;
     },
     async onSortChange([{ field, type }]) {
+      this.showEnzymesLoader = true;
       this.serverPaginationOptions = {
         ...this.serverPaginationOptions,
         pagination: {
@@ -195,6 +198,7 @@ export default {
       };
 
       await this.$store.dispatch('gotEnzymes/getEnzymes', this.serverPaginationOptions);
+      this.showEnzymesLoader = false;
     },
     async onColumnFilter({ columnFilters }) {
       this.showEnzymesLoader = true;
