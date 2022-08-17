@@ -543,7 +543,7 @@ paths:
           in: 'query'
           type: 'string'
           description: 'the compound id, e.g. **C00092** (or leave empty for more results)'
-          example: 'C00092'
+          default: 'C00092'
         - name: 'filters[organism]'
           in: 'query'
           type: 'string'
