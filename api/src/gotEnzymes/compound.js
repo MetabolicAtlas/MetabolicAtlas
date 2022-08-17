@@ -7,7 +7,7 @@ const getCompound = async id => {
     where kegg = ${id.toString()}
   `;
 
-  if (compounds.length !== 1) {
+  if (!compounds.length) {
     throw new Error(
       `Compound with kegg ID ${id} returned ${compounds.length} results.`
     );

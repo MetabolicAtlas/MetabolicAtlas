@@ -7,7 +7,7 @@ const getReaction = async id => {
     where kegg = ${id.toString()}
   `;
 
-  if (reactions.length !== 1) {
+  if (!reactions.length) {
     throw new Error(
       `Reaction with kegg ID ${id} returned ${reactions.length} results.`
     );

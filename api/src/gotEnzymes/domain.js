@@ -6,7 +6,7 @@ const getDomain = async value => {
     where abbreviation = ${value.toString()}
   `;
 
-  if (domain.length !== 1) {
+  if (!domain.length) {
     throw new Error(`Domain ${value} returned ${domain.length} results.`);
   }
 

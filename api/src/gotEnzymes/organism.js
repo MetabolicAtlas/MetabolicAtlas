@@ -6,7 +6,7 @@ const getOrganism = async value => {
     where kegg = ${value.toString()}
   `;
 
-  if (organism.length !== 1) {
+  if (!organism.length) {
     throw new Error(`Organism ${value} returned ${organism.length} results.`);
   }
 

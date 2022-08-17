@@ -7,8 +7,8 @@ const getGene = async value => {
     where kegg = ${value.toString()}
   `;
 
-  if (genes.length !== 1) {
-    throw new Error(`Gene ${value} returned ${genes.length} results.`);
+  if (!genes.length) {
+    throw new Error(`Gene ${value} returned ${gene.length} results.`);
   }
 
   const gene = genes[0];
