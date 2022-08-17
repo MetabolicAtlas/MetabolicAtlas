@@ -126,7 +126,7 @@
               <p>
                 We currently support fuzzy searches by reaction, compound, EC number, organism and
                 domain, and exact searches for KEGG gene identifiers. All table columns are
-                filterable and sortable, including the predicted numberical values. Feel free to
+                filterable and sortable, including the predicted numerical values. Feel free to
                 contact us if you find any issue. To report a technical error on the webpage please
                 email
                 <a href="mailto:contact@metabolicatlas.org">contact [at] metabolicatlas [dot] org</a
@@ -147,7 +147,7 @@
                 flux simulations, and to improve the Design-Build-Test-Learn cycle in metabolic
                 engineering, by suggesting candidate alternative enzymes. To this end, we aim to
                 store every possible predicted parameter for all available enzymes in a single
-                database that is equally easy to use manually and programatically.
+                database that is equally easy to use manually and programmatically.
               </p>
 
               <hr class="mt-6" />

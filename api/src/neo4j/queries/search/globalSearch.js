@@ -12,7 +12,7 @@ const fetchCompartmentalizedMetabolites = async ({
   model,
   version,
   limit,
-  viaMetabolties,
+  viaMetabolites,
 }) => {
   if (!ids) {
     return null;
@@ -20,7 +20,7 @@ const fetchCompartmentalizedMetabolites = async ({
 
   let statement = ``;
 
-  if (viaMetabolties) {
+  if (viaMetabolites) {
     statement += `
 WITH ${JSON.stringify(ids)} as mids
 UNWIND
@@ -356,7 +356,7 @@ LIMIT ${limit}
       model,
       version: v,
       limit,
-      viaMetabolties: true,
+      viaMetabolites: true,
     }),
     fetchGenes({ ids: groupedByComponents['Gene'], model, version: v }),
     fetchReactions({

@@ -123,7 +123,7 @@ export default {
             title:
               'RAVEN (Reconstruction, Analysis and Visualization of Metabolic Networks) Toolbox is a software suite that allows for semi-automated reconstruction of genome-scale models',
             description:
-              'RAVEN is primarily intended for the generation and curation of genome-scale models by using published models and/or the MetaCyc and KEGG databases, coupled with extensive gap-filling and quality control features. Furthermore, the software incorporates functionality to contextualize generic models using the task-based INIT algorithm, for generating e.g. tissue-specific models. RAVEN also contains methods for visualizing simulation results and omics data, as well as a range of methods for performing simulations and analyzing the results. The software is a useful tool for system-wide data analysis in a metabolic context and for streamlined reconstruction of metabolic networks based on protein homology and expression data.',
+              'RAVEN is primarily intended for the generation and curation of genome-scale models by using published models and/or the MetaCyc and KEGG databases, coupled with extensive gap-filling and quality control features. Furthermore, the software incorporates functionality to contextualize generic models using the task-based INIT algorithm, for generating e.g. tissue-specific models. RAVEN also contains methods for visualizing simulation results and omics data, as well as a range of methods for performing simulations and analysing the results. The software is a useful tool for system-wide data analysis in a metabolic context and for streamlined reconstruction of metabolic networks based on protein homology and expression data.',
             citation:
               'Wang, H., Marcišauskas, S., Sánchez, B.J., Domenzain, I., Hermansson, D., Agren, R., Nielsen, J., Kerkhoven, E.J. (2018) RAVEN 2.0: A versatile toolbox for metabolic network reconstruction and a case study on Streptomyces coelicolor. PLOS Computational Biology, 14, e1006541.',
             citation_url:
@@ -150,7 +150,7 @@ export default {
             title:
               'Genome and transcriptome (RNAseq and Microarray) browser of Saccharomyces cerevisiae',
             description:
-              'Yseq provides a useful and comprehensive comparison between the two platforms (RNA-seq and microrrays) for gene expression analysis and addresses the contribution of the different steps involved in the analysis of RNA-seq data',
+              'Yseq provides a useful and comprehensive comparison between the two platforms (RNA-seq and microarrays) for gene expression analysis and addresses the contribution of the different steps involved in the analysis of RNA-seq data',
             citation:
               'Nookaew, I., Papini, M., Pornputtapong, N., Scalcinati, G., Fagerberg, L., Uhlén, M., & Nielsen, J. (2012). <i>A comprehensive comparison of RNA-Seq-based transcriptome analysis from reads to differential gene expression and cross-comparison with microarrays: a case study in Saccharomyces cerevisiae</i>. Nucleic acids research, 40(20), 10084-10097',
             citation_url: 'https://academic.oup.com/nar/article/40/20/10084/2414805',
@@ -188,7 +188,7 @@ export default {
             title:
               'The human cancer secretome database (HCSD) is a comprehensive database for human cancer secretome data',
             description:
-              'Query, and compare, publicly available proteomics data published in the field of cancer secretome and tumor microenviroment, and visualize the predicted secretory features and post-translational modification sites (PTMs) for each protein.',
+              'Query, and compare, publicly available proteomics data published in the field of cancer secretome and tumour microenvironment, and visualize the predicted secretory features and post-translational modification sites (PTMs) for each protein.',
             citation:
               'Feizi, A., Banaei-Esfahani, A., Nielsen, J. (2015) <i>HCSD: the human cancer secretome database</i>. Database 2015',
             citation_url:
