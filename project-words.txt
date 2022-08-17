@@ -35,7 +35,6 @@ cxttap
 cypan
 Cytoscape
 cyzoom
-datasource
 Dina
 Domenzain
 donut
