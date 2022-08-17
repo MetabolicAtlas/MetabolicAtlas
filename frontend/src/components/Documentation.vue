@@ -280,7 +280,7 @@
                 <i>Map Viewer</i>. By clicking the
                 <i>Data overlay</i>
                 button on the right side of the page, one can toggle the hidden/display of this
-                panel. For Human-GEM, the gene and reaction expression levels from
+                panel. For Human-GEM, the gene expression levels and reaction data from
                 <a href="https://www.proteinatlas.org/" target="_blank">The Human Protein Atlas</a>
                 can be loaded by selecting one of the tissues in the drop down list. Once selected,
                 the RNA levels corresponding to the chosen tissue will be used to color each gene on
