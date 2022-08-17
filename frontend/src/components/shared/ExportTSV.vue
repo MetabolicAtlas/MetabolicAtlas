@@ -1,6 +1,6 @@
 <template>
   <span>
-    <a class="button is-primary is-outlined" @click="exportToTSV">
+    <a :disabled="disabled" class="button is-primary is-outlined" @click="exportToTSV">
       <span class="icon is-large"><i class="fa fa-download"></i></span>
       <span>Export to TSV</span>
     </a>
@@ -22,6 +22,7 @@ export default {
     arg: [Number, String, Object, Array],
     filename: String,
     formatFunction: Function,
+    disabled: Boolean,
   },
   data() {
     return {

@@ -6,6 +6,7 @@
         <ExportTSV
           :filename="`Enzymes for ${componentType} ${componentId}.tsv`"
           :format-function="formatToTSV"
+          :disabled="showEnzymesLoader"
         ></ExportTSV>
       </div>
     </div>
