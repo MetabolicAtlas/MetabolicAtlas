@@ -165,8 +165,10 @@ export default {
     },
     setupHoverEventHandlers() {
       const self = this;
+      $('#svg-wrapper').off('mouseover');
+      $('#svg-wrapper').off('mouseout');
       $('#svg-wrapper').on('mouseover', `.${self.componentClassName}`, function f(e) {
-        const id = $(this).attr('class').split(' ')[1].trim();
+        const id = $(this).attr('id') || $(this).attr('class').split(' ')[1].trim();
         if (id in self.computedLevels) {
           self.$refs.tooltip.innerHTML = self.computedLevels[id][1]; // eslint-disable-line prefer-destructuring
         } else if (Object.keys(self.computedLevels).length !== 0) {
@@ -356,7 +358,7 @@ export default {
       const allComponents = $(`#svg-wrapper .${this.componentClassName}`);
       Object.values(allComponents).forEach(node => {
         try {
-          const ID = node.classList.length > 1 ? node.classList[1] : node.id;
+          const ID = node.id || node.classList[1];
           if (this.computedLevels[ID] !== undefined) {
             node.children[0].setAttribute('fill', this.computedLevels[ID][0]); // 0 is the float value, 1 the color hex
           } else {
