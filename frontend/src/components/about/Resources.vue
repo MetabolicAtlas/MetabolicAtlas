@@ -96,7 +96,7 @@ export default {
             link: 'https://github.com/SysBioChalmers/Kiwi',
             img: require('../../assets/logos/kiwi.png'),
             title:
-              'The Kiwi module combines geneset analyses with biological networks to visualize the interactions between genesets that are significant in a given biological system',
+              'The Kiwi module combines gene-set analyses with biological networks to visualize the interactions between gene-sets that are significant in a given biological system',
             description:
               'With Kiwi, the inherent connectivity between gene-sets becomes apparent - one can visualize whether these entities or processes are isolated or connected by means of their biological interaction.',
             citation:

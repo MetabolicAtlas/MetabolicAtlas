@@ -58,8 +58,6 @@ fulltext
 gapless
 Gatto
 gemodelset
-geneset
-genesets
 glyoxalate
 Gobom
 GOTBIN
