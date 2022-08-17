@@ -17,14 +17,10 @@ gotEnzymesRoutes.get('/compounds/:id', async (req, res) => {
 
   try {
     const compound = await getCompound(id);
-    if (compound) {
-      res.json(compound);
-    } else {
-      res.sendStatus(404);
-    }
+    res.json(compound);
   } catch (e) {
     console.error(e.message);
-    res.sendStatus(500);
+    res.sendStatus(404);
   }
 });
 
@@ -33,14 +29,10 @@ gotEnzymesRoutes.get('/ecs/:value', async (req, res) => {
 
   try {
     const ec = await getEc(value);
-    if (ec) {
-      res.json(ec);
-    } else {
-      res.sendStatus(404);
-    }
+    res.json(ec);
   } catch (e) {
     console.error(e.message);
-    res.sendStatus(500);
+    res.sendStatus(404);
   }
 });
 
@@ -49,14 +41,10 @@ gotEnzymesRoutes.get('/genes/:value', async (req, res) => {
 
   try {
     const ec = await getGene(value);
-    if (ec) {
-      res.json(ec);
-    } else {
-      res.sendStatus(404);
-    }
+    res.json(ec);
   } catch (e) {
     console.error(e.message);
-    res.sendStatus(500);
+    res.sendStatus(404);
   }
 });
 
@@ -65,14 +53,10 @@ gotEnzymesRoutes.get('/organisms/:value', async (req, res) => {
 
   try {
     const ec = await getOrganism(value);
-    if (ec) {
-      res.json(ec);
-    } else {
-      res.sendStatus(404);
-    }
+    res.json(ec);
   } catch (e) {
     console.error(e.message);
-    res.sendStatus(500);
+    res.sendStatus(404);
   }
 });
 
@@ -81,14 +65,10 @@ gotEnzymesRoutes.get('/domains/:value', async (req, res) => {
 
   try {
     const ec = await getDomain(value);
-    if (ec) {
-      res.json(ec);
-    } else {
-      res.sendStatus(404);
-    }
+    res.json(ec);
   } catch (e) {
     console.error(e.message);
-    res.sendStatus(500);
+    res.sendStatus(404);
   }
 });
 
@@ -97,14 +77,10 @@ gotEnzymesRoutes.get('/reactions/:id', async (req, res) => {
 
   try {
     const reaction = await getReaction(id);
-    if (reaction) {
-      res.json(reaction);
-    } else {
-      res.sendStatus(404);
-    }
+    res.json(reaction);
   } catch (e) {
     console.error(e.message);
-    res.sendStatus(500);
+    res.sendStatus(404);
   }
 });
 
