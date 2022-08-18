@@ -280,7 +280,7 @@
                 <i>Map Viewer</i>. By clicking the
                 <i>Data overlay</i>
                 button on the right side of the page, one can toggle the hidden/display of this
-                panel. For Human-GEM, the gene expression levels for genes from
+                panel. For Human-GEM, the gene expression levels and reaction data from
                 <a href="https://www.proteinatlas.org/" target="_blank">The Human Protein Atlas</a>
                 can be loaded by selecting one of the tissues in the drop down list. Once selected,
                 the RNA levels corresponding to the chosen tissue will be used to color each gene on
@@ -290,13 +290,31 @@
                 ). To clear the RNA levels, select the
                 <i>None</i>
                 option in the drop down list. RNA levels are available for both 2D and 3D Map
-                Viewer. The gene expression levels used are obtained from the file
-                <b>rna_tissue_hpa.tsv.zip</b>
-                in the
+                Viewer. The gene expression levels used are obtained from the
                 <a href="https://www.proteinatlas.org/about/download" target="_blank">
                   download page
                 </a>
                 of the Human Protein Atlas.
+              </p>
+              <p>
+                The reaction presence was initially computed as a number between 0 and 100. The
+                value is computed by creating bootstraps from the single-cell RNA-Seq data from the
+                <a href="https://www.proteinatlas.org/about/releases#21.0" target="_blank"
+                  >Human Protein Atlas - Single Cell Type Section</a
+                >, pooling those into RNA-Seq profiles and applying the ftINIT algorithm. A high
+                value &#8805;0.99 means that there is high confidence that the reaction is present,
+                whereas a low value &#8804;0.01 means it is not. The resulting values were then
+                scaled to 0-1 as per
+                <a
+                  href="https://github.com/MetabolicAtlas/data-files/blob/main/DATA_OVERLAY.md"
+                  target="_blank"
+                  >these guidelines</a
+                >. For more information on single-cell bootstraps and how ftINIT works, please see
+                <a
+                  href="https://www.biorxiv.org/content/10.1101/2022.04.25.489379v1.full"
+                  target="_blank"
+                  >this manuscript</a
+                >.
               </p>
               <p>
                 The

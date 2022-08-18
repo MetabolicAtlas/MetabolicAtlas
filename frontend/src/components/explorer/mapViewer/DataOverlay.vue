@@ -51,7 +51,7 @@
             <div v-if="dataType" class="select is-fullwidth">
               <select @change="handleDataTypeSelect">
                 <option
-                  v-for="type in Object.keys(dataSourcesIndex)"
+                  v-for="type in Object.keys(filteredDataSourcesIndex)"
                   :key="type"
                   :selected="type === dataType.name"
                   :value="type"
@@ -67,7 +67,7 @@
             <div v-if="dataType" class="select is-fullwidth">
               <select @change="handleDataSourceSelect">
                 <option
-                  v-for="s in dataSourcesIndex[dataType.name]"
+                  v-for="s in filteredDataSourcesIndex[dataType.name]"
                   :key="s.filename"
                   :selected="dataSource && s.filename === dataSource.filename"
                   :value="s.filename"
@@ -85,7 +85,7 @@
                 <a :href="dataSource.link" target="_blank">{{ dataSource.name }}</a>
               </p>
               <div class="select is-fullwidth">
-                <select :disabled="levelsDisabled" @change="e => setDataSet(e.target.value)">
+                <select :disabled="levelsDisabled" @change="handleDataSetSelect">
                   <option>None</option>
                   <option
                     v-for="t in dataSource.dataSets"
@@ -175,12 +175,20 @@ export default {
     levelsDisabled() {
       return !this.mapName || !this.dataSource || this.dataSource.dataSets.length === 0;
     },
+    filteredDataSourcesIndex() {
+      if (this.$route.name === 'interaction') {
+        // do not include fluxomics data for the interaction partners page
+        const { fluxomics, ...dataSourcesIndex } = this.dataSourcesIndex;
+        return dataSourcesIndex;
+      }
+      return this.dataSourcesIndex;
+    },
   },
   async created() {
     await this.getDataSourcesIndex(this.model.short_name);
     const datatype = this.validDataTypeInQuery()
       ? this.$route.query.datatype
-      : Object.keys(this.dataSourcesIndex)[0];
+      : Object.keys(this.filteredDataSourcesIndex)[0];
     await this.setCurrentDataType({
       model: this.model.short_name,
       type: datatype,
@@ -188,7 +196,7 @@ export default {
     });
     const datasource = this.validDataSourceInQuery()
       ? this.$route.query.datasource
-      : this.dataSourcesIndex[this.dataType.name][0].filename;
+      : this.filteredDataSourcesIndex[this.dataType.name][0].filename;
     await this.getDataSource({
       model: this.model.short_name,
       type: datatype,
@@ -196,14 +204,19 @@ export default {
       propagate: false,
     });
     const dataSet = this.validDataSourceDataSetInQuery() ? this.currentDataSet() : 'None';
-    await this.setDataSet(dataSet);
+    await this.getDataSet({
+      model: this.model.short_name,
+      type: datatype,
+      filename: datasource,
+      dataSet,
+    });
   },
   methods: {
     ...mapActions({
       getDataSourcesIndex: 'dataOverlay/getIndex',
       setCurrentDataType: 'dataOverlay/setCurrentDataType',
       getDataSource: 'dataOverlay/getDataSource',
-      setDataSet: 'dataOverlay/setDataSet',
+      getDataSet: 'dataOverlay/getDataSet',
       setCustomDataSource: 'dataOverlay/setCustomDataSource',
       setCustomDataSet: 'dataOverlay/setCustomDataSet',
     }),
@@ -225,6 +238,15 @@ export default {
       };
 
       await this.getDataSource(payload);
+    },
+    async handleDataSetSelect(e) {
+      const payload = {
+        model: this.model.short_name,
+        type: this.dataType.name,
+        filename: this.dataSource.filename,
+        dataSet: e.target.value,
+      };
+      await this.getDataSet(payload);
     },
     async getFileName(file) {
       this.customFileName = file.name;
@@ -255,20 +277,20 @@ export default {
     validDataTypeInQuery() {
       return (
         this.$route.query.datatype &&
-        Object.keys(this.dataSourcesIndex).indexOf(this.$route.query.datatype) > -1
+        Object.keys(this.filteredDataSourcesIndex).indexOf(this.$route.query.datatype) > -1
       );
     },
     validDataSourceInQuery() {
       return (
         this.$route.query.datasource && // eslint-disable-line operator-linebreak
         this.dataType && // eslint-disable-line operator-linebreak
-        this.dataSourcesIndex[this.dataType.name]
+        this.filteredDataSourcesIndex[this.dataType.name]
           .map(e => e.filename)
           .indexOf(this.$route.query.datasource) > -1
       );
     },
     modelHasOverlayData() {
-      return Object.keys(this.dataSourcesIndex).length > 0;
+      return Object.keys(this.filteredDataSourcesIndex).length > 0;
     },
     currentDataSet() {
       return this.dataSet !== 'None' ? this.dataSet : this.$route.query.dataSet;

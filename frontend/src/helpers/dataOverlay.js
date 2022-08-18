@@ -1,5 +1,6 @@
 const DEFAULT_GENE_COLOR = '#feb';
 const DEFAULT_METABOLITE_COLOR = '#9df';
+const DEFAULT_REACTION_COLOR = '#fff';
 
 const DATA_TYPES_COMPONENTS = {
   transcriptomics: {
@@ -11,6 +12,11 @@ const DATA_TYPES_COMPONENTS = {
     componentType: 'metabolite',
     className: 'met',
     defaultColor: DEFAULT_METABOLITE_COLOR,
+  },
+  fluxomics: {
+    componentType: 'reaction',
+    className: 'rea',
+    defaultColor: DEFAULT_REACTION_COLOR,
   },
 };
 
@@ -64,4 +70,10 @@ const parseFile = async file => {
   };
 };
 
-export { DEFAULT_GENE_COLOR, DEFAULT_METABOLITE_COLOR, DATA_TYPES_COMPONENTS, parseFile };
+export {
+  DEFAULT_GENE_COLOR,
+  DEFAULT_METABOLITE_COLOR,
+  DEFAULT_REACTION_COLOR,
+  DATA_TYPES_COMPONENTS,
+  parseFile,
+};
