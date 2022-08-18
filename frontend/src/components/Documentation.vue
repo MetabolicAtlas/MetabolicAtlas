@@ -303,7 +303,7 @@
                   >Human Protein Atlas - Single Cell Type Section</a
                 >, pooling those into RNA-Seq profiles and applying the ftINIT algorithm. A high
                 value &#8805;0.99 means that there is high confidence that the reaction is present,
-                whereas a low value &#8804;0.1 means it is not. The resulting values were then
+                whereas a low value &#8804;0.01 means it is not. The resulting values were then
                 scaled to 0-1 as per
                 <a
                   href="https://github.com/MetabolicAtlas/data-files/blob/main/DATA_OVERLAY.md"
