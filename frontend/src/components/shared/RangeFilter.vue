@@ -73,7 +73,7 @@ export default {
     async maxChange(newMaxValue) {
       this.max = Number(newMaxValue);
       this.handleUpdate(this.rangePayload);
-    }
+    },
   },
 };
 </script>
