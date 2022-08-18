@@ -104,7 +104,7 @@ gotEnzymesRoutes.get('/search/:term', async (req, res) => {
     res.json(results);
   } catch (e) {
     console.error(e.message);
-    res.sendStatus(500);
+    res.sendStatus(400);
   }
 });
 
