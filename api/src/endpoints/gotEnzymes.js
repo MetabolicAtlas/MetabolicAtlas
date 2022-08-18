@@ -92,7 +92,7 @@ gotEnzymesRoutes.get('/enzymes', async (req, res) => {
     res.json(enzymes);
   } catch (e) {
     console.error(e.message);
-    res.sendStatus(500);
+    res.status(400).send(e.message);
   }
 });
 

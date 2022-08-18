@@ -55,11 +55,23 @@ const getEnzymes = async ({
     page = 1,
   } = {},
 }) => {
+  const columns = [
+    'gene',
+    'organism',
+    'domain',
+    'reaction_id',
+    'ec_number',
+    'compound',
+    'kcat_values',
+  ];
   const filtersQueries = getFiltersQueries(filters);
   const order = isAscending.toLowerCase() === 'true' ? sql`asc` : sql`desc`;
 
+  if (!columns.includes(column)) {
+    throw new Error(`Can not sort on unknown column ${column}`);
+  }
   const enzymesQuery = sql`
-    select gene, organism, domain, reaction_id, ec_number, compound, kcat_values from enzymes
+    select ${JSON.stringify(columns)} from enzymes
     ${
       filtersQueries.length > 0
         ? sql`where ${filtersQueries.reduce(
