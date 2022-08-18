@@ -23,7 +23,9 @@
       @on-sort-change="onSortChange"
       @on-column-filter="onColumnFilter"
     >
-      <div slot="emptystate">No enzymes found</div>
+      <div slot="emptystate">
+        <div class="vgt-center-align vgt-text-disabled">No data found</div>
+      </div>
       <template slot="loadingContent">
         <div>
           <loader /></div
