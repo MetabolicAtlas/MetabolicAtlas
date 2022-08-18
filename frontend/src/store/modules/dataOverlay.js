@@ -4,17 +4,17 @@ import { getSingleExpressionColor } from '@/helpers/expressionSources';
 
 const data = {
   index: {},
-  currentDataType: null,
-  currentDataSource: null,
+  currentDataType: [],
+  currentDataSource: [],
   customDataSource: null,
   customDataSet: 'None',
-  dataSet: 'None',
+  dataSet: ['None'],
 };
 
 const getters = {
   queryParams: state => ({
-    datatype: state.currentDataType ? state.currentDataType.name : 'None',
-    datasource: state.currentDataSource ? state.currentDataSource.filename : 'None',
+    datatype: state.currentDataType.length ? state.currentDataType[0].name : 'None',
+    datasource: state.currentDataSource.length ? state.currentDataSource.filename : 'None',
     dataSet: state.dataSet,
   }),
   computedLevels: state => {
@@ -25,7 +25,7 @@ const getters = {
     if (customDataSource && customDataSet !== 'None') {
       t = customDataSet;
       l = customDataSource.levels;
-    } else if (currentDataSource && dataSet !== 'None') {
+    } else if (currentDataSource.length && dataSet !== 'None') {
       t = dataSet;
       l = currentDataSource.levels;
     } else {
@@ -43,9 +43,10 @@ const getters = {
 
     return computedLevels;
   },
-  componentClassName: state => state.currentDataType && state.currentDataType.className,
-  componentDefaultColor: state => state.currentDataType && state.currentDataType.defaultColor,
-  componentType: state => state.currentDataType && state.currentDataType.componentType,
+  componentClassName: state => state.currentDataType.length && state.currentDataType[0].className,
+  componentDefaultColor: state =>
+    state.currentDataType.length && state.currentDataType[0].defaultColor,
+  componentType: state => state.currentDataType.length && state.currentDataType[0].componentType,
 };
 
 const actions = {
@@ -54,19 +55,20 @@ const actions = {
 
     commit('setIndex', index);
   },
-  async setCurrentDataType({ commit, dispatch, state }, { model, type, propagate }) {
+  async setCurrentDataType({ commit, dispatch, state }, { model, type, propagate, index }) {
     const currentDataType = {
       name: type,
+      index,
       ...DATA_TYPES_COMPONENTS[type],
     };
     commit('setCurrentDataType', currentDataType);
 
     if (propagate) {
       const { filename } = state.index[type][0];
-      await dispatch('getDataSource', { model, type, filename, propagate });
+      await dispatch('getDataSource', { model, type, filename, propagate, index });
     }
   },
-  async getDataSource({ commit, dispatch }, { model, type, filename, propagate }) {
+  async getDataSource({ commit, dispatch }, { model, type, filename, propagate, index }) {
     try {
       if (propagate) {
         dispatch('setDataSet', 'None');
@@ -93,13 +95,14 @@ const actions = {
       commit('setCurrentDataSource', {
         ...metadata,
         ...dataSource,
+        index,
       });
     } catch (e) {
       console.error(e); // eslint-disable-line no-console
       commit('setCurrentDataSource', null);
     }
   },
-  async getDataSet({ commit }, { model, type, filename, dataSet }) {
+  async getDataSet({ commit }, { model, type, filename, dataSet, index }) {
     try {
       const responseDataSet = await dataOverlayApi.fetchDataSet({
         model,
@@ -112,24 +115,26 @@ const actions = {
       };
       const { currentDataSource } = data;
       const dataSource = {
-        ...currentDataSource,
+        ...currentDataSource[index],
         levels: {
-          ...currentDataSource.levels,
+          ...currentDataSource[index].levels,
           ...newDataSet,
         },
+        index,
       };
+      // TODO why do we set currentDataSource here?
       commit('setCurrentDataSource', dataSource);
-      commit('setDataSet', dataSet);
+      commit('setDataSet', dataSet, index);
     } catch (e) {
       console.error(e); // eslint-disable-line no-console
-      commit('setDataSet', 'None');
+      commit('setDataSet', 'None', index);
     }
   },
-  setDataSet({ commit, dispatch }, dataSet) {
+  setDataSet({ commit, dispatch }, dataSet, index) {
     if (dataSet !== 'None') {
       dispatch('setCustomDataSet', 'None');
     }
-    commit('setDataSet', dataSet);
+    commit('setDataSet', dataSet, index);
   },
   setCustomDataSource({ commit, dispatch }, dataSource) {
     commit('setCustomDataSource', dataSource);
@@ -148,13 +153,22 @@ const mutations = {
     state.index = index;
   },
   setCurrentDataType: (state, currentDataType) => {
-    state.currentDataType = currentDataType;
+    // copy and replace the array to trigger reactive array change detection
+    const tempList = [...state.currentDataType];
+    tempList[currentDataType.index] = currentDataType;
+    state.currentDataType = tempList;
   },
   setCurrentDataSource: (state, currentDataSource) => {
-    state.currentDataSource = currentDataSource;
+    // copy and replace the array to trigger reactive array change detection
+    const tempList = [...state.currentDataSource];
+    tempList[currentDataSource.index] = currentDataSource;
+    state.currentDataSource = tempList;
   },
-  setDataSet: (state, dataSet) => {
-    state.dataSet = dataSet;
+  setDataSet: (state, dataSet, index) => {
+    // copy and replace the array to trigger reactive array change detection
+    const tempList = [...state.dataSet];
+    tempList[index] = dataSet;
+    state.currentDataSet = tempList;
   },
   setCustomDataSource: (state, customDataSource) => {
     state.customDataSource = customDataSource;
