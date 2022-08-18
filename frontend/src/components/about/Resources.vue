@@ -109,9 +109,9 @@ export default {
             link: 'https://varemo.github.io/piano/',
             img: require('../../assets/logos/piano.jpg'),
             title:
-              'Platform for integrative analysis of omics data (PIANO) is an An R/Bioconductor package for gene set analysis',
+              'Platform for integrative analysis of omics data (PIANO) is an An R/Bioconductor package for gene-set analysis',
             description:
-              'Gene set analysis (GSA) is used to elucidate genome-wide data, in particular transcriptome data. We have developed the R package Piano that collects a range of GSA methods into the same system, for the benefit of the end-user. Further on we refine the GSA workflow by using modifications of the gene-level statistics. This enables us to divide the resulting gene set P -values into three classes, describing different aspects of gene expression directionality at gene set level.',
+              'Gene-set analysis (GSA) is used to elucidate genome-wide data, in particular transcriptome data. We have developed the R package Piano that collects a range of GSA methods into the same system, for the benefit of the end-user. Further on we refine the GSA workflow by using modifications of the gene-level statistics. This enables us to divide the resulting gene-set P -values into three classes, describing different aspects of gene expression directionality at gene-set level.',
             citation:
               'V&auml;remo, L., Nielsen, J., Nookaew, I. (2013). <i>Enriching the gene set analysis of genome-wide data by incorporating directionality of gene expression and combining statistical hypotheses and methods</i>. NAR',
             citation_url: 'https://academic.oup.com/nar/article-lookup/doi/10.1093/nar/gkt111',
