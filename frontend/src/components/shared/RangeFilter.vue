@@ -2,7 +2,6 @@
   <div class="is-flex">
     <input
       v-debounce:300ms="minChange"
-      @click="hej"
       :class="{ 'input is-danger': !validMin }"
       :title="validMin ? '' : 'Please enter a valid number, e.g. 1.23'"
       class="vgt-input px-2 mr-1"
@@ -57,9 +56,6 @@ export default {
     },
   },
   methods: {
-    hej() {
-      console.log('clicked');
-    },
     inputValid(maybeNumber) {
       if (maybeNumber === null || maybeNumber === '') {
         return true;
