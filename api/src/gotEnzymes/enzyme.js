@@ -71,7 +71,7 @@ const getEnzymes = async ({
     throw new Error(`Can not sort on unknown column ${column}`);
   }
   const enzymesQuery = sql`
-    select ${JSON.stringify(columns)} from enzymes
+    select ${sql(columns)} from enzymes
     ${
       filtersQueries.length > 0
         ? sql`where ${filtersQueries.reduce(
