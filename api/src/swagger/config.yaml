@@ -582,3 +582,5 @@ paths:
       responses:
         '200':
           description: 'Successful query'
+        '400':
+          description: 'Invalid input'
