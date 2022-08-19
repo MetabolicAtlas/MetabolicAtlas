@@ -64,12 +64,15 @@ export default {
       const numberRegex = /^-?\d+\.?\d*$/;
       return maybeNumber.toString().match(numberRegex);
     },
+    toNumberOrNull(newMinValue) {
+      return (newMinValue.length === 0) ? null : Number(newMinValue);
+    },
     async minChange(newMinValue) {
-      this.min = Number(newMinValue);
+      this.min = this.toNumberOrNull(newMinValue);
       this.handleUpdate(this.rangePayload);
     },
     async maxChange(newMaxValue) {
-      this.max = Number(newMaxValue);
+      this.max = this.toNumberOrNull(newMaxValue);
       this.handleUpdate(this.rangePayload);
     },
   },
