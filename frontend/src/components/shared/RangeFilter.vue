@@ -65,7 +65,7 @@ export default {
       return maybeNumber.toString().match(numberRegex);
     },
     toNumberOrNull(newMinValue) {
-      return (newMinValue.length === 0) ? null : Number(newMinValue);
+      return newMinValue.length === 0 ? null : Number(newMinValue);
     },
     async minChange(newMinValue) {
       this.min = this.toNumberOrNull(newMinValue);
