@@ -15,7 +15,9 @@ axios.defaults.onDownloadProgress = function onDownloadProgress(progressEvent) {
   NProgress.set(percentCompleted / 100.0);
 };
 
-Vue.use(vueDebounce);
+Vue.use(vueDebounce, {
+  listenTo: 'input'
+});
 
 if (navigator.doNotTrack !== '1') {
   Vue.use(VueMatomo, {
