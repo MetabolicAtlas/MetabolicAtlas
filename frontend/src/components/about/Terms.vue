@@ -8,7 +8,7 @@
         usefulness of the website. There are two types of cookies that are set by Metabolic Atlas:
         functionality cookies and tracking cookies.
       </p>
-      Functionality cookies are used to personalize the appearence of the Metabolic Atlas.
+      Functionality cookies are used to personalize the appearance of the Metabolic Atlas.
       <p>
         Tracking cookies are used by our private analytics to track the users on our website. We use
         these to observe the anonymized behaviour on our website in order to improve it. We store

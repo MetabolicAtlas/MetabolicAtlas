@@ -6,7 +6,7 @@
         <template v-if="j != 0">+</template>
         <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key max-len -->
         <a
-          :href="`/explore/${model.short_name}/gem-browser/compartment/${idfy(c)}`"
+          :href="`/explore/${model.short_name}/gem-browser/compartment/${identify(c)}`"
           @click="handleRouterClick"
         >
           {{ c }}
@@ -18,7 +18,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { idfy } from '@/helpers/utils';
+import { identify } from '@/helpers/utils';
 
 export default {
   name: 'CompartmentLinks',
@@ -32,7 +32,7 @@ export default {
     }),
   },
   methods: {
-    idfy,
+    identify,
   },
 };
 </script>

@@ -7,13 +7,13 @@
         <TableOfContents :links="tocLinks" />
         <div id="documentation" class="column content has-text-justified">
           <p>
-            Metabolic Atlas allows to vizualization of the content of the integrated
+            Metabolic Atlas allows to visualization of the content of the integrated
             <a href="#integrated-models">Genome-scale metabolic models (GEMs)</a>
             by using the
             <a href="#gem-browser">GEM Browser</a>
             tool, and enables navigation of the metabolic network maps via the
             <a href="#map-viewer">Map viewer</a>
-            tool. Moreover, interactions betweeen metabolites and genes can be explored with the
+            tool. Moreover, interactions between metabolites and genes can be explored with the
             <a href="#interaction-partners">Interaction Partners</a>
             tool. These three tools are available upon selecting one of the integrated models. The
             selected model is indicated to the right of the Metabolic Atlas logo in the top
@@ -141,7 +141,7 @@
             <i>Compartment</i>
             page shows the information of the currently selected compartment. It is only the number
             of metabolites, genes and reactions is shown in the top table. To retrieve a full list
-            of metabolites, genes and reactions for a comparment, the use of the
+            of metabolites, genes and reactions for a compartment, the use of the
             <a href="#api">API</a>
             is advised. Similarly to the
             <a href="#gem-browser-metabolite">Metabolite</a>
@@ -159,9 +159,9 @@
             <i>Map Viewer</i>
             is, similar to the
             <a href="#gem-browser">GEM Browser</a>, accessible after an integrated model has been
-            selected. It includes a 2D viewer to vizualize metabolic maps in SVG format, and a 3D
-            viewer to explore the metabolic network in 3 dimensions. One can easly go back and forth
-            between the
+            selected. It includes a 2D viewer to visualise metabolic maps in SVG format, and a 3D
+            viewer to explore the metabolic network in 3 dimensions. One can easily go back and
+            forth between the
             <i>GEM Browser</i>
             and
             <i>Map Viewer</i>
@@ -192,7 +192,7 @@
             compartment or a subsystem/pathway. While a very high percentage of the reactions in the
             model are represented on the 2D maps, some may be unavailable. SVG maps were produced
             with
-            <a target="_blank" href="https://www.omix-visualization.com/">Omix Vizualization</a>, a
+            <a target="_blank" href="https://www.omix-visualization.com/">Omix Visualisation</a>, a
             customizable tool for editing biochemical networks. A custom plug-in was developed to
             enable the creation of compact maps with consistent layout.
           </p>
@@ -221,7 +221,7 @@
           </p>
           <p>
             The SVGs are interactive; click on a node (metabolite, reaction, gene) or a subsystem to
-            load some of its information in the sidebar. Additonal information on the corresponding
+            load some of its information in the sidebar. Additional information on the corresponding
             selected element can be accessed by clicking the button "GEM browser" under information
             panel of the selected element on the left sidebar.
           </p>
@@ -244,12 +244,12 @@
           </p>
           <p>
             One can interact with the 3D graph using mouse by holding left-clicking button and
-            moving the mose to rotate the view, holding the right-clicking button and moving the
+            moving the mouse to rotate the view, holding the right-clicking button and moving the
             mouse to pan, and scrolling the mouse wheel to zoom in/out.
           </p>
           <p>
-            One can also hover a node to view its name/id or left-clik on a node (once the graph has
-            stopped moving) to display some of its information in the left sidebar. Additonal
+            One can also hover a node to view its name/id or left-click on a node (once the graph
+            has stopped moving) to display some of its information in the left sidebar. Additional
             information of the selected element can be accessed by clicking the button
             <i>GEM Browser</i>
             under the information panel of the selected element on the left sidebar.
@@ -264,8 +264,8 @@
           </p>
           <p>
             Similar to the 2D SVG maps, the 3D graphs are interactive. Clicking a node on the 3D
-            grap, be it a metabolite, reaction, or gene, the information panel on the left sidebar
-            will be updated for the clicked node. Additonal information of the selected node can be
+            graph, be it a metabolite, reaction, or gene, the information panel on the left sidebar
+            will be updated for the clicked node. Additional information of the selected node can be
             accessed by clicking the button "GEM Browser" under information panel on the left
             sidebar.
           </p>
@@ -314,7 +314,7 @@
                 <b>Figure 2</b>
                 ). Any missing genes or missing values will be assigned an "n/a" value and
                 highlighted in gray. The rest of the columns act as data series, with each column
-                being a new data serie (see
+                being a new data series (see
                 <b>Figure 2</b>
                 ). Note that the values of data series must be in the range of 0-1. Detailed
                 information about the format of the custom data as well as why the data should be in
@@ -369,7 +369,7 @@
                 connected graph of the other metabolites and genes with which it interacts via
                 shared reaction(s). The metabolite or gene of interest is centered on the graph.
                 Connectivity is determined based on the reactions with which this metabolite or gene
-                is associated, i.e. an edge between two nodes may represente a connections that
+                is associated, i.e. an edge between two nodes may represent a connections that
                 occurs in multiple reactions. For medium-sized networks of interaction partners,
                 there is a prompt before generating the graph. For very large networks (e.g. for H
                 <sub>2</sub>
@@ -399,7 +399,7 @@
             </div>
           </div>
           <p class="mt-5">
-            Clicking/selecting a node (shown as black colored node) also shows links on the right
+            Clicking/selecting a node (shown as black coloured node) also shows links on the right
             sidebar to quickly reset the
             <i>Interaction Partners</i>
             for that node or navigate to the corresponding
@@ -435,8 +435,8 @@
           <p>
             Nodes may belong to multiple compartments and/or subsystems. The filter box enables
             highlighting (red label color) the nodes belonging to a given subsystem or compartment.
-            The two filters are additive. Enzymes may catalyze reactions in differents compartments
-            / subsystems; label of genes that encode such enzymes are highlighted in orange on the
+            The two filters are additive. Enzymes may catalyse reactions in different compartments /
+            subsystems; label of genes that encode such enzymes are highlighted in orange on the
             graph.
           </p>
 
@@ -494,7 +494,7 @@
             results per component type. Alternatively, one can click on the banner under the search
             input field to run a
             <i>Global Search</i>, where the term is searched among all the integrated models'
-            components and is unrestricted. To learn more about the search term possiblities, go to
+            components and is unrestricted. To learn more about the search term possibilities, go to
             the
             <a href="#global-search">Global Search</a>
             section of this page.
@@ -559,7 +559,7 @@
             comparison is performed dynamically, by inspecting the cross references to other models
             or databases they share in the database. If a reaction or a metabolite share at least
             one such cross reference, they are considered to be shared between the compared models.
-            Otherwise, they are considerend to be unique to the respective model. The comparison
+            Otherwise, they are considered to be unique to the respective model. The comparison
             table is interactive - by clicking on a cell, the corresponding comparison details are
             shown on the right panel.
           </p>
@@ -568,14 +568,14 @@
             <i>Comparison</i>
             page provides statistics about the comparison/overlap between Human-GEM 1.0.2 and HMR
             2.0, as well as Human-GEM and Recon3D. This comparison has been performed manually for
-            an early verion of Human-GEM, and will not be updated.
+            an early version of Human-GEM, and will not be updated.
           </p>
 
           <h5 id="ftp-access" class="is-size-5">FTP access</h5>
           <p>
             Genome-Scale Metabolic model files can be downloaded from
             <a :href="`ftp://${ftpUrl}/`">ftp://{{ ftpUrl }}</a>
-            or by connecting to the FTP using your favorite FTP client (e.g.
+            or by connecting to the FTP using your favourite FTP client (e.g.
             <a href="https://filezilla-project.org/">FileZilla</a>
             ).
           </p>
@@ -604,9 +604,9 @@
           <h5 id="api" class="is-size-5">API</h5>
           <p>
             Metabolic Atlas has a
-            <a href="/api" target="_blank"> dedicated interface to facilite the use of the API</a>,
-            with output provided in JSON format. The API lets you retrieve data from the integrated
-            models of Metabolic Atlas (eg. genes, metabolites, maps...) as well as the
+            <a href="/api" target="_blank"> dedicated interface to facilitate the use of the API</a
+            >, with output provided in JSON format. The API lets you retrieve data from the
+            integrated models of Metabolic Atlas (eg. genes, metabolites, maps...) as well as the
             <a href="/gotenzymes">GotEnzymes database</a>.
           </p>
           <p>

@@ -836,8 +836,8 @@ export default {
         // get filters
         this.fillFilterFields();
         // select the tab with the highest ranked result
-        const [topRankedComponetType] = this.componentTypeOrder;
-        this.showTabType = topRankedComponetType;
+        const [topRankedComponentType] = this.componentTypeOrder;
+        this.showTabType = topRankedComponentType;
       }
     },
     formatToTSV(index) {

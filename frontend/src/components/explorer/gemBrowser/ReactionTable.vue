@@ -94,7 +94,7 @@
                   <template v-for="(s, index) in r.subsystem_str.split('; ')">
                     {{ index == 0 ? '' : '; ' }}
                     <a
-                      :href="`/explore/${model.short_name}/gem-browser/subsystem/${idfy(s)}`"
+                      :href="`/explore/${model.short_name}/gem-browser/subsystem/${identify(s)}`"
                       @click="handleRouterClick"
                     >
                       {{ s }}
@@ -122,7 +122,7 @@ import { mapState } from 'vuex';
 import Loader from '@/components/Loader';
 import { default as compare } from '@/helpers/compare';
 import ExportTSV from '@/components/shared/ExportTSV';
-import { idfy, reformatChemicalReactionHTML } from '@/helpers/utils';
+import { identify, reformatChemicalReactionHTML } from '@/helpers/utils';
 import CompartmentLinks from '@/components/shared/CompartmentLinks';
 
 export default {
@@ -287,7 +287,7 @@ export default {
         .join('\n');
       return tsvContent;
     },
-    idfy,
+    identify,
     reformatChemicalReactionHTML,
   },
 };

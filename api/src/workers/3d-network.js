@@ -7,7 +7,7 @@ import { Worker } from 'worker_threads';
 
 export default workerData =>
   new Promise((resolve, reject) => {
-    // Create a Worker thread that waits for a message that inclues
+    // Create a Worker thread that waits for a message that includes
     // an object of the shape `{ nodes, links }`. Once received, it
     // generates the 3D network layout and replies to the main thread.
     const worker = new Worker(

@@ -9,7 +9,7 @@ export function capitalize(value) {
   return `${value[0].toUpperCase()}${value.slice(1)}`;
 }
 
-export function idfy(value) {
+export function identify(value) {
   if (!value) {
     return '';
   }
@@ -55,14 +55,14 @@ export function getSimpleEquation(reaction) {
 
 const sortByName = metabolites => [...metabolites].sort((a, b) => (a.name > b.name ? 1 : -1));
 
-/** Get the compartement from a reactant or product */
+/** Get the compartment from a reactant or product */
 const getCompartment = ({ fullName }) => fullName.match(/\[[a-z]{1,3}\]/)[0];
 
-/** Extract the compartements from the full names,
+/** Extract the compartments from the full names,
  * discard duplicates and return as a string  */
 const uniqueCompartments = xs => Array.from(new Set(xs.map(r => getCompartment(r)))).join(' + ');
 
-/** Create  the compartements for the summary, as used in Equation and Related Reactions */
+/** Create  the compartments for the summary, as used in Equation and Related Reactions */
 export const formatCompartmentStr = reaction => {
   const reactants = reaction.metabolites.filter(m => m.outgoing);
   const products = reaction.metabolites.filter(m => !m.outgoing);

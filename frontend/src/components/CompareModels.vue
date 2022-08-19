@@ -34,7 +34,7 @@
         </div>
         <comparison-details v-if="validModels && !comparisonsEmpty" />
       </div>
-      <h3 class="title is-size-3 mt-6">Historical comparisions</h3>
+      <h3 class="title is-size-3 mt-6">Historical comparisons</h3>
       <div>
         <b>Human-GEM</b> was created by unifying several model lineages, including
         <b
