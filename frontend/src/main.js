@@ -16,7 +16,7 @@ axios.defaults.onDownloadProgress = function onDownloadProgress(progressEvent) {
 };
 
 Vue.use(vueDebounce, {
-  listenTo: 'input'
+  listenTo: 'input',
 });
 
 if (navigator.doNotTrack !== '1') {
