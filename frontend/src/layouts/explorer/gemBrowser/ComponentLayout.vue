@@ -42,7 +42,7 @@
               <a href="/api/v2" target="_blank">API</a>
             </p>
           </div>
-          <slot v-if="isMetabolite" name="chebi" />
+          <slot v-if="isMetabolite" name="rdkit-img" />
           <div class="column is-3-widescreen is-4-desktop is-6-tablet has-text-centered">
             <router-link
               v-if="interactionPartner"

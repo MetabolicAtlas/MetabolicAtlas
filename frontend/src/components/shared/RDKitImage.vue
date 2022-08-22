@@ -1,5 +1,5 @@
 <template>
-  <div ref="imgWrapper">
+  <div id="rdkit-img-wrapper" ref="imgWrapper">
     <loader v-if="loading" />
   </div>
 </template>
@@ -40,3 +40,8 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+#rdkit-img-wrapper {
+  border: 1px solid $grey-lighter;
+}
+</style>
