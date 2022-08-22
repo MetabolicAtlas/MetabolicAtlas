@@ -59,7 +59,7 @@ const getSmilesForMetabolite = async ({ formula, crossReferences }) => {
   `;
 
   if (!compounds.length) {
-    return null
+    return null;
   }
 
   return compounds[0].smiles;
