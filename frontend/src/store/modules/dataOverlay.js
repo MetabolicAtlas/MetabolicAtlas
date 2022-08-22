@@ -1,5 +1,5 @@
 import dataOverlayApi from '@/api/dataOverlay';
-import { DATA_TYPES_COMPONENTS, parseFile } from '@/helpers/dataOverlay';
+import { DATA_TYPES_COMPONENTS } from '@/helpers/dataOverlay';
 import { getSingleExpressionColor } from '@/helpers/expressionSources';
 
 const data = {
@@ -37,7 +37,7 @@ const getters = {
     };
 
     Object.keys(l[t]).forEach(id => {
-      const val = Math.round((l[t][id] + 0.00001) * 100) / 100;
+      const val = l[t][id];
       computedLevels[id] = [getSingleExpressionColor(val), val];
     });
 
@@ -72,13 +72,24 @@ const actions = {
         dispatch('setDataSet', 'None');
       }
 
-      const file = await dataOverlayApi.fetchFile({
+      const dataSets = await dataOverlayApi.fetchDataSets({
         model,
         type,
         filename,
       });
-      const dataSource = await parseFile(file);
       const metadata = data.index[type].find(m => m.filename === filename);
+      const levels = dataSets.reduce(
+        (acc, ds) => {
+          acc[ds] = {};
+          return acc;
+        },
+        { 'n/a': 'n/a' }
+      );
+      const dataSource = {
+        levels,
+        dataSets,
+        entriesCount: 0,
+      };
       commit('setCurrentDataSource', {
         ...metadata,
         ...dataSource,
@@ -86,6 +97,32 @@ const actions = {
     } catch (e) {
       console.error(e); // eslint-disable-line no-console
       commit('setCurrentDataSource', null);
+    }
+  },
+  async getDataSet({ commit }, { model, type, filename, dataSet }) {
+    try {
+      const responseDataSet = await dataOverlayApi.fetchDataSet({
+        model,
+        type,
+        filename,
+        dataSet,
+      });
+      const newDataSet = {
+        [dataSet]: responseDataSet,
+      };
+      const { currentDataSource } = data;
+      const dataSource = {
+        ...currentDataSource,
+        levels: {
+          ...currentDataSource.levels,
+          ...newDataSet,
+        },
+      };
+      commit('setCurrentDataSource', dataSource);
+      commit('setDataSet', dataSet);
+    } catch (e) {
+      console.error(e); // eslint-disable-line no-console
+      commit('setDataSet', 'None');
     }
   },
   setDataSet({ commit, dispatch }, dataSet) {

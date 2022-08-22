@@ -677,10 +677,9 @@ export default {
       }
     },
     applyLevels() {
-      const isValid = this.currentDataSource.levels[[this.dataSet]];
+      const isValid = this.currentDataSource.levels[this.dataSet] && this.dataSet !== 'None';
 
       if (isValid) {
-        const { dataSets } = this.currentDataSource;
         const componentIds = Object.keys(this.rawElms)
           .filter(el => this.rawElms[el].type === this.currentDataType.componentType)
           .map(k => this.rawElms[k].id);
@@ -698,14 +697,10 @@ export default {
             this.rawElms[componentID].expressionLvl[s][t] = {};
           }
 
-          for (let j = 0; j < dataSets.length; j += 1) {
-            const d = dataSets[j];
-            const levels = this.currentDataSource.levels[d];
-            let level = levels[componentID];
-            level = Math.round((level + 0.00001) * 100) / 100;
+          const level = this.currentDataSource.levels[this.dataSet][componentID];
 
-            this.rawElms[componentID].expressionLvl[s][t][d] = getSingleExpressionColor(level);
-          }
+          this.rawElms[componentID].expressionLvl[s][t][this.dataSet] =
+            getSingleExpressionColor(level);
         }
 
         this.nodeDisplayParams.expSource = s;
