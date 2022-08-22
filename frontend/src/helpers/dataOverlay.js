@@ -37,7 +37,7 @@ const parseFile = async file => {
   } else {
     dataSets = [];
     for (let i = 1; i < header.length; i += 1) {
-      dataSets.push(`serie${i}`);
+      dataSets.push(`series${i}`);
     }
   }
 

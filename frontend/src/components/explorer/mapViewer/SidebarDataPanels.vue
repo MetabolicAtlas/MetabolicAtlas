@@ -65,7 +65,7 @@
             class="p-0 is-info is-outlined card-footer-item has-text-centered"
             :to="{
               name: selectionData.type,
-              params: { model: model.short_name, id: idfy(selectionData.data.id) },
+              params: { model: model.short_name, id: identify(selectionData.data.id) },
             }"
           >
             <!-- eslint-disable-line max-len -->
@@ -79,7 +79,7 @@
               params: {
                 model: model.short_name,
                 type: selectionData.type,
-                map_id: idfy(selectionData.data.id),
+                map_id: identify(selectionData.data.id),
               },
               query: { dim: dim },
             }"

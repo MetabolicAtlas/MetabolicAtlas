@@ -22,7 +22,7 @@ export default {
   noIDColumn: 'invalid TSV format, file must contain an ID column',
   duplicateColName: 'duplicate column name',
   columnNameLength: 'Column names should have max length of 20 characters',
-  idNameLenght: 'Id:s should have max length of 20 characters',
+  idNameLength: 'Id:s should have max length of 20 characters',
   numOfValues: 'invalid number of values',
   levelsRange: 'is not a number between 0 and 1',
 };

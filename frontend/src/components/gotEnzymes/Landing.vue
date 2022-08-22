@@ -116,9 +116,9 @@
             <TableOfContents :links="tocLinks" />
             <div id="intro" class="column content has-text-justified">
               <p>
-                GotEnzymes provides open access to over 25,794,195 million predicted k<sub>cat</sub>
-                for 5,825,213 unique sequences and 4,147 compounds from 8,099 species with the
-                cutting-edge artificial intelligence tools.
+                GotEnzymes provides open access to over 25.7 million predicted k<sub>cat</sub>
+                for +5.8 million unique sequences and 4147 compounds, across 8099 species, predicted
+                with cutting-edge artificial intelligence tools.
               </p>
 
               <hr class="mt-6" />
@@ -126,7 +126,7 @@
               <p>
                 We currently support fuzzy searches by reaction, compound, EC number, organism and
                 domain, and exact searches for KEGG gene identifiers. All table columns are
-                filterable and sortable, including the predicted numberical values. Feel free to
+                filterable and sortable, including the predicted numerical values. Feel free to
                 contact us if you find any issue. To report a technical error on the webpage please
                 email
                 <a href="mailto:contact@metabolicatlas.org">contact [at] metabolicatlas [dot] org</a
@@ -147,7 +147,7 @@
                 flux simulations, and to improve the Design-Build-Test-Learn cycle in metabolic
                 engineering, by suggesting candidate alternative enzymes. To this end, we aim to
                 store every possible predicted parameter for all available enzymes in a single
-                database that is equally easy to use manually and programatically.
+                database that is equally easy to use manually and programmatically.
               </p>
 
               <hr class="mt-6" />

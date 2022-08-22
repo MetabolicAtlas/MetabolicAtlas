@@ -60,7 +60,7 @@ export default {
                 }
                 if (columnValues[0].length > 20) {
                   errors.push(
-                    `Error: ${messages.idNameLenght}, ${columnValues[0]} has ${columnValues[0].length}`
+                    `Error: ${messages.idNameLength}, ${columnValues[0]} has ${columnValues[0].length}`
                   );
                 }
                 columnValues.slice(1).forEach(value => {

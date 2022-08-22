@@ -96,7 +96,7 @@ export default {
             link: 'https://github.com/SysBioChalmers/Kiwi',
             img: require('../../assets/logos/kiwi.png'),
             title:
-              'The Kiwi module combines geneset analyses with biological networks to visualize the interactions between genesets that are significant in a given biological system',
+              'The Kiwi module combines gene-set analyses with biological networks to visualize the interactions between gene-sets that are significant in a given biological system',
             description:
               'With Kiwi, the inherent connectivity between gene-sets becomes apparent - one can visualize whether these entities or processes are isolated or connected by means of their biological interaction.',
             citation:
@@ -109,9 +109,9 @@ export default {
             link: 'https://varemo.github.io/piano/',
             img: require('../../assets/logos/piano.jpg'),
             title:
-              'Platform for integrative analysis of omics data (PIANO) is an An R/Bioconductor package for gene set analysis',
+              'Platform for integrative analysis of omics data (PIANO) is an An R/Bioconductor package for gene-set analysis',
             description:
-              'Gene set analysis (GSA) is used to elucidate genome-wide data, in particular transcriptome data. We have developed the R package Piano that collects a range of GSA methods into the same system, for the benefit of the end-user. Further on we refine the GSA workflow by using modifications of the gene-level statistics. This enables us to divide the resulting gene set P -values into three classes, describing different aspects of gene expression directionality at gene set level.',
+              'Gene-set analysis (GSA) is used to elucidate genome-wide data, in particular transcriptome data. We have developed the R package Piano that collects a range of GSA methods into the same system, for the benefit of the end-user. Further on we refine the GSA workflow by using modifications of the gene-level statistics. This enables us to divide the resulting gene-set P -values into three classes, describing different aspects of gene expression directionality at gene-set level.',
             citation:
               'V&auml;remo, L., Nielsen, J., Nookaew, I. (2013). <i>Enriching the gene set analysis of genome-wide data by incorporating directionality of gene expression and combining statistical hypotheses and methods</i>. NAR',
             citation_url: 'https://academic.oup.com/nar/article-lookup/doi/10.1093/nar/gkt111',
@@ -123,7 +123,7 @@ export default {
             title:
               'RAVEN (Reconstruction, Analysis and Visualization of Metabolic Networks) Toolbox is a software suite that allows for semi-automated reconstruction of genome-scale models',
             description:
-              'RAVEN is primarily intended for the generation and curation of genome-scale models by using published models and/or the MetaCyc and KEGG databases, coupled with extensive gap-filling and quality control features. Furthermore, the software incorporates functionality to contextualize generic models using the task-based INIT algorithm, for generating e.g. tissue-specific models. RAVEN also contains methods for visualizing simulation results and omics data, as well as a range of methods for performing simulations and analyzing the results. The software is a useful tool for system-wide data analysis in a metabolic context and for streamlined reconstruction of metabolic networks based on protein homology and expression data.',
+              'RAVEN is primarily intended for the generation and curation of genome-scale models by using published models and/or the MetaCyc and KEGG databases, coupled with extensive gap-filling and quality control features. Furthermore, the software incorporates functionality to contextualize generic models using the task-based INIT algorithm, for generating e.g. tissue-specific models. RAVEN also contains methods for visualizing simulation results and omics data, as well as a range of methods for performing simulations and analysing the results. The software is a useful tool for system-wide data analysis in a metabolic context and for streamlined reconstruction of metabolic networks based on protein homology and expression data.',
             citation:
               'Wang, H., Marcišauskas, S., Sánchez, B.J., Domenzain, I., Hermansson, D., Agren, R., Nielsen, J., Kerkhoven, E.J. (2018) RAVEN 2.0: A versatile toolbox for metabolic network reconstruction and a case study on Streptomyces coelicolor. PLOS Computational Biology, 14, e1006541.',
             citation_url:
@@ -150,7 +150,7 @@ export default {
             title:
               'Genome and transcriptome (RNAseq and Microarray) browser of Saccharomyces cerevisiae',
             description:
-              'Yseq provides a useful and comprehensive comparison between the two platforms (RNA-seq and microrrays) for gene expression analysis and addresses the contribution of the different steps involved in the analysis of RNA-seq data',
+              'Yseq provides a useful and comprehensive comparison between the two platforms (RNA-seq and microarrays) for gene expression analysis and addresses the contribution of the different steps involved in the analysis of RNA-seq data',
             citation:
               'Nookaew, I., Papini, M., Pornputtapong, N., Scalcinati, G., Fagerberg, L., Uhlén, M., & Nielsen, J. (2012). <i>A comprehensive comparison of RNA-Seq-based transcriptome analysis from reads to differential gene expression and cross-comparison with microarrays: a case study in Saccharomyces cerevisiae</i>. Nucleic acids research, 40(20), 10084-10097',
             citation_url: 'https://academic.oup.com/nar/article/40/20/10084/2414805',
@@ -188,7 +188,7 @@ export default {
             title:
               'The human cancer secretome database (HCSD) is a comprehensive database for human cancer secretome data',
             description:
-              'Query, and compare, publicly available proteomics data published in the field of cancer secretome and tumor microenviroment, and visualize the predicted secretory features and post-translational modification sites (PTMs) for each protein.',
+              'Query, and compare, publicly available proteomics data published in the field of cancer secretome and tumour microenvironment, and visualize the predicted secretory features and post-translational modification sites (PTMs) for each protein.',
             citation:
               'Feizi, A., Banaei-Esfahani, A., Nielsen, J. (2015) <i>HCSD: the human cancer secretome database</i>. Database 2015',
             citation_url:

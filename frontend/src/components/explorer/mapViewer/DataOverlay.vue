@@ -186,28 +186,28 @@ export default {
   },
   async created() {
     await this.getDataSourcesIndex(this.model.short_name);
-    const datatype = this.validDataTypeInQuery()
-      ? this.$route.query.datatype
+    const dataType = this.validDataTypeInQuery()
+      ? this.$route.query.dataType
       : Object.keys(this.filteredDataSourcesIndex)[0];
     await this.setCurrentDataType({
       model: this.model.short_name,
-      type: datatype,
+      type: dataType,
       propagate: false,
     });
-    const datasource = this.validDataSourceInQuery()
-      ? this.$route.query.datasource
+    const dataSource = this.validDataSourceInQuery()
+      ? this.$route.query.dataSource
       : this.filteredDataSourcesIndex[this.dataType.name][0].filename;
     await this.getDataSource({
       model: this.model.short_name,
-      type: datatype,
-      filename: datasource,
+      type: dataType,
+      filename: dataSource,
       propagate: false,
     });
     const dataSet = this.validDataSourceDataSetInQuery() ? this.currentDataSet() : 'None';
     await this.getDataSet({
       model: this.model.short_name,
-      type: datatype,
-      filename: datasource,
+      type: dataType,
+      filename: dataSource,
       dataSet,
     });
   },
@@ -276,17 +276,17 @@ export default {
     },
     validDataTypeInQuery() {
       return (
-        this.$route.query.datatype &&
-        Object.keys(this.filteredDataSourcesIndex).indexOf(this.$route.query.datatype) > -1
+        this.$route.query.dataType &&
+        Object.keys(this.filteredDataSourcesIndex).indexOf(this.$route.query.dataType) > -1
       );
     },
     validDataSourceInQuery() {
       return (
-        this.$route.query.datasource && // eslint-disable-line operator-linebreak
+        this.$route.query.dataSource && // eslint-disable-line operator-linebreak
         this.dataType && // eslint-disable-line operator-linebreak
         this.filteredDataSourcesIndex[this.dataType.name]
           .map(e => e.filename)
-          .indexOf(this.$route.query.datasource) > -1
+          .indexOf(this.$route.query.dataSource) > -1
       );
     },
     modelHasOverlayData() {

@@ -13,8 +13,8 @@ const data = {
 
 const getters = {
   queryParams: state => ({
-    datatype: state.currentDataType ? state.currentDataType.name : 'None',
-    datasource: state.currentDataSource ? state.currentDataSource.filename : 'None',
+    dataType: state.currentDataType ? state.currentDataType.name : 'None',
+    dataSource: state.currentDataSource ? state.currentDataSource.filename : 'None',
     dataSet: state.dataSet,
   }),
   computedLevels: state => {
