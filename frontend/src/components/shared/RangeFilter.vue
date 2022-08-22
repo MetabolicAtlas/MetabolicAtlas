@@ -1,7 +1,7 @@
 <template>
   <div class="is-flex">
     <input
-      v-model.number="min"
+      v-debounce:300ms="minChange"
       :class="{ 'input is-danger': !validMin }"
       :title="validMin ? '' : 'Please enter a valid number, e.g. 1.23'"
       class="vgt-input px-2 mr-1"
@@ -9,7 +9,7 @@
       placeholder="min"
     />
     <input
-      v-model.number="max"
+      v-debounce:300ms="maxChange"
       :class="{ 'input is-danger': !validMax }"
       :title="validMax ? '' : 'Please enter a valid number, e.g. 1.23'"
       class="vgt-input px-2 mr-1"
@@ -55,18 +55,6 @@ export default {
       return payload;
     },
   },
-  watch: {
-    min(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.handleUpdate(this.rangePayload);
-      }
-    },
-    max(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        this.handleUpdate(this.rangePayload);
-      }
-    },
-  },
   methods: {
     inputValid(maybeNumber) {
       if (maybeNumber === null || maybeNumber === '') {
@@ -75,6 +63,17 @@ export default {
 
       const numberRegex = /^-?\d+\.?\d*$/;
       return maybeNumber.toString().match(numberRegex);
+    },
+    toNumberOrNull(newMinValue) {
+      return newMinValue.length === 0 ? null : Number(newMinValue);
+    },
+    async minChange(newMinValue) {
+      this.min = this.toNumberOrNull(newMinValue);
+      this.handleUpdate(this.rangePayload);
+    },
+    async maxChange(newMaxValue) {
+      this.max = this.toNumberOrNull(newMaxValue);
+      this.handleUpdate(this.rangePayload);
     },
   },
 };
