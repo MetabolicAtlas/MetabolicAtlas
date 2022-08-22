@@ -1,4 +1,4 @@
-import getCompound from 'gotEnzymes/compound';
+import { getCompound } from 'gotEnzymes/compound';
 import getDomain from 'gotEnzymes/domain';
 import getEc from 'gotEnzymes/ec';
 import getEnzymes from 'gotEnzymes/enzyme';
