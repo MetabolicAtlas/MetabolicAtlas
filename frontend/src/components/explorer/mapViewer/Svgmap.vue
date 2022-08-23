@@ -47,7 +47,7 @@ import MapLoader from '@/components/explorer/mapViewer/MapLoader';
 import MapSearch from '@/components/explorer/mapViewer/MapSearch';
 import { default as messages } from '@/content/messages';
 import { reformatChemicalReactionHTML } from '@/helpers/utils';
-import { DATA_TYPES_COMPONENTS } from '@/helpers/dataOverlay';
+// import { DATA_TYPES_COMPONENTS } from '@/helpers/dataOverlay';
 
 export default {
   name: 'Svgmap',
@@ -101,15 +101,16 @@ export default {
       coords: state => state.maps.coords,
       selectedElementId: state => state.maps.selectedElementId,
       searchTerm: state => state.maps.searchTerm,
+      dataType: state => state.dataOverlay.currentDataType,
       dataSource: state => state.dataOverlay.currentDataSource,
       dataSet: state => state.dataOverlay.dataSet,
+      // TODO fix later
       customDataSet: state => state.dataOverlay.customDataSet,
     }),
     ...mapGetters({
       selectIds: 'maps/selectIds',
       computedLevels: 'dataOverlay/computedLevels',
       componentClassName: 'dataOverlay/componentClassName',
-      componentDefaultColor: 'dataOverlay/componentDefaultColor',
     }),
   },
   watch: {
@@ -119,7 +120,8 @@ export default {
     componentClassName() {
       this.setupHoverEventHandlers();
     },
-    dataSet() {
+    dataSet(onev, twov) {
+      console.log('Change', onev, twov);
       this.applyLevelsOnMap();
     },
     customDataSet() {
@@ -165,9 +167,11 @@ export default {
     },
     setupHoverEventHandlers() {
       const self = this;
+      // construct list of classes to be selected with jquery $(".class1,.class2,.class3,...")
+      const classNameList = this.componentClassName.join(',.');
       $('#svg-wrapper').off('mouseover');
       $('#svg-wrapper').off('mouseout');
-      $('#svg-wrapper').on('mouseover', `.${self.componentClassName}`, function f(e) {
+      $('#svg-wrapper').on('mouseover', `.${classNameList}`, function f(e) {
         const id = $(this).attr('id') || $(this).attr('class').split(' ')[1].trim();
         if (id in self.computedLevels) {
           self.$refs.tooltip.innerHTML = self.computedLevels[id][1]; // eslint-disable-line prefer-destructuring
@@ -180,7 +184,7 @@ export default {
         self.$refs.tooltip.style.left = `${e.pageX - $('.svgbox').first().offset().left + 15}px`;
         self.$refs.tooltip.style.display = 'block';
       });
-      $('#svg-wrapper').on('mouseout', `.${self.componentClassName}`, () => {
+      $('#svg-wrapper').on('mouseout', `.${classNameList}`, () => {
         self.$refs.tooltip.innerHTML = '';
         self.$refs.tooltip.style.display = 'none';
       });
@@ -348,14 +352,30 @@ export default {
       FileSaver.saveAs(blob, `${this.mapData.id}.svg`);
     },
     applyLevelsOnMap() {
-      if (Object.keys(this.computedLevels).length === 0) {
-        Object.values(DATA_TYPES_COMPONENTS).forEach(dataType => {
-          $(`#svg-wrapper .${dataType.className} .shape`).attr('fill', dataType.defaultColor);
-        });
-
+      // TODO: Should this be store data? Since also used in the store file
+      const inactiveDataTypes = this.dataType.filter(
+        (dataType, index) => this.dataSet[index] === 'None'
+      );
+      inactiveDataTypes.forEach(dataType => {
+        $(`#svg-wrapper .${dataType.className} .shape`).attr('fill', dataType.defaultColor);
+      });
+      if (inactiveDataTypes.length === this.dataType.length) {
         return;
       }
-      const allComponents = $(`#svg-wrapper .${this.componentClassName}`);
+      // console.log('apply where computedLevels is:', this.computedLevels);
+      // this.$refs.mapsearch.reset();
+      // if (Object.keys(this.computedLevels).length === 0) {
+      //   Object.values(DATA_TYPES_COMPONENTS).forEach(dataType => {
+      //     $(`#svg-wrapper .${dataType.className} .shape`).attr('fill', dataType.defaultColor);
+      //   });
+      //   return;
+      // }
+      console.log('classNames', this.componentClassName);
+      let allComponents = [];
+      this.componentClassName.forEach(x => {
+        allComponents = [...allComponents, ...$(`#svg-wrapper .${x}`)];
+      });
+      console.log('allComponents', allComponents);
       Object.values(allComponents).forEach(node => {
         try {
           const ID = node.id || node.classList[1];

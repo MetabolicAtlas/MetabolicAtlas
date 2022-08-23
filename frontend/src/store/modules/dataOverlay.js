@@ -25,28 +25,46 @@ const getters = {
     if (customDataSource && customDataSet !== 'None') {
       t = customDataSet;
       l = customDataSource.levels;
-    } else if (currentDataSource.length && dataSet !== 'None') {
-      t = dataSet;
-      l = currentDataSource.levels;
-    } else {
-      return {};
     }
-
-    const computedLevels = {
-      'n/a': [getSingleExpressionColor(NaN), 'n/a'],
-    };
-
-    Object.keys(l[t]).forEach(id => {
-      const val = l[t][id];
-      computedLevels[id] = [getSingleExpressionColor(val), val];
+    // TODO kolla om någon dataSet är !== None
+    const computedLevels = {};
+    // for-loop över alla datasourcar och deras set
+    currentDataSource.forEach((source, index) => {
+      if (dataSet[index] !== 'None') {
+        t = dataSet[index];
+        l = source.levels;
+        Object.keys(l[t]).forEach(id => {
+          const val = l[t][id];
+          computedLevels[id] = [getSingleExpressionColor(val), val];
+        });
+      } else {
+        console.log('No set!');
+      }
     });
+    if (Object.keys(computedLevels).length) {
+      computedLevels['n/a'] = [getSingleExpressionColor(NaN), 'n/a'];
+    }
 
     return computedLevels;
   },
-  componentClassName: state => state.currentDataType.length && state.currentDataType[0].className,
-  componentDefaultColor: state =>
-    state.currentDataType.length && state.currentDataType[0].defaultColor,
-  componentType: state => state.currentDataType.length && state.currentDataType[0].componentType,
+  componentClassName: state => {
+    const componentClassName = [];
+    state.currentDataType.forEach((type, index) => {
+      if (state.dataSet[index] !== 'None') {
+        componentClassName.push(state.currentDataType[index].className);
+      }
+    });
+    return componentClassName;
+  },
+  componentType: state => {
+    const componentType = [];
+    state.currentDataType.forEach((type, index) => {
+      if (state.dataSet[index] !== 'None') {
+        componentType.push(state.currentDataType[index].componentType);
+      }
+    });
+    return componentType;
+  },
 };
 
 const actions = {
@@ -69,9 +87,10 @@ const actions = {
     }
   },
   async getDataSource({ commit, dispatch }, { model, type, filename, propagate, index }) {
+    console.log('getDataSource called');
     try {
       if (propagate) {
-        dispatch('setDataSet', 'None');
+        dispatch('setDataSet', { index, dataSet: 'None' });
       }
 
       const dataSets = await dataOverlayApi.fetchDataSets({
@@ -124,17 +143,24 @@ const actions = {
       };
       // TODO why do we set currentDataSource here?
       commit('setCurrentDataSource', dataSource);
-      commit('setDataSet', dataSet, index);
+      console.log('set data set, first', dataSet, index);
+      const payload = {
+        index,
+        dataSet,
+      };
+      commit('setDataSet', payload);
+      console.log('set data set', dataSet, index);
     } catch (e) {
       console.error(e); // eslint-disable-line no-console
-      commit('setDataSet', 'None', index);
+      commit('setDataSet', { index, dataSet: 'None' });
     }
   },
-  setDataSet({ commit, dispatch }, dataSet, index) {
+  setDataSet({ commit, dispatch }, { index, dataSet }) {
     if (dataSet !== 'None') {
       dispatch('setCustomDataSet', 'None');
     }
-    commit('setDataSet', dataSet, index);
+    console.log('setDataSet 146', index, dataSet);
+    commit('setDataSet', { index, dataSet });
   },
   setCustomDataSource({ commit, dispatch }, dataSource) {
     commit('setCustomDataSource', dataSource);
@@ -142,6 +168,7 @@ const actions = {
   },
   setCustomDataSet({ commit, dispatch }, dataSet) {
     if (dataSet !== 'None') {
+      // TODO should be object with index
       dispatch('setDataSet', 'None');
     }
     commit('setCustomDataSet', dataSet);
@@ -164,11 +191,11 @@ const mutations = {
     tempList[currentDataSource.index] = currentDataSource;
     state.currentDataSource = tempList;
   },
-  setDataSet: (state, dataSet, index) => {
+  setDataSet: (state, { index, dataSet }) => {
     // copy and replace the array to trigger reactive array change detection
     const tempList = [...state.dataSet];
     tempList[index] = dataSet;
-    state.currentDataSet = tempList;
+    state.dataSet = tempList;
   },
   setCustomDataSource: (state, customDataSource) => {
     state.customDataSource = customDataSource;

@@ -87,7 +87,6 @@ export default {
     ...mapGetters({
       queryParams: 'maps/queryParams',
       computedLevels: 'dataOverlay/computedLevels',
-      componentDefaultColor: 'dataOverlay/componentDefaultColor',
       componentType: 'dataOverlay/componentType',
     }),
   },
@@ -215,7 +214,10 @@ export default {
         let color = colorToRGBArray(this.defaultMetaboliteColor);
 
         if (node.g === 'r') {
-          if (this.componentType === 'reaction' && Object.keys(this.computedLevels).length > 0) {
+          if (
+            this.componentType.includes('reaction') &&
+            Object.keys(this.computedLevels).length > 0
+          ) {
             const partialID = node.id.split('-')[0];
             const key = this.computedLevels[partialID] !== undefined ? partialID : 'n/a';
             color = colorToRGBArray(this.computedLevels[key][0]);
@@ -225,7 +227,7 @@ export default {
         }
 
         if (node.g === 'e') {
-          if (this.componentType === 'gene' && Object.keys(this.computedLevels).length > 0) {
+          if (this.componentType.includes('gene') && Object.keys(this.computedLevels).length > 0) {
             const partialID = node.id.split('-')[0];
             const key = this.computedLevels[partialID] !== undefined ? partialID : 'n/a';
             color = colorToRGBArray(this.computedLevels[key][0]);
@@ -237,7 +239,10 @@ export default {
         if (node.g === 'm') {
           node.n = node.id; // eslint-disable-line
 
-          if (this.componentType === 'metabolite' && Object.keys(this.computedLevels).length > 0) {
+          if (
+            this.componentType.includes('metabolite') &&
+            Object.keys(this.computedLevels).length > 0
+          ) {
             const partialID = node.id.split('-')[0];
             const key = this.computedLevels[partialID] !== undefined ? partialID : 'n/a';
             color = colorToRGBArray(this.computedLevels[key][0]);

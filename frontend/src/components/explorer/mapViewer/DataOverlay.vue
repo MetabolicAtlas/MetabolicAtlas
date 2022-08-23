@@ -81,7 +81,7 @@
               </div>
             </div>
             <div class="control">
-              <div v-if="dataSource" class="control">
+              <div v-if="dataSource.length > index" class="control">
                 <p>
                   Levels from
                   <a :href="dataSource[index].link" target="_blank">{{ dataSource[index].name }}</a>
@@ -260,6 +260,7 @@ export default {
         dataSet: e.target.value,
         index,
       };
+      console.log('indx', index);
       await this.getDataSet(payload);
     },
     async getFileName(file) {
