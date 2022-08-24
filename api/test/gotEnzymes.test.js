@@ -231,4 +231,29 @@ describe('gotEnzymes', () => {
       expect(res.status).toBe(404);
     });
   });
+
+  describe('get organisms', () => {
+    it('should return organism info for given id', async () => {
+      const vcp = {
+        info: {
+          kegg: 'vcp',
+          entry: 'T06797',
+          name: 'Vagococcus carniphilus',
+          taxa: '218144',
+        },
+        crossReferences: [],
+      };
+      const res = await fetch(`${API_BASE}/gotenzymes/organisms/vcp`);
+
+      expect(res.status).toBe(200);
+      const body = await res.json();
+      expect(body).toEqual(vcp);
+    });
+
+    it('should return status 404 if no organsism exists for id', async () => {
+      const res = await fetch(`${API_BASE}/gotenzymes/organisms/absent`);
+
+      expect(res.status).toBe(404);
+    });
+  });
 });
