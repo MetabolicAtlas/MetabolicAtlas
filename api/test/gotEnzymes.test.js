@@ -129,4 +129,106 @@ describe('gotEnzymes', () => {
       expect(res.status).toBe(404);
     });
   });
+
+  describe('get compounds', () => {
+    it('should return compound info for given id', async () => {
+      const C00003 = {
+        info: {
+          name: 'NAD+',
+          formula: 'C21H28N7O14P2',
+          smiles:
+            'NC(=O)c1ccc[n+]([C@@H]2O[C@H](COP(=O)(O)OP(=O)(O)OC[C@H]3O[C@@H](n4cnc5c(N)ncnc54)[C@H](O)[C@@H]3O)[C@@H](O)[C@H]2O)c1',
+        },
+        crossReferences: {
+          KEGG: [
+            {
+              id: 'C00003',
+              url: 'https://identifiers.org/kegg.compound:C00003',
+            },
+          ],
+          MetaNetX: [
+            {
+              id: 'MNXM8',
+              url: 'https://identifiers.org/metanetx.chemical:MNXM8',
+            },
+          ],
+          ModelSEED: [
+            {
+              id: 'cpd00003',
+              url: 'https://identifiers.org/seed.compound:cpd00003',
+            },
+          ],
+          BiGG: [
+            {
+              id: 'nad',
+              url: 'https://identifiers.org/bigg.metabolite:nad',
+            },
+          ],
+          ChEBI: [
+            {
+              id: '15846',
+              url: 'https://identifiers.org/CHEBI:15846',
+            },
+            {
+              id: '44215',
+              url: 'https://identifiers.org/CHEBI:44215',
+            },
+            {
+              id: '57540',
+              url: 'https://identifiers.org/CHEBI:57540',
+            },
+          ],
+          MetaCyc: [
+            {
+              id: 'NAD',
+              url: 'https://identifiers.org/metacyc.compound:NAD',
+            },
+          ],
+          'SABIO-RK': [
+            {
+              id: '37',
+              url: 'https://identifiers.org/sabiork.compound:37',
+            },
+          ],
+          Reactome: [
+            {
+              id: 'R-ALL-113526',
+              url: 'https://identifiers.org/reactome:R-ALL-113526',
+            },
+            {
+              id: 'R-ALL-192307',
+              url: 'https://identifiers.org/reactome:R-ALL-192307',
+            },
+            {
+              id: 'R-ALL-194653',
+              url: 'https://identifiers.org/reactome:R-ALL-194653',
+            },
+            {
+              id: 'R-ALL-29360',
+              url: 'https://identifiers.org/reactome:R-ALL-29360',
+            },
+            {
+              id: 'R-ALL-352330',
+              url: 'https://identifiers.org/reactome:R-ALL-352330',
+            },
+            {
+              id: 'R-ALL-427523',
+              url: 'https://identifiers.org/reactome:R-ALL-427523',
+            },
+          ],
+        },
+      };
+      const res = await fetch(`${API_BASE}/gotenzymes/compounds/C00003`);
+
+      expect(res.status).toBe(200);
+      const body = await res.json();
+      expect(body).toEqual(C00003);
+    });
+
+    it('should return status 404 if no compound exists for id', async () => {
+      const res = await fetch(`${API_BASE}/gotenzymes/compounds/absent`);
+
+      expect(res.status).toBe(404);
+    });
+  });
 });
