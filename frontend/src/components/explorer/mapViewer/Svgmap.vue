@@ -120,8 +120,7 @@ export default {
     componentClassName() {
       this.setupHoverEventHandlers();
     },
-    dataSet(onev, twov) {
-      console.log('Change', onev, twov);
+    dataSet() {
       this.applyLevelsOnMap();
     },
     customDataSet() {
@@ -372,12 +371,10 @@ export default {
       //   });
       //   return;
       // }
-      console.log('classNames', this.componentClassName);
       let allComponents = [];
       this.componentClassName.forEach(x => {
         allComponents = [...allComponents, ...$(`#svg-wrapper .${x}`)];
       });
-      console.log('allComponents', allComponents);
       Object.values(allComponents).forEach(node => {
         try {
           const ID = node.id || node.classList[1];

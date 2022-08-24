@@ -36,12 +36,35 @@
         <a class="button is-small is-loading"></a>
       </div>
     </div>
-    <div v-if="errorCustomFileMsg" id="customFileError" class="card mb-4">
-      <div
-        class="notification p-3 is-danger is-half is-offset-one-quarter"
-        v-html="customErrorMessage()"
-      ></div>
-    </div>
+    <Modal :show-modal.sync="showModal">
+      <div class="control">
+        <p>Select data type</p>
+        <div v-if="dataType.length" class="select is-fullwidth m-1">
+          <!-- TODO: Why do we need a method? -->
+          <select :disabled="disableSelect()" @change="handleCustomDataTypeSelect($event)">
+            <option
+              v-for="type in Object.keys(filteredDataSourcesIndex)"
+              :key="type"
+              :selected="type === customDataType"
+              :value="type"
+              class="is-clickable is-capitalized"
+            >
+              {{ type }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div v-if="errorCustomFileMsg" id="customFileError" class="card my-4">
+        <div
+          class="notification p-3 is-danger is-half is-offset-one-quarter"
+          v-html="customErrorMessage()"
+        ></div>
+      </div>
+      <div v-else>
+        Success!
+        <button @click="addSourceToIndex">Upload</button>
+      </div>
+    </Modal>
     <div v-for="(chosentype, index) in dataType" :key="index">
       <div class="card my-3">
         <div class="card-content py-2 p-3">
@@ -105,29 +128,6 @@
               </div>
             </div>
           </div>
-          <template v-if="customDataSource">
-            <p>{{ dataSource ? 'Or uploaded data' : 'Levels from uploaded data' }}</p>
-            <div class="control">
-              <div class="select is-fullwidth">
-                <select
-                  :value="customDataSet"
-                  :disabled="!customDataSource"
-                  @change="e => setCustomDataSet(e.target.value)"
-                >
-                  <template v-if="customDataSource">
-                    <option>None</option>
-                    <option
-                      v-for="dataSet in customDataSource.dataSets"
-                      :key="dataSet"
-                      class="is-clickable is-capitalized"
-                    >
-                      {{ dataSet }}
-                    </option>
-                  </template>
-                </select>
-              </div>
-            </div>
-          </template>
         </div>
       </div>
     </div>
@@ -141,12 +141,14 @@ import { mapActions, mapState } from 'vuex';
 import DataOverlayValidation from '@/components/explorer/mapViewer/DataOverlayValidation.vue';
 import RNALegend from '@/components/explorer/mapViewer/RNALegend.vue';
 import { parseFile } from '@/helpers/dataOverlay';
+import Modal from '@/components/shared/Modal.vue';
 
 export default {
   name: 'DataOverlay',
   components: {
     DataOverlayValidation,
     RNALegend,
+    Modal,
   },
   props: {
     mapType: String,
@@ -164,6 +166,9 @@ export default {
       showFileLoader: true,
       errorCustomFileMsg: '',
       customFileInfo: '',
+      customFile: null,
+      customDataType: null,
+      showModal: false,
     };
   },
   computed: {
@@ -176,8 +181,7 @@ export default {
       dataType: state => state.dataOverlay.currentDataType,
       dataSource: state => state.dataOverlay.currentDataSource,
       dataSet: state => state.dataOverlay.dataSet,
-      customDataSource: state => state.dataOverlay.customDataSource,
-      customDataSet: state => state.dataOverlay.customDataSet,
+      customData: state => state.dataOverlay.customData,
     }),
     filteredDataSourcesIndex() {
       if (this.$route.name === 'interaction') {
@@ -199,6 +203,8 @@ export default {
       propagate: false,
       index: 0,
     });
+    const [defaultCustomDataType] = Object.keys(this.filteredDataSourcesIndex);
+    this.customDataType = defaultCustomDataType;
     const dataSource = this.validDataSourceInQuery()
       ? this.$route.query.dataSource
       : this.filteredDataSourcesIndex[this.dataType[0].name][0].filename;
@@ -226,8 +232,7 @@ export default {
       addDataType: 'dataOverlay/addDataType',
       getDataSource: 'dataOverlay/getDataSource',
       getDataSet: 'dataOverlay/getDataSet',
-      setCustomDataSource: 'dataOverlay/setCustomDataSource',
-      setCustomDataSet: 'dataOverlay/setCustomDataSet',
+      addCustomDataSourceToIndex: 'dataOverlay/addCustomDataSourceToIndex',
     }),
     async handleDataTypeSelect(e, index) {
       const payload = {
@@ -258,28 +263,28 @@ export default {
         dataSet: e.target.value,
         index,
       };
-      console.log('indx', index);
       await this.getDataSet(payload);
     },
     async getFileName(file) {
       this.customFileName = file.name;
       this.errorCustomFileMsg = '';
       this.customFileInfo = '';
+      this.showModal = true;
       try {
-        const dataSource = await parseFile(file);
-        this.setCustomDataSource(dataSource);
-        this.customFileInfo = `Entries found: ${dataSource.entriesCount} - Series loaded: ${dataSource.dataSets.length}`;
+        // const dataSource = await parseFile(file); // eslint-disable-line
+        this.customFile = file;
         this.showFileLoader = false;
       } catch ({ message }) {
         this.handleErrorCustomFile(message);
       }
     },
+    // TODO: remove?
     unloadUploadedFile() {
       this.customFileName = '';
       this.errorCustomFileMsg = '';
-      this.setCustomDataSource(null);
     },
     handleErrorCustomFile(errorMsg, name) {
+      this.showModal = true;
       this.customFileName = name;
       this.errorCustomFileMsg = errorMsg;
       this.showFileLoader = false;
@@ -296,7 +301,7 @@ export default {
     },
     validDataSourceInQuery() {
       return false;
-      /*
+      /* return (
         this.$route.query.dataSource && // eslint-disable-line operator-linebreak
         this.dataType.length && // eslint-disable-line operator-linebreak
         this.filteredDataSourcesIndex[this.dataType[0].name]
@@ -345,6 +350,22 @@ export default {
         index: newIndex,
       });
     },
+    disableSelect() {
+      return this.errorCustomFileMsg.length > 0;
+    },
+    async addSourceToIndex() {
+      const dataSource = await parseFile(this.customFile); // eslint-disable-line
+      const payload = {
+        dataSource,
+        fileName: this.customFile.name,
+        dataType: this.customDataType,
+      };
+      this.addCustomDataSourceToIndex(payload);
+      this.showModal = false;
+    },
+    handleCustomDataTypeSelect(e) {
+      this.customDataType = e.target.value;
+    },
   },
 };
 </script>
@@ -365,10 +386,7 @@ export default {
 }
 
 #customFileError {
-  max-height: 30%;
-  overflow-y: scroll;
   background-color: #f46036;
-  scrollbar-color: rgba(123, 123, 121, 0.8) #f46036;
   word-wrap: break-word;
 }
 </style>

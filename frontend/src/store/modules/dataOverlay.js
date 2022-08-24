@@ -6,9 +6,8 @@ const data = {
   index: {},
   currentDataType: [],
   currentDataSource: [],
-  customDataSource: null,
-  customDataSet: 'None',
   dataSet: ['None'],
+  customData: {},
 };
 
 const getters = {
@@ -18,14 +17,10 @@ const getters = {
     dataSet: state.dataSet,
   }),
   computedLevels: state => {
-    const { dataSet, currentDataSource, customDataSource, customDataSet } = state;
+    const { dataSet, currentDataSource } = state;
     let t;
     let l;
 
-    if (customDataSource && customDataSet !== 'None') {
-      t = customDataSet;
-      l = customDataSource.levels;
-    }
     // TODO kolla om någon dataSet är !== None
     const computedLevels = {};
     // for-loop över alla datasourcar och deras set
@@ -37,8 +32,6 @@ const getters = {
           const val = l[t][id];
           computedLevels[id] = [getSingleExpressionColor(val), val];
         });
-      } else {
-        console.log('No set!');
       }
     });
     if (Object.keys(computedLevels).length) {
@@ -86,18 +79,23 @@ const actions = {
       await dispatch('getDataSource', { model, type, filename, propagate, index });
     }
   },
-  async getDataSource({ commit, dispatch }, { model, type, filename, propagate, index }) {
-    console.log('getDataSource called');
+  async getDataSource({ commit, dispatch, state }, { model, type, filename, propagate, index }) {
     try {
       if (propagate) {
         dispatch('setDataSet', { index, dataSet: 'None' });
       }
 
-      const dataSets = await dataOverlayApi.fetchDataSets({
-        model,
-        type,
-        filename,
-      });
+      let dataSets = null;
+      if (state.customData[type] && state.customData[type][filename]) {
+        dataSets = state.customData[type][filename].dataSets;
+      } else {
+        dataSets = await dataOverlayApi.fetchDataSets({
+          model,
+          type,
+          filename,
+        });
+      }
+      // TODO jmfr rad 86-95, state.index, varför data.index här?
       const metadata = data.index[type].find(m => m.filename === filename);
       const levels = dataSets.reduce(
         (acc, ds) => {
@@ -121,14 +119,19 @@ const actions = {
       commit('setCurrentDataSource', null);
     }
   },
-  async getDataSet({ commit }, { model, type, filename, dataSet, index }) {
+  async getDataSet({ commit, state }, { model, type, filename, dataSet, index }) {
     try {
-      const responseDataSet = await dataOverlayApi.fetchDataSet({
-        model,
-        type,
-        filename,
-        dataSet,
-      });
+      let responseDataSet = null;
+      if (state.customData[type] && state.customData[type][filename]) {
+        responseDataSet = state.customData[type][filename].levels[dataSet];
+      } else {
+        responseDataSet = await dataOverlayApi.fetchDataSet({
+          model,
+          type,
+          filename,
+          dataSet,
+        });
+      }
       const newDataSet = {
         [dataSet]: responseDataSet,
       };
@@ -143,35 +146,21 @@ const actions = {
       };
       // TODO why do we set currentDataSource here?
       commit('setCurrentDataSource', dataSource);
-      console.log('set data set, first', dataSet, index);
       const payload = {
         index,
         dataSet,
       };
       commit('setDataSet', payload);
-      console.log('set data set', dataSet, index);
     } catch (e) {
       console.error(e); // eslint-disable-line no-console
       commit('setDataSet', { index, dataSet: 'None' });
     }
   },
-  setDataSet({ commit, dispatch }, { index, dataSet }) {
-    if (dataSet !== 'None') {
-      dispatch('setCustomDataSet', 'None');
-    }
-    console.log('setDataSet 146', index, dataSet);
+  setDataSet({ commit }, { index, dataSet }) {
     commit('setDataSet', { index, dataSet });
   },
-  setCustomDataSource({ commit, dispatch }, dataSource) {
-    commit('setCustomDataSource', dataSource);
-    dispatch('setCustomDataSet', 'None');
-  },
-  setCustomDataSet({ commit, dispatch }, dataSet) {
-    if (dataSet !== 'None') {
-      // TODO should be object with index
-      dispatch('setDataSet', 'None');
-    }
-    commit('setCustomDataSet', dataSet);
+  addCustomDataSourceToIndex({ commit }, customDataSource) {
+    commit('addCustomDataSourceToIndex', customDataSource);
   },
 };
 
@@ -197,11 +186,13 @@ const mutations = {
     tempList[index] = dataSet;
     state.dataSet = tempList;
   },
-  setCustomDataSource: (state, customDataSource) => {
-    state.customDataSource = customDataSource;
-  },
-  setCustomDataSet: (state, customDataSet) => {
-    state.customDataSet = customDataSet;
+  addCustomDataSourceToIndex: (state, { dataSource, fileName, dataType }) => {
+    // TODO: CSPELL filename?
+    state.index[dataType].push({ filename: fileName, lastUpdated: '', link: '', name: fileName });
+    if (!state.customData[dataType]) {
+      state.customData[dataType] = {};
+    }
+    state.customData[dataType][fileName] = dataSource;
   },
 };
 
