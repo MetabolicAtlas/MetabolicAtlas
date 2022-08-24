@@ -48,7 +48,7 @@ const CORRECT_DATA = {
 };
 
 describe('integrated models', () => {
-  test('there should be a list of integrated models, with the correct version numbers and componenté counts', async () => {
+  test('there should be a list of integrated models, with the correct version numbers and component counts', async () => {
     const res = await fetch(`${API_BASE}/repository/integrated_models`);
 
     const data = await res.json();
