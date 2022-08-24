@@ -103,4 +103,30 @@ describe('gotEnzymes', () => {
       expect(res.status).toBe(404);
     });
   });
+
+  describe('get EC numbers', () => {
+    it('should return EC number info for given EC number', async () => {
+      const EC_4_4_1_37 = {
+        info: {
+          ec: '4.4.1.37',
+          name:
+            'pyridinium-3,5-bisthiocarboxylic acid mononucleotide synthase;LarE;P2CMN sulfurtransferase;' +
+            'pyridinium-3,5-biscarboxylic acid mononucleotide sulfurtransferase;P2TMN synthase',
+        },
+        crossReferences: [],
+      };
+
+      const res = await fetch(`${API_BASE}/gotenzymes/ecs/4.4.1.37`);
+
+      expect(res.status).toBe(200);
+      const body = await res.json();
+      expect(body).toEqual(EC_4_4_1_37);
+    });
+
+    it('should return status 404 if EC number does not exists', async () => {
+      const res = await fetch(`${API_BASE}/gotenzymes/ecs/absent`);
+
+      expect(res.status).toBe(404);
+    });
+  });
 });
