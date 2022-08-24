@@ -166,28 +166,30 @@ export default {
       this.applyLevelsOnMap();
     },
     setupHoverEventHandlers() {
-      const self = this;
       // construct list of classes to be selected with jquery $(".class1,.class2,.class3,...")
-      const classNameList = this.componentClassName.join(',.');
       $('#svg-wrapper').off('mouseover');
       $('#svg-wrapper').off('mouseout');
-      $('#svg-wrapper').on('mouseover', `.${classNameList}`, function f(e) {
-        const id = $(this).attr('id') || $(this).attr('class').split(' ')[1].trim();
-        if (id in self.computedLevels) {
-          self.$refs.tooltip.innerHTML = self.computedLevels[id][1]; // eslint-disable-line prefer-destructuring
-        } else if (Object.keys(self.computedLevels).length !== 0) {
-          self.$refs.tooltip.innerHTML = self.computedLevels['n/a'][1]; // eslint-disable-line prefer-destructuring
-        } else {
-          return;
-        }
-        self.$refs.tooltip.style.top = `${e.pageY - $('.svgbox').first().offset().top + 15}px`;
-        self.$refs.tooltip.style.left = `${e.pageX - $('.svgbox').first().offset().left + 15}px`;
-        self.$refs.tooltip.style.display = 'block';
-      });
-      $('#svg-wrapper').on('mouseout', `.${classNameList}`, () => {
-        self.$refs.tooltip.innerHTML = '';
-        self.$refs.tooltip.style.display = 'none';
-      });
+      const self = this;
+      if (this.componentClassName.length) {
+        const classNameList = this.componentClassName.join(',.');
+        $('#svg-wrapper').on('mouseover', `.${classNameList}`, function f(e) {
+          const id = $(this).attr('id') || $(this).attr('class').split(' ')[1].trim();
+          if (id in self.computedLevels) {
+            self.$refs.tooltip.innerHTML = self.computedLevels[id][1]; // eslint-disable-line prefer-destructuring
+          } else if (Object.keys(self.computedLevels).length !== 0) {
+            self.$refs.tooltip.innerHTML = self.computedLevels['n/a'][1]; // eslint-disable-line prefer-destructuring
+          } else {
+            return;
+          }
+          self.$refs.tooltip.style.top = `${e.pageY - $('.svgbox').first().offset().top + 15}px`;
+          self.$refs.tooltip.style.left = `${e.pageX - $('.svgbox').first().offset().left + 15}px`;
+          self.$refs.tooltip.style.display = 'block';
+        });
+        $('#svg-wrapper').on('mouseout', `.${classNameList}`, () => {
+          self.$refs.tooltip.innerHTML = '';
+          self.$refs.tooltip.style.display = 'none';
+        });
+      }
     },
     bindKeyboardShortcuts() {
       document.addEventListener('keydown', event => {
