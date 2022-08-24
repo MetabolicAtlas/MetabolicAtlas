@@ -17,7 +17,7 @@
         </template>
         <template v-else> not used by any of the integrated models. </template>
       </p>
-      <ul class="is-flex-direction-column is-align-items-flex-start mb-4 ml-5">
+      <ul class="models-list is-flex-direction-column is-align-items-flex-start mb-4 ml-5">
         <li v-for="(components, model) in compGroupedByModel" :key="model" class="my-1">
           {{ model }} {{ components[0].version }}
           <ul class="is-flex-direction-column is-align-items-flex-start mb-4 ml-5">
@@ -110,10 +110,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-ul {
+.models-list {
   list-style: disc outside none;
 }
-ul ul {
+.models-list ul {
   list-style: circle outside none;
 }
 </style>

@@ -6,11 +6,11 @@
       <template v-if="type">
         <p class="title is-size-5">
           <span class="is-capitalized">{{ type }}</span>
-          <code>{{ componentId }}</code>
+          <code class="code">{{ componentId }}</code>
           not found
           <template v-if="type !== 'model'">
             in
-            <code>{{ model.short_name }}</code>
+            <code class="code">{{ model.short_name }}</code>
           </template>
         </p>
         <p v-if="type === 'model'">{{ messages.modelNotFound }}</p>
@@ -71,7 +71,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-code {
+.code {
   font-size: 1em;
   padding-top: 0px;
   padding-bottom: 0px;

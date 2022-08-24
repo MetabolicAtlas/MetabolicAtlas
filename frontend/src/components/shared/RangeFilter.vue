@@ -1,5 +1,5 @@
 <template>
-  <div class="is-flex">
+  <div class="range-filter is-flex">
     <input
       v-debounce:300ms="minChange"
       :class="{ 'input is-danger': !validMin }"
@@ -80,7 +80,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-div {
+.range-filter {
   width: 125px;
 }
 </style>

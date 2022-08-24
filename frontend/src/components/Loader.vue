@@ -1,7 +1,7 @@
 <template>
   <div class="container is-fullhd is-centered has-text-centered">
     <a class="button is-primary is-inverted is-outlined is-large is-loading"></a>
-    <p class="is-size-5">{{ message }}</p>
+    <p class="loader-message is-size-5">{{ message }}</p>
   </div>
 </template>
 
@@ -15,7 +15,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-p {
+.loader-message {
   line-height: 3em;
 }
 </style>

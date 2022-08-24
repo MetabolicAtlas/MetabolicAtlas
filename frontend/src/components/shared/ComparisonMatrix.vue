@@ -1,6 +1,6 @@
 <template>
   <div v-if="mergedComparisons" class="table-container">
-    <table class="table">
+    <table class="table comparison-matrix">
       <thead>
         <tr>
           <th class="has-nowrap px-3 py-3"></th>
@@ -189,7 +189,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-table {
+.comparison-matrix {
   caption-side: bottom;
 
   caption {
