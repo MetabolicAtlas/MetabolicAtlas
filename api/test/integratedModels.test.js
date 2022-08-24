@@ -4,10 +4,10 @@ import fetch from 'node-fetch';
 // of existing models, or new models) is added to the project.
 const CORRECT_DATA = {
   'Human-GEM': {
-    version: '1.10.0',
-    gene_count: 3625,
-    reaction_count: 13078,
-    metabolite_count: 8370,
+    version: '1.11.0',
+    gene_count: 3067,
+    reaction_count: 13069,
+    metabolite_count: 8366,
   },
   'Yeast-GEM': {
     version: '8.4.2',
@@ -16,39 +16,39 @@ const CORRECT_DATA = {
     metabolite_count: 2742,
   },
   'Mouse-GEM': {
-    version: '1.2.0',
-    gene_count: 3513,
-    reaction_count: 13078,
-    metabolite_count: 8382,
+    version: '1.3.0',
+    gene_count: 2959,
+    reaction_count: 13063,
+    metabolite_count: 8370,
   },
   'Rat-GEM': {
-    version: '1.2.0',
-    gene_count: 3502,
-    reaction_count: 13086,
-    metabolite_count: 8386,
+    version: '1.3.0',
+    gene_count: 2953,
+    reaction_count: 13071,
+    metabolite_count: 8374,
   },
   'Zebrafish-GEM': {
-    version: '1.1.0',
-    gene_count: 3232,
-    reaction_count: 12940,
-    metabolite_count: 8362,
+    version: '1.2.0',
+    gene_count: 2714,
+    reaction_count: 12909,
+    metabolite_count: 8344,
   },
   'Fruitfly-GEM': {
-    version: '1.1.0',
-    gene_count: 2050,
-    reaction_count: 12056,
-    metabolite_count: 8132,
+    version: '1.2.0',
+    gene_count: 1810,
+    reaction_count: 12038,
+    metabolite_count: 8117,
   },
   'Worm-GEM': {
-    version: '1.1.0',
-    gene_count: 1952,
-    reaction_count: 12187,
-    metabolite_count: 8150,
+    version: '1.3.0',
+    gene_count: 1732,
+    reaction_count: 12174,
+    metabolite_count: 8138,
   },
 };
 
 describe('integrated models', () => {
-  test('there should be a list of integrated models, with the correct version numbers and componen counts', async () => {
+  test('there should be a list of integrated models, with the correct version numbers and componenté counts', async () => {
     const res = await fetch(`${API_BASE}/repository/integrated_models`);
 
     const data = await res.json();
