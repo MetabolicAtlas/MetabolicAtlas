@@ -393,12 +393,11 @@ describe('gotEnzymes', () => {
       ['organism', 'sce'],
       ['domain', 'B'],
       ['reaction_id', 'R00470'],
-      ['ec_number', '4.1.3.16;4.1.3.42'],
       ['compound', 'C00027'],
     ])('should filter %p by equality', async (column, filterData) => {
       const filtered = await fetch(
         encodeURI(
-          `${API_BASE}/gotenzymes/enzymes?filters[${column}]=${filterData}`
+          `${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=1000&filters[${column}]=${filterData}`
         )
       );
       const filteredBody = await filtered.json();
@@ -407,7 +406,18 @@ describe('gotEnzymes', () => {
         expect(enzyme[column]).toBe(filterData)
       );
     });
-  });
 
-  // TODO: kcat filter test
+    it('should filter EC number by existence in comma separated string', async () => {
+      const filtered = await fetch(
+        encodeURI(
+          `${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=1000&filters[ec_number]=4.1.3.42`
+        )
+      );
+      const filteredBody = await filtered.json();
+
+      filteredBody.enzymes.forEach(enzyme =>
+        expect(enzyme.ec_number.split(';')).toContain('4.1.3.42')
+      );
+    });
+  });
 });
