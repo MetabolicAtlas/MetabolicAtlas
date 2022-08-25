@@ -438,14 +438,14 @@ paths:
       responses:
         '200':
           description: 'Successful query'
-        '500':
-          description: 'Invalid input'
+        '404':
+          description: 'Not found'
   /gotenzymes/genes/{geneId}:
     get:
       tags:
         - 'GotEnzymes'
       summary: 'Get information and cross references for the given gene.'
-      operationId: 'gotEnzymesReactionInfo'
+      operationId: 'gotEnzymesGeneInfo'
       parameters:
         - name: 'geneId'
           in: 'path'
@@ -457,14 +457,14 @@ paths:
       responses:
         '200':
           description: 'Successful query'
-        '500':
-          description: 'Invalid input'
+        '404':
+          description: 'Not found'
   /gotenzymes/ecs/{ecNumber}:
     get:
       tags:
         - 'GotEnzymes'
       summary: 'Get information and cross references for the given ec number.'
-      operationId: 'gotEnzymesReactionInfo'
+      operationId: 'gotEnzymesECInfo'
       parameters:
         - name: 'ecNumber'
           in: 'path'
@@ -476,14 +476,14 @@ paths:
       responses:
         '200':
           description: 'Successful query'
-        '500':
-          description: 'Invalid input'
+        '404':
+          description: 'Not found'
   /gotenzymes/compounds/{compoundId}:
     get:
       tags:
         - 'GotEnzymes'
       summary: 'Get information and cross references for the given compound.'
-      operationId: 'gotEnzymesReactionInfo'
+      operationId: 'gotEnzymesCompoundInfo'
       parameters:
         - name: 'compoundId'
           in: 'path'
@@ -495,14 +495,14 @@ paths:
       responses:
         '200':
           description: 'Successful query'
-        '500':
-          description: 'Invalid input'
+        '404':
+          description: 'Not found'
   /gotenzymes/organisms/{organismId}:
     get:
       tags:
         - 'GotEnzymes'
       summary: 'Get information and cross references for the given organism.'
-      operationId: 'gotEnzymesReactionInfo'
+      operationId: 'gotEnzymesOrganismInfo'
       parameters:
         - name: 'organismId'
           in: 'path'
@@ -514,8 +514,8 @@ paths:
       responses:
         '200':
           description: 'Successful query'
-        '500':
-          description: 'Invalid input'
+        '404':
+          description: 'Not found'
   /gotenzymes/enzymes?:
     get:
       tags:
@@ -543,7 +543,7 @@ paths:
           in: 'query'
           type: 'string'
           description: 'the compound id, e.g. **C00092** (or leave empty for more results)'
-          example: 'C00092'
+          default: 'C00092'
         - name: 'filters[organism]'
           in: 'query'
           type: 'string'
@@ -582,3 +582,5 @@ paths:
       responses:
         '200':
           description: 'Successful query'
+        '400':
+          description: 'Invalid input'

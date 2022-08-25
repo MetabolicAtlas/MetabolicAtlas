@@ -450,7 +450,7 @@ export default {
       this.panToCoords({ panX: -coords[4], panY: -coords[5], zoom: 1, center: true });
     },
     getSvgElemCoordinates(el) {
-      // read and parse the transform attribut
+      // read and parse the transform attribute
       const node = $(el);
       let transform = node.attr('transform');
       if (transform) {

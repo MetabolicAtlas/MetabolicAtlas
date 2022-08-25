@@ -6,7 +6,7 @@ const getEc = async value => {
     where ec = ${value.toString()}
   `;
 
-  if (ecs.length !== 1) {
+  if (!ecs.length) {
     throw new Error(`EC ${value} returned ${ecs.length} results.`);
   }
 

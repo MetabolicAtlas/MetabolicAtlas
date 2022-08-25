@@ -7,7 +7,7 @@ const getCompound = async id => {
     where kegg = ${id.toString()}
   `;
 
-  if (compounds.length !== 1) {
+  if (!compounds.length) {
     throw new Error(
       `Compound with kegg ID ${id} returned ${compounds.length} results.`
     );
@@ -41,4 +41,28 @@ const getCompound = async id => {
   };
 };
 
-export default getCompound;
+const getSmilesForMetabolite = async ({ formula, crossReferences }) => {
+  const MISSING_PLACEHOLDER = 'A MISSING PLACEHOLDER';
+  // This is needed to make sure the sql query does not fail.
+
+  const compounds = await sql`
+    select smiles from compounds
+    where smiles is not null
+    and (
+      kegg = ${crossReferences['KEGG'] || MISSING_PLACEHOLDER}
+      or meta_net_x = ${crossReferences['MetaNetX'] || MISSING_PLACEHOLDER}
+      or chebi = ${crossReferences['ChEBI'] || MISSING_PLACEHOLDER}
+      or bigg = ${crossReferences['BiGG'] || MISSING_PLACEHOLDER}
+      or formula = ${formula || MISSING_PLACEHOLDER}
+    )
+    limit 1
+  `;
+
+  if (!compounds.length) {
+    return null;
+  }
+
+  return compounds[0].smiles;
+};
+
+export { getCompound, getSmilesForMetabolite };

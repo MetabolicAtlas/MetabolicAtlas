@@ -856,7 +856,7 @@ export default {
         // positioning options
         randomize: false, // use random node positions at beginning of layout
         avoidOverlap: true, // if true, prevents overlap of node bounding boxe
-        handleDisconnected: true, // if true, avoids disconnected components from overlappin
+        handleDisconnected: true, // if true, avoids disconnected components from overlapping
         nodeSpacing() {
           return 10;
         }, // extra spacing around node

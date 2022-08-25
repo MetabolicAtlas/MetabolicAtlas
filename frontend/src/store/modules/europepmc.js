@@ -9,7 +9,7 @@ const actions = {
     const refs = await europepmcApi.searchReferences(queryIds);
 
     // The `refs` returned from EuropePMC many fields that are not used
-    // in this project. The following `reduce` extracts and popoulates
+    // in this project. The following `reduce` extracts and populates
     // a small subset of fields: `authors`, `formattedString`, `journal`,
     // `link`, `title` and optionally `year`.
     const formattedRefs = refs.reduce((dict, details) => {
