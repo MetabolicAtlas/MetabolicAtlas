@@ -1,6 +1,9 @@
 import neo4j from 'neo4j-driver';
 
 const uri = 'bolt://neo4j';
+// To access on host computer (i.e. outside Docker container) use below uri
+// const uri = 'bolt://127.0.0.1:7687';
+
 const driver = neo4j.driver(
   uri,
   neo4j.auth.basic(process.env.NEO4J_USERNAME, process.env.NEO4J_PASSWORD),
