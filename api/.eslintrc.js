@@ -51,5 +51,9 @@ module.exports = {
     'global-require': 'off',
     'prefer-arrow-callback': 'off',
     'func-names': 'off',
+    'jest/expect-expect': [
+      'error',
+      { assertFunctionNames: ['expect', 'validateComponent'] },
+    ],
   },
 };

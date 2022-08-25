@@ -238,7 +238,7 @@ describe('gem search', () => {
 
     expect(firstReaction1.id).toEqual('MAR00973');
     expect(firstReaction2.id).toEqual('MAR00973');
-    expect(firstReaction3.id).toEqual('MAR03896');
+    expect(firstReaction3.id).toEqual('MAR00973');
     expect(firstReaction4.id).toEqual('MAR00973');
     expect(firstReaction5.id).toEqual('MAR00973');
   });

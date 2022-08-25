@@ -15,7 +15,7 @@ describe('GEM comparison', () => {
 
   test('the comparison details should have lists of reactions and metabolites', async () => {
     const res = await fetch(
-      `${API_BASE}/comparison-details?model=%7B"model":"FruitflyGem","version":"1_1_0"%7D&models=[%7B"model":"HumanGem","version":"1_10_0"%7D]`
+      `${API_BASE}/comparison-details?model=%7B"model":"FruitflyGem","version":"1_2_0"%7D&models=[%7B"model":"HumanGem","version":"1_11_0"%7D]`
     );
 
     const {
