@@ -340,6 +340,7 @@ describe('gotEnzymes', () => {
         expect(defaultSortedBody).toEqual(sortedByGeneBody);
       });
 
+      // TODO: remove this
       it.skip('should be consistent', async () => {
         const firstPageAscending = await fetch(
           encodeURI(`${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=5`)
@@ -373,13 +374,41 @@ describe('gotEnzymes', () => {
 
         const sortedOnKcatBody = await sortedOnKcat.json();
 
-        sortedOnKcatBody.enzymes.forEach((curr, i, all) => {
-          const next = all[i + 1];
-          if (next) {
-            expect(curr.kcat_values).toBeGreaterThanOrEqual(next.kcat_values);
-          }
-        });
+        sortedOnKcatBody.enzymes
+          .map((curr, i, all) => {
+            const next = all[i + 1];
+            return [curr, next];
+          })
+          .filter(([_curr, next]) => !!next)
+          .forEach(([curr, next]) =>
+            expect(curr.kcat_values).toBeGreaterThanOrEqual(next.kcat_values)
+          );
+      });
+
+      it('should return 400 BAD REQUEST if sort column does not exist', async () => {
+        const res = await fetch(
+          encodeURI(
+            `${API_BASE}/gotenzymes/enzymes?pagination[column]=non-existing`
+          )
+        );
+
+        expect(res.status).toBe(400);
       });
     });
   });
+
+  describe('filtering', () => {
+    it('should filter by equality', async () => {
+      const filtered = await fetch(
+        encodeURI(`${API_BASE}/gotenzymes/enzymes?filters[gene]=AXYL_01798`)
+      );
+      const filteredBody = await filtered.json();
+
+      filteredBody.enzymes.forEach(enzyme =>
+        expect(enzyme.gene).toBe('AXYL_01798')
+      );
+    });
+  });
+
+  // TODO: parameterize over all column for sorting and filtering?
 });
