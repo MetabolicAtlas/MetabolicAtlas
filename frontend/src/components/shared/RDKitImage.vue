@@ -37,9 +37,9 @@ export default {
       config: {
         width: 800,
         height: 800,
-        addAtomIndices: true,
-        addBondIndices: true,
-        addStereoAnnotation: true,
+        // addAtomIndices: true,
+        // addBondIndices: true,
+        // addStereoAnnotation: true,
         explicitMethyl: true,
       },
       mol: null,
