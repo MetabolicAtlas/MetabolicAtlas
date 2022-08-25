@@ -340,50 +340,40 @@ describe('gotEnzymes', () => {
         expect(defaultSortedBody).toEqual(sortedByGeneBody);
       });
 
-      // TODO: remove this
-      it.skip('should be consistent', async () => {
-        const firstPageAscending = await fetch(
-          encodeURI(`${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=5`)
-        );
-
-        const firstPageAscendingBody = await firstPageAscending.json();
-
-        const lastPageIndex = Math.floor(
-          firstPageAscendingBody.totalCount / 5 + 1
-        );
-
-        const lastPageDescending = await fetch(
-          encodeURI(
-            `${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=5&pagination[page]=${lastPageIndex}&pagination[isAscending]=false`
-          )
-        );
-
-        const lastPageDescendingBody = await lastPageDescending.json();
-
-        expect(firstPageAscendingBody.enzymes).toEqual(
-          lastPageDescendingBody.enzymes.reverse()
-        );
-      });
-
-      it('should sort enzymes according to given column', async () => {
-        const sortedOnKcat = await fetch(
-          encodeURI(
-            `${API_BASE}/gotenzymes/enzymes?pagination[page]=10&pagination[column]=kcat_values&pagination[isAscending]=false`
-          )
-        );
-
-        const sortedOnKcatBody = await sortedOnKcat.json();
-
-        sortedOnKcatBody.enzymes
-          .map((curr, i, all) => {
-            const next = all[i + 1];
-            return [curr, next];
-          })
-          .filter(([_curr, next]) => !!next)
-          .forEach(([curr, next]) =>
-            expect(curr.kcat_values).toBeGreaterThanOrEqual(next.kcat_values)
+      it.each([
+        ['gene', true],
+        ['organism', true],
+        ['domain', true],
+        ['reaction_id', true],
+        ['ec_number', true],
+        ['compound', true],
+        ['kcat_values', true],
+        ['gene', false],
+        ['organism', false],
+        ['domain', false],
+        ['reaction_id', false],
+        ['ec_number', false],
+        ['compound', false],
+        ['kcat_values', false],
+      ])(
+        'should sort enzymes by to %p with ascending order = %p',
+        async (column, ascending) => {
+          const sorted = await fetch(
+            encodeURI(
+              `${API_BASE}/gotenzymes/enzymes?pagination[page]=1&pagination[pageSize]=1000&pagination[column]=${column}&pagination[isAscending]=${ascending}`
+            )
           );
-      });
+
+          const sortedBody = await sorted.json();
+
+          const values = sortedBody.enzymes.map(enzyme => enzyme[column]);
+          const sortedValues = sortedBody.enzymes
+            .map(enzyme => enzyme[column])
+            .sort((a, b) => (ascending ? a - b : b - a));
+
+          expect(values).toEqual(sortedValues);
+        }
+      );
 
       it('should return 400 BAD REQUEST if sort column does not exist', async () => {
         const res = await fetch(
