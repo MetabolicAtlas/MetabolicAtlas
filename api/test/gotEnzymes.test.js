@@ -398,17 +398,26 @@ describe('gotEnzymes', () => {
   });
 
   describe('filtering', () => {
-    it('should filter by equality', async () => {
+    it.each([
+      ['gene', 'AXYL_01798'],
+      ['organism', 'sce'],
+      ['domain', 'B'],
+      ['reaction_id', 'R00470'],
+      ['ec_number', '4.1.3.16;4.1.3.42'],
+      ['compound', 'C00027'],
+    ])('should filter %p by equality', async (column, filterData) => {
       const filtered = await fetch(
-        encodeURI(`${API_BASE}/gotenzymes/enzymes?filters[gene]=AXYL_01798`)
+        encodeURI(
+          `${API_BASE}/gotenzymes/enzymes?filters[${column}]=${filterData}`
+        )
       );
       const filteredBody = await filtered.json();
 
       filteredBody.enzymes.forEach(enzyme =>
-        expect(enzyme.gene).toBe('AXYL_01798')
+        expect(enzyme[column]).toBe(filterData)
       );
     });
   });
 
-  // TODO: parameterize over all column for sorting and filtering?
+  // TODO: kcat filter test
 });
