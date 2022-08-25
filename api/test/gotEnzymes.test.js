@@ -256,4 +256,130 @@ describe('gotEnzymes', () => {
       expect(res.status).toBe(404);
     });
   });
+
+  describe('search enzymes', () => {
+    describe('pagination', () => {
+      it('should use 50 as default page size', async () => {
+        const res = await fetch(`${API_BASE}/gotenzymes/enzymes`);
+
+        expect(res.status).toBe(200);
+        const body = await res.json();
+        expect(body.enzymes.length).toBe(50);
+      });
+
+      it('should use requested page size', async () => {
+        const res = await fetch(
+          encodeURI(`${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=99`)
+        );
+
+        expect(res.status).toBe(200);
+        const body = await res.json();
+        expect(body.enzymes.length).toBe(99);
+      });
+
+      it('should use 1 as default page', async () => {
+        const defaultPage = await fetch(`${API_BASE}/gotenzymes/enzymes`);
+        const firstPage = await fetch(
+          `${API_BASE}/gotenzymes/enzymes?pagination[page]=1`
+        );
+
+        const defaultPageBody = await defaultPage.json();
+        const firstPageBody = await firstPage.json();
+        expect(defaultPageBody).toEqual(firstPageBody);
+      });
+
+      it('should be consistent', async () => {
+        const first80 = await fetch(
+          encodeURI(`${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=80`)
+        );
+        const first40 = await fetch(
+          encodeURI(`${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=40`)
+        );
+        const second40 = await fetch(
+          encodeURI(
+            `${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=40&pagination[page]=2`
+          )
+        );
+        const first80Body = await first80.json();
+        const first40Body = await first40.json();
+        const second40Body = await second40.json();
+
+        expect(first80Body.enzymes).toEqual([
+          ...first40Body.enzymes,
+          ...second40Body.enzymes,
+        ]);
+      });
+    });
+
+    describe('sorting', () => {
+      it('should be based on gene if no sort column is given', async () => {
+        const defaultSorted = await fetch(
+          encodeURI(`${API_BASE}/gotenzymes/enzymes`)
+        );
+        const sortedByGene = await fetch(
+          encodeURI(`${API_BASE}/gotenzymes/enzymes?pagination[column]=gene`)
+        );
+        const defaultSortedBody = await defaultSorted.json();
+        const sortedByGeneBody = await sortedByGene.json();
+
+        expect(defaultSortedBody).toEqual(sortedByGeneBody);
+      });
+
+      it('should be sorted in ascending order if no isAscending flag is given', async () => {
+        const defaultSorted = await fetch(
+          encodeURI(`${API_BASE}/gotenzymes/enzymes`)
+        );
+        const sortedByGene = await fetch(
+          encodeURI(
+            `${API_BASE}/gotenzymes/enzymes?pagination[isAscending]=true`
+          )
+        );
+        const defaultSortedBody = await defaultSorted.json();
+        const sortedByGeneBody = await sortedByGene.json();
+
+        expect(defaultSortedBody).toEqual(sortedByGeneBody);
+      });
+
+      it.skip('should be consistent', async () => {
+        const firstPageAscending = await fetch(
+          encodeURI(`${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=5`)
+        );
+
+        const firstPageAscendingBody = await firstPageAscending.json();
+
+        const lastPageIndex = Math.floor(
+          firstPageAscendingBody.totalCount / 5 + 1
+        );
+
+        const lastPageDescending = await fetch(
+          encodeURI(
+            `${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=5&pagination[page]=${lastPageIndex}&pagination[isAscending]=false`
+          )
+        );
+
+        const lastPageDescendingBody = await lastPageDescending.json();
+
+        expect(firstPageAscendingBody.enzymes).toEqual(
+          lastPageDescendingBody.enzymes.reverse()
+        );
+      });
+
+      it('should sort enzymes according to given column', async () => {
+        const sortedOnKcat = await fetch(
+          encodeURI(
+            `${API_BASE}/gotenzymes/enzymes?pagination[page]=10&pagination[column]=kcat_values&pagination[isAscending]=false`
+          )
+        );
+
+        const sortedOnKcatBody = await sortedOnKcat.json();
+
+        sortedOnKcatBody.enzymes.forEach((curr, i, all) => {
+          const next = all[i + 1];
+          if (next) {
+            expect(curr.kcat_values).toBeGreaterThanOrEqual(next.kcat_values);
+          }
+        });
+      });
+    });
+  });
 });
