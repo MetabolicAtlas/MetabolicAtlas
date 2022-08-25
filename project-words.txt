@@ -155,6 +155,7 @@ Prot
 proteinatlas
 Pubmed
 Quant
+rdkit
 reactome
 Reactome
 Recon
