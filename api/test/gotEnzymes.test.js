@@ -394,7 +394,7 @@ describe('gotEnzymes', () => {
       ['domain', 'B'],
       ['reaction_id', 'R00470'],
       ['compound', 'C00027'],
-    ])('should filter %p by equality', async (column, filterData) => {
+    ])('should filter by %p by equality', async (column, filterData) => {
       const filtered = await fetch(
         encodeURI(
           `${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=1000&filters[${column}]=${filterData}`
@@ -407,7 +407,7 @@ describe('gotEnzymes', () => {
       );
     });
 
-    it('should filter EC number by existence in comma separated string', async () => {
+    it('should filter by EC number by existence in comma separated string', async () => {
       const filtered = await fetch(
         encodeURI(
           `${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=1000&filters[ec_number]=4.1.3.42`
@@ -418,6 +418,20 @@ describe('gotEnzymes', () => {
       filteredBody.enzymes.forEach(enzyme =>
         expect(enzyme.ec_number.split(';')).toContain('4.1.3.42')
       );
+    });
+
+    it('should filter by kcat_values by inclusion in range', async () => {
+      const filtered = await fetch(
+        encodeURI(
+          `${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=1000&filters[kcat_values]={"min":10.4,"max":10.42}`
+        )
+      );
+      const filteredBody = await filtered.json();
+
+      filteredBody.enzymes.forEach(enzyme => {
+        expect(enzyme.kcat_values).toBeGreaterThanOrEqual(10.4);
+        expect(enzyme.kcat_values).toBeLessThanOrEqual(10.42);
+      });
     });
   });
 });
