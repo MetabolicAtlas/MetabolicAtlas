@@ -5,6 +5,7 @@ import {
   reformatSubsystemSVGs,
 } from 'neo4j/shared/formatter';
 import parseParams from 'neo4j/shared/helper';
+import { getSmilesForMetabolite } from 'gotEnzymes/compound';
 
 const getMetabolite = async ({ id, model, version }) => {
   const [m, v] = parseParams(model, version);
@@ -48,6 +49,26 @@ CALL apoc.cypher.run('
 RETURN apoc.map.mergeList(COLLECT(value.data)) as metabolite
 `;
   const metabolite = await querySingleResult(statement);
+
+  try {
+    const smiles = await getSmilesForMetabolite({
+      formula: metabolite.formula,
+      crossReferences: metabolite.externalDbs.reduce(
+        (acc, curr) => ({
+          ...acc,
+          [curr.dbName]: curr.externalId,
+        }),
+        {}
+      ),
+    });
+
+    if (smiles) {
+      metabolite.smiles = smiles;
+    }
+  } catch (e) {
+    console.error(e);
+  }
+
   metabolite.compartments = [metabolite.compartment];
   return {
     ...metabolite,

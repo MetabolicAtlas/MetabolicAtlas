@@ -25,7 +25,11 @@
                 />
               </div>
             </div>
+            <div class="column">
+              <RDKitImage v-if="info.smiles" :smiles="info.smiles" />
+            </div>
           </div>
+          <div id="rdkit-img"></div>
           <enzymes-table
             :initial-filter="enzymesTableInitialFilter"
             :component-type="componentType"
@@ -42,6 +46,7 @@ import { mapState } from 'vuex';
 import Loader from '@/components/Loader';
 import ExtIdTable from '@/components/explorer/gemBrowser/ExtIdTable';
 import EnzymesTable from '@/components/gotEnzymes/EnzymesTable';
+import RDKitImage from '@/components/shared/RDKitImage';
 
 export default {
   name: 'DetailsPage',
@@ -49,6 +54,7 @@ export default {
     Loader,
     ExtIdTable,
     EnzymesTable,
+    RDKitImage,
   },
   props: {
     componentId: { type: String },

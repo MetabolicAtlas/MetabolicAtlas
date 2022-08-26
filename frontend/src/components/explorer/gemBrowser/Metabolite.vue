@@ -65,24 +65,12 @@
         </tr>
       </table>
     </template>
-    <template v-slot:chebi>
+    <template v-slot:rdkit-img>
       <div
-        v-if="metabolite.externalDbs && metabolite.externalDbs.ChEBI"
+        v-if="metabolite.smiles"
         class="column is-3-widescreen is-2-desktop is-full-tablet has-text-centered px-2"
       >
-        <a :href="metabolite.externalDbs.ChEBI[0].url" target="_blank">
-          <img
-            id="chebi-img"
-            :src="`https://www.ebi.ac.uk/chebi/displayImage.do?defaultImage=true&imageIndex=0&chebiId=${metabolite.externalDbs.ChEBI[0].id.slice(
-              6
-            )}&dimensions=400`"
-            class="hoverable"
-            onerror="this.onerror=null;this.parentElement.parentElement.style.display='none';"
-          />
-          <a :href="metabolite.externalDbs.ChEBI[0].url" target="_blank" style="display: block">
-            {{ metabolite.name }} via ChEBI
-          </a>
-        </a>
+        <RDKitImage :smiles="metabolite.smiles" />
       </div>
     </template>
   </component-layout>
@@ -93,11 +81,13 @@ import { mapState } from 'vuex';
 import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout';
 import { default as chemicalFormula } from '@/helpers/chemical-formatters';
 import { generateSocialMetaTags, reformatTableKey, combineWords } from '@/helpers/utils';
+import RDKitImage from '@/components/shared/RDKitImage';
 
 export default {
   name: 'Metabolite',
   components: {
     ComponentLayout,
+    RDKitImage,
   },
   data() {
     return {
@@ -176,9 +166,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-#chebi-img {
-  border: 1px solid $grey-lighter;
-}
-</style>
