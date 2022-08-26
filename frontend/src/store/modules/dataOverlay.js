@@ -12,8 +12,10 @@ const data = {
 
 const getters = {
   queryParams: state => ({
-    dataType: state.currentDataType.length ? state.currentDataType[0].name : 'None',
-    dataSource: state.currentDataSource.length ? state.currentDataSource.filename : 'None',
+    dataType: state.currentDataType.length ? state.currentDataType.map(type => type.name) : 'None',
+    dataSource: state.currentDataSource.length
+      ? state.currentDataSource.map(source => source.filename)
+      : 'None',
     dataSet: state.dataSet,
   }),
   computedLevels: state => {
@@ -80,6 +82,7 @@ const actions = {
     }
   },
   async getDataSource({ commit, dispatch, state }, { model, type, filename, propagate, index }) {
+    console.log('getDataSource', type, filename, index, propagate);
     try {
       if (propagate) {
         dispatch('setDataSet', { index, dataSet: 'None' });
@@ -120,6 +123,7 @@ const actions = {
     }
   },
   async getDataSet({ commit, state }, { model, type, filename, dataSet, index }) {
+    console.log('getDataSet', type, filename, dataSet);
     try {
       let responseDataSet = null;
       if (state.customData[type] && state.customData[type][filename]) {
@@ -176,6 +180,7 @@ const mutations = {
   },
   setCurrentDataSource: (state, currentDataSource) => {
     // copy and replace the array to trigger reactive array change detection
+    console.log('setCurrentDataSource', currentDataSource);
     const tempList = [...state.currentDataSource];
     tempList[currentDataSource.index] = currentDataSource;
     state.currentDataSource = tempList;

@@ -248,6 +248,7 @@ export default {
     },
     // eslint-disable-next-line no-unused-vars
     handleQueryParamsWatch(newQuery, oldQuery) {
+      console.log('query', newQuery);
       if (!newQuery) {
         return;
       }

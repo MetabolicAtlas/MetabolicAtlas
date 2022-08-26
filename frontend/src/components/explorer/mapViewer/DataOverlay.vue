@@ -137,7 +137,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapGetters, mapActions, mapState } from 'vuex';
 import DataOverlayValidation from '@/components/explorer/mapViewer/DataOverlayValidation.vue';
 import RNALegend from '@/components/explorer/mapViewer/RNALegend.vue';
 import { parseFile } from '@/helpers/dataOverlay';
@@ -183,6 +183,9 @@ export default {
       dataSet: state => state.dataOverlay.dataSet,
       customData: state => state.dataOverlay.customData,
     }),
+    ...mapGetters({
+      queryParams: 'dataOverlay/queryParams',
+    }),
     filteredDataSourcesIndex() {
       if (this.$route.name === 'interaction') {
         // do not include fluxomics data for the interaction partners page
@@ -194,33 +197,42 @@ export default {
   },
   async created() {
     await this.getDataSourcesIndex(this.model.short_name);
-    const dataType = this.validDataTypeInQuery()
-      ? this.$route.query.dataType
-      : Object.keys(this.filteredDataSourcesIndex)[0];
-    await this.setCurrentDataType({
-      model: this.model.short_name,
-      type: dataType,
-      propagate: false,
-      index: 0,
+
+    const queryParamTypes = this.validDataTypeInQuery();
+    const dataTypes = queryParamTypes.length
+      ? queryParamTypes
+      : [Object.keys(this.filteredDataSourcesIndex)[0]];
+    await dataTypes.forEach((type, index) => {
+      this.setCurrentDataType({
+        model: this.model.short_name,
+        type,
+        propagate: false,
+        index,
+      });
     });
+
     const [defaultCustomDataType] = Object.keys(this.filteredDataSourcesIndex);
     this.customDataType = defaultCustomDataType;
-    const dataSource = this.validDataSourceInQuery()
-      ? this.$route.query.dataSource
-      : this.filteredDataSourcesIndex[this.dataType[0].name][0].filename;
-    await this.getDataSource({
-      model: this.model.short_name,
-      type: dataType,
-      filename: dataSource,
-      propagate: false,
-      index: 0,
+
+    const queryParamSources = this.validDataSourceInQuery();
+    const dataSources = queryParamSources.length
+      ? queryParamSources
+      : [this.filteredDataSourcesIndex[this.dataType[0].name][0].filename];
+    await dataSources.forEach((source, index) => {
+      this.getDataSource({
+        model: this.model.short_name,
+        type: dataTypes[index],
+        filename: source,
+        propagate: false,
+        index,
+      });
     });
 
     const dataSet = this.validDataSourceDataSetInQuery() ? this.currentDataSet() : 'None';
     await this.getDataSet({
       model: this.model.short_name,
-      type: dataType,
-      filename: dataSource,
+      type: dataTypes[0],
+      filename: dataSources[0],
       dataSet,
       index: 0,
     });
@@ -292,22 +304,28 @@ export default {
     customErrorMessage() {
       return this.errorCustomFileMsg.map(m => `<p>${m}</p>`).join('');
     },
+    // dataType=flux,trans&dataSource=transSource,fluxSource, somerand
     validDataTypeInQuery() {
-      return false;
-      /* return (
-        this.$route.query.dataType &&
-        Object.keys(this.filteredDataSourcesIndex).indexOf(this.$route.query.dataType) > -1
-      ); */
+      const validTypes = this.$route.query.dataType
+        ? this.$route.query.dataType
+            .split(',')
+            .filter(type => Object.keys(this.filteredDataSourcesIndex).indexOf(type) > -1)
+        : [];
+      console.log('setting url types to', validTypes);
+      // each type allowed only once
+      return [...new Set(validTypes)];
     },
+    // dataType=bad,good&dataSource=good,good
     validDataSourceInQuery() {
-      return false;
-      /* return (
-        this.$route.query.dataSource && // eslint-disable-line operator-linebreak
-        this.dataType.length && // eslint-disable-line operator-linebreak
-        this.filteredDataSourcesIndex[this.dataType[0].name]
-          .map(e => e.filename)
-          .indexOf(this.$route.query.dataSource) > -1
-      ); */
+      // TODO datatype or dataType in url??
+      const sources = this.$route.query.dataSource ? this.$route.query.dataSource.split(',') : [];
+      const validSources = sources.filter((source, index) => {
+        const type = this.dataType.length > index && this.dataType[index].name;
+        const typeSources = type ? this.filteredDataSourcesIndex[type] : [];
+        return typeSources.some(s => s.filename === source);
+      });
+      console.log('setting url source to', validSources);
+      return validSources;
     },
     validDataSourceDataSetInQuery() {
       return false;
