@@ -132,7 +132,7 @@
         </div>
       </div>
     </div>
-    <button :disabled="!addCards()" @click="newOverlayCard">Click me</button>
+    <button class="button" :disabled="!addCards()" @click="newOverlayCard">Add overlay</button>
     <RNALegend class="my-3" />
   </div>
 </template>
