@@ -101,7 +101,7 @@ export default {
       coords: state => state.maps.coords,
       selectedElementId: state => state.maps.selectedElementId,
       searchTerm: state => state.maps.searchTerm,
-      dataType: state => state.dataOverlay.currentDataType,
+      dataTypes: state => state.dataOverlay.currentDataTypes,
       dataSource: state => state.dataOverlay.currentDataSource,
       dataSet: state => state.dataOverlay.dataSet,
       // TODO fix later
@@ -354,13 +354,13 @@ export default {
     },
     applyLevelsOnMap() {
       // TODO: Should this be store data? Since also used in the store file
-      const inactiveDataTypes = this.dataType.filter(
+      const inactiveDataTypes = this.dataTypes.filter(
         (dataType, index) => this.dataSet[index] === 'None'
       );
       inactiveDataTypes.forEach(dataType => {
         $(`#svg-wrapper .${dataType.className} .shape`).attr('fill', dataType.defaultColor);
       });
-      if (inactiveDataTypes.length === this.dataType.length) {
+      if (inactiveDataTypes.length === this.dataTypes.length) {
         return;
       }
       // console.log('apply where computedLevels is:', this.computedLevels);

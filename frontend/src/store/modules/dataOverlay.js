@@ -4,7 +4,7 @@ import { getSingleExpressionColor } from '@/helpers/expressionSources';
 
 const data = {
   index: {},
-  currentDataType: [],
+  currentDataTypes: [],
   currentDataSource: [],
   dataSet: ['None'],
   customData: {},
@@ -12,7 +12,7 @@ const data = {
 
 const getters = {
   queryParams: state => ({
-    dataType: state.currentDataType.length ? state.currentDataType.map(type => type.name) : 'None',
+    dataTypes: state.currentDataTypes.length ? state.currentDataTypes.map(type => type.name) : 'None',
     dataSource: state.currentDataSource.length
       ? state.currentDataSource.map(source => source.filename)
       : 'None',
@@ -44,18 +44,18 @@ const getters = {
   },
   componentClassName: state => {
     const componentClassName = [];
-    state.currentDataType.forEach((type, index) => {
+    state.currentDataTypes.forEach((type, index) => {
       if (state.dataSet[index] !== 'None') {
-        componentClassName.push(state.currentDataType[index].className);
+        componentClassName.push(state.currentDataTypes[index].className);
       }
     });
     return componentClassName;
   },
   componentType: state => {
     const componentType = [];
-    state.currentDataType.forEach((type, index) => {
+    state.currentDataTypes.forEach((type, index) => {
       if (state.dataSet[index] !== 'None') {
-        componentType.push(state.currentDataType[index].componentType);
+        componentType.push(state.currentDataTypes[index].componentType);
       }
     });
     return componentType;
@@ -174,9 +174,9 @@ const mutations = {
   },
   setCurrentDataType: (state, currentDataType) => {
     // copy and replace the array to trigger reactive array change detection
-    const tempList = [...state.currentDataType];
+    const tempList = [...state.currentDataTypes];
     tempList[currentDataType.index] = currentDataType;
-    state.currentDataType = tempList;
+    state.currentDataTypes = tempList;
   },
   setCurrentDataSource: (state, currentDataSource) => {
     // copy and replace the array to trigger reactive array change detection

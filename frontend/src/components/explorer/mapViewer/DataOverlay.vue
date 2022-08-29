@@ -39,7 +39,7 @@
     <Modal :show-modal.sync="showModal" size="small">
       <div class="control">
         <p>Select data type</p>
-        <div v-if="dataType.length" class="select is-fullwidth m-1">
+        <div v-if="dataTypes.length" class="select is-fullwidth m-1">
           <!-- TODO: Why do we need a method? -->
           <select :disabled="disableSelect()" @change="handleCustomDataTypeSelect($event)">
             <option
@@ -64,14 +64,14 @@
         <button class="button is-primary" @click="addSourceToIndex">Upload</button>
       </div>
     </Modal>
-    <div v-for="(chosentype, index) in dataType" :key="index">
+    <div v-for="(chosentype, index) in dataTypes" :key="index">
       <div class="card my-3">
         <div class="card-content py-2 p-3">
           <div class="has-text-centered title is-size-6">Data</div>
           <div v-if="modelHasOverlayData()">
             <div class="control">
               <p>Select data type</p>
-              <div v-if="dataType.length" class="select is-fullwidth">
+              <div v-if="dataTypes.length" class="select is-fullwidth">
                 <select @change="handleDataTypeSelect($event, index)">
                   <option
                     v-for="type in Object.keys(filteredDataSourcesIndex)"
@@ -88,7 +88,7 @@
             </div>
             <div class="control">
               <p>Select data source</p>
-              <div v-if="dataType" class="select is-fullwidth">
+              <div v-if="dataTypes.length" class="select is-fullwidth">
                 <select @change="handleDataSourceSelect($event, index)">
                   <option
                     v-for="s in filteredDataSourcesIndex[chosentype.name]"
@@ -177,7 +177,7 @@ export default {
       dataOverlayPanelVisible: state => state.maps.dataOverlayPanelVisible,
       mapLoaded: state => !state.maps.loading,
       dataSourcesIndex: state => state.dataOverlay.index,
-      dataType: state => state.dataOverlay.currentDataType,
+      dataTypes: state => state.dataOverlay.currentDataTypes,
       dataSource: state => state.dataOverlay.currentDataSource,
       dataSet: state => state.dataOverlay.dataSet,
       customData: state => state.dataOverlay.customData,
@@ -216,7 +216,7 @@ export default {
     const queryParamSources = this.validDataSourceInQuery();
     const dataSources = queryParamSources.length
       ? queryParamSources
-      : [this.filteredDataSourcesIndex[this.dataType[0].name][0].filename];
+      : [this.filteredDataSourcesIndex[this.dataTypes[0].name][0].filename];
     await dataSources.forEach((source, index) => {
       this.getDataSource({
         model: this.model.short_name,
@@ -258,7 +258,7 @@ export default {
     async handleDataSourceSelect(e, index) {
       const payload = {
         model: this.model.short_name,
-        type: this.dataType[index].name,
+        type: this.dataTypes[index].name,
         filename: e.target.value,
         propagate: true,
         index,
@@ -269,7 +269,7 @@ export default {
     async handleDataSetSelect(e, index) {
       const payload = {
         model: this.model.short_name,
-        type: this.dataType[index].name,
+        type: this.dataTypes[index].name,
         filename: this.dataSource[index].filename,
         dataSet: e.target.value,
         index,
@@ -305,8 +305,8 @@ export default {
     },
     // dataType=flux,trans&dataSource=transSource,fluxSource, somerand
     validDataTypeInQuery() {
-      const validTypes = this.$route.query.dataType
-        ? this.$route.query.dataType
+      const validTypes = this.$route.query.dataTypes
+        ? this.$route.query.dataTypes
             .split(',')
             .filter(type => Object.keys(this.filteredDataSourcesIndex).indexOf(type) > -1)
         : [];
@@ -319,7 +319,7 @@ export default {
       // TODO datatype or dataType in url??
       const sources = this.$route.query.dataSource ? this.$route.query.dataSource.split(',') : [];
       const validSources = sources.filter((source, index) => {
-        const type = this.dataType.length > index && this.dataType[index].name;
+        const type = this.dataTypes.length > index && this.dataTypes[index].name;
         const typeSources = type ? this.filteredDataSourcesIndex[type] : [];
         return typeSources.some(s => s.filename === source);
       });
@@ -341,7 +341,7 @@ export default {
       return this.dataSet !== 'None' ? this.dataSet : this.$route.query.dataSet;
     },
     disable(dataType, index) {
-      const foundAt = this.dataType.map(x => x.name).indexOf(dataType);
+      const foundAt = this.dataTypes.map(x => x.name).indexOf(dataType);
       return !(foundAt === index || foundAt === -1);
     },
     levelsDisabled(index) {
@@ -350,7 +350,7 @@ export default {
       );
     },
     availableTypes() {
-      const busy = this.dataType.map(y => y.name);
+      const busy = this.dataTypes.map(y => y.name);
       return Object.keys(this.dataSourcesIndex).filter(name => !busy.includes(name));
     },
     addCards() {
@@ -359,7 +359,7 @@ export default {
     },
     async newOverlayCard() {
       const available = this.availableTypes();
-      const newIndex = this.dataType.length;
+      const newIndex = this.dataTypes.length;
       await this.setCurrentDataType({
         model: this.model.short_name,
         type: available[0],
