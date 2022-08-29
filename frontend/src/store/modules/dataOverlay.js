@@ -29,14 +29,17 @@ const getters = {
     const computedLevels = {};
     // for-loop över alla datasourcar och deras set
     currentDataSources.forEach((source, index) => {
-      if (dataSets[index] !== 'None') {
-        t = dataSets[index];
-        l = source.levels;
-        Object.keys(l[t]).forEach(id => {
-          const val = l[t][id];
-          computedLevels[id] = [getSingleExpressionColor(val), val];
-        });
+      if (!dataSets[index] || dataSets[index] === 'None') {
+        return;
       }
+
+      t = dataSets[index];
+      l = source.levels;
+      // console.log(t, l);
+      Object.keys(l[t]).forEach(id => {
+        const val = l[t][id];
+        computedLevels[id] = [getSingleExpressionColor(val), val];
+      });
     });
     if (Object.keys(computedLevels).length) {
       computedLevels['n/a'] = [getSingleExpressionColor(NaN), 'n/a'];
@@ -84,7 +87,7 @@ const actions = {
     }
   },
   async getDataSource({ commit, dispatch, state }, { model, type, filename, propagate, index }) {
-    console.log('getDataSource', type, filename, index, propagate);
+    // console.log('getDataSource', type, filename, index, propagate);
     try {
       if (propagate) {
         dispatch('setDataSet', { index, dataSet: 'None' });
@@ -125,7 +128,7 @@ const actions = {
     }
   },
   async getDataSet({ commit, state }, { model, type, filename, dataSet, index }) {
-    console.log('getDataSet', type, filename, dataSet);
+    // console.log('getDataSet', type, filename, dataSet);
     try {
       let responseDataSet = null;
       if (state.customData[type] && state.customData[type][filename]) {
@@ -182,7 +185,7 @@ const mutations = {
   },
   setCurrentDataSource: (state, currentDataSource) => {
     // copy and replace the array to trigger reactive array change detection
-    console.log('setCurrentDataSource', currentDataSource);
+    // console.log('setCurrentDataSource', currentDataSource);
     const tempList = [...state.currentDataSources];
     tempList[currentDataSource.index] = currentDataSource;
     state.currentDataSources = tempList;

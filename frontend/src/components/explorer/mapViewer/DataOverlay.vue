@@ -203,7 +203,7 @@ export default {
     const dataTypes = queryParamTypes.length
       ? queryParamTypes
       : [Object.keys(this.filteredDataSourcesIndex)[0]];
-    await dataTypes.forEach((type, index) => {
+    dataTypes.forEach((type, index) => {
       this.setCurrentDataType({
         model: this.model.short_name,
         type,
@@ -229,14 +229,24 @@ export default {
       });
     });
 
-    const dataSet = this.validDataSourceDataSetInQuery() ? this.currentDataSet() : 'None';
-    await this.getDataSet({
-      model: this.model.short_name,
-      type: dataTypes[0],
-      filename: dataSources[0],
-      dataSet,
-      index: 0,
-    });
+    setTimeout(async () => {
+      const queryDataSets = this.$route.query.dataSets ? this.$route.query.dataSets.split(',') : [];
+      await queryDataSets.forEach((dataSet, index) => {
+        if (!this.dataSources[index]) {
+          return;
+        }
+
+        if (this.dataSources[index].dataSets.includes(dataSet)) {
+          this.getDataSet({
+            model: this.model.short_name,
+            type: dataTypes[0],
+            filename: dataSources[0],
+            dataSet,
+            index,
+          });
+        }
+      });
+    }, 0);
   },
   methods: {
     ...mapActions({
@@ -312,7 +322,7 @@ export default {
             .split(',')
             .filter(type => Object.keys(this.filteredDataSourcesIndex).indexOf(type) > -1)
         : [];
-      console.log('setting url types to', validTypes);
+      // console.log('setting url types to', validTypes);
       // each type allowed only once
       return [...new Set(validTypes)];
     },
@@ -325,22 +335,11 @@ export default {
         const typeSources = type ? this.filteredDataSourcesIndex[type] : [];
         return typeSources.some(s => s.filename === source);
       });
-      console.log('setting url source to', validSources);
+      // console.log('setting url source to', validSources);
       return validSources;
-    },
-    validDataSourceDataSetInQuery() {
-      return false;
-      /* return (
-        this.currentDataSet() && // eslint-disable-line operator-linebreak
-        this.dataSources && // eslint-disable-line operator-linebreak
-        this.dataSources.dataSets.indexOf(this.currentDataSet()) > -1
-      ); */
     },
     modelHasOverlayData() {
       return Object.keys(this.filteredDataSourcesIndex).length > 0;
-    },
-    currentDataSet() {
-      return this.dataSets !== 'None' ? this.dataSets : this.$route.query.dataSets;
     },
     disable(dataType, index) {
       const foundAt = this.dataTypes.map(x => x.name).indexOf(dataType);
