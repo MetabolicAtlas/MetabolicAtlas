@@ -103,7 +103,7 @@ export default {
       searchTerm: state => state.maps.searchTerm,
       dataTypes: state => state.dataOverlay.currentDataTypes,
       dataSources: state => state.dataOverlay.currentDataSources,
-      dataSet: state => state.dataOverlay.dataSet,
+      dataSets: state => state.dataOverlay.dataSets,
       // TODO fix later
       customDataSet: state => state.dataOverlay.customDataSet,
     }),
@@ -120,7 +120,7 @@ export default {
     componentClassName() {
       this.setupHoverEventHandlers();
     },
-    dataSet() {
+    dataSets() {
       this.applyLevelsOnMap();
     },
     customDataSet() {
@@ -355,7 +355,7 @@ export default {
     applyLevelsOnMap() {
       // TODO: Should this be store data? Since also used in the store file
       const inactiveDataTypes = this.dataTypes.filter(
-        (dataType, index) => this.dataSet[index] === 'None'
+        (dataType, index) => this.dataSets[index] === 'None'
       );
       inactiveDataTypes.forEach(dataType => {
         $(`#svg-wrapper .${dataType.className} .shape`).attr('fill', dataType.defaultColor);

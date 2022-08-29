@@ -117,7 +117,7 @@
                     <option
                       v-for="t in dataSources[index].dataSets"
                       :key="t"
-                      :selected="t === dataSet[index]"
+                      :selected="t === dataSets[index]"
                       class="is-clickable is-capitalized"
                     >
                       {{ t }}
@@ -179,7 +179,7 @@ export default {
       dataSourcesIndex: state => state.dataOverlay.index,
       dataTypes: state => state.dataOverlay.currentDataTypes,
       dataSources: state => state.dataOverlay.currentDataSources,
-      dataSet: state => state.dataOverlay.dataSet,
+      dataSets: state => state.dataOverlay.dataSets,
       customData: state => state.dataOverlay.customData,
     }),
     ...mapGetters({
@@ -338,7 +338,7 @@ export default {
       return Object.keys(this.filteredDataSourcesIndex).length > 0;
     },
     currentDataSet() {
-      return this.dataSet !== 'None' ? this.dataSet : this.$route.query.dataSet;
+      return this.dataSets !== 'None' ? this.dataSets : this.$route.query.dataSets;
     },
     disable(dataType, index) {
       const foundAt = this.dataTypes.map(x => x.name).indexOf(dataType);

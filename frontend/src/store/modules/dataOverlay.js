@@ -6,7 +6,7 @@ const data = {
   index: {},
   currentDataTypes: [],
   currentDataSources: [],
-  dataSet: ['None'],
+  dataSets: ['None'],
   customData: {},
 };
 
@@ -16,10 +16,10 @@ const getters = {
     dataSources: state.currentDataSources.length
       ? state.currentDataSources.map(source => source.filename)
       : 'None',
-    dataSet: state.dataSet,
+    dataSets: state.dataSets,
   }),
   computedLevels: state => {
-    const { dataSet, currentDataSources } = state;
+    const { dataSets, currentDataSources } = state;
     let t;
     let l;
 
@@ -27,8 +27,8 @@ const getters = {
     const computedLevels = {};
     // for-loop över alla datasourcar och deras set
     currentDataSources.forEach((source, index) => {
-      if (dataSet[index] !== 'None') {
-        t = dataSet[index];
+      if (dataSets[index] !== 'None') {
+        t = dataSets[index];
         l = source.levels;
         Object.keys(l[t]).forEach(id => {
           const val = l[t][id];
@@ -45,7 +45,7 @@ const getters = {
   componentClassName: state => {
     const componentClassName = [];
     state.currentDataTypes.forEach((type, index) => {
-      if (state.dataSet[index] !== 'None') {
+      if (state.dataSets[index] !== 'None') {
         componentClassName.push(state.currentDataTypes[index].className);
       }
     });
@@ -54,7 +54,7 @@ const getters = {
   componentType: state => {
     const componentType = [];
     state.currentDataTypes.forEach((type, index) => {
-      if (state.dataSet[index] !== 'None') {
+      if (state.dataSets[index] !== 'None') {
         componentType.push(state.currentDataTypes[index].componentType);
       }
     });
@@ -187,9 +187,9 @@ const mutations = {
   },
   setDataSet: (state, { index, dataSet }) => {
     // copy and replace the array to trigger reactive array change detection
-    const tempList = [...state.dataSet];
+    const tempList = [...state.dataSets];
     tempList[index] = dataSet;
-    state.dataSet = tempList;
+    state.dataSets = tempList;
   },
   addCustomDataSourceToIndex: (state, { dataSource, fileName, dataType }) => {
     // TODO: CSPELL filename?
