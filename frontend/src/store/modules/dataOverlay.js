@@ -12,7 +12,9 @@ const data = {
 
 const getters = {
   queryParams: state => ({
-    dataTypes: state.currentDataTypes.length ? state.currentDataTypes.map(type => type.name) : 'None',
+    dataTypes: state.currentDataTypes.length
+      ? state.currentDataTypes.map(type => type.name)
+      : 'None',
     dataSources: state.currentDataSources.length
       ? state.currentDataSources.map(source => source.filename)
       : 'None',

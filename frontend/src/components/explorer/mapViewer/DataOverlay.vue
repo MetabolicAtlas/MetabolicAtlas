@@ -106,7 +106,9 @@
               <div v-if="dataSources.length > index" class="control">
                 <p>
                   Levels from
-                  <a :href="dataSources[index].link" target="_blank">{{ dataSources[index].name }}</a>
+                  <a :href="dataSources[index].link" target="_blank">{{
+                    dataSources[index].name
+                  }}</a>
                 </p>
                 <div class="select is-fullwidth">
                   <select
