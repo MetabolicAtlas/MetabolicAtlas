@@ -5,7 +5,7 @@ import { getSingleExpressionColor } from '@/helpers/expressionSources';
 const data = {
   index: {},
   currentDataTypes: [],
-  currentDataSource: [],
+  currentDataSources: [],
   dataSet: ['None'],
   customData: {},
 };
@@ -13,20 +13,20 @@ const data = {
 const getters = {
   queryParams: state => ({
     dataTypes: state.currentDataTypes.length ? state.currentDataTypes.map(type => type.name) : 'None',
-    dataSource: state.currentDataSource.length
-      ? state.currentDataSource.map(source => source.filename)
+    dataSources: state.currentDataSources.length
+      ? state.currentDataSources.map(source => source.filename)
       : 'None',
     dataSet: state.dataSet,
   }),
   computedLevels: state => {
-    const { dataSet, currentDataSource } = state;
+    const { dataSet, currentDataSources } = state;
     let t;
     let l;
 
     // TODO kolla om någon dataSet är !== None
     const computedLevels = {};
     // for-loop över alla datasourcar och deras set
-    currentDataSource.forEach((source, index) => {
+    currentDataSources.forEach((source, index) => {
       if (dataSet[index] !== 'None') {
         t = dataSet[index];
         l = source.levels;
@@ -139,11 +139,11 @@ const actions = {
       const newDataSet = {
         [dataSet]: responseDataSet,
       };
-      const { currentDataSource } = data;
+      const { currentDataSources } = data;
       const dataSource = {
-        ...currentDataSource[index],
+        ...currentDataSources[index],
         levels: {
-          ...currentDataSource[index].levels,
+          ...currentDataSources[index].levels,
           ...newDataSet,
         },
         index,
@@ -181,9 +181,9 @@ const mutations = {
   setCurrentDataSource: (state, currentDataSource) => {
     // copy and replace the array to trigger reactive array change detection
     console.log('setCurrentDataSource', currentDataSource);
-    const tempList = [...state.currentDataSource];
+    const tempList = [...state.currentDataSources];
     tempList[currentDataSource.index] = currentDataSource;
-    state.currentDataSource = tempList;
+    state.currentDataSources = tempList;
   },
   setDataSet: (state, { index, dataSet }) => {
     // copy and replace the array to trigger reactive array change detection

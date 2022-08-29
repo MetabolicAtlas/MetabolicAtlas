@@ -93,7 +93,7 @@
                   <option
                     v-for="s in filteredDataSourcesIndex[chosentype.name]"
                     :key="s.filename"
-                    :selected="dataSource[index] && s.filename === dataSource[index].filename"
+                    :selected="dataSources[index] && s.filename === dataSources[index].filename"
                     :value="s.filename"
                     class="is-clickable is-capitalized"
                   >
@@ -103,10 +103,10 @@
               </div>
             </div>
             <div class="control">
-              <div v-if="dataSource.length > index" class="control">
+              <div v-if="dataSources.length > index" class="control">
                 <p>
                   Levels from
-                  <a :href="dataSource[index].link" target="_blank">{{ dataSource[index].name }}</a>
+                  <a :href="dataSources[index].link" target="_blank">{{ dataSources[index].name }}</a>
                 </p>
                 <div class="select is-fullwidth">
                   <select
@@ -115,7 +115,7 @@
                   >
                     <option>None</option>
                     <option
-                      v-for="t in dataSource[index].dataSets"
+                      v-for="t in dataSources[index].dataSets"
                       :key="t"
                       :selected="t === dataSet[index]"
                       class="is-clickable is-capitalized"
@@ -178,7 +178,7 @@ export default {
       mapLoaded: state => !state.maps.loading,
       dataSourcesIndex: state => state.dataOverlay.index,
       dataTypes: state => state.dataOverlay.currentDataTypes,
-      dataSource: state => state.dataOverlay.currentDataSource,
+      dataSources: state => state.dataOverlay.currentDataSources,
       dataSet: state => state.dataOverlay.dataSet,
       customData: state => state.dataOverlay.customData,
     }),
@@ -270,7 +270,7 @@ export default {
       const payload = {
         model: this.model.short_name,
         type: this.dataTypes[index].name,
-        filename: this.dataSource[index].filename,
+        filename: this.dataSources[index].filename,
         dataSet: e.target.value,
         index,
       };
@@ -317,7 +317,7 @@ export default {
     // dataType=bad,good&dataSource=good,good
     validDataSourceInQuery() {
       // TODO datatype or dataType in url??
-      const sources = this.$route.query.dataSource ? this.$route.query.dataSource.split(',') : [];
+      const sources = this.$route.query.dataSources ? this.$route.query.dataSources.split(',') : [];
       const validSources = sources.filter((source, index) => {
         const type = this.dataTypes.length > index && this.dataTypes[index].name;
         const typeSources = type ? this.filteredDataSourcesIndex[type] : [];
@@ -330,8 +330,8 @@ export default {
       return false;
       /* return (
         this.currentDataSet() && // eslint-disable-line operator-linebreak
-        this.dataSource && // eslint-disable-line operator-linebreak
-        this.dataSource.dataSets.indexOf(this.currentDataSet()) > -1
+        this.dataSources && // eslint-disable-line operator-linebreak
+        this.dataSources.dataSets.indexOf(this.currentDataSet()) > -1
       ); */
     },
     modelHasOverlayData() {
@@ -346,7 +346,7 @@ export default {
     },
     levelsDisabled(index) {
       return (
-        !this.mapName || !this.dataSource[index] || this.dataSource[index].dataSets.length === 0
+        !this.mapName || !this.dataSources[index] || this.dataSources[index].dataSets.length === 0
       );
     },
     availableTypes() {

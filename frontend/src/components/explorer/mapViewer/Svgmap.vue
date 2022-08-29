@@ -102,7 +102,7 @@ export default {
       selectedElementId: state => state.maps.selectedElementId,
       searchTerm: state => state.maps.searchTerm,
       dataTypes: state => state.dataOverlay.currentDataTypes,
-      dataSource: state => state.dataOverlay.currentDataSource,
+      dataSources: state => state.dataOverlay.currentDataSources,
       dataSet: state => state.dataOverlay.dataSet,
       // TODO fix later
       customDataSet: state => state.dataOverlay.customDataSet,
