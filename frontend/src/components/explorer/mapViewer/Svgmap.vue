@@ -104,7 +104,6 @@ export default {
       dataTypes: state => state.dataOverlay.currentDataTypes,
       dataSources: state => state.dataOverlay.currentDataSources,
       dataSets: state => state.dataOverlay.dataSets,
-      // TODO fix later
       customDataSet: state => state.dataOverlay.customDataSet,
     }),
     ...mapGetters({
@@ -353,7 +352,6 @@ export default {
       FileSaver.saveAs(blob, `${this.mapData.id}.svg`);
     },
     applyLevelsOnMap() {
-      // TODO: Should this be store data? Since also used in the store file
       const inactiveDataTypes = this.dataTypes.filter(
         (dataType, index) => this.dataSets[index] === 'None'
       );

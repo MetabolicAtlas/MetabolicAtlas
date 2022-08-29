@@ -25,9 +25,7 @@ const getters = {
     let t;
     let l;
 
-    // TODO kolla om någon dataSet är !== None
     const computedLevels = {};
-    // for-loop över alla datasourcar och deras set
     currentDataSources.forEach((source, index) => {
       if (!dataSets[index] || dataSets[index] === 'None') {
         return;
@@ -35,7 +33,6 @@ const getters = {
 
       t = dataSets[index];
       l = source.levels;
-      // console.log(t, l);
       Object.keys(l[t]).forEach(id => {
         const val = l[t][id];
         computedLevels[id] = [getSingleExpressionColor(val), val];
@@ -87,7 +84,6 @@ const actions = {
     }
   },
   async getDataSource({ commit, dispatch, state }, { model, type, filename, propagate, index }) {
-    // console.log('getDataSource', type, filename, index, propagate);
     try {
       if (propagate) {
         dispatch('setDataSet', { index, dataSet: 'None' });
@@ -103,8 +99,7 @@ const actions = {
           filename,
         });
       }
-      // TODO jmfr rad 86-95, state.index, varför data.index här?
-      const metadata = data.index[type].find(m => m.filename === filename);
+      const metadata = state.index[type].find(m => m.filename === filename);
       const levels = dataSets.reduce(
         (acc, ds) => {
           acc[ds] = {};
@@ -153,7 +148,6 @@ const actions = {
         },
         index,
       };
-      // TODO why do we set currentDataSource here?
       commit('setCurrentDataSource', dataSource);
       const payload = {
         index,
@@ -170,6 +164,9 @@ const actions = {
   },
   addCustomDataSourceToIndex({ commit }, customDataSource) {
     commit('addCustomDataSourceToIndex', customDataSource);
+  },
+  removeCustomDataSourceFromIndex({ commit }, customDataSource) {
+    commit('removeCustomDataSourceFromIndex', customDataSource);
   },
 };
 
@@ -197,12 +194,23 @@ const mutations = {
     state.dataSets = tempList;
   },
   addCustomDataSourceToIndex: (state, { dataSource, fileName, dataType }) => {
-    // TODO: CSPELL filename?
     state.index[dataType].push({ filename: fileName, lastUpdated: '', link: '', name: fileName });
     if (!state.customData[dataType]) {
       state.customData[dataType] = {};
     }
     state.customData[dataType][fileName] = dataSource;
+  },
+  removeCustomDataSourceFromIndex: (state, { fileName, dataType }) => {
+    console.log('removeCustomDataSourceFromIndex', fileName, dataType);
+    state.index[dataType] = state.index[dataType].filter(m => m.filename !== fileName);
+    state.customData[dataType] = Object.keys(state.customData[dataType]).reduce(
+      (acc, key) => {
+        if (key !== fileName) {
+          acc[key] = state.customData[dataType][key];
+        }
+        return acc;
+      }
+      , {});
   },
 };
 

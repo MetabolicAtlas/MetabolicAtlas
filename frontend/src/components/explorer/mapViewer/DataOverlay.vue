@@ -25,22 +25,25 @@
       @getFileName="getFileName($event)"
       @errorCustomFile="handleErrorCustomFile"
     />
-    <div v-if="customFileName" class="mb-0">
-      <div v-show="!showFileLoader" id="fileNameBox" class="tags has-addons is-centered mb-0">
-        <span class="tag" :class="errorCustomFileMsg ? 'is-danger' : 'is-success'">
-          <div class="is-size-6">{{ customFileName }}</div>
-        </span>
-        <a class="tag is-delete" title="Unload file" @click="unloadUploadedFile()"></a>
-      </div>
-      <div v-show="showFileLoader" class="has-text-centered">
-        <a class="button is-small is-loading"></a>
+    <div v-for="([customDataType, customFiles]) in Object.entries(customData)" :key="customDataType" class="mb-0">
+      <div v-for="(customFileName) in Object.keys(customFiles)" :key="customFileName" class="mb-0">
+        <div v-show="!showFileLoader" class="fileNameBox tags has-addons is-centered mb-0">
+          <span class="tag" :class="errorCustomFileMsg ? 'is-danger' : 'is-success'">
+            <div class="is-size-6">{{ customFileName }}</div>
+          </span>
+          <a class="tag is-delete" title="Unload file" @click="removeCustomDataSourceFromIndex({
+          dataType: customDataType,
+          fileName: customFileName })"></a>
+        </div>
+        <div v-show="showFileLoader" class="has-text-centered">
+          <a class="button is-small is-loading"></a>
+        </div>
       </div>
     </div>
     <Modal :show-modal.sync="showModal" size="small">
       <div class="control">
         <p>Select data type</p>
         <div v-if="dataTypes.length" class="select is-fullwidth m-1">
-          <!-- TODO: Why do we need a method? -->
           <select :disabled="disableSelect()" @change="handleCustomDataTypeSelect($event)">
             <option
               v-for="type in Object.keys(filteredDataSourcesIndex)"
@@ -256,6 +259,7 @@ export default {
       getDataSource: 'dataOverlay/getDataSource',
       getDataSet: 'dataOverlay/getDataSet',
       addCustomDataSourceToIndex: 'dataOverlay/addCustomDataSourceToIndex',
+      removeCustomDataSourceFromIndex: 'dataOverlay/removeCustomDataSourceFromIndex',
     }),
     async handleDataTypeSelect(e, index) {
       const payload = {
@@ -301,11 +305,6 @@ export default {
         this.handleErrorCustomFile(message);
       }
     },
-    // TODO: remove?
-    unloadUploadedFile() {
-      this.customFileName = '';
-      this.errorCustomFileMsg = '';
-    },
     handleErrorCustomFile(errorMsg, name) {
       this.showModal = true;
       this.customFileName = name;
@@ -322,20 +321,18 @@ export default {
             .split(',')
             .filter(type => Object.keys(this.filteredDataSourcesIndex).indexOf(type) > -1)
         : [];
-      // console.log('setting url types to', validTypes);
       // each type allowed only once
       return [...new Set(validTypes)];
     },
     // dataType=bad,good&dataSource=good,good
     validDataSourceInQuery() {
-      // TODO datatype or dataType in url??
       const sources = this.$route.query.dataSources ? this.$route.query.dataSources.split(',') : [];
-      const validSources = sources.filter((source, index) => {
+      const validSources = sources.map((source, index) => {
         const type = this.dataTypes.length > index && this.dataTypes[index].name;
         const typeSources = type ? this.filteredDataSourcesIndex[type] : [];
-        return typeSources.some(s => s.filename === source);
+        return typeSources.some(s => s.filename === source) ? source :
+        this.dataSourcesIndex[type][0].filename;
       });
-      // console.log('setting url source to', validSources);
       return validSources;
     },
     modelHasOverlayData() {
@@ -389,7 +386,7 @@ export default {
 </script>
 
 <style lang="scss">
-#fileNameBox {
+.fileNameBox {
   display: flex;
   flex-wrap: nowrap;
   > span.tag {
