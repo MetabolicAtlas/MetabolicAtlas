@@ -69,7 +69,7 @@
         <button class="button is-primary" @click="addSourceToIndex">Upload</button>
       </div>
     </Modal>
-    <div v-for="(chosentype, index) in dataTypes" :key="index">
+    <div v-for="(chosenType, index) in dataTypes" :key="index">
       <div class="card my-3">
         <div class="card-content py-2 p-3">
           <div class="mb-2 is-flex is-justify-content-space-between">
@@ -92,7 +92,7 @@
                   <option
                     v-for="type in Object.keys(filteredDataSourcesIndex)"
                     :key="type"
-                    :selected="type === chosentype.name"
+                    :selected="type === chosenType.name"
                     :value="type"
                     :disabled="disable(type, index)"
                     class="is-clickable is-capitalized"
@@ -107,7 +107,7 @@
               <div v-if="dataTypes.length" class="select is-fullwidth">
                 <select @change="handleDataSourceSelect($event, index)">
                   <option
-                    v-for="s in filteredDataSourcesIndex[chosentype.name]"
+                    v-for="s in filteredDataSourcesIndex[chosenType.name]"
                     :key="s.filename"
                     :selected="dataSources[index] && s.filename === dataSources[index].filename"
                     :value="s.filename"
@@ -328,7 +328,6 @@ export default {
     customErrorMessage() {
       return this.errorCustomFileMsg.map(m => `<p>${m}</p>`).join('');
     },
-    // dataType=flux,trans&dataSource=transSource,fluxSource, somerand
     validDataTypeInQuery() {
       const validTypes = this.$route.query.dataTypes
         ? this.$route.query.dataTypes
