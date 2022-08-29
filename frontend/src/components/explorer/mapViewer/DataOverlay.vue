@@ -60,9 +60,8 @@
           v-html="customErrorMessage()"
         ></div>
       </div>
-      <div v-else>
-        Success!
-        <button @click="addSourceToIndex">Upload</button>
+      <div v-else class="mt-2 is-flex is-justify-content-center">
+        <button class="button is-primary" @click="addSourceToIndex">Upload</button>
       </div>
     </Modal>
     <div v-for="(chosentype, index) in dataType" :key="index">
