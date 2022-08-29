@@ -36,7 +36,7 @@
         <a class="button is-small is-loading"></a>
       </div>
     </div>
-    <Modal :show-modal.sync="showModal">
+    <Modal :show-modal.sync="showModal" size="small">
       <div class="control">
         <p>Select data type</p>
         <div v-if="dataType.length" class="select is-fullwidth m-1">
