@@ -25,25 +25,16 @@
       @getFileName="getFileName($event)"
       @errorCustomFile="handleErrorCustomFile"
     />
-    <div
-      v-for="[customDataType, customFiles] in Object.entries(customData)"
-      :key="customDataType"
-      class="mb-0"
-    >
-      <div v-for="customFileName in Object.keys(customFiles)" :key="customFileName" class="mb-0">
+    <div v-for="[dataType, files] in Object.entries(customData)" :key="dataType" class="mb-0">
+      <div v-for="fileName in Object.keys(files)" :key="fileName" class="mb-0">
         <div v-show="!showFileLoader" class="fileNameBox tags has-addons is-centered mb-0">
           <span class="tag" :class="errorCustomFileMsg ? 'is-danger' : 'is-success'">
-            <div class="is-size-6">{{ customFileName }}</div>
+            <div class="is-size-6">{{ fileName }}</div>
           </span>
           <a
             class="tag is-delete"
             title="Unload file"
-            @click="
-              removeCustomDataSourceFromIndex({
-                dataType: customDataType,
-                fileName: customFileName,
-              })
-            "
+            @click="removeCustomDataSourceFromIndex({ dataType, fileName })"
           ></a>
         </div>
         <div v-show="showFileLoader" class="has-text-centered">
@@ -85,8 +76,8 @@
             <div class="title is-size-6">Overlay</div>
             <button
               v-if="dataTypes.length > 1"
-              @click="removeDataType(index)"
               class="button is-small is-danger is-light is-outlined"
+              @click="removeDataType(index)"
             >
               <span class="icon">
                 <i class="fa fa-times"></i>
