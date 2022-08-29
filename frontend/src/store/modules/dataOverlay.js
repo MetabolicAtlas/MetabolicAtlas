@@ -83,6 +83,9 @@ const actions = {
       await dispatch('getDataSource', { model, type, filename, propagate, index });
     }
   },
+  removeDataType({ commit }, index) {
+    commit('removeDataType', index);
+  },
   async getDataSource({ commit, dispatch, state }, { model, type, filename, propagate, index }) {
     try {
       if (propagate) {
@@ -180,6 +183,15 @@ const mutations = {
     tempList[currentDataType.index] = currentDataType;
     state.currentDataTypes = tempList;
   },
+  removeDataType: (state, index) => {
+    state.currentDataTypes = state.currentDataTypes.filter((dataType, i) => i !== index);
+    setTimeout(() => {
+      state.currentDataSources = state.currentDataSources.filter((dataSource, i) => i !== index);
+    }, 0);
+    setTimeout(() => {
+      state.dataSets = state.dataSets.filter((dataSet, i) => i !== index);
+    }, 0);
+  },
   setCurrentDataSource: (state, currentDataSource) => {
     // copy and replace the array to trigger reactive array change detection
     // console.log('setCurrentDataSource', currentDataSource);
@@ -201,16 +213,13 @@ const mutations = {
     state.customData[dataType][fileName] = dataSource;
   },
   removeCustomDataSourceFromIndex: (state, { fileName, dataType }) => {
-    console.log('removeCustomDataSourceFromIndex', fileName, dataType);
     state.index[dataType] = state.index[dataType].filter(m => m.filename !== fileName);
-    state.customData[dataType] = Object.keys(state.customData[dataType]).reduce(
-      (acc, key) => {
-        if (key !== fileName) {
-          acc[key] = state.customData[dataType][key];
-        }
-        return acc;
+    state.customData[dataType] = Object.keys(state.customData[dataType]).reduce((acc, key) => {
+      if (key !== fileName) {
+        acc[key] = state.customData[dataType][key];
       }
-      , {});
+      return acc;
+    }, {});
   },
 };
 

@@ -25,15 +25,26 @@
       @getFileName="getFileName($event)"
       @errorCustomFile="handleErrorCustomFile"
     />
-    <div v-for="([customDataType, customFiles]) in Object.entries(customData)" :key="customDataType" class="mb-0">
-      <div v-for="(customFileName) in Object.keys(customFiles)" :key="customFileName" class="mb-0">
+    <div
+      v-for="[customDataType, customFiles] in Object.entries(customData)"
+      :key="customDataType"
+      class="mb-0"
+    >
+      <div v-for="customFileName in Object.keys(customFiles)" :key="customFileName" class="mb-0">
         <div v-show="!showFileLoader" class="fileNameBox tags has-addons is-centered mb-0">
           <span class="tag" :class="errorCustomFileMsg ? 'is-danger' : 'is-success'">
             <div class="is-size-6">{{ customFileName }}</div>
           </span>
-          <a class="tag is-delete" title="Unload file" @click="removeCustomDataSourceFromIndex({
-          dataType: customDataType,
-          fileName: customFileName })"></a>
+          <a
+            class="tag is-delete"
+            title="Unload file"
+            @click="
+              removeCustomDataSourceFromIndex({
+                dataType: customDataType,
+                fileName: customFileName,
+              })
+            "
+          ></a>
         </div>
         <div v-show="showFileLoader" class="has-text-centered">
           <a class="button is-small is-loading"></a>
@@ -70,7 +81,18 @@
     <div v-for="(chosentype, index) in dataTypes" :key="index">
       <div class="card my-3">
         <div class="card-content py-2 p-3">
-          <div class="has-text-centered title is-size-6">Data</div>
+          <div class="mb-2 is-flex is-justify-content-space-between">
+            <div class="title is-size-6">Overlay</div>
+            <button
+              v-if="dataTypes.length > 1"
+              @click="removeDataType(index)"
+              class="button is-small is-danger is-light is-outlined"
+            >
+              <span class="icon">
+                <i class="fa fa-times"></i>
+              </span>
+            </button>
+          </div>
           <div v-if="modelHasOverlayData()">
             <div class="control">
               <p>Select data type</p>
@@ -135,7 +157,7 @@
         </div>
       </div>
     </div>
-    <button class="button" :disabled="!addCards()" @click="newOverlayCard">Add overlay</button>
+    <button class="button" :disabled="!addCards()" @click="addOverlayCard">Add overlay</button>
     <RNALegend class="my-3" />
   </div>
 </template>
@@ -255,6 +277,7 @@ export default {
     ...mapActions({
       getDataSourcesIndex: 'dataOverlay/getIndex',
       setCurrentDataType: 'dataOverlay/setCurrentDataType',
+      removeDataType: 'dataOverlay/removeDataType',
       addDataType: 'dataOverlay/addDataType',
       getDataSource: 'dataOverlay/getDataSource',
       getDataSet: 'dataOverlay/getDataSet',
@@ -330,8 +353,9 @@ export default {
       const validSources = sources.map((source, index) => {
         const type = this.dataTypes.length > index && this.dataTypes[index].name;
         const typeSources = type ? this.filteredDataSourcesIndex[type] : [];
-        return typeSources.some(s => s.filename === source) ? source :
-        this.dataSourcesIndex[type][0].filename;
+        return typeSources.some(s => s.filename === source)
+          ? source
+          : this.dataSourcesIndex[type][0].filename;
       });
       return validSources;
     },
@@ -355,7 +379,7 @@ export default {
       const available = this.availableTypes();
       return available.length > 0;
     },
-    async newOverlayCard() {
+    async addOverlayCard() {
       const available = this.availableTypes();
       const newIndex = this.dataTypes.length;
       await this.setCurrentDataType({
