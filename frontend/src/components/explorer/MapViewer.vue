@@ -147,13 +147,13 @@
 import { mapGetters, mapState } from 'vuex';
 import { debounce } from 'vue-debounce';
 import DataOverlay from '@/components/explorer/mapViewer/DataOverlay.vue';
-import ErrorPanel from '@/components/shared/ErrorPanel';
+import ErrorPanel from '@/components/shared/ErrorPanel.vue';
 import MapsListing from '@/components/explorer/mapViewer/MapsListing.vue';
 import MissingReactionModal from '@/components/explorer/mapViewer/MissingReactionModal.vue';
-import NotFound from '@/components/NotFound';
+import NotFound from '@/components/NotFound.vue';
 import SidebarDataPanels from '@/components/explorer/mapViewer/SidebarDataPanels.vue';
-import Svgmap from '@/components/explorer/mapViewer/Svgmap';
-import ThreeDViewer from '@/components/explorer/mapViewer/ThreeDviewer';
+import Svgmap from '@/components/explorer/mapViewer/Svgmap.vue';
+import ThreeDViewer from '@/components/explorer/mapViewer/ThreeDviewer.vue';
 import { default as messages } from '@/content/messages';
 
 export default {

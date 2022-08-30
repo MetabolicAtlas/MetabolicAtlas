@@ -167,8 +167,8 @@
               <references :reference-list="selectedModel.ref" />
               <template v-if="selectedModel.files">
                 <h4 class="subtitle is-size-4 mt-6">Files</h4>
-                <template v-for="file in selectedModel.files">
-                  <a :key="file.path" class="button" :href="`/api/v2/repository/${file.path}`">
+                <template v-for="file in selectedModel.files" :key="file.path">
+                  <a class="button" :href="`/api/v2/repository/${file.path}`">
                     {{ file.format }}
                   </a>
                   &nbsp;
@@ -193,9 +193,9 @@
 import { mapGetters, mapState } from 'vuex';
 import { VueGoodTable } from 'vue-good-table';
 import 'vue-good-table/dist/vue-good-table.css';
-import Loader from '@/components/Loader';
-import References from '@/components/shared/References';
-import GemHistory from '@/components/GemHistory';
+import Loader from '@/components/Loader.vue';
+import References from '@/components/shared/References.vue';
+import GemHistory from '@/components/GemHistory.vue';
 import { default as messages } from '@/content/messages';
 
 export default {

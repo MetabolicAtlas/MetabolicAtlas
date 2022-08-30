@@ -10,7 +10,7 @@
 
 <script>
 import { default as FileSaver } from 'file-saver';
-import ErrorPanel from '@/components/shared/ErrorPanel';
+import ErrorPanel from '@/components/shared/ErrorPanel.vue';
 import { default as messages } from '@/content/messages';
 
 export default {

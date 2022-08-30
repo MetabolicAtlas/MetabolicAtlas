@@ -1,37 +1,34 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 import NProgress from 'nprogress';
-import Home from '@/components/Home';
-import Explorer from '@/components/Explorer';
-import GemBrowser from '@/components/explorer/GemBrowser';
-import Compartment from '@/components/explorer/gemBrowser/Compartment';
-import Gene from '@/components/explorer/gemBrowser/Gene';
-import Metabolite from '@/components/explorer/gemBrowser/Metabolite';
-import Reaction from '@/components/explorer/gemBrowser/Reaction';
-import Subsystem from '@/components/explorer/gemBrowser/Subsystem';
-import MapViewer from '@/components/explorer/MapViewer';
-import InteractionPartners from '@/components/explorer/InteractionPartners';
-import SearchTable from '@/components/SearchTable';
-import Documentation from '@/components/Documentation';
-import Repository from '@/components/Repository';
-import CompareModels from '@/components/CompareModels';
-import FourOFour from '@/components/FourOFour';
-import IdInModels from '@/components/IdInModels';
-import AboutTerms from '@/components/about/Terms';
-import AboutPlatform from '@/components/about/Platform';
-import AboutResources from '@/components/about/Resources';
-// import Impact from '@/components/about/Impact';
-import News from '@/components/about/News';
-import Elixir from '@/components/about/Elixir';
-import EnzymeReaction from '@/components/gotEnzymes/Reaction';
-import EnzymeCompound from '@/components/gotEnzymes/Compound';
-import EnzymeEC from '@/components/gotEnzymes/EC';
-import EnzymeLanding from '@/components/gotEnzymes/Landing';
-import EnzymeOrganism from '@/components/gotEnzymes/Organism';
-import EnzymeDomain from '@/components/gotEnzymes/Domain';
-import EnzymeGene from '@/components/gotEnzymes/Gene';
-
-Vue.use(VueRouter);
+import Home from '@/components/Home.vue';
+import Explorer from '@/components/Explorer.vue';
+import GemBrowser from '@/components/explorer/GemBrowser.vue';
+import Compartment from '@/components/explorer/gemBrowser/Compartment.vue';
+import Gene from '@/components/explorer/gemBrowser/Gene.vue';
+import Metabolite from '@/components/explorer/gemBrowser/Metabolite.vue';
+import Reaction from '@/components/explorer/gemBrowser/Reaction.vue';
+import Subsystem from '@/components/explorer/gemBrowser/Subsystem.vue';
+import MapViewer from '@/components/explorer/MapViewer.vue';
+import InteractionPartners from '@/components/explorer/InteractionPartners.vue';
+import SearchTable from '@/components/SearchTable.vue';
+import Documentation from '@/components/Documentation.vue';
+import Repository from '@/components/Repository.vue';
+import CompareModels from '@/components/CompareModels.vue';
+import FourOFour from '@/components/FourOFour.vue';
+import IdInModels from '@/components/IdInModels.vue';
+import AboutTerms from '@/components/about/Terms.vue';
+import AboutPlatform from '@/components/about/Platform.vue';
+import AboutResources from '@/components/about/Resources.vue';
+// import Impact from '@/components/about/Impact.vue';
+import News from '@/components/about/News.vue';
+import Elixir from '@/components/about/Elixir.vue';
+import EnzymeReaction from '@/components/gotEnzymes/Reaction.vue';
+import EnzymeCompound from '@/components/gotEnzymes/Compound.vue';
+import EnzymeEC from '@/components/gotEnzymes/EC.vue';
+import EnzymeLanding from '@/components/gotEnzymes/Landing.vue';
+import EnzymeOrganism from '@/components/gotEnzymes/Organism.vue';
+import EnzymeDomain from '@/components/gotEnzymes/Domain.vue';
+import EnzymeGene from '@/components/gotEnzymes/Gene.vue';
 
 const routes = [
   { path: '/', name: 'home', component: Home },
@@ -87,8 +84,8 @@ const routes = [
   { path: '/*', name: 'fourOfour', component: FourOFour },
 ];
 
-const router = new VueRouter({
-  mode: 'history',
+const router = createRouter({
+  history: createWebHistory(),
   routes,
   scrollBehavior(to) {
     return to.hash ? { selector: to.hash } : {};

@@ -119,11 +119,11 @@
 
 <script>
 import { mapState } from 'vuex';
-import Loader from '@/components/Loader';
+import Loader from '@/components/Loader.vue';
+import ExportTSV from '@/components/shared/ExportTSV.vue';
+import CompartmentLinks from '@/components/shared/CompartmentLinks.vue';
 import { default as compare } from '@/helpers/compare';
-import ExportTSV from '@/components/shared/ExportTSV';
 import { identify, reformatChemicalReactionHTML } from '@/helpers/utils';
-import CompartmentLinks from '@/components/shared/CompartmentLinks';
 
 export default {
   name: 'ReactionTable',

@@ -253,8 +253,8 @@
   </about-layout>
 </template>
 <script>
-import AboutLayout from '@/layouts/AboutLayout';
-import CitationWidget from '@/components/about/CitationWidget';
+import AboutLayout from '@/layouts/AboutLayout.vue';
+import CitationWidget from '@/components/about/CitationWidget.vue';
 
 export default {
   name: 'Introduction',

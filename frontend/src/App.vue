@@ -67,38 +67,36 @@
                   ></router-link>
                 </template>
                 <template v-else>
-                  <template>
-                    <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
-                    <div
-                      class="navbar-item has-dropdown is-hoverable is-unselectable has-background-primary-lighter"
+                  <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
+                  <div
+                    class="navbar-item has-dropdown is-hoverable is-unselectable has-background-primary-lighter"
+                  >
+                    <a
+                      class="navbar-link is-active-underline"
+                      :class="{
+                        'router-link-active': menuElem.subMenuElems
+                          .map(sme => sme.routeName)
+                          .includes($route.name),
+                      }"
                     >
-                      <a
-                        class="navbar-link is-active-underline"
-                        :class="{
-                          'router-link-active': menuElem.subMenuElems
-                            .map(sme => sme.routeName)
-                            .includes($route.name),
-                        }"
-                      >
-                        {{ menuElem.displayName }}
-                      </a>
-                      <div
-                        class="navbar-dropdown has-background-primary-lighter p-0"
-                        :class="{ ' is-right': menuElem.subMenuRight }"
-                      >
-                        <template v-for="subMenuElem in menuElem.subMenuElems">
-                          <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
-                          <router-link
-                            class="navbar-item is-unselectable has-background-primary-lighter pr-4"
-                            :to="{ name: subMenuElem.routeName }"
-                            @click="isMobileMenu = false"
-                          >
-                            {{ subMenuElem.displayName }}
-                          </router-link>
-                        </template>
-                      </div>
+                      {{ menuElem.displayName }}
+                    </a>
+                    <div
+                      class="navbar-dropdown has-background-primary-lighter p-0"
+                      :class="{ ' is-right': menuElem.subMenuRight }"
+                    >
+                      <template v-for="subMenuElem in menuElem.subMenuElems">
+                        <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
+                        <router-link
+                          class="navbar-item is-unselectable has-background-primary-lighter pr-4"
+                          :to="{ name: subMenuElem.routeName }"
+                          @click="isMobileMenu = false"
+                        >
+                          {{ subMenuElem.displayName }}
+                        </router-link>
+                      </template>
                     </div>
-                  </template>
+                  </div>
                 </template>
               </template>
             </div>
@@ -185,8 +183,8 @@
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
-import ErrorPanel from '@/components/shared/ErrorPanel';
-import GemSearch from '@/components/explorer/gemBrowser/GemSearch';
+import ErrorPanel from '@/components/shared/ErrorPanel.vue';
+import GemSearch from '@/components/explorer/gemBrowser/GemSearch.vue';
 import { default as messages } from '@/content/messages';
 import { default as about } from '@/content/about';
 import { isCookiePolicyAccepted, acceptCookiePolicy } from '@/helpers/store';
@@ -300,9 +298,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~bulma';
-@import '~bulma-timeline';
-
 html {
   @include mobile {
     font-size: 13px;

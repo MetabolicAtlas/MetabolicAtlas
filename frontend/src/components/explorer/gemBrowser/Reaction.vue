@@ -41,8 +41,8 @@
             </template>
             <template v-else-if="el.name === 'compartments'">
               <div class="tags">
-                <template v-for="c in reaction[el.name]">
-                  <span :key="c.id" class="tag">
+                <template v-for="c in reaction[el.name]" :key="c.id">
+                  <span class="tag">
                     <!-- eslint-disable-next-line max-len -->
                     <router-link
                       :to="{ name: 'compartment', params: { model: model.short_name, id: c.id } }"

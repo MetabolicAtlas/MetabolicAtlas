@@ -33,9 +33,9 @@
       <template slot="table-row" slot-scope="props">
         <template v-if="linkableFields.includes(props.column.field)">
           <template v-if="props.column.field === 'ec_number'">
-            <template v-for="(ec, index) in props.row[props.column.field].split(';')">
+            <template v-for="(ec, index) in props.row[props.column.field].split(';')" :key="ec">
               <template v-if="index > 0">; </template>
-              <router-link :key="ec" :to="`/gotenzymes/ec/${ec}`">
+              <router-link :to="`/gotenzymes/ec/${ec}`">
                 {{ ec }}
               </router-link>
             </template>
@@ -64,10 +64,10 @@
 
 <script>
 import { mapState } from 'vuex';
-import Loader from '@/components/Loader';
 import { VueGoodTable } from 'vue-good-table';
-import ExportTSV from '@/components/shared/ExportTSV';
-import RangeFilter from '@/components/shared/RangeFilter';
+import Loader from '@/components/Loader.vue';
+import ExportTSV from '@/components/shared/ExportTSV.vue';
+import RangeFilter from '@/components/shared/RangeFilter.vue';
 
 export default {
   name: 'EnzymesTable',

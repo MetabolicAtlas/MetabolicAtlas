@@ -338,12 +338,12 @@ import cola from 'cytoscape-cola';
 import { Compact } from 'vue-color';
 import { default as FileSaver } from 'file-saver';
 
-import Sidebar from '@/components/explorer/interactionPartners/Sidebar';
-import CytoscapeTable from '@/components/explorer/interactionPartners/CytoscapeTable';
-import Loader from '@/components/Loader';
-import NotFound from '@/components/NotFound';
-import Tile from '@/components/explorer/gemBrowser/Tile';
-import DataOverlay from '@/components/explorer/mapViewer/DataOverlay';
+import Sidebar from '@/components/explorer/interactionPartners/Sidebar.vue';
+import CytoscapeTable from '@/components/explorer/interactionPartners/CytoscapeTable.vue';
+import Loader from '@/components/Loader.vue';
+import NotFound from '@/components/NotFound.vue';
+import Tile from '@/components/explorer/gemBrowser/Tile.vue';
+import DataOverlay from '@/components/explorer/mapViewer/DataOverlay.vue';
 
 import { default as transform } from '@/data-mappers/hmr-closest-interaction-partners';
 import { default as changeGraphStyle } from '@/graph-stylers/hmr-closest-interaction-partners';

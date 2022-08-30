@@ -81,13 +81,13 @@
 
 <script>
 import { mapState } from 'vuex';
-import NotFound from '@/components/NotFound';
-import Loader from '@/components/Loader';
-import MapsAvailable from '@/components/explorer/gemBrowser/MapsAvailable';
-import ExtIdTable from '@/components/explorer/gemBrowser/ExtIdTable';
-import ReactionTable from '@/components/explorer/gemBrowser/ReactionTable';
-import GemContact from '@/components/shared/GemContact';
-import References from '@/components/shared/References';
+import NotFound from '@/components/NotFound.vue';
+import Loader from '@/components/Loader.vue';
+import MapsAvailable from '@/components/explorer/gemBrowser/MapsAvailable.vue';
+import ExtIdTable from '@/components/explorer/gemBrowser/ExtIdTable.vue';
+import ReactionTable from '@/components/explorer/gemBrowser/ReactionTable.vue';
+import GemContact from '@/components/shared/GemContact.vue';
+import References from '@/components/shared/References.vue';
 import { default as messages } from '@/content/messages';
 
 export default {

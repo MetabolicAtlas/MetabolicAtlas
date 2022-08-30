@@ -26,8 +26,8 @@
           <td class="td-key has-background-primary has-text-white-bis">Compartments</td>
           <td>
             <div class="tags">
-              <template v-for="c in info['compartments']">
-                <span :key="c.id" class="tag">
+              <template v-for="c in info['compartments']" :key="c.id">
+                <span class="tag">
                   <!-- eslint-disable-next-line max-len -->
                   <router-link
                     :to="{ name: 'compartment', params: { model: model.short_name, id: c.id } }"

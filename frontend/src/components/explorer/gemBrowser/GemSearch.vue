@@ -106,8 +106,8 @@
         <div>No matches found in {{ searchModel.short_name }}</div>
         <div v-if="notFoundSuggestions.length !== 0">
           Do you mean:&nbsp;
-          <template v-for="v in notFoundSuggestions">
-            <a :key="v" class="suggestions has-text-link" @click.prevent="searchDebounce(v)">
+          <template v-for="v in notFoundSuggestions" :key="v">
+            <a class="suggestions has-text-link" @click.prevent="searchDebounce(v)">
               {{ v }}
             </a>
             &nbsp;

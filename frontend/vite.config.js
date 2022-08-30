@@ -1,11 +1,22 @@
 import vue from '@vitejs/plugin-vue'
-import { fileURLToPath, URL } from 'url'
+import path from 'path'
+import { defineConfig } from 'vite'
 
-export default {
+export default defineConfig({
+  css: {
+    preprocessorOptions: { 
+      scss: {
+        additionalData: `
+          @import "./node_modules/bulma/bulma.sass";
+          @import "./node_modules/bulma-timeline/dist/css/bulma-timeline.sass";
+          @import "./src/style/vars.scss";
+        `,
+      }
+    },
+  },
   resolve: {
     alias: {
-      '@': '/src',
-      src: fileURLToPath(new URL('./src', import.meta.url)),
+      '@/': `${path.resolve(__dirname, 'src')}/`,
       vue: '@vue/compat'
     }
   },
@@ -24,4 +35,4 @@ export default {
       }
     })
   ]
-}
+})

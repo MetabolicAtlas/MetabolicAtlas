@@ -47,8 +47,8 @@
           class="column is-three-fifths-desktop is-three-quarters-tablet is-fullwidth-mobile control"
         >
           Do you mean:&nbsp;
-          <template v-for="v in notFoundSuggestions">
-            <router-link :key="v" :to="{ name: 'search', query: { term: v } }">
+          <template v-for="v in notFoundSuggestions" :key="v">
+            <router-link :to="{ name: 'search', query: { term: v } }">
               <span class="suggestions">{{ v }}</span>
             </router-link>
             &nbsp;
@@ -317,8 +317,8 @@
 import { mapGetters, mapState } from 'vuex';
 import $ from 'jquery';
 import { VueGoodTable } from 'vue-good-table';
-import Loader from '@/components/Loader';
-import ExportTSV from '@/components/shared/ExportTSV';
+import Loader from '@/components/Loader.vue';
+import ExportTSV from '@/components/shared/ExportTSV.vue';
 import 'vue-good-table/dist/vue-good-table.css';
 import { default as chemicalFormula } from '@/helpers/chemical-formatters';
 import { sortResultsScore } from '@/helpers/utils';

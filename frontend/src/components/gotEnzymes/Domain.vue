@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import DetailsPage from '@/components/gotEnzymes/DetailsPage';
+import DetailsPage from '@/components/gotEnzymes/DetailsPage.vue';
 
 export default {
   name: 'EnzymeDomain',

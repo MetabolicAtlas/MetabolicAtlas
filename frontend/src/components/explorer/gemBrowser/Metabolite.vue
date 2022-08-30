@@ -78,10 +78,10 @@
 
 <script>
 import { mapState } from 'vuex';
-import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout';
+import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout.vue';
+import RDKitImage from '@/components/shared/RDKitImage.vue';
 import { default as chemicalFormula } from '@/helpers/chemical-formatters';
 import { generateSocialMetaTags, reformatTableKey, combineWords } from '@/helpers/utils';
-import RDKitImage from '@/components/shared/RDKitImage';
 
 export default {
   name: 'Metabolite',
