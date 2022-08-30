@@ -15,7 +15,7 @@
   <meta name="msapplication-TileImage" content="mstile-144x144.png" />
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <%= process.env.VUE_APP_HOTJAR %>
+  <!-- <%= import.meta.env.VITE_VUE_APP_HOTJAR %> -->
 </head>
 
 <body>
@@ -164,6 +164,7 @@
     <script>
       document.getElementById("init-loading").style.display = "block";
     </script>
+    <script type="module" src="src/main.js"></script>
     <script src="https://unpkg.com/@rdkit/rdkit/dist/RDKit_minimal.js"></script>
     <script type="application/ld+json">
       {

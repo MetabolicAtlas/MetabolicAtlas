@@ -20,7 +20,7 @@
               class="navbar-item"
               :to="{ name: 'home' }"
               active-class=""
-              @click.native="isMobileMenu = false"
+              @click="isMobileMenu = false"
             >
               <img src="/img/logo.png" />
             </router-link>
@@ -62,7 +62,7 @@
                   <router-link
                     class="navbar-item is-unselectable is-active-underline"
                     :to="{ name: menuElem.routeName }"
-                    @click.native="isMobileMenu = false"
+                    @click="isMobileMenu = false"
                     v-html="menuElem.displayName"
                   ></router-link>
                 </template>
@@ -91,7 +91,7 @@
                           <router-link
                             class="navbar-item is-unselectable has-background-primary-lighter pr-4"
                             :to="{ name: subMenuElem.routeName }"
-                            @click.native="isMobileMenu = false"
+                            @click="isMobileMenu = false"
                           >
                             {{ subMenuElem.displayName }}
                           </router-link>

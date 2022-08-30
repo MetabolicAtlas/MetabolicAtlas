@@ -20,6 +20,9 @@ services:
       - ./frontend/public:/project/public
       - ./frontend/.eslintrc.js:/project/.eslintrc.js
       - ./frontend/.prettierrc.json:/project/.prettierrc.json
+      - ./frontend/vite.config.js:/project/vite.config.js
+      - ./frontend/package.json:/project/package.json
+      - ./frontend/index.html:/project/index.html
     networks:
       - nginx-network
     ports:

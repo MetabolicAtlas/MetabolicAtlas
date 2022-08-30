@@ -5,8 +5,8 @@ module.exports = {
   },
   extends: ['plugin:vue/essential', 'plugin:vue/recommended', '@vue/airbnb', 'prettier'],
   rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
+    'no-console': import.meta.env.NODE_ENV === 'production' ? 'error' : 'warn',
+    'no-debugger': import.meta.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'vue/multiline-html-element-content-newline': 'off',
     'vue/no-v-html': 'off',
     'vue/require-default-prop': 'off',
