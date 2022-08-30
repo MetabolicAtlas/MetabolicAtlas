@@ -24,7 +24,7 @@
   </about-layout>
 </template>
 <script>
-import AboutLayout from '@/layouts/AboutLayout';
+import AboutLayout from '@/layouts/AboutLayout.vue';
 
 export default {
   name: 'Elixir',

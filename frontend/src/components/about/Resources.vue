@@ -58,7 +58,7 @@
   </about-layout>
 </template>
 <script>
-import AboutLayout from '@/layouts/AboutLayout';
+import AboutLayout from '@/layouts/AboutLayout.vue';
 
 /* eslint-disable global-require */
 export default {

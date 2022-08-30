@@ -44,7 +44,7 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout';
+import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout.vue';
 import { buildCustomLink, generateSocialMetaTags } from '@/helpers/utils';
 
 export default {

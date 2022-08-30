@@ -98,7 +98,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout';
+import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout.vue';
 import {
   buildCustomLink,
   reformatTableKey,
