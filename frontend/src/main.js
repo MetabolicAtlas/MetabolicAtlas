@@ -15,7 +15,6 @@ axios.defaults.onDownloadProgress = function onDownloadProgress(progressEvent) {
   NProgress.set(percentCompleted / 100.0);
 };
 
-
 // eslint-disable-next-line no-new
 const app = createApp(App);
 app.use(store);
@@ -36,7 +35,6 @@ if (navigator.doNotTrack !== '1') {
 app.mixin(linkHandlerMixin);
 
 app.mount('#app');
-
 
 // new Vue({
 //   el: '#app',
