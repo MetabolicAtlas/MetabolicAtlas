@@ -168,7 +168,23 @@ const actions = {
   addCustomDataSourceToIndex({ commit }, customDataSource) {
     commit('addCustomDataSourceToIndex', customDataSource);
   },
-  removeCustomDataSourceFromIndex({ commit }, customDataSource) {
+  async removeCustomDataSourceFromIndex({ commit, dispatch, rootState, state }, customDataSource) {
+    const currentDataSourceIndex = state.currentDataSources.findIndex(
+      dataSource => dataSource.filename === customDataSource.fileName
+    );
+
+    if (currentDataSourceIndex !== -1) {
+      const type = state.currentDataTypes[currentDataSourceIndex].name;
+      const fallbackDataSource = state.index[type][0];
+      await dispatch('getDataSource', {
+        model: rootState.models.model.short_name,
+        type,
+        filename: fallbackDataSource.filename,
+        propagate: true,
+        index: currentDataSourceIndex,
+      });
+    }
+
     commit('removeCustomDataSourceFromIndex', customDataSource);
   },
 };
