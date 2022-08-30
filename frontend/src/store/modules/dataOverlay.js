@@ -53,14 +53,14 @@ const getters = {
     });
     return componentClassName;
   },
-  componentType: state => {
-    const componentType = [];
+  componentTypes: state => {
+    const componentTypes = [];
     state.currentDataTypes.forEach((type, index) => {
       if (state.dataSets[index] !== 'None') {
-        componentType.push(state.currentDataTypes[index].componentType);
+        componentTypes.push(state.currentDataTypes[index].componentType);
       }
     });
-    return componentType;
+    return componentTypes;
   },
 };
 

@@ -86,7 +86,7 @@ export default {
     ...mapGetters({
       queryParams: 'maps/queryParams',
       computedLevels: 'dataOverlay/computedLevels',
-      componentType: 'dataOverlay/componentType',
+      componentTypes: 'dataOverlay/componentTypes',
     }),
   },
   watch: {
@@ -211,7 +211,7 @@ export default {
 
         if (node.g === 'r') {
           if (
-            this.componentType.includes('reaction') &&
+            this.componentTypes.includes('reaction') &&
             Object.keys(this.computedLevels).length > 0
           ) {
             const partialID = node.id.split('-')[0];
@@ -223,7 +223,7 @@ export default {
         }
 
         if (node.g === 'e') {
-          if (this.componentType.includes('gene') && Object.keys(this.computedLevels).length > 0) {
+          if (this.componentTypes.includes('gene') && Object.keys(this.computedLevels).length > 0) {
             const partialID = node.id.split('-')[0];
             const key = this.computedLevels[partialID] !== undefined ? partialID : 'n/a';
             color = colorToRGBArray(this.computedLevels[key][0]);
@@ -236,7 +236,7 @@ export default {
           node.n = node.id; // eslint-disable-line
 
           if (
-            this.componentType.includes('metabolite') &&
+            this.componentTypes.includes('metabolite') &&
             Object.keys(this.computedLevels).length > 0
           ) {
             const partialID = node.id.split('-')[0];

@@ -235,34 +235,27 @@ export default {
     const dataSources = queryParamSources.length
       ? queryParamSources
       : [this.filteredDataSourcesIndex[this.dataTypes[0].name][0].filename];
-    await dataSources.forEach((source, index) => {
-      this.getDataSource({
+    const queryDataSets = this.$route.query.dataSets ? this.$route.query.dataSets.split(',') : [];
+    dataSources.forEach(async (source, index) => {
+      await this.getDataSource({
         model: this.model.short_name,
         type: dataTypes[index],
         filename: source,
         propagate: false,
         index,
       });
+
+      const dataSet = queryDataSets[index];
+      if (this.dataSources[index].dataSets.includes(dataSet)) {
+        await this.getDataSet({
+          model: this.model.short_name,
+          type: dataTypes[0],
+          filename: dataSources[0],
+          dataSet,
+          index,
+        });
+      }
     });
-
-    setTimeout(async () => {
-      const queryDataSets = this.$route.query.dataSets ? this.$route.query.dataSets.split(',') : [];
-      await queryDataSets.forEach((dataSet, index) => {
-        if (!this.dataSources[index]) {
-          return;
-        }
-
-        if (this.dataSources[index].dataSets.includes(dataSet)) {
-          this.getDataSet({
-            model: this.model.short_name,
-            type: dataTypes[0],
-            filename: dataSources[0],
-            dataSet,
-            index,
-          });
-        }
-      });
-    }, 0);
   },
   methods: {
     ...mapActions({
