@@ -104,7 +104,6 @@ export default {
       dataTypes: state => state.dataOverlay.currentDataTypes,
       dataSources: state => state.dataOverlay.currentDataSources,
       dataSets: state => state.dataOverlay.dataSets,
-      customDataSet: state => state.dataOverlay.customDataSet,
     }),
     ...mapGetters({
       selectIds: 'maps/selectIds',
@@ -120,9 +119,6 @@ export default {
       this.setupHoverEventHandlers();
     },
     dataSets() {
-      this.applyLevelsOnMap();
-    },
-    customDataSet() {
       this.applyLevelsOnMap();
     },
     svgContent: 'loadSvgPanzoom',

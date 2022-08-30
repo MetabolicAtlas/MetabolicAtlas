@@ -80,8 +80,7 @@ export default {
       backgroundColor: state => state.maps.backgroundColor,
       coords: state => state.maps.coords,
       dataOverlayPanelVisible: state => state.maps.dataOverlayPanelVisible,
-      dataSet: state => state.dataOverlay.dataSet,
-      customDataSet: state => state.dataOverlay.customDataSet,
+      dataSets: state => state.dataOverlay.dataSets,
       searchTerm: state => state.maps.searchTerm,
     }),
     ...mapGetters({
@@ -98,10 +97,7 @@ export default {
       // this is needed by the 3D viewer to update its size
       window.dispatchEvent(new Event('resize'));
     },
-    async dataSet() {
-      await this.applyColorsAndRenderNetwork();
-    },
-    async customDataSet() {
+    async dataSets() {
       await this.applyColorsAndRenderNetwork();
     },
   },
