@@ -45,7 +45,6 @@
                 id="selectedModelLink"
                 :to="{ name: 'explorer' }"
                 class="navbar-item is-size-4 has-text-primary has-text-weight-bold is-unselectable"
-                exact
               >
                 {{ model ? model.short_name : '' }}
               </router-link>
@@ -441,7 +440,7 @@ h6 {
     #search-icon {
       font-size: 1.8rem;
     }
-    #selectedModelLink .router-link-exact-active,
+    #selectedModelLink,
     .router-link-active {
       background-color: $primary-lighter;
     }

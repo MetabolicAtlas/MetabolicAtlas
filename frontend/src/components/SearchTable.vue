@@ -610,6 +610,8 @@ export default {
       models: 'models/models',
     }),
   },
+  // the following two navigation guards are ignored
+  // see: https://router.vuejs.org/guide/migration/index.html#navigation-guards-in-mixins-are-ignored
   // eslint-disable-next-line no-unused-vars
   beforeRouteEnter(to, from, next) {
     next(vm => {

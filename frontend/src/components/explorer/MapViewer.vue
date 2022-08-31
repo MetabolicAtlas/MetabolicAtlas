@@ -211,8 +211,8 @@ export default {
   },
   watch: {
     '$route.params': 'loadMapFromParams',
-    queryParams(newQuery, oldQuery) {
-      this.handleQueryParamsWatch(newQuery, oldQuery);
+    async queryParams(newQuery, oldQuery) {
+      await this.handleQueryParamsWatch(newQuery, oldQuery);
     },
   },
   async created() {
@@ -247,14 +247,14 @@ export default {
       return showing2D ? '2d' : '3d';
     },
     // eslint-disable-next-line no-unused-vars
-    handleQueryParamsWatch(newQuery, oldQuery) {
+    async handleQueryParamsWatch(newQuery, oldQuery) {
       if (!newQuery) {
         return;
       }
 
       if (newQuery && !this.$route.params.map_id) {
-        const payload = [{}, null, `${this.$route.path}?dim=${newQuery.dim}`];
-        history.replaceState(...payload); // eslint-disable-line no-restricted-globals
+        const url = `${this.$route.path}?dim=${newQuery.dim}`;
+        history.replaceState(history.state, '', url); // eslint-disable-line no-restricted-globals
         return;
       }
 
@@ -264,8 +264,8 @@ export default {
 
       if (newQuery.dim === this.$route.query.dim || (newQuery.dim && !this.$route.query.dim)) {
         // if Map viewer (2D or 3D) is not changed, keep the url path
-        const payload = [{}, null, `${this.$route.path}?${queryString}`];
-        history.replaceState(...payload); // eslint-disable-line no-restricted-globals
+        const url = `${this.$route.path}?${queryString}`;
+        history.replaceState(history.state, '', url); // eslint-disable-line no-restricted-globals
       } else {
         let urlPath = `${this.$route.path}`;
         if (this.currentMap.mapReactionIdSet.length > 1) {
@@ -280,8 +280,9 @@ export default {
             urlPath = urlPath.replace(new RegExp(this.$route.params.map_id), this.currentMap.id);
           }
         }
-        const payload = [{}, null, `${urlPath}?${queryString}`];
-        history.pushState(...payload); // eslint-disable-line no-restricted-globals
+        const url = `${urlPath}?${queryString}`;
+        await this.$router.push(url);
+        history.replaceState(history.state, ''); // eslint-disable-line no-restricted-globals
       }
     },
     loadMapFromParams() {

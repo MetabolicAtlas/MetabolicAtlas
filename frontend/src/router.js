@@ -76,12 +76,22 @@ const routes = [
   { path: '/gotenzymes/domain/:id', name: 'gotenzymes-domain', component: EnzymeDomain },
 
   // redirects
-  { path: '/explore/gem-browser/human1*', redirect: '/explore/Human-GEM/gem-browser*' },
-  { path: '/explore/map-viewer/human1*', redirect: '/explore/Human-GEM/map-viewer*' },
+  {
+    path: '/explore/gem-browser/human1:pathMatch(.*)*',
+    redirect: to => ({
+      path: `/explore/Human-GEM/gem-browser${to.params.pathMatch.join('/')}`,
+    }),
+  },
+  {
+    path: '/explore/map-viewer/human1:pathMatch(.*)*',
+    redirect: to => ({
+      path: `/explore/Human-GEM/map-viewer${to.params.pathMatch.join('/')}`,
+    }),
+  },
   { path: '/about', redirect: '/about/introduction' },
 
   // catch rest
-  { path: '/*', name: 'fourOfour', component: FourOFour },
+  { path: '/:pathMatch(.*)*', name: 'fourOfour', component: FourOFour },
 ];
 
 const router = createRouter({

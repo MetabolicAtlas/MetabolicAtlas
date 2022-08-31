@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 import VueMatomo from 'vue-matomo';
-import VueMeta from 'vue-meta';
+import { createMetaManager } from 'vue-meta';
 import axios from 'axios';
 import vueDebounce from 'vue-debounce';
 import NProgress from 'nprogress';
@@ -19,7 +19,10 @@ axios.defaults.onDownloadProgress = function onDownloadProgress(progressEvent) {
 const app = createApp(App);
 app.use(store);
 app.use(router);
-app.use(VueMeta);
+
+const metaManager = createMetaManager();
+app.use(metaManager);
+
 app.use(vueDebounce, {
   listenTo: 'input',
 });

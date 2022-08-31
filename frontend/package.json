@@ -34,7 +34,7 @@
     "vue-inline-svg": "^2.1.0",
     "vue-lodash": "^2.1.2",
     "vue-matomo": "^4.1.0",
-    "vue-meta": "^2.4.0",
+    "vue-meta": "^3.0.0-alpha.8",
     "vue-router": "^4.1.0",
     "vuex": "^4.0.0"
   },

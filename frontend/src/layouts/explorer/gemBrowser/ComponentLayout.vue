@@ -153,11 +153,15 @@ export default {
 
       try {
         const payload = { model: this.model, id: this.componentId };
-        await this.$store.dispatch(this.queryComponentAction, payload);
-        this.componentNotFound = false;
-        if (this.$listeners && this.$listeners.handleCallback) {
-          this.$emit('handleCallback', this.model, this.componentId);
+        // the following guard is needed because there could be a mismatch
+        // when the route changes
+        if (this.queryComponentAction.includes(this.$route.name)) {
+          await this.$store.dispatch(this.queryComponentAction, payload);
+          if (this.$listeners && this.$listeners.handleCallback) {
+            this.$emit('handleCallback', this.model, this.componentId);
+          }
         }
+        this.componentNotFound = false;
         this.showLoaderMessage = '';
       } catch {
         this.componentNotFound = true;

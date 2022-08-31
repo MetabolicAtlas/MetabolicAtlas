@@ -65,8 +65,6 @@ export default {
           width: this.config.width * (isLarge ? 2 : 1),
           height: this.config.height * (isLarge ? 2 : 1),
         };
-        console.log('mol', this.mol);
-        console.log('config', config);
         const svg = this.mol.get_svg_with_highlights(JSON.stringify(config));
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = svg;
