@@ -33,46 +33,61 @@ import EnzymeGene from '@/components/gotEnzymes/Gene.vue';
 const routes = [
   { path: '/', name: 'home', component: Home },
   { path: '/search', name: 'search', component: SearchTable },
-  { path: '/explore/:model?', name: 'explorer', component: Explorer },
-  { path: '/explore/:model/gem-browser', name: 'browser', component: GemBrowser },
   {
-    path: '/explore/:model/gem-browser/compartment/:id',
-    name: 'compartment',
-    component: Compartment,
+    path: '/explore/:model?',
+    children: [
+      { path: '', name: 'explorer', component: Explorer },
+      { path: 'gem-browser', name: 'browser', component: GemBrowser },
+      {
+        path: 'gem-browser/compartment/:id',
+        name: 'compartment',
+        component: Compartment,
+      },
+      { path: 'gem-browser/gene/:id', name: 'gene', component: Gene },
+      { path: 'gem-browser/metabolite/:id', name: 'metabolite', component: Metabolite },
+      { path: 'gem-browser/reaction/:id', name: 'reaction', component: Reaction },
+      { path: 'gem-browser/subsystem/:id', name: 'subsystem', component: Subsystem },
+      { path: 'map-viewer/:map_id?', name: 'viewer', component: MapViewer },
+      {
+        path: 'interaction-partners/:id?',
+        name: 'interaction',
+        component: InteractionPartners,
+      },
+    ],
   },
-  { path: '/explore/:model/gem-browser/gene/:id', name: 'gene', component: Gene },
-  { path: '/explore/:model/gem-browser/metabolite/:id', name: 'metabolite', component: Metabolite },
-  { path: '/explore/:model/gem-browser/reaction/:id', name: 'reaction', component: Reaction },
-  { path: '/explore/:model/gem-browser/subsystem/:id', name: 'subsystem', component: Subsystem },
-  { path: '/explore/:model/map-viewer/:map_id?', name: 'viewer', component: MapViewer },
   {
-    path: '/explore/:model/interaction-partners/:id?',
-    name: 'interaction',
-    component: InteractionPartners,
+    path: '/about',
+    children: [
+      { path: '', redirect: '/about/platform' },
+      { path: 'platform', name: 'about-platform', component: AboutPlatform },
+      // { path: '/about/impact', name: 'about-impact', component: Impact },
+      { path: 'news', name: 'about-news', component: News },
+      { path: 'terms', name: 'about-terms', component: AboutTerms },
+      { path: 'resources', name: 'about-resources', component: AboutResources },
+      { path: 'elixir', name: 'about-elixir', component: Elixir },
+    ],
   },
-  // { path: '/about/impact', name: 'about-impact', component: Impact },
   {
-    path: '/about/platform',
-    name: 'about-platform',
-    component: AboutPlatform,
+    path: '/gems',
+    children: [
+      { path: 'repository/:model_id?', name: 'gems', component: Repository },
+      { path: 'comparison', name: 'comparemodels', component: CompareModels },
+    ],
   },
-  { path: '/about/news', name: 'about-news', component: News },
-  { path: '/about/terms', name: 'about-terms', component: AboutTerms },
-  { path: '/about/resources', name: 'about-resources', component: AboutResources },
-  { path: '/about/elixir', name: 'about-elixir', component: Elixir },
-
-  { path: '/gems/repository/:model_id?', name: 'gems', component: Repository },
-  { path: '/gems/comparison', name: 'comparemodels', component: CompareModels },
   { path: '/documentation', name: 'documentation', component: Documentation },
   { path: '/identifier/:dbName/:identifierId', name: 'identifier', component: IdInModels },
-
-  { path: '/gotenzymes', name: 'gotenzymes', component: EnzymeLanding },
-  { path: '/gotenzymes/reaction/:id', name: 'gotenzymes-reaction', component: EnzymeReaction },
-  { path: '/gotenzymes/compound/:id', name: 'gotenzymes-compound', component: EnzymeCompound },
-  { path: '/gotenzymes/ec/:ecValue', name: 'gotenzymes-ec', component: EnzymeEC },
-  { path: '/gotenzymes/gene/:id', name: 'gotenzymes-gene', component: EnzymeGene },
-  { path: '/gotenzymes/organism/:id', name: 'gotenzymes-organism', component: EnzymeOrganism },
-  { path: '/gotenzymes/domain/:id', name: 'gotenzymes-domain', component: EnzymeDomain },
+  {
+    path: '/gotenzymes',
+    children: [
+      { path: '', name: 'gotenzymes', component: EnzymeLanding },
+      { path: 'reaction/:id', name: 'gotenzymes-reaction', component: EnzymeReaction },
+      { path: 'compound/:id', name: 'gotenzymes-compound', component: EnzymeCompound },
+      { path: 'ec/:ecValue', name: 'gotenzymes-ec', component: EnzymeEC },
+      { path: 'gene/:id', name: 'gotenzymes-gene', component: EnzymeGene },
+      { path: 'organism/:id', name: 'gotenzymes-organism', component: EnzymeOrganism },
+      { path: 'domain/:id', name: 'gotenzymes-domain', component: EnzymeDomain },
+    ],
+  },
 
   // redirects
   {
@@ -87,7 +102,6 @@ const routes = [
       path: `/explore/Human-GEM/map-viewer${to.params.pathMatch.join('/')}`,
     }),
   },
-  { path: '/about', redirect: '/about/introduction' },
 
   // catch rest
   { path: '/:pathMatch(.*)*', name: 'fourOfour', component: FourOFour },
