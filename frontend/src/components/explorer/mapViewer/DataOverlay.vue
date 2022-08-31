@@ -75,7 +75,7 @@
           <div class="mb-2 is-flex is-justify-content-space-between">
             <div class="title is-size-6">Overlay</div>
             <button
-              v-if="dataTypes.length > 1"
+              v-show="dataTypes.length > 1"
               class="button is-small is-danger is-light is-outlined"
               @click="removeDataType(index)"
             >
