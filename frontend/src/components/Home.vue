@@ -192,10 +192,7 @@
 <script>
 import { default as messages } from '@/content/messages';
 import { default as newsItems } from '@/content/news';
-
-const getImageUrl = (name) => {
-  return  new URL(`../assets/${name}.jpg`, import.meta.url).href;
-};
+import { getImageUrl } from '@/helpers/utils';
 
 /* eslint-disable global-require */
 export default {

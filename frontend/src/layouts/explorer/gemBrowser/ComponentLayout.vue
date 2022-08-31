@@ -45,7 +45,7 @@
           <slot v-if="isMetabolite" name="rdkit-img" />
           <div class="column is-3-widescreen is-4-desktop is-6-tablet has-text-centered">
             <router-link
-              v-if="interactionPartner"
+              v-if="interactionPartner && model"
               class="button is-info is-fullwidth is-outlined"
               :to="{
                 name: 'interaction',

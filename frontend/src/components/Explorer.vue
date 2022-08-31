@@ -90,6 +90,7 @@
 <script>
 import { mapGetters, mapState } from 'vuex';
 import { default as messages } from '@/content/messages';
+import { getImageUrl } from '@/helpers/utils';
 
 export default {
   name: 'Explorer',
@@ -99,19 +100,19 @@ export default {
       explorerTools: [
         {
           name: messages.gemBrowserName,
-          img: require('../assets/gemBrowser.jpg'),
+          img: getImageUrl('gemBrowser'),
           routeName: 'browser',
           icon: 'table',
         },
         {
           name: messages.mapViewerName,
-          img: require('../assets/mapViewer.jpg'),
+          img: getImageUrl('mapViewer'),
           routeName: 'viewer',
           icon: 'map-o',
         },
         {
           name: messages.interPartName,
-          img: require('../assets/interaction.jpg'),
+          img: getImageUrl('interaction'),
           routeName: 'interaction',
           icon: 'share-alt',
         },

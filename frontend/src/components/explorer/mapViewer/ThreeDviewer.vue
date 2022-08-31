@@ -109,7 +109,7 @@ export default {
   async mounted() {
     await this.loadNetwork();
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.resetNetwork();
   },
   methods: {

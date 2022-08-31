@@ -377,6 +377,9 @@ h6 {
 #navbar {
   min-height: 52px;
 
+  /*  has-background-primary-lighter is being overridden by navbar in template */
+  background-color: $primary-lighter;
+
   @media screen and (min-width: $tablet) {
     min-height: 56px;
   }
