@@ -6,7 +6,7 @@ import vueDebounce from 'vue-debounce';
 import NProgress from 'nprogress';
 import App from '@/App.vue';
 import router from '@/router';
-import store from './store';
+import { store } from './store';
 import linkHandlerMixin from './mixins/linkHandler';
 
 axios.defaults.baseURL = '/api/v2';
