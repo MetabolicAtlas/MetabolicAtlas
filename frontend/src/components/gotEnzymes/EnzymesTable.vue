@@ -23,14 +23,14 @@
       @on-sort-change="onSortChange"
       @on-column-filter="onColumnFilter"
     >
-      <div slot="emptyState">
+      <slot name="emptyState">
         <div class="vgt-center-align vgt-text-disabled">No data found</div>
-      </div>
-      <template slot="loadingContent">
+      </slot>
+      <slot name="loadingContent">
         <div>
           <loader /></div
-      ></template>
-      <template slot="table-row" slot-scope="props">
+      ></slot>
+      <slot name="table-row" v-bind:props="props">
         <template v-if="linkableFields.includes(props.column.field)">
           <template v-if="props.column.field === 'ec_number'">
             <template v-for="(ec, index) in props.row[props.column.field].split(';')" :key="ec">
@@ -50,14 +50,14 @@
         <template v-else>
           {{ props.formattedRow[props.column.field] }}
         </template>
-      </template>
-      <template slot="column-filter" slot-scope="props">
+      </slot>
+      <slot name="column-filter" v-bind:props="props">
         <range-filter
           v-if="props.column.filterOptions.customFilter"
           :field="props.column.field"
           :handle-update="handleRangeFilterUpdate"
         />
-      </template>
+      </slot>
     </vue-good-table>
   </div>
 </template>

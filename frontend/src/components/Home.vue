@@ -193,6 +193,10 @@
 import { default as messages } from '@/content/messages';
 import { default as newsItems } from '@/content/news';
 
+const getImageUrl = (name) => {
+  return  new URL(`../assets/${name}.jpg`, import.meta.url).href;
+};
+
 /* eslint-disable global-require */
 export default {
   name: 'Home',
@@ -201,7 +205,7 @@ export default {
       news: {
         title: "What's new",
         text: '',
-        img: require('../assets/gemBrowser.jpg'),
+        img: getImageUrl('gemBrowser'),
         route: { name: 'about-news', hash: '#News' },
         icon: 'newspaper-o',
       },
@@ -209,7 +213,7 @@ export default {
         {
           title: messages.gemBrowserName,
           text: '<p>The <b>GEM Browser</b> enables powerful query and exploration of model content in tabular format.</p><p>A wide range of attributes, including reaction equations, metabolite formulas, gene rules and subsystem contents, are presented as a detailed network of individual model components. They are highly interconnected and rationally associated to easily navigate and switch between them.</p><p>Visit the documentation to learn about the different functionalities provided by the GEM Browser.</p>',
-          img: require('../assets/gemBrowser.jpg'),
+          img: getImageUrl('gemBrowser'),
           cardLink: 'GEM Browser',
           route: { name: 'browser', params: { model: 'Human-GEM' } },
           icon: 'table',
@@ -217,7 +221,7 @@ export default {
         {
           title: messages.mapViewerName,
           text: '<p>For easy visualization, <b>Metabolic Atlas</b> handles both 2D and 3D maps. For each of the integrated models, the website automatically generates 3D graphs at both compartment and subsystem level.</p><p>Both compartment and subsystem 2D maps of the Human-GEM have been created by Human-GEM contributors and are manually curated. On these maps, one can search for reactions, metabolites or genes. Moreover, RNA expression data from Human Protein Atlas can be overlaid.</p><p>By clicking on an element on the map, more information of that element will be shown on the left sidebar. From there, one can navigate back to the <b>GEM Browser</b> for detailed information.</p>',
-          img: require('../assets/mapViewer.jpg'),
+          img: getImageUrl('mapViewer'),
           cardLink: 'Map Viewer',
           route: {
             name: 'viewer',
@@ -229,7 +233,7 @@ export default {
         {
           title: messages.interPartName,
           text: `<p>The <b>Interaction Partners</b> graph shows connectivity between metabolites and genes based on their associated reactions.</p><p>The graph is dynamically generated and is customizable. One can interact with a restricted part of the metabolic network, or further expand the interaction partners of any element already on the graph. Moreover, RNA expression data from the Human Protein Atlas can be overlaid onto the graph. </p><p>This feature is available only for metabolites and genes, and is accessible via the <b>${messages.gemBrowserName}</b>.</p>`,
-          img: require('../assets/interaction.jpg'),
+          img: getImageUrl('interaction'),
           cardLink: 'Interaction Partners',
           route: { name: 'interaction', params: { model: 'Human-GEM' } },
           icon: 'connectdevelop',
@@ -239,14 +243,14 @@ export default {
         {
           title: 'Search',
           text: 'The menu bar contains a shortcut to the <b>Global search</b> function, which enables users to easily search cellular components across all the integrated models available for further filtering.',
-          img: require('../assets/search.jpg'),
+          img: getImageUrl('search'),
           route: { name: 'search', query: { term: '' } },
           icon: 'search',
         },
         {
           title: 'Analyze',
           text: 'Gene expression data from the Human Protein Atlas can be viewed in the 2D and 3D maps and Interaction Partners. User data can also be overlaid onto the maps, with the option of comparing datasets, for example against normal tissue. Additional types of omics integrations are under development.',
-          img: require('../assets/analyze.jpg'),
+          img: getImageUrl('analyze'),
           route: {
             name: 'viewer',
             params: { model: 'Human-GEM', type: 'compartment', map_id: 'endoplasmic_reticulum' },
@@ -259,14 +263,14 @@ export default {
         {
           title: 'Export',
           text: 'Most of the data provided on the website is convenient to export, for example via <b>Export to TSV</b> buttons. For the extracting data in JSON format, we have documented our API.',
-          img: require('../assets/export.jpg'),
+          img: getImageUrl('export'),
           route: { name: 'search', query: { term: 'glyoxalate' } },
           icon: 'download',
         },
         {
           title: 'Compare',
           text: 'The integrated models can be compared on-the-fly via the cross references to other models or databases they share. Moreover, a 3-way comparison can be performed as well.',
-          img: require('../assets/comparison.jpg'),
+          img: getImageUrl('comparison'),
           route: { name: 'comparemodels' },
           icon: 'download',
         },
@@ -274,7 +278,7 @@ export default {
       repository: {
         title: 'GEM Repository',
         text: '<p>Over 350 GEMs can be downloaded from the <b>GEM Repository</b> or directly from the <b>Metabolic Atlas FTP server</b>. The tabular view enables customized selection.</p><p>Clicking on each of the models brings up more information about the model, including a text description and, if available, references. For support, the original authors should be contacted.</p>',
-        img: require('../assets/gems.jpg'),
+        img: getImageUrl('gems'),
         route: { name: 'gems' },
         icon: 'files-o',
       },

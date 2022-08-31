@@ -11,7 +11,7 @@
           :current-map="currentMap"
           :missing-reaction-list="missingReactionList"
           :map-reaction-list="mapReactionList"
-          :show-modal.sync="showModal"
+          v-model:show-modal="showModal"
         />
         <div
           id="mapSidebar"
@@ -49,7 +49,7 @@
               :dim="dimensionalState(showing2D)"
               :current-map="currentMap"
               :selection-data="selectionData"
-              :show-modal.sync="showModal"
+              v-model:show-modal="showModal"
               :missing-reaction-list="missingReactionList"
               @openSelectionCardContent="resetSidebarLayout"
             />

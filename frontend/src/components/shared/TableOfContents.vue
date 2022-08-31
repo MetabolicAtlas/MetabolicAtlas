@@ -8,7 +8,7 @@
             :to="l.link"
             :class="{ 'has-background-white-ter': hasActiveSubsection(l) }"
             active-class="has-background-link-light"
-            @click.native="isMobileMenu = false"
+            @click="isMobileMenu = false"
           >
             <span class="icon pr-5 has-text-info">
               <i class="fa" :class="l.icon || 'fa-caret-right'"></i>
@@ -20,7 +20,7 @@
               <router-link
                 :to="sub.routeName ? { name: sub.routeName } : sub.link"
                 active-class="has-background-link-light"
-                @click.native="isMobileMenu = false"
+                @click="isMobileMenu = false"
               >
                 {{ sub.name }}
               </router-link>

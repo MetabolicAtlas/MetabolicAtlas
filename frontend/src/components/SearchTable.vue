@@ -213,15 +213,15 @@
                 style-class="vgt-table striped bordered"
                 :pagination-options="tablePaginationOpts"
               >
-                <div slot="table-actions">
+                <slot name="table-actions">
                   <ExportTSV
                     :arg="index"
                     class="my-1 mx-4"
                     :filename="`${searchTerm}-${header}.tsv`"
                     :format-function="formatToTSV"
                   ></ExportTSV>
-                </div>
-                <template slot="table-row" slot-scope="props">
+                </slot>
+                <slot name="table-row" v-bind:props="props">
                   <!-- eslint-disable max-len -->
                   <template v-if="props.column.field === 'model'">
                     {{ props.formattedRow[props.column.field].name }}
@@ -303,7 +303,7 @@
                   <template v-else>
                     {{ props.formattedRow[props.column.field] }}
                   </template>
-                </template>
+                </slot>
               </vue-good-table>
             </div>
           </template>

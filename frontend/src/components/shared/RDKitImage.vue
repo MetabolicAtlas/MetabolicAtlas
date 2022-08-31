@@ -8,7 +8,7 @@
     >
       <loader v-if="loading" />
     </div>
-    <Modal :show-modal.sync="showLargeImage">
+    <Modal v-model:show-modal="showLargeImage">
       <div id="rdkit-modal-img-wrapper" />
       <loader v-if="loading" />
     </Modal>
