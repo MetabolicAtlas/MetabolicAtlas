@@ -148,7 +148,15 @@
         </div>
       </div>
     </div>
-    <button class="button" :disabled="!addCards()" @click="addOverlayCard">Add overlay</button>
+
+    <div
+      class="has-text-centered"
+      :title="addCards() ? '' : 'No more data types available for this model'"
+    >
+      <span class="has-nowrap">
+        <button class="button" :disabled="!addCards()" @click="addOverlayCard">Add overlay</button>
+      </span>
+    </div>
     <RNALegend class="my-3" />
   </div>
 </template>
