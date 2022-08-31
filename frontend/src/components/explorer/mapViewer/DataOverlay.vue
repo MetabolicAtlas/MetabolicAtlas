@@ -28,7 +28,7 @@
     <div v-for="[dataType, files] in Object.entries(customData)" :key="dataType" class="mb-0">
       <div v-for="fileName in Object.keys(files)" :key="fileName" class="mb-0">
         <div v-show="!showFileLoader" class="fileNameBox tags has-addons is-centered mb-0">
-          <span class="tag" :class="errorCustomFileMsg ? 'is-danger' : 'is-success'">
+          <span class="tag is-success">
             <div class="is-size-6">{{ fileName }}</div>
           </span>
           <a
