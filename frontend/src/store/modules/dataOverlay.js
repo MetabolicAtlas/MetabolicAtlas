@@ -210,7 +210,6 @@ const mutations = {
   },
   setCurrentDataSource: (state, currentDataSource) => {
     // copy and replace the array to trigger reactive array change detection
-    // console.log('setCurrentDataSource', currentDataSource);
     const tempList = [...state.currentDataSources];
     tempList[currentDataSource.index] = currentDataSource;
     state.currentDataSources = tempList;

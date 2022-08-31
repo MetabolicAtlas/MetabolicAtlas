@@ -47,7 +47,6 @@ import MapLoader from '@/components/explorer/mapViewer/MapLoader';
 import MapSearch from '@/components/explorer/mapViewer/MapSearch';
 import { default as messages } from '@/content/messages';
 import { reformatChemicalReactionHTML } from '@/helpers/utils';
-// import { DATA_TYPES_COMPONENTS } from '@/helpers/dataOverlay';
 
 export default {
   name: 'Svgmap',
@@ -357,14 +356,6 @@ export default {
       if (inactiveDataTypes.length === this.dataTypes.length) {
         return;
       }
-      // console.log('apply where computedLevels is:', this.computedLevels);
-      // this.$refs.mapsearch.reset();
-      // if (Object.keys(this.computedLevels).length === 0) {
-      //   Object.values(DATA_TYPES_COMPONENTS).forEach(dataType => {
-      //     $(`#svg-wrapper .${dataType.className} .shape`).attr('fill', dataType.defaultColor);
-      //   });
-      //   return;
-      // }
       let allComponents = [];
       this.componentClassName.forEach(x => {
         allComponents = [...allComponents, ...$(`#svg-wrapper .${x}`)];
