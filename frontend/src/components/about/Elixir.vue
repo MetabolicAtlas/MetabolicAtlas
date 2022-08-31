@@ -25,6 +25,7 @@
 </template>
 <script>
 import AboutLayout from '@/layouts/AboutLayout.vue';
+import { getImageUrl } from '@/helpers/utils';
 
 export default {
   name: 'Elixir',
@@ -34,46 +35,45 @@ export default {
   data() {
     return {
       links: [
-        /* eslint-disable global-require */
         {
           name: 'The Human Protein Atlas',
-          icon: require('../../assets/logos/hpa.png'),
+          icon: getImageUrl('logos/hpa', 'png'),
           link: 'https://proteinatlas.org',
         },
         {
           name: 'Ensembl',
-          icon: require('../../assets/logos/ensembl.jpg'),
+          icon: getImageUrl('logos/ensembl'),
           link: 'https://www.ensembl.org',
         },
 
         {
           name: 'UniProt',
-          icon: require('../../assets/logos/uniprot.png'),
+          icon: getImageUrl('logos/uniprot', 'png'),
           link: 'https://www.uniprot.org',
         },
         {
           name: 'Europe PMC',
-          icon: require('../../assets/logos/europepmc.jpg'),
+          icon: getImageUrl('logos/europepmc'),
           link: 'https://europepmc.org',
         },
         {
           name: 'Identifiers.org',
-          icon: require('../../assets/logos/identifiers.jpg'),
+          icon: getImageUrl('logos/identifiers'),
           link: 'https://identifiers.org',
         },
         {
           name: 'ChEBI',
-          icon: require('../../assets/logos/chebi.jpg'),
+          icon: getImageUrl('logos/chebi'),
           link: 'https://www.ebi.ac.uk/chebi',
         },
         {
           name: 'MetaNetX',
-          icon: require('../../assets/logos/mnx.png'),
+          icon: getImageUrl('logos/mnx', 'png'),
           link: 'https://www.metanetx.org',
         },
         {
           name: 'BioSchemas',
-          icon: require('../../assets/logos/bioschemas.svg'),
+          icon: getImageUrl('logos/bioschemas', 'svg'),
           link: 'https://bioschemas.org',
         },
       ],

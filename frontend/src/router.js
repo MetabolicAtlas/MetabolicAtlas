@@ -55,7 +55,6 @@ const routes = [
     path: '/about/platform',
     name: 'about-platform',
     component: AboutPlatform,
-    meta: { reload: true },
   },
   { path: '/about/news', name: 'about-news', component: News },
   { path: '/about/terms', name: 'about-terms', component: AboutTerms },

@@ -255,6 +255,7 @@
 <script>
 import AboutLayout from '@/layouts/AboutLayout.vue';
 import CitationWidget from '@/components/about/CitationWidget.vue';
+import { getImageUrl } from '@/helpers/utils';
 
 export default {
   name: 'Introduction',
@@ -276,11 +277,10 @@ export default {
   },
   data() {
     return {
-      /* eslint-disable global-require */
       members: [
         {
           name: 'Prof. Jens Nielsen',
-          img: require('../../assets/pics/jens.jpg'),
+          img: getImageUrl('pics/jens'),
           orcid: 'https://orcid.org/0000-0002-9955-6003',
           linkedin: 'https://www.linkedin.com/in/jens-nielsen-57a207181/',
           content:
@@ -288,7 +288,7 @@ export default {
         },
         {
           name: 'Dr. Rui Benfeitas',
-          img: require('../../assets/pics/rui.jpg'),
+          img: getImageUrl('pics/rui'),
           orcid: 'https://orcid.org/0000-0001-7972-0083',
           linkedin: 'https://www.linkedin.com/in/ruibenfeitas/',
           github: 'https://github.com/Benfeitas',
@@ -297,7 +297,7 @@ export default {
         },
         {
           name: 'Dr. Jonathan Robinson',
-          img: require('../../assets/pics/jon.jpg'),
+          img: getImageUrl('pics/jon'),
           orcid: 'https://orcid.org/0000-0001-8567-5960',
           linkedin: 'https://www.linkedin.com/in/jonathanrob',
           github: 'https://github.com/JonathanRob',
@@ -306,7 +306,7 @@ export default {
         },
         {
           name: 'Dr. Hao Wang',
-          img: require('../../assets/pics/hao.jpg'),
+          img: getImageUrl('pics/hao'),
           orcid: 'https://orcid.org/0000-0001-7475-0136',
           linkedin: 'https://www.linkedin.com/in/hao-wang-9a66ba30',
           github: 'https://github.com/Hao-Chalmers',
@@ -320,7 +320,7 @@ export default {
           members: [
             {
               name: 'Mihail Anton',
-              img: require('../../assets/pics/mihail.jpg'),
+              img: getImageUrl('pics/mihail'),
               github: 'https://github.com/mihai-sysbio',
               linkedin: 'https://www.linkedin.com/in/mihail-anton/',
               content:
@@ -328,7 +328,7 @@ export default {
             },
             {
               name: 'Shan Huang',
-              img: require('../../assets/pics/shan.jpg'),
+              img: getImageUrl('pics/shan'),
               github: 'https://github.com/e0',
               linkedin: 'https://www.linkedin.com/in/shan-h-5b986383/',
               content:
@@ -336,7 +336,7 @@ export default {
             },
             {
               name: 'Ingrid Hyltander',
-              img: require('../../assets/pics/ingrid.jpg'),
+              img: getImageUrl('pics/ingrid'),
               github: 'https://github.com/inghylt',
               linkedin: 'https://www.linkedin.com/in/ingrid-hyltander-82128213a/',
               content:
@@ -344,7 +344,7 @@ export default {
             },
             {
               name: 'Malin Klang',
-              img: require('../../assets/pics/malin.jpg'),
+              img: getImageUrl('pics/malin'),
               github: 'https://github.com/MalinAhlberg',
               linkedin: 'https://www.linkedin.com/in/malin-klang-7105562a/',
               content:
@@ -352,7 +352,7 @@ export default {
             },
             {
               name: 'Nanjiang Shu',
-              img: require('../../assets/pics/nanjiang.jpg'),
+              img: getImageUrl('pics/nanjiang'),
               github: 'https://github.com/nanjiangshu',
               linkedin: 'https://www.linkedin.com/in/nanjiang-shu-95a49713/',
               content:
@@ -365,14 +365,14 @@ export default {
           members: [
             {
               name: 'Sergiu Netotea',
-              img: require('../../assets/pics/sergiu.jpg'),
+              img: getImageUrl('pics/sergiu'),
               linkedin: 'https://se.linkedin.com/in/sergiu-netotea-753068182',
               content:
                 '<a href="https://nbis.se/about/staff/sergiu-netotea/" target="_blank">Researcher at NBIS </a>',
             },
             {
               name: 'Martin Norling',
-              img: require('../../assets/pics/martin.jpg'),
+              img: getImageUrl('pics/martin'),
               github: 'https://github.com/norling',
               content:
                 '<a href="https://nbis.se/about/staff/martin-norling/" target="_blank">System Developer at NBIS </a>',

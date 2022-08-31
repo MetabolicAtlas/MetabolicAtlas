@@ -96,7 +96,6 @@ export default {
   name: 'Explorer',
   data() {
     return {
-      /* eslint-disable global-require */
       explorerTools: [
         {
           name: messages.gemBrowserName,

@@ -3,7 +3,7 @@
     <div id="timeline-svg-wrapper" ref="wrapper">
       <inline-svg
         ref="inlineSvg"
-        :src="require('../assets/gemRepository/integratedModelsTimeline.svg')"
+        :src="getImageUrl('gemRepository/integratedModelsTimeline', 'svg')"
       />
     </div>
     <div
@@ -56,6 +56,7 @@
 import { mapGetters } from 'vuex';
 import InlineSvg from 'vue-inline-svg';
 import { default as messages } from '@/content/messages';
+import { getImageUrl } from '@/helpers/utils';
 
 export default {
   components: {
@@ -176,6 +177,7 @@ export default {
         this.selectedVersion = null;
       }
     },
+    getImageUrl,
   },
 };
 </script>

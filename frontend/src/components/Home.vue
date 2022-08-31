@@ -194,7 +194,6 @@ import { default as messages } from '@/content/messages';
 import { default as newsItems } from '@/content/news';
 import { getImageUrl } from '@/helpers/utils';
 
-/* eslint-disable global-require */
 export default {
   name: 'Home',
   data() {
