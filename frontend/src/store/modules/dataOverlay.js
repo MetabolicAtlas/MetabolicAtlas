@@ -84,7 +84,10 @@ const actions = {
     }
   },
   removeDataType({ commit }, index) {
-    commit('removeDataType', index);
+    commit('setDataSet', { index, dataSet: 'None' });
+    setTimeout(() => {
+      commit('removeDataType', index);
+    }, 0);
   },
   async getDataSource({ commit, dispatch, state }, { model, type, filename, propagate, index }) {
     try {
