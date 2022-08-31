@@ -242,7 +242,9 @@ LIMIT 50
         metaboliteIds: groupedByComponents['Metabolite'] || [],
         model,
         version: v,
-        limit,
+        limit:
+          (groupedByComponents['CompartmentalizedMetabolite'] || []).length +
+          (groupedByComponents['Metabolite'] || []).length,
       }),
       fetchGenes({
         ids: groupedByComponents['Gene'],
