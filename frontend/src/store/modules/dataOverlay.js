@@ -129,7 +129,6 @@ const actions = {
     }
   },
   async getDataSet({ commit, state }, { model, type, filename, dataSet, index }) {
-    // console.log('getDataSet', type, filename, dataSet);
     try {
       let responseDataSet = null;
       if (state.customData[type] && state.customData[type][filename]) {

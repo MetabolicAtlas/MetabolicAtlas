@@ -186,7 +186,7 @@ export default {
     return {
       showLvlCardContent: true,
       customFileName: '',
-      showFileLoader: true,
+      showFileLoader: false,
       errorCustomFileMsg: '',
       customFileInfo: '',
       customFile: null,
@@ -219,6 +219,11 @@ export default {
     },
   },
   async created() {
+    if (Object.keys(this.dataSourcesIndex).length) {
+      const [defaultCustomDataType] = Object.keys(this.filteredDataSourcesIndex);
+      this.customDataType = defaultCustomDataType;
+      return;
+    }
     await this.getDataSourcesIndex(this.model.short_name);
 
     const queryParamTypes = this.validDataTypeInQuery();
