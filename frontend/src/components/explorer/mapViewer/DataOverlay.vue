@@ -72,17 +72,15 @@
     <div v-for="(chosenType, index) in dataTypes" :key="index">
       <div class="card my-3">
         <div class="card-content py-2 p-3">
-          <div class="mb-2 is-flex is-justify-content-space-between">
-            <div class="title is-size-6">Overlay</div>
-            <button
+          <div class="mb-2 is-relative">
+            <div class="title is-size-6 mb-0">Overlay</div>
+            <a
               v-show="dataTypes.length > 1"
-              class="button is-small is-dark is-outlined"
+              id="closeCard"
+              class="tag is-delete is-white is-medium"
               @click="removeDataType(index)"
             >
-              <span class="icon">
-                <i class="fa fa-times"></i>
-              </span>
-            </button>
+            </a>
           </div>
           <div v-if="modelHasOverlayData()">
             <div class="control">
@@ -418,5 +416,10 @@ export default {
 #customFileError {
   background-color: #f46036;
   word-wrap: break-word;
+}
+#closeCard {
+  position: absolute;
+  top: -8px;
+  right: -8px;
 }
 </style>
