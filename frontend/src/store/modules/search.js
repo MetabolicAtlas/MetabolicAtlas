@@ -76,7 +76,9 @@ const getters = {
           }
           return {
             topScore: v.topScore,
-            results: v.results.sort((a, b) => sortResultsScore(a, b, state.searchTermString)),
+            results: v.results
+              .sort((a, b) => sortResultsScore(a, b, state.searchTermString))
+              .slice(0, 10),
           };
         })(),
       ])
