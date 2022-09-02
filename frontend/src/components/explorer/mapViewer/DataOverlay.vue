@@ -71,17 +71,15 @@
     </Modal>
     <div v-for="(chosenType, index) in dataTypes" :key="index">
       <div class="card my-3">
-        <div class="card-content py-2 p-3">
-          <div class="mb-2 is-relative">
-            <div class="title is-size-6 mb-0">Overlay</div>
-            <a
-              v-show="dataTypes.length > 1"
-              id="closeCard"
-              class="tag is-delete is-white is-medium"
-              @click="removeDataType(index)"
-            >
-            </a>
-          </div>
+        <div class="card-content py-2 p-3 is-relative">
+          <div class="title is-size-6 mb-2">Overlay</div>
+          <a
+            v-show="dataTypes.length > 1"
+            id="closeCard"
+            class="tag is-delete is-white is-medium"
+            @click="removeDataType(index)"
+          >
+          </a>
           <div v-if="modelHasOverlayData()">
             <div class="control">
               <p>Select data type</p>
@@ -427,7 +425,7 @@ export default {
 }
 #closeCard {
   position: absolute;
-  top: -8px;
-  right: -8px;
+  top: 3px;
+  right: 3px;
 }
 </style>
