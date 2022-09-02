@@ -6,18 +6,23 @@ describe('gem search', () => {
     await driver.close();
   });
 
-  test('gem search should have max 50 results per component type', async () => {
+  test('gem search should have max 50 results', async () => {
     const data = await search({
-      searchTerm: 'H2O',
+      searchTerm: 'Retinol+metabolism',
       model: 'HumanGem',
       version: HUMAN_GEM_VERSION,
     });
 
     expect(Object.keys(data)).toContain('Human-GEM');
+    let length = 0;
+    for (const component of Object.keys(data['Human-GEM'])) {
+      if (component !== 'name') {
+        length += data['Human-GEM'][component].length;
+      }
+    }
 
-    const { metabolite } = data['Human-GEM'];
-    expect(metabolite.length).toBeGreaterThan(0);
-    expect(metabolite.length).toBeLessThanOrEqual(50);
+    expect(length).toBeGreaterThan(0);
+    expect(length).toBeLessThanOrEqual(50);
   });
 
   test('gem search should receive sensible ranking scores', async () => {
