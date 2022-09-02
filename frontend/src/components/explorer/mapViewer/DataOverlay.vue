@@ -260,11 +260,13 @@ export default {
       if (this.dataSources[index].dataSets.includes(dataSet)) {
         await this.getDataSet({
           model: this.model.short_name,
-          type: dataTypes[0],
-          filename: dataSources[0],
+          type: dataTypes[index],
+          filename: dataSources[index],
           dataSet,
           index,
         });
+      } else {
+        this.setDataSet({ index, dataSet: 'None' });
       }
     });
   },
@@ -276,6 +278,7 @@ export default {
       addDataType: 'dataOverlay/addDataType',
       getDataSource: 'dataOverlay/getDataSource',
       getDataSet: 'dataOverlay/getDataSet',
+      setDataSet: 'dataOverlay/setDataSet',
       addCustomDataSourceToIndex: 'dataOverlay/addCustomDataSourceToIndex',
       removeCustomDataSourceFromIndex: 'dataOverlay/removeCustomDataSourceFromIndex',
     }),
