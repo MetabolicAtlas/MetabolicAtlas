@@ -17,6 +17,7 @@
     "@metabolicatlas/3d-network-viewer": "^0.1.18",
     "@panzoom/panzoom": "^4.4.3",
     "@vue/compat": "^3.2.0",
+    "@vueuse/head": "^0.7.9",
     "axios": "^0.24.0",
     "bulma": "^0.9.0",
     "bulma-timeline": "^3.0.5",
@@ -49,6 +50,7 @@
     "eslint": "^6.5.1",
     "eslint-plugin-vue": "^8.3.0",
     "prettier": "^2.5.1",
+    "rollup-plugin-visualizer": "^5.8.1",
     "sass": "^1.48.0",
     "vite": "^3.0.0",
     "vite-plugin-rewrite-all": "^1.0.0"

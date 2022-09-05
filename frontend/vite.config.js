@@ -1,9 +1,16 @@
 import vue from '@vitejs/plugin-vue'
 import pluginRewriteAll from 'vite-plugin-rewrite-all';
+import { visualizer } from "rollup-plugin-visualizer";
 import path from 'path'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
+  build: {
+   raw: {
+       extenstions : ['html', 'txt'],
+       glob: ['**.html'] // or glob
+   }
+},
   css: {
     preprocessorOptions: { 
       scss: {
@@ -35,6 +42,7 @@ export default defineConfig({
         }
       }
     }),
-    pluginRewriteAll()
+    pluginRewriteAll(),
+    visualizer()
   ]
 })

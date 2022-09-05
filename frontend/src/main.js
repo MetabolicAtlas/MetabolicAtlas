@@ -1,4 +1,5 @@
 import { createApp } from 'vue';
+import { createHead } from '@vueuse/head';
 import VueMatomo from 'vue-matomo';
 import { createMetaManager } from 'vue-meta';
 import axios from 'axios';
@@ -19,6 +20,9 @@ axios.defaults.onDownloadProgress = function onDownloadProgress(progressEvent) {
 const app = createApp(App);
 app.use(store);
 app.use(router);
+
+const head = createHead();
+app.use(head);
 
 const metaManager = createMetaManager();
 app.use(metaManager);

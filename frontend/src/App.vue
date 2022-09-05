@@ -1,4 +1,5 @@
 <template>
+  <Head />
   <div id="app" :class="{ 'fade-page': showGemSearch }">
     <link
       rel="stylesheet"
@@ -182,6 +183,7 @@
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
+import Head from '@/components/shared/Head.vue';
 import ErrorPanel from '@/components/shared/ErrorPanel.vue';
 import GemSearch from '@/components/explorer/gemBrowser/GemSearch.vue';
 import { default as messages } from '@/content/messages';
@@ -191,11 +193,13 @@ import { isCookiePolicyAccepted, acceptCookiePolicy } from '@/helpers/store';
 export default {
   name: 'App',
   components: {
+    Head,
     ErrorPanel,
     GemSearch,
   },
   data() {
     return {
+      baseUrl: import.meta.env.BASE_URL,
       /* eslint-disable quote-props */
       menuElems: [
         {
