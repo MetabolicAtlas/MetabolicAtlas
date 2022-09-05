@@ -72,16 +72,17 @@
           >.
         </p>
         <loader v-show="showLoader"></loader>
-        <div v-if="gems.length != 0" class="my-5">
+        <div v-if="gems.length" class="my-5">
           <vue-good-table
+            style-class="vgt-table striped"
+            row-style-class="clickable"
             :columns="columns"
             :rows="gems"
             :search-options="{ enabled: true, skipDiacritics: true }"
             :sort-options="{ enabled: true }"
-            style-class="vgt-table striped"
             :pagination-options="tablePaginationOpts"
-            @on-row-click="t => selectModel(t.row.id)"
-          ></vue-good-table>
+            v-on:row-click="t => selectModel(t.row.id)"
+          />
         </div>
         <div v-else>
           <span v-if="!showLoader">No models available</span>
@@ -191,8 +192,8 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import { VueGoodTable } from 'vue-good-table';
-import 'vue-good-table/dist/vue-good-table.css';
+import 'vue-good-table-next/dist/vue-good-table-next.css';
+import { VueGoodTable } from 'vue-good-table-next';
 import Loader from '@/components/Loader.vue';
 import References from '@/components/shared/References.vue';
 import GemHistory from '@/components/GemHistory.vue';

@@ -23,14 +23,14 @@
       @on-sort-change="onSortChange"
       @on-column-filter="onColumnFilter"
     >
-      <slot name="emptyState">
+      <template #empty-state>
         <div class="vgt-center-align vgt-text-disabled">No data found</div>
-      </slot>
-      <slot name="loadingContent">
+      </template>
+      <template #loading-content>
         <div>
           <loader /></div
-      ></slot>
-      <slot name="table-row" v-bind:props="props">
+      ></template>
+      <template #table-row="props">
         <template v-if="linkableFields.includes(props.column.field)">
           <template v-if="props.column.field === 'ec_number'">
             <template v-for="(ec, index) in props.row[props.column.field].split(';')" :key="ec">
@@ -50,21 +50,22 @@
         <template v-else>
           {{ props.formattedRow[props.column.field] }}
         </template>
-      </slot>
-      <slot name="column-filter" v-bind:props="props">
+      </template>
+      <template #column-filter="props">
         <range-filter
           v-if="props.column.filterOptions.customFilter"
           :field="props.column.field"
           :handle-update="handleRangeFilterUpdate"
         />
-      </slot>
+      </template>
     </vue-good-table>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import { VueGoodTable } from 'vue-good-table';
+import 'vue-good-table-next/dist/vue-good-table-next.css';
+import { VueGoodTable } from 'vue-good-table-next';
 import Loader from '@/components/Loader.vue';
 import ExportTSV from '@/components/shared/ExportTSV.vue';
 import RangeFilter from '@/components/shared/RangeFilter.vue';

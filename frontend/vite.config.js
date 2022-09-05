@@ -1,4 +1,5 @@
 import vue from '@vitejs/plugin-vue'
+import pluginRewriteAll from 'vite-plugin-rewrite-all';
 import path from 'path'
 import { defineConfig } from 'vite'
 
@@ -33,6 +34,7 @@ export default defineConfig({
           }
         }
       }
-    })
+    }),
+    pluginRewriteAll()
   ]
 })
