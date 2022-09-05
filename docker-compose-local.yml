@@ -22,7 +22,9 @@ services:
       - ./frontend/.prettierrc.json:/project/.prettierrc.json
       - ./frontend/vite.config.js:/project/vite.config.js
       - ./frontend/package.json:/project/package.json
+      - ./frontend/yarn.lock:/project/yarn.lock
       - ./frontend/index.html:/project/index.html
+      - ./frontend/stats.html:/project/stats.html
     networks:
       - nginx-network
     ports:
