@@ -199,7 +199,6 @@ export default {
   },
   data() {
     return {
-      baseUrl: import.meta.env.BASE_URL,
       /* eslint-disable quote-props */
       menuElems: [
         {
@@ -249,11 +248,6 @@ export default {
     ...mapState({
       model: state => state.models.model,
     }),
-  },
-  metaInfo() {
-    return {
-      title: 'Metabolic Atlas',
-    };
   },
   watch: {
     // eslint-disable-next-line object-shorthand

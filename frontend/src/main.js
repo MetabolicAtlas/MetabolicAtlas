@@ -1,7 +1,6 @@
 import { createApp } from 'vue';
 import { createHead } from '@vueuse/head';
 import VueMatomo from 'vue-matomo';
-import { createMetaManager } from 'vue-meta';
 import axios from 'axios';
 import vueDebounce from 'vue-debounce';
 import NProgress from 'nprogress';
@@ -19,13 +18,11 @@ axios.defaults.onDownloadProgress = function onDownloadProgress(progressEvent) {
 // eslint-disable-next-line no-new
 const app = createApp(App);
 app.use(store);
-app.use(router);
 
 const head = createHead();
 app.use(head);
 
-const metaManager = createMetaManager();
-app.use(metaManager);
+app.use(router);
 
 app.use(vueDebounce, {
   listenTo: 'input',

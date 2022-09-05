@@ -43,7 +43,9 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { computed, ref } from 'vue';
+import { useStore } from 'vuex';
+import { useHead } from '@vueuse/head';
 import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout.vue';
 import { buildCustomLink, generateSocialMetaTags } from '@/helpers/utils';
 
@@ -52,20 +54,53 @@ export default {
   components: {
     ComponentLayout,
   },
-  data() {
+  setup() {
+    const store = useStore();
+
+    const showFullSubsystem = ref(false);
+    const limitSubsystem = 30;
+    const model = computed(() => store.state.models.model);
+    const compartment = computed(() => store.getters['compartments/info']);
+    const subsystems = computed(() => store.getters['compartments/subsystems']);
+
+    const title = computed(
+      () => `${compartment.value && compartment.value.name}, Compartment in
+  ${model.value && model.value.short_name}`
+    );
+    const description = computed(
+      () => `The compartment ${compartment.value && compartment.value.name} in
+    ${model.value && model.value.short_name} (version ${
+        model.value && model.value.version
+      }) consists of
+    ${compartment.value && compartment.value.subsystemCount} subsystems, ${
+        compartment.value && compartment.value.reactionsCount
+      } reactions,
+    ${compartment.value && compartment.value.metabolitesCount} metabolites, and ${
+        compartment.value && compartment.value.genesCount
+      } genes.`
+    );
+
+    const meta = computed(() =>
+      generateSocialMetaTags({
+        title: title.value,
+        description: description.value,
+      })
+    );
+
+    useHead({
+      title,
+      meta,
+    });
+
     return {
-      showFullSubsystem: false,
-      limitSubsystem: 30,
+      model,
+      compartment,
+      subsystems,
+      showFullSubsystem,
+      limitSubsystem,
     };
   },
   computed: {
-    ...mapState({
-      model: state => state.models.model,
-    }),
-    ...mapGetters({
-      compartment: 'compartments/info',
-      subsystems: 'compartments/subsystems',
-    }),
     subsystemListHtml() {
       const l = ['<span class="tags">'];
       const sortedSubsystemList = this.subsystems
@@ -87,19 +122,6 @@ export default {
       l.push('</span>');
       return l.join('');
     },
-  },
-  metaInfo() {
-    if (!this.model || !this.compartment.name) {
-      return {};
-    }
-
-    const title = `${this.compartment.name}, Compartment in ${this.model.short_name}`;
-    const description = `The compartment ${this.compartment.name} in ${this.model.short_name} (version ${this.model.version}) consists of ${this.compartment.subsystemCount} subsystems, ${this.compartment.reactionsCount} reactions, ${this.compartment.metabolitesCount} metabolites, and ${this.compartment.genesCount} genes.`;
-
-    return {
-      title,
-      meta: generateSocialMetaTags({ title, description }),
-    };
   },
 };
 </script>

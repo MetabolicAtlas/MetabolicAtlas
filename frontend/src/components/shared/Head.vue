@@ -1,5 +1,6 @@
 <template>
   <Head>
+    <title>Metabolic Atlas</title>
     <link
       v-for="size in appleIconSizes"
       :key="size"

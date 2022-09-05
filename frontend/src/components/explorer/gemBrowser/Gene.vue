@@ -1,11 +1,11 @@
 <template>
   <component-layout
     component-type="gene"
-    :component-name="gene.geneName"
-    :external-dbs="gene.externalDbs"
+    :component-name="gene && gene.geneName"
+    :external-dbs="gene && gene.externalDbs"
     query-component-action="genes/getGeneData"
     :interaction-partner="true"
-    :viewer-selected-i-d="gene.id"
+    :viewer-selected-i-d="gene && gene.id"
   >
     <template v-slot:table>
       <table v-if="gene && Object.keys(gene).length !== 0" class="table main-table is-fullwidth">
@@ -35,7 +35,9 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { computed, ref } from 'vue';
+import { useStore } from 'vuex';
+import { useHead } from '@vueuse/head';
 import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout.vue';
 import { generateSocialMetaTags, reformatTableKey, combineWords } from '@/helpers/utils';
 
@@ -44,63 +46,89 @@ export default {
   components: {
     ComponentLayout,
   },
-  data() {
-    return {
-      showReactionLoader: true,
-      geneId: '',
-      mainTableKey: [
-        { name: 'id' },
-        { name: 'name', display: 'Gene&nbsp;name' },
-        { name: 'alternateName', display: 'Alternate&nbsp;name' },
-        { name: 'synonyms' },
-        { name: 'function' },
-      ],
-      limitReaction: 200,
-    };
-  },
-  computed: {
-    ...mapState({
-      model: state => state.models.model,
-      gene: state => state.genes.gene,
-    }),
-    ...mapGetters({
-      geneName: 'genes/geneName',
-    }),
-  },
-  metaInfo() {
-    if (!this.model || !this.gene.geneName) {
-      return {};
-    }
+  setup() {
+    const store = useStore();
+    const showReactionLoader = ref(true);
+    const geneId = ref('');
+    const mainTableKey = [
+      { name: 'id' },
+      { name: 'name', display: 'Gene&nbsp;name' },
+      { name: 'alternateName', display: 'Alternate&nbsp;name' },
+      { name: 'synonyms' },
+      { name: 'function' },
+    ];
+    const limitReaction = 200;
 
-    const [compartments, compartmentLabel] = combineWords({
-      items: this.gene.compartments.map(c => c.name),
-      itemType: 'compartment',
-    });
+    const model = computed(() => store.state.models.model);
+    const gene = computed(() => store.state.genes.gene);
+    const geneName = computed(() => store.getters['genes/geneName']);
 
-    const [subsystems, subsystemLabel] = combineWords({
-      items: this.gene.subsystems.map(s => s.name),
-      itemType: 'subsystem',
-    });
+    const [compartments, compartmentLabel] = computed(() =>
+      combineWords({
+        items:
+          gene.value && gene.value.compartments ? gene.value.compartments.map(c => c.name) : [],
+        itemType: 'compartment',
+      })
+    ).value;
 
-    const title = `${this.gene.geneName}, Gene in ${this.model.short_name}`;
-    const description = `The gene ${this.gene.geneName} in ${this.model.short_name} (version ${this.model.version}) can be found in the ${compartmentLabel} ${compartments}; and the ${subsystemLabel} ${subsystems}.`;
+    const [subsystems, subsystemLabel] = computed(() =>
+      combineWords({
+        items: gene.value && gene.value.subsystems ? gene.value.subsystems.map(s => s.name) : [],
+        itemType: 'subsystem',
+      })
+    ).value;
 
-    return {
-      title,
-      meta: generateSocialMetaTags({ title, description }),
-      script: [
-        {
-          type: 'application/ld+json',
-          json: {
-            '@context': 'http://schema.org',
-            '@id': `https://metabolicatlas.org/explore/Human-GEM/gem-browser/gene/${this.gene.id}`,
-            '@type': 'Gene',
-            'dct:conformsTo': 'https://bioschemas.org/profiles/Gene/1.0-RELEASE',
-            identifier: this.gene.id,
-            name: this.gene.geneName,
-          },
+    const title = computed(
+      () => `${gene.value && gene.value.geneName}, Gene in ${model.value && model.value.short_name}`
+    );
+    const description = computed(
+      () => `The gene ${gene.value && gene.value.geneName} in ${
+        model.value && model.value.short_name
+      } (version ${model.value && model.value.version}) can be found in the
+    ${compartmentLabel} ${compartments}; and the ${subsystemLabel} ${subsystems}.`
+    );
+
+    const meta = computed(() =>
+      generateSocialMetaTags({
+        title: title.value,
+        description: description.value,
+      })
+    );
+
+    /*
+    const script = computed(() => [
+      {
+        type: 'application/ld+json',
+        json: {
+          '@context': 'http://schema.org',
+          '@id': `https://metabolicatlas.org/explore/Human-GEM/gem-browser/gene/${
+            gene.value && gene.value.id
+          }`,
+          '@type': 'Gene',
+          'dct:conformsTo': 'https://bioschemas.org/profiles/Gene/1.0-RELEASE',
+          identifier: gene.value && gene.value.id,
+          name: gene.value && gene.value.geneName,
         },
-      ],
+      },
+    ]);
+    */
+
+    useHead({
+      title,
+      meta,
+      // script: script.value,
+    });
+
+    return {
+      showReactionLoader,
+      geneId,
+      mainTableKey,
+      limitReaction,
+      model,
+      gene,
+      geneName,
+      reformatTableKey,
+      combineWords,
     };
   },
   methods: {
