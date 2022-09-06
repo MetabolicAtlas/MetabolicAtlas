@@ -368,7 +368,7 @@ export default {
     },
     availableTypes() {
       const busy = this.dataTypes.map(y => y.name);
-      return Object.keys(this.dataSourcesIndex).filter(name => !busy.includes(name));
+      return Object.keys(this.filteredDataSourcesIndex).filter(name => !busy.includes(name));
     },
     addCards() {
       const available = this.availableTypes();
