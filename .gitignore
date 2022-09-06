@@ -93,3 +93,6 @@ api/dataOverlay
 # PostgreSQL data
 pg/input_data/**/*.txt
 pg/postgres-data
+
+# rollup visualizer output
+frontend/stats.html
