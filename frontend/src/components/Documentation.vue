@@ -282,7 +282,7 @@
                 button on the right side of the page, one can toggle the hidden/display of this
                 panel. For Human-GEM, the gene expression levels and reaction data from
                 <a href="https://www.proteinatlas.org/" target="_blank">The Human Protein Atlas</a>
-                can be loaded by selecting one of the tissues in the drop down list Once selected,
+                can be loaded by selecting one of the tissues in the drop down list. Once selected,
                 the levels corresponding to the chosen tissue will be used to color corresponding
                 components on the respective map, according to the color legend (an example of the
                 color legend is shown
@@ -290,7 +290,7 @@
                 ). To clear the levels, select the
                 <i>None</i>
                 option in the drop down list or alternatively remove the corresponding card if
-                levels from multiple tissues are applied. Levels are available for both 2D and 3D
+                levels from multiple data types are applied. Levels are available for both 2D and 3D
                 Map Viewer. The gene expression levels used are obtained from the
                 <a href="https://www.proteinatlas.org/about/download" target="_blank">
                   download page
