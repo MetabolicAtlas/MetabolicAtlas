@@ -20,9 +20,7 @@
     <meta name="msapplication-TileImage" content="mstile-144x144.png" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <template v-if="hotjarTag">
-      {{ hotjarTag }}
-    </template>
+    <component v-if="hotjarTag" :is="'script'" type="text/javascript" v-html="hotjarTag" />
   </Head>
 </template>
 
@@ -37,7 +35,7 @@ export default {
   data() {
     return {
       baseUrl: import.meta.env.BASE_URL,
-      hotjarTag: import.meta.env.VITE_VUE_APP_HOTJAR, // TODO: this needs .env* files
+      hotjarTag: import.meta.env.VITE_VUE_APP_HOTJAR,
       appleIconSizes: [57, 72, 114, 144, 152].map(s => `${s}x${s}`),
       faviconSizes: [16, 32].map(s => `${s}x${s}`),
     };

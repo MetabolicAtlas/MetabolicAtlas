@@ -31,7 +31,7 @@ app.use(vueDebounce, {
 if (navigator.doNotTrack !== '1') {
   app.use(VueMatomo, {
     host: 'https://csbi.chalmers.se/',
-    siteId: import.meta.env.VUE_APP_MATOMOID,
+    siteId: import.meta.env.VITE_VUE_APP_MATOMOID,
     router,
   });
 }
