@@ -111,7 +111,7 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
   scrollBehavior(to) {
-    return to.hash ? { selector: to.hash } : {};
+    return to.hash ? { el: to.hash } : {};
   },
 });
 
