@@ -69,12 +69,12 @@
         <button class="button is-primary" @click="addSourceToIndex">Upload</button>
       </div>
     </Modal>
-    <div v-for="(chosenType, index) in dataTypes" :key="index">
+    <div v-for="(chosenType, index) in filteredDataTypes" :key="index">
       <div class="card my-3">
         <div class="card-content py-2 p-3 is-relative">
           <div class="title is-size-6 mb-2">Overlay</div>
           <a
-            v-show="dataTypes.length > 1"
+            v-show="filteredDataTypes.length > 1"
             id="closeCard"
             class="tag is-delete is-white is-medium"
             @click="removeDataType(index)"
@@ -83,7 +83,7 @@
           <div v-if="modelHasOverlayData()">
             <div class="control">
               <p>Select data type</p>
-              <div v-if="dataTypes.length" class="select is-fullwidth">
+              <div v-if="filteredDataTypes.length" class="select is-fullwidth">
                 <select @change="handleDataTypeSelect($event, index)">
                   <option
                     v-for="type in Object.keys(filteredDataSourcesIndex)"
@@ -100,7 +100,7 @@
             </div>
             <div class="control">
               <p>Select data source</p>
-              <div v-if="dataTypes.length" class="select is-fullwidth">
+              <div v-if="filteredDataTypes.length" class="select is-fullwidth">
                 <select @change="handleDataSourceSelect($event, index)">
                   <option
                     v-for="s in filteredDataSourcesIndex[chosenType.name]"
@@ -214,6 +214,14 @@ export default {
         return dataSourcesIndex;
       }
       return this.dataSourcesIndex;
+    },
+    filteredDataTypes() {
+      if (this.$route.name === 'interaction') {
+        // do not include fluxomics data for the interaction partners page
+        const dataTypes = this.dataTypes.filter(elem => elem.name !== 'fluxomics');
+        return dataTypes;
+      }
+      return this.dataTypes;
     },
   },
   async created() {
