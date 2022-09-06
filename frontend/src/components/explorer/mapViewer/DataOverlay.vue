@@ -26,19 +26,21 @@
       @errorCustomFile="handleErrorCustomFile"
     />
     <div v-for="[dataType, files] in Object.entries(customData)" :key="dataType" class="mb-0">
-      <div v-for="fileName in Object.keys(files)" :key="fileName" class="mb-0">
-        <div v-show="!showFileLoader" class="fileNameBox tags has-addons is-centered mb-0">
-          <span class="tag is-success">
-            <div class="is-size-6">{{ fileName }}</div>
-          </span>
-          <a
-            class="tag is-delete"
-            title="Unload file"
-            @click="removeCustomDataSourceFromIndex({ dataType, fileName })"
-          ></a>
-        </div>
-        <div v-show="showFileLoader" class="has-text-centered">
-          <a class="button is-small is-loading"></a>
+      <div v-if="filteredDataTypes.map(type => type.name).includes(dataType)">
+        <div v-for="fileName in Object.keys(files)" :key="fileName" class="mb-0">
+          <div v-show="!showFileLoader" class="fileNameBox tags has-addons is-centered mb-0">
+            <span class="tag is-success">
+              <div class="is-size-6">{{ fileName }}</div>
+            </span>
+            <a
+              class="tag is-delete"
+              title="Unload file"
+              @click="removeCustomDataSourceFromIndex({ dataType, fileName })"
+            ></a>
+          </div>
+          <div v-show="showFileLoader" class="has-text-centered">
+            <a class="button is-small is-loading"></a>
+          </div>
         </div>
       </div>
     </div>
@@ -216,8 +218,9 @@ export default {
       return this.dataSourcesIndex;
     },
     filteredDataTypes() {
+      // Do not show fluxomics data for the interaction partners page
+      // The data type may still be selected, but not shown
       if (this.$route.name === 'interaction') {
-        // do not include fluxomics data for the interaction partners page
         const dataTypes = this.dataTypes.filter(elem => elem.name !== 'fluxomics');
         return dataTypes;
       }
