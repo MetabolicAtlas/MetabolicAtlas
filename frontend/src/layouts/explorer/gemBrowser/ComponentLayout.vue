@@ -113,6 +113,7 @@ export default {
     relatedMetCount: { type: Number, required: false, default: 0 },
     isMetabolite: { type: Boolean, default: false },
     referenceList: { type: Array, default: null },
+    handleCallback: { type: Function, required: false },
   },
   data() {
     return {
@@ -157,8 +158,8 @@ export default {
         // when the route changes
         if (this.queryComponentAction.includes(this.$route.name)) {
           await this.$store.dispatch(this.queryComponentAction, payload);
-          if (this.$listeners && this.$listeners.handleCallback) {
-            this.$emit('handleCallback', this.model, this.componentId);
+          if (this.handleCallback) {
+            this.handleCallback(this.model, this.componentId);
           }
         }
         this.componentNotFound = false;

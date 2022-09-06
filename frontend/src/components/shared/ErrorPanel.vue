@@ -4,10 +4,10 @@
       <div class="message-header">
         <b>{{ title }}</b>
         <button
-          v-if="hasHideListener"
+          v-if="hideErrorPanel"
           class="delete"
           aria-label="delete"
-          @click="$emit('hideErrorPanel')"
+          @click="hideErrorPanel"
         />
       </div>
       <div class="message-body has-text-centered">
@@ -22,11 +22,11 @@
  * The ErrorPanel component is controlled by providing a `message`, and
  * an optional `title`.
  *
- * The `@hideErrorPanel` event could be used to reset
+ * The `hideErrorPanel` prop could be used to reset
  * the `message` by clicking the "x" button.
  *
  * Example usage for the ErrorPanel component:
- * <ErrorPanel :message="mess" @hideErrorPanel="mess=''" />
+ * <ErrorPanel :message="mess" :hide-error-panel="mess=''" />
  */
 export default {
   name: 'ErrorPanel',
@@ -38,10 +38,8 @@ export default {
     message: {
       type: String,
     },
-  },
-  computed: {
-    hasHideListener() {
-      return Object.keys(this.$listeners).includes('hideErrorPanel');
+    hideErrorPanel: {
+      required: false,
     },
   },
 };

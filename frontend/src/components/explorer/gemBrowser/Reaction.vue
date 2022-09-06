@@ -7,7 +7,7 @@
     :viewer-selected-i-d="reaction && reaction.id"
     :include-reaction-table="false"
     :reference-list="referenceList"
-    @handleCallback="handleCallback"
+    :handle-callback="handleCallback"
   >
     <template v-slot:table>
       <table

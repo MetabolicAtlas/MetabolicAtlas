@@ -10,7 +10,7 @@
     :related-met-count="relatedMetabolites && relatedMetabolites.length"
     :is-metabolite="true"
     :selected-elm-id="true"
-    @handleCallback="handleCallback"
+    :handle-callback="handleCallback"
   >
     <template v-slot:table>
       <table v-if="metabolite" class="table main-table is-fullwidth">

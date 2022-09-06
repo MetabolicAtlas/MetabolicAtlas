@@ -95,7 +95,7 @@
             @unSelect="unSelect"
             @updatePanelSelectionData="updatePanelSelectionData"
           />
-          <ErrorPanel :message="loadMapErrorMessage" @hideErrorPanel="loadMapErrorMessage = ''" />
+          <ErrorPanel :message="loadMapErrorMessage" :hide-error-panel="loadMapErrorMessage = ''" />
         </div>
         <div
           id="dataOverlayBar"
