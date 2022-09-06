@@ -2,7 +2,7 @@ import cytoscape from 'cytoscape';
 
 const ALLOWED_TYPES = ['gene', 'metabolite'];
 
-export default function (
+export default (
   componentID,
   elms,
   rels,
@@ -10,7 +10,7 @@ export default function (
   reactionHL,
   compartmentHL,
   subsystemHL
-) {
+) => {
   const elmsjson = [];
   const { expSource, expType, expSample } = nodeDisplayParams;
   /* eslint-disable no-param-reassign */
@@ -236,4 +236,4 @@ export default function (
     });
 
   return [elmsjson, stylesheet];
-}
+};

@@ -61,7 +61,11 @@
               <div class="box">
                 <p>
                   From version 2.0:
-                  <a href="https://doi.org/10.1073/pnas.2102344118" target="_blank">
+                  <a
+                    href="https://doi.org/10.1073/pnas.2102344118"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Wang, H., et al, 2021.
                     <i>
                       Genome-scale metabolic network reconstruction of model animals as a platform
@@ -73,7 +77,11 @@
               <div class="box">
                 <p>
                   From version 1.0:
-                  <a href="https://doi.org/10.1126/scisignal.aaz1482" target="_blank">
+                  <a
+                    href="https://doi.org/10.1126/scisignal.aaz1482"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Robinson, J., et al, 2020.
                     <i>An atlas of human metabolism</i>. Sci. Signal. 13, eaaz1482
                   </a>

@@ -23,9 +23,9 @@
       :matches="searchedNodesOnMap"
       :fullscreen="isFullscreen"
       :style="{ 'z-index': network.nodes.length + 1 }"
-      @searchOnMap="searchIDsOnMap"
-      @centerViewOn="centerElement"
-      @unHighlightAll="unHighlight"
+      @search-on-map="searchIDsOnMap"
+      @center-view-on="centerElement"
+      @un-highlight-all="unHighlight"
     />
     <MapLoader />
   </div>
@@ -71,6 +71,7 @@ export default {
       defaultMetaboliteColor: DEFAULT_METABOLITE_COLOR,
     };
   },
+  emits: ['startSelection', 'endSelection', 'updatePanelSelectionData'],
   computed: {
     ...mapState({
       model: state => state.models.model,

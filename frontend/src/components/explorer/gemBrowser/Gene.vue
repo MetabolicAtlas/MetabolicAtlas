@@ -131,11 +131,6 @@ export default {
       combineWords,
     };
   },
-  methods: {
-    reformatTableKey(k) {
-      return reformatTableKey(k);
-    },
-  },
 };
 </script>
 

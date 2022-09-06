@@ -175,7 +175,7 @@
                   </span>
                 </div>
                 <div v-show="showGraphLegend" id="contextGraphLegend" ref="contextGraphLegend">
-                  <button class="delete" @click="toggleGraphLegend"></button>
+                  <button type="button" class="delete" @click="toggleGraphLegend"></button>
                   <span class="label">Gene</span>
                   <div class="comp">
                     <span>Shape:</span>
@@ -322,7 +322,7 @@
             :is-graph-visible="showNetworkGraph"
             :filename="filename"
             @highlight="highlightNode($event)"
-            @HLreaction="highlightReaction($event)"
+            @h-l-reaction="highlightReaction($event)"
           ></cytoscape-table>
         </template>
       </div>

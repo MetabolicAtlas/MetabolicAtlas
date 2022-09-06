@@ -48,6 +48,7 @@ export default {
     matches: Array, // list of matched objects on the map/graph
     fullscreen: Boolean,
   },
+  emits: ['unHighlightAll', 'searchOnMap', 'centerViewOn'],
   data() {
     return {
       errorMessage: '',

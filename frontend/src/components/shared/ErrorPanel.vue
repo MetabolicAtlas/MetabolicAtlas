@@ -5,6 +5,7 @@
         <b>{{ title }}</b>
         <button
           v-if="hideErrorPanel"
+          type="button"
           class="delete"
           aria-label="delete"
           @click="hideErrorPanel"
@@ -39,7 +40,7 @@ export default {
       type: String,
     },
     hideErrorPanel: {
-      required: false,
+      type: [Function, String],
     },
   },
 };

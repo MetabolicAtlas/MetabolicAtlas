@@ -4,7 +4,7 @@
     <div class="modal-content p-5 column is-11 has-background-white">
       <slot />
     </div>
-    <button class="modal-close is-large" @click="closeModal"></button>
+    <button type="button" class="modal-close is-large" @click="closeModal"></button>
   </div>
 </template>
 
@@ -14,6 +14,7 @@ export default {
   props: {
     showModal: Boolean,
   },
+  emits: ['update:showModal'],
   methods: {
     closeModal() {
       this.$emit('update:showModal', false);

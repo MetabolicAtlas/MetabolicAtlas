@@ -7,7 +7,9 @@
       <p class="my-3">
         <span v-if="externalDb.url" class="is-block">
           Visit
-          <a :href="externalDb.url" target="_blank">{{ externalDb.url }}</a>
+          <a :href="externalDb.url" target="_blank" rel="noopener noreferrer">{{
+            externalDb.url
+          }}</a>
           for more details.
         </span>
         This database identifier is

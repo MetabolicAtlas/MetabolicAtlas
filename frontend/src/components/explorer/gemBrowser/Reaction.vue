@@ -123,74 +123,7 @@ export default {
     const store = useStore();
     const route = useRoute();
 
-    const reformatEquation = () => {
-      return reformatChemicalReactionHTML({
-        reaction: reaction.value,
-        model: model.value && model.value.short_name,
-        comp: true,
-      });
-    };
-
-    const reformatGenes = () => {
-      if (!reaction.value.geneRule) {
-        return '-';
-      }
-
-      // capture any sequence that's not a space or parenthesis
-      const regex = /[^\s()]+/g;
-
-      return reaction.value.geneRule.replace(regex, w => {
-        if (w.match(/and|or/)) {
-          return w;
-        }
-
-        const gene = reaction.value.genes.find(g => g.id === w);
-        const customLink = buildCustomLink({
-          model: model.value && model.value.short_name,
-          type: 'gene',
-          id: gene.id,
-          title: gene.name || gene.id,
-        });
-        return `<span class="tag">${customLink}</span>`;
-      });
-    };
-    const formatQuantFieldName = name => {
-      return `${name}:&nbsp;`;
-    };
-    const reformatQuant = () => {
-      const data = [];
-      ['lowerBound', 'upperBound', 'objective_coefficient'].forEach(key => {
-        if (reaction.value[key] != null) {
-          data.push(formatQuantFieldName(capitalize(convertCamelCase(key))));
-          if (key === 'objective_coefficient') {
-            data.push(addMassUnit(reaction.value[key]));
-          } else {
-            data.push(reaction.value[key]);
-          }
-          data.push('<span>&nbsp;&dash;&nbsp;</span>');
-        }
-      });
-      let s = data.join(' ');
-      if (s.endsWith('<span>&nbsp;&dash;&nbsp;</span>')) {
-        s = s.slice(0, -31);
-      }
-      return s;
-    };
-    const reformatReversible = () => {
-      return reaction.value.reversible ? 'Yes' : 'No';
-    };
-
     const rId = ref(route.params.id);
-    const mainTableKey = [
-      { name: 'id' },
-      { name: 'equation', modifier: reformatEquation },
-      { name: 'isReversible', display: 'Reversible', modifier: reformatReversible },
-      { name: 'quantitative', modifier: reformatQuant },
-      { name: 'geneRule', display: 'Gene rule', modifier: reformatGenes },
-      { name: 'ec', display: 'EC' },
-      { name: 'compartments', display: 'Compartment(s)' },
-      { name: 'subsystems', display: 'Subsystem(s)' },
-    ];
     const model = computed(() => store.state.models.model);
     const reaction = computed(() => store.state.reactions.reaction);
     const referenceList = computed(() => store.state.reactions.referenceList);
@@ -231,6 +164,69 @@ export default {
       title,
       meta,
     });
+
+    const reformatEquation = () =>
+      reformatChemicalReactionHTML({
+        reaction: reaction.value,
+        model: model.value && model.value.short_name,
+        comp: true,
+      });
+
+    const reformatGenes = () => {
+      if (!reaction.value.geneRule) {
+        return '-';
+      }
+
+      // capture any sequence that's not a space or parenthesis
+      const regex = /[^\s()]+/g;
+
+      return reaction.value.geneRule.replace(regex, w => {
+        if (w.match(/and|or/)) {
+          return w;
+        }
+
+        const gene = reaction.value.genes.find(g => g.id === w);
+        const customLink = buildCustomLink({
+          model: model.value && model.value.short_name,
+          type: 'gene',
+          id: gene.id,
+          title: gene.name || gene.id,
+        });
+        return `<span class="tag">${customLink}</span>`;
+      });
+    };
+    const formatQuantFieldName = name => `${name}:&nbsp;`;
+    const reformatQuant = () => {
+      const data = [];
+      ['lowerBound', 'upperBound', 'objective_coefficient'].forEach(key => {
+        if (reaction.value[key] != null) {
+          data.push(formatQuantFieldName(capitalize(convertCamelCase(key))));
+          if (key === 'objective_coefficient') {
+            data.push(addMassUnit(reaction.value[key]));
+          } else {
+            data.push(reaction.value[key]);
+          }
+          data.push('<span>&nbsp;&dash;&nbsp;</span>');
+        }
+      });
+      let s = data.join(' ');
+      if (s.endsWith('<span>&nbsp;&dash;&nbsp;</span>')) {
+        s = s.slice(0, -31);
+      }
+      return s;
+    };
+    const reformatReversible = () => (reaction.value.reversible ? 'Yes' : 'No');
+
+    const mainTableKey = [
+      { name: 'id' },
+      { name: 'equation', modifier: reformatEquation },
+      { name: 'isReversible', display: 'Reversible', modifier: reformatReversible },
+      { name: 'quantitative', modifier: reformatQuant },
+      { name: 'geneRule', display: 'Gene rule', modifier: reformatGenes },
+      { name: 'ec', display: 'EC' },
+      { name: 'compartments', display: 'Compartment(s)' },
+      { name: 'subsystems', display: 'Subsystem(s)' },
+    ];
 
     return {
       rId,

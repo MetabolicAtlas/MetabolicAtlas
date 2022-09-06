@@ -16,7 +16,7 @@ import externalDb from './modules/idInModels';
 import dataOverlay from './modules/dataOverlay';
 import gotEnzymes from './modules/gotEnzymes';
 
-export const store = createStore({
+const store = createStore({
   modules: {
     models,
     browserTiles,
@@ -36,3 +36,5 @@ export const store = createStore({
     gotEnzymes,
   },
 });
+
+export default store;

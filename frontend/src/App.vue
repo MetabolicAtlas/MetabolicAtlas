@@ -1,6 +1,6 @@
 <template>
-  <Head />
   <div id="app" :class="{ 'fade-page': showGemSearch }">
+    <Head />
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -105,7 +105,7 @@
       </transition>
     </nav>
     <router-view></router-view>
-    <ErrorPanel :message="errorMessage" :hide-error-panel="errorMessage = ''" />
+    <ErrorPanel :message="errorMessage" :hide-error-panel="(errorMessage = '')" />
     <footer id="footer" class="footer has-background-primary-lighter is-size-6 py-4">
       <div class="columns is-gapless mb-0">
         <div v-show="!showCompactFooter()" class="column is-full">

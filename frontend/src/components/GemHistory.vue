@@ -28,7 +28,7 @@
           </router-link>
         </p>
       </div>
-      <a :href="selectedVersion.releaseLink" target="_blank">
+      <a :href="selectedVersion.releaseLink" target="_blank" rel="noopener noreferrer">
         <span class="icon pr-2"><i class="fa fa-github"></i></span>
         Release notes
       </a>
@@ -38,7 +38,7 @@
           <p>Based on:</p>
           <ul>
             <li v-for="{ id, citLink } in selectedVersion.externalParentIds" :key="id">
-              {{ id }} (<a :href="citLink" target="_blank">source</a>)
+              {{ id }} (<a :href="citLink" target="_blank" rel="noopener noreferrer">source</a>)
             </li>
           </ul>
         </div>

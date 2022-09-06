@@ -22,6 +22,7 @@ import { default as messages } from '@/content/messages';
 
 export default {
   name: 'DataOverlayValidation',
+  emits: ['errorCustomFile', 'getFileName'],
   methods: {
     validateFile(e) {
       if (e.target.files.length !== 0) {

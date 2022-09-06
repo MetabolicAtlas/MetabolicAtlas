@@ -35,6 +35,7 @@
               <a
                 :href="`/api/v2/compartments/${componentId}?model=${model.apiName}&version=${model.apiVersion}&full=true`"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 complete list in JSON format
               </a>

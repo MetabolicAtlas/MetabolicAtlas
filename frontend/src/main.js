@@ -6,7 +6,7 @@ import vueDebounce from 'vue-debounce';
 import NProgress from 'nprogress';
 import App from '@/App.vue';
 import router from '@/router';
-import { store } from './store';
+import store from './store';
 import linkHandlerMixin from './mixins/linkHandler';
 
 axios.defaults.baseURL = '/api/v2';
@@ -15,7 +15,6 @@ axios.defaults.onDownloadProgress = function onDownloadProgress(progressEvent) {
   NProgress.set(percentCompleted / 100.0);
 };
 
-// eslint-disable-next-line no-new
 const app = createApp(App);
 app.use(store);
 
@@ -39,10 +38,3 @@ if (navigator.doNotTrack !== '1') {
 app.mixin(linkHandlerMixin);
 
 app.mount('#app');
-
-// new Vue({
-//   el: '#app',
-//   router,
-//   store,
-//   render: h => h(App),
-// });

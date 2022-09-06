@@ -17,37 +17,62 @@
       </p>
       <p>
         Additionally, we use the services of
-        <a href="https://www.hotjar.com/" target="_blank">Hotjar</a>. This is an additional
-        independent tracking service, which can produce a screen capture of the interactions on our
-        website, including mouse movement. We use it solely for the purpose of figuring out how to
-        improve our website, for example when the website interface is confusing. The data is stored
-        for at most 3 months. Hotjar adheres to GDPR,
-        <a href="https://www.hotjar.com/legal/compliance/gdpr-commitment" target="_blank">
+        <a href="https://www.hotjar.com/" target="_blank" rel="noopener noreferrer">Hotjar</a>. This
+        is an additional independent tracking service, which can produce a screen capture of the
+        interactions on our website, including mouse movement. We use it solely for the purpose of
+        figuring out how to improve our website, for example when the website interface is
+        confusing. The data is stored for at most 3 months. Hotjar adheres to GDPR,
+        <a
+          href="https://www.hotjar.com/legal/compliance/gdpr-commitment"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           see more on their website</a
         >.
       </p>
       <p>
         In addition, we also make use of external tools to enrich the citation information. For the
         privacy policy of these tools please contact the services directly:
-        <a href="https://www.elsevier.com/legal/privacy-policy" target="_blank">Elsevier</a>,
-        <a href="https://www.altmetric.com/privacy-policy/" target="_blank">Altmetric</a>,
-        <a href="https://scite.ai/policy" target="_blank">Scite</a>,
-        <a href="https://www.dimensions.ai/privacy/" target="_blank">Dimensions</a>.
+        <a
+          href="https://www.elsevier.com/legal/privacy-policy"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Elsevier</a
+        >,
+        <a
+          href="https://www.altmetric.com/privacy-policy/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Altmetric</a
+        >, <a href="https://scite.ai/policy" target="_blank" rel="noopener noreferrer">Scite</a>,
+        <a href="https://www.dimensions.ai/privacy/" target="_blank" rel="noopener noreferrer"
+          >Dimensions</a
+        >.
       </p>
       <p>
         To opt out of any of these cookies, please set your browser to use the "DoNotTrack" header;
         doing this will disable the tracking. It is a good practice to enable this setting, here is
         how to do this for
-        <a href="https://support.google.com/chrome/answer/2790761" target="_blank">Chrome</a>
+        <a
+          href="https://support.google.com/chrome/answer/2790761"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Chrome</a
+        >
         and
         <a
           href="https://support.mozilla.org/en-US/kb/how-do-i-turn-do-not-track-feature"
           target="_blank"
+          rel="noopener noreferrer"
         >
           Firefox
         </a>
         (in Safari this is enabled by default). Alternatively, see
-        <a href="https://www.hotjar.com/legal/compliance/opt-out" target="_blank">
+        <a
+          href="https://www.hotjar.com/legal/compliance/opt-out"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Hotjar's instructions on their website</a
         >.
       </p>

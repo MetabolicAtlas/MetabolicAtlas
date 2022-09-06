@@ -105,6 +105,7 @@ export default {
     isGraphVisible: Boolean,
     filename: String,
   },
+  emits: ['highlight', 'HLreaction'],
   data() {
     return {
       columns: [

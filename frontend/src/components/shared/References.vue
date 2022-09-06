@@ -3,7 +3,7 @@
     <h4 class="subtitle is-size-4">References</h4>
     <p>
       Reference details are fetched dynamically from
-      <a href="https://europepmc.org" target="_blank">Europe PMC</a>
+      <a href="https://europepmc.org" target="_blank" rel="noopener noreferrer">Europe PMC</a>
       based on their PMID.
     </p>
     <template v-if="referenceList.length === 0">
@@ -15,7 +15,7 @@
           <td class="td-key has-background-primary has-text-white-bis">{{ pmid }}</td>
           <td v-if="formattedRefs[pmid]">
             <template v-if="formattedRefs[pmid].link">
-              <a target="_blank" :href="formattedRefs[pmid].link">
+              <a target="_blank" rel="noopener noreferrer" :href="formattedRefs[pmid].link">
                 <span v-html="formattedRefs[pmid].formattedString"></span>
               </a>
             </template>
@@ -25,7 +25,12 @@
           </td>
           <td v-else>
             Not found in
-            <a :href="`https://europepmc.org/search?query=${pmid}`" target="_blank">Europe PMC</a>
+            <a
+              :href="`https://europepmc.org/search?query=${pmid}`"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Europe PMC</a
+            >
           </td>
         </tr>
       </table>

@@ -3,19 +3,19 @@
     <template v-slot:contents>
       <p class="pb-5">
         Metabolic Atlas would not be possible without the following excellent
-        <a href="https://elixir-europe.org" target="_blank">ELIXIR</a>
+        <a href="https://elixir-europe.org" target="_blank" rel="noopener noreferrer">ELIXIR</a>
         resources:
       </p>
       <div v-for="link in links" :key="link.name" class="columns is-vcentered">
         <div class="column is-1">
-          <a :href="link.link" target="_blank">
+          <a :href="link.link" target="_blank" rel="noopener noreferrer">
             <template v-if="link.icon">
               <img :src="link.icon" />
             </template>
           </a>
         </div>
         <div class="column has-text-justified">
-          <a :href="link.link" target="_blank">
+          <a :href="link.link" target="_blank" rel="noopener noreferrer">
             <b>{{ link.name }}</b>
           </a>
         </div>

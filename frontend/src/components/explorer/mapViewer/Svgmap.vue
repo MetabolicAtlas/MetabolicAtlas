@@ -29,9 +29,9 @@
       ref="mapsearch"
       :matches="searchedNodesOnMap"
       :fullscreen="isFullscreen"
-      @searchOnMap="searchIDsOnMap"
-      @centerViewOn="centerElementOnSVG"
-      @unHighlightAll="unHighlight"
+      @search-on-map="searchIDsOnMap"
+      @center-view-on="centerElementOnSVG"
+      @un-highlight-all="unHighlight"
     />
   </div>
 </template>
@@ -92,6 +92,7 @@ export default {
       initialLoadWithParams: true,
     };
   },
+  emits: ['updatePanelSelectionData', 'startSelection', 'endSelection', 'unSelect'],
   computed: {
     ...mapState({
       model: state => state.models.model,

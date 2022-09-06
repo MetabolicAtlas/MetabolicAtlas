@@ -114,7 +114,7 @@
           </template>
           ?
         </div>
-        <button class="button is-primary is-rounded my-2" @click="globalSearch()">
+        <button type="button" class="button is-primary is-rounded my-2" @click="globalSearch()">
           Search all integrated GEMs
         </button>
       </div>

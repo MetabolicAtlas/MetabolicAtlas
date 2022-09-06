@@ -255,6 +255,7 @@ export default {
       messages,
     };
   },
+  emits: ['update:showModal', 'openSelectionCardContent'],
   computed: {
     ...mapState({
       model: state => state.models.model,

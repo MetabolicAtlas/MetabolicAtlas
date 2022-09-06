@@ -11,7 +11,7 @@
           </div>
           <div v-for="elem in fullWidthResources(elems)" :key="elem.name" class="columns">
             <div class="column is-2 has-text-centered">
-              <a :href="elem.link" target="_blank">
+              <a :href="elem.link" target="_blank" rel="noopener noreferrer">
                 <template v-if="elem.img">
                   <img :src="elem.img" />
                 </template>
@@ -22,7 +22,7 @@
             </div>
             <p class="column has-text-justified">
               <span class="is-block">
-                <a :href="elem.link" target="_blank">
+                <a :href="elem.link" target="_blank" rel="noopener noreferrer">
                   <b>{{ elem.title }}</b>
                 </a>
               </span>
@@ -30,7 +30,12 @@
                 {{ elem.description }}
               </span>
               <span class="is-block">
-                <a :href="elem.citation_url" target="_blank" v-html="elem.citation"></a>
+                <a
+                  :href="elem.citation_url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  v-html="elem.citation"
+                ></a>
               </span>
             </p>
           </div>
@@ -41,7 +46,7 @@
           >
             <div class="column is-offset-2 columns">
               <div v-for="elem in condensedResources(elems)" :key="elem.name" class="column">
-                <a :href="elem.link" target="_blank">
+                <a :href="elem.link" target="_blank" rel="noopener noreferrer">
                   <template v-if="elem.img">
                     <img :src="elem.img" />
                   </template>

@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-export default function (c, reactions, relms, rrels, rcomp, rsub) {
+export default (c, reactions, relms, rrels, rcomp, rsub) => {
   /* eslint-disable no-param-reassign */
   const elms = relms || {};
   const rels = rrels || {};
@@ -218,4 +218,4 @@ export default function (c, reactions, relms, rrels, rcomp, rsub) {
     });
   });
   return [elms, rels, Array.from(compartmentSet), Array.from(subsystemSet)];
-}
+};

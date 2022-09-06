@@ -22,8 +22,8 @@
       </span>
     </div>
     <DataOverlayValidation
-      @getFileName="getFileName($event)"
-      @errorCustomFile="handleErrorCustomFile"
+      @get-file-name="getFileName($event)"
+      @error-custom-file="handleErrorCustomFile"
     />
     <div v-if="customFileName" class="mb-0">
       <div v-show="!showFileLoader" id="fileNameBox" class="tags has-addons is-centered mb-0">
@@ -82,7 +82,9 @@
             <div v-if="dataSource" class="control">
               <p>
                 Levels from
-                <a :href="dataSource.link" target="_blank">{{ dataSource.name }}</a>
+                <a :href="dataSource.link" target="_blank" rel="noopener noreferrer">{{
+                  dataSource.name
+                }}</a>
               </p>
               <div class="select is-fullwidth">
                 <select :disabled="levelsDisabled" @change="handleDataSetSelect">

@@ -39,7 +39,11 @@
                 "
                 class="mt-5"
               >
-                <button class="is-small button" @click="showFullReactionListMissing = true">
+                <button
+                  type="button"
+                  class="is-small button"
+                  @click="showFullReactionListMissing = true"
+                >
                   ... and {{ missingReactionList.length - displayedReaction }} more
                 </button>
               </div>
@@ -60,7 +64,11 @@
                 v-if="!showFullReactionListMap && mapReactionList.length > displayedReaction"
                 class="mt-5"
               >
-                <button class="is-small button" @click="showFullReactionListMap = true">
+                <button
+                  type="button"
+                  class="is-small button"
+                  @click="showFullReactionListMap = true"
+                >
                   ... and {{ mapReactionList.length - displayedReaction }} more
                 </button>
               </div>
@@ -69,7 +77,7 @@
         </tbody>
       </table>
     </div>
-    <button class="modal-close is-large" @click="closeModal"></button>
+    <button type="button" class="modal-close is-large" @click="closeModal"></button>
   </div>
 </template>
 
@@ -92,6 +100,7 @@ export default {
       displayedReaction: 40,
     };
   },
+  emits: ['update:showModal'],
   computed: {
     ...mapState({
       model: state => state.models.model,

@@ -8,10 +8,10 @@
       </template>
       <template v-else>
         <MissingReactionModal
+          v-model:show-modal="showModal"
           :current-map="currentMap"
           :missing-reaction-list="missingReactionList"
           :map-reaction-list="mapReactionList"
-          v-model:show-modal="showModal"
         />
         <div
           id="mapSidebar"
@@ -31,6 +31,7 @@
               <button
                 v-for="dim in [true, false]"
                 :key="dim"
+                type="button"
                 class="button m-0"
                 :class="
                   dim === showing2D ? 'is-selected is-primary has-text-weight-bold' : 'is-light'
@@ -46,12 +47,12 @@
             </div>
             <SidebarDataPanels
               ref="sidebarDataPanels"
+              v-model:show-modal="showModal"
               :dim="dimensionalState(showing2D)"
               :current-map="currentMap"
               :selection-data="selectionData"
-              v-model:show-modal="showModal"
               :missing-reaction-list="missingReactionList"
-              @openSelectionCardContent="resetSidebarLayout"
+              @open-selection-card-content="resetSidebarLayout"
             />
           </div>
           <div class="padding-mobile">
@@ -86,16 +87,19 @@
           <Svgmap
             v-if="showing2D"
             :map-data="currentMap"
-            @unSelect="unSelect"
-            @updatePanelSelectionData="updatePanelSelectionData"
+            @un-select="unSelect"
+            @update-panel-selection-data="updatePanelSelectionData"
           ></Svgmap>
           <ThreeDViewer
             v-if="!showing2D"
             :current-map="currentMap"
-            @unSelect="unSelect"
-            @updatePanelSelectionData="updatePanelSelectionData"
+            @un-select="unSelect"
+            @update-panel-selection-data="updatePanelSelectionData"
           />
-          <ErrorPanel :message="loadMapErrorMessage" :hide-error-panel="loadMapErrorMessage = ''" />
+          <ErrorPanel
+            :message="loadMapErrorMessage"
+            :hide-error-panel="(loadMapErrorMessage = '')"
+          />
         </div>
         <div
           id="dataOverlayBar"

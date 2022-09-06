@@ -32,7 +32,7 @@
               <div class="card-content px-4 py-2 card-fullheight">
                 <p>
                   {{ model.full_name }}, updated {{ model.date || 'n/a' }} from
-                  <a :href="model.link" target="_blank">
+                  <a :href="model.link" target="_blank" rel="noopener noreferrer">
                     GitHub
                     <span class="icon"><i class="fa fa-github"></i></span>
                   </a>
@@ -81,7 +81,7 @@
             :search-options="{ enabled: true, skipDiacritics: true }"
             :sort-options="{ enabled: true }"
             :pagination-options="tablePaginationOpts"
-            v-on:row-click="t => selectModel(t.row.id)"
+            @row-click="t => selectModel(t.row.id)"
           />
         </div>
         <div v-else>
@@ -160,7 +160,9 @@
                   <tr v-if="selectedModel.link">
                     <td class="td-key has-background-primary has-text-white-bis">URL</td>
                     <td>
-                      <a :href="selectedModel.link" target="_blank">{{ selectedModel.link }}</a>
+                      <a :href="selectedModel.link" target="_blank" rel="noopener noreferrer">{{
+                        selectedModel.link
+                      }}</a>
                     </td>
                   </tr>
                 </tbody>
@@ -183,7 +185,7 @@
               </template>
             </div>
           </div>
-          <button class="modal-close is-large" @click="selectModel(null)"></button>
+          <button type="button" class="modal-close is-large" @click="selectModel(null)"></button>
         </div>
       </div>
     </div>

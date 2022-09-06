@@ -20,7 +20,7 @@
     <meta name="msapplication-TileImage" content="mstile-144x144.png" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <component v-if="hotjarTag" :is="'script'" type="text/javascript" v-html="hotjarTag" />
+    <component :is="'script'" v-if="hotjarTag" type="text/javascript" v-html="hotjarTag" />
   </Head>
 </template>
 

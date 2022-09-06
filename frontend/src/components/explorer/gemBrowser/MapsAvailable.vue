@@ -15,6 +15,7 @@
             <td v-if="component.svgMaps.length === 0"></td>
             <td v-else-if="component.svgMaps.length === 1">
               <button
+                type="button"
                 class="button is-outlined is-small link-button"
                 @click="routeSVGmap(component.svgMaps[0].id, '2d')"
               >
@@ -33,6 +34,7 @@
             </td>
             <td>
               <button
+                type="button"
                 class="button is-outlined is-small link-button"
                 @click="routeSVGmap(component.id, '3d')"
               >

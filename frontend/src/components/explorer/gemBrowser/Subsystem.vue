@@ -47,7 +47,7 @@
               v-if="!showFullMetabolite && metabolites.length > displayedMetabolite"
               class="mt-5"
             >
-              <button class="is-small button" @click="showFullMetabolite = true">
+              <button type="button" class="is-small button" @click="showFullMetabolite = true">
                 ... and {{ metabolites.length - displayedMetabolite }} more
               </button>
               <span
@@ -64,7 +64,7 @@
           <td>
             <div v-html="genesListHtml"></div>
             <div v-if="!showFullGene && genes.length > displayedGene" class="mt-5">
-              <button class="is-small button" @click="showFullGene = true">
+              <button type="button" class="is-small button" @click="showFullGene = true">
                 ... and {{ genes.length - displayedGene }} more
               </button>
               <span
