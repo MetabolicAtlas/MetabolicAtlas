@@ -6,11 +6,11 @@
       title="Click to see larger image"
       @click="handleClick"
     >
-      <loader v-if="loading" />
+      <loader v-show="loading" />
     </div>
     <Modal v-model:show-modal="showLargeImage">
       <div id="rdkit-modal-img-wrapper" />
-      <loader v-if="loading" />
+      <loader v-show="loading" />
     </Modal>
   </div>
 </template>
