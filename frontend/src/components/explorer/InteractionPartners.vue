@@ -285,7 +285,7 @@
                     <div class="select is-fullwidth">
                       <select
                         v-model="compartmentHL"
-                        :disabled="disableCompartmentHL"
+                        :disabled="disableCompartmentHL || null"
                         @change.prevent="highlightCompartment"
                       >
                         <option v-if="!disableCompartmentHL" value="" disabled>

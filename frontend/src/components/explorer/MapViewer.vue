@@ -36,7 +36,7 @@
                 :class="
                   dim === showing2D ? 'is-selected is-primary has-text-weight-bold' : 'is-light'
                 "
-                :disabled="!avail2D || (currentMap && currentMap.type === 'custom')"
+                :disabled="!avail2D || (currentMap && currentMap.type === 'custom') || null"
               >
                 <span v-if="dim === showing2D" class="icon">
                   <i class="fa fa-check-square-o"></i>

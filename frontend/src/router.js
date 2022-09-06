@@ -120,15 +120,7 @@ NProgress.configure({
   showSpinner: false,
 });
 
-// eslint-disable-next-line no-unused-vars
-router.beforeResolve((to, from, next) => {
-  NProgress.start();
-  next();
-});
-
-// eslint-disable-next-line no-unused-vars
-router.afterEach((to, from) => {
-  NProgress.done();
-});
+router.beforeResolve(NProgress.start);
+router.afterEach(NProgress.done);
 
 export default router;

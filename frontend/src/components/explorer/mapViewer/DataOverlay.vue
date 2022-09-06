@@ -108,7 +108,7 @@
             <div class="select is-fullwidth">
               <select
                 :value="customDataSet"
-                :disabled="!customDataSource"
+                :disabled="!customDataSource || null"
                 @change="e => setCustomDataSet(e.target.value)"
               >
                 <template v-if="customDataSource">
@@ -175,7 +175,7 @@ export default {
       customDataSet: state => state.dataOverlay.customDataSet,
     }),
     levelsDisabled() {
-      return !this.mapName || !this.dataSource || this.dataSource.dataSets.length === 0;
+      return !this.mapName || !this.dataSource || this.dataSource.dataSets.length === 0 || null;
     },
     filteredDataSourcesIndex() {
       if (this.$route.name === 'interaction') {

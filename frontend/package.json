@@ -32,7 +32,7 @@
     "vue-cookie": "^1.1.4",
     "vue-debounce": "^3.0.2",
     "vue-good-table-next": "^0.2.1",
-    "vue-inline-svg": "^2.1.0",
+    "vue-inline-svg": "^3.1.0",
     "vue-lodash": "^2.1.2",
     "vue-matomo": "^4.2.0",
     "vue-router": "^4.1.0",

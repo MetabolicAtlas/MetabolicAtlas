@@ -62,7 +62,7 @@
             <li
               v-for="tab in tabs"
               :key="tab"
-              :disabled="resultsCount[tab] === 0"
+              :disabled="resultsCount[tab] === 0 || null"
               :class="[
                 { 'is-active has-text-weight-bold': showTab(tab) && resultsCount[tab] !== 0 },
                 { 'is-disabled': resultsCount[tab] === 0 },

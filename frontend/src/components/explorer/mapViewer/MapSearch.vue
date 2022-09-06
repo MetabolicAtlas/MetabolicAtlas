@@ -8,7 +8,7 @@
         title="Exact search by id, name, alias. Press Enter for results"
         class="input"
         placeholder="Exact search by id, name, alias"
-        :disabled="loading || (showing2D && !svgMap)"
+        :disabled="loading || (showing2D && !svgMap) || null"
         :value="searchTerm"
         type="text"
         @input="e => handleChange(e.target.value)"
@@ -74,15 +74,18 @@ export default {
     }),
   },
   watch: {
-    matches() {
-      if (!this.matches || this.matches.length === 0) {
-        this.searchInputClass = this.haveSearched ? 'is-danger' : 'is-info';
-        this.totalSearchMatch = 0;
-      } else {
-        this.searchInputClass = 'is-success';
-        this.totalSearchMatch = this.matches.length;
-      }
-      this.currentSearchMatch = 0;
+    matches: {
+      handler() {
+        if (!this.matches || this.matches.length === 0) {
+          this.searchInputClass = this.haveSearched ? 'is-danger' : 'is-info';
+          this.totalSearchMatch = 0;
+        } else {
+          this.searchInputClass = 'is-success';
+          this.totalSearchMatch = this.matches.length;
+        }
+        this.currentSearchMatch = 0;
+      },
+      deep: true,
     },
   },
   created() {
