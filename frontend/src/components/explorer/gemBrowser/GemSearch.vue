@@ -49,7 +49,7 @@
         class="notification is-large is-unselectable has-text-centered is-clickable py-1 mb-1"
         @mousedown="globalSearch()"
       >
-        Limited to 50 results (max 10 per type). Click here to search all integrated GEMs
+        Limited to 10 rows per type. Click here to search all integrated GEMs
       </div>
       <div v-show="!showLoader" v-if="searchResults.length !== 0" class="resList">
         <template v-for="type in componentTypeOrder">
