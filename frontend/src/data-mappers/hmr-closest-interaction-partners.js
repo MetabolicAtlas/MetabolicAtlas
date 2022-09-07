@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import * as Vue from 'vue';
 
 export default (c, reactions, relms, rrels, rcomp, rsub) => {
   /* eslint-disable no-param-reassign */

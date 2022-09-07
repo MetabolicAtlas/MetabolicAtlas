@@ -24,8 +24,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@/': `${path.resolve(__dirname, 'src')}/`,
-      vue: '@vue/compat'
+      '@/': `${path.resolve(__dirname, 'src')}/`
     }
   },
   server: {
@@ -33,15 +32,7 @@ export default defineConfig({
     port: 8080
   },
   plugins: [
-    vue({
-      template: {
-        compilerOptions: {
-          compatConfig: {
-            MODE: 2
-          }
-        }
-      }
-    }),
+    vue(),
     pluginRewriteAll(),
     visualizer()
   ]

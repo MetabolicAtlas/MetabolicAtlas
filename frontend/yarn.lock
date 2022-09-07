@@ -1510,11 +1510,6 @@
     "@vue/babel-plugin-transform-vue-jsx" "^1.4.0"
     camelcase "^5.0.0"
 
-"@vue/compat@^3.2.0":
-  version "3.2.38"
-  resolved "https://registry.yarnpkg.com/@vue/compat/-/compat-3.2.38.tgz#b6d32ef9f86b80d532bc30857e4f749a01fdf3ad"
-  integrity sha512-M0e3+U07Q4hxZgX0d5Afnis6YThHGpvaW5QEastiIfmnlxXQKIlBL7/thH8a8Ivxd9cxM7bxQZK2YJe60sOD+g==
-
 "@vue/compiler-core@3.2.38":
   version "3.2.38"
   resolved "https://registry.yarnpkg.com/@vue/compiler-core/-/compiler-core-3.2.38.tgz#0a2a7bffd2280ac19a96baf5301838a2cf1964d7"
@@ -4283,11 +4278,6 @@ three@^0.126.0:
   resolved "https://registry.yarnpkg.com/three/-/three-0.126.1.tgz#cf4e4e52060fd952f6f0d5440cbd422c66bc4be7"
   integrity sha512-eOEXnZeE1FDV0XgL1u08auIP13jxdN9LQBAEmlErYzMxtIIfuGIAZbijOyookALUhqVzVOx0Tywj6n192VM+nQ==
 
-tiny-cookie@^1.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/tiny-cookie/-/tiny-cookie-1.0.1.tgz#753786079c642a3c3d0b2accad600f8de119ac2a"
-  integrity sha512-4KJ21HYTNumxnHvCbLrtrrhSwtWXzpmaRJIUg4biBii5AiSe2izod5bauXiiQxVuf2Fta57U2DTW1Fa4/6Cmgw==
-
 tinycolor2@^1.1.2:
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/tinycolor2/-/tinycolor2-1.4.2.tgz#3f6a4d1071ad07676d7fa472e1fac40a719d8803"
@@ -4457,17 +4447,15 @@ vue-color@2.8.1:
     material-colors "^1.0.0"
     tinycolor2 "^1.1.2"
 
-vue-cookie@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/vue-cookie/-/vue-cookie-1.1.4.tgz#b8b46d112bda9f93a2f47017c2ed5282d2064fda"
-  integrity sha512-lxWIzmUTCVra0H7YPbNpYx0wbTQThV+n7ueUOcqtK8dlckmfB8fcyf4OEiRuQUd7iiVub2T3IDlWiisEM5Ku0Q==
-  dependencies:
-    tiny-cookie "^1.0"
+vue-cookies@^1.8.1:
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/vue-cookies/-/vue-cookies-1.8.1.tgz#8aeadd7ff9933b820de8c3f121c2be27c5ead7b5"
+  integrity sha512-PDq1EaiRRyau5PBQVscXboHW+iWtcG4wRY2UKIz1j0nrjb3KESRU1PUyNUDdOajAwy4RH1IfiNR0suhWRXQdrA==
 
-vue-debounce@^3.0.2:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/vue-debounce/-/vue-debounce-3.1.1.tgz#8b3accba7bea8a81791e8476300b21481c9492e9"
-  integrity sha512-C0OXFl6DAn3qzoAd+3h+YVoygkqj16WrbFvT6S3BDYaMBXZa67VnfwNoaDz+V23vwDtrSp8aN8uNp7S30Q86PQ==
+vue-debounce@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/vue-debounce/-/vue-debounce-4.0.0.tgz#3f584dabc08a841a0182ab68d19f77f70a416fcc"
+  integrity sha512-+BrcKfLpyDpUJ58ZrAvI35irRCgYHFpnF3NJZwwaz8/kkKmEq6TWPXBIhLh2HQAsUZNwo52K/vQyiEFsJ/1RYA==
 
 vue-eslint-parser@^9.0.1, vue-eslint-parser@^9.0.3:
   version "9.0.3"

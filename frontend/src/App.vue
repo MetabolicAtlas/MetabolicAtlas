@@ -168,7 +168,7 @@
             class="button is-small is-rounded has-background-danger has-text-white has-text-weight-bold"
             @click="
               showCookieMsg = false;
-              acceptCookiePolicy();
+              $cookies.set('acceptCookiePolicy', true);
             "
           >
             <span class="icon is-small"><i class="fa fa-check"></i></span>
@@ -188,7 +188,6 @@ import ErrorPanel from '@/components/shared/ErrorPanel.vue';
 import GemSearch from '@/components/explorer/gemBrowser/GemSearch.vue';
 import { default as messages } from '@/content/messages';
 import { default as about } from '@/content/about';
-import { isCookiePolicyAccepted, acceptCookiePolicy } from '@/helpers/store';
 
 export default {
   name: 'App',
@@ -232,8 +231,7 @@ export default {
           subMenuElems: about.map(({ name, routeName }) => ({ displayName: name, routeName })),
         },
       ],
-      showCookieMsg: navigator.doNotTrack !== '1' && !isCookiePolicyAccepted(),
-      acceptCookiePolicy,
+      showCookieMsg: navigator.doNotTrack !== '1' && !$cookies.get('acceptCookiePolicy'),
       activeDropMenu: '',
       browserLastRoute: {},
       viewerLastRoute: {},
