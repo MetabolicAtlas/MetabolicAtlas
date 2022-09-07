@@ -1169,15 +1169,14 @@ export default {
     min-width: 240px;
   }
 
-  .fade-enter-active {
-    transition: opacity 0.5s ease;
-  }
-  .fade-leave-active {
-    transition: opacity 0.5s cubic-bezier(1, 0.5, 0.8, 1);
-  }
-  .fade-enter,
-  .fade-leave-active {
+  .fade-enter-from,
+  .fade-leave-to {
     opacity: 0;
+  }
+
+  .fade-leave-from,
+  .fade-enter-to {
+    transition: opacity 0.5s ease;
   }
 }
 </style>

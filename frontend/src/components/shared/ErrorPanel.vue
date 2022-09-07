@@ -56,15 +56,13 @@ export default {
   border: 1px solid gray;
 }
 
-.slide-fade-enter-active {
-  transition: all 0.3s ease;
-}
-.slide-fade-leave-active {
-  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
-}
-.slide-fade-enter,
+.slide-fade-enter-from,
 .slide-fade-leave-to {
   transform: translateY(200px);
   opacity: 0;
+}
+.slide-fade-leave-from,
+.slide-fade-enter-to {
+  transition: all 0.3s ease;
 }
 </style>
