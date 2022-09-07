@@ -335,7 +335,7 @@ import { mapGetters, mapState } from 'vuex';
 import cytoscape from 'cytoscape';
 import jquery from 'jquery';
 import cola from 'cytoscape-cola';
-import { Compact } from 'vue-color';
+import { Compact } from '@ckpack/vue-color';
 import { default as FileSaver } from 'file-saver';
 
 import Sidebar from '@/components/explorer/interactionPartners/Sidebar.vue';
