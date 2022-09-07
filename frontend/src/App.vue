@@ -231,7 +231,7 @@ export default {
           subMenuElems: about.map(({ name, routeName }) => ({ displayName: name, routeName })),
         },
       ],
-      showCookieMsg: navigator.doNotTrack !== '1' && !$cookies.get('acceptCookiePolicy'),
+      showCookieMsg: navigator.doNotTrack !== '1' && !this.$cookies.get('acceptCookiePolicy'),
       activeDropMenu: '',
       browserLastRoute: {},
       viewerLastRoute: {},
