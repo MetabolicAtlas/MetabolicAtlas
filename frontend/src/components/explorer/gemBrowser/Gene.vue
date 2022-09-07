@@ -95,11 +95,10 @@ export default {
       })
     );
 
-    /*
     const script = computed(() => [
       {
         type: 'application/ld+json',
-        json: {
+        children: JSON.stringify({
           '@context': 'http://schema.org',
           '@id': `https://metabolicatlas.org/explore/Human-GEM/gem-browser/gene/${
             gene.value && gene.value.id
@@ -108,15 +107,14 @@ export default {
           'dct:conformsTo': 'https://bioschemas.org/profiles/Gene/1.0-RELEASE',
           identifier: gene.value && gene.value.id,
           name: gene.value && gene.value.geneName,
-        },
+        }),
       },
     ]);
-    */
 
     useHead({
       title,
       meta,
-      // script: script.value,
+      script,
     });
 
     return {

@@ -145,11 +145,10 @@ export default {
       })
     );
 
-    /*
     const script = computed(() => [
       {
         type: 'application/ld+json',
-        json: {
+        children: JSON.stringify({
           '@context': 'http://schema.org',
           '@id': `https://metabolicatlas.org/explore/Human-GEM/gem-browser/metabolite/${metabolite.value.id}`,
           '@type': 'MolecularEntity',
@@ -157,15 +156,14 @@ export default {
           identifier: metabolite.value.id,
           name: metabolite.value.name,
           url: `https://metabolicatlas.org/explore/Human-GEM/gem-browser/metabolite/${metabolite.value.id}`,
-        },
+        }),
       },
     ]);
-    */
 
     useHead({
       title,
       meta,
-      // script: script.value,
+      script,
     });
 
     return {
