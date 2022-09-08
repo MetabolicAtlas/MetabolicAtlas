@@ -89,6 +89,10 @@ const actions = {
       commit('removeDataType', index);
     }, 0);
   },
+  // Resets all overlay data except for uploaded custom data
+  resetOverlayData({ commit }) {
+    commit('resetOverlayData');
+  },
   async getDataSource({ commit, dispatch, state }, { model, type, filename, propagate, index }) {
     try {
       if (propagate) {
@@ -237,6 +241,12 @@ const mutations = {
       }
       return acc;
     }, {});
+  },
+  resetOverlayData: state => {
+    state.index = {};
+    state.currentDataTypes = [];
+    state.currentDataSources = [];
+    state.dataSets = ['None'];
   },
 };
 

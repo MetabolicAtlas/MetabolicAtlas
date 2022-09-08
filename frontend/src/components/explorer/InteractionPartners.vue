@@ -331,7 +331,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapGetters, mapActions, mapState } from 'vuex';
 import cytoscape from 'cytoscape';
 import jquery from 'jquery';
 import cola from 'cytoscape-cola';
@@ -485,9 +485,9 @@ export default {
       tooLargeNetworkGraph: state => state.interactionPartners.tooLargeNetworkGraph,
       expansion: state => state.interactionPartners.expansion,
       randomComponents: state => state.interactionPartners.randomComponents,
-      currentDataType: state => state.dataOverlay.currentDataType,
-      currentDataSource: state => state.dataOverlay.currentDataSource,
-      dataSet: state => state.dataOverlay.dataSet,
+      currentDataTypes: state => state.dataOverlay.currentDataTypes,
+      currentDataSources: state => state.dataOverlay.currentDataSources,
+      dataSets: state => state.dataOverlay.dataSets,
     }),
     ...mapGetters({
       component: 'interactionPartners/component',
@@ -510,9 +510,10 @@ export default {
   },
   watch: {
     '$route.params': 'setup',
-    dataSet: 'applyLevels',
+    dataSets: 'applyLevels',
   },
   async beforeMount() {
+    this.resetOverlayData();
     if (!this.model || this.model.short_name !== this.$route.params.model) {
       const modelSelectionSuccessful = await this.$store.dispatch(
         'models/selectModel',
@@ -535,6 +536,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      resetOverlayData: 'dataOverlay/resetOverlayData',
+    }),
     async getRandomComponents() {
       await this.$store.dispatch('interactionPartners/getRandomComponents', this.model);
     },
@@ -677,43 +681,47 @@ export default {
       }
     },
     applyLevels() {
-      const isValid = this.currentDataSource.levels[this.dataSet] && this.dataSet !== 'None';
+      this.currentDataSources.forEach((source, index) => {
+        const isValid = this.dataSets[index] !== 'None' && source.levels[this.dataSets[index]];
+        if (isValid) {
+          const componentIds = Object.keys(this.rawElms)
+            .filter(el => this.rawElms[el].type === this.currentDataTypes[index].componentType)
+            .map(k => this.rawElms[k].id);
+          const s = source.name;
+          const t = this.currentDataTypes[index].componentType;
 
-      if (isValid) {
-        const componentIds = Object.keys(this.rawElms)
-          .filter(el => this.rawElms[el].type === this.currentDataType.componentType)
-          .map(k => this.rawElms[k].id);
-        const s = this.currentDataSource.name;
-        const t = this.currentDataType.componentType;
+          for (let i = 0; i < componentIds.length; i += 1) {
+            const componentID = componentIds[i];
 
-        for (let i = 0; i < componentIds.length; i += 1) {
-          const componentID = componentIds[i];
+            if (!this.rawElms[componentID].expressionLvl[s]) {
+              this.rawElms[componentID].expressionLvl[s] = {};
+            }
 
-          if (!this.rawElms[componentID].expressionLvl[s]) {
-            this.rawElms[componentID].expressionLvl[s] = {};
+            if (!this.rawElms[componentID].expressionLvl[s][t]) {
+              this.rawElms[componentID].expressionLvl[s][t] = {};
+            }
+
+            let level = source.levels[this.dataSets[index]][componentID];
+            if (!level) {
+              level = NaN;
+            }
+
+            this.rawElms[componentID].expressionLvl[s][t][this.dataSets[index]] =
+              getSingleExpressionColor(level);
           }
 
-          if (!this.rawElms[componentID].expressionLvl[s][t]) {
-            this.rawElms[componentID].expressionLvl[s][t] = {};
-          }
+          this.nodeDisplayParams.expSource = s;
+          this.nodeDisplayParams.expType = t;
+          this.nodeDisplayParams.expSample = this.dataSets[index];
 
-          const level = this.currentDataSource.levels[this.dataSet][componentID];
-
-          this.rawElms[componentID].expressionLvl[s][t][this.dataSet] =
-            getSingleExpressionColor(level);
+          this.overlay[s] = {};
+          this.overlay[s][t] = true;
+        } else {
+          this.resetGeneExpression();
         }
 
-        this.nodeDisplayParams.expSource = s;
-        this.nodeDisplayParams.expType = t;
-        this.nodeDisplayParams.expSample = this.dataSet;
-
-        this.overlay[s] = {};
-        this.overlay[s][t] = true;
-      } else {
-        this.resetGeneExpression();
-      }
-
-      setTimeout(this.redrawGraph, 0);
+        setTimeout(this.redrawGraph, 0);
+      });
     },
     isCompartmentSubsystemHLDisabled() {
       return (

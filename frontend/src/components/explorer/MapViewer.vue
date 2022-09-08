@@ -144,7 +144,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapGetters, mapActions, mapState } from 'vuex';
 import { debounce } from 'vue-debounce';
 import DataOverlay from '@/components/explorer/mapViewer/DataOverlay.vue';
 import ErrorPanel from '@/components/shared/ErrorPanel';
@@ -231,8 +231,12 @@ export default {
     await this.$store.dispatch('maps/getMapsListing', this.model);
     this.$store.dispatch('maps/initFromQueryParams', this.$route.query);
     this.loadMapFromParams();
+    this.resetOverlayData();
   },
   methods: {
+    ...mapActions({
+      resetOverlayData: 'dataOverlay/resetOverlayData',
+    }),
     handleSidebarScroll() {
       if (this.$refs.mapSidebar.scrollTop > 0) {
         this.sidebarLayoutReset = false;

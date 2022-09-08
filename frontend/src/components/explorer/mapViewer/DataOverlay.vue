@@ -228,11 +228,6 @@ export default {
     },
   },
   async created() {
-    if (Object.keys(this.dataSourcesIndex).length) {
-      const [defaultCustomDataType] = Object.keys(this.filteredDataSourcesIndex);
-      this.customDataType = defaultCustomDataType;
-      return;
-    }
     await this.getDataSourcesIndex(this.model.short_name);
 
     const queryParamTypes = this.validDataTypeInQuery();
@@ -247,8 +242,25 @@ export default {
         index,
       });
     });
-
-    const [defaultCustomDataType] = Object.keys(this.filteredDataSourcesIndex);
+    let defaultCustomDataType;
+    // If users have uploaded custom data previously, use this
+    if (Object.keys(this.customData).length) {
+      [defaultCustomDataType] = Object.keys(this.customData);
+      // eslint-disable-next-line
+      for (const [dataType, files] of Object.entries(this.customData)) {
+        // eslint-disable-next-line
+        for (const [fileName, dataSource] of Object.entries(files)) {
+          const payload = {
+            dataSource,
+            fileName,
+            dataType,
+          };
+          this.addCustomDataSourceToIndex(payload);
+        }
+      }
+    } else {
+      [defaultCustomDataType] = Object.keys(this.filteredDataSourcesIndex);
+    }
     this.customDataType = defaultCustomDataType;
 
     const queryParamSources = this.validDataSourceInQuery();
