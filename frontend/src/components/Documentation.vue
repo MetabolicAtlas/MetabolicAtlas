@@ -324,8 +324,8 @@
                 <a target="_blank" href="https://en.wikipedia.org/wiki/Tab-separated_values">
                   TSV format</a
                 >. The custom data file should contain at least two columns with headers and use tab
-                delimiter. The first column has to contain model IDs for genes, reactions or metabolites.
-                model. The header of the first column should be named as
+                delimiter. The first column has to contain model IDs for genes, reactions or
+                metabolites. model. The header of the first column should be named as
                 <b>id</b>
                 as shown in the example to the right (
                 <b>Figure 2</b>
