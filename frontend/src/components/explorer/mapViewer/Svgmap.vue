@@ -47,6 +47,7 @@ import MapLoader from '@/components/explorer/mapViewer/MapLoader';
 import MapSearch from '@/components/explorer/mapViewer/MapSearch';
 import { default as messages } from '@/content/messages';
 import { reformatChemicalReactionHTML } from '@/helpers/utils';
+import { DATA_TYPES_COMPONENTS } from '@/helpers/dataOverlay';
 
 export default {
   name: 'Svgmap',
@@ -100,6 +101,7 @@ export default {
       coords: state => state.maps.coords,
       selectedElementId: state => state.maps.selectedElementId,
       searchTerm: state => state.maps.searchTerm,
+      dataSourcesIndex: state => state.dataOverlay.index,
       dataTypes: state => state.dataOverlay.currentDataTypes,
       dataSources: state => state.dataOverlay.currentDataSources,
       dataSets: state => state.dataOverlay.dataSets,
@@ -348,15 +350,16 @@ export default {
       FileSaver.saveAs(blob, `${this.mapData.id}.svg`);
     },
     applyLevelsOnMap() {
-      const inactiveDataTypes = this.dataTypes.filter(
-        (dataType, index) => this.dataSets[index] === 'None'
-      );
+      const currentTypes = this.dataTypes.map(type => type.name);
+      const inactiveDataTypes = Object.keys(this.dataSourcesIndex)
+        .filter(dataType => {
+          const index = currentTypes.indexOf(dataType);
+          return index === -1 || this.dataSets[index] === 'None';
+        })
+        .map(dataType => ({ name: dataType, ...DATA_TYPES_COMPONENTS[dataType] }));
       inactiveDataTypes.forEach(dataType => {
         $(`#svg-wrapper .${dataType.className} .shape`).attr('fill', dataType.defaultColor);
       });
-      if (inactiveDataTypes.length === this.dataTypes.length) {
-        return;
-      }
       let allComponents = [];
       this.componentClassName.forEach(x => {
         allComponents = [...allComponents, ...$(`#svg-wrapper .${x}`)];
