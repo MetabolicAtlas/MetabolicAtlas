@@ -26,7 +26,7 @@
       @errorCustomFile="handleErrorCustomFile"
     />
     <div v-for="[dataType, files] in Object.entries(customData)" :key="dataType" class="mb-0">
-      <div v-if="filteredDataTypes.map(type => type.name).includes(dataType)">
+      <div v-if="Object.keys(filteredDataSourcesIndex).includes(dataType)">
         <div v-for="fileName in Object.keys(files)" :key="fileName" class="mb-0">
           <div v-show="!showFileLoader" class="fileNameBox tags has-addons is-centered mb-0">
             <span class="tag is-success">
