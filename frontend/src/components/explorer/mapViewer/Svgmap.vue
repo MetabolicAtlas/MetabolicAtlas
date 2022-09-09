@@ -157,6 +157,7 @@ export default {
       await this.$store.dispatch('maps/getSvgMap', payload);
       this.bindKeyboardShortcuts();
       this.applyLevelsOnMap();
+      this.setupHoverEventHandlers();
     },
     setupHoverEventHandlers() {
       // construct list of classes to be selected with jquery $(".class1,.class2,.class3,...")
