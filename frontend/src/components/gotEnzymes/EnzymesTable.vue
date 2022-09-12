@@ -19,9 +19,9 @@
       :pagination-options="tablePaginationOptions"
       :is-loading="showEnzymesLoader"
       :total-rows="totalRows"
-      @on-page-change="onPageChange"
-      @on-sort-change="onSortChange"
-      @on-column-filter="onColumnFilter"
+      @page-change="onPageChange"
+      @sort-change="onSortChange"
+      @column-filter="onColumnFilter"
     >
       <template #empty-state>
         <div class="vgt-center-align vgt-text-disabled">No data found</div>
