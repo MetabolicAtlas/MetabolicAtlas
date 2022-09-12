@@ -55,19 +55,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media screen and (min-width: $tablet) {
-  #table-of-contents {
+#table-of-contents {
+  @media screen and (min-width: $tablet) {
     position: sticky;
     top: 0;
     align-self: flex-start;
     max-height: 100vh;
     overflow: auto;
   }
-}
 
-.menu-list {
-  ul {
-    margin-top: 0;
+  .menu-list {
+    ul {
+      margin-top: 0;
+    }
   }
 }
 </style>
