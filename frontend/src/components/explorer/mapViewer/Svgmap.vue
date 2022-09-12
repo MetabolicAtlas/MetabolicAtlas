@@ -532,7 +532,7 @@ export default {
         this.$store.dispatch('maps/setLoadingElement', false);
       } catch {
         this.$emit('updatePanelSelectionData', selectionData);
-        this.$set(selectionData, 'error', true);
+        selectionData.error = true;
         this.$emit('endSelection', false);
         this.$store.dispatch('maps/setLoadingElement', false);
       }

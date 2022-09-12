@@ -329,7 +329,7 @@ export default {
     setMapReactionList() {
       let mapReactionIdList = [];
       this.currentMap.mapReactionIdSet.forEach(map => {
-        mapReactionIdList = [...mapReactionIdList, ...map.mapReactionIdSet];
+        mapReactionIdList = [...mapReactionIdList, ...(map.mapReactionIdSet || [])];
       });
       this.mapReactionList = mapReactionIdList;
     },
