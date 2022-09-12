@@ -197,6 +197,60 @@
         </div>
       </div>
       <h4 class="title is-4">Research-driven features</h4>
+      <p>Rasool's paper with custom maps</p>
+
+      <div class="columns is-mobile">
+        <div class="column is-1"></div>
+        <div class="column is-mobile">
+          <p>Saghaleyni, R.</p>
+          <p>
+            <b>
+              Systems Biology of Protein Secretion in Human Cells: Multi-omics Analysis and Modeling
+              of the Protein Secretion Process in Human Cells and its Application.
+            </b>
+            <span class="is-block">
+              <a
+                href="https://research.chalmers.se/en/publication/?id=524959"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i>Doctoral Thesis (2021), Chalmers </i>
+              </a>
+            </span>
+          </p>
+        </div>
+      </div>
+      <p>Johan's paper with reaction presence overlay, fluxomics stuff</p>
+
+      <div class="columns is-mobile">
+        <div class="column is-1"></div>
+        <div class="column is-mobile">
+          <p>Gustafsson J, Robinson JL, Roshanzamir F, Jörnsten R, Kerkhoven EJ, Nielsen J.</p>
+          <p>
+            <b>
+              Generation and analysis of context-specific genome-scale metabolic models derived from
+              single-cell RNA-Seq data
+            </b>
+            <span class="is-block">
+              <i>Preprint (2022)</i>
+            </span>
+          </p>
+          <p>
+            <!--
+            PubMed:
+            <a href="https://pubmed.ncbi.nlm.nih.gov/?/" target="_blank" rel="noopener noreferrer"
+              >?</a
+            > -->
+            DOI:
+            <a
+              href="https://doi.org/10.1101/2022.04.25.489379"
+              target="_blank"
+              rel="noopener noreferrer"
+              >10.1101/2022.04.25.489379</a
+            >
+          </p>
+        </div>
+      </div>
 
       <h3 id="advisory-board" class="title is-3 pt-6">Advisory board</h3>
 
