@@ -49,6 +49,8 @@
       </p>
 
       <h3 id="citation" class="title is-3 pt-6">Citation</h3>
+      <h4 class="title is-4">3.0</h4>
+      <p>Article under consideration</p>
 
       <h4 class="title is-4">2.0</h4>
       <p>
