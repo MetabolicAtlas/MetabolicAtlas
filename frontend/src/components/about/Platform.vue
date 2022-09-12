@@ -155,16 +155,48 @@
           <citation-widget doi="10.1126/scisignal.aaz1482" />
         </div>
       </div>
+      <h4 class="title is-4">Launch</h4>
       <p>
         Initially called
         <i>Human Metabolic Atlas</i>, the first publication that was cited for this project dates
         from 2015:
-        <a href="https://doi.org/10.1093/database/bav068" target="_blank" rel="noopener noreferrer">
-          Pornputtapong, N., et al, 2015.
-          <i>Human metabolic atlas: an online resource for human metabolism.</i>
-          Database (Oxford). 2015:bav068.
-        </a>
       </p>
+      <div class="columns is-mobile">
+        <div class="column is-2">
+          <a
+            href="https://academic.oup.com/database/issue/volume/2015"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="../../assets/journals/database-cover.gif" />
+          </a>
+        </div>
+        <div class="column">
+          <p>Pornputtapong N, Nookaew I, Nielsen J.</p>
+          <p>
+            <b>Human metabolic atlas: an online resource for human metabolism.</b>
+            <span class="is-block"><i>Database (2015): bav068</i></span>
+          </p>
+          <p>
+            PubMed:
+            <a
+              href="https://pubmed.ncbi.nlm.nih.gov/26209309/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >26209309</a
+            >
+            DOI:
+            <a
+              href="https://doi.org/10.1093/database/bav068"
+              target="_blank"
+              rel="noopener noreferrer"
+              >10.1093/database/bav068
+            </a>
+          </p>
+          <citation-widget doi="10.1093/database/bav068" />
+        </div>
+      </div>
+      <h4 class="title is-4">Research-driven features</h4>
 
       <h3 id="advisory-board" class="title is-3 pt-6">Advisory board</h3>
 
