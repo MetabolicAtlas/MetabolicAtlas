@@ -23,10 +23,10 @@
       @sort-change="onSortChange"
       @column-filter="onColumnFilter"
     >
-      <template #empty-state>
+      <template #emptystate>
         <div class="vgt-center-align vgt-text-disabled">No data found</div>
       </template>
-      <template #loading-content>
+      <template #loadingContent>
         <div>
           <loader /></div
       ></template>
