@@ -81,6 +81,7 @@ inchi
 Intawat
 jaccard
 Jaccard
+Jörnsten
 kcat
 kegg
 Keratan
@@ -115,6 +116,7 @@ mets
 microenvironment
 mids
 Mihail
+Modeling
 Molt
 mozfullscreenchange
 mstile
@@ -158,6 +160,7 @@ proteinatlas
 Pubmed
 Quant
 rdkit
+Rasool's
 reactome
 Reactome
 Recon
@@ -165,10 +168,12 @@ rels
 Rels
 remo
 ribohydrolase
+Roshanzamir
 sabio
 SABIO
 sabiork
 Saccharomyces
+Saghaleyni
 Sánchez
 Scalcinati
 schhl
