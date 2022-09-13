@@ -49,10 +49,10 @@
       </p>
 
       <h3 id="citation" class="title is-3 pt-6">Citation</h3>
-      <h4 class="title is-4">3.0</h4>
-      <p>Article under consideration</p>
+      <h4 id="citation-v3" class="title is-4">3.0</h4>
+      <p>Article under consideration.</p>
 
-      <h4 class="title is-4">2.0</h4>
+      <h4 id="citation-v2" class="title is-4">2.0</h4>
       <p>
         If you use Metabolic Atlas in your work, or any of the animal models, please cite our latest
         publication. In addition, if you use Human-GEM, please also cite the corresponding
@@ -104,7 +104,7 @@
         </div>
       </div>
 
-      <h4 class="title is-4">1.0</h4>
+      <h4 id="citation-v1" class="title is-4">1.0</h4>
       <p>
         After its re-launch,
         <i>Metabolic Atlas</i>
