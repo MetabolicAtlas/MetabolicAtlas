@@ -49,14 +49,19 @@
       </p>
 
       <h3 id="citation" class="title is-3 pt-6">Citation</h3>
+      <p>
+        If you use Metabolic Atlas in your work, or any of the animal models, please cite our latest
+        publication. In addition, if you use Human-GEM, please also cite the corresponding
+        publication.
+      </p>
       <h4 id="citation-v3" class="title is-4">3.0</h4>
       <p>Article under consideration.</p>
 
       <h4 id="citation-v2" class="title is-4">2.0</h4>
       <p>
-        If you use Metabolic Atlas in your work, or any of the animal models, please cite our latest
-        publication. In addition, if you use Human-GEM, please also cite the corresponding
-        publication.
+        Version 2.0 of the <i>Metabolic Atlas</i> was published in 2021 together with a PNAS
+        publication. If you have used <i>Metabolic Atlas</i> version 2.0 to 2.6 in your work, please
+        cite the publication below:
       </p>
 
       <div class="columns is-mobile">
@@ -157,7 +162,7 @@
           <citation-widget doi="10.1126/scisignal.aaz1482" />
         </div>
       </div>
-      <h4 class="title is-4">Launch</h4>
+      <h4 id="citation-launch" class="title is-4">Launch</h4>
       <p>
         Initially called
         <i>Human Metabolic Atlas</i>, the first publication that was cited for this project dates
@@ -199,30 +204,10 @@
         </div>
       </div>
       <h4 class="title is-4">Research-driven features</h4>
-      <p>The custom map of Metabolic Atlas is inspired by this work</p>
-
-      <div class="columns is-mobile">
-        <div class="column is-1"></div>
-        <div class="column is-mobile">
-          <p>Saghaleyni, R.</p>
-          <p>
-            <b>
-              Systems Biology of Protein Secretion in Human Cells: Multi-omics Analysis and Modeling
-              of the Protein Secretion Process in Human Cells and its Application.
-            </b>
-            <span class="is-block">
-              <a
-                href="https://research.chalmers.se/en/publication/?id=524959"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <i>Doctoral Thesis at Chalmers University of Technology (2021)</i>
-              </a>
-            </span>
-          </p>
-        </div>
-      </div>
-      <p>The data overlay for fluxomics is based on this work</p>
+      <p>
+        In 2022, fluxomics data was added to <i>Metabolic Atlas</i> and can be used as data overlay
+        in the <i>MapViewer</i>. The work is based on this publication:
+      </p>
 
       <div class="columns is-mobile">
         <div class="column is-1"></div>
@@ -250,6 +235,32 @@
               rel="noopener noreferrer"
               >10.1101/2022.04.25.489379</a
             >
+          </p>
+        </div>
+      </div>
+      <p>
+        The custom maps of <i>Metabolic Atlas</i> was inspired by the work of Rasool Saghaleyni. If
+        you have used the <i>Protein secretion pathway</i> in your work, please cite this work:
+      </p>
+
+      <div class="columns is-mobile">
+        <div class="column is-1"></div>
+        <div class="column is-mobile">
+          <p>Saghaleyni, R.</p>
+          <p>
+            <b>
+              Systems Biology of Protein Secretion in Human Cells: Multi-omics Analysis and Modeling
+              of the Protein Secretion Process in Human Cells and its Application.
+            </b>
+            <span class="is-block">
+              <a
+                href="https://research.chalmers.se/en/publication/?id=524959"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i>Doctoral Thesis at Chalmers University of Technology (2021)</i>
+              </a>
+            </span>
           </p>
         </div>
       </div>
