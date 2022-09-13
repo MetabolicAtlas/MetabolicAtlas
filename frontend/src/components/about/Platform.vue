@@ -197,7 +197,7 @@
         </div>
       </div>
       <h4 class="title is-4">Research-driven features</h4>
-      <p>Rasool's paper with custom maps</p>
+      <p>The custom map of Metabolic Atlas is inspired by this work</p>
 
       <div class="columns is-mobile">
         <div class="column is-1"></div>
@@ -214,13 +214,13 @@
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <i>Doctoral Thesis (2021), Chalmers </i>
+                <i>Doctoral Thesis at Chalmers University of Technology (2021)</i>
               </a>
             </span>
           </p>
         </div>
       </div>
-      <p>Johan's paper with reaction presence overlay, fluxomics stuff</p>
+      <p>The data overlay for fluxomics is based on this work</p>
 
       <div class="columns is-mobile">
         <div class="column is-1"></div>
@@ -232,7 +232,7 @@
               single-cell RNA-Seq data
             </b>
             <span class="is-block">
-              <i>Preprint (2022)</i>
+              <i>bioRxiv (2022)</i>
             </span>
           </p>
           <p>
