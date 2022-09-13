@@ -9,6 +9,7 @@ Benfeitas
 bigg
 Billa
 Bioconductor
+bioRxiv
 bioschemas
 boxe
 bulma
@@ -160,7 +161,7 @@ proteinatlas
 Pubmed
 Quant
 rdkit
-Rasool's
+Rasool
 reactome
 Reactome
 Recon
