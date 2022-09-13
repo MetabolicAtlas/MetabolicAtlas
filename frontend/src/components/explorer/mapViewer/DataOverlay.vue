@@ -10,12 +10,11 @@
     <div class="title is-size-4 has-text-centered" @click="addCards">Expression data</div>
     <div
       class="has-text-centered"
-      title="Load a TSV file with IDs and TPM values.
+      title="Load a TSV file with IDs and scaled values.
          More information can be found in the documentation."
     >
-      Load custom expression
       <span class="has-nowrap">
-        data
+        Load custom data
         <router-link :to="{ name: 'documentation', hash: '#data-overlay' }">
           <span class="icon"><i class="fa fa-info-circle"></i></span>
         </router-link>
@@ -74,7 +73,6 @@
     <div v-for="(chosenType, index) in filteredDataTypes" :key="index">
       <div class="card my-3">
         <div class="card-content py-2 p-3 is-relative">
-          <div class="title is-size-6 mb-2">Overlay</div>
           <a
             v-show="filteredDataTypes.length > 1"
             id="closeCard"
@@ -119,7 +117,7 @@
             <div class="control">
               <div v-if="dataSources.length > index" class="control">
                 <p>
-                  Levels from
+                  Values from
                   <a :href="dataSources[index].link" target="_blank">{{
                     dataSources[index].name
                   }}</a>
