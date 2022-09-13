@@ -59,6 +59,9 @@
                 are associated with scientific articles as follows.
               </p>
               <div class="box">
+                <p>From version 3.0: Article under consideration</p>
+              </div>
+              <div class="box">
                 <p>
                   From version 2.0:
                   <a
