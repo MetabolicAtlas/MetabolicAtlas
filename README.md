@@ -3,9 +3,11 @@
 
 Welcome to the codebase for the Metabolic Atlas project.  
 If you use *Metabolic Atlas* in your scientific work, please cite:
-> Wang, H., et al, 2021. _Genome-scale metabolic network reconstruction of model animals as a platform for translational research_. PNAS 118 [doi:10.1073/pnas.2102344118](https://doi.org/10.1073/pnas.2102344118)
+> Version 3.0: Article under consideration
 >
-> Robinson, J., et al, 2020. _An atlas of human metabolism_. Science Signaling 13 [doi:10.1126/scisignal.aaz1482 ](https://doi.org/10.1126/scisignal.aaz1482)
+> Version 2.0: Wang, H., et al, 2021. _Genome-scale metabolic network reconstruction of model animals as a platform for translational research_. PNAS 118 [doi:10.1073/pnas.2102344118](https://doi.org/10.1073/pnas.2102344118)
+>
+> Version 1.0: Robinson, J., et al, 2020. _An atlas of human metabolism_. Science Signaling 13 [doi:10.1126/scisignal.aaz1482 ](https://doi.org/10.1126/scisignal.aaz1482)
 
 ## About Metabolic Atlas
 Metabolic Atlas is a web platform integrating open-source genome scale metabolic models (GEMs) for easy browsing and analysis. The goal is to collect many curated GEMs, and to bring these models closer to [FAIR principles](https://en.wikipedia.org/wiki/FAIR_data). The website provides visualisations and comparisons of the GEMs, and links to resourcess, algorithms, other databases, and more general software applications. In short, the vision is to create a one-stop-shop for everything metabolism related. 
