@@ -6,7 +6,7 @@ describe('gem search', () => {
     await driver.close();
   });
 
-  test('gem search should have max 10 results per type', async () => {
+  test('gem search should have max 10 results per component type', async () => {
     const data = await search({
       searchTerm: 'Retinol+metabolism',
       model: 'HumanGem',
