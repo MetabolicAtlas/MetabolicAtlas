@@ -45,12 +45,12 @@ WITH apoc.map.mergeList(apoc.coll.flatten(
 )) as metabolites, mid
 RETURN metabolites {mid: mid, .*}
 `;
+
   if (limit) {
     statement += `
 LIMIT ${limit}
 `;
   }
-
   return queryListResult(statement);
 };
 
@@ -280,42 +280,24 @@ LIMIT 50
     compartments,
   };
 
-  let resWithScore = [];
+  const resWithScore = {};
   for (const [component, result] of Object.entries(resObj)) {
     if (result) {
-      resWithScore = resWithScore.concat(
-        result.map(obj => ({
-          ...obj,
-          score: getScore(obj, uniqueIds),
-          component,
-        }))
-      );
-    }
-  }
-  // sort all results by score in descending order
-  resWithScore.sort((a, b) => b.score - a.score);
-
-  // take only <= limit number of results and group them by components
-  const resWithScoreGroupedByComponent = resWithScore
-    .slice(0, limit)
-    .reduce(function (r, a) {
-      r[a.component] = r[a.component] || [];
-      r[a.component].push(a);
-      return r;
-    }, Object.create(null));
-
-  for (const component of Object.keys(resObj)) {
-    if (!(component in resWithScoreGroupedByComponent)) {
-      resWithScoreGroupedByComponent[component] = [];
+      resWithScore[component] = result.map(obj => ({
+        ...obj,
+        score: getScore(obj, uniqueIds),
+      }));
+    } else {
+      resWithScore[component] = [];
     }
   }
 
   return {
-    metabolite: resWithScoreGroupedByComponent.metabolites,
-    gene: resWithScoreGroupedByComponent.genes,
-    reaction: resWithScoreGroupedByComponent.reactions,
-    subsystem: resWithScoreGroupedByComponent.subsystems,
-    compartment: resWithScoreGroupedByComponent.compartments,
+    metabolite: resWithScore.metabolites,
+    gene: resWithScore.genes,
+    reaction: resWithScore.reactions,
+    subsystem: resWithScore.subsystems,
+    compartment: resWithScore.compartments,
   };
 };
 
