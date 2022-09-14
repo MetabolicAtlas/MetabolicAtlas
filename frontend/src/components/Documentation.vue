@@ -283,14 +283,15 @@
                 panel. For Human-GEM, the gene expression levels and reaction data from
                 <a href="https://www.proteinatlas.org/" target="_blank">The Human Protein Atlas</a>
                 can be loaded by selecting one of the tissues in the drop down list. Once selected,
-                the RNA levels corresponding to the chosen tissue will be used to color each gene on
-                the respective map, according to the color legend (an example of the color legend is
-                shown
+                the levels corresponding to the chosen tissue will be used to color corresponding
+                components on the respective map, according to the color legend (an example of the
+                color legend is shown
                 <b>Figure 1</b>
-                ). To clear the RNA levels, select the
+                ). To clear the levels, select the
                 <i>None</i>
-                option in the drop down list. RNA levels are available for both 2D and 3D Map
-                Viewer. The gene expression levels used are obtained from the
+                option in the drop down list or alternatively remove the corresponding card if
+                levels from multiple data types are applied. Levels are available for both 2D and 3D
+                Map Viewer. The gene expression levels used are obtained from the
                 <a href="https://www.proteinatlas.org/about/download" target="_blank">
                   download page
                 </a>
@@ -319,14 +320,12 @@
               <p>
                 The
                 <i>Data overlay</i>
-                sidebar allows uploading of the custom data in
+                sidebar also allows uploading of custom data in
                 <a target="_blank" href="https://en.wikipedia.org/wiki/Tab-separated_values">
                   TSV format</a
-                >. If the file is parsed correctly, the file name will be highlighted in green; in
-                case errors are detected, it will be highlighted in red. The expected custom data
-                file should contain at least two columns with headers and using tab delimiter. The
-                first column has to contain gene IDs, identical to the ones in the model. The header
-                of the first column should be named as
+                >. The custom data file should contain at least two columns with headers and use tab
+                delimiter. The first column has to contain model IDs for genes, reactions or
+                metabolites. model. The header of the first column should be named as
                 <b>id</b>
                 as shown in the example to the right (
                 <b>Figure 2</b>

@@ -80,15 +80,13 @@ export default {
       backgroundColor: state => state.maps.backgroundColor,
       coords: state => state.maps.coords,
       dataOverlayPanelVisible: state => state.maps.dataOverlayPanelVisible,
-      dataSet: state => state.dataOverlay.dataSet,
-      customDataSet: state => state.dataOverlay.customDataSet,
+      dataSets: state => state.dataOverlay.dataSets,
       searchTerm: state => state.maps.searchTerm,
     }),
     ...mapGetters({
       queryParams: 'maps/queryParams',
       computedLevels: 'dataOverlay/computedLevels',
-      componentDefaultColor: 'dataOverlay/componentDefaultColor',
-      componentType: 'dataOverlay/componentType',
+      componentTypes: 'dataOverlay/componentTypes',
     }),
   },
   watch: {
@@ -99,10 +97,7 @@ export default {
       // this is needed by the 3D viewer to update its size
       window.dispatchEvent(new Event('resize'));
     },
-    async dataSet() {
-      await this.applyColorsAndRenderNetwork();
-    },
-    async customDataSet() {
+    async dataSets() {
       await this.applyColorsAndRenderNetwork();
     },
   },
@@ -215,7 +210,10 @@ export default {
         let color = colorToRGBArray(this.defaultMetaboliteColor);
 
         if (node.g === 'r') {
-          if (this.componentType === 'reaction' && Object.keys(this.computedLevels).length > 0) {
+          if (
+            this.componentTypes.includes('reaction') &&
+            Object.keys(this.computedLevels).length > 0
+          ) {
             const partialID = node.id.split('-')[0];
             const key = this.computedLevels[partialID] !== undefined ? partialID : 'n/a';
             color = colorToRGBArray(this.computedLevels[key][0]);
@@ -225,7 +223,7 @@ export default {
         }
 
         if (node.g === 'e') {
-          if (this.componentType === 'gene' && Object.keys(this.computedLevels).length > 0) {
+          if (this.componentTypes.includes('gene') && Object.keys(this.computedLevels).length > 0) {
             const partialID = node.id.split('-')[0];
             const key = this.computedLevels[partialID] !== undefined ? partialID : 'n/a';
             color = colorToRGBArray(this.computedLevels[key][0]);
@@ -237,7 +235,10 @@ export default {
         if (node.g === 'm') {
           node.n = node.id; // eslint-disable-line
 
-          if (this.componentType === 'metabolite' && Object.keys(this.computedLevels).length > 0) {
+          if (
+            this.componentTypes.includes('metabolite') &&
+            Object.keys(this.computedLevels).length > 0
+          ) {
             const partialID = node.id.split('-')[0];
             const key = this.computedLevels[partialID] !== undefined ? partialID : 'n/a';
             color = colorToRGBArray(this.computedLevels[key][0]);

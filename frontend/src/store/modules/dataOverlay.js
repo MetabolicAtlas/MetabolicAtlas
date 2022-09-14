@@ -4,48 +4,64 @@ import { getSingleExpressionColor } from '@/helpers/expressionSources';
 
 const data = {
   index: {},
-  currentDataType: null,
-  currentDataSource: null,
-  customDataSource: null,
-  customDataSet: 'None',
-  dataSet: 'None',
+  currentDataTypes: [],
+  currentDataSources: [],
+  dataSets: ['None'],
+  customData: {},
 };
 
 const getters = {
   queryParams: state => ({
-    dataType: state.currentDataType ? state.currentDataType.name : 'None',
-    dataSource: state.currentDataSource ? state.currentDataSource.filename : 'None',
-    dataSet: state.dataSet,
+    dataTypes: state.currentDataTypes.length
+      ? state.currentDataTypes.map(type => type.name)
+      : 'None',
+    dataSources: state.currentDataSources.length
+      ? state.currentDataSources.map(source => source.filename)
+      : 'None',
+    dataSets: state.dataSets,
   }),
   computedLevels: state => {
-    const { dataSet, currentDataSource, customDataSource, customDataSet } = state;
+    const { dataSets, currentDataSources } = state;
     let t;
     let l;
 
-    if (customDataSource && customDataSet !== 'None') {
-      t = customDataSet;
-      l = customDataSource.levels;
-    } else if (currentDataSource && dataSet !== 'None') {
-      t = dataSet;
-      l = currentDataSource.levels;
-    } else {
-      return {};
-    }
+    const computedLevels = {};
+    currentDataSources.forEach((source, index) => {
+      if (!dataSets[index] || dataSets[index] === 'None') {
+        return;
+      }
 
-    const computedLevels = {
-      'n/a': [getSingleExpressionColor(NaN), 'n/a'],
-    };
-
-    Object.keys(l[t]).forEach(id => {
-      const val = l[t][id];
-      computedLevels[id] = [getSingleExpressionColor(val), val];
+      t = dataSets[index];
+      l = source.levels;
+      Object.keys(l[t]).forEach(id => {
+        const val = l[t][id];
+        computedLevels[id] = [getSingleExpressionColor(val), val];
+      });
     });
+    if (Object.keys(computedLevels).length) {
+      computedLevels['n/a'] = [getSingleExpressionColor(NaN), 'n/a'];
+    }
 
     return computedLevels;
   },
-  componentClassName: state => state.currentDataType && state.currentDataType.className,
-  componentDefaultColor: state => state.currentDataType && state.currentDataType.defaultColor,
-  componentType: state => state.currentDataType && state.currentDataType.componentType,
+  componentClassName: state => {
+    const componentClassName = [];
+    state.currentDataTypes.forEach((type, index) => {
+      if (state.dataSets[index] !== 'None') {
+        componentClassName.push(state.currentDataTypes[index].className);
+      }
+    });
+    return componentClassName;
+  },
+  componentTypes: state => {
+    const componentTypes = [];
+    state.currentDataTypes.forEach((type, index) => {
+      if (state.dataSets[index] !== 'None') {
+        componentTypes.push(state.currentDataTypes[index].componentType);
+      }
+    });
+    return componentTypes;
+  },
 };
 
 const actions = {
@@ -54,30 +70,46 @@ const actions = {
 
     commit('setIndex', index);
   },
-  async setCurrentDataType({ commit, dispatch, state }, { model, type, propagate }) {
+  async setCurrentDataType({ commit, dispatch, state }, { model, type, propagate, index }) {
     const currentDataType = {
       name: type,
+      index,
       ...DATA_TYPES_COMPONENTS[type],
     };
     commit('setCurrentDataType', currentDataType);
 
     if (propagate) {
       const { filename } = state.index[type][0];
-      await dispatch('getDataSource', { model, type, filename, propagate });
+      await dispatch('getDataSource', { model, type, filename, propagate, index });
     }
   },
-  async getDataSource({ commit, dispatch }, { model, type, filename, propagate }) {
+  removeDataType({ commit }, index) {
+    commit('setDataSet', { index, dataSet: 'None' });
+    setTimeout(() => {
+      commit('removeDataType', index);
+    }, 0);
+  },
+  // Resets all overlay data except for uploaded custom data
+  resetOverlayData({ commit }) {
+    commit('resetOverlayData');
+  },
+  async getDataSource({ commit, dispatch, state }, { model, type, filename, propagate, index }) {
     try {
       if (propagate) {
-        dispatch('setDataSet', 'None');
+        dispatch('setDataSet', { index, dataSet: 'None' });
       }
 
-      const dataSets = await dataOverlayApi.fetchDataSets({
-        model,
-        type,
-        filename,
-      });
-      const metadata = data.index[type].find(m => m.filename === filename);
+      let dataSets = null;
+      if (state.customData[type] && state.customData[type][filename]) {
+        dataSets = state.customData[type][filename].dataSets;
+      } else {
+        dataSets = await dataOverlayApi.fetchDataSets({
+          model,
+          type,
+          filename,
+        });
+      }
+      const metadata = state.index[type].find(m => m.filename === filename);
       const levels = dataSets.reduce(
         (acc, ds) => {
           acc[ds] = {};
@@ -93,53 +125,73 @@ const actions = {
       commit('setCurrentDataSource', {
         ...metadata,
         ...dataSource,
+        index,
       });
     } catch (e) {
       console.error(e); // eslint-disable-line no-console
       commit('setCurrentDataSource', null);
     }
   },
-  async getDataSet({ commit }, { model, type, filename, dataSet }) {
+  async getDataSet({ commit, state }, { model, type, filename, dataSet, index }) {
     try {
-      const responseDataSet = await dataOverlayApi.fetchDataSet({
-        model,
-        type,
-        filename,
-        dataSet,
-      });
+      let responseDataSet = null;
+      if (state.customData[type] && state.customData[type][filename]) {
+        responseDataSet = state.customData[type][filename].levels[dataSet];
+      } else {
+        responseDataSet = await dataOverlayApi.fetchDataSet({
+          model,
+          type,
+          filename,
+          dataSet,
+        });
+      }
       const newDataSet = {
         [dataSet]: responseDataSet,
       };
-      const { currentDataSource } = data;
+      const { currentDataSources } = data;
       const dataSource = {
-        ...currentDataSource,
+        ...currentDataSources[index],
         levels: {
-          ...currentDataSource.levels,
+          ...currentDataSources[index].levels,
           ...newDataSet,
         },
+        index,
       };
       commit('setCurrentDataSource', dataSource);
-      commit('setDataSet', dataSet);
+      const payload = {
+        index,
+        dataSet,
+      };
+      commit('setDataSet', payload);
     } catch (e) {
       console.error(e); // eslint-disable-line no-console
-      commit('setDataSet', 'None');
+      commit('setDataSet', { index, dataSet: 'None' });
     }
   },
-  setDataSet({ commit, dispatch }, dataSet) {
-    if (dataSet !== 'None') {
-      dispatch('setCustomDataSet', 'None');
-    }
-    commit('setDataSet', dataSet);
+  setDataSet({ commit }, { index, dataSet }) {
+    commit('setDataSet', { index, dataSet });
   },
-  setCustomDataSource({ commit, dispatch }, dataSource) {
-    commit('setCustomDataSource', dataSource);
-    dispatch('setCustomDataSet', 'None');
+  addCustomDataSourceToIndex({ commit }, customDataSource) {
+    commit('addCustomDataSourceToIndex', customDataSource);
   },
-  setCustomDataSet({ commit, dispatch }, dataSet) {
-    if (dataSet !== 'None') {
-      dispatch('setDataSet', 'None');
+  async removeCustomDataSourceFromIndex({ commit, dispatch, rootState, state }, customDataSource) {
+    const currentDataSourceIndex = state.currentDataSources.findIndex(
+      dataSource => dataSource.filename === customDataSource.fileName
+    );
+
+    if (currentDataSourceIndex !== -1) {
+      const type = state.currentDataTypes[currentDataSourceIndex].name;
+      const fallbackDataSource = state.index[type][0];
+      await dispatch('getDataSource', {
+        model: rootState.models.model.short_name,
+        type,
+        filename: fallbackDataSource.filename,
+        propagate: true,
+        index: currentDataSourceIndex,
+      });
     }
-    commit('setCustomDataSet', dataSet);
+
+    commit('removeCustomDataSourceFromIndex', customDataSource);
   },
 };
 
@@ -148,19 +200,53 @@ const mutations = {
     state.index = index;
   },
   setCurrentDataType: (state, currentDataType) => {
-    state.currentDataType = currentDataType;
+    // copy and replace the array to trigger reactive array change detection
+    const tempList = [...state.currentDataTypes];
+    tempList[currentDataType.index] = currentDataType;
+    state.currentDataTypes = tempList;
+  },
+  removeDataType: (state, index) => {
+    state.currentDataTypes = state.currentDataTypes.filter((dataType, i) => i !== index);
+    setTimeout(() => {
+      state.currentDataSources = state.currentDataSources.filter((dataSource, i) => i !== index);
+    }, 0);
+    setTimeout(() => {
+      state.dataSets = state.dataSets.filter((dataSet, i) => i !== index);
+    }, 0);
   },
   setCurrentDataSource: (state, currentDataSource) => {
-    state.currentDataSource = currentDataSource;
+    // copy and replace the array to trigger reactive array change detection
+    const tempList = [...state.currentDataSources];
+    tempList[currentDataSource.index] = currentDataSource;
+    state.currentDataSources = tempList;
   },
-  setDataSet: (state, dataSet) => {
-    state.dataSet = dataSet;
+  setDataSet: (state, { index, dataSet }) => {
+    // copy and replace the array to trigger reactive array change detection
+    const tempList = [...state.dataSets];
+    tempList[index] = dataSet;
+    state.dataSets = tempList;
   },
-  setCustomDataSource: (state, customDataSource) => {
-    state.customDataSource = customDataSource;
+  addCustomDataSourceToIndex: (state, { dataSource, fileName, dataType }) => {
+    state.index[dataType].push({ filename: fileName, lastUpdated: '', link: '', name: fileName });
+    if (!state.customData[dataType]) {
+      state.customData[dataType] = {};
+    }
+    state.customData[dataType][fileName] = dataSource;
   },
-  setCustomDataSet: (state, customDataSet) => {
-    state.customDataSet = customDataSet;
+  removeCustomDataSourceFromIndex: (state, { fileName, dataType }) => {
+    state.index[dataType] = state.index[dataType].filter(m => m.filename !== fileName);
+    state.customData[dataType] = Object.keys(state.customData[dataType]).reduce((acc, key) => {
+      if (key !== fileName) {
+        acc[key] = state.customData[dataType][key];
+      }
+      return acc;
+    }, {});
+  },
+  resetOverlayData: state => {
+    state.index = {};
+    state.currentDataTypes = [];
+    state.currentDataSources = [];
+    state.dataSets = ['None'];
   },
 };
 
