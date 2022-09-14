@@ -427,7 +427,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .fileNameBox {
   display: flex;
   flex-wrap: nowrap;
