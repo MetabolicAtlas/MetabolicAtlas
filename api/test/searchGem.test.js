@@ -6,7 +6,7 @@ describe('gem search', () => {
     await driver.close();
   });
 
-  test('gem search should have max 50 results', async () => {
+  test('gem search should have max 10 results per type', async () => {
     const data = await search({
       searchTerm: 'Retinol+metabolism',
       model: 'HumanGem',
@@ -14,15 +14,13 @@ describe('gem search', () => {
     });
 
     expect(Object.keys(data)).toContain('Human-GEM');
-    let length = 0;
-    for (const component of Object.keys(data['Human-GEM'])) {
-      if (component !== 'name') {
-        length += data['Human-GEM'][component].length;
-      }
+    for (const component of Object.keys(data['Human-GEM']).filter(
+      c => c != 'name'
+    )) {
+      const { length } = data['Human-GEM'][component];
+      expect(length).toBeGreaterThanOrEqual(0);
+      expect(length).toBeLessThanOrEqual(10);
     }
-
-    expect(length).toBeGreaterThan(0);
-    expect(length).toBeLessThanOrEqual(50);
   });
 
   test('gem search should receive sensible ranking scores', async () => {
