@@ -45,21 +45,21 @@ WITH apoc.map.mergeList(apoc.coll.flatten(
 )) as metabolites, mid
 RETURN metabolites {mid: mid, .*}
 `;
+
   if (limit) {
     statement += `
 LIMIT ${limit}
 `;
   }
-
   return queryListResult(statement);
 };
 
-const fetchGenes = async ({ ids, model, version }) => {
+const fetchGenes = async ({ ids, model, limit, version }) => {
   if (!ids) {
     return null;
   }
 
-  const statement = `
+  let statement = `
 WITH ${JSON.stringify(ids)} as gids
 UNWIND gids as gid
 CALL apoc.cypher.run("
@@ -71,15 +71,21 @@ RETURN apoc.map.mergeList(apoc.coll.flatten(
 )) as gene
 `;
 
+  if (limit) {
+    statement += `
+LIMIT ${limit}
+`;
+  }
+
   return queryListResult(statement);
 };
 
-const fetchReactions = async ({ ids, model, version }) => {
+const fetchReactions = async ({ ids, model, limit, version }) => {
   if (!ids) {
     return null;
   }
 
-  const statement = `
+  let statement = `
 WITH ${JSON.stringify(ids)} as rids
 UNWIND rids as rid
 CALL apoc.cypher.run("
@@ -101,15 +107,20 @@ RETURN apoc.map.mergeList(apoc.coll.flatten(
 )) as reaction
 `;
 
+  if (limit) {
+    statement += `
+LIMIT ${limit}
+`;
+  }
   return queryListResult(statement);
 };
 
-const fetchSubsystems = async ({ ids, model, version }) => {
+const fetchSubsystems = async ({ ids, model, version, limit }) => {
   if (!ids) {
     return null;
   }
 
-  const statement = `
+  let statement = `
 WITH ${JSON.stringify(ids)} as sids
 UNWIND sids as sid
 CALL apoc.cypher.run("
@@ -121,15 +132,20 @@ RETURN apoc.map.mergeList(apoc.coll.flatten(
 )) as subsystem
 `;
 
+  if (limit) {
+    statement += `
+LIMIT ${limit}
+`;
+  }
   return queryListResult(statement);
 };
 
-const fetchCompartments = async ({ ids, model, version }) => {
+const fetchCompartments = async ({ ids, model, version, limit }) => {
   if (!ids) {
     return null;
   }
 
-  const statement = `
+  let statement = `
 WITH ${JSON.stringify(ids)} as cids
 UNWIND cids as cid
 CALL apoc.cypher.run("
@@ -141,6 +157,11 @@ RETURN apoc.map.mergeList(apoc.coll.flatten(
 )) as compartment
 `;
 
+  if (limit) {
+    statement += `
+LIMIT ${limit}
+`;
+  }
   return queryListResult(statement);
 };
 
@@ -154,7 +175,7 @@ const modelSearch = async ({ searchTerm, model, version, limit }) => {
     searchTerm,
     model,
     version,
-    limit: limit || 50,
+    limit: limit || 10, // limit per component
   });
 
   return {
@@ -194,12 +215,8 @@ WITH DISTINCT(
 ) as r 
 WHERE any(r IN r.labels WHERE r="${model}")
 RETURN r
+LIMIT 50
 `;
-  if (limit) {
-    statement += `
-LIMIT ${limit}
-`;
-  }
 
   const results = await queryListResult(statement);
 
@@ -227,22 +244,30 @@ LIMIT ${limit}
         version: v,
         limit,
       }),
-      fetchGenes({ ids: groupedByComponents['Gene'], model, version: v }),
+      fetchGenes({
+        ids: groupedByComponents['Gene'],
+        model,
+        version: v,
+        limit,
+      }),
       fetchReactions({
         ids: groupedByComponents['Reaction'],
         model,
         version: v,
+        limit,
       }),
       fetchSubsystems({
         ids: groupedByComponents['Subsystem'],
         model,
         version: v,
+        limit,
         includeCounts: true,
       }),
       fetchCompartments({
         ids: groupedByComponents['Compartment'],
         model,
         version: v,
+        limit,
         includeCounts: true,
       }),
     ]);
@@ -255,42 +280,24 @@ LIMIT ${limit}
     compartments,
   };
 
-  let resWithScore = [];
+  const resWithScore = {};
   for (const [component, result] of Object.entries(resObj)) {
     if (result) {
-      resWithScore = resWithScore.concat(
-        result.map(obj => ({
-          ...obj,
-          score: getScore(obj, uniqueIds),
-          component,
-        }))
-      );
-    }
-  }
-  // sort all results by score in descending order
-  resWithScore.sort((a, b) => b.score - a.score);
-
-  // take only <= limit number of results and group them by components
-  const resWithScoreGroupedByComponent = resWithScore
-    .slice(0, limit)
-    .reduce(function (r, a) {
-      r[a.component] = r[a.component] || [];
-      r[a.component].push(a);
-      return r;
-    }, Object.create(null));
-
-  for (const component of Object.keys(resObj)) {
-    if (!(component in resWithScoreGroupedByComponent)) {
-      resWithScoreGroupedByComponent[component] = [];
+      resWithScore[component] = result.map(obj => ({
+        ...obj,
+        score: getScore(obj, uniqueIds),
+      }));
+    } else {
+      resWithScore[component] = [];
     }
   }
 
   return {
-    metabolite: resWithScoreGroupedByComponent.metabolites,
-    gene: resWithScoreGroupedByComponent.genes,
-    reaction: resWithScoreGroupedByComponent.reactions,
-    subsystem: resWithScoreGroupedByComponent.subsystems,
-    compartment: resWithScoreGroupedByComponent.compartments,
+    metabolite: resWithScore.metabolites,
+    gene: resWithScore.genes,
+    reaction: resWithScore.reactions,
+    subsystem: resWithScore.subsystems,
+    compartment: resWithScore.compartments,
   };
 };
 
