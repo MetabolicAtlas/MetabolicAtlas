@@ -1,6 +1,6 @@
 <template>
   <div id="app" :class="{ 'fade-page': showGemSearch }">
-    <Head />
+    <AppHead />
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -183,7 +183,7 @@
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
-import Head from '@/components/shared/Head.vue';
+import AppHead from '@/components/shared/AppHead.vue';
 import ErrorPanel from '@/components/shared/ErrorPanel.vue';
 import GemSearch from '@/components/explorer/gemBrowser/GemSearch.vue';
 import { default as messages } from '@/content/messages';
@@ -192,7 +192,7 @@ import { default as about } from '@/content/about';
 export default {
   name: 'App',
   components: {
-    Head,
+    AppHead,
     ErrorPanel,
     GemSearch,
   },
