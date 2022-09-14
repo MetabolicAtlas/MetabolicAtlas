@@ -1,8 +1,8 @@
-import vue from '@vitejs/plugin-vue'
+import vue from '@vitejs/plugin-vue';
 import pluginRewriteAll from 'vite-plugin-rewrite-all';
 import { visualizer } from "rollup-plugin-visualizer";
-import path from 'path'
-import { defineConfig } from 'vite'
+import path from 'path';
+import { defineConfig } from 'vite';
 
 export default defineConfig({
   build: {
