@@ -19,11 +19,9 @@ const getFiltersQueries = filters => {
 
     if (value && value.length > 0) {
       if (field === 'ec_number') {
-        filtersQueries.push(
-          sql`array[${sql`${value.toString()}`}] <@ ${sql`string_to_array(ec_number, ';')`}`
-        );
+        filtersQueries.push(sql`ec_number ~~* ${`%${value.toString()}%`}`);
       } else {
-        filtersQueries.push(sql`${sql(field)} = ${value.toString()}`);
+        filtersQueries.push(sql`${sql(field)} like ${`%${value.toString()}%`}`);
       }
     }
   }
