@@ -102,15 +102,15 @@ export default {
       coords: state => state.maps.coords,
       selectedElementId: state => state.maps.selectedElementId,
       searchTerm: state => state.maps.searchTerm,
-      dataSource: state => state.dataOverlay.currentDataSource,
-      dataSet: state => state.dataOverlay.dataSet,
-      customDataSet: state => state.dataOverlay.customDataSet,
+      dataSourcesIndex: state => state.dataOverlay.index,
+      dataTypes: state => state.dataOverlay.currentDataTypes,
+      dataSources: state => state.dataOverlay.currentDataSources,
+      dataSets: state => state.dataOverlay.dataSets,
     }),
     ...mapGetters({
       selectIds: 'maps/selectIds',
       computedLevels: 'dataOverlay/computedLevels',
       componentClassName: 'dataOverlay/componentClassName',
-      componentDefaultColor: 'dataOverlay/componentDefaultColor',
     }),
   },
   watch: {
@@ -120,10 +120,7 @@ export default {
     componentClassName() {
       this.setupHoverEventHandlers();
     },
-    dataSet() {
-      this.applyLevelsOnMap();
-    },
-    customDataSet() {
+    dataSets() {
       this.applyLevelsOnMap();
     },
     svgContent: 'loadSvgPanzoom',
@@ -163,28 +160,33 @@ export default {
       await this.$store.dispatch('maps/getSvgMap', payload);
       this.bindKeyboardShortcuts();
       this.applyLevelsOnMap();
+      this.setupHoverEventHandlers();
     },
     setupHoverEventHandlers() {
-      const self = this;
+      // construct list of classes to be selected with jquery $(".class1,.class2,.class3,...")
       $('#svg-wrapper').off('mouseover');
       $('#svg-wrapper').off('mouseout');
-      $('#svg-wrapper').on('mouseover', `.${self.componentClassName}`, function f(e) {
-        const id = $(this).attr('id') || $(this).attr('class').split(' ')[1].trim();
-        if (id in self.computedLevels) {
-          self.$refs.tooltip.innerHTML = self.computedLevels[id][1]; // eslint-disable-line prefer-destructuring
-        } else if (Object.keys(self.computedLevels).length !== 0) {
-          self.$refs.tooltip.innerHTML = self.computedLevels['n/a'][1]; // eslint-disable-line prefer-destructuring
-        } else {
-          return;
-        }
-        self.$refs.tooltip.style.top = `${e.pageY - $('.svgbox').first().offset().top + 15}px`;
-        self.$refs.tooltip.style.left = `${e.pageX - $('.svgbox').first().offset().left + 15}px`;
-        self.$refs.tooltip.style.display = 'block';
-      });
-      $('#svg-wrapper').on('mouseout', `.${self.componentClassName}`, () => {
-        self.$refs.tooltip.innerHTML = '';
-        self.$refs.tooltip.style.display = 'none';
-      });
+      const self = this;
+      if (this.componentClassName.length) {
+        const classNameList = this.componentClassName.join(',.');
+        $('#svg-wrapper').on('mouseover', `.${classNameList}`, function f(e) {
+          const id = $(this).attr('id') || $(this).attr('class').split(' ')[1].trim();
+          if (id in self.computedLevels) {
+            self.$refs.tooltip.innerHTML = self.computedLevels[id][1]; // eslint-disable-line prefer-destructuring
+          } else if (Object.keys(self.computedLevels).length !== 0) {
+            self.$refs.tooltip.innerHTML = self.computedLevels['n/a'][1]; // eslint-disable-line prefer-destructuring
+          } else {
+            return;
+          }
+          self.$refs.tooltip.style.top = `${e.pageY - $('.svgbox').first().offset().top + 15}px`;
+          self.$refs.tooltip.style.left = `${e.pageX - $('.svgbox').first().offset().left + 15}px`;
+          self.$refs.tooltip.style.display = 'block';
+        });
+        $('#svg-wrapper').on('mouseout', `.${classNameList}`, () => {
+          self.$refs.tooltip.innerHTML = '';
+          self.$refs.tooltip.style.display = 'none';
+        });
+      }
     },
     bindKeyboardShortcuts() {
       document.addEventListener('keydown', event => {
@@ -349,14 +351,20 @@ export default {
       FileSaver.saveAs(blob, `${this.mapData.id}.svg`);
     },
     applyLevelsOnMap() {
-      if (Object.keys(this.computedLevels).length === 0) {
-        Object.values(DATA_TYPES_COMPONENTS).forEach(dataType => {
-          $(`#svg-wrapper .${dataType.className} .shape`).attr('fill', dataType.defaultColor);
-        });
-
-        return;
-      }
-      const allComponents = $(`#svg-wrapper .${this.componentClassName}`);
+      const currentTypes = this.dataTypes.map(type => type.name);
+      const inactiveDataTypes = Object.keys(this.dataSourcesIndex)
+        .filter(dataType => {
+          const index = currentTypes.indexOf(dataType);
+          return index === -1 || this.dataSets[index] === 'None';
+        })
+        .map(dataType => ({ name: dataType, ...DATA_TYPES_COMPONENTS[dataType] }));
+      inactiveDataTypes.forEach(dataType => {
+        $(`#svg-wrapper .${dataType.className} .shape`).attr('fill', dataType.defaultColor);
+      });
+      let allComponents = [];
+      this.componentClassName.forEach(x => {
+        allComponents = [...allComponents, ...$(`#svg-wrapper .${x}`)];
+      });
       Object.values(allComponents).forEach(node => {
         try {
           const ID = node.id || node.classList[1];

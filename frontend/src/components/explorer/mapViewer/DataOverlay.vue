@@ -7,15 +7,14 @@
     }"
     class="column has-background-lightgray"
   >
-    <div class="title is-size-4 has-text-centered">Expression data</div>
+    <div class="title is-size-4 has-text-centered" @click="addCards">Expression data</div>
     <div
       class="has-text-centered"
-      title="Load a TSV file with IDs and TPM values.
+      title="Load a TSV file with IDs and scaled values.
          More information can be found in the documentation."
     >
-      Load custom expression
       <span class="has-nowrap">
-        data
+        Load custom data
         <router-link :to="{ name: 'documentation', hash: '#data-overlay' }">
           <span class="icon"><i class="fa fa-info-circle"></i></span>
         </router-link>
@@ -25,123 +24,152 @@
       @get-file-name="getFileName($event)"
       @error-custom-file="handleErrorCustomFile"
     />
-    <div v-if="customFileName" class="mb-0">
-      <div v-show="!showFileLoader" id="fileNameBox" class="tags has-addons is-centered mb-0">
-        <span class="tag" :class="errorCustomFileMsg ? 'is-danger' : 'is-success'">
-          <div class="is-size-6">{{ customFileName }}</div>
-        </span>
-        <a class="tag is-delete" title="Unload file" @click="unloadUploadedFile()"></a>
-      </div>
-      <div v-show="showFileLoader" class="has-text-centered">
-        <a class="button is-small is-loading"></a>
+    <div v-for="[dataType, files] in Object.entries(customData)" :key="dataType" class="mb-0">
+      <div v-if="Object.keys(filteredDataSourcesIndex).includes(dataType)">
+        <div v-for="fileName in Object.keys(files)" :key="fileName" class="mb-0">
+          <div v-show="!showFileLoader" class="fileNameBox tags has-addons is-centered mb-0">
+            <span class="tag is-success">
+              <div class="is-size-6">{{ fileName }}</div>
+            </span>
+            <a
+              class="tag is-delete"
+              title="Unload file"
+              @click="removeCustomDataSourceFromIndex({ dataType, fileName })"
+            ></a>
+          </div>
+          <div v-show="showFileLoader" class="has-text-centered">
+            <a class="button is-small is-loading"></a>
+          </div>
+        </div>
       </div>
     </div>
-    <div v-if="errorCustomFileMsg" id="customFileError" class="card mb-4">
-      <div
-        class="notification p-3 is-danger is-half is-offset-one-quarter"
-        v-html="customErrorMessage()"
-      ></div>
-    </div>
-    <div class="card my-3">
-      <div class="card-content py-2 p-3">
-        <div class="has-text-centered title is-size-6">Data</div>
-        <div v-if="modelHasOverlayData()">
-          <div class="control">
-            <p>Select data type</p>
-            <div v-if="dataType" class="select is-fullwidth">
-              <select @change="handleDataTypeSelect">
-                <option
-                  v-for="type in Object.keys(filteredDataSourcesIndex)"
-                  :key="type"
-                  :selected="type === dataType.name"
-                  :value="type"
-                  class="is-clickable is-capitalized"
-                >
-                  {{ type }}
-                </option>
-              </select>
-            </div>
-          </div>
-          <div class="control">
-            <p>Select data source</p>
-            <div v-if="dataType" class="select is-fullwidth">
-              <select @change="handleDataSourceSelect">
-                <option
-                  v-for="s in filteredDataSourcesIndex[dataType.name]"
-                  :key="s.filename"
-                  :selected="dataSource && s.filename === dataSource.filename"
-                  :value="s.filename"
-                  class="is-clickable is-capitalized"
-                >
-                  {{ s.name }}
-                </option>
-              </select>
-            </div>
-          </div>
-          <div class="control">
-            <div v-if="dataSource" class="control">
-              <p>
-                Levels from
-                <a :href="dataSource.link" target="_blank" rel="noopener noreferrer">{{
-                  dataSource.name
-                }}</a>
-              </p>
-              <div class="select is-fullwidth">
-                <select :disabled="levelsDisabled" @change="handleDataSetSelect">
-                  <option>None</option>
+    <Modal v-model:showModal="showModal" size="small">
+      <div class="control">
+        <p>Select data type</p>
+        <div v-if="dataTypes.length" class="select is-fullwidth m-1">
+          <select :disabled="disableSelect()" @change="handleCustomDataTypeSelect($event)">
+            <option
+              v-for="type in Object.keys(filteredDataSourcesIndex)"
+              :key="type"
+              :selected="type === customDataType"
+              :value="type"
+              class="is-clickable is-capitalized"
+            >
+              {{ type }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div v-if="errorCustomFileMsg" id="customFileError" class="card my-4">
+        <div
+          class="notification p-3 is-danger is-half is-offset-one-quarter"
+          v-html="customErrorMessage()"
+        ></div>
+      </div>
+      <div v-else class="mt-2 is-flex is-justify-content-center">
+        <button class="button is-primary" @click="addSourceToIndex">Upload</button>
+      </div>
+    </Modal>
+    <div v-for="(chosenType, index) in filteredDataTypes" :key="index">
+      <div class="card my-3">
+        <div class="card-content py-2 p-3 is-relative">
+          <a
+            v-show="filteredDataTypes.length > 1"
+            id="closeCard"
+            class="tag is-delete is-white is-medium"
+            @click="removeDataType(index)"
+          >
+          </a>
+          <div v-if="modelHasOverlayData()">
+            <div class="control">
+              <p>Select data type</p>
+              <div v-if="filteredDataTypes.length" class="select is-fullwidth">
+                <select @change="handleDataTypeSelect($event, index)">
                   <option
-                    v-for="t in dataSource.dataSets"
-                    :key="t"
-                    :selected="t === dataSet"
+                    v-for="type in Object.keys(filteredDataSourcesIndex)"
+                    :key="type"
+                    :selected="type === chosenType.name"
+                    :value="type"
+                    :disabled="disable(type, index)"
                     class="is-clickable is-capitalized"
                   >
-                    {{ t }}
+                    {{ type }}
                   </option>
                 </select>
               </div>
             </div>
-          </div>
-        </div>
-        <template v-if="customDataSource">
-          <p>{{ dataSource ? 'Or uploaded data' : 'Levels from uploaded data' }}</p>
-          <div class="control">
-            <div class="select is-fullwidth">
-              <select
-                :value="customDataSet"
-                :disabled="!customDataSource || null"
-                @change="e => setCustomDataSet(e.target.value)"
-              >
-                <template v-if="customDataSource">
-                  <option>None</option>
+            <div class="control">
+              <p>Select data source</p>
+              <div v-if="filteredDataTypes.length" class="select is-fullwidth">
+                <select @change="handleDataSourceSelect($event, index)">
                   <option
-                    v-for="dataSet in customDataSource.dataSets"
-                    :key="dataSet"
+                    v-for="s in filteredDataSourcesIndex[chosenType.name]"
+                    :key="s.filename"
+                    :selected="dataSources[index] && s.filename === dataSources[index].filename"
+                    :value="s.filename"
                     class="is-clickable is-capitalized"
                   >
-                    {{ dataSet }}
+                    {{ s.name }}
                   </option>
-                </template>
-              </select>
+                </select>
+              </div>
+            </div>
+            <div class="control">
+              <div v-if="dataSources.length > index" class="control">
+                <p>
+                  Values from
+                  <a :href="dataSources[index].link" target="_blank">{{
+                    dataSources[index].name
+                  }}</a>
+                </p>
+                <div class="select is-fullwidth">
+                  <select
+                    :disabled="levelsDisabled(index)"
+                    @change="handleDataSetSelect($event, index)"
+                  >
+                    <option>None</option>
+                    <option
+                      v-for="t in dataSources[index].dataSets"
+                      :key="t"
+                      :selected="t === dataSets[index]"
+                      class="is-clickable is-capitalized"
+                    >
+                      {{ t }}
+                    </option>
+                  </select>
+                </div>
+              </div>
             </div>
           </div>
-        </template>
+        </div>
       </div>
+    </div>
+
+    <div
+      class="has-text-centered"
+      :title="addCards() ? '' : 'No more data types available for this model'"
+    >
+      <span class="has-nowrap">
+        <button class="button" :disabled="!addCards()" @click="addOverlayCard">Add overlay</button>
+      </span>
     </div>
     <RNALegend class="my-3" />
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapGetters, mapActions, mapState } from 'vuex';
 import DataOverlayValidation from '@/components/explorer/mapViewer/DataOverlayValidation.vue';
 import RNALegend from '@/components/explorer/mapViewer/RNALegend.vue';
 import { parseFile } from '@/helpers/dataOverlay';
+import Modal from '@/components/shared/Modal.vue';
 
 export default {
   name: 'DataOverlay',
   components: {
     DataOverlayValidation,
     RNALegend,
+    Modal,
   },
   props: {
     mapType: String,
@@ -156,9 +184,12 @@ export default {
     return {
       showLvlCardContent: true,
       customFileName: '',
-      showFileLoader: true,
+      showFileLoader: false,
       errorCustomFileMsg: '',
       customFileInfo: '',
+      customFile: null,
+      customDataType: null,
+      showModal: false,
     };
   },
   computed: {
@@ -168,15 +199,14 @@ export default {
       dataOverlayPanelVisible: state => state.maps.dataOverlayPanelVisible,
       mapLoaded: state => !state.maps.loading,
       dataSourcesIndex: state => state.dataOverlay.index,
-      dataType: state => state.dataOverlay.currentDataType,
-      dataSource: state => state.dataOverlay.currentDataSource,
-      dataSet: state => state.dataOverlay.dataSet,
-      customDataSource: state => state.dataOverlay.customDataSource,
-      customDataSet: state => state.dataOverlay.customDataSet,
+      dataTypes: state => state.dataOverlay.currentDataTypes,
+      dataSources: state => state.dataOverlay.currentDataSources,
+      dataSets: state => state.dataOverlay.dataSets,
+      customData: state => state.dataOverlay.customData,
     }),
-    levelsDisabled() {
-      return !this.mapName || !this.dataSource || this.dataSource.dataSets.length === 0 || null;
-    },
+    ...mapGetters({
+      queryParams: 'dataOverlay/queryParams',
+    }),
     filteredDataSourcesIndex() {
       if (this.$route.name === 'interaction') {
         // do not include fluxomics data for the interaction partners page
@@ -185,68 +215,120 @@ export default {
       }
       return this.dataSourcesIndex;
     },
+    filteredDataTypes() {
+      // Do not show fluxomics data for the interaction partners page
+      // The data type may still be selected, but not shown
+      if (this.$route.name === 'interaction') {
+        const dataTypes = this.dataTypes.filter(elem => elem.name !== 'fluxomics');
+        return dataTypes;
+      }
+      return this.dataTypes;
+    },
   },
   async created() {
     await this.getDataSourcesIndex(this.model.short_name);
-    const dataType = this.validDataTypeInQuery()
-      ? this.$route.query.dataType
-      : Object.keys(this.filteredDataSourcesIndex)[0];
-    await this.setCurrentDataType({
-      model: this.model.short_name,
-      type: dataType,
-      propagate: false,
+
+    const queryParamTypes = this.validDataTypeInQuery();
+    const dataTypes = queryParamTypes.length
+      ? queryParamTypes
+      : [Object.keys(this.filteredDataSourcesIndex)[0]];
+    dataTypes.forEach((type, index) => {
+      this.setCurrentDataType({
+        model: this.model.short_name,
+        type,
+        propagate: false,
+        index,
+      });
     });
-    const dataSource = this.validDataSourceInQuery()
-      ? this.$route.query.dataSource
-      : this.filteredDataSourcesIndex[this.dataType.name][0].filename;
-    await this.getDataSource({
-      model: this.model.short_name,
-      type: dataType,
-      filename: dataSource,
-      propagate: false,
-    });
-    const dataSet = this.validDataSourceDataSetInQuery() ? this.currentDataSet() : 'None';
-    await this.getDataSet({
-      model: this.model.short_name,
-      type: dataType,
-      filename: dataSource,
-      dataSet,
+    let defaultCustomDataType;
+    // If users have uploaded custom data previously, use this
+    if (Object.keys(this.customData).length) {
+      [defaultCustomDataType] = Object.keys(this.customData);
+      // eslint-disable-next-line
+      for (const [dataType, files] of Object.entries(this.customData)) {
+        // eslint-disable-next-line
+        for (const [fileName, dataSource] of Object.entries(files)) {
+          const payload = {
+            dataSource,
+            fileName,
+            dataType,
+          };
+          this.addCustomDataSourceToIndex(payload);
+        }
+      }
+    } else {
+      [defaultCustomDataType] = Object.keys(this.filteredDataSourcesIndex);
+    }
+    this.customDataType = defaultCustomDataType;
+
+    const queryParamSources = this.validDataSourceInQuery();
+    const dataSources = queryParamSources.length
+      ? queryParamSources
+      : [this.filteredDataSourcesIndex[this.dataTypes[0].name][0].filename];
+    const queryDataSets = this.$route.query.dataSets ? this.$route.query.dataSets.split(',') : [];
+    dataSources.forEach(async (source, index) => {
+      await this.getDataSource({
+        model: this.model.short_name,
+        type: dataTypes[index],
+        filename: source,
+        propagate: false,
+        index,
+      });
+
+      const dataSet = queryDataSets[index];
+      if (this.dataSources[index].dataSets.includes(dataSet)) {
+        await this.getDataSet({
+          model: this.model.short_name,
+          type: dataTypes[index],
+          filename: dataSources[index],
+          dataSet,
+          index,
+        });
+      } else {
+        this.setDataSet({ index, dataSet: 'None' });
+      }
     });
   },
   methods: {
     ...mapActions({
       getDataSourcesIndex: 'dataOverlay/getIndex',
       setCurrentDataType: 'dataOverlay/setCurrentDataType',
+      removeDataType: 'dataOverlay/removeDataType',
+      addDataType: 'dataOverlay/addDataType',
       getDataSource: 'dataOverlay/getDataSource',
       getDataSet: 'dataOverlay/getDataSet',
-      setCustomDataSource: 'dataOverlay/setCustomDataSource',
-      setCustomDataSet: 'dataOverlay/setCustomDataSet',
+      setDataSet: 'dataOverlay/setDataSet',
+      addCustomDataSourceToIndex: 'dataOverlay/addCustomDataSourceToIndex',
+      removeCustomDataSourceFromIndex: 'dataOverlay/removeCustomDataSourceFromIndex',
     }),
-    async handleDataTypeSelect(e) {
+    async handleDataTypeSelect(e, index) {
       const payload = {
         model: this.model.short_name,
         type: e.target.value,
         propagate: true,
+        index,
       };
 
       await this.setCurrentDataType(payload);
     },
-    async handleDataSourceSelect(e) {
+    async handleDataSourceSelect(e, index) {
       const payload = {
         model: this.model.short_name,
-        type: this.dataType.name,
+        type: this.dataTypes[index].name,
         filename: e.target.value,
         propagate: true,
+        index,
       };
 
       await this.getDataSource(payload);
     },
-    async handleDataSetSelect(e) {
+    async handleDataSetSelect(e, index) {
       const payload = {
         model: this.model.short_name,
-        type: this.dataType.name,
-        filename: this.dataSource.filename,
+        type: this.dataTypes[index].name,
+        filename: this.dataSources[index].filename,
         dataSet: e.target.value,
+        index,
       };
       await this.getDataSet(payload);
     },
@@ -254,21 +336,17 @@ export default {
       this.customFileName = file.name;
       this.errorCustomFileMsg = '';
       this.customFileInfo = '';
+      this.showModal = true;
       try {
-        const dataSource = await parseFile(file);
-        this.setCustomDataSource(dataSource);
-        this.customFileInfo = `Entries found: ${dataSource.entriesCount} - Series loaded: ${dataSource.dataSets.length}`;
+        // const dataSource = await parseFile(file); // eslint-disable-line
+        this.customFile = file;
         this.showFileLoader = false;
       } catch ({ message }) {
         this.handleErrorCustomFile(message);
       }
     },
-    unloadUploadedFile() {
-      this.customFileName = '';
-      this.errorCustomFileMsg = '';
-      this.setCustomDataSource(null);
-    },
     handleErrorCustomFile(errorMsg, name) {
+      this.showModal = true;
       this.customFileName = name;
       this.errorCustomFileMsg = errorMsg;
       this.showFileLoader = false;
@@ -277,39 +355,78 @@ export default {
       return this.errorCustomFileMsg.map(m => `<p>${m}</p>`).join('');
     },
     validDataTypeInQuery() {
-      return (
-        this.$route.query.dataType &&
-        Object.keys(this.filteredDataSourcesIndex).indexOf(this.$route.query.dataType) > -1
-      );
+      const validTypes = this.$route.query.dataTypes
+        ? this.$route.query.dataTypes
+            .split(',')
+            .filter(type => Object.keys(this.filteredDataSourcesIndex).indexOf(type) > -1)
+        : [];
+      // each type allowed only once
+      return [...new Set(validTypes)];
     },
+    // dataType=bad,good&dataSource=good,good
     validDataSourceInQuery() {
-      return (
-        this.$route.query.dataSource && // eslint-disable-line operator-linebreak
-        this.dataType && // eslint-disable-line operator-linebreak
-        this.filteredDataSourcesIndex[this.dataType.name]
-          .map(e => e.filename)
-          .indexOf(this.$route.query.dataSource) > -1
-      );
+      const sources = this.$route.query.dataSources ? this.$route.query.dataSources.split(',') : [];
+      const validSources = sources.map((source, index) => {
+        const type = this.dataTypes.length > index && this.dataTypes[index].name;
+        const typeSources = type ? this.filteredDataSourcesIndex[type] : [];
+        return typeSources.some(s => s.filename === source)
+          ? source
+          : this.dataSourcesIndex[type][0].filename;
+      });
+      return validSources;
     },
     modelHasOverlayData() {
       return Object.keys(this.filteredDataSourcesIndex).length > 0;
     },
-    currentDataSet() {
-      return this.dataSet !== 'None' ? this.dataSet : this.$route.query.dataSet;
+    disable(dataType, index) {
+      const foundAt = this.dataTypes.map(x => x.name).indexOf(dataType);
+      return !(foundAt === index || foundAt === -1);
     },
-    validDataSourceDataSetInQuery() {
+    levelsDisabled(index) {
       return (
-        this.currentDataSet() && // eslint-disable-line operator-linebreak
-        this.dataSource && // eslint-disable-line operator-linebreak
-        this.dataSource.dataSets.indexOf(this.currentDataSet()) > -1
+        !this.mapName || !this.dataSources[index] || this.dataSources[index].dataSets.length === 0
       );
+    },
+    availableTypes() {
+      const busy = this.dataTypes.map(y => y.name);
+      return Object.keys(this.filteredDataSourcesIndex).filter(name => !busy.includes(name));
+    },
+    addCards() {
+      const available = this.availableTypes();
+      return available.length > 0;
+    },
+    async addOverlayCard() {
+      const available = this.availableTypes();
+      const newIndex = this.dataTypes.length;
+      await this.setCurrentDataType({
+        model: this.model.short_name,
+        type: available[0],
+        propagate: true,
+        index: newIndex,
+      });
+    },
+    disableSelect() {
+      return this.errorCustomFileMsg.length > 0;
+    },
+    async addSourceToIndex() {
+      const dataSource = await parseFile(this.customFile); // eslint-disable-line
+      const payload = {
+        dataSource,
+        fileName: this.customFile.name,
+        dataType: this.customDataType,
+      };
+      this.addCustomDataSourceToIndex(payload);
+      this.showModal = false;
+    },
+    handleCustomDataTypeSelect(e) {
+      this.customDataType = e.target.value;
     },
   },
 };
 </script>
 
 <style lang="scss">
-#fileNameBox {
+.fileNameBox {
   display: flex;
   flex-wrap: nowrap;
   > span.tag {
@@ -324,10 +441,12 @@ export default {
 }
 
 #customFileError {
-  max-height: 30%;
-  overflow-y: scroll;
   background-color: #f46036;
-  scrollbar-color: rgba(123, 123, 121, 0.8) #f46036;
   word-wrap: break-word;
+}
+#closeCard {
+  position: absolute;
+  top: 3px;
+  right: 3px;
 }
 </style>
