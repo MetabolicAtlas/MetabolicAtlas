@@ -76,9 +76,7 @@ const getters = {
           }
           return {
             topScore: v.topScore,
-            results: v.results
-              .sort((a, b) => sortResultsScore(a, b, state.searchTermString))
-              .slice(0, 10),
+            results: v.results.sort((a, b) => sortResultsScore(a, b, state.searchTermString)),
           };
         })(),
       ])
@@ -101,7 +99,7 @@ const actions = {
       version: model.apiVersion,
       searchTerm: state.searchTermString,
       model: model.apiName,
-      limit: 50,
+      limit: 10,
       a: { model, metabolitesAndGenesOnly },
     };
     const results = await searchApi.search(payload);
