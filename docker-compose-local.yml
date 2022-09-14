@@ -29,8 +29,6 @@ services:
       - ./frontend/stats.html:/project/stats.html
     networks:
       - nginx-network
-    ports:
-      - "127.0.0.1:${PORT_FRONTEND:-81}:81"
 
   neo4j:
     environment:
