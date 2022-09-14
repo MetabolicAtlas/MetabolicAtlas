@@ -130,7 +130,7 @@ export default {
         const { model, version } = { ...circle.dataset };
         const matchingModel = this.getMatchingModel(model, version);
         if (matchingModel) {
-          circle.style.fill = '#25543c'; // eslint-disable-line no-param-reassign
+          circle.classList.add('integrated');
         }
       });
     },
@@ -190,16 +190,22 @@ export default {
     svg {
       .circle {
         cursor: pointer;
-        fill: $link;
+        fill: $primary-lighter;
 
         &:hover,
         &.selected {
-          fill: $icon-interaction-partner !important;
+          fill: $warning !important;
+        }
+
+        &.integrated {
+          stroke: $primary;
+          stroke-width: 2;
         }
       }
 
       .label {
         pointer-events: none;
+        fill: $primary !important;
       }
     }
   }
