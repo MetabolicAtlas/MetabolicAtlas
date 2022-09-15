@@ -88,7 +88,7 @@ RETURN metabolites {mid: mid, .*}
 `;
   // limit is applied for CompartmentalizedMetabolite again since the number of
   // IDs for Metabolite and CompartmentalizedMetabolite together may exceed the
-  // at the first step when fethcing unique IDs
+  // at the first step when fetching unique IDs
   if (limit) {
     statement += `
 LIMIT ${limit}
