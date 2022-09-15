@@ -24,6 +24,9 @@ function build-stack {
 }
 
 function start-stack {
+  # create empty file if it does noot exist to avoid error
+  touch frontend/stats.html 
+
   docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-local.yml up --detach
   docker cp frontend:/project/yarn.lock frontend/yarn.lock
   docker cp api:/project/yarn.lock api/yarn.lock

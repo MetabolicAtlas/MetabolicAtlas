@@ -3,7 +3,7 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: ['plugin:vue/essential', 'plugin:vue/recommended', '@vue/airbnb', 'prettier'],
+  extends: ['plugin:vue/vue3-recommended', '@vue/airbnb', 'prettier'],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
@@ -17,8 +17,26 @@ module.exports = {
     'vue/v-slot-style': 'off',
     'import/no-named-default': 'off',
     'import/extensions': 'off',
+    'vuejs-accessibility/alt-text': 'off',
+    'vuejs-accessibility/anchor-has-content': 'off',
+    'vuejs-accessibility/click-events-have-key-events': 'off',
+    'vuejs-accessibility/form-control-has-label': 'off',
+    'vuejs-accessibility/interactive-supports-focus': 'off',
+    'vuejs-accessibility/label-has-for': 'off',
+    'vuejs-accessibility/mouse-events-have-key-events': 'off',
+    'vue/no-reserved-component-names': 'off',
+    'vue/no-v-text-v-html-on-component': 'off',
   },
   parserOptions: {
-    parser: 'babel-eslint',
+    parser: '@babel/eslint-parser',
+  },
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [
+          ['@', './src'],
+        ],
+      },
+    },
   },
 };

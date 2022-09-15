@@ -89,7 +89,7 @@ export default {
         (document.mozFullScreen !== undefined && !document.mozFullScreen) ||
         (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)
       ) {
-        return false;
+        return null;
       }
       return true;
     },

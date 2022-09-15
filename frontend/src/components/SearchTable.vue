@@ -47,8 +47,8 @@
           class="column is-three-fifths-desktop is-three-quarters-tablet is-fullwidth-mobile control"
         >
           Do you mean:&nbsp;
-          <template v-for="v in notFoundSuggestions">
-            <router-link :key="v" :to="{ name: 'search', query: { term: v } }">
+          <template v-for="v in notFoundSuggestions" :key="v">
+            <router-link :to="{ name: 'search', query: { term: v } }">
               <span class="suggestions">{{ v }}</span>
             </router-link>
             &nbsp;
@@ -62,7 +62,7 @@
             <li
               v-for="tab in tabs"
               :key="tab"
-              :disabled="resultsCount[tab] === 0"
+              :disabled="resultsCount[tab] === 0 || null"
               :class="[
                 { 'is-active has-text-weight-bold': showTab(tab) && resultsCount[tab] !== 0 },
                 { 'is-disabled': resultsCount[tab] === 0 },
@@ -213,15 +213,15 @@
                 style-class="vgt-table striped bordered"
                 :pagination-options="tablePaginationOpts"
               >
-                <div slot="table-actions">
+                <template #table-actions>
                   <ExportTSV
                     :arg="index"
                     class="my-1 mx-4"
                     :filename="`${searchTerm}-${header}.tsv`"
                     :format-function="formatToTSV"
                   ></ExportTSV>
-                </div>
-                <template slot="table-row" slot-scope="props">
+                </template>
+                <template #table-row="props">
                   <!-- eslint-disable max-len -->
                   <template v-if="props.column.field === 'model'">
                     {{ props.formattedRow[props.column.field].name }}
@@ -316,10 +316,10 @@
 <script>
 import { mapGetters, mapState } from 'vuex';
 import $ from 'jquery';
-import { VueGoodTable } from 'vue-good-table';
-import Loader from '@/components/Loader';
-import ExportTSV from '@/components/shared/ExportTSV';
-import 'vue-good-table/dist/vue-good-table.css';
+import 'vue-good-table-next/dist/vue-good-table-next.css';
+import { VueGoodTable } from 'vue-good-table-next';
+import Loader from '@/components/Loader.vue';
+import ExportTSV from '@/components/shared/ExportTSV.vue';
 import { default as chemicalFormula } from '@/helpers/chemical-formatters';
 import { sortResultsScore } from '@/helpers/utils';
 import { default as messages } from '@/content/messages';
@@ -610,6 +610,8 @@ export default {
       models: 'models/models',
     }),
   },
+  // the following two navigation guards are ignored
+  // see: https://router.vuejs.org/guide/migration/index.html#navigation-guards-in-mixins-are-ignored
   // eslint-disable-next-line no-unused-vars
   beforeRouteEnter(to, from, next) {
     next(vm => {

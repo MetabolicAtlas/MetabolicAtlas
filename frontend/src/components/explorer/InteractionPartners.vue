@@ -175,7 +175,7 @@
                   </span>
                 </div>
                 <div v-show="showGraphLegend" id="contextGraphLegend" ref="contextGraphLegend">
-                  <button class="delete" @click="toggleGraphLegend"></button>
+                  <button type="button" class="delete" @click="toggleGraphLegend"></button>
                   <span class="label">Gene</span>
                   <div class="comp">
                     <span>Shape:</span>
@@ -285,7 +285,7 @@
                     <div class="select is-fullwidth">
                       <select
                         v-model="compartmentHL"
-                        :disabled="disableCompartmentHL"
+                        :disabled="disableCompartmentHL || null"
                         @change.prevent="highlightCompartment"
                       >
                         <option v-if="!disableCompartmentHL" value="" disabled>
@@ -322,7 +322,7 @@
             :is-graph-visible="showNetworkGraph"
             :filename="filename"
             @highlight="highlightNode($event)"
-            @HLreaction="highlightReaction($event)"
+            @h-l-reaction="highlightReaction($event)"
           ></cytoscape-table>
         </template>
       </div>
@@ -335,15 +335,15 @@ import { mapGetters, mapActions, mapState } from 'vuex';
 import cytoscape from 'cytoscape';
 import jquery from 'jquery';
 import cola from 'cytoscape-cola';
-import { Compact } from 'vue-color';
+import { Compact } from '@ckpack/vue-color';
 import { default as FileSaver } from 'file-saver';
 
-import Sidebar from '@/components/explorer/interactionPartners/Sidebar';
-import CytoscapeTable from '@/components/explorer/interactionPartners/CytoscapeTable';
-import Loader from '@/components/Loader';
-import NotFound from '@/components/NotFound';
-import Tile from '@/components/explorer/gemBrowser/Tile';
-import DataOverlay from '@/components/explorer/mapViewer/DataOverlay';
+import Sidebar from '@/components/explorer/interactionPartners/Sidebar.vue';
+import CytoscapeTable from '@/components/explorer/interactionPartners/CytoscapeTable.vue';
+import Loader from '@/components/Loader.vue';
+import NotFound from '@/components/NotFound.vue';
+import Tile from '@/components/explorer/gemBrowser/Tile.vue';
+import DataOverlay from '@/components/explorer/mapViewer/DataOverlay.vue';
 
 import { default as transform } from '@/data-mappers/hmr-closest-interaction-partners';
 import { default as changeGraphStyle } from '@/graph-stylers/hmr-closest-interaction-partners';
@@ -1177,15 +1177,14 @@ export default {
     min-width: 240px;
   }
 
-  .fade-enter-active {
-    transition: opacity 0.5s ease;
-  }
-  .fade-leave-active {
-    transition: opacity 0.5s cubic-bezier(1, 0.5, 0.8, 1);
-  }
-  .fade-enter,
-  .fade-leave-active {
+  .fade-enter-from,
+  .fade-leave-to {
     opacity: 0;
+  }
+
+  .fade-leave-from,
+  .fade-enter-to {
+    transition: opacity 0.5s ease;
   }
 }
 </style>

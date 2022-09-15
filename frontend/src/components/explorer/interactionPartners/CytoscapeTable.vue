@@ -44,8 +44,8 @@
                 </th>
               </tr>
             </thead>
-            <template v-for="tb in tableBodies">
-              <tbody :id="tb.id" :ref="tb.id" :key="tb.id">
+            <template v-for="tb in tableBodies" :key="tb.id">
+              <tbody :id="tb.id" :ref="tb.id">
                 <tr v-for="r in tb.reactions" :key="r.id">
                   <td v-for="s in columns" :key="s.field">
                     <template v-if="s.field === 'id'">
@@ -88,8 +88,8 @@
 </template>
 
 <script>
-import CompartmentLinks from '@/components/shared/CompartmentLinks';
-import ExportTSV from '@/components/shared/ExportTSV';
+import CompartmentLinks from '@/components/shared/CompartmentLinks.vue';
+import ExportTSV from '@/components/shared/ExportTSV.vue';
 import { default as compare } from '@/helpers/compare';
 
 export default {
@@ -105,6 +105,7 @@ export default {
     isGraphVisible: Boolean,
     filename: String,
   },
+  emits: ['highlight', 'HLreaction'],
   data() {
     return {
       columns: [

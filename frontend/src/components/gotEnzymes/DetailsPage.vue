@@ -43,10 +43,10 @@
 
 <script>
 import { mapState } from 'vuex';
-import Loader from '@/components/Loader';
-import ExtIdTable from '@/components/explorer/gemBrowser/ExtIdTable';
-import EnzymesTable from '@/components/gotEnzymes/EnzymesTable';
-import RDKitImage from '@/components/shared/RDKitImage';
+import Loader from '@/components/Loader.vue';
+import ExtIdTable from '@/components/explorer/gemBrowser/ExtIdTable.vue';
+import EnzymesTable from '@/components/gotEnzymes/EnzymesTable.vue';
+import RDKitImage from '@/components/shared/RDKitImage.vue';
 
 export default {
   name: 'DetailsPage',

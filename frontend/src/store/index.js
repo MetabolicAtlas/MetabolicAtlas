@@ -1,5 +1,4 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { createStore } from 'vuex';
 import models from './modules/models';
 import browserTiles from './modules/browserTiles';
 import gems from './modules/gems';
@@ -17,9 +16,7 @@ import externalDb from './modules/idInModels';
 import dataOverlay from './modules/dataOverlay';
 import gotEnzymes from './modules/gotEnzymes';
 
-Vue.use(Vuex);
-
-export default new Vuex.Store({
+const store = createStore({
   modules: {
     models,
     browserTiles,
@@ -39,3 +36,5 @@ export default new Vuex.Store({
     gotEnzymes,
   },
 });
+
+export default store;

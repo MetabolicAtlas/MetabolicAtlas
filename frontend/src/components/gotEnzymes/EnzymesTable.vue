@@ -6,7 +6,7 @@
         <ExportTSV
           :filename="`Enzymes for ${componentType} ${componentId}.tsv`"
           :format-function="formatToTSV"
-          :disabled="showEnzymesLoader"
+          :disabled="showEnzymesLoader || null"
         ></ExportTSV>
       </div>
     </div>
@@ -19,23 +19,23 @@
       :pagination-options="tablePaginationOptions"
       :is-loading="showEnzymesLoader"
       :total-rows="totalRows"
-      @on-page-change="onPageChange"
-      @on-sort-change="onSortChange"
-      @on-column-filter="onColumnFilter"
+      @page-change="onPageChange"
+      @sort-change="onSortChange"
+      @column-filter="onColumnFilter"
     >
-      <div slot="emptyState">
+      <template #emptystate>
         <div class="vgt-center-align vgt-text-disabled">No data found</div>
-      </div>
-      <template slot="loadingContent">
+      </template>
+      <template #loadingContent>
         <div>
           <loader /></div
       ></template>
-      <template slot="table-row" slot-scope="props">
+      <template #table-row="props">
         <template v-if="linkableFields.includes(props.column.field)">
           <template v-if="props.column.field === 'ec_number'">
-            <template v-for="(ec, index) in props.row[props.column.field].split(';')">
+            <template v-for="(ec, index) in props.row[props.column.field].split(';')" :key="ec">
               <template v-if="index > 0">; </template>
-              <router-link :key="ec" :to="`/gotenzymes/ec/${ec}`">
+              <router-link :to="`/gotenzymes/ec/${ec}`">
                 {{ ec }}
               </router-link>
             </template>
@@ -51,7 +51,7 @@
           {{ props.formattedRow[props.column.field] }}
         </template>
       </template>
-      <template slot="column-filter" slot-scope="props">
+      <template #column-filter="props">
         <range-filter
           v-if="props.column.filterOptions.customFilter"
           :field="props.column.field"
@@ -64,10 +64,11 @@
 
 <script>
 import { mapState } from 'vuex';
-import Loader from '@/components/Loader';
-import { VueGoodTable } from 'vue-good-table';
-import ExportTSV from '@/components/shared/ExportTSV';
-import RangeFilter from '@/components/shared/RangeFilter';
+import 'vue-good-table-next/dist/vue-good-table-next.css';
+import { VueGoodTable } from 'vue-good-table-next';
+import Loader from '@/components/Loader.vue';
+import ExportTSV from '@/components/shared/ExportTSV.vue';
+import RangeFilter from '@/components/shared/RangeFilter.vue';
 
 export default {
   name: 'EnzymesTable',

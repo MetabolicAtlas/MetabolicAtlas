@@ -6,16 +6,17 @@
       title="Click to see larger image"
       @click="handleClick"
     >
-      <loader v-if="loading" />
+      <loader v-show="loading" />
     </div>
-    <Modal :show-modal.sync="showLargeImage">
+    <Modal v-model:show-modal="showLargeImage">
       <div id="rdkit-modal-img-wrapper" />
-      <loader v-if="loading" />
+      <loader v-show="loading" />
     </Modal>
   </div>
 </template>
 
 <script>
+// import { toRaw } from 'vue';
 import Loader from '@/components/Loader.vue';
 import Modal from '@/components/shared/Modal.vue';
 
@@ -48,7 +49,7 @@ export default {
   },
   async mounted() {
     const RDKit = await window.initRDKitModule();
-    this.mol = RDKit.get_mol(this.smiles);
+    this.mol = Object.freeze(RDKit.get_mol(this.smiles));
     this.renderMolecule({ id: 'rdkit-img-wrapper' });
   },
   methods: {

@@ -1,6 +1,4 @@
-import Vue from 'vue';
-
-export default function (c, reactions, relms, rrels, rcomp, rsub) {
+export default (c, reactions, relms, rrels, rcomp, rsub) => {
   /* eslint-disable no-param-reassign */
   const elms = relms || {};
   const rels = rrels || {};
@@ -77,7 +75,7 @@ export default function (c, reactions, relms, rrels, rcomp, rsub) {
     Object.keys(mods).forEach(eid => {
       const e = mods[eid];
       if (!(eid in elms)) {
-        Vue.set(elms, eid, e);
+        elms[eid] = e;
       } else {
         elms[eid].reaction.add(...e.reaction);
         elms[eid].subsystem.add(...e.subsystem);
@@ -93,7 +91,7 @@ export default function (c, reactions, relms, rrels, rcomp, rsub) {
     Object.keys(mets).forEach(mid => {
       const m = mets[mid];
       if (!(mid in elms)) {
-        Vue.set(elms, mid, m);
+        elms[mid] = m;
       } else {
         elms[mid].reaction.add(...m.reaction);
         elms[mid].subsystem.add(...m.subsystem);
@@ -218,4 +216,4 @@ export default function (c, reactions, relms, rrels, rcomp, rsub) {
     });
   });
   return [elms, rels, Array.from(compartmentSet), Array.from(subsystemSet)];
-}
+};

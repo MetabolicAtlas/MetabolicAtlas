@@ -1,16 +1,16 @@
 <template>
   <span>
-    <a :disabled="disabled" class="button is-primary is-outlined" @click="exportToTSV">
+    <a :disabled="disabled || null" class="button is-primary is-outlined" @click="exportToTSV">
       <span class="icon is-large"><i class="fa fa-download"></i></span>
       <span>Export to TSV</span>
     </a>
-    <ErrorPanel :message="errorMessage" @hideErrorPanel="errorMessage = ''" />
+    <ErrorPanel :message="errorMessage" :hide-error-panel="(errorMessage = '')" />
   </span>
 </template>
 
 <script>
 import { default as FileSaver } from 'file-saver';
-import ErrorPanel from '@/components/shared/ErrorPanel';
+import ErrorPanel from '@/components/shared/ErrorPanel.vue';
 import { default as messages } from '@/content/messages';
 
 export default {

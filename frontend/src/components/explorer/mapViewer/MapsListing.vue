@@ -57,8 +57,8 @@ export default {
   methods: {
     changeToMap(newMapId) {
       mobileScrollToTop();
-      const oldMapId = this.$router.currentRoute.params.map_id;
-      const oldDim = this.$router.currentRoute.query.dim;
+      const oldMapId = this.$route.params.map_id;
+      const oldDim = this.$route.query.dim;
       const newDim = this.showing2D ? '2d' : '3d';
       if (oldMapId !== newMapId || oldDim !== newDim) {
         this.$router.push({ params: { map_id: newMapId }, query: { dim: newDim } });

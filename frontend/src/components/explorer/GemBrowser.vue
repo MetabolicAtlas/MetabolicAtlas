@@ -85,7 +85,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import Tile from '@/components/explorer/gemBrowser/Tile';
+import Tile from '@/components/explorer/gemBrowser/Tile.vue';
 import { default as messages } from '@/content/messages';
 
 export default {

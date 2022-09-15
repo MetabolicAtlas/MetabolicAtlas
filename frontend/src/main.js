@@ -1,10 +1,11 @@
-import Vue from 'vue';
+import { createApp } from 'vue';
+import { createHead } from '@vueuse/head';
 import VueMatomo from 'vue-matomo';
-import VueMeta from 'vue-meta';
+import VueCookies from 'vue-cookies';
 import axios from 'axios';
-import vueDebounce from 'vue-debounce';
+import { vue3Debounce } from 'vue-debounce';
 import NProgress from 'nprogress';
-import App from '@/App';
+import App from '@/App.vue';
 import router from '@/router';
 import store from './store';
 import linkHandlerMixin from './mixins/linkHandler';
@@ -15,26 +16,25 @@ axios.defaults.onDownloadProgress = function onDownloadProgress(progressEvent) {
   NProgress.set(percentCompleted / 100.0);
 };
 
-Vue.use(vueDebounce, {
-  listenTo: 'input',
-});
+const app = createApp(App);
+app.use(store);
+app.use(VueCookies);
+
+const head = createHead();
+app.use(head);
+
+app.use(router);
+
+app.directive('debounce', vue3Debounce({ lock: true }));
 
 if (navigator.doNotTrack !== '1') {
-  Vue.use(VueMatomo, {
+  app.use(VueMatomo, {
     host: 'https://csbi.chalmers.se/',
-    siteId: process.env.VUE_APP_MATOMOID,
+    siteId: import.meta.env.VITE_VUE_APP_MATOMOID,
     router,
   });
 }
 
-Vue.mixin(linkHandlerMixin);
+app.mixin(linkHandlerMixin);
 
-Vue.use(VueMeta);
-
-// eslint-disable-next-line no-new
-new Vue({
-  el: '#app',
-  router,
-  store,
-  render: h => h(App),
-});
+app.mount('#app');

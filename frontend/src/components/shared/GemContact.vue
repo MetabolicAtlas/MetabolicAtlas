@@ -14,7 +14,9 @@
         <a :href="`mailto:${model.email}?subject=Issue on ${type} ${id}`">via email</a>
         <template v-if="model.chat_link">
           or
-          <a :href="model.chat_link" target="_blank">via public chat (faster)</a>
+          <a :href="model.chat_link" target="_blank" rel="noopener noreferrer"
+            >via public chat (faster)</a
+          >
         </template>
         .
       </div>

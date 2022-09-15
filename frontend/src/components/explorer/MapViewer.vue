@@ -8,10 +8,10 @@
       </template>
       <template v-else>
         <MissingReactionModal
+          v-model:show-modal="showModal"
           :current-map="currentMap"
           :missing-reaction-list="missingReactionList"
           :map-reaction-list="mapReactionList"
-          :show-modal.sync="showModal"
         />
         <div
           id="mapSidebar"
@@ -31,11 +31,12 @@
               <button
                 v-for="dim in [true, false]"
                 :key="dim"
+                type="button"
                 class="button m-0"
                 :class="
                   dim === showing2D ? 'is-selected is-primary has-text-weight-bold' : 'is-light'
                 "
-                :disabled="!avail2D || (currentMap && currentMap.type === 'custom')"
+                :disabled="!avail2D || (currentMap && currentMap.type === 'custom') || null"
               >
                 <span v-if="dim === showing2D" class="icon">
                   <i class="fa fa-check-square-o"></i>
@@ -46,12 +47,12 @@
             </div>
             <SidebarDataPanels
               ref="sidebarDataPanels"
+              v-model:show-modal="showModal"
               :dim="dimensionalState(showing2D)"
               :current-map="currentMap"
               :selection-data="selectionData"
-              :show-modal.sync="showModal"
               :missing-reaction-list="missingReactionList"
-              @openSelectionCardContent="resetSidebarLayout"
+              @open-selection-card-content="resetSidebarLayout"
             />
           </div>
           <div class="padding-mobile">
@@ -86,16 +87,19 @@
           <Svgmap
             v-if="showing2D"
             :map-data="currentMap"
-            @unSelect="unSelect"
-            @updatePanelSelectionData="updatePanelSelectionData"
+            @un-select="unSelect"
+            @update-panel-selection-data="updatePanelSelectionData"
           ></Svgmap>
           <ThreeDViewer
             v-if="!showing2D"
             :current-map="currentMap"
-            @unSelect="unSelect"
-            @updatePanelSelectionData="updatePanelSelectionData"
+            @un-select="unSelect"
+            @update-panel-selection-data="updatePanelSelectionData"
           />
-          <ErrorPanel :message="loadMapErrorMessage" @hideErrorPanel="loadMapErrorMessage = ''" />
+          <ErrorPanel
+            :message="loadMapErrorMessage"
+            :hide-error-panel="(loadMapErrorMessage = '')"
+          />
         </div>
         <div
           id="dataOverlayBar"
@@ -147,13 +151,13 @@
 import { mapGetters, mapActions, mapState } from 'vuex';
 import { debounce } from 'vue-debounce';
 import DataOverlay from '@/components/explorer/mapViewer/DataOverlay.vue';
-import ErrorPanel from '@/components/shared/ErrorPanel';
+import ErrorPanel from '@/components/shared/ErrorPanel.vue';
 import MapsListing from '@/components/explorer/mapViewer/MapsListing.vue';
 import MissingReactionModal from '@/components/explorer/mapViewer/MissingReactionModal.vue';
-import NotFound from '@/components/NotFound';
+import NotFound from '@/components/NotFound.vue';
 import SidebarDataPanels from '@/components/explorer/mapViewer/SidebarDataPanels.vue';
-import Svgmap from '@/components/explorer/mapViewer/Svgmap';
-import ThreeDViewer from '@/components/explorer/mapViewer/ThreeDviewer';
+import Svgmap from '@/components/explorer/mapViewer/Svgmap.vue';
+import ThreeDViewer from '@/components/explorer/mapViewer/ThreeDviewer.vue';
 import { default as messages } from '@/content/messages';
 
 export default {
@@ -211,8 +215,8 @@ export default {
   },
   watch: {
     '$route.params': 'loadMapFromParams',
-    queryParams(newQuery, oldQuery) {
-      this.handleQueryParamsWatch(newQuery, oldQuery);
+    async queryParams(newQuery, oldQuery) {
+      await this.handleQueryParamsWatch(newQuery, oldQuery);
     },
   },
   async created() {
@@ -251,14 +255,14 @@ export default {
       return showing2D ? '2d' : '3d';
     },
     // eslint-disable-next-line no-unused-vars
-    handleQueryParamsWatch(newQuery, oldQuery) {
+    async handleQueryParamsWatch(newQuery, oldQuery) {
       if (!newQuery) {
         return;
       }
 
       if (newQuery && !this.$route.params.map_id) {
-        const payload = [{}, null, `${this.$route.path}?dim=${newQuery.dim}`];
-        history.replaceState(...payload); // eslint-disable-line no-restricted-globals
+        const url = `${this.$route.path}?dim=${newQuery.dim}`;
+        history.replaceState(history.state, '', url); // eslint-disable-line no-restricted-globals
         return;
       }
 
@@ -268,8 +272,8 @@ export default {
 
       if (newQuery.dim === this.$route.query.dim || (newQuery.dim && !this.$route.query.dim)) {
         // if Map viewer (2D or 3D) is not changed, keep the url path
-        const payload = [{}, null, `${this.$route.path}?${queryString}`];
-        history.replaceState(...payload); // eslint-disable-line no-restricted-globals
+        const url = `${this.$route.path}?${queryString}`;
+        history.replaceState(history.state, '', url); // eslint-disable-line no-restricted-globals
       } else {
         let urlPath = `${this.$route.path}`;
         if (this.currentMap.mapReactionIdSet.length > 1) {
@@ -284,8 +288,9 @@ export default {
             urlPath = urlPath.replace(new RegExp(this.$route.params.map_id), this.currentMap.id);
           }
         }
-        const payload = [{}, null, `${urlPath}?${queryString}`];
-        history.pushState(...payload); // eslint-disable-line no-restricted-globals
+        const url = `${urlPath}?${queryString}`;
+        await this.$router.push(url);
+        history.replaceState(history.state, ''); // eslint-disable-line no-restricted-globals
       }
     },
     loadMapFromParams() {
@@ -328,7 +333,7 @@ export default {
     setMapReactionList() {
       let mapReactionIdList = [];
       this.currentMap.mapReactionIdSet.forEach(map => {
-        mapReactionIdList = [...mapReactionIdList, ...map.mapReactionIdSet];
+        mapReactionIdList = [...mapReactionIdList, ...(map.mapReactionIdSet || [])];
       });
       this.mapReactionList = mapReactionIdList;
     },

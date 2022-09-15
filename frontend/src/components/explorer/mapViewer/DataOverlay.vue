@@ -21,8 +21,8 @@
       </span>
     </div>
     <DataOverlayValidation
-      @getFileName="getFileName($event)"
-      @errorCustomFile="handleErrorCustomFile"
+      @get-file-name="getFileName($event)"
+      @error-custom-file="handleErrorCustomFile"
     />
     <div v-for="[dataType, files] in Object.entries(customData)" :key="dataType" class="mb-0">
       <div v-if="Object.keys(filteredDataSourcesIndex).includes(dataType)">
@@ -43,7 +43,7 @@
         </div>
       </div>
     </div>
-    <Modal :show-modal.sync="showModal" size="small">
+    <Modal v-model:showModal="showModal" size="small">
       <div class="control">
         <p>Select data type</p>
         <div v-if="dataTypes.length" class="select is-fullwidth m-1">
@@ -67,7 +67,7 @@
         ></div>
       </div>
       <div v-else class="mt-2 is-flex is-justify-content-center">
-        <button class="button is-primary" @click="addSourceToIndex">Upload</button>
+        <button type="button" class="button is-primary" @click="addSourceToIndex">Upload</button>
       </div>
     </Modal>
     <div v-for="(chosenType, index) in filteredDataTypes" :key="index">
@@ -118,7 +118,7 @@
               <div v-if="dataSources.length > index" class="control">
                 <p>
                   Values from
-                  <a :href="dataSources[index].link" target="_blank">{{
+                  <a :href="dataSources[index].link" target="_blank" rel="noopener noreferrer">{{
                     dataSources[index].name
                   }}</a>
                 </p>
@@ -150,7 +150,9 @@
       :title="addCards() ? '' : 'No more data types available for this model'"
     >
       <span class="has-nowrap">
-        <button class="button" :disabled="!addCards()" @click="addOverlayCard">Add overlay</button>
+        <button type="button" class="button" :disabled="!addCards()" @click="addOverlayCard">
+          Add overlay
+        </button>
       </span>
     </div>
     <RNALegend class="my-3" />
@@ -425,7 +427,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .fileNameBox {
   display: flex;
   flex-wrap: nowrap;

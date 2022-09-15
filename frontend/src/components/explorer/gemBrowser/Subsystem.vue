@@ -1,8 +1,8 @@
 <template>
   <component-layout
     component-type="subsystem"
-    :component-name="info.name"
-    :external-dbs="info.externalDbs"
+    :component-name="info && info.name"
+    :external-dbs="info && info.externalDbs"
     query-component-action="subsystems/getSubsystemSummary"
   >
     <template v-slot:table>
@@ -26,8 +26,8 @@
           <td class="td-key has-background-primary has-text-white-bis">Compartments</td>
           <td>
             <div class="tags">
-              <template v-for="c in info['compartments']">
-                <span :key="c.id" class="tag">
+              <template v-for="c in info['compartments']" :key="c.id">
+                <span class="tag">
                   <!-- eslint-disable-next-line max-len -->
                   <router-link
                     :to="{ name: 'compartment', params: { model: model.short_name, id: c.id } }"
@@ -47,7 +47,7 @@
               v-if="!showFullMetabolite && metabolites.length > displayedMetabolite"
               class="mt-5"
             >
-              <button class="is-small button" @click="showFullMetabolite = true">
+              <button type="button" class="is-small button" @click="showFullMetabolite = true">
                 ... and {{ metabolites.length - displayedMetabolite }} more
               </button>
               <span
@@ -64,7 +64,7 @@
           <td>
             <div v-html="genesListHtml"></div>
             <div v-if="!showFullGene && genes.length > displayedGene" class="mt-5">
-              <button class="is-small button" @click="showFullGene = true">
+              <button type="button" class="is-small button" @click="showFullGene = true">
                 ... and {{ genes.length - displayedGene }} more
               </button>
               <span
@@ -82,8 +82,11 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
-import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout';
+import { computed, ref } from 'vue';
+import { useStore } from 'vuex';
+import { useHead } from '@vueuse/head';
+import { useRoute } from 'vue-router';
+import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout.vue';
 import {
   buildCustomLink,
   generateSocialMetaTags,
@@ -96,45 +99,73 @@ export default {
   components: {
     ComponentLayout,
   },
-  data() {
-    return {
-      sName: this.$route.params.id,
-      mainTableKey: [{ name: 'name', display: 'Name' }],
-      showFullMetabolite: false,
-      showFullGene: false,
-      displayedMetabolite: 40,
-      displayedGene: 40,
-    };
-  },
-  metaInfo() {
-    if (!this.model || !this.info.name) {
-      return {};
-    }
+  setup() {
+    const store = useStore();
+    const route = useRoute();
 
-    const [compartments, compartmentLabel] = combineWords({
-      items: this.info.compartments.map(c => c.name),
-      itemType: 'compartment',
+    const sName = ref(route.params.id);
+    const mainTableKey = [{ name: 'name', display: 'Name' }];
+    const showFullMetabolite = ref(false);
+    const showFullGene = ref(false);
+    const displayedMetabolite = 40;
+    const displayedGene = 40;
+
+    const model = computed(() => store.state.models.model);
+    const info = computed(() => store.getters['subsystems/info']);
+    const metabolites = computed(() => store.getters['subsystems/metabolites']);
+    const genes = computed(() => store.getters['subsystems/genes']);
+    const limitMetabolite = computed(() => store.getters['subsystems/limitMetabolite']);
+    const limitGene = computed(() => store.getters['subsystems/limitGene']);
+
+    const [compartments, compartmentLabel] = computed(() =>
+      combineWords({
+        items:
+          info.value && info.value.compartments ? info.value.compartments.map(c => c.name) : [],
+        itemType: 'compartment',
+      })
+    ).value;
+
+    const title = computed(
+      () =>
+        `${info.value && info.value.name}, Subsystem in ${model.value && model.value.short_name}`
+    );
+    const description = computed(
+      () => `The subsystem ${info.value && info.value.name} in
+    ${model.value && model.value.short_name} (version
+    ${
+      model.value && model.value.version
+    }) can be found in the ${compartmentLabel} ${compartments}; and contains
+    ${metabolites.value.length} metabolites and ${genes.value.length} genes.`
+    );
+
+    const meta = computed(() =>
+      generateSocialMetaTags({
+        title: title.value,
+        description: description.value,
+      })
+    );
+
+    useHead({
+      title,
+      meta,
     });
 
-    const title = `${this.info.name}, Subsystem in ${this.model.short_name}`;
-    const description = `The subsystem ${this.info.name} in ${this.model.short_name} (version ${this.model.version}) can be found in the ${compartmentLabel} ${compartments}; and contains ${this.metabolites.length} metabolites and ${this.genes.length} genes.`;
-
     return {
-      title,
-      meta: generateSocialMetaTags({ title, description }),
+      sName,
+      mainTableKey,
+      showFullMetabolite,
+      showFullGene,
+      displayedMetabolite,
+      displayedGene,
+      model,
+      info,
+      metabolites,
+      genes,
+      limitMetabolite,
+      limitGene,
     };
   },
   computed: {
-    ...mapState({
-      model: state => state.models.model,
-    }),
-    ...mapGetters({
-      info: 'subsystems/info',
-      metabolites: 'subsystems/metabolites',
-      genes: 'subsystems/genes',
-      limitMetabolite: 'subsystems/limitMetabolite',
-      limitGene: 'subsystems/limitGene',
-    }),
     metabolitesListHtml() {
       const l = ['<span class="tags">'];
       const metsSorted = [...this.metabolites].sort((a, b) => (a.name < b.name ? -1 : 1));

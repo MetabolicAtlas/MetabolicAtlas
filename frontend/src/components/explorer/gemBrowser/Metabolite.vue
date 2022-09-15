@@ -1,16 +1,16 @@
 <template>
   <component-layout
     component-type="metabolite"
-    :component-name="metabolite.name"
+    :component-name="metabolite && metabolite.name"
     :compartment-name="metabolite && metabolite.compartment ? metabolite.compartment.name : ''"
-    :external-dbs="metabolite.externalDbs"
+    :external-dbs="metabolite && metabolite.externalDbs"
     query-component-action="metabolites/getMetaboliteData"
     :interaction-partner="true"
-    :viewer-selected-i-d="metabolite.id"
-    :related-met-count="relatedMetabolites.length"
+    :viewer-selected-i-d="metabolite && metabolite.id"
+    :related-met-count="relatedMetabolites && relatedMetabolites.length"
     :is-metabolite="true"
     :selected-elm-id="true"
-    @handleCallback="handleCallback"
+    :handle-callback="handleCallback"
   >
     <template v-slot:table>
       <table v-if="metabolite" class="table main-table is-fullwidth">
@@ -67,7 +67,7 @@
     </template>
     <template v-slot:rdkit-img>
       <div
-        v-if="metabolite.smiles"
+        v-if="metabolite && metabolite.smiles"
         class="column is-3-widescreen is-2-desktop is-full-tablet has-text-centered px-2"
       >
         <RDKitImage :smiles="metabolite.smiles" />
@@ -77,11 +77,14 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout';
+import { computed, ref } from 'vue';
+import { useStore } from 'vuex';
+import { useHead } from '@vueuse/head';
+import { useRoute } from 'vue-router';
+import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout.vue';
+import RDKitImage from '@/components/shared/RDKitImage.vue';
 import { default as chemicalFormula } from '@/helpers/chemical-formatters';
 import { generateSocialMetaTags, reformatTableKey, combineWords } from '@/helpers/utils';
-import RDKitImage from '@/components/shared/RDKitImage';
 
 export default {
   name: 'Metabolite',
@@ -89,65 +92,87 @@ export default {
     ComponentLayout,
     RDKitImage,
   },
-  data() {
-    return {
-      metaboliteId: this.$route.params.id,
-      mainTableKey: [
-        { name: 'id' },
-        { name: 'name' },
-        { name: 'alternateName', display: 'Alternate name' },
-        { name: 'synonyms' },
-        { name: 'description' },
-        { name: 'formula' },
-        { name: 'charge' },
-        { name: 'inchi', display: 'InChI' },
-        { name: 'compartment' },
-      ],
-      activePanel: 'table',
-    };
-  },
-  computed: {
-    ...mapState({
-      model: state => state.models.model,
-      metabolite: state => state.metabolites.metabolite,
-      relatedMetabolites: state => state.metabolites.relatedMetabolites,
-    }),
-  },
-  metaInfo() {
-    if (!this.model || !this.metabolite.name) {
-      return {};
-    }
+  setup() {
+    const store = useStore();
+    const route = useRoute();
 
-    const [compartments, compartmentLabel] = combineWords({
-      items: this.metabolite.compartments.map(c => c.name),
-      itemType: 'compartment',
-    });
+    const metaboliteId = ref(route.params.id);
+    const mainTableKey = [
+      { name: 'id' },
+      { name: 'name' },
+      { name: 'alternateName', display: 'Alternate name' },
+      { name: 'synonyms' },
+      { name: 'description' },
+      { name: 'formula' },
+      { name: 'charge' },
+      { name: 'inchi', display: 'InChI' },
+      { name: 'compartment' },
+    ];
+    const activePanel = 'table';
+    const model = computed(() => store.state.models.model);
+    const metabolite = computed(() => store.state.metabolites.metabolite);
+    const relatedMetabolites = computed(() => store.state.metabolites.relatedMetabolites);
 
-    const [subsystems, subsystemLabel] = combineWords({
-      items: this.metabolite.subsystems.map(s => s.name),
-      itemType: 'subsystem',
-    });
+    const [compartments, compartmentLabel] = computed(() =>
+      combineWords({
+        items: metabolite.value.compartments ? metabolite.value.compartments.map(c => c.name) : [],
+        itemType: 'compartment',
+      })
+    ).value;
 
-    const title = `${this.metabolite.name}, Metabolite in ${this.model.short_name}`;
-    const description = `The metabolite ${this.metabolite.name} in ${this.model.short_name} (version ${this.model.version}) can be found in the ${compartmentLabel} ${compartments}; and the ${subsystemLabel} ${subsystems}.`;
+    const [subsystems, subsystemLabel] = computed(() =>
+      combineWords({
+        items: metabolite.value.subsystems ? metabolite.value.subsystems.map(s => s.name) : [],
+        itemType: 'subsystem',
+      })
+    ).value;
 
-    return {
+    const title = computed(
+      () => `${metabolite.value.name}, Metabolite in
+    ${model.value && model.value.short_name}`
+    );
+    const description = computed(
+      () => `The metabolite ${metabolite.value.name} in
+    ${model.value && model.value.short_name} (version ${
+        model.value && model.value.version
+      }) can be found in the ${compartmentLabel}
+    ${compartments}; and the ${subsystemLabel} ${subsystems}.`
+    );
+    const meta = computed(() =>
+      generateSocialMetaTags({
+        title: title.value,
+        description: description.value,
+      })
+    );
+
+    const script = computed(() => [
+      {
+        type: 'application/ld+json',
+        children: JSON.stringify({
+          '@context': 'http://schema.org',
+          '@id': `https://metabolicatlas.org/explore/Human-GEM/gem-browser/metabolite/${metabolite.value.id}`,
+          '@type': 'MolecularEntity',
+          'dct:conformsTo': 'https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE',
+          identifier: metabolite.value.id,
+          name: metabolite.value.name,
+          url: `https://metabolicatlas.org/explore/Human-GEM/gem-browser/metabolite/${metabolite.value.id}`,
+        }),
+      },
+    ]);
+
+    useHead({
       title,
-      meta: generateSocialMetaTags({ title, description }),
-      script: [
-        {
-          type: 'application/ld+json',
-          json: {
-            '@context': 'http://schema.org',
-            '@id': `https://metabolicatlas.org/explore/Human-GEM/gem-browser/metabolite/${this.metabolite.id}`,
-            '@type': 'MolecularEntity',
-            'dct:conformsTo': 'https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE',
-            identifier: this.metabolite.id,
-            name: this.metabolite.name,
-            url: `https://metabolicatlas.org/explore/Human-GEM/gem-browser/metabolite/${this.metabolite.id}`,
-          },
-        },
-      ],
+      meta,
+      script,
+    });
+
+    return {
+      metaboliteId,
+      mainTableKey,
+      activePanel,
+      model,
+      metabolite,
+      relatedMetabolites,
     };
   },
   methods: {

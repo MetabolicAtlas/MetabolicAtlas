@@ -29,9 +29,9 @@
       ref="mapsearch"
       :matches="searchedNodesOnMap"
       :fullscreen="isFullscreen"
-      @searchOnMap="searchIDsOnMap"
-      @centerViewOn="centerElementOnSVG"
-      @unHighlightAll="unHighlight"
+      @search-on-map="searchIDsOnMap"
+      @center-view-on="centerElementOnSVG"
+      @un-highlight-all="unHighlight"
     />
   </div>
 </template>
@@ -42,9 +42,9 @@ import $ from 'jquery';
 import Panzoom from '@panzoom/panzoom';
 import { default as FileSaver } from 'file-saver';
 import { debounce } from 'vue-debounce';
-import MapControls from '@/components/explorer/mapViewer/MapControls';
-import MapLoader from '@/components/explorer/mapViewer/MapLoader';
-import MapSearch from '@/components/explorer/mapViewer/MapSearch';
+import MapControls from '@/components/explorer/mapViewer/MapControls.vue';
+import MapLoader from '@/components/explorer/mapViewer/MapLoader.vue';
+import MapSearch from '@/components/explorer/mapViewer/MapSearch.vue';
 import { default as messages } from '@/content/messages';
 import { reformatChemicalReactionHTML } from '@/helpers/utils';
 import { DATA_TYPES_COMPONENTS } from '@/helpers/dataOverlay';
@@ -92,6 +92,7 @@ export default {
       initialLoadWithParams: true,
     };
   },
+  emits: ['updatePanelSelectionData', 'startSelection', 'endSelection', 'unSelect'],
   computed: {
     ...mapState({
       model: state => state.models.model,
@@ -539,7 +540,7 @@ export default {
         this.$store.dispatch('maps/setLoadingElement', false);
       } catch {
         this.$emit('updatePanelSelectionData', selectionData);
-        this.$set(selectionData, 'error', true);
+        selectionData.error = true;
         this.$emit('endSelection', false);
         this.$store.dispatch('maps/setLoadingElement', false);
       }

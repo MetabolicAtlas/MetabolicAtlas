@@ -7,7 +7,7 @@
     >
       <slot />
     </div>
-    <button class="modal-close is-large" @click="closeModal"></button>
+    <button type="button" class="modal-close is-large" @click="closeModal"></button>
   </div>
 </template>
 
@@ -21,6 +21,7 @@ export default {
       default: 'large', // small, large
     },
   },
+  emits: ['update:showModal'],
   methods: {
     closeModal() {
       this.$emit('update:showModal', false);

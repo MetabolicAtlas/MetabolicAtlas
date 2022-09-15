@@ -29,7 +29,7 @@
   </about-layout>
 </template>
 <script>
-import AboutLayout from '@/layouts/AboutLayout';
+import AboutLayout from '@/layouts/AboutLayout.vue';
 import { default as news } from '@/content/news';
 
 export default {

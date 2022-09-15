@@ -106,15 +106,15 @@
         <div>No matches found in {{ searchModel.short_name }}</div>
         <div v-if="notFoundSuggestions.length !== 0">
           Do you mean:&nbsp;
-          <template v-for="v in notFoundSuggestions">
-            <a :key="v" class="suggestions has-text-link" @click.prevent="searchDebounce(v)">
+          <template v-for="v in notFoundSuggestions" :key="v">
+            <a class="suggestions has-text-link" @click.prevent="searchDebounce(v)">
               {{ v }}
             </a>
             &nbsp;
           </template>
           ?
         </div>
-        <button class="button is-primary is-rounded my-2" @click="globalSearch()">
+        <button type="button" class="button is-primary is-rounded my-2" @click="globalSearch()">
           Search all integrated GEMs
         </button>
       </div>

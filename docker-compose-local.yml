@@ -15,15 +15,20 @@ services:
     container_name: frontend
     build: frontend
     command: yarn serve
+    environment:
+      - VITE_VUE_APP_MATOMOID=${VITE_VUE_APP_MATOMOID}
+      - VITE_VUE_APP_HOTJAR=${VITE_VUE_APP_HOTJAR}
     volumes:
       - ./frontend/src:/project/src
       - ./frontend/public:/project/public
       - ./frontend/.eslintrc.js:/project/.eslintrc.js
       - ./frontend/.prettierrc.json:/project/.prettierrc.json
+      - ./frontend/vite.config.js:/project/vite.config.js
+      - ./frontend/package.json:/project/package.json
+      - ./frontend/index.html:/project/index.html
+      - ./frontend/stats.html:/project/stats.html
     networks:
       - nginx-network
-    ports:
-      - "127.0.0.1:${PORT_FRONTEND:-81}:81"
 
   neo4j:
     environment:

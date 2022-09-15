@@ -59,7 +59,11 @@
 
       <div class="columns is-mobile">
         <div class="column is-2">
-          <a href="https://www.pnas.org/content/118/30#BiologicalSciences" target="_blank">
+          <a
+            href="https://www.pnas.org/content/118/30#BiologicalSciences"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img src="../../assets/journals/pnas-cover.jpg" />
           </a>
         </div>
@@ -79,9 +83,18 @@
           </p>
           <p>
             PubMed:
-            <a href="https://pubmed.ncbi.nlm.nih.gov/32209698/" target="_blank">34282017</a>
+            <a
+              href="https://pubmed.ncbi.nlm.nih.gov/32209698/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >34282017</a
+            >
             DOI:
-            <a href="https://doi.org/10.1073/pnas.2102344118" target="_blank">
+            <a
+              href="https://doi.org/10.1073/pnas.2102344118"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               10.1073/pnas.2102344118
             </a>
           </p>
@@ -104,7 +117,11 @@
       </p>
       <div class="columns is-mobile">
         <div class="column is-2">
-          <a href="https://www.science.org/toc/signaling/13/624" target="_blank">
+          <a
+            href="https://www.science.org/toc/signaling/13/624"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img src="../../assets/journals/scisig-cover.gif" />
           </a>
         </div>
@@ -120,9 +137,18 @@
           </p>
           <p>
             PubMed:
-            <a href="https://pubmed.ncbi.nlm.nih.gov/32209698/" target="_blank">32209698</a>
+            <a
+              href="https://pubmed.ncbi.nlm.nih.gov/32209698/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >32209698</a
+            >
             DOI:
-            <a href="https://doi.org/10.1126/scisignal.aaz1482" target="_blank">
+            <a
+              href="https://doi.org/10.1126/scisignal.aaz1482"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               10.1126/scisignal.aaz1482
             </a>
           </p>
@@ -133,7 +159,7 @@
         Initially called
         <i>Human Metabolic Atlas</i>, the first publication that was cited for this project dates
         from 2015:
-        <a href="https://doi.org/10.1093/database/bav068" target="_blank">
+        <a href="https://doi.org/10.1093/database/bav068" target="_blank" rel="noopener noreferrer">
           Pornputtapong, N., et al, 2015.
           <i>Human metabolic atlas: an online resource for human metabolism.</i>
           Database (Oxford). 2015:bav068.
@@ -159,17 +185,32 @@
                 <div class="media-content">
                   <p class="title is-4">{{ member.name }}</p>
                   <p class="subtitle is-6 pt-2">
-                    <a v-if="member.orcid" :href="member.orcid" target="_blank">
+                    <a
+                      v-if="member.orcid"
+                      :href="member.orcid"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <img
                         class="image is-16x16 is-inline"
                         alt="orcid"
                         src="../../assets/logos/orcid.gif"
                       />
                     </a>
-                    <a v-if="member.linkedin" :href="member.linkedin" target="_blank">
+                    <a
+                      v-if="member.linkedin"
+                      :href="member.linkedin"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <span class="icon pl-3"><i class="fa fa-linkedin-square fa-lg"></i></span>
                     </a>
-                    <a v-if="member.github" :href="member.github" target="_blank">
+                    <a
+                      v-if="member.github"
+                      :href="member.github"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <span class="icon pl-4 has-text-black-bis">
                         <i class="fa fa-lg fa-github"></i>
                       </span>
@@ -204,17 +245,32 @@
                   <div class="media-content">
                     <p class="title is-4">{{ member.name }}</p>
                     <p class="subtitle is-6 pt-2">
-                      <a v-if="member.orcid" :href="member.orcid" target="_blank">
+                      <a
+                        v-if="member.orcid"
+                        :href="member.orcid"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <img
                           class="image is-16x16 is-inline"
                           alt="orcid"
                           src="../../assets/logos/orcid.gif"
                         />
                       </a>
-                      <a v-if="member.linkedin" :href="member.linkedin" target="_blank">
+                      <a
+                        v-if="member.linkedin"
+                        :href="member.linkedin"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <span class="icon pl-3"><i class="fa fa-linkedin-square fa-lg"></i></span>
                       </a>
-                      <a v-if="member.github" :href="member.github" target="_blank">
+                      <a
+                        v-if="member.github"
+                        :href="member.github"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <span class="icon pl-4 has-text-black-bis">
                           <i class="fa fa-lg fa-github"></i>
                         </span>
@@ -233,6 +289,7 @@
         <a
           href="https://github.com/MetabolicAtlas/MetabolicAtlas/graphs/contributors"
           target="_blank"
+          rel="noopener noreferrer"
         >
           GitHub page</a
         >.
@@ -253,8 +310,9 @@
   </about-layout>
 </template>
 <script>
-import AboutLayout from '@/layouts/AboutLayout';
-import CitationWidget from '@/components/about/CitationWidget';
+import AboutLayout from '@/layouts/AboutLayout.vue';
+import CitationWidget from '@/components/about/CitationWidget.vue';
+import { getImageUrl } from '@/helpers/utils';
 
 export default {
   name: 'Introduction',
@@ -276,42 +334,42 @@ export default {
   },
   data() {
     return {
-      /* eslint-disable global-require */
       members: [
         {
           name: 'Prof. Jens Nielsen',
-          img: require('../../assets/pics/jens.jpg'),
+          img: getImageUrl('pics/jens'),
           orcid: 'https://orcid.org/0000-0002-9955-6003',
           linkedin: 'https://www.linkedin.com/in/jens-nielsen-57a207181/',
-          content:
-            '<a href="https://bii.dk/team/jens-nielsen" target="_blank">CEO at BioInnovation Institute</a> and <a href="https://www.sysbio.se/labs/nielsen/" target="_blank">Prof. of Systems and Synthetic Biology at Chalmers University of Technology</a>',
+          content: `<a href="https://bii.dk/team/jens-nielsen" target="_blank" rel="noopener
+            noreferrer">CEO at BioInnovation Institute</a> and <a
+            href="https://www.sysbio.se/labs/nielsen/" target="_blank rel="noopener noreferrer">Prof. of Systems and Synthetic Biology at Chalmers University of Technology</a>`,
         },
         {
           name: 'Dr. Rui Benfeitas',
-          img: require('../../assets/pics/rui.jpg'),
+          img: getImageUrl('pics/rui'),
           orcid: 'https://orcid.org/0000-0001-7972-0083',
           linkedin: 'https://www.linkedin.com/in/ruibenfeitas/',
           github: 'https://github.com/Benfeitas',
           content:
-            '<a href="https://www.benfeitas.net" target="_blank">Senior Bioinformatician at NBIS, SciLifeLab</a>',
+            '<a href="https://www.benfeitas.net" target="_blank" rel="noopener noreferrer">Senior Bioinformatician at NBIS, SciLifeLab</a>',
         },
         {
           name: 'Dr. Jonathan Robinson',
-          img: require('../../assets/pics/jon.jpg'),
+          img: getImageUrl('pics/jon'),
           orcid: 'https://orcid.org/0000-0001-8567-5960',
           linkedin: 'https://www.linkedin.com/in/jonathanrob',
           github: 'https://github.com/JonathanRob',
           content:
-            '<a href="https://bii.dk/team/jonathan-robinson" target="_blank">Scientific Data Developer at BioInnovation Institute</a>',
+            '<a href="https://bii.dk/team/jonathan-robinson" target="_blank" rel="noopener noreferrer">Scientific Data Developer at BioInnovation Institute</a>',
         },
         {
           name: 'Dr. Hao Wang',
-          img: require('../../assets/pics/hao.jpg'),
+          img: getImageUrl('pics/hao'),
           orcid: 'https://orcid.org/0000-0001-7475-0136',
           linkedin: 'https://www.linkedin.com/in/hao-wang-9a66ba30',
           github: 'https://github.com/Hao-Chalmers',
           content:
-            '<a href="https://github.com/Hao-Chalmers" target="_blank">Researcher at Chalmers University of Technology</a>',
+            '<a href="https://github.com/Hao-Chalmers" target="_blank" rel="noopener noreferrer">Researcher at Chalmers University of Technology</a>',
         },
       ],
       team: [
@@ -320,43 +378,43 @@ export default {
           members: [
             {
               name: 'Mihail Anton',
-              img: require('../../assets/pics/mihail.jpg'),
+              img: getImageUrl('pics/mihail'),
               github: 'https://github.com/mihai-sysbio',
               linkedin: 'https://www.linkedin.com/in/mihail-anton/',
               content:
-                '<a href="https://nbis.se/about/staff/mihail-anton/" target="_blank">NBIS expert and Project Manager for Metabolic Atlas</a>',
+                '<a href="https://nbis.se/about/staff/mihail-anton/" target="_blank" rel="noopener noreferrer">NBIS expert and Project Manager for Metabolic Atlas</a>',
             },
             {
               name: 'Shan Huang',
-              img: require('../../assets/pics/shan.jpg'),
+              img: getImageUrl('pics/shan'),
               github: 'https://github.com/e0',
               linkedin: 'https://www.linkedin.com/in/shan-h-5b986383/',
               content:
-                '<a href="https://www.linkedin.com/in/shan-h-5b986383/" target="_blank">Freelance Web Developer </a>',
+                '<a href="https://www.linkedin.com/in/shan-h-5b986383/" target="_blank" rel="noopener noreferrer">Freelance Web Developer </a>',
             },
             {
               name: 'Ingrid Hyltander',
-              img: require('../../assets/pics/ingrid.jpg'),
+              img: getImageUrl('pics/ingrid'),
               github: 'https://github.com/inghylt',
               linkedin: 'https://www.linkedin.com/in/ingrid-hyltander-82128213a/',
               content:
-                '<a href="https://nbis.se/about/staff/ingrid-hyltander/" target="_blank">System Developer at NBIS</a>',
+                '<a href="https://nbis.se/about/staff/ingrid-hyltander/" target="_blank" rel="noopener noreferrer">System Developer at NBIS</a>',
             },
             {
               name: 'Malin Klang',
-              img: require('../../assets/pics/malin.jpg'),
+              img: getImageUrl('pics/malin'),
               github: 'https://github.com/MalinAhlberg',
               linkedin: 'https://www.linkedin.com/in/malin-klang-7105562a/',
               content:
-                '<a href="https://nbis.se/about/staff/malin-klang/" target="_blank">System Developer at NBIS</a>',
+                '<a href="https://nbis.se/about/staff/malin-klang/" target="_blank" rel="noopener noreferrer">System Developer at NBIS</a>',
             },
             {
               name: 'Nanjiang Shu',
-              img: require('../../assets/pics/nanjiang.jpg'),
+              img: getImageUrl('pics/nanjiang'),
               github: 'https://github.com/nanjiangshu',
               linkedin: 'https://www.linkedin.com/in/nanjiang-shu-95a49713/',
               content:
-                '<a href="https://nbis.se/about/staff/nanjiang-shu/" target="_blank"> Deputy Head of System Development at NBIS </a>',
+                '<a href="https://nbis.se/about/staff/nanjiang-shu/" target="_blank" rel="noopener noreferrer"> Deputy Head of System Development at NBIS </a>',
             },
           ],
         },
@@ -365,17 +423,17 @@ export default {
           members: [
             {
               name: 'Sergiu Netotea',
-              img: require('../../assets/pics/sergiu.jpg'),
+              img: getImageUrl('pics/sergiu'),
               linkedin: 'https://se.linkedin.com/in/sergiu-netotea-753068182',
               content:
-                '<a href="https://nbis.se/about/staff/sergiu-netotea/" target="_blank">Researcher at NBIS </a>',
+                '<a href="https://nbis.se/about/staff/sergiu-netotea/" target="_blank" rel="noopener noreferrer">Researcher at NBIS </a>',
             },
             {
               name: 'Martin Norling',
-              img: require('../../assets/pics/martin.jpg'),
+              img: getImageUrl('pics/martin'),
               github: 'https://github.com/norling',
               content:
-                '<a href="https://nbis.se/about/staff/martin-norling/" target="_blank">System Developer at NBIS </a>',
+                '<a href="https://nbis.se/about/staff/martin-norling/" target="_blank" rel="noopener noreferrer">System Developer at NBIS </a>',
             },
           ],
         },

@@ -11,7 +11,7 @@
           </div>
           <div v-for="elem in fullWidthResources(elems)" :key="elem.name" class="columns">
             <div class="column is-2 has-text-centered">
-              <a :href="elem.link" target="_blank">
+              <a :href="elem.link" target="_blank" rel="noopener noreferrer">
                 <template v-if="elem.img">
                   <img :src="elem.img" />
                 </template>
@@ -22,7 +22,7 @@
             </div>
             <p class="column has-text-justified">
               <span class="is-block">
-                <a :href="elem.link" target="_blank">
+                <a :href="elem.link" target="_blank" rel="noopener noreferrer">
                   <b>{{ elem.title }}</b>
                 </a>
               </span>
@@ -30,7 +30,12 @@
                 {{ elem.description }}
               </span>
               <span class="is-block">
-                <a :href="elem.citation_url" target="_blank" v-html="elem.citation"></a>
+                <a
+                  :href="elem.citation_url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  v-html="elem.citation"
+                ></a>
               </span>
             </p>
           </div>
@@ -41,7 +46,7 @@
           >
             <div class="column is-offset-2 columns">
               <div v-for="elem in condensedResources(elems)" :key="elem.name" class="column">
-                <a :href="elem.link" target="_blank">
+                <a :href="elem.link" target="_blank" rel="noopener noreferrer">
                   <template v-if="elem.img">
                     <img :src="elem.img" />
                   </template>
@@ -58,9 +63,9 @@
   </about-layout>
 </template>
 <script>
-import AboutLayout from '@/layouts/AboutLayout';
+import AboutLayout from '@/layouts/AboutLayout.vue';
+import { getImageUrl } from '@/helpers/utils';
 
-/* eslint-disable global-require */
 export default {
   name: 'Resources',
   data() {
@@ -82,7 +87,7 @@ export default {
           {
             name: 'GECKO',
             link: 'https://github.com/SysBioChalmers/GECKO',
-            img: require('../../assets/logos/gecko.png'),
+            img: getImageUrl('logos/gecko', 'png'),
             title:
               'GECKO is a Matlab/Python package for enhancing Genome-scale metabolic models (GEMs) with Enzyme Constraints, using Kinetics and Omics',
             description:
@@ -94,7 +99,7 @@ export default {
           {
             name: 'Kiwi',
             link: 'https://github.com/SysBioChalmers/Kiwi',
-            img: require('../../assets/logos/kiwi.png'),
+            img: getImageUrl('logos/kiwi', 'png'),
             title:
               'The Kiwi module combines gene-set analyses with biological networks to visualize the interactions between gene-sets that are significant in a given biological system',
             description:
@@ -107,7 +112,7 @@ export default {
           {
             name: 'Piano',
             link: 'https://varemo.github.io/piano/',
-            img: require('../../assets/logos/piano.jpg'),
+            img: getImageUrl('logos/piano'),
             title:
               'Platform for integrative analysis of omics data (PIANO) is an An R/Bioconductor package for gene-set analysis',
             description:
@@ -119,7 +124,7 @@ export default {
           {
             name: 'RAVEN',
             link: 'https://github.com/SysBioChalmers/RAVEN/',
-            img: require('../../assets/logos/raven.jpg'),
+            img: getImageUrl('logos/raven'),
             title:
               'RAVEN (Reconstruction, Analysis and Visualization of Metabolic Networks) Toolbox is a software suite that allows for semi-automated reconstruction of genome-scale models',
             description:
@@ -132,7 +137,7 @@ export default {
           {
             name: 'BioMet-toolbox',
             link: 'http://www.biomet-toolbox.org/',
-            img: require('../../assets/logos/biomet.png'),
+            img: getImageUrl('logos/biomet', 'png'),
             title:
               'The BioMet Toolbox 2.0 integrates a number of functionalities enabling the user to work with biological data in a web interface',
             description:
@@ -146,7 +151,7 @@ export default {
           {
             name: 'YSeq Browser',
             link: 'http://www.sysbio.se/Yseq/',
-            img: require('../../assets/logos/yseq.png'),
+            img: getImageUrl('logos/yseq', 'png'),
             title:
               'Genome and transcriptome (RNAseq and Microarray) browser of Saccharomyces cerevisiae',
             description:
@@ -158,7 +163,7 @@ export default {
           {
             name: 'yApoptosis',
             link: 'http://www.ycelldeath.com/yapoptosis/',
-            img: require('../../assets/logos/yap.gif'),
+            img: getImageUrl('logos/yap', 'gif'),
             title:
               'yApoptosis is an extensively-curated database dedicated for researchers working on yeast apoptosis',
             description:
@@ -171,7 +176,7 @@ export default {
           {
             name: 'yStreX',
             link: 'http://www.ystrexdb.com/',
-            img: require('../../assets/logos/ystrex.jpg'),
+            img: getImageUrl('logos/ystrex'),
             title:
               'yStreX is an online database that collects, stores and distributes genome-wide expression data generated in the studies of stress responses',
             description:
@@ -184,7 +189,7 @@ export default {
           {
             name: 'HCSD',
             link: 'http://cancersecretome.org/',
-            img: require('../../assets/logos/hcsd.jpg'),
+            img: getImageUrl('logos/hcsd'),
             title:
               'The human cancer secretome database (HCSD) is a comprehensive database for human cancer secretome data',
             description:
@@ -207,7 +212,7 @@ export default {
           {
             name: 'Protein Atlas Programmatic data access',
             link: 'https://www.proteinatlas.org/about/help/dataaccess',
-            img: require('../../assets/logos/hpa.png'),
+            img: getImageUrl('logos/hpa', 'png'),
             title: 'Access Protein Atlas programmatically',
             description:
               'Download a subset of the data provided in XML, RDF or TSV format, either as individual queries or search queries. ',
@@ -217,22 +222,22 @@ export default {
           {
             name: 'KEGG',
             link: 'https://www.genome.jp/kegg/',
-            img: require('../../assets/logos/kegg.jpg'),
+            img: getImageUrl('logos/kegg'),
           },
           {
             name: 'HMDB',
             link: 'https://hmdb.ca/',
-            img: require('../../assets/logos/hmdb.jpg'),
+            img: getImageUrl('logos/hmdb'),
           },
           {
             name: 'BiGG',
             link: 'http://bigg.ucsd.edu/',
-            img: require('../../assets/logos/bigg.png'),
+            img: getImageUrl('logos/bigg', 'png'),
           },
           {
             name: 'NCBI',
             link: 'https://www.ncbi.nlm.nih.gov/',
-            img: require('../../assets/logos/ncbi.gif'),
+            img: getImageUrl('logos/ncbi', 'gif'),
           },
         ],
       },

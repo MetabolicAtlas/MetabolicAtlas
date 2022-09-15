@@ -1,13 +1,13 @@
 <template>
   <component-layout
     component-type="reaction"
-    :component-name="reaction.id"
-    :external-dbs="reaction.externalDbs"
+    :component-name="reaction && reaction.id"
+    :external-dbs="reaction && reaction.externalDbs"
     query-component-action="reactions/getReactionData"
-    :viewer-selected-i-d="reaction.id"
+    :viewer-selected-i-d="reaction && reaction.id"
     :include-reaction-table="false"
     :reference-list="referenceList"
-    @handleCallback="handleCallback"
+    :handle-callback="handleCallback"
   >
     <template v-slot:table>
       <table
@@ -41,8 +41,8 @@
             </template>
             <template v-else-if="el.name === 'compartments'">
               <div class="tags">
-                <template v-for="c in reaction[el.name]">
-                  <span :key="c.id" class="tag">
+                <template v-for="c in reaction[el.name]" :key="c.id">
+                  <span class="tag">
                     <!-- eslint-disable-next-line max-len -->
                     <router-link
                       :to="{ name: 'compartment', params: { model: model.short_name, id: c.id } }"
@@ -97,8 +97,11 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout';
+import { computed, ref } from 'vue';
+import { useStore } from 'vuex';
+import { useHead } from '@vueuse/head';
+import { useRoute } from 'vue-router';
+import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout.vue';
 import {
   buildCustomLink,
   reformatTableKey,
@@ -116,51 +119,122 @@ export default {
   components: {
     ComponentLayout,
   },
-  data() {
-    return {
-      rId: this.$route.params.id,
-      mainTableKey: [
-        { name: 'id' },
-        { name: 'equation', modifier: this.reformatEquation },
-        { name: 'isReversible', display: 'Reversible', modifier: this.reformatReversible },
-        { name: 'quantitative', modifier: this.reformatQuant },
-        { name: 'geneRule', display: 'Gene rule', modifier: this.reformatGenes },
-        { name: 'ec', display: 'EC' },
-        { name: 'compartments', display: 'Compartment(s)' },
-        { name: 'subsystems', display: 'Subsystem(s)' },
-      ],
-      mapsAvailable: {},
-    };
-  },
-  computed: {
-    ...mapState({
-      model: state => state.models.model,
-      reaction: state => state.reactions.reaction,
-      referenceList: state => state.reactions.referenceList,
-      relatedReactions: state => state.reactions.relatedReactions,
-    }),
-  },
-  metaInfo() {
-    if (!this.model || !this.reaction.id) {
-      return {};
-    }
+  setup() {
+    const store = useStore();
+    const route = useRoute();
 
-    const [compartments, compartmentLabel] = combineWords({
-      items: this.reaction.compartments.map(c => c.name),
-      itemType: 'compartment',
-    });
+    const rId = ref(route.params.id);
+    const model = computed(() => store.state.models.model);
+    const reaction = computed(() => store.state.reactions.reaction);
+    const referenceList = computed(() => store.state.reactions.referenceList);
+    const relatedReactions = computed(() => store.state.reactions.relatedReactions);
 
-    const [subsystems, subsystemLabel] = combineWords({
-      items: this.reaction.subsystems.map(s => s.name),
-      itemType: 'subsystem',
-    });
+    const [compartments, compartmentLabel] = computed(() =>
+      combineWords({
+        items: reaction.value.compartments ? reaction.value.compartments.map(c => c.name) : [],
+        itemType: 'compartment',
+      })
+    ).value;
 
-    const title = `${this.reaction.id}, Reaction in ${this.model.short_name}`;
-    const description = `The reaction ${this.reaction.id} in ${this.model.short_name} (version ${this.model.version}) can be found in the ${compartmentLabel} ${compartments}; and the ${subsystemLabel} ${subsystems}.`;
+    const [subsystems, subsystemLabel] = computed(() =>
+      combineWords({
+        items: reaction.value.subsystems ? reaction.value.subsystems.map(s => s.name) : [],
+        itemType: 'subsystem',
+      })
+    ).value;
 
-    return {
+    const title = computed(
+      () => `${reaction.value.id}, Reaction in ${model.value && model.value.short_name}`
+    );
+    const description = computed(
+      () => `The reaction ${reaction.value.id} in
+    ${model.value && model.value.short_name} (version ${
+        model.value && model.value.version
+      }) can be found in the
+    ${compartmentLabel} ${compartments}; and the ${subsystemLabel} ${subsystems}.`
+    );
+    const meta = computed(() =>
+      generateSocialMetaTags({
+        title: title.value,
+        description: description.value,
+      })
+    );
+
+    useHead({
       title,
-      meta: generateSocialMetaTags({ title, description }),
+      meta,
+    });
+
+    const reformatEquation = () =>
+      reformatChemicalReactionHTML({
+        reaction: reaction.value,
+        model: model.value && model.value.short_name,
+        comp: true,
+      });
+
+    const reformatGenes = () => {
+      if (!reaction.value.geneRule) {
+        return '-';
+      }
+
+      // capture any sequence that's not a space or parenthesis
+      const regex = /[^\s()]+/g;
+
+      return reaction.value.geneRule.replace(regex, w => {
+        if (w.match(/and|or/)) {
+          return w;
+        }
+
+        const gene = reaction.value.genes.find(g => g.id === w);
+        const customLink = buildCustomLink({
+          model: model.value && model.value.short_name,
+          type: 'gene',
+          id: gene.id,
+          title: gene.name || gene.id,
+        });
+        return `<span class="tag">${customLink}</span>`;
+      });
+    };
+    const formatQuantFieldName = name => `${name}:&nbsp;`;
+    const reformatQuant = () => {
+      const data = [];
+      ['lowerBound', 'upperBound', 'objective_coefficient'].forEach(key => {
+        if (reaction.value[key] != null) {
+          data.push(formatQuantFieldName(capitalize(convertCamelCase(key))));
+          if (key === 'objective_coefficient') {
+            data.push(addMassUnit(reaction.value[key]));
+          } else {
+            data.push(reaction.value[key]);
+          }
+          data.push('<span>&nbsp;&dash;&nbsp;</span>');
+        }
+      });
+      let s = data.join(' ');
+      if (s.endsWith('<span>&nbsp;&dash;&nbsp;</span>')) {
+        s = s.slice(0, -31);
+      }
+      return s;
+    };
+    const reformatReversible = () => (reaction.value.reversible ? 'Yes' : 'No');
+
+    const mainTableKey = [
+      { name: 'id' },
+      { name: 'equation', modifier: reformatEquation },
+      { name: 'isReversible', display: 'Reversible', modifier: reformatReversible },
+      { name: 'quantitative', modifier: reformatQuant },
+      { name: 'geneRule', display: 'Gene rule', modifier: reformatGenes },
+      { name: 'ec', display: 'EC' },
+      { name: 'compartments', display: 'Compartment(s)' },
+      { name: 'subsystems', display: 'Subsystem(s)' },
+    ];
+
+    return {
+      rId,
+      mainTableKey,
+      model,
+      reaction,
+      referenceList,
+      relatedReactions,
     };
   },
   methods: {
@@ -171,62 +245,6 @@ export default {
       } catch {
         this.$store.dispatch('reactions/clearRelatedReactions');
       }
-    },
-    reformatEquation() {
-      return reformatChemicalReactionHTML({
-        reaction: this.reaction,
-        model: this.model.short_name,
-        comp: true,
-      });
-    },
-
-    reformatGenes() {
-      if (!this.reaction.geneRule) {
-        return '-';
-      }
-
-      // capture any sequence that's not a space or parenthesis
-      const regex = /[^\s()]+/g;
-
-      return this.reaction.geneRule.replace(regex, w => {
-        if (w.match(/and|or/)) {
-          return w;
-        }
-
-        const gene = this.reaction.genes.find(g => g.id === w);
-        const customLink = buildCustomLink({
-          model: this.model.short_name,
-          type: 'gene',
-          id: gene.id,
-          title: gene.name || gene.id,
-        });
-        return `<span class="tag">${customLink}</span>`;
-      });
-    },
-    formatQuantFieldName(name) {
-      return `${name}:&nbsp;`;
-    },
-    reformatQuant() {
-      const data = [];
-      ['lowerBound', 'upperBound', 'objective_coefficient'].forEach(key => {
-        if (this.reaction[key] != null) {
-          data.push(this.formatQuantFieldName(capitalize(convertCamelCase(key))));
-          if (key === 'objective_coefficient') {
-            data.push(addMassUnit(this.reaction[key]));
-          } else {
-            data.push(this.reaction[key]);
-          }
-          data.push('<span>&nbsp;&dash;&nbsp;</span>');
-        }
-      });
-      let s = data.join(' ');
-      if (s.endsWith('<span>&nbsp;&dash;&nbsp;</span>')) {
-        s = s.slice(0, -31);
-      }
-      return s;
-    },
-    reformatReversible() {
-      return this.reaction.reversible ? 'Yes' : 'No';
     },
     reformatTableKey,
     reformatChemicalReactionHTML,

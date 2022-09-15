@@ -367,7 +367,10 @@ export default {
       );
     },
     shouldDisable(model) {
-      return this.selectedModelIndex(model) === -1 && this.selectedModels.length === this.maxModels;
+      return (
+        (this.selectedModelIndex(model) === -1 && this.selectedModels.length === this.maxModels) ||
+        null
+      );
     },
     async compare() {
       if (!this.validModels || this.comparing) {

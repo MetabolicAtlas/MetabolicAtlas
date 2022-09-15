@@ -23,9 +23,9 @@
       :matches="searchedNodesOnMap"
       :fullscreen="isFullscreen"
       :style="{ 'z-index': network.nodes.length + 1 }"
-      @searchOnMap="searchIDsOnMap"
-      @centerViewOn="centerElement"
-      @unHighlightAll="unHighlight"
+      @search-on-map="searchIDsOnMap"
+      @center-view-on="centerElement"
+      @un-highlight-all="unHighlight"
     />
     <MapLoader />
   </div>
@@ -34,9 +34,9 @@
 <script>
 import { mapGetters, mapState } from 'vuex';
 import { MetAtlasViewer } from '@metabolicatlas/3d-network-viewer';
-import MapControls from '@/components/explorer/mapViewer/MapControls';
-import MapLoader from '@/components/explorer/mapViewer/MapLoader';
-import MapSearch from '@/components/explorer/mapViewer/MapSearch';
+import MapControls from '@/components/explorer/mapViewer/MapControls.vue';
+import MapLoader from '@/components/explorer/mapViewer/MapLoader.vue';
+import MapSearch from '@/components/explorer/mapViewer/MapSearch.vue';
 import { default as messages } from '@/content/messages';
 import { default as colorToRGBArray } from '@/helpers/colors';
 import { DEFAULT_GENE_COLOR, DEFAULT_METABOLITE_COLOR } from '@/helpers/dataOverlay';
@@ -71,6 +71,7 @@ export default {
       defaultMetaboliteColor: DEFAULT_METABOLITE_COLOR,
     };
   },
+  emits: ['startSelection', 'endSelection', 'updatePanelSelectionData'],
   computed: {
     ...mapState({
       model: state => state.models.model,
@@ -104,7 +105,7 @@ export default {
   async mounted() {
     await this.loadNetwork();
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.resetNetwork();
   },
   methods: {
@@ -193,7 +194,7 @@ export default {
         this.$store.dispatch('maps/setLoadingElement', false);
       } catch {
         this.$emit('updatePanelSelectionData', selectionData);
-        this.$set(selectionData, 'error', true);
+        selectionData.error = true;
         this.$emit('endSelection', false);
         this.$store.dispatch('maps/setLoadingElement', false);
       }

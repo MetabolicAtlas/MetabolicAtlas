@@ -35,6 +35,7 @@
               <a
                 :href="`/api/v2/compartments/${componentId}?model=${model.apiName}&version=${model.apiVersion}&full=true`"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 complete list in JSON format
               </a>
@@ -45,7 +46,7 @@
           <slot v-if="isMetabolite" name="rdkit-img" />
           <div class="column is-3-widescreen is-4-desktop is-6-tablet has-text-centered">
             <router-link
-              v-if="interactionPartner"
+              v-if="interactionPartner && model"
               class="button is-info is-fullwidth is-outlined"
               :to="{
                 name: 'interaction',
@@ -81,13 +82,13 @@
 
 <script>
 import { mapState } from 'vuex';
-import NotFound from '@/components/NotFound';
-import Loader from '@/components/Loader';
-import MapsAvailable from '@/components/explorer/gemBrowser/MapsAvailable';
-import ExtIdTable from '@/components/explorer/gemBrowser/ExtIdTable';
-import ReactionTable from '@/components/explorer/gemBrowser/ReactionTable';
-import GemContact from '@/components/shared/GemContact';
-import References from '@/components/shared/References';
+import NotFound from '@/components/NotFound.vue';
+import Loader from '@/components/Loader.vue';
+import MapsAvailable from '@/components/explorer/gemBrowser/MapsAvailable.vue';
+import ExtIdTable from '@/components/explorer/gemBrowser/ExtIdTable.vue';
+import ReactionTable from '@/components/explorer/gemBrowser/ReactionTable.vue';
+import GemContact from '@/components/shared/GemContact.vue';
+import References from '@/components/shared/References.vue';
 import { default as messages } from '@/content/messages';
 
 export default {
@@ -113,6 +114,7 @@ export default {
     relatedMetCount: { type: Number, required: false, default: 0 },
     isMetabolite: { type: Boolean, default: false },
     referenceList: { type: Array, default: null },
+    handleCallback: { type: Function, required: false },
   },
   data() {
     return {
@@ -153,11 +155,15 @@ export default {
 
       try {
         const payload = { model: this.model, id: this.componentId };
-        await this.$store.dispatch(this.queryComponentAction, payload);
-        this.componentNotFound = false;
-        if (this.$listeners && this.$listeners.handleCallback) {
-          this.$emit('handleCallback', this.model, this.componentId);
+        // the following guard is needed because there could be a mismatch
+        // when the route changes
+        if (this.queryComponentAction.includes(this.$route.name)) {
+          await this.$store.dispatch(this.queryComponentAction, payload);
+          if (this.handleCallback) {
+            this.handleCallback(this.model, this.componentId);
+          }
         }
+        this.componentNotFound = false;
         this.showLoaderMessage = '';
       } catch {
         this.componentNotFound = true;

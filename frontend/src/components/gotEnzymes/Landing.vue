@@ -217,7 +217,7 @@ export default {
   created() {
     this.search = debounce(this.search, 200);
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.$store.dispatch('gotEnzymes/resetSearch');
   },
   computed: {

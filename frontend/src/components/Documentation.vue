@@ -192,9 +192,10 @@
             compartment or a subsystem/pathway. While a very high percentage of the reactions in the
             model are represented on the 2D maps, some may be unavailable. SVG maps were produced
             with
-            <a target="_blank" href="https://www.omix-visualization.com/">Omix Visualisation</a>, a
-            customizable tool for editing biochemical networks. A custom plug-in was developed to
-            enable the creation of compact maps with consistent layout.
+            <a target="_blank" rel="noopener noreferrer" href="https://www.omix-visualization.com/"
+              >Omix Visualisation</a
+            >, a customizable tool for editing biochemical networks. A custom plug-in was developed
+            to enable the creation of compact maps with consistent layout.
           </p>
           <p>
             All these 2D maps are manually curated to achieve state-of-the-art quality. However,
@@ -230,7 +231,11 @@
           <p>
             The 3D renderings of the metabolic network are automatically generated from the GEM
             data, with the help of
-            <a href="https://github.com/MetabolicAtlas/3d-network-viewer" target="_blank">
+            <a
+              href="https://github.com/MetabolicAtlas/3d-network-viewer"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               a force-directed graph JavaScript library</a
             >. This 3D graph contains all the reactions in the model, grouped by cellular
             compartment or subsystem.
@@ -281,7 +286,9 @@
                 <i>Data overlay</i>
                 button on the right side of the page, one can toggle the hidden/display of this
                 panel. For Human-GEM, the gene expression levels and reaction data from
-                <a href="https://www.proteinatlas.org/" target="_blank">The Human Protein Atlas</a>
+                <a href="https://www.proteinatlas.org/" target="_blank" rel="noopener noreferrer"
+                  >The Human Protein Atlas</a
+                >
                 can be loaded by selecting one of the tissues in the drop down list. Once selected,
                 the levels corresponding to the chosen tissue will be used to color corresponding
                 components on the respective map, according to the color legend (an example of the
@@ -292,7 +299,11 @@
                 option in the drop down list or alternatively remove the corresponding card if
                 levels from multiple data types are applied. Levels are available for both 2D and 3D
                 Map Viewer. The gene expression levels used are obtained from the
-                <a href="https://www.proteinatlas.org/about/download" target="_blank">
+                <a
+                  href="https://www.proteinatlas.org/about/download"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   download page
                 </a>
                 of the Human Protein Atlas.
@@ -300,7 +311,10 @@
               <p>
                 The reaction presence was initially computed as a number between 0 and 100. The
                 value is computed by creating bootstraps from the single-cell RNA-Seq data from the
-                <a href="https://www.proteinatlas.org/about/releases#21.0" target="_blank"
+                <a
+                  href="https://www.proteinatlas.org/about/releases#21.0"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   >Human Protein Atlas - Single Cell Type Section</a
                 >, pooling those into RNA-Seq profiles and applying the ftINIT algorithm. A high
                 value &#8805;0.99 means that there is high confidence that the reaction is present,
@@ -309,11 +323,13 @@
                 <a
                   href="https://github.com/MetabolicAtlas/data-files/blob/main/DATA_OVERLAY.md"
                   target="_blank"
+                  rel="noopener noreferrer"
                   >these guidelines</a
                 >. For more information on single-cell bootstraps and how ftINIT works, please see
                 <a
                   href="https://www.biorxiv.org/content/10.1101/2022.04.25.489379v1.full"
                   target="_blank"
+                  rel="noopener noreferrer"
                   >this manuscript</a
                 >.
               </p>
@@ -321,7 +337,11 @@
                 The
                 <i>Data overlay</i>
                 sidebar also allows uploading of custom data in
-                <a target="_blank" href="https://en.wikipedia.org/wiki/Tab-separated_values">
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://en.wikipedia.org/wiki/Tab-separated_values"
+                >
                   TSV format</a
                 >. The custom data file should contain at least two columns with headers and use tab
                 delimiter. The first column has to contain model IDs for genes, reactions or
@@ -338,6 +358,7 @@
                 the rage of 0-1 can be found
                 <a
                   target="_blank"
+                  rel="noopener noreferrer"
                   href="https://github.com/MetabolicAtlas/data-files/blob/main/DATA_OVERLAY.md#data-source-file-requirements"
                 >
                   here</a
@@ -561,7 +582,11 @@
             The repository lists all models constructed by the SysBio research group; this includes
             older models that may no longer be maintained (for example HMR 2.0), and others that
             were recently published. The more recent GEMs can also be found in the
-            <a href="https://www.github.com/SysBioChalmers/" target="_blank">
+            <a
+              href="https://www.github.com/SysBioChalmers/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               SysBioChalmers organization GitHub</a
             >.
           </p>
@@ -621,7 +646,8 @@
           <h5 id="api" class="is-size-5">API</h5>
           <p>
             Metabolic Atlas has a
-            <a href="/api" target="_blank"> dedicated interface to facilitate the use of the API</a
+            <a href="/api" target="_blank" rel="noopener noreferrer">
+              dedicated interface to facilitate the use of the API</a
             >, with output provided in JSON format. The API lets you retrieve data from the
             integrated models of Metabolic Atlas (eg. genes, metabolites, maps...) as well as the
             <a href="/gotenzymes">GotEnzymes database</a>.

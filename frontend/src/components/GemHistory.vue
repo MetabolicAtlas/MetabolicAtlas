@@ -3,7 +3,7 @@
     <div id="timeline-svg-wrapper" ref="wrapper">
       <inline-svg
         ref="inlineSvg"
-        :src="require('../assets/gemRepository/integratedModelsTimeline.svg')"
+        :src="getImageUrl('gemRepository/integratedModelsTimeline', 'svg')"
       />
     </div>
     <div
@@ -28,7 +28,7 @@
           </router-link>
         </p>
       </div>
-      <a :href="selectedVersion.releaseLink" target="_blank">
+      <a :href="selectedVersion.releaseLink" target="_blank" rel="noopener noreferrer">
         <span class="icon pr-2"><i class="fa fa-github"></i></span>
         Release notes
       </a>
@@ -38,7 +38,7 @@
           <p>Based on:</p>
           <ul>
             <li v-for="{ id, citLink } in selectedVersion.externalParentIds" :key="id">
-              {{ id }} (<a :href="citLink" target="_blank">source</a>)
+              {{ id }} (<a :href="citLink" target="_blank" rel="noopener noreferrer">source</a>)
             </li>
           </ul>
         </div>
@@ -56,6 +56,7 @@
 import { mapGetters } from 'vuex';
 import InlineSvg from 'vue-inline-svg';
 import { default as messages } from '@/content/messages';
+import { getImageUrl } from '@/helpers/utils';
 
 export default {
   components: {
@@ -176,6 +177,7 @@ export default {
         this.selectedVersion = null;
       }
     },
+    getImageUrl,
   },
 };
 </script>

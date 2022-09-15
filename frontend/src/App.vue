@@ -1,5 +1,6 @@
 <template>
   <div id="app" :class="{ 'fade-page': showGemSearch }">
+    <AppHead />
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -20,7 +21,7 @@
               class="navbar-item"
               :to="{ name: 'home' }"
               active-class=""
-              @click.native="isMobileMenu = false"
+              @click="isMobileMenu = false"
             >
               <img src="/img/logo.png" />
             </router-link>
@@ -45,7 +46,6 @@
                 id="selectedModelLink"
                 :to="{ name: 'explorer' }"
                 class="navbar-item is-size-4 has-text-primary has-text-weight-bold is-unselectable"
-                exact
               >
                 {{ model ? model.short_name : '' }}
               </router-link>
@@ -62,43 +62,41 @@
                   <router-link
                     class="navbar-item is-unselectable is-active-underline"
                     :to="{ name: menuElem.routeName }"
-                    @click.native="isMobileMenu = false"
+                    @click="isMobileMenu = false"
                     v-html="menuElem.displayName"
                   ></router-link>
                 </template>
                 <template v-else>
-                  <template>
-                    <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
-                    <div
-                      class="navbar-item has-dropdown is-hoverable is-unselectable has-background-primary-lighter"
+                  <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
+                  <div
+                    class="navbar-item has-dropdown is-hoverable is-unselectable has-background-primary-lighter"
+                  >
+                    <a
+                      class="navbar-link is-active-underline"
+                      :class="{
+                        'router-link-active': menuElem.subMenuElems
+                          .map(sme => sme.routeName)
+                          .includes($route.name),
+                      }"
                     >
-                      <a
-                        class="navbar-link is-active-underline"
-                        :class="{
-                          'router-link-active': menuElem.subMenuElems
-                            .map(sme => sme.routeName)
-                            .includes($route.name),
-                        }"
-                      >
-                        {{ menuElem.displayName }}
-                      </a>
-                      <div
-                        class="navbar-dropdown has-background-primary-lighter p-0"
-                        :class="{ ' is-right': menuElem.subMenuRight }"
-                      >
-                        <template v-for="subMenuElem in menuElem.subMenuElems">
-                          <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
-                          <router-link
-                            class="navbar-item is-unselectable has-background-primary-lighter pr-4"
-                            :to="{ name: subMenuElem.routeName }"
-                            @click.native="isMobileMenu = false"
-                          >
-                            {{ subMenuElem.displayName }}
-                          </router-link>
-                        </template>
-                      </div>
+                      {{ menuElem.displayName }}
+                    </a>
+                    <div
+                      class="navbar-dropdown has-background-primary-lighter p-0"
+                      :class="{ ' is-right': menuElem.subMenuRight }"
+                    >
+                      <template v-for="subMenuElem in menuElem.subMenuElems">
+                        <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
+                        <router-link
+                          class="navbar-item is-unselectable has-background-primary-lighter pr-4"
+                          :to="{ name: subMenuElem.routeName }"
+                          @click="isMobileMenu = false"
+                        >
+                          {{ subMenuElem.displayName }}
+                        </router-link>
+                      </template>
                     </div>
-                  </template>
+                  </div>
                 </template>
               </template>
             </div>
@@ -107,7 +105,7 @@
       </transition>
     </nav>
     <router-view></router-view>
-    <ErrorPanel :message="errorMessage" @hideErrorPanel="errorMessage = ''" />
+    <ErrorPanel :message="errorMessage" :hide-error-panel="(errorMessage = '')" />
     <footer id="footer" class="footer has-background-primary-lighter is-size-6 py-4">
       <div class="columns is-gapless mb-0">
         <div v-show="!showCompactFooter()" class="column is-full">
@@ -170,7 +168,7 @@
             class="button is-small is-rounded has-background-danger has-text-white has-text-weight-bold"
             @click="
               showCookieMsg = false;
-              acceptCookiePolicy();
+              $cookies.set('acceptCookiePolicy', true);
             "
           >
             <span class="icon is-small"><i class="fa fa-check"></i></span>
@@ -185,15 +183,16 @@
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex';
-import ErrorPanel from '@/components/shared/ErrorPanel';
-import GemSearch from '@/components/explorer/gemBrowser/GemSearch';
+import AppHead from '@/components/shared/AppHead.vue';
+import ErrorPanel from '@/components/shared/ErrorPanel.vue';
+import GemSearch from '@/components/explorer/gemBrowser/GemSearch.vue';
 import { default as messages } from '@/content/messages';
 import { default as about } from '@/content/about';
-import { isCookiePolicyAccepted, acceptCookiePolicy } from '@/helpers/store';
 
 export default {
   name: 'App',
   components: {
+    AppHead,
     ErrorPanel,
     GemSearch,
   },
@@ -232,8 +231,7 @@ export default {
           subMenuElems: about.map(({ name, routeName }) => ({ displayName: name, routeName })),
         },
       ],
-      showCookieMsg: navigator.doNotTrack !== '1' && !isCookiePolicyAccepted(),
-      acceptCookiePolicy,
+      showCookieMsg: navigator.doNotTrack !== '1' && !this.$cookies.get('acceptCookiePolicy'),
       activeDropMenu: '',
       browserLastRoute: {},
       viewerLastRoute: {},
@@ -248,11 +246,6 @@ export default {
     ...mapState({
       model: state => state.models.model,
     }),
-  },
-  metaInfo() {
-    return {
-      title: 'Metabolic Atlas',
-    };
   },
   watch: {
     // eslint-disable-next-line object-shorthand
@@ -300,9 +293,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~bulma';
-@import '~bulma-timeline';
-
 html {
   @include mobile {
     font-size: 13px;
@@ -313,35 +303,6 @@ html {
   @include desktop {
     font-size: 16px; // Bulma default
   }
-}
-
-.extended-section {
-  flex: 1;
-}
-
-.has-background-primary-lighter {
-  background-color: $primary-lighter;
-}
-
-.has-background-lightgray {
-  background-color: lightgray;
-}
-
-.content h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin-top: 1em;
-}
-
-.card-fullheight {
-  height: 100%;
-}
-
-.hoverable:hover {
-  box-shadow: $shadow-primary-light;
 }
 
 #app {
@@ -362,165 +323,197 @@ h6 {
       z-index: 10;
     }
   }
-}
 
-.has-addons {
-  .button {
-    width: 8rem;
-  }
-}
-
-#navbarContainer {
-  @media screen and (min-width: $desktop) and (max-width: $fullhd + $navbar-margin-threshold) {
-    margin-left: 50px;
-  }
-  @media screen and (max-width: $desktop) {
-    margin-left: 10px;
-  }
-}
-
-#navbar {
-  min-height: 52px;
-
-  @media screen and (min-width: $tablet) {
-    min-height: 56px;
+  .extended-section {
+    flex: 1;
   }
 
-  @media screen and (min-width: $desktop) {
-    min-height: 64px;
+  .has-background-primary-lighter {
+    background-color: $primary-lighter;
   }
 
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: opacity 0.3s ease-in-out;
+  .has-background-lightgray {
+    background-color: lightgray;
   }
 
-  .fade-enter,
-  .fade-leave-to {
-    opacity: 0;
+  .content h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-top: 1em;
   }
 
-  .container {
-    a {
-      font-size: 1.15em;
-      color: $black-ter;
+  .card-fullheight {
+    height: 100%;
+  }
+
+  .hoverable:hover {
+    box-shadow: $shadow-primary-light;
+  }
+
+  .has-addons {
+    .button {
+      width: 8rem;
     }
-    a:hover {
-      color: $black-bis;
-      background-color: $light;
+  }
+
+  #navbarContainer {
+    @media screen and (min-width: $desktop) and (max-width: $fullhd + $navbar-margin-threshold) {
+      margin-left: 50px;
     }
-    .is-active {
-      color: $black-bis;
-      background-color: $grey-lighter;
+    @media screen and (max-width: $desktop) {
+      margin-left: 10px;
     }
-    .router-link-active {
-      color: $black-bis;
-      background-color: $grey-lighter;
-      &.is-active-underline {
+  }
+
+  #navbar {
+    min-height: 52px;
+
+    /*  has-background-primary-lighter is being overridden by navbar in template */
+    background-color: $primary-lighter;
+
+    @media screen and (min-width: $tablet) {
+      min-height: 56px;
+    }
+
+    @media screen and (min-width: $desktop) {
+      min-height: 64px;
+    }
+
+    .fade-enter-from,
+    .fade-leave-to {
+      opacity: 0;
+    }
+
+    .fade-leave-from,
+    .fade-enter-to {
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .container {
+      a {
+        font-size: 1.15em;
+        color: $black-ter;
+      }
+      a:hover {
+        color: $black-bis;
+        background-color: $light;
+      }
+      .is-active {
         color: $black-bis;
         background-color: $grey-lighter;
-        border-bottom: 1px solid $primary;
+      }
+      .router-link-active {
+        color: $black-bis;
+        background-color: $grey-lighter;
+        &.is-active-underline {
+          color: $black-bis;
+          background-color: $grey-lighter;
+          border-bottom: 1px solid $primary;
+        }
+      }
+      .navbar-brand {
+        a {
+          font-weight: 400;
+        }
+      }
+      .navbar-burger {
+        height: 4rem;
+        span {
+          height: 2px;
+        }
+      }
+      .navbar-item img {
+        max-height: 3rem;
+      }
+      .navbar-link:not(.is-arrowless)::after {
+        border-color: $grey-darker;
+      }
+
+      #search-icon {
+        font-size: 1.8rem;
+      }
+      #selectedModelLink,
+      .router-link-active {
+        background-color: $primary-lighter;
       }
     }
-    .navbar-brand {
-      a {
-        font-weight: 400;
-      }
-    }
-    .navbar-burger {
-      height: 4rem;
-      span {
-        height: 2px;
-      }
-    }
-    .navbar-item img {
-      max-height: 3rem;
-    }
-    .navbar-link:not(.is-arrowless)::after {
-      border-color: $grey-darker;
-    }
+  }
 
-    #search-icon {
-      font-size: 1.8rem;
-    }
-    #selectedModelLink .router-link-exact-active,
-    .router-link-active {
-      background-color: $primary-lighter;
+  .footer {
+    img {
+      max-height: 30px;
     }
   }
-}
 
-.footer {
-  img {
-    max-height: 30px;
-  }
-}
-
-#comparison-details,
-.table-template {
-  .main-table tr td.td-key,
-  #ed-table tr td.td-key {
-    width: 150px;
-  }
-  font-size: 0.93em;
-  .tag {
+  #comparison-details,
+  .table-template {
+    .main-table tr td.td-key,
+    #ed-table tr td.td-key {
+      width: 150px;
+    }
     font-size: 0.93em;
-  }
-}
-
-#cookies {
-  position: sticky;
-  bottom: 0;
-  .button:not(:hover) {
-    border-color: transparent;
-  }
-}
-
-#integrated {
-  .card {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    .card-header {
-      flex-grow: 1;
+    .tag {
+      font-size: 0.93em;
     }
   }
-  margin-bottom: 2rem;
-}
 
-span.sc {
-  border-radius: 10px;
-  background: lightgray;
-  padding-right: 4px;
-  padding-left: 3px;
-}
+  #cookies {
+    position: sticky;
+    bottom: 0;
+    .button:not(:hover) {
+      border-color: transparent;
+    }
+  }
 
-// CSS from nprogress https://github.com/rstacruz/nprogress/blob/master/nprogress.css
-/* Make clicks pass-through */
-#nprogress {
-  pointer-events: none;
-}
+  #integrated {
+    .card {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      .card-header {
+        flex-grow: 1;
+      }
+    }
+    margin-bottom: 2rem;
+  }
 
-#nprogress .bar {
-  background: $warning;
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-}
-.has-nowrap {
-  white-space: nowrap;
-}
+  span.sc {
+    border-radius: 10px;
+    background: lightgray;
+    padding-right: 4px;
+    padding-left: 3px;
+  }
 
-.break-word {
-  word-break: break-word;
-  -webkit-hyphens: auto;
-  hyphens: auto;
-}
+  // CSS from nprogress https://github.com/rstacruz/nprogress/blob/master/nprogress.css
+  /* Make clicks pass-through */
+  #nprogress {
+    pointer-events: none;
+  }
 
-.has-text-icon-interaction-partner {
-  color: $icon-interaction-partner;
+  #nprogress .bar {
+    background: $warning;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+  }
+  .has-nowrap {
+    white-space: nowrap;
+  }
+
+  .break-word {
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  .has-text-icon-interaction-partner {
+    color: $icon-interaction-partner;
+  }
 }
 </style>

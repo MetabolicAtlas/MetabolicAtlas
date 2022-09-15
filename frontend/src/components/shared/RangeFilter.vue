@@ -1,25 +1,29 @@
 <template>
   <div class="range-filter is-flex">
     <input
-      v-debounce:300ms="minChange"
+      v-model="min"
       :class="{ 'input is-danger': !validMin }"
       :title="validMin ? '' : 'Please enter a valid number, e.g. 1.23'"
       class="vgt-input px-2 mr-1"
       type="number"
       placeholder="min"
+      @input="x => minChange(x.target.value)"
     />
     <input
-      v-debounce:300ms="maxChange"
+      v-model="max"
       :class="{ 'input is-danger': !validMax }"
       :title="validMax ? '' : 'Please enter a valid number, e.g. 1.23'"
       class="vgt-input px-2 mr-1"
       type="number"
       placeholder="max"
+      @input="x => maxChange(x.target.value)"
     />
   </div>
 </template>
 
 <script>
+import { debounce } from 'vue-debounce';
+
 export default {
   name: 'RangeFilter',
   props: {
@@ -54,6 +58,10 @@ export default {
 
       return payload;
     },
+  },
+  created() {
+    this.minChange = debounce(this.minChange, 300);
+    this.maxChange = debounce(this.maxChange, 300);
   },
   methods: {
     inputValid(maybeNumber) {
