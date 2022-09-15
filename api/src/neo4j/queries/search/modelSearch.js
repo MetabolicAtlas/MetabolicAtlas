@@ -7,6 +7,47 @@ import {
   getScore,
 } from 'neo4j/queries/search/helper';
 
+const fetchIds = async ({ component, term, model, v, limit }) => {
+  // The search term is used twice, once with exact match and once with
+  // fuzzy match. This seems to produce optimal results.
+  let statement = `
+CALL db.index.fulltext.queryNodes("fulltext", "${term} ${term}~")
+YIELD node, score
+WITH node, score, LABELS(node) as labelList
+OPTIONAL MATCH (node:${model}:${component})
+OPTIONAL MATCH (node)-[${v}]-(parentNode:${model}:${component})
+WHERE node:${model} OR parentNode:${model}
+WITH DISTINCT(
+	CASE
+                WHEN EXISTS(node.id) AND NOT apoc.coll.intersection(${JSON.stringify(
+                  CHILD_LABELS
+                )}, LABELS(node))
+                THEN { id: node.id, labels: labelList, score: score }
+		ELSE { id: parentNode.id, labels: LABELS(parentNode), score: score }
+	END
+) as r 
+WHERE any(r IN r.labels WHERE r="${model}")
+RETURN r
+`;
+
+  if (limit) {
+    statement += `
+LIMIT ${limit}
+`;
+  }
+
+  const results = await queryListResult(statement);
+
+  const uniqueIds = {};
+  for (let [pos, node] of Object.entries(results)) {
+    if (!(node['id'] in uniqueIds)) {
+      uniqueIds[node['id']] = node;
+    }
+  }
+
+  return uniqueIds;
+};
+
 const fetchCompartmentalizedMetabolites = async ({
   ids,
   metaboliteIds,
@@ -45,7 +86,9 @@ WITH apoc.map.mergeList(apoc.coll.flatten(
 )) as metabolites, mid
 RETURN metabolites {mid: mid, .*}
 `;
-
+  // limit is applied for CompartmentalizedMetabolite again since the number of
+  // IDs for Metabolite and CompartmentalizedMetabolite together may exceed the
+  // at the first step when fethcing unique IDs
   if (limit) {
     statement += `
 LIMIT ${limit}
@@ -54,12 +97,12 @@ LIMIT ${limit}
   return queryListResult(statement);
 };
 
-const fetchGenes = async ({ ids, model, limit, version }) => {
+const fetchGenes = async ({ ids, model, version }) => {
   if (!ids) {
     return null;
   }
 
-  let statement = `
+  const statement = `
 WITH ${JSON.stringify(ids)} as gids
 UNWIND gids as gid
 CALL apoc.cypher.run("
@@ -71,21 +114,15 @@ RETURN apoc.map.mergeList(apoc.coll.flatten(
 )) as gene
 `;
 
-  if (limit) {
-    statement += `
-LIMIT ${limit}
-`;
-  }
-
   return queryListResult(statement);
 };
 
-const fetchReactions = async ({ ids, model, limit, version }) => {
+const fetchReactions = async ({ ids, model, version }) => {
   if (!ids) {
     return null;
   }
 
-  let statement = `
+  const statement = `
 WITH ${JSON.stringify(ids)} as rids
 UNWIND rids as rid
 CALL apoc.cypher.run("
@@ -107,20 +144,15 @@ RETURN apoc.map.mergeList(apoc.coll.flatten(
 )) as reaction
 `;
 
-  if (limit) {
-    statement += `
-LIMIT ${limit}
-`;
-  }
   return queryListResult(statement);
 };
 
-const fetchSubsystems = async ({ ids, model, version, limit }) => {
+const fetchSubsystems = async ({ ids, model, version }) => {
   if (!ids) {
     return null;
   }
 
-  let statement = `
+  const statement = `
 WITH ${JSON.stringify(ids)} as sids
 UNWIND sids as sid
 CALL apoc.cypher.run("
@@ -132,20 +164,15 @@ RETURN apoc.map.mergeList(apoc.coll.flatten(
 )) as subsystem
 `;
 
-  if (limit) {
-    statement += `
-LIMIT ${limit}
-`;
-  }
   return queryListResult(statement);
 };
 
-const fetchCompartments = async ({ ids, model, version, limit }) => {
+const fetchCompartments = async ({ ids, model, version }) => {
   if (!ids) {
     return null;
   }
 
-  let statement = `
+  const statement = `
 WITH ${JSON.stringify(ids)} as cids
 UNWIND cids as cid
 CALL apoc.cypher.run("
@@ -157,11 +184,6 @@ RETURN apoc.map.mergeList(apoc.coll.flatten(
 )) as compartment
 `;
 
-  if (limit) {
-    statement += `
-LIMIT ${limit}
-`;
-  }
   return queryListResult(statement);
 };
 
@@ -175,7 +197,7 @@ const modelSearch = async ({ searchTerm, model, version, limit }) => {
     searchTerm,
     model,
     version,
-    limit: limit || 10, // limit per component
+    limit: limit || 10, // limit is applied per component type
   });
 
   return {
@@ -188,44 +210,49 @@ const modelSearch = async ({ searchTerm, model, version, limit }) => {
 
 /*
  * The search consists of two steps
- * 1. Do a fuzzy search over all nodes covered by full-text search index
- * 2. Fetch results for each component type (parallelly) and return result
+ * 1. Do a fuzzy search over all nodes for each component type (parallelly) and
+ *    fetch unique IDs
+ * 2. Fetch detailed results for each component type (parallelly) given the
+ *    unique IDs obtained in the first step
  */
 const search = async ({ searchTerm, model, version, limit, includeCounts }) => {
   const v = version ? `:V${version}` : '';
 
   const term = sanitizeSearchString(searchTerm, true);
-
-  // The search term is used twice, once with exact match and once with
-  // fuzzy match. This seems to produce optimal results.
-  let statement = `
-CALL db.index.fulltext.queryNodes("fulltext", "${term} ${term}~")
-YIELD node, score
-WITH node, score, LABELS(node) as labelList
-OPTIONAL MATCH (node)-[${v}]-(parentNode:${model})
-WHERE node:${model} OR parentNode:${model}
-WITH DISTINCT(
-	CASE
-                WHEN EXISTS(node.id) AND NOT apoc.coll.intersection(${JSON.stringify(
-                  CHILD_LABELS
-                )}, LABELS(node))
-                THEN { id: node.id, labels: labelList, score: score }
-		ELSE { id: parentNode.id, labels: LABELS(parentNode), score: score }
-	END
-) as r 
-WHERE any(r IN r.labels WHERE r="${model}")
-RETURN r
-LIMIT 50
-`;
-
-  const results = await queryListResult(statement);
-
-  const uniqueIds = {};
-  for (let [pos, node] of Object.entries(results)) {
-    if (!(node['id'] in uniqueIds)) {
-      uniqueIds[node['id']] = node;
-    }
+  if (term.length === 0) {
+    throw new Error(`Empty searchTerm!`);
   }
+
+  const resultFetchIds = [];
+  for (const component of [
+    'Metabolite',
+    'CompartmentalizedMetabolite',
+    'Gene',
+    'Reaction',
+    'Subsystem',
+    'Compartment',
+  ]) {
+    resultFetchIds.push(
+      fetchIds({ component, term, model, version: v, limit })
+    );
+  }
+  const [
+    idsMetabolite,
+    idsCompartmentalizedMetabolite,
+    idsGene,
+    idsReaction,
+    idsSubsystem,
+    idsCompartment,
+  ] = await Promise.all(resultFetchIds);
+  const uniqueIds = {
+    ...idsMetabolite,
+    ...idsCompartmentalizedMetabolite,
+    ...idsGene,
+    ...idsReaction,
+    ...idsSubsystem,
+    ...idsCompartment,
+  };
+
   const groupedByComponents = {};
   for (let [id, properties] of Object.entries(uniqueIds)) {
     const c = intersect(COMPONENT_TYPES, properties.labels);
@@ -248,26 +275,22 @@ LIMIT 50
         ids: groupedByComponents['Gene'],
         model,
         version: v,
-        limit,
       }),
       fetchReactions({
         ids: groupedByComponents['Reaction'],
         model,
         version: v,
-        limit,
       }),
       fetchSubsystems({
         ids: groupedByComponents['Subsystem'],
         model,
         version: v,
-        limit,
         includeCounts: true,
       }),
       fetchCompartments({
         ids: groupedByComponents['Compartment'],
         model,
         version: v,
-        limit,
         includeCounts: true,
       }),
     ]);
