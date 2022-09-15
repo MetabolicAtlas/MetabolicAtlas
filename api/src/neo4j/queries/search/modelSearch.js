@@ -7,7 +7,7 @@ import {
   getScore,
 } from 'neo4j/queries/search/helper';
 
-const fetchIds = async ({ component, term, model, v, limit }) => {
+const fetchIds = async ({ component, term, model, version, limit }) => {
   // The search term is used twice, once with exact match and once with
   // fuzzy match. This seems to produce optimal results.
   let statement = `
@@ -15,7 +15,7 @@ CALL db.index.fulltext.queryNodes("fulltext", "${term} ${term}~")
 YIELD node, score
 WITH node, score, LABELS(node) as labelList
 OPTIONAL MATCH (node:${model}:${component})
-OPTIONAL MATCH (node)-[${v}]-(parentNode:${model}:${component})
+OPTIONAL MATCH (node)-[${version}]-(parentNode:${model}:${component})
 WHERE node:${model} OR parentNode:${model}
 WITH DISTINCT(
 	CASE
@@ -86,9 +86,8 @@ WITH apoc.map.mergeList(apoc.coll.flatten(
 )) as metabolites, mid
 RETURN metabolites {mid: mid, .*}
 `;
-  // limit is applied for CompartmentalizedMetabolite again since the number of
-  // IDs for Metabolite and CompartmentalizedMetabolite together may exceed the
-  // at the first step when fetching unique IDs
+  // limit is applied here again since the number of IDs for Metabolite and
+  // CompartmentalizedMetabolite together may exceed the value of limit
   if (limit) {
     statement += `
 LIMIT ${limit}
@@ -197,7 +196,7 @@ const modelSearch = async ({ searchTerm, model, version, limit }) => {
     searchTerm,
     model,
     version,
-    limit: limit || 10, // limit is applied per component type
+    limit: limit || 10, // limit is applied for each component type
   });
 
   return {
