@@ -54,10 +54,10 @@
         publication. In addition, if you use Human-GEM, please also cite the corresponding
         publication.
       </p>
-      <h4 id="citation-v3" class="title is-4">3.0</h4>
+      <h4 id="citation-v3" class="title is-4">Version 3.0</h4>
       <p>Article under consideration.</p>
 
-      <h4 id="citation-v2" class="title is-4">2.0</h4>
+      <h4 id="citation-v2" class="title is-4">Version 2.0</h4>
       <p>
         Version 2.0 of the <i>Metabolic Atlas</i> was published in 2021 together with a PNAS
         publication. If you have used <i>Metabolic Atlas</i> version 2.0 to 2.6 in your work, please
@@ -109,7 +109,7 @@
         </div>
       </div>
 
-      <h4 id="citation-v1" class="title is-4">1.0</h4>
+      <h4 id="citation-v1" class="title is-4">Version 1.0</h4>
       <p>
         After its re-launch,
         <i>Metabolic Atlas</i>
