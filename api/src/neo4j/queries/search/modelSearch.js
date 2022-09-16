@@ -25,8 +25,10 @@ WITH DISTINCT(
                 THEN { id: node.id, labels: labelList, score: score }
 		ELSE { id: parentNode.id, labels: LABELS(parentNode), score: score }
 	END
-) as r 
-WHERE any(r IN r.labels WHERE r="${model}")
+) as r
+WHERE
+	any(r IN r.labels WHERE r="${model}")
+	AND any(r IN r.labels WHERE r="${component}")
 RETURN r
 `;
 
