@@ -51,8 +51,8 @@
       <h3 id="citation" class="title is-3 pt-6">Citation</h3>
       <p>
         If you use Metabolic Atlas in your work, or any of the animal models, please cite our latest
-        publication. In addition, if you use Human-GEM, please also cite the corresponding
-        publication.
+        publication. In addition, if you use Human-GEM, please also cite the
+        <a href="#citation-v1">corresponding publication</a>.
       </p>
       <h4 id="citation-v3" class="title is-4">Version 3.0</h4>
       <p>Article under consideration.</p>
@@ -60,8 +60,7 @@
       <h4 id="citation-v2" class="title is-4">Version 2.0</h4>
       <p>
         Version 2.0 of the <i>Metabolic Atlas</i> was published in 2021 together with a PNAS
-        publication. If you have used <i>Metabolic Atlas</i> version 2.0 to 2.6 in your work, please
-        cite the publication below:
+        publication. To cite <i>Metabolic Atlas</i> version 2, please use the publication below:
       </p>
 
       <div class="columns is-mobile">
@@ -118,9 +117,8 @@
         constituted the basis for the associated publication in
         <i>Science Signaling</i>. If you use
         <i>Human-GEM</i>
-        in your work, or have used
-        <i>Metabolic Atlas</i>
-        version 1.0 to 1.7, please cite:
+        in your work, or want to refer to
+        <i>Metabolic Atlas</i> version 1, please cite:
       </p>
       <div class="columns is-mobile">
         <div class="column is-2">
