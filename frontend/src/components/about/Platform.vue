@@ -204,7 +204,7 @@
       <h4 class="title is-4">Research-driven features</h4>
       <p>
         In 2022, fluxomics data was added to <i>Metabolic Atlas</i> and can be used as data overlay
-        in the <i>MapViewer</i>. The work is based on this publication:
+        in the <i>Map Viewer</i>. The work is based on this publication:
       </p>
 
       <div class="columns is-mobile">
