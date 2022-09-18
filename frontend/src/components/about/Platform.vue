@@ -54,13 +54,13 @@
         publication. In addition, if you use Human-GEM, please also cite the
         <a href="#citation-v1">corresponding publication</a>.
       </p>
-      <h4 id="citation-v3" class="title is-4">Version 3.0</h4>
+      <h4 id="citation-v3" class="title is-5 pt-6">Version 3</h4>
       <p>Article under consideration.</p>
 
-      <h4 id="citation-v2" class="title is-4">Version 2.0</h4>
+      <h4 id="citation-v2" class="title is-5 pt-6">Please cite: Version 2</h4>
       <p>
         Version 2.0 of the <i>Metabolic Atlas</i> was published in 2021 together with a PNAS
-        publication. To cite <i>Metabolic Atlas</i> version 2, please use the publication below:
+        publication. To cite this version, or any of the animal GEMs, please use the publication below:
       </p>
 
       <div class="columns is-mobile">
@@ -108,7 +108,7 @@
         </div>
       </div>
 
-      <h4 id="citation-v1" class="title is-4">Version 1.0</h4>
+      <h4 id="citation-v1" class="title is-5 pt-6">Version 1</h4>
       <p>
         After its re-launch,
         <i>Metabolic Atlas</i>
@@ -160,7 +160,7 @@
           <citation-widget doi="10.1126/scisignal.aaz1482" />
         </div>
       </div>
-      <h4 id="citation-launch" class="title is-4">Launch</h4>
+      <h4 id="citation-launch" class="title is-5 pt-6">First launch</h4>
       <p>
         Initially called
         <i>Human Metabolic Atlas</i>, the first publication that was cited for this project dates
@@ -201,67 +201,47 @@
           <citation-widget doi="10.1093/database/bav068" />
         </div>
       </div>
-      <h4 class="title is-4">Research-driven features</h4>
+      <h4 class="title is-4 pt-6">Research-driven features</h4>
       <p>
-        In 2022, fluxomics data was added to <i>Metabolic Atlas</i> and can be used as data overlay
+        In 2022, reaction presence data was added to <i>Metabolic Atlas</i> and can be used as data overlay
         in the <i>Map Viewer</i>. The work is based on this publication:
       </p>
 
-      <div class="columns is-mobile">
-        <div class="column is-1"></div>
-        <div class="column is-mobile">
-          <p>Gustafsson J, Robinson JL, Roshanzamir F, Jörnsten R, Kerkhoven EJ, Nielsen J.</p>
-          <p>
-            <b>
-              Generation and analysis of context-specific genome-scale metabolic models derived from
-              single-cell RNA-Seq data
-            </b>
-            <span class="is-block">
-              <i>bioRxiv (2022)</i>
-            </span>
-          </p>
-          <p>
-            <!--
-            PubMed:
-            <a href="https://pubmed.ncbi.nlm.nih.gov/?/" target="_blank" rel="noopener noreferrer"
-              >?</a
-            > -->
-            DOI:
-            <a
-              href="https://doi.org/10.1101/2022.04.25.489379"
-              target="_blank"
-              rel="noopener noreferrer"
-              >10.1101/2022.04.25.489379</a
-            >
-          </p>
-        </div>
-      </div>
       <p>
-        The custom maps of <i>Metabolic Atlas</i> was inspired by the work of Rasool Saghaleyni. If
+        Gustafsson J, Robinson JL, Roshanzamir F, Jörnsten R, Kerkhoven EJ, Nielsen J.
+        <b>
+          Generation and analysis of context-specific genome-scale metabolic models derived from
+          single-cell RNA-Seq data.
+        </b>
+        <i>bioRxiv (2022)</i>
+        DOI:
+        <a
+          href="https://doi.org/10.1101/2022.04.25.489379"
+          target="_blank"
+          rel="noopener noreferrer"
+          >10.1101/2022.04.25.489379</a
+        >
+      </p>
+
+      <p>
+        The custom maps feature was inspired by the work of Rasool Saghaleyni. If
         you have used the <i>Protein secretion pathway</i> in your work, please cite this work:
       </p>
 
-      <div class="columns is-mobile">
-        <div class="column is-1"></div>
-        <div class="column is-mobile">
-          <p>Saghaleyni, R.</p>
-          <p>
-            <b>
-              Systems Biology of Protein Secretion in Human Cells: Multi-omics Analysis and Modeling
-              of the Protein Secretion Process in Human Cells and its Application.
-            </b>
-            <span class="is-block">
-              <a
-                href="https://research.chalmers.se/en/publication/?id=524959"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <i>Doctoral Thesis at Chalmers University of Technology (2021)</i>
-              </a>
-            </span>
-          </p>
-        </div>
-      </div>
+      <p>
+        Saghaleyni, R.
+        <b>
+          Systems Biology of Protein Secretion in Human Cells: Multi-omics Analysis and Modeling
+          of the Protein Secretion Process in Human Cells and its Application.
+        </b>
+        <a
+          href="https://research.chalmers.se/en/publication/?id=524959"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i>Doctoral Thesis at Chalmers University of Technology (2021)</i>
+        </a>
+      </p>
 
       <h3 id="advisory-board" class="title is-3 pt-6">Advisory board</h3>
 
