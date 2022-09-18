@@ -60,7 +60,8 @@
       <h4 id="citation-v2" class="title is-5 pt-6">Please cite: Version 2</h4>
       <p>
         Version 2.0 of the <i>Metabolic Atlas</i> was published in 2021 together with a PNAS
-        publication. To cite this version, or any of the animal GEMs, please use the publication below:
+        publication. To cite this version, or any of the animal GEMs, please use the publication
+        below:
       </p>
 
       <div class="columns is-mobile">
@@ -203,8 +204,8 @@
       </div>
       <h4 class="title is-4 pt-6">Research-driven features</h4>
       <p>
-        In 2022, reaction presence data was added to <i>Metabolic Atlas</i> and can be used as data overlay
-        in the <i>Map Viewer</i>. The work is based on this publication:
+        In 2022, reaction presence data was added to <i>Metabolic Atlas</i> and can be used as data
+        overlay in the <i>Map Viewer</i>. The work is based on this publication:
       </p>
 
       <p>
@@ -224,15 +225,15 @@
       </p>
 
       <p>
-        The custom maps feature was inspired by the work of Rasool Saghaleyni. If
-        you have used the <i>Protein secretion pathway</i> in your work, please cite this work:
+        The custom maps feature was inspired by the work of Rasool Saghaleyni. If you have used the
+        <i>Protein secretion pathway</i> in your work, please cite this work:
       </p>
 
       <p>
         Saghaleyni, R.
         <b>
-          Systems Biology of Protein Secretion in Human Cells: Multi-omics Analysis and Modeling
-          of the Protein Secretion Process in Human Cells and its Application.
+          Systems Biology of Protein Secretion in Human Cells: Multi-omics Analysis and Modeling of
+          the Protein Secretion Process in Human Cells and its Application.
         </b>
         <a
           href="https://research.chalmers.se/en/publication/?id=524959"
