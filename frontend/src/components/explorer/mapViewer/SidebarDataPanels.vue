@@ -225,7 +225,7 @@
 <script>
 import { mapState } from 'vuex';
 import { capitalize, reformatStringToLink, reformatChemicalReactionHTML } from '@/helpers/utils';
-import { default as chemicalFormula } from '@/helpers/chemical-formatters';
+import { chemicalFormula } from '@/helpers/chemical-formatters';
 import { default as messages } from '@/content/messages';
 
 export default {

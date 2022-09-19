@@ -83,7 +83,7 @@ import { useHead } from '@vueuse/head';
 import { useRoute } from 'vue-router';
 import ComponentLayout from '@/layouts/explorer/gemBrowser/ComponentLayout.vue';
 import RDKitImage from '@/components/shared/RDKitImage.vue';
-import { default as chemicalFormula } from '@/helpers/chemical-formatters';
+import { chemicalFormula } from '@/helpers/chemical-formatters';
 import { generateSocialMetaTags, reformatTableKey, combineWords } from '@/helpers/utils';
 
 export default {

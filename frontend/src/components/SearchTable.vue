@@ -320,7 +320,7 @@ import 'vue-good-table-next/dist/vue-good-table-next.css';
 import { VueGoodTable } from 'vue-good-table-next';
 import Loader from '@/components/Loader.vue';
 import ExportTSV from '@/components/shared/ExportTSV.vue';
-import { default as chemicalFormula } from '@/helpers/chemical-formatters';
+import { chemicalFormula } from '@/helpers/chemical-formatters';
 import { sortResultsScore } from '@/helpers/utils';
 import { default as messages } from '@/content/messages';
 
