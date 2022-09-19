@@ -7,7 +7,7 @@ import {
   getScore,
 } from 'neo4j/queries/search/helper';
 
-const fetchIds = async ({ component, term, model, version, limit }) => {
+const searchForIds = async ({ component, term, model, version, limit }) => {
   // The search term is used twice, once with exact match and once with
   // fuzzy match. This seems to produce optimal results.
   let statement = `
@@ -41,7 +41,7 @@ LIMIT ${limit}
   const results = await queryListResult(statement);
 
   const uniqueIds = {};
-  for (let [pos, node] of Object.entries(results)) {
+  for (let [, node] of Object.entries(results)) {
     if (!(node['id'] in uniqueIds)) {
       uniqueIds[node['id']] = node;
     }
@@ -224,35 +224,12 @@ const search = async ({ searchTerm, model, version, limit, includeCounts }) => {
     throw new Error(`Empty searchTerm!`);
   }
 
-  const resultFetchIds = [];
-  for (const component of [
-    'Metabolite',
-    'CompartmentalizedMetabolite',
-    'Gene',
-    'Reaction',
-    'Subsystem',
-    'Compartment',
-  ]) {
-    resultFetchIds.push(
-      fetchIds({ component, term, model, version: v, limit })
-    );
-  }
-  const [
-    idsMetabolite,
-    idsCompartmentalizedMetabolite,
-    idsGene,
-    idsReaction,
-    idsSubsystem,
-    idsCompartment,
-  ] = await Promise.all(resultFetchIds);
-  const uniqueIds = {
-    ...idsMetabolite,
-    ...idsCompartmentalizedMetabolite,
-    ...idsGene,
-    ...idsReaction,
-    ...idsSubsystem,
-    ...idsCompartment,
-  };
+  const idSearchQueries = COMPONENT_TYPES.map(component =>
+    searchForIds({ component, term, model, version: v, limit })
+  );
+
+  const ids = await Promise.all(idSearchQueries);
+  const uniqueIds = Object.assign({}, ...ids);
 
   const groupedByComponents = {};
   for (let [id, properties] of Object.entries(uniqueIds)) {
