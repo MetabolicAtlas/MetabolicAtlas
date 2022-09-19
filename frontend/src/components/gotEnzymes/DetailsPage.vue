@@ -13,7 +13,8 @@
                     <td class="td-key has-background-primary has-text-white-bis is-capitalized">
                       {{ k }}
                     </td>
-                    <td>{{ v }}</td>
+                    <td v-if="k === 'formula'" v-html="chemicalFormula(v)"></td>
+                    <td v-else>{{ v }}</td>
                   </tr>
                 </table>
               </div>
@@ -47,6 +48,7 @@ import Loader from '@/components/Loader.vue';
 import ExtIdTable from '@/components/explorer/gemBrowser/ExtIdTable.vue';
 import EnzymesTable from '@/components/gotEnzymes/EnzymesTable.vue';
 import RDKitImage from '@/components/shared/RDKitImage.vue';
+import { default as chemicalFormula } from '@/helpers/chemical-formatters';
 
 export default {
   name: 'DetailsPage',
@@ -88,6 +90,7 @@ export default {
         this.showLoaderMessage = '';
       }
     },
+    chemicalFormula,
   },
 };
 </script>
