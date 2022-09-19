@@ -16,6 +16,11 @@
               <div class="timeline-content">
                 <p class="heading">{{ newsItem.date }}</p>
                 <p v-html="newsItem.text"></p>
+                <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
+                <div v-for="link in newsItem.links">
+                  <div class="is-inline" v-html="link.intro"></div>
+                  <router-link :to="link.link">{{ link.linktext }}</router-link>
+                </div>
               </div>
             </div>
           </template>
