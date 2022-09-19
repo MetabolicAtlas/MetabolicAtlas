@@ -76,7 +76,7 @@ const getEnzymes = async ({
     throw new Error(`Can not sort on unknown column ${column}`);
   }
   const orderBy = CASED_FIELDS.includes(column)
-    ? `lower(${sql(column)})`
+    ? sql`lower(${sql(column)})`
     : sql(column);
   const enzymesQuery = sql`
     select ${sql(columns)} from enzymes
