@@ -528,7 +528,7 @@
           <p>
             The
             <i>Quick search</i>
-            is restricted to the selected GEM on the left side of searching bar and limited to 50
+            is restricted to the selected GEM on the left side of searching bar and limited to 10
             results per component type. Alternatively, one can click on the banner under the search
             input field to run a
             <i>Global Search</i>, where the term is searched among all the integrated models'
