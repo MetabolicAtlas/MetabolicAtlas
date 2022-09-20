@@ -24,7 +24,7 @@ const chemicalEquation = formula => {
   equation = equation.replace('=>', '⇒');
   equation = equation.replaceAll(/(\S)\+/g, '$1<sup>+</sup>');
   equation = equation.replaceAll(/(\S)-\s/g, '$1<sup>-</sup> ');
-  equation = equation.replaceAll(/([A-Z])(\d+)/g, '$1<sub>$2</sub>');
+  equation = equation.replaceAll(/([A-Za-z])(\d+)/g, '$1<sub>$2</sub>');
   return equation;
 };
 
