@@ -49,12 +49,19 @@
       </p>
 
       <h3 id="citation" class="title is-3 pt-6">Citation</h3>
-
-      <h4 class="title is-4">Latest publication</h4>
       <p>
         If you use Metabolic Atlas in your work, or any of the animal models, please cite our latest
-        publication. In addition, if you use Human-GEM, please also cite the corresponding
-        publication.
+        publication. In addition, if you use Human-GEM, please also cite the
+        <a href="#citation-v1">corresponding publication</a>.
+      </p>
+      <h4 id="citation-v3" class="title is-5 pt-6">Version 3</h4>
+      <p>Article under consideration.</p>
+
+      <h4 id="citation-v2" class="title is-5 pt-6">Please cite: Version 2</h4>
+      <p>
+        Version 2.0 of the <i>Metabolic Atlas</i> was published in 2021 together with a PNAS
+        publication. To cite this version, or any of the animal GEMs, please use the publication
+        below:
       </p>
 
       <div class="columns is-mobile">
@@ -102,7 +109,7 @@
         </div>
       </div>
 
-      <h4 class="title is-4">Previous publications</h4>
+      <h4 id="citation-v1" class="title is-5 pt-6">Version 1</h4>
       <p>
         After its re-launch,
         <i>Metabolic Atlas</i>
@@ -111,9 +118,8 @@
         constituted the basis for the associated publication in
         <i>Science Signaling</i>. If you use
         <i>Human-GEM</i>
-        in your work, or have used
-        <i>Metabolic Atlas</i>
-        version 1.0 to 1.7, please cite:
+        in your work, or want to refer to
+        <i>Metabolic Atlas</i> version 1, please cite:
       </p>
       <div class="columns is-mobile">
         <div class="column is-2">
@@ -155,14 +161,86 @@
           <citation-widget doi="10.1126/scisignal.aaz1482" />
         </div>
       </div>
+      <h4 id="citation-launch" class="title is-5 pt-6">First launch</h4>
       <p>
         Initially called
         <i>Human Metabolic Atlas</i>, the first publication that was cited for this project dates
         from 2015:
-        <a href="https://doi.org/10.1093/database/bav068" target="_blank" rel="noopener noreferrer">
-          Pornputtapong, N., et al, 2015.
-          <i>Human metabolic atlas: an online resource for human metabolism.</i>
-          Database (Oxford). 2015:bav068.
+      </p>
+      <div class="columns is-mobile">
+        <div class="column is-2">
+          <a
+            href="https://academic.oup.com/database/issue/volume/2015"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src="../../assets/journals/database-cover.gif" />
+          </a>
+        </div>
+        <div class="column">
+          <p>Pornputtapong N, Nookaew I, Nielsen J.</p>
+          <p>
+            <b>Human metabolic atlas: an online resource for human metabolism.</b>
+            <span class="is-block"><i>Database (2015): bav068</i></span>
+          </p>
+          <p>
+            PubMed:
+            <a
+              href="https://pubmed.ncbi.nlm.nih.gov/26209309/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >26209309</a
+            >
+            DOI:
+            <a
+              href="https://doi.org/10.1093/database/bav068"
+              target="_blank"
+              rel="noopener noreferrer"
+              >10.1093/database/bav068
+            </a>
+          </p>
+          <citation-widget doi="10.1093/database/bav068" />
+        </div>
+      </div>
+      <h4 class="title is-4 pt-6">Research-driven features</h4>
+      <p>
+        In 2022, reaction presence data was added to <i>Metabolic Atlas</i> and can be used as data
+        overlay in the <i>Map Viewer</i>. The work is based on this publication:
+      </p>
+
+      <p>
+        Gustafsson J, Robinson JL, Roshanzamir F, Jörnsten R, Kerkhoven EJ, Nielsen J.
+        <b>
+          Generation and analysis of context-specific genome-scale metabolic models derived from
+          single-cell RNA-Seq data.
+        </b>
+        <i>bioRxiv (2022)</i>
+        DOI:
+        <a
+          href="https://doi.org/10.1101/2022.04.25.489379"
+          target="_blank"
+          rel="noopener noreferrer"
+          >10.1101/2022.04.25.489379</a
+        >
+      </p>
+
+      <p>
+        The custom maps feature was inspired by the work of Rasool Saghaleyni. If you have used the
+        <i>Protein secretion pathway</i> in your work, please cite this work:
+      </p>
+
+      <p>
+        Saghaleyni, R.
+        <b>
+          Systems Biology of Protein Secretion in Human Cells: Multi-omics Analysis and Modeling of
+          the Protein Secretion Process in Human Cells and its Application.
+        </b>
+        <a
+          href="https://research.chalmers.se/en/publication/?id=524959"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i>Doctoral Thesis at Chalmers University of Technology (2021)</i>
         </a>
       </p>
 

@@ -59,8 +59,11 @@
                 are associated with scientific articles as follows.
               </p>
               <div class="box">
+                <p>From version 3: <i>Article under consideration</i></p>
+              </div>
+              <div class="box">
                 <p>
-                  From version 2.0:
+                  From version 2:
                   <a
                     href="https://doi.org/10.1073/pnas.2102344118"
                     target="_blank"
@@ -76,7 +79,7 @@
               </div>
               <div class="box">
                 <p>
-                  From version 1.0:
+                  From version 1:
                   <a
                     href="https://doi.org/10.1126/scisignal.aaz1482"
                     target="_blank"
