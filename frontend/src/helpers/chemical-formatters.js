@@ -1,4 +1,4 @@
-export default function chemicalFormula(formula, charge) {
+const chemicalFormula = (formula, charge) => {
   if (formula === null || formula === undefined) {
     return '';
   }
@@ -17,4 +17,15 @@ export default function chemicalFormula(formula, charge) {
     form = form.replace(/([-+])$/, '<sup>$1</sup>');
   }
   return form;
-}
+};
+
+const chemicalEquation = formula => {
+  let equation = formula.replace('<=>', '⇔');
+  equation = equation.replace('=>', '⇒');
+  equation = equation.replaceAll(/(\S)\+/g, '$1<sup>+</sup>');
+  equation = equation.replaceAll(/(\S)-\s/g, '$1<sup>-</sup> ');
+  equation = equation.replaceAll(/([A-Za-z])(\d+)/g, '$1<sub>$2</sub>');
+  return equation;
+};
+
+export { chemicalFormula, chemicalEquation };

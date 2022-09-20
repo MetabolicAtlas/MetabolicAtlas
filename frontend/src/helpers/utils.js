@@ -1,4 +1,4 @@
-import chemicalFormula from '@/helpers/chemical-formatters';
+import { chemicalFormula } from '@/helpers/chemical-formatters';
 
 export const buildCustomLink = ({ model, type, id, title, cssClass }) =>
   `<a href="/explore/${model}/gem-browser/${type}/${id}" class="custom-router-link ${
