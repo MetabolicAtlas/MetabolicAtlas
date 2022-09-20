@@ -19,7 +19,7 @@
                 <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
                 <div v-for="link in newsItem.links">
                   <div class="is-inline" v-html="link.intro"></div>
-                  <router-link :to="link.link">{{ link.linktext }}</router-link>
+                  <router-link :to="link.link">{{ link.text }}</router-link>
                 </div>
               </div>
             </div>

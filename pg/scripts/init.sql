@@ -87,6 +87,7 @@ create index on ec using gist (ec);
 create index on organisms using gist (name);
 create index on organisms using gist (kegg);
 create index on domains using gist (name);
+create index lower_cased_genes on genes ((lower(kegg)));
 
 -- create indexes for the enzymes table
 create index on enzymes(gene);
@@ -95,6 +96,11 @@ create index on enzymes(domain);
 create index on enzymes(reaction_id);
 create index on enzymes(compound);
 create index on enzymes using gin (string_to_array(ec_number, ';'));
+create index lower_genes on enzymes ((lower(gene))) ;
+create index lower_domain on enzymes (lower(domain));
+create index lower_organism on enzymes (lower(organism));
+create index lower_compound on enzymes (lower(compound));
+create index lower_reaction on enzymes (lower(reaction_id));
 
 -- create view for fuzzy search through multiple tables and views
 create view multi_search as

@@ -8,7 +8,7 @@
         {
           "intro": "<i>Update:</i> For more information see the ",
           "link": "platform#citation-v3",
-          "linktext": "citation list for version 3."
+          "text": "citation list for version 3."
         }
       ]
     },
@@ -62,7 +62,7 @@
         {
           "intro": "<i>Update:</i> For more information see the ",
           "link": "platform#citation-v2",
-          "linktext": "citation list for version 2."
+          "text": "citation list for version 2."
         }
       ]
     },
@@ -101,7 +101,7 @@
         {
           "intro": "<i>Update:</i> For more information on the publication see the ",
           "link": "platform#citation-v1",
-          "linktext": "citation list for version 1."
+          "text": "citation list for version 1."
         }
       ]
     },
@@ -145,7 +145,7 @@
         {
           "intro": "<i>Update:</i> For more information see the ",
           "link": "platform#citation-v1",
-          "linktext": "citation list for version 1."
+          "text": "citation list for version 1."
         }
       ],
       "icon": "flag"
@@ -197,7 +197,7 @@
         {
           "intro": "<i>Update:</i> For more information see the ",
           "link": "platform#citation-launch",
-          "linktext": "citation list."
+          "text": "citation list."
         }
       ],
       "icon": "archive"

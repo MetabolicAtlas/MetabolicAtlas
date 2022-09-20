@@ -1,6 +1,25 @@
 import fetch from 'node-fetch';
 
 describe('gotEnzymes', () => {
+  describe('search', () => {
+    it.each(['r08948', 'zurr', 'bacteria', 'hsa', 'nad'])(
+      'should return same results matches for %p no matter case',
+      async searchTerm => {
+        const res_lower = await fetch(
+          `${API_BASE}/gotenzymes/search/${searchTerm}`
+        );
+        const res_upper = await fetch(
+          `${API_BASE}/gotenzymes/search/${searchTerm.toUpperCase()}`
+        );
+        expect(res_lower.status).toBe(200);
+        expect(res_upper.status).toBe(200);
+        const body_lower = await res_lower.json();
+        const body_upper = await res_upper.json();
+        expect(body_upper).toEqual(body_lower);
+      }
+    );
+  });
+
   describe('get reactions', () => {
     it('should return reaction info for given id', async () => {
       const R08948 = {
@@ -406,6 +425,31 @@ describe('gotEnzymes', () => {
         expect(enzyme[column]).toBe(filterData)
       );
     });
+
+    it.each([
+      ['gene', 'AXYL_01798'],
+      ['organism', 'SCE'],
+      ['domain', 'B'],
+      ['reaction_id', 'R00470'],
+      ['compound', 'C00027'],
+    ])(
+      'should return the same number of matches for %p when filtering by lower and upper case',
+      async (column, filterData) => {
+        const filtered = await fetch(
+          encodeURI(
+            `${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=1000&filters[${column}]=${filterData}`
+          )
+        );
+        const filteredLower = await fetch(
+          encodeURI(
+            `${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=1000&filters[${column}]=${filterData.toLowerCase()}`
+          )
+        );
+        const filteredBody = await filtered.json();
+        const filteredBodyLower = await filteredLower.json();
+        expect(filteredBody.totalCount).toBe(filteredBodyLower.totalCount);
+      }
+    );
 
     it('should filter by EC number by existence in comma separated string', async () => {
       const filtered = await fetch(
