@@ -19,7 +19,9 @@ centering
 cerevisiae
 chebi
 CHEBI
+Chiesi
 Cholley
+Chulalongkorn
 ckpack
 cmid
 cmids
@@ -50,6 +52,7 @@ ensembl
 Ensembl
 ENSG
 Esfahani
+Etienne
 europepmc
 Feizi
 filename
@@ -84,6 +87,8 @@ inchi
 Intawat
 jaccard
 Jaccard
+Johnsson
+Jorrit
 Jörnsten
 kcat
 kegg
@@ -127,6 +132,8 @@ nacolor
 NADP
 nanjiang
 Nanjiang
+Natapol
+natapol
 natext
 NBIS
 nbislogo
