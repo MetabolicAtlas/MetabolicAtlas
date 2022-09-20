@@ -3,7 +3,14 @@
     {
       "date": "2022-08-12",
       "title": "Metabolic Atlas 3.0 presents GotEnzymes",
-      "text": "We are delighted to announce the official release of <b>Metabolic Atlas 3.0</b> 🎉 In this major release we provide access to the newly created database <i>GotEnzymes</i> (article under consideration). GotEnzymes contains over 25.7 million predicted enzyme turnover numbers (k<sub>cat</sub>) for +5.8 million unique sequences and 4147 compounds, across 8099 species. The values are predicted by cutting-edge artificial intelligence tools. In addition, Metabolic Atlas has obtained an <i>Identifiers.org</i> profile and has improved the <i>About</i> pages. <br> More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/3.0' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/badge/latestdoi/53664497' target='_blank'>on Zenodo</a>."
+      "text": "We are delighted to announce the official release of <b>Metabolic Atlas 3.0</b> 🎉 In this major release we provide access to the newly created database <i>GotEnzymes</i> (article under consideration). GotEnzymes contains over 25.7 million predicted enzyme turnover numbers (k<sub>cat</sub>) for +5.8 million unique sequences and 4147 compounds, across 8099 species. The values are predicted by cutting-edge artificial intelligence tools. In addition, Metabolic Atlas has obtained an <i>Identifiers.org</i> profile and has improved the <i>About</i> pages. <br> More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/3.0' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/badge/latestdoi/53664497' target='_blank'>on Zenodo</a>.",
+      "links": [
+        {
+          "intro": "<i>Update:</i> For more information see the ",
+          "link": "platform#citation-v3",
+          "text": "citation list for version 3."
+        }
+      ]
     },
     {
       "date": "2022-06-01",
@@ -50,7 +57,14 @@
     {
       "date": "2021-07-20",
       "title": "Metabolic Atlas 2.0",
-      "text": "We are excited to announce official release of <b>Metabolic Atlas 2.0</b> together with the publication of <a href='https://doi.org/10.1073/pnas.2102344118' target='_blank'><i>Genome-scale metabolic network reconstruction of model animals as a platform for translational research</i></a> 🎉  </br> Visually, the development efforts have alternated between implementing specific features, for example a highly performant and more lightweight 3D viewer, and a dynamic comparison between models, and implementing incremental improvements to the user experience, for example a faster way to search, random suggestions for the Interaction Partners, and a new home page layout. Moreover, a sleuth of bugs, some introduced by the new technology stack, have been fixed.</br> Content-wise, this 2.0 release integrates 5 new GEMs next to the updated Human-GEM and Yeast-GEM, bringing the total to 7 integrated models. With this, new IDs for reactions and metabolites have been created for 6 of these models. These new IDs have been updated on the manually created 2D maps, replacing the previous IDs.</br> More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/2.0' target='_blank'>on GitHub</a> or <a href='https://doi.org/10.5281/zenodo.5115438' target='_blank'>on Zenodo</a>."
+      "text": "We are excited to announce official release of <b>Metabolic Atlas 2.0</b> together with the publication of <a href='https://doi.org/10.1073/pnas.2102344118' target='_blank'><i>Genome-scale metabolic network reconstruction of model animals as a platform for translational research</i></a> 🎉  </br> Visually, the development efforts have alternated between implementing specific features, for example a highly performant and more lightweight 3D viewer, and a dynamic comparison between models, and implementing incremental improvements to the user experience, for example a faster way to search, random suggestions for the Interaction Partners, and a new home page layout. Moreover, a sleuth of bugs, some introduced by the new technology stack, have been fixed.</br> Content-wise, this 2.0 release integrates 5 new GEMs next to the updated Human-GEM and Yeast-GEM, bringing the total to 7 integrated models. With this, new IDs for reactions and metabolites have been created for 6 of these models. These new IDs have been updated on the manually created 2D maps, replacing the previous IDs.</br> More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/2.0' target='_blank'>on GitHub</a> or <a href='https://doi.org/10.5281/zenodo.5115438' target='_blank'>on Zenodo</a>.",
+      "links": [
+        {
+          "intro": "<i>Update:</i> For more information see the ",
+          "link": "platform#citation-v2",
+          "text": "citation list for version 2."
+        }
+      ]
     },
     {
       "date": "2021-04-23",
@@ -82,7 +96,14 @@
     {
       "date": "2020-03-23",
       "title": "Metabolic Atlas 1.6",
-      "text": "<b>Metabolic Atlas 1.6</b> is out, in connection with the publication of the research article <a href='https://doi.org/10.1126/scisignal.aaz1482' target=_blank'><i>An atlas of human metabolism</i></a>, and the <a href='https://www.chalmers.se/en/departments/bio/news/Pages/The-next-generation-of-human-metabolic-modelling.aspx' target='_blank'>press release at Chalmers University</a>. This release contains many user interface improvements, documentation updates and correction of typos. More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/1.6' target='_blank'>on GitHub</a>."
+      "text": "<b>Metabolic Atlas 1.6</b> is out, in connection with the publication of the research article <a href='https://doi.org/10.1126/scisignal.aaz1482' target=_blank'><i>An atlas of human metabolism</i></a>, and the <a href='https://www.chalmers.se/en/departments/bio/news/Pages/The-next-generation-of-human-metabolic-modelling.aspx' target='_blank'>press release at Chalmers University</a>. This release contains many user interface improvements, documentation updates and correction of typos. More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/1.6' target='_blank'>on GitHub</a>.",
+      "links": [
+        {
+          "intro": "<i>Update:</i> For more information on the publication see the ",
+          "link": "platform#citation-v1",
+          "text": "citation list for version 1."
+        }
+      ]
     },
     {
       "date": "2020-02-07",
@@ -120,6 +141,13 @@
       "date": "2019-05-17",
       "title": "Metabolic Atlas is publicly available as 1.0",
       "text": "<b>Metabolic Atlas 1.0</b> is publicly available. We have finalized two main tools, the <i>GEM Browser</i> (including <i>Interaction Partners</i>) and <i>Map Viewer</i>. Additionally, Metabolic Atlas is hosting GEMs in a repository. More details can be found in <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/1.0' target='_blank'>on GitHub</a>.",
+      "links": [
+        {
+          "intro": "<i>Update:</i> For more information see the ",
+          "link": "platform#citation-v1",
+          "text": "citation list for version 1."
+        }
+      ],
       "icon": "flag"
     },
     {
@@ -165,6 +193,13 @@
     {
       "date": "2015-07",
       "text": "A first Atlas focusing on human metabolism is made publicly available at <i>metabolicatlas.org</i>, with the associated publication <a href='https://academic.oup.com/database/article/doi/10.1093/database/bav068/2433201' target='_blank'><i>Human metabolic atlas: an online resource for human metabolism</i></a>.",
+      "links": [
+        {
+          "intro": "<i>Update:</i> For more information see the ",
+          "link": "platform#citation-launch",
+          "text": "citation list."
+        }
+      ],
       "icon": "archive"
     }
   ]
