@@ -429,7 +429,7 @@ export default {
           linkedin: 'https://www.linkedin.com/in/ruibenfeitas/',
           github: 'https://github.com/Benfeitas',
           content:
-            '<a href="https://www.benfeitas.net" target="_blank" rel="noopener noreferrer">Senior Bioinformatician at NBIS, SciLifeLab</a>',
+            '<a href="https://www.benfeitas.net" target="_blank" rel="noopener noreferrer">Translational & Precision Medicine Lead, Chiesi Pharma</a>',
         },
         {
           name: 'Dr. Jonathan Robinson',
