@@ -513,6 +513,34 @@ export default {
               content:
                 '<a href="https://nbis.se/about/staff/martin-norling/" target="_blank" rel="noopener noreferrer">System Developer at NBIS </a>',
             },
+            {
+              name: 'Per Johnsson',
+              img: getImageUrl('pics/per'),
+              github: 'https://github.com/perjo',
+              content:
+                '<a href="https://nbis.se/about/staff/per-johnsson/" target="_blank" rel="noopener noreferrer">System Developer at NBIS </a>',
+            },
+            {
+              name: 'Natapol Pornputtapong',
+              img: getImageUrl('pics/natapol', 'jpeg'),
+              github: 'https://github.com/natapol',
+              linkedin: 'https://www.linkedin.com/in/natapol-pornputtapong-316a9347/',
+              orcid: 'https://orcid.org/0000-0002-3833-0537',
+              content:
+                '<a href="https://www.linkedin.com/in/natapol-pornputtapong-316a9347/" target="_blank" rel="noopener noreferrer">Head of Biochemistry and Microbiology Department, Chulalongkorn University </a>',
+            },
+            {
+              name: 'Pierre-Etienne C.',
+              img: getImageUrl('pics/placeholder', 'png'),
+            },
+            {
+              name: 'Jorrit B.',
+              img: getImageUrl('pics/placeholder', 'png'),
+            },
+            {
+              name: 'Lena H.',
+              img: getImageUrl('pics/placeholder', 'png'),
+            },
           ],
         },
       ],
