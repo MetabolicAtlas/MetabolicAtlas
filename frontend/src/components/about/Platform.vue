@@ -270,7 +270,7 @@
                       rel="noopener noreferrer"
                     >
                       <img
-                        class="image is-16x16 is-inline"
+                        class="image is-16x16 is-inline mr-2"
                         alt="orcid"
                         src="../../assets/logos/orcid.gif"
                       />
@@ -281,7 +281,7 @@
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <span class="icon pl-3"><i class="fa fa-linkedin-square fa-lg"></i></span>
+                      <span class="icon mr-2"><i class="fa fa-linkedin-square fa-lg"></i></span>
                     </a>
                     <a
                       v-if="member.github"
@@ -289,7 +289,7 @@
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <span class="icon pl-4 has-text-black-bis">
+                      <span class="icon has-text-black-bis">
                         <i class="fa fa-lg fa-github"></i>
                       </span>
                     </a>
@@ -330,7 +330,7 @@
                         rel="noopener noreferrer"
                       >
                         <img
-                          class="image is-16x16 is-inline"
+                          class="image is-16x16 is-inline mr-2"
                           alt="orcid"
                           src="../../assets/logos/orcid.gif"
                         />
@@ -341,7 +341,7 @@
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <span class="icon pl-3"><i class="fa fa-linkedin-square fa-lg"></i></span>
+                        <span class="icon mr-2"><i class="fa fa-linkedin-square fa-lg"></i></span>
                       </a>
                       <a
                         v-if="member.github"
@@ -349,7 +349,7 @@
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <span class="icon pl-4 has-text-black-bis">
+                        <span class="icon has-text-black-bis">
                           <i class="fa fa-lg fa-github"></i>
                         </span>
                       </a>
