@@ -43,26 +43,28 @@ UNWIND
   }
 
   statement += `
+WITH collect({mid: mid, cmid: cmid}) as cmids
+UNWIND cmids as cmid
 CALL apoc.cypher.run('
-  MATCH (ms:MetaboliteState)-[${version}]-(:Metabolite)-[${version}]-(:CompartmentalizedMetabolite:${model} {id: $cmid})
-  RETURN ms { id: $cmid, .* } as data
+  MATCH (ms:MetaboliteState)-[${version}]-(:Metabolite)-[${version}]-(:CompartmentalizedMetabolite:${model} {id: $cmid.cmid})
+  RETURN ms { id: $cmid.cmid, mid: $cmid.mid, .* } as data
   
   UNION
   
-  MATCH (:CompartmentalizedMetabolite:${model} {id: $cmid})-[${version}]-(c:Compartment)-[${version}]-(cs:CompartmentState)
-  RETURN { id: $cmid, compartment: cs { id: c.id, .* } } as data
+  MATCH (:CompartmentalizedMetabolite:${model} {id: $cmid.cmid})-[${version}]-(c:Compartment)-[${version}]-(cs:CompartmentState)
+  RETURN { id: $cmid.cmid, compartment: cs { id: c.id, .* } } as data
   
   UNION
   
-  MATCH (:CompartmentalizedMetabolite:${model} {id: $cmid})-[${version}]-(:Reaction)-[${version}]-(s:Subsystem)
+  MATCH (:CompartmentalizedMetabolite:${model} {id: $cmid.cmid})-[${version}]-(:Reaction)-[${version}]-(s:Subsystem)
   WITH DISTINCT s
   MATCH (s)-[${version}]-(ss:SubsystemState)
-  RETURN { id: $cmid, subsystem: COLLECT({id: s.id, name: ss.name}) } as data
+  RETURN { id: $cmid.cmid, subsystem: COLLECT({id: s.id, name: ss.name}) } as data
 ', {cmid:cmid}) yield value
 WITH apoc.map.mergeList(apoc.coll.flatten(
 	apoc.map.values(apoc.map.groupByMulti(COLLECT(value.data), "id"), [value.data.id])
-)) as metabolites, mid
-RETURN metabolites {.*, mid: mid} as metabolites
+)) as metabolites
+RETURN metabolites
 `;
 
   if (limit) {
@@ -338,6 +340,7 @@ LIMIT ${limit}
   }
 
   const [
+    // is this the correct order?
     compartmentalizedMetabolites,
     metabolites,
     genes,
@@ -402,7 +405,7 @@ LIMIT ${limit}
 
   return {
     metabolite: [
-      ...resWithScore.compartmentalizedMetabolites,
+      // ...resWithScore.compartmentalizedMetabolites,
       ...resWithScore.metabolites,
     ],
     gene: resWithScore.genes,
