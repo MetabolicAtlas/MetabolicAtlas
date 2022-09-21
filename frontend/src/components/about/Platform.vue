@@ -270,7 +270,7 @@
                       rel="noopener noreferrer"
                     >
                       <img
-                        class="image is-16x16 is-inline"
+                        class="image is-16x16 is-inline mr-2"
                         alt="orcid"
                         src="../../assets/logos/orcid.gif"
                       />
@@ -281,7 +281,7 @@
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <span class="icon pl-3"><i class="fa fa-linkedin-square fa-lg"></i></span>
+                      <span class="icon mr-2"><i class="fa fa-linkedin-square fa-lg"></i></span>
                     </a>
                     <a
                       v-if="member.github"
@@ -289,7 +289,7 @@
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <span class="icon pl-4 has-text-black-bis">
+                      <span class="icon has-text-black-bis">
                         <i class="fa fa-lg fa-github"></i>
                       </span>
                     </a>
@@ -330,7 +330,7 @@
                         rel="noopener noreferrer"
                       >
                         <img
-                          class="image is-16x16 is-inline"
+                          class="image is-16x16 is-inline mr-2"
                           alt="orcid"
                           src="../../assets/logos/orcid.gif"
                         />
@@ -341,7 +341,7 @@
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <span class="icon pl-3"><i class="fa fa-linkedin-square fa-lg"></i></span>
+                        <span class="icon mr-2"><i class="fa fa-linkedin-square fa-lg"></i></span>
                       </a>
                       <a
                         v-if="member.github"
@@ -349,7 +349,7 @@
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <span class="icon pl-4 has-text-black-bis">
+                        <span class="icon has-text-black-bis">
                           <i class="fa fa-lg fa-github"></i>
                         </span>
                       </a>
@@ -429,7 +429,7 @@ export default {
           linkedin: 'https://www.linkedin.com/in/ruibenfeitas/',
           github: 'https://github.com/Benfeitas',
           content:
-            '<a href="https://www.benfeitas.net" target="_blank" rel="noopener noreferrer">Senior Bioinformatician at NBIS, SciLifeLab</a>',
+            '<a href="https://www.benfeitas.net" target="_blank" rel="noopener noreferrer">Translational & Precision Medicine Lead, Chiesi Pharma</a>',
         },
         {
           name: 'Dr. Jonathan Robinson',
@@ -500,6 +500,13 @@ export default {
           name: 'Previous Contributors',
           members: [
             {
+              name: 'Per Johnsson',
+              img: getImageUrl('pics/per'),
+              github: 'https://github.com/perjo',
+              content:
+                '<a href="https://nbis.se/about/staff/per-johnsson/" target="_blank" rel="noopener noreferrer">System Developer at NBIS </a>',
+            },
+            {
               name: 'Sergiu Netotea',
               img: getImageUrl('pics/sergiu'),
               linkedin: 'https://se.linkedin.com/in/sergiu-netotea-753068182',
@@ -512,6 +519,27 @@ export default {
               github: 'https://github.com/norling',
               content:
                 '<a href="https://nbis.se/about/staff/martin-norling/" target="_blank" rel="noopener noreferrer">System Developer at NBIS </a>',
+            },
+            {
+              name: 'Natapol Pornputtapong',
+              img: getImageUrl('pics/natapol', 'jpeg'),
+              github: 'https://github.com/natapol',
+              linkedin: 'https://www.linkedin.com/in/natapol-pornputtapong-316a9347/',
+              orcid: 'https://orcid.org/0000-0002-3833-0537',
+              content:
+                '<a href="https://www.linkedin.com/in/natapol-pornputtapong-316a9347/" target="_blank" rel="noopener noreferrer">Head of Biochemistry and Microbiology Department, Chulalongkorn University </a>',
+            },
+            {
+              name: 'Pierre-Etienne C.',
+              img: getImageUrl('pics/placeholder', 'png'),
+            },
+            {
+              name: 'Jorrit B.',
+              img: getImageUrl('pics/placeholder', 'png'),
+            },
+            {
+              name: 'Lena H.',
+              img: getImageUrl('pics/placeholder', 'png'),
             },
           ],
         },
