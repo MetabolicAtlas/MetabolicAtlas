@@ -500,6 +500,13 @@ export default {
           name: 'Previous Contributors',
           members: [
             {
+              name: 'Per Johnsson',
+              img: getImageUrl('pics/per'),
+              github: 'https://github.com/perjo',
+              content:
+                '<a href="https://nbis.se/about/staff/per-johnsson/" target="_blank" rel="noopener noreferrer">System Developer at NBIS </a>',
+            },
+            {
               name: 'Sergiu Netotea',
               img: getImageUrl('pics/sergiu'),
               linkedin: 'https://se.linkedin.com/in/sergiu-netotea-753068182',
@@ -512,13 +519,6 @@ export default {
               github: 'https://github.com/norling',
               content:
                 '<a href="https://nbis.se/about/staff/martin-norling/" target="_blank" rel="noopener noreferrer">System Developer at NBIS </a>',
-            },
-            {
-              name: 'Per Johnsson',
-              img: getImageUrl('pics/per'),
-              github: 'https://github.com/perjo',
-              content:
-                '<a href="https://nbis.se/about/staff/per-johnsson/" target="_blank" rel="noopener noreferrer">System Developer at NBIS </a>',
             },
             {
               name: 'Natapol Pornputtapong',
