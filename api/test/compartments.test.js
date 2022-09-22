@@ -5,9 +5,9 @@ const NUCLEUS_INFO = {
   id: 'nucleus',
   letterCode: 'n',
   name: 'Nucleus',
-  genesCount: 334,
-  metabolitesCount: 181,
-  reactionsCount: 238,
+  genesCount: 400,
+  metabolitesCount: 184,
+  reactionsCount: 243,
   subsystemCount: 26,
 };
 

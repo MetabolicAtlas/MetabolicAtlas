@@ -51,6 +51,6 @@ describe('search', () => {
 
     expect(scores.length).toEqual(7);
     expect(scoreSet.size).toEqual(1);
-    expect(scoreSet.has(9.69381046295166)).toEqual(true);
+    expect(scoreSet.has(9.693942070007324)).toEqual(true);
   });
 });
