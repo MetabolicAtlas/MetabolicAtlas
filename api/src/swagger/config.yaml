@@ -80,6 +80,12 @@ paths:
           required: true
           type: 'string'
           description: 'the model name, e.g. **HumanGem**'
+        - name: 'full'
+          in: 'query'
+          required: false
+          type: 'string'
+          description: 'if left out, or set to false, only get the number of metabolites, genes, reactions contained by the given compartment.'
+          default: true
       responses:
         '200':
           description: 'Successful query'

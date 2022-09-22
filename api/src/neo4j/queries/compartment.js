@@ -3,6 +3,9 @@ import parseParams from 'neo4j/shared/helper';
 
 const getCompartment = async ({ id, model, version, full }) => {
   const [m, v] = parseParams(model, version);
+  // full is undefined when the param is not present, otherwise a string
+  const falsy = ['false', '""', '0', 'null', 'undefined', 'NaN'];
+  const showFull = !falsy.includes(`${full}`.toLowerCase());
 
   const statement = `
 CALL apoc.cypher.run("
@@ -16,10 +19,10 @@ CALL apoc.cypher.run("
   RETURN {
     subsystems: COLLECT(DISTINCT({id: s.id, name: ss.name})) ,
     reactionsCount: COUNT(DISTINCT(r)) ${
-      full ? ', reactions: COLLECT(DISTINCT(r))' : ''
+      showFull ? ', reactions: COLLECT(DISTINCT(r))' : ''
     },
     metabolitesCount: COUNT(DISTINCT(cm)) ${
-      full ? ', metabolites: COLLECT(DISTINCT(cm))' : ''
+      showFull ? ', metabolites: COLLECT(DISTINCT(cm))' : ''
     }
   } as data
 
@@ -28,7 +31,7 @@ CALL apoc.cypher.run("
   MATCH (:Compartment${m} {id: '${id}'})-[${v}]-(:CompartmentalizedMetabolite)-[${v}]-(r:Reaction)-[${v}]-(g:Gene)
   USING JOIN on r
   RETURN { genesCount: COUNT(DISTINCT(g)) ${
-    full ? ', genes: COLLECT(DISTINCT(g))' : ''
+    showFull ? ', genes: COLLECT(DISTINCT(g))' : ''
   } } as data
 
   UNION
