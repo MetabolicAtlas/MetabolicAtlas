@@ -10,7 +10,7 @@ const createLayout = require('ngraph.forcelayout');
 const SCALE = 5;
 const MAX_ITERATIONS = 1000;
 
-module.exports = ({ nodes, links }) => {
+module.exports = ({ nodes, links, dim = 3 }) => {
   const g = createGraph();
 
   for (let node of nodes) {
@@ -24,7 +24,7 @@ module.exports = ({ nodes, links }) => {
   }
 
   const startTime = Date.now();
-  const layout = createLayout(g, { dimensions: 3 });
+  const layout = createLayout(g, { dimensions: dim });
 
   let iterations = MAX_ITERATIONS;
   const elementsCount = nodes.length + links.length;

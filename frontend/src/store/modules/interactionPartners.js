@@ -9,6 +9,18 @@ const data = {
   tooLargeNetworkGraph: false,
   expansion: {},
   randomComponents: null,
+  network: {
+    nodes: [],
+    links: [],
+  },
+  coords: {
+    x: 0,
+    y: 0,
+    z: 1,
+    lx: 0,
+    ly: 0,
+    lz: 150,
+  },
 };
 
 const getters = {
@@ -31,10 +43,11 @@ const formatInteractionPartners = ips => ({
 const actions = {
   async getInteractionPartners({ commit }, { model, id }) {
     const payload = { id, version: model.apiVersion, model: model.apiName };
-    const interactionPartners = await interactionPartnersApi.fetchInteractionPartners(payload);
+    const { result, network } = await interactionPartnersApi.fetchInteractionPartners(payload);
+    commit('setNetwork', network);
 
-    commit('setTooLargeNetworkGraph', !interactionPartners.reactions);
-    commit('setInteractionPartners', formatInteractionPartners(interactionPartners));
+    commit('setTooLargeNetworkGraph', !result.reactions);
+    commit('setInteractionPartners', formatInteractionPartners(result));
   },
 
   async getRandomComponents({ commit }, model) {
@@ -53,8 +66,8 @@ const actions = {
     const _getters = args.getters; // eslint-disable-line no-underscore-dangle
 
     const payload = { id, version: model.apiVersion, model: model.apiName };
-    let expansion = await interactionPartnersApi.fetchInteractionPartners(payload);
-    expansion = formatInteractionPartners(expansion);
+    const { result } = await interactionPartnersApi.fetchInteractionPartners(payload);
+    const expansion = formatInteractionPartners(result);
 
     commit('setTooLargeNetworkGraph', !expansion.reactions);
     commit('setExpansion', expansion);
@@ -66,6 +79,9 @@ const actions = {
     };
 
     commit('setInteractionPartners', updatedInteractionPartners);
+  },
+  setCoords({ commit }, coords) {
+    commit('setCoords', coords);
   },
 };
 
@@ -81,6 +97,12 @@ const mutations = {
   },
   setRandomComponents: (state, randomComponents) => {
     state.randomComponents = randomComponents;
+  },
+  setNetwork: (state, network) => {
+    state.network = network;
+  },
+  setCoords: (state, coords) => {
+    state.coords = coords;
   },
 };
 

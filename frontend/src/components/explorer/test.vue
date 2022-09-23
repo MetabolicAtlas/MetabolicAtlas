@@ -86,10 +86,177 @@
               ></h3>
             </div>
           </div>
-          <div class="container is-fullhd columns is-multiline">
-            <div class="column is-8-desktop is-fullwidth-tablet">
-              <div id="viewer3d"></div>
+          <div
+            v-show="showGraphContextMenu && showNetworkGraph"
+            id="contextMenuGraph"
+            ref="contextMenuGraph"
+          >
+            <span
+              v-show="clickedElmId && clickedElmId !== mainNodeID"
+              class="button is-dark"
+              @click="navigate"
+            >
+              Load {{ messages.interPartName }}
+            </span>
+            <span
+              v-show="clickedElmId && !expandedIds.includes(clickedElmId)"
+              class="button is-dark"
+              @click="loadExpansion"
+            >
+              Expand {{ messages.interPartName }}
+            </span>
+            <div v-show="clickedElm">
+              <span class="button is-dark">Highlight reaction:</span>
             </div>
+            <div>
+              <template v-if="clickedElm && clickedElm['reaction']">
+                <template v-for="(r, index) in Array.from(clickedElm.reaction).slice(0, 16)">
+                  <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
+                  <span
+                    v-if="index != 15"
+                    class="button is-dark is-small has-margin-left"
+                    @click="highlightReaction(r)"
+                  >
+                    {{ r }}
+                  </span>
+                  <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
+                  <span v-else class="has-margin-left">
+                    {{ `${Array.from(clickedElm.reaction).length - 15} others reaction(s)...` }}
+                  </span>
+                </template>
+              </template>
+            </div>
+          </div>
+          <div class="container is-fullhd columns is-multiline">
+            <template v-if="tooLargeNetworkGraph">
+              <div class="column is-8-desktop is-fullwidth-tablet">
+                <div class="notification is-warning has-text-centered">
+                  <p>The query has returned many nodes.</p>
+                  <p>The network cannot been generated.</p>
+                </div>
+              </div>
+            </template>
+            <template v-if="largeNetworkGraph">
+              <div class="column is-8-desktop is-fullwidth-tablet">
+                <div class="notification is-warning has-text-centered">
+                  <div>
+                    <p>The query has returned many nodes.</p>
+                    <p>The network has not been generated.</p>
+                  </div>
+                  <span class="button" @click="generateGraph(fitGraph)">Generate</span>
+                </div>
+              </div>
+            </template>
+            <template v-else-if="showNetworkGraph">
+              <div class="column is-8-desktop is-fullwidth-tablet">
+                <div id="graphOption">
+                  <span
+                    class="button"
+                    :class="[{ 'is-active': showGraphLegend }, '']"
+                    title="Options"
+                    @click="toggleGraphLegend"
+                  >
+                    <i class="fa fa-cog"></i>
+                  </span>
+                  <span class="button" title="Zoom In" @click="zoomGraph(true)">
+                    <i class="fa fa-search-plus"></i>
+                  </span>
+                  <span class="button" title="Zoom Out" @click="zoomGraph(false)">
+                    <i class="fa fa-search-minus"></i>
+                  </span>
+                  <span class="button" title="Fit to frame" @click="fitGraph()">
+                    <i class="fa fa-arrows-alt"></i>
+                  </span>
+                  <span class="button" title="Reload" @click="resetGraph(true)">
+                    <i class="fa fa-refresh"></i>
+                  </span>
+                  <span class="button" title="Clean selection/highlight" @click="resetGraph(false)">
+                    <i class="fa fa-eraser"></i>
+                  </span>
+                </div>
+                <div v-show="showGraphLegend" id="contextGraphLegend" ref="contextGraphLegend">
+                  <button type="button" class="delete" @click="toggleGraphLegend"></button>
+                  <span class="label">Gene</span>
+                  <div class="comp">
+                    <span>Shape:</span>
+                    <div class="select">
+                      <select v-model="nodeDisplayParams.geneNodeShape" @change="redrawGraph()">
+                        <option v-for="shape in availableNodeShape" :key="shape">
+                          {{ shape }}
+                        </option>
+                      </select>
+                    </div>
+                    <span>Color:</span>
+                    <span
+                      class="color-span is-clickable"
+                      :style="{ background: nodeDisplayParams.geneNodeColor.hex }"
+                      @click="toggleGeneColorPicker()"
+                    >
+                      <compact-picker
+                        v-show="showColorPickerEnz"
+                        v-model="nodeDisplayParams.geneNodeColor"
+                        @input="applyOptionPanelColor('gene')"
+                      ></compact-picker>
+                    </span>
+                  </div>
+                  <span class="label mt-5">Metabolite</span>
+                  <div class="comp">
+                    <span>Shape:</span>
+                    <div class="select">
+                      <select
+                        v-model="nodeDisplayParams.metaboliteNodeShape"
+                        @change="redrawGraph()"
+                      >
+                        <option v-for="shape in availableNodeShape" :key="shape">
+                          {{ shape }}
+                        </option>
+                      </select>
+                    </div>
+                    <span>Color:</span>
+                    <span
+                      class="color-span is-clickable"
+                      :style="{ background: nodeDisplayParams.metaboliteNodeColor.hex }"
+                      @click="toggleMetaboliteColorPicker()"
+                    >
+                      <compact-picker
+                        v-show="showColorPickerMeta"
+                        v-model="nodeDisplayParams.metaboliteNodeColor"
+                        @input="applyOptionPanelColor('metabolite')"
+                      ></compact-picker>
+                    </span>
+                  </div>
+                </div>
+                <div id="cy" ref="cy" class="card p0">
+                  <div id="dropdownMenuExport" class="dropdown">
+                    <div class="dropdown-trigger">
+                      <a
+                        v-show="showNetworkGraph"
+                        class="button is-white"
+                        aria-haspopup="true"
+                        aria-controls="dropdown-menu"
+                        @click="showMenuExport = !showMenuExport"
+                      >
+                        <span class="icon is-large"><i class="fa fa-download"></i></span>
+                        <span>Export</span>
+                        <span class="icon is-large"><i class="fa fa-caret-down"></i></span>
+                      </a>
+                    </div>
+                    <div
+                      v-show="showMenuExport"
+                      id="dropdown-menu"
+                      class="dropdown-menu"
+                      role="menu"
+                      @mouseleave="showMenuExport = false"
+                    >
+                      <div class="dropdown-content">
+                        <a class="dropdown-item" @click="exportGraphml">Graphml</a>
+                        <a class="dropdown-item" @click="exportPNG">PNG</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </template>
             <div class="column">
               <sidebar
                 id="sidebar"
@@ -168,10 +335,8 @@ import { mapGetters, mapActions, mapState } from 'vuex';
 import cytoscape from 'cytoscape';
 import jquery from 'jquery';
 import cola from 'cytoscape-cola';
-// import { Compact } from '@ckpack/vue-color';
+import { Compact } from '@ckpack/vue-color';
 import { default as FileSaver } from 'file-saver';
-
-import { MetAtlasViewer } from '@metabolicatlas/3d-network-viewer';
 
 import Sidebar from '@/components/explorer/interactionPartners/Sidebar.vue';
 import CytoscapeTable from '@/components/explorer/interactionPartners/CytoscapeTable.vue';
@@ -186,16 +351,7 @@ import { default as changeGraphStyle } from '@/graph-stylers/hmr-closest-interac
 import { default as convertGraphML } from '@/helpers/graph-ml-converter';
 
 import { getSingleExpressionColor } from '@/helpers/expressionSources';
-import { default as colorToRGBArray } from '@/helpers/colors';
-import { DEFAULT_GENE_COLOR, DEFAULT_METABOLITE_COLOR } from '@/helpers/dataOverlay';
-
 import { default as messages } from '@/content/messages';
-
-const NODE_TEXTURES = [
-  { group: 'e', sprite: '/sprite_round.png' },
-  { group: 'r', sprite: '/sprite_square.png' },
-  { group: 'm', sprite: '/sprite_triangle.png' },
-];
 
 export default {
   name: 'InteractionPartners',
@@ -204,16 +360,13 @@ export default {
     Sidebar,
     CytoscapeTable,
     Loader,
-    // 'compact-picker': Compact,
+    'compact-picker': Compact,
     Tile,
     DataOverlay,
   },
   data() {
     return {
-      controller: null,
       loading: false,
-      defaultGeneColor: DEFAULT_GENE_COLOR,
-      defaultMetaboliteColor: DEFAULT_METABOLITE_COLOR,
       componentNotFound: false,
       errorMessage: '',
 
@@ -335,8 +488,6 @@ export default {
       currentDataTypes: state => state.dataOverlay.currentDataTypes,
       currentDataSources: state => state.dataOverlay.currentDataSources,
       dataSets: state => state.dataOverlay.dataSets,
-      network: state => state.interactionPartners.network,
-      coords: state => state.interactionPartners.coords,
     }),
     ...mapGetters({
       component: 'interactionPartners/component',
@@ -818,8 +969,6 @@ export default {
       if (callback) {
         callback();
       }
-
-      this.applyColorsAndRenderNetwork();
     },
     exportGraphml: function exportGraphml() {
       const output = convertGraphML(this.cy);
@@ -891,81 +1040,6 @@ export default {
       this.showColorPickerEnz = false;
       this.showColorPickerMeta = !this.showColorPickerMeta;
       return this.showColorPickerMeta;
-    },
-    async renderNetwork(customizedNetwork) {
-      // this.resetNetwork();
-      this.controller = MetAtlasViewer('viewer3d');
-
-      const graphData = customizedNetwork || this.network;
-      const nodeTypes = new Set(graphData.nodes.map(n => n.g));
-      const nodeTextures = NODE_TEXTURES.filter(t => nodeTypes.has(t.group));
-
-      // this.controller.setNodeSelectCallback(this.selectElement);
-      this.controller.setBackgroundColor('#ececec');
-      this.controller.setUpdateCameraCallback(this.updateURLCoords);
-      await this.controller.setData({
-        graphData,
-        nodeTextures,
-        nodeSize: 10,
-      });
-      // this.processURLQuery();
-      const { lx, ly, lz } = this.coords;
-      this.controller.setCamera({ x: lx, y: ly, z: lz });
-    },
-    async applyColorsAndRenderNetwork() {
-      // if (this.currentLevels === levels
-      //     || (this.currentLevels === {} && Object.keys(levels).length > 0)
-      // ) {
-      //   return;
-      // }
-      // this.currentLevels = levels;
-      const nodes = this.network.nodes.map(node => {
-        let color = colorToRGBArray(this.defaultMetaboliteColor);
-
-        if (node.g === 'e') {
-          /* if (this.componentTypes.includes('gene') && Object.keys(this.computedLevels).length > 0) {
-            const partialID = node.id.split('-')[0];
-            const key = this.computedLevels[partialID] !== undefined ? partialID : 'n/a';
-            color = colorToRGBArray(this.computedLevels[key][0]);
-          } else { */
-          color = colorToRGBArray(this.defaultGeneColor);
-          // }
-        }
-
-        if (node.g === 'm') {
-          node.n = node.id; // eslint-disable-line
-
-          /* if (
-            this.componentTypes.includes('metabolite') &&
-            Object.keys(this.computedLevels).length > 0
-          ) {
-            const partialID = node.id.split('-')[0];
-            const key = this.computedLevels[partialID] !== undefined ? partialID : 'n/a';
-            color = colorToRGBArray(this.computedLevels[key][0]);
-          } else { */
-          color = colorToRGBArray(this.defaultMetaboliteColor);
-          // }
-        }
-
-        return {
-          ...node,
-          color,
-        };
-      });
-
-      await this.renderNetwork({
-        nodes,
-        links: this.network.links,
-      });
-    },
-    updateURLCoords({ x, y, z }) {
-      const payload = {
-        ...this.coords,
-        lx: x,
-        ly: y,
-        lz: z,
-      };
-      this.$store.dispatch('interactionPartners/setCoords', payload);
     },
   },
 };
@@ -1111,13 +1185,6 @@ export default {
   .fade-leave-from,
   .fade-enter-to {
     transition: opacity 0.5s ease;
-  }
-  #viewer3d {
-    width: 100%;
-    height: 100%;
-    // @media screen and (max-width: $tablet) {
-    //  height: $viewer-height;
-    // }
   }
 }
 </style>

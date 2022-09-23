@@ -1,5 +1,6 @@
 import querySingleResult from 'neo4j/queryHandlers/single';
 import parseParams from 'neo4j/shared/helper';
+import populateWithLayout from 'workers/3d-network';
 
 const getInteractionPartners = async ({ id, model, version }) => {
   const [m, v] = parseParams(model, version);
@@ -49,7 +50,36 @@ WITH apoc.map.mergeList(apoc.coll.flatten(
 )) as reaction, component
 RETURN { component: component, reactions: COLLECT(reaction)}
 `;
-  return querySingleResult(statement);
+  const result = await querySingleResult(statement);
+  let links = [];
+  let nodes = [];
+  let unique = new Set();
+  result.reactions.forEach(reaction => {
+    reaction.genes.forEach(gene => {
+      if (!unique.has(gene.id)) {
+        nodes.push({ g: 'e', id: gene.id, n: gene.name });
+        unique.add(gene.id);
+      }
+      reaction.metabolites.forEach(metabolite => {
+        if (!unique.has(metabolite.id)) {
+          console.log('metabolite', {
+            g: 'm',
+            id: metabolite.id,
+            n: metabolite.name,
+          });
+          nodes.push({ g: 'm', id: metabolite.id, n: metabolite.name });
+          unique.add(metabolite.id);
+        }
+        const rep = `${gene.id}-${metabolite.id}`;
+        if (!unique.has(rep)) {
+          links.push({ s: gene.id, t: metabolite.id });
+          unique.add(rep);
+        }
+      });
+    });
+  });
+  const network = await populateWithLayout({ nodes, links, dim: 2 });
+  return { result, network };
 };
 
 export default getInteractionPartners;
