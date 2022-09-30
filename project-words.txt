@@ -1,3 +1,4 @@
+
 Agren
 Albornoz
 Altmetric
@@ -40,6 +41,7 @@ cypan
 Cytoscape
 cyzoom
 Dina
+doiref
 Domenzain
 donut
 Dviewer
@@ -65,6 +67,7 @@ fulltext
 gapless
 Gatto
 gemodelset
+gkac
 glyoxalate
 Gobom
 GOTBIN
@@ -88,8 +91,8 @@ Intawat
 jaccard
 Jaccard
 Johnsson
-Jorrit
 Jörnsten
+Jorrit
 kcat
 kegg
 Keratan
@@ -143,6 +146,8 @@ ncbiprotein
 Netotea
 ngraph
 Nookaew
+noopener
+noreferrer
 Norling
 nprogress
 Ofour
@@ -161,6 +166,7 @@ pharmacogenomic
 playsinline
 PLOS
 plumxref
+pmidref
 PNAS
 POLR
 popover
@@ -169,8 +175,8 @@ Prot
 proteinatlas
 Pubmed
 Quant
-rdkit
 Rasool
+rdkit
 reactome
 Reactome
 Recon
@@ -187,6 +193,7 @@ Saghaleyni
 Sánchez
 Scalcinati
 schhl
+scisig
 scisignal
 Scite
 secretome
