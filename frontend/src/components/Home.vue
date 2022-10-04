@@ -66,8 +66,6 @@
                     <i>{{ c.title }}</i>
                     {{ c.publication }}, {{ c.id }}
                   </a>
-
-                  {{ c.linkText }}
                 </p>
               </div>
             </div>
