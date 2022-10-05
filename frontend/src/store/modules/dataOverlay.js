@@ -179,11 +179,13 @@ const actions = {
       dataSource => dataSource.filename === customDataSource.fileName
     );
 
+    const model = rootState.models.model.short_name;
+
     if (currentDataSourceIndex !== -1) {
       const type = state.currentDataTypes[currentDataSourceIndex].name;
       const fallbackDataSource = state.index[type][0];
       await dispatch('getDataSource', {
-        model: rootState.models.model.short_name,
+        model,
         type,
         filename: fallbackDataSource.filename,
         propagate: true,
@@ -192,6 +194,19 @@ const actions = {
     }
 
     commit('removeCustomDataSourceFromIndex', customDataSource);
+
+    if (!state.customData[customDataSource.type]) {
+      commit('removeDataType', currentDataSourceIndex);
+
+      if (state.currentDataTypes.length === 0) {
+        await dispatch('setCurrentDataType', {
+          model,
+          type: 'transcriptomics',
+          propagate: true,
+          index: 0,
+        });
+      }
+    }
   },
 };
 
@@ -227,6 +242,10 @@ const mutations = {
     state.dataSets = tempList;
   },
   addCustomDataSourceToIndex: (state, { dataSource, fileName, dataType }) => {
+    if (!state.index[dataType]) {
+      state.index[dataType] = [];
+    }
+
     state.index[dataType].push({ filename: fileName, lastUpdated: '', link: '', name: fileName });
     if (!state.customData[dataType]) {
       state.customData[dataType] = {};
@@ -241,6 +260,24 @@ const mutations = {
       }
       return acc;
     }, {});
+
+    if (state.index[dataType].length === 0) {
+      // remove from customData
+      state.customData = Object.keys(state.customData).reduce((acc, key) => {
+        if (key !== dataType) {
+          acc[key] = state.customData[key];
+        }
+        return acc;
+      }, {});
+
+      // remove from index
+      state.index = Object.keys(state.index).reduce((acc, key) => {
+        if (key !== dataType) {
+          acc[key] = state.index[key];
+        }
+        return acc;
+      }, {});
+    }
   },
   resetOverlayData: state => {
     state.index = {};

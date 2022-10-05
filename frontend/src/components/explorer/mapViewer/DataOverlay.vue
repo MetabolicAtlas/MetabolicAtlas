@@ -49,7 +49,7 @@
         <div v-if="dataTypes.length" class="select is-fullwidth m-1">
           <select :disabled="disableSelect()" @change="handleCustomDataTypeSelect($event)">
             <option
-              v-for="type in Object.keys(filteredDataSourcesIndex)"
+              v-for="type in filteredDataTypesComponents"
               :key="type"
               :selected="type === customDataType"
               :value="type"
@@ -163,7 +163,7 @@
 import { mapGetters, mapActions, mapState } from 'vuex';
 import DataOverlayValidation from '@/components/explorer/mapViewer/DataOverlayValidation.vue';
 import RNALegend from '@/components/explorer/mapViewer/RNALegend.vue';
-import { parseFile } from '@/helpers/dataOverlay';
+import { DATA_TYPES_COMPONENTS, parseFile } from '@/helpers/dataOverlay';
 import Modal from '@/components/shared/Modal.vue';
 
 export default {
@@ -209,6 +209,12 @@ export default {
     ...mapGetters({
       queryParams: 'dataOverlay/queryParams',
     }),
+    filteredDataTypesComponents() {
+      const components = Object.keys(DATA_TYPES_COMPONENTS);
+      return this.$route.name === 'interaction'
+        ? components.filter(c => c !== 'fluxomics')
+        : components;
+    },
     filteredDataSourcesIndex() {
       if (this.$route.name === 'interaction') {
         // do not include fluxomics data for the interaction partners page
