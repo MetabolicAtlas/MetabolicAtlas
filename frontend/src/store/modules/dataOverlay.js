@@ -195,17 +195,27 @@ const actions = {
 
     commit('removeCustomDataSourceFromIndex', customDataSource);
 
-    if (!state.customData[customDataSource.type]) {
+    const payload = {
+      model,
+      propagate: true,
+      index: 0,
+    };
+
+    if (!state.customData[customDataSource.dataType]) {
       commit('removeDataType', currentDataSourceIndex);
 
       if (state.currentDataTypes.length === 0) {
         await dispatch('setCurrentDataType', {
-          model,
+          ...payload,
           type: 'transcriptomics',
-          propagate: true,
-          index: 0,
         });
       }
+    } else {
+      await dispatch('getDataSource', {
+        ...payload,
+        type: customDataSource.dataType,
+        filename: Object.keys(state.customData[customDataSource.dataType])[0],
+      });
     }
   },
 };
