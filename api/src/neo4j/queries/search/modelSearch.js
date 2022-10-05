@@ -60,6 +60,11 @@ const fetchCompartmentalizedMetabolites = async ({
   if (!ids) {
     return null;
   }
+  // create a neo4j mapping of the ids to null (null representing a metaboliteId)
+  // regex replacement needed for neo4j to accept the object
+  const mappedIds = JSON.stringify(
+    ids.map(x => ({ mid: null, cmid: x }))
+  ).replace(/"([^"]+)":/g, '$1:');
 
   let statement = `
 WITH ${JSON.stringify(metaboliteIds)} as mids
@@ -70,23 +75,24 @@ UNWIND
   END AS mid
 OPTIONAL MATCH (:Metabolite:${model} {id:mid})-[${version}]-(cm:CompartmentalizedMetabolite)
 WITH cm.id as cmid1, mid
-WITH ${JSON.stringify(ids)} as cmids2, cmid1, mid
-WITH collect(cmid1)+cmids2 as cmids, mid
+WITH ${mappedIds} as cmids2, cmid1, mid
+WITH cmids2+collect({mid: mid, cmid: cmid1}) as cmids
+
 UNWIND cmids as cmid
 
 CALL apoc.cypher.run('
-  MATCH (ms:MetaboliteState)-[${version}]-(:Metabolite)-[${version}]-(:CompartmentalizedMetabolite:${model} {id: $cmid})
-  RETURN { id: $cmid, name: ms.name } as data
+  MATCH (ms:MetaboliteState)-[${version}]-(:Metabolite)-[${version}]-(:CompartmentalizedMetabolite:${model} {id: $cmid.cmid})
+  RETURN { id: $cmid.cmid, name: ms.name, mid: $cmid.mid } as data
   
   UNION
   
-  MATCH (:CompartmentalizedMetabolite:${model} {id: $cmid})-[${version}]-(c:Compartment)-[${version}]-(cs:CompartmentState)
-  RETURN { id: $cmid, compartment: cs.name } as data
+  MATCH (:CompartmentalizedMetabolite:${model} {id: $cmid.cmid})-[${version}]-(c:Compartment)-[${version}]-(cs:CompartmentState)
+  RETURN { id: $cmid.cmid, compartment: cs.name } as data
 ', {cmid:cmid}) yield value
 WITH apoc.map.mergeList(apoc.coll.flatten(
 	apoc.map.values(apoc.map.groupByMulti(COLLECT(value.data), "id"), [value.data.id])
-)) as metabolites, mid
-RETURN metabolites {mid: mid, .*}
+)) as metabolites
+RETURN metabolites
 `;
   // limit is applied here again since the number of IDs for Metabolite and
   // CompartmentalizedMetabolite together may exceed the value of limit
