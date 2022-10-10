@@ -59,7 +59,18 @@
                 are associated with scientific articles as follows.
               </p>
               <div class="box">
-                <p>From version 3: <i>Article under consideration</i></p>
+                <p>
+                  From version 3:
+                  <a
+                    href="https://doi.org/10.1093/nar/gkac831"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Li, F., et al, 2022.
+                    <i>GotEnzymes: an extensive database of enzyme parameter predictions</i>
+                    . NAR, gkac831
+                  </a>
+                </p>
               </div>
               <div class="box">
                 <p>
