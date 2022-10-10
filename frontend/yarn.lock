@@ -1333,12 +1333,12 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@metabolicatlas/3d-network-viewer@^0.1.18":
-  version "0.1.19"
-  resolved "https://registry.yarnpkg.com/@metabolicatlas/3d-network-viewer/-/3d-network-viewer-0.1.19.tgz#7e2fe981e08d9d0ba30977e1af6b29d531bfa771"
-  integrity sha512-kge4qF5wQLQ4mpqi2a1LnwxvpEmtt9v8I8byehfWpHHlm/N2JF0FSzBi6SCb4EwuCOxV2tHzIsiaa4FwsN/Tzg==
+"@metabolicatlas/3d-network-viewer@^0.1.22":
+  version "0.1.22"
+  resolved "https://registry.yarnpkg.com/@metabolicatlas/3d-network-viewer/-/3d-network-viewer-0.1.22.tgz#dac990cef6bbf1fc3d206b0f72e7564bcd47447b"
+  integrity sha512-G9wdm4Ryj8BX4u/WPuJ7eO4JD5A3rsQr1e+0QcL9+fUypm8DOzbwwl7VGdSv5hIWvPkmecYA7krWrpm9IXHxMA==
   dependencies:
-    three "^0.126.0"
+    three "^0.144.0"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -4282,10 +4282,10 @@ text-table@^0.2.0:
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==
 
-three@^0.126.0:
-  version "0.126.1"
-  resolved "https://registry.yarnpkg.com/three/-/three-0.126.1.tgz#cf4e4e52060fd952f6f0d5440cbd422c66bc4be7"
-  integrity sha512-eOEXnZeE1FDV0XgL1u08auIP13jxdN9LQBAEmlErYzMxtIIfuGIAZbijOyookALUhqVzVOx0Tywj6n192VM+nQ==
+three@^0.144.0:
+  version "0.144.0"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.144.0.tgz#2818517169f8ff94eea5f664f6ff1fcdcd436cc8"
+  integrity sha512-R8AXPuqfjfRJKkYoTQcTK7A6i3AdO9++2n8ubya/GTU+fEHhYKu1ZooRSCPkx69jbnzT7dD/xEo6eROQTt2lJw==
 
 to-fast-properties@^2.0.0:
   version "2.0.0"
