@@ -10,7 +10,7 @@ import Reaction from '@/components/explorer/gemBrowser/Reaction.vue';
 import Subsystem from '@/components/explorer/gemBrowser/Subsystem.vue';
 import MapViewer from '@/components/explorer/MapViewer.vue';
 import InteractionPartners from '@/components/explorer/InteractionPartners.vue';
-import IPDetailsPage from '@/components/explorer/InteractionPartners/DetailsPage.vue';
+import IPDetailsPage from '@/components/explorer/interactionPartners/DetailsPage.vue';
 import SearchTable from '@/components/SearchTable.vue';
 import Documentation from '@/components/Documentation.vue';
 import Repository from '@/components/Repository.vue';
