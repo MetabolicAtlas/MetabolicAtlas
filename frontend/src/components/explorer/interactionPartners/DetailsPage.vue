@@ -831,8 +831,14 @@ export default {
       const nodeTextures = NODE_TEXTURES.filter(t => nodeTypes.has(t.group));
 
       // this.controller.setNodeSelectCallback(this.selectElement);
+      this.controller.setNodeSecondaryClickCallback(() =>
+        console.log('TODO: handle network expansion here')
+      );
       this.controller.setBackgroundColor('#ececec');
       this.controller.setUpdateCameraCallback(this.updateURLCoords);
+      this.controller.setCameraOptions({
+        noRotate: true, // mouse drag now pans instead of rotating
+      });
       await this.controller.setData({
         graphData,
         nodeTextures,
