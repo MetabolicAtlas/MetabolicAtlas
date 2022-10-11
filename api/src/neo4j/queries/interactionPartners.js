@@ -54,22 +54,47 @@ RETURN { component: component, reactions: COLLECT(reaction)}
   let links = [];
   let nodes = [];
   let unique = new Set();
+
   result.reactions.forEach(reaction => {
-    reaction.genes.forEach(gene => {
+    const { genes, metabolites } = reaction;
+
+    // loop through metabolites, add them to nodes
+    // and add links to the main node
+    metabolites.forEach(metabolite => {
+      if (!unique.has(metabolite.id)) {
+        console.log('metabolite', {
+          g: 'm',
+          id: metabolite.id,
+          n: metabolite.name,
+        });
+        nodes.push({ g: 'm', id: metabolite.id, n: metabolite.name });
+        unique.add(metabolite.id);
+
+        const rep = `${id}-${metabolite.id}`;
+        if (!unique.has(rep)) {
+          links.push({ s: id, t: metabolite.id });
+          unique.add(rep);
+        }
+      }
+    });
+
+    // loop through genes, add them to nodes
+    // and add links to the main node
+    genes.forEach(gene => {
       if (!unique.has(gene.id)) {
         nodes.push({ g: 'e', id: gene.id, n: gene.name });
         unique.add(gene.id);
-      }
-      reaction.metabolites.forEach(metabolite => {
-        if (!unique.has(metabolite.id)) {
-          console.log('metabolite', {
-            g: 'm',
-            id: metabolite.id,
-            n: metabolite.name,
-          });
-          nodes.push({ g: 'm', id: metabolite.id, n: metabolite.name });
-          unique.add(metabolite.id);
+
+        const rep = `${id}-${gene.id}`;
+        if (!unique.has(rep)) {
+          links.push({ s: id, t: gene.id });
+          unique.add(rep);
         }
+      }
+
+      // loop through metabolites for each gene
+      // and add links to the gene
+      metabolites.forEach(metabolite => {
         const rep = `${gene.id}-${metabolite.id}`;
         if (!unique.has(rep)) {
           links.push({ s: gene.id, t: metabolite.id });
