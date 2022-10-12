@@ -450,5 +450,6 @@ export default {
   position: absolute;
   top: 3px;
   right: 3px;
+  z-index: 10;
 }
 </style>
