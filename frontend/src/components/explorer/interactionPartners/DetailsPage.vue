@@ -787,18 +787,7 @@ export default {
       FileSaver.saveAs(blob, fn);
     },
     exportPNG: function exportPNG() {
-      const a = document.createElement('a');
-      const output = this.cy.png({
-        bg: 'white',
-      });
-
-      a.href = output;
-      a.download = `${this.filename}.png`;
-      a.target = '_blank';
-      a.style.display = 'none';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+      this.controller.exportImage(this.filename);
     },
     zoomGraph: function zoomGraph(zoomIn) {
       let factor = this.factorZoom;
