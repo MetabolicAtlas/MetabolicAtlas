@@ -55,6 +55,15 @@ RETURN { component: component, reactions: COLLECT(reaction)}
   let nodes = [];
   let unique = new Set();
 
+  const addRel = (s, t) => {
+    const rel = `${s}-${t}`;
+    const inverseRel = `${t}-${s}`;
+    if (!unique.has(rel) && !unique.has(inverseRel)) {
+      links.push({ s, t });
+      unique.add(rel);
+    }
+  }
+
   result.reactions.forEach(reaction => {
     const { genes, metabolites } = reaction;
 
@@ -70,10 +79,8 @@ RETURN { component: component, reactions: COLLECT(reaction)}
         nodes.push({ g: 'm', id: metabolite.id, n: metabolite.name });
         unique.add(metabolite.id);
 
-        const rep = `${id}-${metabolite.id}`;
-        if (!unique.has(rep)) {
-          links.push({ s: id, t: metabolite.id });
-          unique.add(rep);
+        if (id !== metabolite.id) {
+          addRel(id, metabolite.id);
         }
       }
     });
@@ -85,22 +92,14 @@ RETURN { component: component, reactions: COLLECT(reaction)}
         nodes.push({ g: 'e', id: gene.id, n: gene.name });
         unique.add(gene.id);
 
-        const rep = `${id}-${gene.id}`;
-        if (!unique.has(rep)) {
-          links.push({ s: id, t: gene.id });
-          unique.add(rep);
+        if (id !== gene.id) {
+          addRel(id, gene.id);
         }
       }
 
       // loop through metabolites for each gene
       // and add links to the gene
-      metabolites.forEach(metabolite => {
-        const rep = `${gene.id}-${metabolite.id}`;
-        if (!unique.has(rep)) {
-          links.push({ s: gene.id, t: metabolite.id });
-          unique.add(rep);
-        }
-      });
+      metabolites.forEach(metabolite => addRel(gene.id, metabolite.id));
     });
   });
   const network = await populateWithLayout({ nodes, links, dim: 2 });
