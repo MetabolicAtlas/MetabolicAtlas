@@ -27,7 +27,7 @@
           </div>
           <div class="container is-fullhd columns is-multiline">
             <div class="column is-8-desktop is-fullwidth-tablet">
-              <div id="viewer3dcontainer">
+              <div id="viewer-container">
                 <div id="dropdownMenuExport" class="dropdown">
                   <div class="dropdown-trigger">
                     <a
@@ -1066,7 +1066,7 @@ export default {
     min-width: 240px;
   }
 
-  #viewer3dcontainer {
+  #viewer-container {
     width: 100%;
     height: 100%;
     position: relative;
