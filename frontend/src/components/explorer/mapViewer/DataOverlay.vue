@@ -210,7 +210,7 @@ export default {
       queryParams: 'dataOverlay/queryParams',
     }),
     filteredDataSourcesIndex() {
-      if (this.$route.name === 'interaction') {
+      if (this.$route.name === 'interaction-details') {
         // do not include fluxomics data for the interaction partners page
         const { fluxomics, ...dataSourcesIndex } = this.dataSourcesIndex;
         return dataSourcesIndex;
@@ -220,7 +220,7 @@ export default {
     filteredDataTypes() {
       // Do not show fluxomics data for the interaction partners page
       // The data type may still be selected, but not shown
-      if (this.$route.name === 'interaction') {
+      if (this.$route.name === 'interaction-details') {
         const dataTypes = this.dataTypes.filter(elem => elem.name !== 'fluxomics');
         return dataTypes;
       }
