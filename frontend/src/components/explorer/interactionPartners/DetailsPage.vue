@@ -310,6 +310,8 @@ export default {
       reactions: 'interactionPartners/reactions',
       reactionSet: 'interactionPartners/reactionsSet',
       componentName: 'interactionPartners/componentName',
+      componentTypes: 'dataOverlay/componentTypes',
+      computedLevels: 'dataOverlay/computedLevels',
     }),
     filename() {
       return `MetAtlas Interaction Partners for ${this.componentName} ${this.mainNodeID}`;
@@ -325,7 +327,9 @@ export default {
     },
   },
   watch: {
-    dataSets: 'applyLevels',
+    async dataSets() {
+      await this.applyColorsAndRenderNetwork();
+    },
   },
   async beforeMount() {
     this.resetOverlayData();
@@ -609,6 +613,12 @@ export default {
         pan: cypan,
       });
     },
+    resetNetwork() {
+      if (this.controller) {
+        this.controller.dispose();
+        this.controller = null;
+      }
+    },
     fitGraph() {
       jquery('#cy').height(jquery('#cy').width() / 1.5);
       setTimeout(() => {
@@ -840,8 +850,9 @@ export default {
       this.showColorPickerMeta = !this.showColorPickerMeta;
       return this.showColorPickerMeta;
     },
+
     async renderNetwork(customizedNetwork) {
-      // this.resetNetwork();
+      this.resetNetwork();
       this.controller = MetAtlasViewer('viewer3d');
 
       const graphData = customizedNetwork || this.network;
@@ -867,23 +878,17 @@ export default {
       this.controller.setCamera({ x: lx, y: ly, z: lz });
     },
     async applyColorsAndRenderNetwork() {
-      // if (this.currentLevels === levels
-      //     || (this.currentLevels === {} && Object.keys(levels).length > 0)
-      // ) {
-      //   return;
-      // }
-      // this.currentLevels = levels;
       const nodes = this.network.nodes.map(node => {
         let color = colorToRGBArray(this.defaultMetaboliteColor);
 
         if (node.g === 'e') {
-          /* if (this.componentTypes.includes('gene') && Object.keys(this.computedLevels).length > 0) {
+          if (this.componentTypes.includes('gene') && Object.keys(this.computedLevels).length > 0) {
             const partialID = node.id.split('-')[0];
             const key = this.computedLevels[partialID] !== undefined ? partialID : 'n/a';
             color = colorToRGBArray(this.computedLevels[key][0]);
-          } else { */
-          color = colorToRGBArray(this.defaultGeneColor);
-          // }
+          } else {
+            color = colorToRGBArray(this.defaultGeneColor);
+          }
         }
 
         if (node.g === 'm') {
