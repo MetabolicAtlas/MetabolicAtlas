@@ -55,12 +55,12 @@ RETURN { component: component, reactions: COLLECT(reaction)}
   let nodes = [];
   let unique = new Set();
 
-  const addRel = (s, t) => {
-    const rel = `${s}-${t}`;
-    const inverseRel = `${t}-${s}`;
-    if (!unique.has(rel) && !unique.has(inverseRel)) {
+  const addLink = (s, t) => {
+    const link = `${s}-${t}`;
+    const inverseLink = `${t}-${s}`;
+    if (!unique.has(link) && !unique.has(inverseLink)) {
       links.push({ s, t });
-      unique.add(rel);
+      unique.add(link);
     }
   };
 
@@ -80,7 +80,7 @@ RETURN { component: component, reactions: COLLECT(reaction)}
         unique.add(metabolite.id);
 
         if (id !== metabolite.id) {
-          addRel(id, metabolite.id);
+          addLink(id, metabolite.id);
         }
       }
     });
@@ -93,13 +93,13 @@ RETURN { component: component, reactions: COLLECT(reaction)}
         unique.add(gene.id);
 
         if (id !== gene.id) {
-          addRel(id, gene.id);
+          addLink(id, gene.id);
         }
       }
 
       // loop through metabolites for each gene
       // and add links to the gene
-      metabolites.forEach(metabolite => addRel(gene.id, metabolite.id));
+      metabolites.forEach(metabolite => addLink(gene.id, metabolite.id));
     });
   });
   const network = await populateWithLayout({ nodes, links, dim: 2 });
