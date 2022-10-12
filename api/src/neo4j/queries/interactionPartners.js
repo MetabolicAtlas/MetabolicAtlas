@@ -62,7 +62,7 @@ RETURN { component: component, reactions: COLLECT(reaction)}
       links.push({ s, t });
       unique.add(rel);
     }
-  }
+  };
 
   result.reactions.forEach(reaction => {
     const { genes, metabolites } = reaction;
