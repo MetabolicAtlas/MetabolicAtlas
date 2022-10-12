@@ -869,8 +869,6 @@ export default {
         }
 
         if (node.g === 'm') {
-          node.n = node.id; // eslint-disable-line
-
           /* if (
             this.componentTypes.includes('metabolite') &&
             Object.keys(this.computedLevels).length > 0
