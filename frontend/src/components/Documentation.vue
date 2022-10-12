@@ -465,9 +465,9 @@
           The graph of
           <i>Interaction Partners</i>
           can be exported by clicking the button
-          <i>Export graph</i>. There are two options of graph exporting: GraphML
-          Interaction-Partners PNGhML is a Cytoscape compatible format. Currently, color format is
-          not supported for the GraphML option.
+          <i>Export graph</i>. There are two options of graph exporting: GraphML or PNG. GraphML is
+          a Cytoscape compatible format. Currently, color format is not supported for the GraphML
+          option.
 
           <h5 id="interaction-partners-highlights" class="is-size-5">Highlights</h5>
           <p>
