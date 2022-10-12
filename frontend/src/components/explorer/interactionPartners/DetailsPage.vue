@@ -27,34 +27,36 @@
           </div>
           <div class="container is-fullhd columns is-multiline">
             <div class="column is-8-desktop is-fullwidth-tablet">
-              <div id="dropdownMenuExport" class="dropdown">
-                <div class="dropdown-trigger">
-                  <a
-                    v-show="showNetworkGraph"
-                    class="button is-white"
-                    aria-haspopup="true"
-                    aria-controls="dropdown-menu"
-                    @click="showMenuExport = !showMenuExport"
+              <div id="viewer3dcontainer">
+                <div id="dropdownMenuExport" class="dropdown">
+                  <div class="dropdown-trigger">
+                    <a
+                      v-show="showNetworkGraph"
+                      class="button is-white"
+                      aria-haspopup="true"
+                      aria-controls="dropdown-menu"
+                      @click="showMenuExport = !showMenuExport"
+                    >
+                      <span class="icon is-large"><i class="fa fa-download"></i></span>
+                      <span>Export</span>
+                      <span class="icon is-large"><i class="fa fa-caret-down"></i></span>
+                    </a>
+                  </div>
+                  <div
+                    v-show="showMenuExport"
+                    id="dropdown-menu"
+                    class="dropdown-menu"
+                    role="menu"
+                    @mouseleave="showMenuExport = false"
                   >
-                    <span class="icon is-large"><i class="fa fa-download"></i></span>
-                    <span>Export</span>
-                    <span class="icon is-large"><i class="fa fa-caret-down"></i></span>
-                  </a>
-                </div>
-                <div
-                  v-show="showMenuExport"
-                  id="dropdown-menu"
-                  class="dropdown-menu"
-                  role="menu"
-                  @mouseleave="showMenuExport = false"
-                >
-                  <div class="dropdown-content">
-                    <a class="dropdown-item" @click="exportGraphml">Graphml</a>
-                    <a class="dropdown-item" @click="exportPNG">PNG</a>
+                    <div class="dropdown-content">
+                      <a class="dropdown-item" @click="exportGraphml">Graphml</a>
+                      <a class="dropdown-item" @click="exportPNG">PNG</a>
+                    </div>
                   </div>
                 </div>
+                <div id="viewer3d"></div>
               </div>
-              <div id="viewer3d"></div>
             </div>
             <div class="column">
               <sidebar
@@ -1062,6 +1064,12 @@ export default {
 
   #enz-select {
     min-width: 240px;
+  }
+
+  #viewer3dcontainer {
+    width: 100%;
+    height: 100%;
+    position: relative;
   }
 
   #viewer3d {
