@@ -104,10 +104,6 @@
 
 <script>
 import { mapGetters, mapActions, mapState } from 'vuex';
-import cytoscape from 'cytoscape';
-import jquery from 'jquery';
-import cola from 'cytoscape-cola';
-// import { Compact } from '@ckpack/vue-color';
 import { default as FileSaver } from 'file-saver';
 
 import '@metabolicatlas/3d-network-viewer';
@@ -119,11 +115,9 @@ import NotFound from '@/components/NotFound.vue';
 import DataOverlay from '@/components/explorer/mapViewer/DataOverlay.vue';
 
 import { default as transform } from '@/data-mappers/hmr-closest-interaction-partners';
-import { default as changeGraphStyle } from '@/graph-stylers/hmr-closest-interaction-partners';
 
 import { default as convertGraphML } from '@/helpers/graph-ml-converter';
 
-import { getSingleExpressionColor } from '@/helpers/expressionSources';
 import { default as colorToRGBArray } from '@/helpers/colors';
 import { DEFAULT_GENE_COLOR, DEFAULT_METABOLITE_COLOR } from '@/helpers/dataOverlay';
 
@@ -144,7 +138,6 @@ export default {
     Sidebar,
     CytoscapeTable,
     Loader,
-    // 'compact-picker': Compact,
     DataOverlay,
   },
   data() {
@@ -156,112 +149,40 @@ export default {
       componentNotFound: false,
       errorMessage: '',
 
+      //TODO
       nodeCount: 0,
       warnNodeCount: 50,
       maxNodeCount: 100,
+      //TODO
       showNetworkGraph: false,
       largeNetworkGraph: false,
 
-      rawRels: {},
-      rawElms: {},
-      expandedIds: [],
 
       mainNodeID: '',
+      //TODO
       mainNode: null,
 
+      //TODO
       clickedElmId: '',
       clickedElm: null,
       selectedSample: '',
 
+      //TODO (remove?)
       overlay: {},
 
+      //TODO
       reactionHL: null,
+      //TODO
       compartmentHL: '',
       compartmentList: [],
       disableCompartmentHL: false,
+      //TODO
       subsystemHL: '',
       subsystemList: [],
 
-      cy: null,
-
-      showMenuExport: false,
-      showMenuExpression: false,
-
-      showGraphLegend: false,
+      //TODO (remove?)
       showGraphContextMenu: false,
-      showColorPickerEnz: false,
-      showColorPickerMeta: false,
 
-      availableNodeShape: [
-        'rectangle',
-        'roundrectangle',
-        'cutrectangle',
-        'ellipse',
-        'triangle',
-        'pentagon',
-        'hexagon',
-        'heptagon',
-        'octagon',
-        'star',
-        'diamond',
-        'vee',
-        'rhomboid',
-      ],
-
-      nodeDisplayParams: {
-        expSource: false,
-        expType: false,
-        expSample: false,
-        geneNodeShape: 'rectangle',
-        geneNodeColor: {
-          hex: '#9F0500',
-          hsl: {
-            h: 1.8868,
-            s: 1,
-            l: 0.3118,
-            a: 1,
-          },
-          hsv: {
-            h: 1.8868,
-            s: 1,
-            v: 0.6235,
-            a: 1,
-          },
-          rgba: {
-            r: 159,
-            g: 5,
-            b: 0,
-            a: 1,
-          },
-          a: 1,
-        },
-        metaboliteNodeShape: 'ellipse',
-        metaboliteNodeColor: {
-          hex: '#73D8FF',
-          hsl: {
-            h: 196.714,
-            s: 1,
-            l: 0.7255,
-            a: 1,
-          },
-          hsv: {
-            h: 196.7142,
-            s: 0.549,
-            v: 1,
-            a: 1,
-          },
-          rgba: {
-            r: 115,
-            g: 216,
-            b: 255,
-            a: 1,
-          },
-          a: 1,
-        },
-      },
-      maxZoom: 10,
-      minZoom: 0.1,
-      factorZoom: 0.08,
       messages,
     };
   },
@@ -285,15 +206,6 @@ export default {
     filename() {
       return `MetAtlas Interaction Partners for ${this.componentName} ${this.mainNodeID}`;
     },
-    elms() {
-      if (Object.keys(this.rawElms).length !== 0) {
-        return Object.keys(this.rawElms).map(k => this.rawElms[k]);
-      }
-      return [];
-    },
-    rels() {
-      return Object.keys(this.rawRels).map(k => this.rawRels[k]);
-    },
   },
   watch: {
     dataSets: 'applyLevels',
@@ -310,11 +222,6 @@ export default {
         return;
       }
     }
-    cytoscape.use(cola);
-    jquery(window).resize(() => {
-      jquery('#cy').height(jquery('#cy').width() / 1.5);
-      this.fitGraph();
-    });
     await this.setup();
   },
   methods: {
@@ -323,13 +230,13 @@ export default {
     }),
     async setup() {
       this.mainNodeID = this.$route.params.id;
+      console.log('mainNodeId', this.mainNodeID);
       this.mainNode = null;
       this.reactionHL = null;
       this.compartmentHL = '';
       this.subsystemHL = '';
       if (this.mainNodeID) {
         await this.load();
-        jquery('#cy').height(jquery('#cy').width() / 1.5);
       }
     },
     navigate() {
@@ -355,40 +262,23 @@ export default {
           return;
         }
 
-        [this.rawElms, this.rawRels, this.compartmentList, this.subsystemList] = transform(
-          this.component,
-          this.reactions,
-          null,
-          null,
-          null,
-          null
-        );
-        if (this.compartmentList.length === 1) {
-          this.compartmentHL = '';
-          this.disableCompartmentHL = true;
-        }
-        this.mainNode = this.rawElms[this.component.id];
-        this.mainNode.name = this.componentName;
-
-        this.expandedIds = [];
-        this.expandedIds.push(this.component.id);
-
         this.resetGeneExpression();
 
-        this.nodeCount = Object.keys(this.rawElms).length;
+        //TODO replace nodeCount
+        /*this.nodeCount = Object.keys(this.rawElms).length;
         if (this.nodeCount > this.warnNodeCount) {
           this.showNetworkGraph = false;
           this.largeNetworkGraph = true;
           this.errorMessage = '';
           return;
-        }
+        }*/
         this.largeNetworkGraph = false;
         this.showNetworkGraph = true;
         this.errorMessage = '';
 
         // The set time out wrapper enforces this happens last.
         setTimeout(() => {
-          this.constructGraph(this.rawElms, this.rawRels, this.fitGraph);
+          this.constructGraph();
         }, 0);
       } catch (error) {
         switch (error.response.status) {
@@ -407,7 +297,6 @@ export default {
         const payload = { model: this.model, id: this.clickedElmId };
         await this.$store.dispatch('interactionPartners/loadExpansion', payload);
 
-        this.reactionHL = null;
         this.errorMessage = null;
         this.showGraphContextMenu = false;
 
@@ -415,26 +304,10 @@ export default {
           this.showNetworkGraph = false;
           return;
         }
-
-        [this.rawElms, this.rawRels, this.compartmentList, this.subsystemList] = transform(
-          this.expansion.component,
-          this.expansion.reactions,
-          this.rawElms,
-          this.rawRels,
-          this.compartmentList,
-          this.subsystemList
-        );
-
-        if (this.compartmentList.length === 1) {
-          this.compartmentHL = '';
-          this.disableCompartmentHL = true;
-        } else {
-          this.disableCompartmentHL = false;
-        }
-
-        this.expandedIds.push(this.expansion.component.id);
-
-        this.nodeCount = Object.keys(this.rawElms).length;
+        //TODO, add logic if needed for reactionHL, compartmentHL, expandedIds (if we want to make use of this for expanding network),
+  
+        //TODO, replace nodeCount logic
+        /*this.nodeCount = Object.keys(this.rawElms).length;
         if (this.nodeCount > this.warnNodeCount) {
           this.showNetworkGraph = false;
           this.largeNetworkGraph = true;
@@ -443,10 +316,11 @@ export default {
         this.showNetworkGraph = true;
         this.errorMessage = '';
 
+        //TODO, add logic for constructing extended graph
         // The set time out wrapper enforces this happens last.
         setTimeout(() => {
           this.constructGraph(this.rawElms, this.rawRels);
-        }, 0);
+        }, 0);*/
       } catch (error) {
         switch (error.response.status) {
           case 404:
@@ -459,88 +333,41 @@ export default {
         this.loading = false;
       }
     },
+    //TODO
     applyLevels() {
-      this.currentDataSources.forEach((source, index) => {
-        const isValid = this.dataSets[index] !== 'None' && source.levels[this.dataSets[index]];
-        if (isValid) {
-          const componentIds = Object.keys(this.rawElms)
-            .filter(el => this.rawElms[el].type === this.currentDataTypes[index].componentType)
-            .map(k => this.rawElms[k].id);
-          const s = source.name;
-          const t = this.currentDataTypes[index].componentType;
-
-          for (let i = 0; i < componentIds.length; i += 1) {
-            const componentID = componentIds[i];
-
-            if (!this.rawElms[componentID].expressionLvl[s]) {
-              this.rawElms[componentID].expressionLvl[s] = {};
-            }
-
-            if (!this.rawElms[componentID].expressionLvl[s][t]) {
-              this.rawElms[componentID].expressionLvl[s][t] = {};
-            }
-
-            let level = source.levels[this.dataSets[index]][componentID];
-            if (!level) {
-              level = NaN;
-            }
-
-            this.rawElms[componentID].expressionLvl[s][t][this.dataSets[index]] =
-              getSingleExpressionColor(level);
-          }
-
-          this.nodeDisplayParams.expSource = s;
-          this.nodeDisplayParams.expType = t;
-          this.nodeDisplayParams.expSample = this.dataSets[index];
-
-          this.overlay[s] = {};
-          this.overlay[s][t] = true;
-        } else {
-          this.resetGeneExpression();
-        }
-
-        setTimeout(this.redrawGraph, 0);
-      });
+      console.log("applylevels");
     },
+    //TODO
     isCompartmentSubsystemHLDisabled() {
       return (
         (this.compartmentHL === '' && this.subsystemHL === '') ||
         (this.compartmentList.length < 2 && this.subsystemList.length === 0)
       );
     },
+    //TODO
     highlightReaction(rid) {
-      if (this.cy) {
+      console.log("highlightReaction", rid);
+      /*if (this.cy) {
         this.clickedElmId = '';
         this.reactionHL = rid;
         this.clickedElm = { id: rid, type: 'reaction' };
         this.redrawGraph();
         this.showGraphContextMenu = false;
-      }
+      }*/
     },
+    //TODO
     highlightCompartment() {
-      if (this.compartmentHL) {
+      /*if (this.compartmentHL) {
         this.redrawGraph();
-      }
+      }*/
     },
+    //TODO
     highlightSubsystem() {
-      if (this.subsystemHL) {
+      /*if (this.subsystemHL) {
         this.redrawGraph();
-      }
+      }*/
     },
-    toggleGraphLegend() {
-      this.showGraphLegend = !this.showGraphLegend;
-      this.showColorPickerEnz = false;
-      this.showColorPickerMeta = false;
-    },
-    applyOptionPanelColor(nodeType) {
-      if (nodeType === 'gene' && this.nodeDisplayParams.expSample) {
-        // expression lvl are active
-        return;
-      }
-      setTimeout(() => {
-        this.redrawGraph();
-      }, 0);
-    },
+    //TODO
     resetHighlight() {
       if (this.isCompartmentSubsystemHLDisabled()) {
         return;
@@ -548,47 +375,11 @@ export default {
       this.compartmentHL = '';
       this.subsystemHL = '';
     },
-    async resetGraph(reload) {
-      this.reactionHL = null;
-      this.mainNode = null;
-      this.clickedElm = null;
-      this.clickedElmId = '';
-      this.showGraphContextMenu = false;
-      this.resetGeneExpression();
-      this.resetHighlight();
-      if (reload) {
-        await this.load();
-      } else {
-        this.redrawGraph();
-      }
-    },
-    redrawGraph() {
-      const stylesheet = changeGraphStyle(
-        this.mainNodeID,
-        this.rawElms,
-        this.rawRels,
-        this.nodeDisplayParams,
-        this.reactionHL,
-        this.compartmentHL,
-        this.subsystemHL
-      )[1];
-      const cyzoom = this.cy.zoom();
-      const cypan = this.cy.pan();
-      this.cy.style(stylesheet);
-      this.cy.viewport({
-        zoom: cyzoom,
-        pan: cypan,
-      });
-    },
-    fitGraph() {
-      jquery('#cy').height(jquery('#cy').width() / 1.5);
-      setTimeout(() => {
-        this.cy.fit(null, 10);
-        this.minZoom = this.cy.zoom() / 2.0;
-      }, 300);
-    },
+  
+    //TODO
     highlightNode(elmId) {
-      this.showGraphContextMenu = false;
+      console.log('highlightNode', elmId);
+      /*this.showGraphContextMenu = false;
       this.reactionHL = null;
       this.clickedElmId = elmId;
       this.clickedElm = this.rawElms[elmId];
@@ -599,155 +390,21 @@ export default {
         node.json({ selected: true });
         node.trigger('tap');
         this.redrawGraph();
-      }
+      }*/
     },
     generateGraph(callback) {
       this.showNetworkGraph = true;
       this.largeNetworkGraph = false;
       this.errorMessage = null;
 
-      this.resetGeneExpression();
-
       // The set time out wrapper enforces this happens last.
       setTimeout(() => {
-        this.constructGraph(this.rawElms, this.rawRels, callback);
+        this.constructGraph();
       }, 0);
     },
-    constructGraph: function constructGraph(elms, rels, callback) {
-      const [elements, stylesheet] = changeGraphStyle(
-        this.mainNodeID,
-        elms,
-        rels,
-        this.nodeDisplayParams,
-        this.reactionHL,
-        this.compartmentHL,
-        this.subsystemHL
-      );
-
-      const colaOptions = {
-        animate: true, // whether to show the layout as it's running
-        refresh: 0.1, // number of ticks per frame; higher is faster but more jerky
-        maxSimulationTime: 10000, // max length in ms to run the layout
-        ungrabifyWhileSimulating: false, // so you can't drag nodes during layout
-        fit: true, // on every layout reposition of nodes, fit the viewport
-        padding: 30, // padding around the simulation
-        boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
-        nodeDimensionsIncludeLabels: undefined,
-        // whether labels should be included in determining the space used
-        // by a node (default true)
-
-        // layout event callbacks
-        ready() {}, // on layoutready
-        stop() {}, // on layoutstop
-
-        // positioning options
-        randomize: false, // use random node positions at beginning of layout
-        avoidOverlap: true, // if true, prevents overlap of node bounding boxe
-        handleDisconnected: true, // if true, avoids disconnected components from overlapping
-        nodeSpacing() {
-          return 10;
-        }, // extra spacing around node
-        flow: undefined,
-        // use DAG/tree flow layout if specified, e.g. { axis: 'y', minSeparation: 30 }
-        alignment: undefined,
-        // relative alignment constraints on nodes,
-        // e.g. function( node ){ return { x: 0, y: 1 } }
-        // different methods of specifying edge length
-        // each can be a constant numerical value or a function
-        // like `function( edge ){ return 2; }
-        edgeLength: undefined, // sets edge length directly in simulation
-        edgeSymDiffLength: undefined, // symmetric diff edge length in simulation
-        edgeJaccardLength: undefined, // jaccard edge length in simulation
-
-        // iterations of cola algorithm; uses default values on undefined
-        unconstrIter: undefined, // unconstrained initial layout iterations
-        userConstIter: undefined, // initial layout iterations with user-specified constraints
-        allConstIter: undefined,
-        // initial layout iterations with all constraints including non-overlap
-
-        // infinite layout options
-        infinite: false, // overrides all other options for a forces-all-the-time mode
-      };
-      const { mainNodeID } = this;
-      this.cy = cytoscape({
-        container: this.$refs.cy,
-        elements,
-        style: stylesheet,
-        layout: {
-          name: Object.keys(elms).length > 30 ? 'concentric' : 'cola',
-          colaOptions,
-          concentric(node) {
-            if (node.degree() === 1) {
-              return 1;
-            }
-            if (node.data().id === mainNodeID) {
-              return 10000;
-            }
-            if (node.data().type === 'gene') {
-              return 100;
-            }
-            return 200;
-          },
-          ready: this.fitGraph,
-        },
-      });
-      this.cy.userZoomingEnabled(false);
-
-      window.pageYOffset = 0;
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-
-      const cyt = this.cy;
-      cyt.on('zoom', () => {
-        const dim = Math.ceil(10 / cyt.zoom());
-        const edgeWidth = 1 / cyt.zoom();
-
-        cyt.$('edge').css({
-          width: edgeWidth,
-          'font-size': dim / 2,
-        });
-
-        cyt.$('node').css({
-          width: dim,
-          height: dim,
-          'font-size': dim * 1.5,
-          'text-opacity': 1,
-          'overlay-padding': edgeWidth * 2,
-        });
-      });
-
-      const { contextMenuGraph } = this.$refs;
+    constructGraph: function constructGraph() {
       this.showGraphContextMenu = false;
       this.showNetworkGraph = true;
-
-      const updateContextMenuPosition = node => {
-        contextMenuGraph.style.left = `${node.renderedPosition().x + 15}px`;
-        contextMenuGraph.style.top = `${node.renderedPosition().y + 160}px`;
-      };
-
-      this.cy.on('tap tapstart cxttap', evt => {
-        if (evt.target === this.cy) {
-          this.cy.nodes().deselect();
-          this.showGraphContextMenu = false;
-          this.clickedElmId = '';
-          this.clickedElm = null;
-        }
-      });
-
-      this.cy.on('tap cxttap', 'node', evt => {
-        const node = evt.target;
-        this.cy.nodes().deselect();
-        node.json({ selected: true });
-        const elmId = node.data().id;
-        this.clickedElmId = elmId;
-        this.clickedElm = this.rawElms[elmId];
-        updateContextMenuPosition(node);
-        this.showGraphContextMenu = evt.type === 'cxttap';
-      });
-
-      if (callback) {
-        callback();
-      }
 
       this.applyColorsAndRenderNetwork();
     },
@@ -771,59 +428,11 @@ export default {
       a.click();
       document.body.removeChild(a);
     },
-    zoomGraph: function zoomGraph(zoomIn) {
-      let factor = this.factorZoom;
-      if (!zoomIn) {
-        factor = -factor;
-      }
-
-      const zoom = this.cy.zoom();
-      let lvl = zoom + zoom * factor;
-
-      if (lvl < this.minZoom) {
-        lvl = this.minZoom;
-      }
-
-      if (lvl > this.maxZoom) {
-        lvl = this.maxZoom;
-      }
-
-      if (
-        (lvl === this.maxZoom && zoom === this.maxZoom) ||
-        (lvl === this.minZoom && zoom === this.minZoom)
-      ) {
-        return;
-      }
-
-      this.cy.zoom({
-        level: lvl,
-      });
-    },
-    scrollTo(id) {
-      const container = jquery('body, html');
-      container.scrollTop(
-        jquery(`#${id}`).offset().top - (container.offset().top + container.scrollTop())
-      );
-    },
+    //TODO
     resetGeneExpression() {
-      this.selectedSample = '';
-      this.nodeDisplayParams.expSource = false;
-      this.nodeDisplayParams.expType = false;
-      this.nodeDisplayParams.expSample = false;
-      this.overlay = {};
     },
-    toggleGeneColorPicker() {
-      this.showColorPickerMeta = false;
-      this.showColorPickerEnz = !this.showColorPickerEnz;
-      return this.showColorPickerEnz;
-    },
-    toggleMetaboliteColorPicker() {
-      this.showColorPickerEnz = false;
-      this.showColorPickerMeta = !this.showColorPickerMeta;
-      return this.showColorPickerMeta;
-    },
+
     async renderNetwork(customizedNetwork) {
-      // this.resetNetwork();
       this.controller = MetAtlasViewer('viewer3d');
 
       const graphData = customizedNetwork || this.network;
@@ -849,36 +458,15 @@ export default {
       this.controller.setCamera({ x: lx, y: ly, z: lz });
     },
     async applyColorsAndRenderNetwork() {
-      // if (this.currentLevels === levels
-      //     || (this.currentLevels === {} && Object.keys(levels).length > 0)
-      // ) {
-      //   return;
-      // }
-      // this.currentLevels = levels;
       const nodes = this.network.nodes.map(node => {
         let color = colorToRGBArray(this.defaultMetaboliteColor);
 
         if (node.g === 'e') {
-          /* if (this.componentTypes.includes('gene') && Object.keys(this.computedLevels).length > 0) {
-            const partialID = node.id.split('-')[0];
-            const key = this.computedLevels[partialID] !== undefined ? partialID : 'n/a';
-            color = colorToRGBArray(this.computedLevels[key][0]);
-          } else { */
           color = colorToRGBArray(this.defaultGeneColor);
-          // }
         }
 
         if (node.g === 'm') {
-          /* if (
-            this.componentTypes.includes('metabolite') &&
-            Object.keys(this.computedLevels).length > 0
-          ) {
-            const partialID = node.id.split('-')[0];
-            const key = this.computedLevels[partialID] !== undefined ? partialID : 'n/a';
-            color = colorToRGBArray(this.computedLevels[key][0]);
-          } else { */
           color = colorToRGBArray(this.defaultMetaboliteColor);
-          // }
         }
 
         return {
