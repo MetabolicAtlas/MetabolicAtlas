@@ -186,7 +186,6 @@ export default {
       showNetworkGraph: false,
       largeNetworkGraph: false,
 
-
       mainNodeID: '',
       //TODO
       mainNode: null,
@@ -338,7 +337,7 @@ export default {
           return;
         }
         //TODO, add logic if needed for reactionHL, compartmentHL, expandedIds (if we want to make use of this for expanding network),
-  
+
         //TODO, replace nodeCount logic
         /*this.nodeCount = Object.keys(this.rawElms).length;
         if (this.nodeCount > this.warnNodeCount) {
@@ -368,7 +367,7 @@ export default {
     },
     //TODO
     applyLevels() {
-      console.log("applylevels");
+      console.log('applylevels');
     },
     //TODO
     isCompartmentSubsystemHLDisabled() {
@@ -379,7 +378,7 @@ export default {
     },
     //TODO
     highlightReaction(rid) {
-      console.log("highlightReaction", rid);
+      console.log('highlightReaction', rid);
       /*if (this.cy) {
         this.clickedElmId = '';
         this.reactionHL = rid;
@@ -456,8 +455,7 @@ export default {
       this.controller.exportImage(this.filename);
     },
     //TODO
-    resetGeneExpression() {
-    },
+    resetGeneExpression() {},
 
     async renderNetwork(customizedNetwork) {
       this.resetNetwork();
