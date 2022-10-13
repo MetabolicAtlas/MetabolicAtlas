@@ -236,8 +236,10 @@ export default {
     },
   },
   watch: {
-    async dataSets() {
-      await this.applyColorsAndRenderNetwork();
+    async dataSets(newDS, oldDS) {
+      if (JSON.stringify(newDS) !== JSON.stringify(oldDS)) {
+        await this.applyColorsAndRenderNetwork();
+      }
     },
   },
   async beforeMount() {
