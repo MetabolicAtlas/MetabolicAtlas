@@ -437,7 +437,6 @@ export default {
     exportPNG: function exportPNG() {
       this.controller.exportImage(this.filename);
     },
-
     async renderNetwork(customizedNetwork) {
       this.resetNetwork();
       this.controller = MetAtlasViewer('viewer3d');
