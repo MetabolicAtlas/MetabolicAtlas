@@ -49,7 +49,7 @@
               v-if="interactionPartner && model"
               class="button is-info is-fullwidth is-outlined"
               :to="{
-                name: 'interaction',
+                name: 'interaction-details',
                 params: { model: model.short_name, id: componentId },
               }"
             >
