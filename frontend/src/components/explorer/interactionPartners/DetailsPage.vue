@@ -143,8 +143,6 @@ import Loader from '@/components/Loader.vue';
 import NotFound from '@/components/NotFound.vue';
 import DataOverlay from '@/components/explorer/mapViewer/DataOverlay.vue';
 
-import { default as transform } from '@/data-mappers/hmr-closest-interaction-partners';
-
 import { default as convertGraphML } from '@/helpers/graph-ml-converter';
 
 import { default as colorToRGBArray } from '@/helpers/colors';
@@ -178,38 +176,37 @@ export default {
       componentNotFound: false,
       errorMessage: '',
 
-      //TODO
+      // TODO
       nodeCount: 0,
       warnNodeCount: 50,
       maxNodeCount: 100,
-      //TODO
+      // TODO
       showNetworkGraph: false,
       largeNetworkGraph: false,
 
-
       mainNodeID: '',
-      //TODO
+      // TODO
       mainNode: null,
 
-      //TODO
+      // TODO
       clickedElmId: '',
       clickedElm: null,
       selectedSample: '',
 
-      //TODO (remove?)
+      // TODO (remove?)
       overlay: {},
 
-      //TODO
+      // TODO
       reactionHL: null,
-      //TODO
+      // TODO
       compartmentHL: '',
       compartmentList: [],
       disableCompartmentHL: false,
-      //TODO
+      // TODO
       subsystemHL: '',
       subsystemList: [],
 
-      //TODO (remove?)
+      // TODO (remove?)
       showGraphContextMenu: false,
 
       messages,
@@ -263,7 +260,7 @@ export default {
     }),
     async setup() {
       this.mainNodeID = this.$route.params.id;
-      console.log('mainNodeId', this.mainNodeID);
+      console.log('mainNodeId', this.mainNodeID); // eslint-disable-line no-console
       this.mainNode = null;
       this.reactionHL = null;
       this.compartmentHL = '';
@@ -295,16 +292,14 @@ export default {
           return;
         }
 
-        this.resetGeneExpression();
-
-        //TODO replace nodeCount
-        /*this.nodeCount = Object.keys(this.rawElms).length;
+        // TODO replace nodeCount
+        /* this.nodeCount = Object.keys(this.rawElms).length;
         if (this.nodeCount > this.warnNodeCount) {
           this.showNetworkGraph = false;
           this.largeNetworkGraph = true;
           this.errorMessage = '';
           return;
-        }*/
+        } */
         this.largeNetworkGraph = false;
         this.showNetworkGraph = true;
         this.errorMessage = '';
@@ -325,6 +320,7 @@ export default {
         this.loading = false;
       }
     },
+    // TODO
     async loadExpansion() {
       try {
         const payload = { model: this.model, id: this.clickedElmId };
@@ -337,10 +333,10 @@ export default {
           this.showNetworkGraph = false;
           return;
         }
-        //TODO, add logic if needed for reactionHL, compartmentHL, expandedIds (if we want to make use of this for expanding network),
-  
-        //TODO, replace nodeCount logic
-        /*this.nodeCount = Object.keys(this.rawElms).length;
+        // TODO, add logic if needed for reactionHL, compartmentHL, expandedIds (if we want to make use of this for expanding network),
+
+        // TODO, replace nodeCount logic
+        /* this.nodeCount = Object.keys(this.rawElms).length;
         if (this.nodeCount > this.warnNodeCount) {
           this.showNetworkGraph = false;
           this.largeNetworkGraph = true;
@@ -353,7 +349,7 @@ export default {
         // The set time out wrapper enforces this happens last.
         setTimeout(() => {
           this.constructGraph(this.rawElms, this.rawRels);
-        }, 0);*/
+        }, 0); */
       } catch (error) {
         switch (error.response.status) {
           case 404:
@@ -366,41 +362,37 @@ export default {
         this.loading = false;
       }
     },
-    //TODO
-    applyLevels() {
-      console.log("applylevels");
-    },
-    //TODO
+    // TODO
     isCompartmentSubsystemHLDisabled() {
       return (
         (this.compartmentHL === '' && this.subsystemHL === '') ||
         (this.compartmentList.length < 2 && this.subsystemList.length === 0)
       );
     },
-    //TODO
+    // TODO
     highlightReaction(rid) {
-      console.log("highlightReaction", rid);
-      /*if (this.cy) {
+      console.log('highlightReaction', rid); // eslint-disable-line no-console
+      /* if (this.cy) {
         this.clickedElmId = '';
         this.reactionHL = rid;
         this.clickedElm = { id: rid, type: 'reaction' };
         this.redrawGraph();
         this.showGraphContextMenu = false;
-      }*/
+      } */
     },
-    //TODO
+    // TODO
     highlightCompartment() {
-      /*if (this.compartmentHL) {
+      /* if (this.compartmentHL) {
         this.redrawGraph();
-      }*/
+      } */
     },
-    //TODO
+    // TODO
     highlightSubsystem() {
-      /*if (this.subsystemHL) {
+      /* if (this.subsystemHL) {
         this.redrawGraph();
-      }*/
+      } */
     },
-    //TODO
+    // TODO
     resetHighlight() {
       if (this.isCompartmentSubsystemHLDisabled()) {
         return;
@@ -414,10 +406,10 @@ export default {
         this.controller = null;
       }
     },
-    //TODO
+    // TODO
     highlightNode(elmId) {
-      console.log('highlightNode', elmId);
-      /*this.showGraphContextMenu = false;
+      console.log('highlightNode', elmId); // eslint-disable-line no-console
+      /* this.showGraphContextMenu = false;
       this.reactionHL = null;
       this.clickedElmId = elmId;
       this.clickedElm = this.rawElms[elmId];
@@ -428,17 +420,7 @@ export default {
         node.json({ selected: true });
         node.trigger('tap');
         this.redrawGraph();
-      }*/
-    },
-    generateGraph(callback) {
-      this.showNetworkGraph = true;
-      this.largeNetworkGraph = false;
-      this.errorMessage = null;
-
-      // The set time out wrapper enforces this happens last.
-      setTimeout(() => {
-        this.constructGraph();
-      }, 0);
+      } */
     },
     constructGraph: function constructGraph() {
       this.showGraphContextMenu = false;
@@ -455,9 +437,6 @@ export default {
     exportPNG: function exportPNG() {
       this.controller.exportImage(this.filename);
     },
-    //TODO
-    resetGeneExpression() {
-    },
 
     async renderNetwork(customizedNetwork) {
       this.resetNetwork();
@@ -468,8 +447,8 @@ export default {
       const nodeTextures = NODE_TEXTURES.filter(t => nodeTypes.has(t.group));
 
       // this.controller.setNodeSelectCallback(this.selectElement);
-      this.controller.setNodeSecondaryClickCallback(() =>
-        console.log('TODO: handle network expansion here')
+      this.controller.setNodeSecondaryClickCallback(
+        () => console.log('TODO: handle network expansion here') // eslint-disable-line no-console
       );
       this.controller.setBackgroundColor('#ececec');
       this.controller.setUpdateCameraCallback(this.updateURLCoords);
