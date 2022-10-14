@@ -71,11 +71,6 @@ RETURN { component: component, reactions: COLLECT(reaction)}
     // and add links to the main node
     metabolites.forEach(metabolite => {
       if (!unique.has(metabolite.id)) {
-        console.log('metabolite', {
-          g: 'm',
-          id: metabolite.id,
-          n: metabolite.name,
-        });
         nodes.push({ g: 'm', id: metabolite.id, n: metabolite.name });
         unique.add(metabolite.id);
 
@@ -106,4 +101,51 @@ RETURN { component: component, reactions: COLLECT(reaction)}
   return { result, network };
 };
 
-export default getInteractionPartners;
+const getInteractionPartnersExpansion = async ({
+  id,
+  model,
+  version,
+  expanded,
+}) => {
+  const startNetwork = await getInteractionPartners({ id, model, version });
+  // loop through all expanded nodes and add them to the network
+  for (const nodeid of expanded) {
+    console.log('asking for node', nodeid);
+    const expandedNetwork = await getInteractionPartners({
+      id: nodeid,
+      model,
+      version,
+    });
+
+    let unique = new Set();
+
+    const addLink = (s, t) => {
+      const link = `${s}-${t}`;
+      const inverseLink = `${t}-${s}`;
+      if (!unique.has(link) && !unique.has(inverseLink)) {
+        startNetwork.network.links.push({ s, t });
+        unique.add(link);
+      }
+    };
+
+    expandedNetwork.network.links.forEach(link => addLink(link.s, link.t));
+    let ix = 0;
+    expandedNetwork.network.nodes.forEach(node => {
+      if (!startNetwork.network.nodes.map(n => n.id).includes(node.id)) {
+        ix += 1;
+        startNetwork.network.nodes.push({
+          g: node.g,
+          id: node.id,
+          n: node.name,
+          color: [0, 247, 0],
+        });
+      }
+    });
+    console.log('added', ix, 'nodes');
+  }
+
+  const newnetwork = await populateWithLayout(startNetwork.network);
+  return { result: {}, network: newnetwork }; // TODO result?
+};
+
+export { getInteractionPartners, getInteractionPartnersExpansion };

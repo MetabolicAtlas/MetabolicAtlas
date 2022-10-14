@@ -62,25 +62,17 @@ const actions = {
     commit('setRandomComponents', randomComponents);
   },
 
-  async loadExpansion(args, { model, id }) {
+  async loadExpansion(args, { model, id, expanded }) {
     const { state, commit } = args;
     const _getters = args.getters; // eslint-disable-line no-underscore-dangle
 
-    const payload = { id, version: model.apiVersion, model: model.apiName };
-    const { result } = await interactionPartnersApi.fetchInteractionPartners(payload);
-    const expansion = formatInteractionPartners(result);
-
-    // TODO commit('setTooLargeNetworkGraph', !expansion.reactions);
-    commit('setExpansion', expansion);
-
-    const newReactions = expansion.reactions.filter(r => !_getters.reactionsSet.has(r.id));
-    const updatedInteractionPartners = {
-      ...state.interactionPartners,
-      reactions: [..._getters.reactions, ...newReactions],
-    };
-
-    commit('setInteractionPartners', updatedInteractionPartners);
+    const payload = { id, version: model.apiVersion, model: model.apiName, expanded };
+    const { result, network } = await interactionPartnersApi.fetchInteractionPartnersExpansion(
+      payload
+    );
+    commit('setNetwork', network);
   },
+
   setCoords({ commit }, coords) {
     commit('setCoords', coords);
   },
@@ -94,6 +86,7 @@ const mutations = {
     state.tooLargeNetworkGraph = tooLargeNetworkGraph;
   },
   setExpansion: (state, expansion) => {
+    // TODO remove?
     state.expansion = expansion;
   },
   setRandomComponents: (state, randomComponents) => {

@@ -73,6 +73,7 @@
                 class="mb-2"
                 :selected-elm="clickedElm"
                 :show-ip-button="clickedElmId !== mainNodeID"
+                :expand="loadExpansion"
               />
               <template v-if="showNetworkGraph">
                 <div class="card mb-2">
@@ -202,6 +203,8 @@ export default {
       // TODO
       mainNode: null,
 
+      expandedNodes: [],
+
       // TODO
       clickedElmId: '',
       clickedElm: null,
@@ -217,6 +220,7 @@ export default {
       compartments: {},
       subsystems: {},
       disableCompartmentHL: false,
+      showMenuExport: false,
       // TODO
       subsystemHL: '',
       subsystemList: [],
@@ -231,7 +235,7 @@ export default {
     ...mapState({
       model: state => state.models.model,
       tooLargeNetworkGraph: state => state.interactionPartners.tooLargeNetworkGraph,
-      expansion: state => state.interactionPartners.expansion,
+      expansion: state => state.interactionPartners.expansion, // TODO remove?
       currentDataTypes: state => state.dataOverlay.currentDataTypes,
       currentDataSources: state => state.dataOverlay.currentDataSources,
       dataSets: state => state.dataOverlay.dataSets,
@@ -340,40 +344,22 @@ export default {
         this.loading = false;
       }
     },
-    // TODO
+    // TODO WIP
     async loadExpansion() {
       try {
-        const payload = { model: this.model, id: this.clickedElmId };
+        this.expandedNodes.push(this.clickedElmId);
+        const payload = { model: this.model, expanded: this.expandedNodes, id: this.mainNodeID };
         await this.$store.dispatch('interactionPartners/loadExpansion', payload);
 
-        this.errorMessage = null;
-        this.showGraphContextMenu = false;
-
-        /* if (this.tooLargeNetworkGraph) {
-          this.showNetworkGraph = false;
-          return;
-        } */
-        // TODO, add logic if needed for reactionHL, compartmentHL, expandedIds (if we want to make use of this for expanding network),
-
-        // TODO, replace nodeCount logic
-        /* this.nodeCount = Object.keys(this.rawElms).length;
-        if (this.nodeCount > this.warnNodeCount) {
-          this.showNetworkGraph = false;
-          this.largeNetworkGraph = true;
-          return;
-        }
-        this.showNetworkGraph = true;
-        this.errorMessage = '';
-
-        //TODO, add logic for constructing extended graph
+        // this.errorMessage = null;
+        // this.showGraphContextMenu = false;
         // The set time out wrapper enforces this happens last.
         setTimeout(() => {
-          this.constructGraph(this.rawElms, this.rawRels);
-        }, 0); */
-        this.showNetworkGraph = true;
-        this.errorMessage = '';
-        this.renderNetwork();
+          // TODO remove arg (true) when done testing
+          this.constructGraph(true);
+        }, 0);
       } catch (error) {
+        console.log('error', error); // eslint-disable-line no-console
         switch (error.response.status) {
           case 404:
             this.errorMessage = messages.notFoundError;
@@ -469,12 +455,13 @@ export default {
       this.compartments = compartments;
       this.subsystems = subsystems;
     },
-    constructGraph: function constructGraph() {
+    // TODO the keepColors arg is only for testing network expansion, should be removed
+    constructGraph: function constructGraph(keepColors) {
       this.showGraphContextMenu = false;
       this.showNetworkGraph = true;
 
       this.prepareHighlight();
-      this.applyColorsAndRenderNetwork();
+      this.applyColorsAndRenderNetwork(keepColors);
     },
     exportGraphml: function exportGraphml() {
       const output = convertGraphML(this.network);
@@ -512,7 +499,8 @@ export default {
       const { lx, ly, lz } = this.coords;
       this.controller.setCamera({ x: lx, y: ly, z: lz });
     },
-    async applyColorsAndRenderNetwork() {
+    // TODO the keepColors arg is only for testing network expansion, should be removed
+    async applyColorsAndRenderNetwork(keepColors) {
       const nodes = this.network.nodes.map(node => {
         let color = colorToRGBArray(this.defaultMetaboliteColor);
 
@@ -534,6 +522,8 @@ export default {
           color = colorToRGBArray(this.defaultMetaboliteColor);
         }
 
+        // TODO for testing, to be removed
+        color = keepColors ? node.color || color : color;
         return {
           ...node,
           color,
