@@ -69,7 +69,7 @@ const actions = {
     const { result } = await interactionPartnersApi.fetchInteractionPartners(payload);
     const expansion = formatInteractionPartners(result);
 
-    commit('setTooLargeNetworkGraph', !expansion.reactions);
+    // TODO commit('setTooLargeNetworkGraph', !expansion.reactions);
     commit('setExpansion', expansion);
 
     const newReactions = expansion.reactions.filter(r => !_getters.reactionsSet.has(r.id));

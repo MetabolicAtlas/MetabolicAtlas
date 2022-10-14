@@ -236,6 +236,7 @@ export default {
     },
   },
   watch: {
+    '$route.params': 'setup',
     async dataSets(newDS, oldDS) {
       if (JSON.stringify(newDS) !== JSON.stringify(oldDS)) {
         await this.applyColorsAndRenderNetwork();
@@ -331,10 +332,10 @@ export default {
         this.errorMessage = null;
         this.showGraphContextMenu = false;
 
-        if (this.tooLargeNetworkGraph) {
+        /* if (this.tooLargeNetworkGraph) {
           this.showNetworkGraph = false;
           return;
-        }
+        } */
         // TODO, add logic if needed for reactionHL, compartmentHL, expandedIds (if we want to make use of this for expanding network),
 
         // TODO, replace nodeCount logic
@@ -352,6 +353,9 @@ export default {
         setTimeout(() => {
           this.constructGraph(this.rawElms, this.rawRels);
         }, 0); */
+        this.showNetworkGraph = true;
+        this.errorMessage = '';
+        this.renderNetwork();
       } catch (error) {
         switch (error.response.status) {
           case 404:
@@ -447,7 +451,7 @@ export default {
       const nodeTypes = new Set(graphData.nodes.map(n => n.g));
       const nodeTextures = NODE_TEXTURES.filter(t => nodeTypes.has(t.group));
 
-      // this.controller.setNodeSelectCallback(this.selectElement);
+      this.controller.setNodeSelectCallback(this.selectElement);
       this.controller.setNodeSecondaryClickCallback(
         () => console.log('TODO: handle network expansion here') // eslint-disable-line no-console
       );
@@ -502,6 +506,18 @@ export default {
         lz: z,
       };
       this.$store.dispatch('interactionPartners/setCoords', payload);
+    },
+    async selectElement(element) {
+      const [id, type] = this.getElementIdAndType(element);
+      this.clickedElmId = id;
+      this.clickedElm = { id, type };
+    },
+    getElementIdAndType(element) {
+      let type = 'metabolite';
+      if (element.group === 'e') {
+        type = 'gene';
+      }
+      return [element.id, type];
     },
   },
 };

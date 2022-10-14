@@ -21,7 +21,7 @@
         v-if="showIpButton && selectedElm.type !== 'reaction'"
         class="card-footer-item p-0"
         :to="{
-          name: 'interaction',
+          name: 'interaction-details',
           params: { model: model.short_name, id: selectedElm.real_id || selectedElm.id },
         }"
       >
