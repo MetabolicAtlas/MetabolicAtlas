@@ -76,7 +76,9 @@
                   </div>
                 </div>
                 <div
-                  v-if="compartmentList.length !== 0 || subsystemList.length != 0"
+                  v-if="
+                    Object.keys(compartments).length !== 0 || Object.keys(subsystems).length != 0
+                  "
                   class="card mb-5"
                 >
                   <header class="card-header">
@@ -93,7 +95,7 @@
                           Select a compartment
                         </option>
                         <option
-                          v-for="compartment in compartmentList"
+                          v-for="compartment in Object.keys(compartments)"
                           :key="compartment"
                           :value="disableCompartmentHL ? '' : compartment"
                         >
@@ -101,11 +103,11 @@
                         </option>
                       </select>
                     </div>
-                    <div v-show="subsystemList.length !== 0">
+                    <div v-show="Object.keys(subsystems).length !== 0">
                       <div class="select is-fullwidth mt-5">
                         <select v-model="subsystemHL" @change.prevent="highlightSubsystem">
                           <option value="" disabled>Select a subsystem</option>
-                          <option v-for="sub in subsystemList" :key="sub" :value="sub">
+                          <option v-for="sub in Object.keys(subsystems)" :key="sub" :value="sub">
                             {{ sub }}
                           </option>
                         </select>
@@ -193,14 +195,15 @@ export default {
       clickedElm: null,
       selectedSample: '',
 
-      // TODO (remove?)
-      overlay: {},
+      highlight: [],
 
       // TODO
       reactionHL: null,
       // TODO
       compartmentHL: '',
       compartmentList: [],
+      compartments: {},
+      subsystems: {},
       disableCompartmentHL: false,
       // TODO
       subsystemHL: '',
@@ -242,6 +245,9 @@ export default {
         await this.applyColorsAndRenderNetwork();
       }
     },
+    async highlight() {
+      await this.applyColorsAndRenderNetwork();
+    },
   },
   async beforeMount() {
     this.resetOverlayData();
@@ -263,7 +269,6 @@ export default {
     }),
     async setup() {
       this.mainNodeID = this.$route.params.id;
-      console.log('mainNodeId', this.mainNodeID); // eslint-disable-line no-console
       this.mainNode = null;
       this.reactionHL = null;
       this.compartmentHL = '';
@@ -387,24 +392,16 @@ export default {
       } */
     },
     // TODO
-    highlightCompartment() {
-      /* if (this.compartmentHL) {
-        this.redrawGraph();
-      } */
+    highlightCompartment(e) {
+      this.highlight = this.compartments[e.target.value];
     },
     // TODO
-    highlightSubsystem() {
-      /* if (this.subsystemHL) {
-        this.redrawGraph();
-      } */
+    highlightSubsystem(e) {
+      this.highlight = this.subsystems[e.target.value];
     },
     // TODO
     resetHighlight() {
-      if (this.isCompartmentSubsystemHLDisabled()) {
-        return;
-      }
-      this.compartmentHL = '';
-      this.subsystemHL = '';
+      this.highlight = [];
     },
     resetNetwork() {
       if (this.controller) {
@@ -428,10 +425,43 @@ export default {
         this.redrawGraph();
       } */
     },
+    prepareHighlight() {
+      const compartments = {};
+      const subsystems = {};
+      this.reactions.forEach(r => {
+        r.metabolites.forEach(m => {
+          if (!compartments[m.compartmentId]) {
+            compartments[m.compartmentId] = [];
+          }
+          compartments[m.compartmentId].push(m.id);
+          if (r.subsystem) {
+            if (!subsystems[[...r.subsystem]]) {
+              subsystems[[...r.subsystem]] = [];
+            }
+            subsystems[[...r.subsystem]].push(m.id);
+          }
+        });
+        // This is an attempt to follow the logic in the old IP https://github.com/MetabolicAtlas/MetabolicAtlas/blob/9382c2419771d7b6e1aad2cf61fcd643438860e7/frontend/src/data-mappers/hmr-closest-interaction-partners.js#L60
+        r.genes.forEach(g => {
+          if (Object.keys(compartments).size === 1) {
+            compartments[Object.keys(compartments)[0]].push(g.id);
+          }
+          if (r.subsystem) {
+            if (!subsystems[[...r.subsystem]]) {
+              subsystems[[...r.subsystem]] = [];
+            }
+            subsystems[[...r.subsystem]].push(g.id);
+          }
+        });
+      });
+      this.compartments = compartments;
+      this.subsystems = subsystems;
+    },
     constructGraph: function constructGraph() {
       this.showGraphContextMenu = false;
       this.showNetworkGraph = true;
 
+      this.prepareHighlight();
       this.applyColorsAndRenderNetwork();
     },
     exportGraphml: function exportGraphml() {
@@ -444,6 +474,7 @@ export default {
       this.controller.exportImage(this.filename);
     },
     async renderNetwork(customizedNetwork) {
+      // TODO Should resetNetwork have an await since we are modifying the container there?
       this.resetNetwork();
       this.controller = MetAtlasViewer('viewer3d');
 
@@ -472,6 +503,10 @@ export default {
     async applyColorsAndRenderNetwork() {
       const nodes = this.network.nodes.map(node => {
         let color = colorToRGBArray(this.defaultMetaboliteColor);
+
+        if (this.highlight.includes(node.id)) {
+          console.log('This node should be highlighted!', node.id); // eslint-disable-line no-console
+        }
 
         if (node.g === 'e') {
           if (this.componentTypes.includes('gene') && Object.keys(this.computedLevels).length > 0) {
