@@ -61,7 +61,7 @@
                   :toggle-labels="toggleLabels"
                   :zoom-in="zoomIn"
                   :zoom-out="zoomOut"
-                  :disableFullScreen="true"
+                  :disable-full-screen="true"
                   :toggle-full-screen="toggleFullscreen"
                 />
                 <div id="viewer3d"></div>
