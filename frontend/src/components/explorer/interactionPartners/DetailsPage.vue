@@ -55,6 +55,15 @@
                     </div>
                   </div>
                 </div>
+                <MapControls
+                  id="mapControl"
+                  wrapper-elem-selector=".viewer-container"
+                  :toggle-labels="toggleLabels"
+                  :zoom-in="zoomIn"
+                  :zoom-out="zoomOut"
+                  :disableFullScreen="true"
+                  :toggle-full-screen="toggleFullscreen"
+                />
                 <div id="viewer3d"></div>
               </div>
             </div>
@@ -144,6 +153,7 @@ import CytoscapeTable from '@/components/explorer/interactionPartners/CytoscapeT
 import Loader from '@/components/Loader.vue';
 import NotFound from '@/components/NotFound.vue';
 import DataOverlay from '@/components/explorer/mapViewer/DataOverlay.vue';
+import MapControls from '@/components/explorer/mapViewer/MapControls.vue';
 
 import { default as convertGraphML } from '@/helpers/graph-ml-converter';
 
@@ -168,11 +178,13 @@ export default {
     CytoscapeTable,
     Loader,
     DataOverlay,
+    MapControls,
   },
   data() {
     return {
       controller: null,
       loading: false,
+      isFullscreen: false,
       defaultGeneColor: DEFAULT_GENE_COLOR,
       defaultMetaboliteColor: DEFAULT_METABOLITE_COLOR,
       componentNotFound: false,
@@ -554,6 +566,32 @@ export default {
       }
       return [element.id, type];
     },
+    toggleFullscreen() {
+      this.isFullscreen = !this.isFullscreen;
+    },
+    toggleLabels() {
+      this.controller.toggleLabels();
+    },
+    zoomIn() {
+      this.zoomBy(50);
+    },
+    zoomOut() {
+      this.zoomBy(-50);
+    },
+    zoomBy(amount) {
+      const { lx, ly, lz } = this.coords;
+      let z = lz - amount;
+      // TODO why not 0 as in ThreeDViewer?
+      if (z < 1) {
+        z = 1;
+      } else if (z > 1000) {
+        z = 1000;
+      }
+
+      const payload = { x: lx, y: ly, z };
+      this.controller.setCamera(payload);
+      this.updateURLCoords(payload);
+    },
   },
 };
 </script>
@@ -591,6 +629,12 @@ export default {
       display: block;
       min-width: unset;
     }
+  }
+  #mapControl {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
   }
 
   #contextMenuGraph,

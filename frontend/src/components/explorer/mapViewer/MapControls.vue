@@ -4,7 +4,7 @@
     <span class="button" title="Zoom out" @click="zoomOut()">
       <i class="fa fa-search-minus"></i>
     </span>
-    <span class="button p-2" title="Show/Hide genes" @click="toggleGenes()">
+    <span v-if="toggleGenes" class="button p-2" title="Show/Hide genes" @click="toggleGenes()">
       <i class="fa fa-eye-slash">&thinsp;G</i>
     </span>
     <span v-if="toggleLabels" class="button p-2" title="Show/Hide labels" @click="toggleLabels()">
@@ -27,6 +27,7 @@
       <i class="fa fa-adjust"></i>
     </span>
     <span
+      v-if="!disableFullScreen"
       class="button"
       title="Toggle fullscreen"
       :disabled="isFullscreenDisabled"
@@ -79,6 +80,9 @@ export default {
     },
     downloadCanvas: {
       type: Function,
+    },
+    disableFullScreen: {
+      type: Boolean,
     },
   },
   computed: {
