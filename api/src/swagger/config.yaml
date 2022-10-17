@@ -386,7 +386,7 @@ paths:
       description:
         'This query retrieves a list of all compartments and subsystems that are
         available on Metabolic Atlas for a specified GEM. This includes identifiers
-        for the SVG maps.'
+        for the SVG maps. **Note that the response is large and might cause the browser to hang.**'
       operationId: 'mapListing'
       produces:
         - 'application/json'
@@ -395,7 +395,7 @@ paths:
           in: 'query'
           required: true
           type: 'string'
-          description: 'the model name, e.g. **HumanGem**'
+          description: 'the model name, e.g. **YeastGem**'
       responses:
         '200':
           description: 'Successful query'
@@ -419,7 +419,9 @@ paths:
         - name: 'componentTypes'
           in: 'query'
           type: 'object'
-          description: 'optional list of component types to return, by default all are returned, e.g. **{"gene":true, "compartmentalizedMetabolite": true}**'
+          default: { 'gene': true }
+          required: true
+          description: 'list of component types to return, e.g. **{"gene":true, "compartmentalizedMetabolite": true}**'
       produces:
         - 'application/json'
       responses:
