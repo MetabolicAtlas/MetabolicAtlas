@@ -1,15 +1,6 @@
 <template>
-  <div
-    v-show="show"
-    id="contextMenuGraph"
-    ref="contextMenuGraph"
-  >
-    <span
-      class="button is-dark"
-      @click="expand"
-    >
-      Expand {{ messages.interPartName }}
-    </span>
+  <div v-show="show" id="contextMenuGraph" ref="contextMenuGraph">
+    <span class="button is-dark" @click="expand"> Expand {{ messages.interPartName }} </span>
   </div>
 </template>
 
@@ -40,26 +31,26 @@ export default {
 </script>
 
 <style lang="scss">
-  #contextMenuGraph,
-  #contextMenuExport,
-  #contextMenuExpression {
-    position: absolute;
-    z-index: 20;
+#contextMenuGraph,
+#contextMenuExport,
+#contextMenuExpression {
+  position: absolute;
+  z-index: 20;
 
-    span {
-      display: block;
-      padding: 5px 10px;
-      text-align: left;
-      border-radius: 0;
-      a {
-        color: white;
-      }
-    }
-
-    span.sep.is-black {
-      background: #363636;
-      border-bottom: 1px solid black;
-      height: 1px;
+  span {
+    display: block;
+    padding: 5px 10px;
+    text-align: left;
+    border-radius: 0;
+    a {
+      color: white;
     }
   }
+
+  span.sep.is-black {
+    background: #363636;
+    border-bottom: 1px solid black;
+    height: 1px;
+  }
+}
 </style>
