@@ -71,6 +71,7 @@ const actions = {
       payload
     );
     commit('setNetwork', network);
+    commit('setInteractionPartners', formatInteractionPartners(result));
   },
 
   setCoords({ commit }, coords) {
