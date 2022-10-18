@@ -15,7 +15,6 @@ services:
       - CERTBOT_EMAIL=${CERTBOT_EMAIL}
       - SERVER_NAME=${SERVER_NAME}
       - IP_FILTER=${IP_FILTER}
-      - ENVSUBST_VARS=SERVER_NAME IP_FILTER
     volumes:
       - letsencrypt:/etc/letsencrypt
     restart: unless-stopped
