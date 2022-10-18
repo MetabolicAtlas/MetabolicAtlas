@@ -25,6 +25,11 @@
               ></h3>
             </div>
           </div>
+          <context-menu
+            :show="showGraphContextMenu"
+            :expand="loadExpansion"
+            ref="contextMenu"
+          />
           <div class="container is-fullhd columns is-multiline">
             <div class="column is-8-desktop is-fullwidth-tablet">
               <div id="viewer-container">
@@ -150,6 +155,7 @@ import { default as FileSaver } from 'file-saver';
 import '@metabolicatlas/3d-network-viewer';
 
 import Sidebar from '@/components/explorer/interactionPartners/Sidebar.vue';
+import ContextMenu from '@/components/explorer/interactionPartners/ContextMenu.vue';
 import CytoscapeTable from '@/components/explorer/interactionPartners/CytoscapeTable.vue';
 import Loader from '@/components/Loader.vue';
 import NotFound from '@/components/NotFound.vue';
@@ -176,6 +182,7 @@ export default {
   components: {
     NotFound,
     Sidebar,
+    ContextMenu,
     CytoscapeTable,
     Loader,
     DataOverlay,
@@ -472,6 +479,11 @@ export default {
     exportPNG: function exportPNG() {
       this.controller.exportImage(this.filename);
     },
+    showContextMenu(node, event) {
+      this.selectElement(node);
+      this.$refs.contextMenu.updatePosition(event);
+      this.showGraphContextMenu = true;
+    },
     async renderNetwork(customizedNetwork) {
       // TODO Should resetNetwork have an await since we are modifying the container there?
       this.resetNetwork();
@@ -482,9 +494,7 @@ export default {
       const nodeTextures = NODE_TEXTURES.filter(t => nodeTypes.has(t.group));
 
       this.controller.setNodeSelectCallback(this.selectElement);
-      this.controller.setNodeSecondaryClickCallback(
-        () => console.log('TODO: handle network expansion here') // eslint-disable-line no-console
-      );
+      this.controller.setNodeSecondaryClickCallback(this.showContextMenu);
       this.controller.setBackgroundColor('#ececec');
       this.controller.setUpdateCameraCallback(this.updateURLCoords);
       this.controller.setCameraOptions({
@@ -625,29 +635,6 @@ export default {
     z-index: 1;
     top: 0;
     left: 0;
-  }
-
-  #contextMenuGraph,
-  #contextMenuExport,
-  #contextMenuExpression {
-    position: absolute;
-    z-index: 20;
-
-    span {
-      display: block;
-      padding: 5px 10px;
-      text-align: left;
-      border-radius: 0;
-      a {
-        color: white;
-      }
-    }
-
-    span.sep.is-black {
-      background: #363636;
-      border-bottom: 1px solid black;
-      height: 1px;
-    }
   }
 
   #errorExpBar {
