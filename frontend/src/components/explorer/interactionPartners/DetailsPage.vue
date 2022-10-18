@@ -245,24 +245,34 @@ export default {
       componentName: 'interactionPartners/componentName',
       componentTypes: 'dataOverlay/componentTypes',
       computedLevels: 'dataOverlay/computedLevels',
+      dataOverlayQueryParams: 'dataOverlay/queryParams',
     }),
+    queryParams() {
+      return this.dataOverlayQueryParams;
+    },
     filename() {
       return `MetAtlas Interaction Partners for ${this.componentName} ${this.mainNodeID}`;
     },
   },
   watch: {
     '$route.params': 'setup',
-    async dataSets(newDS, oldDS) {
-      if (JSON.stringify(newDS) !== JSON.stringify(oldDS)) {
-        await this.applyColorsAndRenderNetwork();
-      }
+    // async dataSets(newDS, oldDS) {
+    //   if (JSON.stringify(newDS) !== JSON.stringify(oldDS)) {
+    //     await this.applyColorsAndRenderNetwork();
+    //   }
+    // },
+    async queryParams(newQuery, oldQuery) {
+      console.log('queryParams changed');
+      await this.handleQueryParamsWatch(newQuery, oldQuery);
     },
     async highlight() {
+      console.log('highliht watched');
       await this.applyColorsAndRenderNetwork();
     },
   },
   async beforeMount() {
-    this.resetOverlayData();
+    console.log('beforeMount');
+    // this.resetOverlayData();
     if (!this.model || this.model.short_name !== this.$route.params.model) {
       const modelSelectionSuccessful = await this.$store.dispatch(
         'models/selectModel',
@@ -273,6 +283,7 @@ export default {
         return;
       }
     }
+    console.log('mount setup');
     await this.setup();
   },
   methods: {
@@ -280,6 +291,7 @@ export default {
       resetOverlayData: 'dataOverlay/resetOverlayData',
     }),
     async setup() {
+      console.log('setup', this.$route.query);
       this.mainNodeID = this.$route.params.id;
       this.mainNode = null;
       this.reactionHL = null;
@@ -288,6 +300,18 @@ export default {
       if (this.mainNodeID) {
         await this.load();
       }
+    },
+    async handleQueryParamsWatch(newQuery, oldQuery) {
+      console.log('old', oldQuery, 'new', newQuery);
+      if (!newQuery) {
+        return;
+      }
+      // TODO overkill???
+      const queryString = Object.entries(newQuery)
+        .map(e => e.join('='))
+        .join('&');
+      const url = `${this.$route.path}?${queryString}`;
+      await this.$router.push(url);
     },
     navigate() {
       this.reactionHL = null;
@@ -513,6 +537,7 @@ export default {
       this.controller.setCamera({ x: lx, y: ly, z: lz });
     },
     async applyColorsAndRenderNetwork() {
+      console.log('apply colors');
       const nodes = this.network.nodes.map(node => {
         let color = colorToRGBArray(this.defaultMetaboliteColor);
 
