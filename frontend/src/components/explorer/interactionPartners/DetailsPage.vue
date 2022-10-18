@@ -58,6 +58,7 @@
                 <MapControls
                   id="mapControl"
                   wrapper-elem-selector=".viewer-container"
+                  :is-fullscreen="isFullscreen"
                   :toggle-labels="toggleLabels"
                   :zoom-in="zoomIn"
                   :zoom-out="zoomOut"
@@ -307,6 +308,7 @@ export default {
 
         this.componentNotFound = false;
         this.showGraphContextMenu = false;
+        this.showMenuExport = false;
         if (this.tooLargeNetworkGraph) {
           this.showNetworkGraph = false;
           return;
