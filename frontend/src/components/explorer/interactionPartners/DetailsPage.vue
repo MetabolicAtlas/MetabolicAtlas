@@ -76,7 +76,6 @@
                 class="mb-2"
                 :selected-elm="clickedElm"
                 :show-ip-button="clickedElmId !== mainNodeID"
-                :expand="loadExpansion"
               />
               <template v-if="showNetworkGraph">
                 <div class="card mb-2">

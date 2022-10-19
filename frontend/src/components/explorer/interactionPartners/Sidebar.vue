@@ -17,15 +17,6 @@
       </p>
     </header>
     <footer class="card-footer has-text-centered">
-      <a
-        v-if="showIpButton && selectedElm.type !== 'reaction'"
-        class="card-footer-item p-0"
-        @click="expand"
-      >
-        <!-- eslint-disable-line max-len -->
-        <span class="icon is-large"><i class="fa fa-share-alt fa-lg"></i></span>
-        <span> Expand network </span>
-      </a>
       <router-link
         v-if="showIpButton && selectedElm.type !== 'reaction'"
         class="card-footer-item p-0"
@@ -62,7 +53,6 @@ export default {
   props: {
     selectedElm: Object,
     showIpButton: Boolean,
-    expand: Function,
   },
   data() {
     return {
