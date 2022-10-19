@@ -256,11 +256,11 @@ export default {
   },
   watch: {
     '$route.params': 'setup',
-    // async dataSets(newDS, oldDS) {
-    //   if (JSON.stringify(newDS) !== JSON.stringify(oldDS)) {
-    //     await this.applyColorsAndRenderNetwork();
-    //   }
-    // },
+    async dataSets(newDS, oldDS) {
+       if (JSON.stringify(newDS) !== JSON.stringify(oldDS)) {
+         await this.applyColorsAndRenderNetwork();
+       }
+     },
     async queryParams(newQuery, oldQuery) {
       console.log('queryParams changed');
       await this.handleQueryParamsWatch(newQuery, oldQuery);
@@ -311,7 +311,7 @@ export default {
         .map(e => e.join('='))
         .join('&');
       const url = `${this.$route.path}?${queryString}`;
-      await this.$router.push(url);
+      history.replaceState(history.state, '', url);
     },
     navigate() {
       this.reactionHL = null;
