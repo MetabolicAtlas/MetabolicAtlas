@@ -266,10 +266,10 @@ export default {
   watch: {
     '$route.params': 'setup',
     async dataSets(newDS, oldDS) {
-       if (JSON.stringify(newDS) !== JSON.stringify(oldDS)) {
-         await this.applyColorsAndRenderNetwork();
-       }
-     },
+      if (JSON.stringify(newDS) !== JSON.stringify(oldDS)) {
+        await this.applyColorsAndRenderNetwork();
+      }
+    },
     async queryParams(newQuery, oldQuery) {
       console.log('queryParams changed');
       await this.handleQueryParamsWatch(newQuery, oldQuery);
