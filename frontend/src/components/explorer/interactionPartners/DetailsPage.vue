@@ -324,9 +324,7 @@ export default {
       // resize the window and delay for 10 milliseconds to ensure the rotation axis is perpendicular to the screen and the canvas size is equal to the container.
       setTimeout(() => {
         window.dispatchEvent(new Event('resize'));
-      },
-        10
-      );
+      }, 10);
     },
     navigate() {
       this.reactionHL = null;
