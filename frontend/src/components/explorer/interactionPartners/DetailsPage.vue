@@ -500,7 +500,10 @@ export default {
       });
       // this.processURLQuery();
       const { lx, ly, lz } = this.coords;
-      this.controller.setCamera({ x: lx, y: ly, z: lz });
+      // Setting x and y to lx and ly respectively would rotate
+      // the camera, so they are set to 0 instead to make sure the
+      // map appears "flat".
+      this.controller.setCamera({ x: 0, y: 0, z: lz });
     },
     async applyColorsAndRenderNetwork() {
       const nodes = this.network.nodes.map(node => {
