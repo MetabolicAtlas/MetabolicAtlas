@@ -122,7 +122,6 @@ const getInteractionPartnersExpansion = async ({
       version,
     });
 
-
     const addLink = (s, t) => {
       const link = `${s}-${t}`;
       const inverseLink = `${t}-${s}`;
