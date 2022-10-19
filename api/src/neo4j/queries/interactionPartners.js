@@ -140,7 +140,6 @@ const getInteractionPartnersExpansion = async ({
           g: node.g,
           id: node.id,
           n: node.n,
-          color: [0, 247, 0],
         });
       }
     });

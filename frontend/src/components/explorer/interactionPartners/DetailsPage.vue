@@ -347,19 +347,15 @@ export default {
         this.loading = false;
       }
     },
-    // TODO WIP
     async loadExpansion() {
       try {
         this.expandedNodes.push(this.clickedElmId);
         const payload = { model: this.model, expanded: this.expandedNodes, id: this.mainNodeID };
         await this.$store.dispatch('interactionPartners/loadExpansion', payload);
 
-        // this.errorMessage = null;
-        // this.showGraphContextMenu = false;
         // The set time out wrapper enforces this happens last.
         setTimeout(() => {
-          // TODO remove arg (true) when done testing
-          this.constructGraph(true);
+          this.constructGraph();
         }, 0);
       } catch (error) {
         console.log('error', error); // eslint-disable-line no-console
@@ -458,13 +454,12 @@ export default {
       this.compartments = compartments;
       this.subsystems = subsystems;
     },
-    // TODO the keepColors arg is only for testing network expansion, should be removed
-    constructGraph: function constructGraph(keepColors) {
+    constructGraph: function constructGraph() {
       this.showGraphContextMenu = false;
       this.showNetworkGraph = true;
 
       this.prepareHighlight();
-      this.applyColorsAndRenderNetwork(keepColors);
+      this.applyColorsAndRenderNetwork();
     },
     exportGraphml: function exportGraphml() {
       const output = convertGraphML(this.network);
@@ -505,8 +500,7 @@ export default {
       const { lx, ly, lz } = this.coords;
       this.controller.setCamera({ x: lx, y: ly, z: lz });
     },
-    // TODO the keepColors arg is only for testing network expansion, should be removed
-    async applyColorsAndRenderNetwork(keepColors) {
+    async applyColorsAndRenderNetwork() {
       const nodes = this.network.nodes.map(node => {
         let color = colorToRGBArray(this.defaultMetaboliteColor);
 
@@ -528,8 +522,6 @@ export default {
           color = colorToRGBArray(this.defaultMetaboliteColor);
         }
 
-        // TODO for testing, to be removed
-        color = keepColors ? node.color || color : color;
         return {
           ...node,
           color,
