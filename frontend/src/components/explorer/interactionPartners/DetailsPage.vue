@@ -253,7 +253,11 @@ export default {
       componentName: 'interactionPartners/componentName',
       componentTypes: 'dataOverlay/componentTypes',
       computedLevels: 'dataOverlay/computedLevels',
+      dataOverlayQueryParams: 'dataOverlay/queryParams',
     }),
+    queryParams() {
+      return this.dataOverlayQueryParams;
+    },
     filename() {
       return `MetAtlas Interaction Partners for ${this.componentName} ${this.mainNodeID}`;
     },
@@ -265,12 +269,18 @@ export default {
         await this.applyColorsAndRenderNetwork();
       }
     },
+    async queryParams(newQuery, oldQuery) {
+      console.log('queryParams changed');
+      await this.handleQueryParamsWatch(newQuery, oldQuery);
+    },
     async highlight() {
+      console.log('highliht watched');
       await this.applyColorsAndRenderNetwork();
     },
   },
   async beforeMount() {
-    this.resetOverlayData();
+    console.log('beforeMount');
+    // this.resetOverlayData();
     if (!this.model || this.model.short_name !== this.$route.params.model) {
       const modelSelectionSuccessful = await this.$store.dispatch(
         'models/selectModel',
@@ -281,6 +291,7 @@ export default {
         return;
       }
     }
+    console.log('mount setup');
     await this.setup();
   },
   methods: {
@@ -288,6 +299,7 @@ export default {
       resetOverlayData: 'dataOverlay/resetOverlayData',
     }),
     async setup() {
+      console.log('setup', this.$route.query);
       this.mainNodeID = this.$route.params.id;
       this.mainNode = null;
       this.reactionHL = null;
@@ -296,6 +308,22 @@ export default {
       if (this.mainNodeID) {
         await this.load();
       }
+    },
+    async handleQueryParamsWatch(newQuery, oldQuery) {
+      console.log('old', oldQuery, 'new', newQuery);
+      if (!newQuery) {
+        return;
+      }
+      // TODO overkill???
+      const queryString = Object.entries(newQuery)
+        .map(e => e.join('='))
+        .join('&');
+      const url = `${this.$route.path}?${queryString}`;
+      history.replaceState(history.state, '', url);
+      // resize the window and delay for 10 milliseconds to ensure the rotation axis is perpendicular to the screen and the canvas size is equal to the container.
+      setTimeout(() => {
+        window.dispatchEvent(new Event('resize'));
+      }, 10);
     },
     navigate() {
       this.reactionHL = null;
@@ -501,12 +529,10 @@ export default {
       });
       // this.processURLQuery();
       const { lx, ly, lz } = this.coords;
-      // Setting x and y to lx and ly respectively would rotate
-      // the camera, so they are set to 0 instead to make sure the
-      // map appears "flat".
-      this.controller.setCamera({ x: 0, y: 0, z: lz });
+      this.controller.setCamera({ x: lx, y: ly, z: lz });
     },
     async applyColorsAndRenderNetwork() {
+      console.log('apply colors');
       const nodes = this.network.nodes.map(node => {
         let color = colorToRGBArray(this.defaultMetaboliteColor);
 
