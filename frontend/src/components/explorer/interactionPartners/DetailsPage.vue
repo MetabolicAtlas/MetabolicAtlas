@@ -64,6 +64,7 @@
                   :zoom-out="zoomOut"
                   :disable-full-screen="true"
                   :toggle-full-screen="toggleFullscreen"
+                  :style="{ 'z-index': network.nodes.length + 1 }"
                 />
                 <div id="viewer3d"></div>
               </div>
@@ -621,7 +622,6 @@ export default {
   }
   #mapControl {
     position: absolute;
-    z-index: 1;
     top: 0;
     left: 0;
   }
