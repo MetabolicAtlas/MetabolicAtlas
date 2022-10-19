@@ -25,7 +25,7 @@
               ></h3>
             </div>
           </div>
-          <context-menu :show="showGraphContextMenu" :expand="loadExpansion" ref="contextMenu" />
+          <context-menu :ref="contextMenu" show="showGraphContextMenu" :expand="loadExpansion" />
           <div class="container is-fullhd columns is-multiline">
             <div class="column is-8-desktop is-fullwidth-tablet">
               <div id="viewer-container">
