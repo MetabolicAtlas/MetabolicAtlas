@@ -116,6 +116,7 @@ const getInteractionPartnersExpansion = async ({
   // loop through all expanded nodes and add them to the network
   for (const nodeid of expanded) {
     console.log('asking for node', nodeid);
+    // eslint-disable-next-line no-await-in-loop
     const expandedNetwork = await getInteractionPartners({
       id: nodeid,
       model,
