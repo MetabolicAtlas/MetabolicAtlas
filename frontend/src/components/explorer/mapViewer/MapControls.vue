@@ -67,7 +67,7 @@ export default {
     },
     toggleGenes: {
       type: Function,
-      required: true,
+      required: false,
     },
     toggleLabels: {
       type: Function,
