@@ -112,6 +112,7 @@ const getInteractionPartnersExpansion = async ({
     model,
     version,
   });
+  let unique = new Set();
   // loop through all expanded nodes and add them to the network
   for (const nodeid of expanded) {
     console.log('asking for node', nodeid);
@@ -121,7 +122,6 @@ const getInteractionPartnersExpansion = async ({
       version,
     });
 
-    let unique = new Set();
 
     const addLink = (s, t) => {
       const link = `${s}-${t}`;
@@ -140,7 +140,7 @@ const getInteractionPartnersExpansion = async ({
         network.nodes.push({
           g: node.g,
           id: node.id,
-          n: node.name,
+          n: node.n,
           color: [0, 247, 0],
         });
       }
