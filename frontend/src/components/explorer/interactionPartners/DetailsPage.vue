@@ -349,6 +349,7 @@ export default {
     },
     async loadExpansion() {
       try {
+        this.loading = true;
         this.expandedNodes.push(this.clickedElmId);
         const payload = { model: this.model, expanded: this.expandedNodes, id: this.mainNodeID };
         await this.$store.dispatch('interactionPartners/loadExpansion', payload);
