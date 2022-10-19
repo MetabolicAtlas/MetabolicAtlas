@@ -284,7 +284,6 @@ export default {
       }
     }
     console.log('mount setup');
-    window.dispatchEvent(new Event('resize'));
     await this.setup();
   },
   methods: {
@@ -313,6 +312,7 @@ export default {
         .join('&');
       const url = `${this.$route.path}?${queryString}`;
       history.replaceState(history.state, '', url);
+      window.dispatchEvent(new Event('resize'));
     },
     navigate() {
       this.reactionHL = null;
