@@ -293,6 +293,7 @@ export default {
       }
     }
     console.log('mount setup');
+    window.dispatchEvent(new Event('resize'));
     await this.setup();
   },
   methods: {
