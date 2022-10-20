@@ -257,7 +257,7 @@ export default {
       expandParams: 'interactionPartners/expandParams',
     }),
     queryParams() {
-      return { ...this.expandParams, ...this.dataOverlayQueryParams }
+      return { ...this.expandParams, ...this.dataOverlayQueryParams };
     },
     filename() {
       return `MetAtlas Interaction Partners for ${this.componentName} ${this.mainNodeID}`;
@@ -294,7 +294,7 @@ export default {
   methods: {
     ...mapActions({
       resetOverlayData: 'dataOverlay/resetOverlayData',
-      setExpansion: 'interactionPartners/setExpansion'
+      setExpansion: 'interactionPartners/setExpansion',
     }),
     async setup() {
       this.mainNodeID = this.$route.params.id;
@@ -339,23 +339,24 @@ export default {
       try {
         console.log('Query', this.$route.query);
         if (this.$route.query.expandNodes) {
-          console.log('Expanded nodes!', this.$route.query.expandNodes)
+          console.log('Expanded nodes!', this.$route.query.expandNodes);
           const provided = this.$route.query.expandNodes.split(',');
           console.log('Provided', provided);
-          await provided.forEach((id) => {
-            this.setExpansion(id)
-          })
+          await provided.forEach(id => {
+            this.setExpansion(id);
+          });
           const payload = { model: this.model, id: this.mainNodeID };
           setTimeout(() => {
             this.showLoaderMessage = 'Updating network... waiting for data to be rendered';
           }, 4000);
           await this.$store.dispatch('interactionPartners/loadExpansion', payload);
         } else {
-        const payload = { model: this.model, id: this.mainNodeID };
-        setTimeout(() => {
-          this.showLoaderMessage = 'Loading network... waiting for data to be rendered';
-        }, 4000);
-        await this.$store.dispatch('interactionPartners/getInteractionPartners', payload);
+          const payload = { model: this.model, id: this.mainNodeID };
+          setTimeout(() => {
+            this.showLoaderMessage = 'Loading network... waiting for data to be rendered';
+          }, 4000);
+          await this.$store.dispatch('interactionPartners/getInteractionPartners', payload);
+        }
 
         this.componentNotFound = false;
         this.showGraphContextMenu = false;

@@ -29,7 +29,7 @@ const getters = {
   reactionsSet: (state, _getters) => new Set(_getters.reactions.map(r => r.id)),
   componentName: (state, _getters) => _getters.component.name || _getters.component.id,
   expandParams: state => ({
-    expandNodes: state.expandNodes
+    expandNodes: state.expandNodes,
   }),
 };
 
@@ -68,12 +68,17 @@ const actions = {
   async loadExpansion(args, { model, id }) {
     const { state, commit } = args;
     const _getters = args.getters; // eslint-disable-line no-underscore-dangle
-    const payload = { id, version: model.apiVersion, model: model.apiName, expanded: state.expandNodes };
+    const payload = {
+      id,
+      version: model.apiVersion,
+      model: model.apiName,
+      expanded: state.expandNodes,
+    };
     console.log('Payload', payload);
     const { result, network } = await interactionPartnersApi.fetchInteractionPartnersExpansion(
       payload
     );
-    console.log()
+    console.log();
     commit('setNetwork', network);
     commit('setInteractionPartners', formatInteractionPartners(result));
   },
@@ -83,7 +88,7 @@ const actions = {
   },
   setExpansion({ commit }, id) {
     commit('setExpansion', id);
-  }
+  },
 };
 
 const mutations = {
@@ -108,8 +113,7 @@ const mutations = {
   },
   setExpansion: (state, id) => {
     state.expandNodes.push(id);
-  }
-
+  },
 };
 
 export default {
