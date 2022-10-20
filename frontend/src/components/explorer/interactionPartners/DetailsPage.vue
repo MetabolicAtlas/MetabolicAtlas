@@ -331,12 +331,12 @@ export default {
     },
     async load() {
       this.loading = true;
-      this.showLoaderMessage = 'Updating network...';
+      this.showLoaderMessage = 'Loading network...';
 
       try {
         const payload = { model: this.model, id: this.mainNodeID };
         setTimeout(() => {
-          this.showLoaderMessage = 'Updating network... waiting for data to be rendered';
+          this.showLoaderMessage = 'Loading network... waiting for data to be rendered';
         }, 4000);
         await this.$store.dispatch('interactionPartners/getInteractionPartners', payload);
 
