@@ -71,7 +71,11 @@ RETURN { component: component, reactions: COLLECT(reaction)}
     // and add links to the main node
     metabolites.forEach(metabolite => {
       if (!unique.has(metabolite.id)) {
-        nodes.push({ g: 'm', id: metabolite.id, n: metabolite.name });
+        nodes.push({
+          g: 'm',
+          id: metabolite.id,
+          n: metabolite.name || metabolite.name,
+        });
         unique.add(metabolite.id);
 
         if (id !== metabolite.id) {
@@ -139,7 +143,7 @@ const getInteractionPartnersExpansion = async ({
         network.nodes.push({
           g: node.g,
           id: node.id,
-          n: node.n || gene.id,
+          n: node.n,
         });
       }
     });
