@@ -281,7 +281,7 @@ export default {
   },
   async beforeMount() {
     console.log('beforeMount');
-    // this.resetOverlayData();
+    this.resetOverlayData();
     if (!this.model || this.model.short_name !== this.$route.params.model) {
       const modelSelectionSuccessful = await this.$store.dispatch(
         'models/selectModel',
