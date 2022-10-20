@@ -24,11 +24,11 @@
           <span class="tag"># Unique Metabolite(s): {{ metaboliteCount }}</span>
           &nbsp;
           <span v-show="geneCount" class="tag"># Unique Gene(s): {{ geneCount }}</span>
-          <span v-show="isGraphVisible">
+          <!--span v-show="isGraphVisible">
             &nbsp; Click on a
             <span class="tag is-rounded"><span class="is-size-6">label</span></span>
             to highlight the corresponding element on the graph
-          </span>
+          </span-->
         </div>
         <div class="table-container">
           <table id="cytoTable" ref="table" class="table is-bordered is-narrow is-fullwidth">

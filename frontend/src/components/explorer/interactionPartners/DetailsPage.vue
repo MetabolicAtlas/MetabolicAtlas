@@ -93,7 +93,7 @@
                   "
                   class="card mb-5"
                 >
-                  <header class="card-header">
+                  <!--header class="card-header">
                     <p class="card-header-title">Highlight</p>
                   </header>
                   <div class="card-content py-2 p-3">
@@ -125,7 +125,7 @@
                         </select>
                       </div>
                     </div>
-                  </div>
+                  </div-->
                 </div>
               </template>
             </div>
@@ -331,9 +331,13 @@ export default {
     },
     async load() {
       this.loading = true;
+      this.showLoaderMessage = 'Loading network...';
 
       try {
         const payload = { model: this.model, id: this.mainNodeID };
+        setTimeout(() => {
+          this.showLoaderMessage = 'Loading network... waiting for data to be rendered';
+        }, 4000);
         await this.$store.dispatch('interactionPartners/getInteractionPartners', payload);
 
         this.componentNotFound = false;
@@ -576,7 +580,7 @@ export default {
     async selectElement(element) {
       const [id, type] = this.getElementIdAndType(element);
       this.clickedElmId = id;
-      this.clickedElm = { id, type };
+      this.clickedElm = { id, type, n: element.n };
     },
     getElementIdAndType(element) {
       let type = 'metabolite';
