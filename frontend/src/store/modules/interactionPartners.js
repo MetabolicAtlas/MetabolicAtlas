@@ -33,7 +33,6 @@ const getters = {
   }),
 };
 
-// TODO: remove?
 const formatInteractionPartners = ips => ({
   ...ips,
   reactions: ips.reactions.map(r => ({

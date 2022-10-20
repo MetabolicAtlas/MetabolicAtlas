@@ -195,42 +195,24 @@ export default {
       defaultMetaboliteColor: DEFAULT_METABOLITE_COLOR,
       componentNotFound: false,
       errorMessage: '',
-
-      // TODO
-      nodeCount: 0,
-      warnNodeCount: 50,
-      maxNodeCount: 100,
-      // TODO
       showNetworkGraph: false,
-      largeNetworkGraph: false,
-
       mainNodeID: '',
-      // TODO
-      mainNode: null,
-
-      // TODO
+      expandedNodes: [],
       clickedElmId: '',
       clickedElm: null,
-      selectedSample: '',
-
       highlight: [],
-
-      // TODO
+      // TODO, highlight reactions
       reactionHL: null,
-      // TODO
+      // TODO, finish highlight of compartments and subsystems
       compartmentHL: '',
       compartmentList: [],
       compartments: {},
       subsystems: {},
-      disableCompartmentHL: false,
-      showMenuExport: false,
-      // TODO
       subsystemHL: '',
       subsystemList: [],
-
-      // TODO (remove?)
+      disableCompartmentHL: false,
+      showMenuExport: false,
       showGraphContextMenu: false,
-
       messages,
     };
   },
@@ -307,7 +289,7 @@ export default {
         await this.load();
       }
     },
-    async handleQueryParamsWatch(newQuery, oldQuery) {
+    async handleQueryParamsWatch(newQuery) {
       console.log('HandleQP!');
       console.log('This is the new query', newQuery);
       if (!newQuery) {
@@ -318,7 +300,7 @@ export default {
         .map(e => e.join('='))
         .join('&');
       const url = `${this.$route.path}?${queryString}`;
-      history.replaceState(history.state, '', url);
+      history.replaceState(history.state, '', url); // eslint-disable-line no-restricted-globals
       // resize the window and delay for 10 milliseconds to ensure the rotation axis is perpendicular to the screen and the canvas size is equal to the container.
       setTimeout(() => {
         window.dispatchEvent(new Event('resize'));
@@ -369,15 +351,6 @@ export default {
           this.showNetworkGraph = false;
           return;
         }
-
-        // TODO replace nodeCount
-        /* this.nodeCount = Object.keys(this.rawElms).length;
-        if (this.nodeCount > this.warnNodeCount) {
-          this.showNetworkGraph = false;
-          this.largeNetworkGraph = true;
-          this.errorMessage = '';
-          return;
-        } */
         this.largeNetworkGraph = false;
         this.showNetworkGraph = true;
         this.errorMessage = '';
@@ -435,15 +408,7 @@ export default {
       );
     },
     // TODO
-    highlightReaction(rid) {
-      /* if (this.cy) {
-        this.clickedElmId = '';
-        this.reactionHL = rid;
-        this.clickedElm = { id: rid, type: 'reaction' };
-        this.redrawGraph();
-        this.showGraphContextMenu = false;
-      } */
-    },
+    highlightReaction() {},
     // TODO
     highlightCompartment(e) {
       this.highlight = this.compartments[e.target.value];
@@ -463,20 +428,9 @@ export default {
       }
     },
     // TODO
-    highlightNode(elmId) {
-      /* this.showGraphContextMenu = false;
-      this.reactionHL = null;
-      this.clickedElmId = elmId;
-      this.clickedElm = this.rawElms[elmId];
+    highlightNode() {},
 
-      if (this.showNetworkGraph) {
-        this.cy.nodes().deselect();
-        const node = this.cy.getElementById(elmId);
-        node.json({ selected: true });
-        node.trigger('tap');
-        this.redrawGraph();
-      } */
-    },
+    // TODO
     prepareHighlight() {
       const compartments = {};
       const subsystems = {};
@@ -513,7 +467,8 @@ export default {
       this.showGraphContextMenu = false;
       this.showNetworkGraph = true;
 
-      this.prepareHighlight();
+      // TODO: use this when implementing compartment and subsystem highlight
+      // this.prepareHighlight();
       this.applyColorsAndRenderNetwork();
     },
     exportGraphml: function exportGraphml() {
@@ -531,7 +486,6 @@ export default {
       this.showGraphContextMenu = true;
     },
     async renderNetwork(customizedNetwork) {
-      // TODO Should resetNetwork have an await since we are modifying the container there?
       this.resetNetwork();
       this.controller = MetAtlasViewer('viewer3d');
 
@@ -551,8 +505,7 @@ export default {
         nodeTextures,
         nodeSize: 10,
       });
-      // this.processURLQuery();
-      const { lx, ly, lz } = this.coords;
+      const { lx, ly, lz } = this.coords; // eslint-disable-line no-unused-vars
       // Setting x and y to lx and ly respectively would rotate
       // the camera, so they are set to 0 instead to make sure the
       // map appears "flat".
@@ -562,8 +515,9 @@ export default {
       const nodes = this.network.nodes.map(node => {
         let color = colorToRGBArray(this.defaultMetaboliteColor);
 
-        if (this.highlight.includes(node.id)) {
-        }
+        // TODO: use this when implementing compartment and subsystem highlight
+        /* if (this.highlight.includes(node.id)) {
+        } */
 
         if (node.g === 'e') {
           if (this.componentTypes.includes('gene') && Object.keys(this.computedLevels).length > 0) {
