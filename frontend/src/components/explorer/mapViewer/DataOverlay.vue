@@ -454,6 +454,6 @@ export default {
 }
 
 #modalWrapper {
-z-index: 300;
+  z-index: 300;
 }
 </style>
