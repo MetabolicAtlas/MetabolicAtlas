@@ -228,14 +228,12 @@ export default {
     },
   },
   async created() {
-    console.log('overlay created', this.$route.query);
     await this.getDataSourcesIndex(this.model.short_name);
 
     const queryParamTypes = this.validDataTypeInQuery();
     const dataTypes = queryParamTypes.length
       ? queryParamTypes
       : [Object.keys(this.filteredDataSourcesIndex)[0]];
-    console.log('overlay created with', dataTypes);
     dataTypes.forEach((type, index) => {
       this.setCurrentDataType({
         model: this.model.short_name,
@@ -266,14 +264,10 @@ export default {
     this.customDataType = defaultCustomDataType;
 
     const queryParamSources = this.validDataSourceInQuery();
-    console.log('overlay with', queryParamSources);
     const dataSources = queryParamSources.length
       ? queryParamSources
       : [this.filteredDataSourcesIndex[this.dataTypes[0].name][0].filename];
-    console.log('overlay with dataSources', dataSources);
-    console.log('overlay with url dataSets', this.$route.query);
     const queryDataSets = this.$route.query.dataSets ? this.$route.query.dataSets.split(',') : [];
-    console.log('overlay with dataSets', queryDataSets);
     dataSources.forEach(async (source, index) => {
       await this.getDataSource({
         model: this.model.short_name,
@@ -284,7 +278,6 @@ export default {
       });
 
       const dataSet = queryDataSets[index];
-      console.log('overlay with dataset', dataSet);
       if (this.dataSources[index].dataSets.includes(dataSet)) {
         await this.getDataSet({
           model: this.model.short_name,

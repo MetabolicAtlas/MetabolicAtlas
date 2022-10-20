@@ -271,16 +271,13 @@ export default {
       }
     },
     async queryParams(newQuery, oldQuery) {
-      console.log('queryParams changed');
       await this.handleQueryParamsWatch(newQuery, oldQuery);
     },
     async highlight() {
-      console.log('highliht watched');
       await this.applyColorsAndRenderNetwork();
     },
   },
   async beforeMount() {
-    console.log('beforeMount');
     this.resetOverlayData();
     if (!this.model || this.model.short_name !== this.$route.params.model) {
       const modelSelectionSuccessful = await this.$store.dispatch(
@@ -292,7 +289,6 @@ export default {
         return;
       }
     }
-    console.log('mount setup');
     await this.setup();
   },
   methods: {
@@ -300,7 +296,6 @@ export default {
       resetOverlayData: 'dataOverlay/resetOverlayData',
     }),
     async setup() {
-      console.log('setup', this.$route.query);
       this.mainNodeID = this.$route.params.id;
       this.mainNode = null;
       this.reactionHL = null;
@@ -311,7 +306,6 @@ export default {
       }
     },
     async handleQueryParamsWatch(newQuery, oldQuery) {
-      console.log('old', oldQuery, 'new', newQuery);
       if (!newQuery) {
         return;
       }
@@ -416,7 +410,6 @@ export default {
     },
     // TODO
     highlightReaction(rid) {
-      console.log('highlightReaction', rid); // eslint-disable-line no-console
       /* if (this.cy) {
         this.clickedElmId = '';
         this.reactionHL = rid;
@@ -445,7 +438,6 @@ export default {
     },
     // TODO
     highlightNode(elmId) {
-      console.log('highlightNode', elmId); // eslint-disable-line no-console
       /* this.showGraphContextMenu = false;
       this.reactionHL = null;
       this.clickedElmId = elmId;
@@ -541,12 +533,10 @@ export default {
       this.controller.setCamera({ x: 0, y: 0, z: lz });
     },
     async applyColorsAndRenderNetwork() {
-      console.log('apply colors');
       const nodes = this.network.nodes.map(node => {
         let color = colorToRGBArray(this.defaultMetaboliteColor);
 
         if (this.highlight.includes(node.id)) {
-          console.log('This node should be highlighted!', node.id); // eslint-disable-line no-console
         }
 
         if (node.g === 'e') {
