@@ -89,6 +89,9 @@ const actions = {
   setExpansion({ commit }, id) {
     commit('setExpansion', id);
   },
+  resetExpansion({ commit }) {
+    commit('resetExpansion');
+  },
 };
 
 const mutations = {
@@ -98,10 +101,10 @@ const mutations = {
   setTooLargeNetworkGraph: (state, tooLargeNetworkGraph) => {
     state.tooLargeNetworkGraph = tooLargeNetworkGraph;
   },
-  setExpansion: (state, expansion) => {
-    // TODO remove?
-    state.expansion = expansion;
-  },
+  //setExpansion: (state, expansion) => {
+  // TODO remove?
+  // state.expansion = expansion;
+  //},
   setRandomComponents: (state, randomComponents) => {
     state.randomComponents = randomComponents;
   },
@@ -113,6 +116,11 @@ const mutations = {
   },
   setExpansion: (state, id) => {
     state.expandNodes.push(id);
+  },
+  resetExpansion: state => {
+    console.log('reset');
+    state.expandNodes = [];
+    console.log(state.expandNodes);
   },
 };
 

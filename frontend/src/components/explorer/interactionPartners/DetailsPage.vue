@@ -244,7 +244,7 @@ export default {
       dataSets: state => state.dataOverlay.dataSets,
       network: state => state.interactionPartners.network,
       coords: state => state.interactionPartners.coords,
-      expandedNodes: state => state.interactionPartners.expandedNodes,
+      expandNodes: state => state.interactionPartners.expandNodes,
     }),
     ...mapGetters({
       component: 'interactionPartners/component',
@@ -295,6 +295,7 @@ export default {
     ...mapActions({
       resetOverlayData: 'dataOverlay/resetOverlayData',
       setExpansion: 'interactionPartners/setExpansion',
+      resetExpansion: 'interactionPartners/resetExpansion',
     }),
     async setup() {
       this.mainNodeID = this.$route.params.id;
@@ -351,6 +352,9 @@ export default {
           }, 4000);
           await this.$store.dispatch('interactionPartners/loadExpansion', payload);
         } else {
+          console.log('no expandNodes');
+          this.resetExpansion();
+          console.log('reset expansion', this.expandNodes);
           const payload = { model: this.model, id: this.mainNodeID };
           setTimeout(() => {
             this.showLoaderMessage = 'Loading network... waiting for data to be rendered';
@@ -399,7 +403,7 @@ export default {
         this.loading = true;
         this.showLoaderMessage = 'Updating network...';
         await this.setExpansion(this.clickedElmId);
-        const payload = { model: this.model, expanded: this.expandedNodes, id: this.mainNodeID };
+        const payload = { model: this.model, expanded: this.expandNodes, id: this.mainNodeID };
         setTimeout(() => {
           this.showLoaderMessage = 'Updating network... waiting for data to be rendered';
         }, 4000);
