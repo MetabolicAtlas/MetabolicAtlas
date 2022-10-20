@@ -580,7 +580,7 @@ export default {
     async selectElement(element) {
       const [id, type] = this.getElementIdAndType(element);
       this.clickedElmId = id;
-      this.clickedElm = { id, type };
+      this.clickedElm = { id, type, n: element.n };
     },
     getElementIdAndType(element) {
       let type = 'metabolite';

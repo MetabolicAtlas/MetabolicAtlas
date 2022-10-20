@@ -6,7 +6,7 @@
     <header class="card-header">
       <p class="card-header-title">
         <span class="is-capitalized">
-          {{ selectedElm.type }}: {{ selectedElm.name || selectedElm.id }}
+          {{ selectedElm.type }}: {{ selectedElm.n || selectedElm.id }}
           <span
             v-if="selectedElm.type === 'metabolite'"
             class="has-text-weight-light has-text-grey-light"
