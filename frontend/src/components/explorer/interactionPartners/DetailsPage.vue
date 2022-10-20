@@ -14,7 +14,7 @@
           </div>
         </template>
         <template v-if="loading">
-          <loader></loader>
+          <loader :message="showLoaderMessage" class="columns" />
         </template>
         <template v-else-if="mainNodeID && !componentNotFound">
           <div class="container is-fullhd columns">
@@ -189,6 +189,7 @@ export default {
     return {
       controller: null,
       loading: false,
+      showLoaderMessage: '',
       isFullscreen: false,
       defaultGeneColor: DEFAULT_GENE_COLOR,
       defaultMetaboliteColor: DEFAULT_METABOLITE_COLOR,
@@ -380,8 +381,12 @@ export default {
     async loadExpansion() {
       try {
         this.loading = true;
+        this.showLoaderMessage = 'Updating network...';
         this.expandedNodes.push(this.clickedElmId);
         const payload = { model: this.model, expanded: this.expandedNodes, id: this.mainNodeID };
+        setTimeout(() => {
+          this.showLoaderMessage = 'Updating network... waiting for data to be rendered';
+        }, 4000);
         await this.$store.dispatch('interactionPartners/loadExpansion', payload);
 
         // The set time out wrapper enforces this happens last.
@@ -398,6 +403,7 @@ export default {
             this.errorMessage = messages.unknownError;
         }
       } finally {
+        this.showLoaderMessage = '';
         this.loading = false;
       }
     },
