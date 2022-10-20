@@ -84,7 +84,7 @@ RETURN { component: component, reactions: COLLECT(reaction)}
     // and add links to the main node
     genes.forEach(gene => {
       if (!unique.has(gene.id)) {
-        nodes.push({ g: 'e', id: gene.id, n: gene.name });
+        nodes.push({ g: 'e', id: gene.id, n: gene.name || gene.id });
         unique.add(gene.id);
 
         if (id !== gene.id) {
@@ -139,7 +139,7 @@ const getInteractionPartnersExpansion = async ({
         network.nodes.push({
           g: node.g,
           id: node.id,
-          n: node.n,
+          n: node.n || gene.id,
         });
       }
     });
