@@ -30,7 +30,6 @@ const getters = {
   componentName: (state, _getters) => _getters.component.name || _getters.component.id,
 };
 
-// TODO: remove?
 const formatInteractionPartners = ips => ({
   ...ips,
   reactions: ips.reactions.map(r => ({
