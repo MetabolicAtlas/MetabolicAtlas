@@ -93,7 +93,7 @@
                   "
                   class="card mb-5"
                 >
-                  <header class="card-header">
+                  <!--header class="card-header">
                     <p class="card-header-title">Highlight</p>
                   </header>
                   <div class="card-content py-2 p-3">
@@ -125,7 +125,7 @@
                         </select>
                       </div>
                     </div>
-                  </div>
+                  </div-->
                 </div>
               </template>
             </div>
