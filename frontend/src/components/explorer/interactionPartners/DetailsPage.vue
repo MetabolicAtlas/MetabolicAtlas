@@ -26,7 +26,7 @@
             </div>
           </div>
           <context-menu ref="contextMenu" :show="showGraphContextMenu" :expand="loadExpansion" />
-          <div class="container is-fullhd columns is-multiline">
+          <div id="mapWrapper" class="container is-fullhd columns is-multiline">
             <div class="column is-8-desktop is-fullwidth-tablet">
               <div id="viewer-container">
                 <div id="dropdownMenuExport" class="dropdown">
@@ -743,6 +743,10 @@ export default {
     width: 100%;
     height: 100%;
     position: relative;
+  }
+
+  #mapWrapper {
+    z-index: 5;
   }
 
   #viewer3d {
