@@ -226,6 +226,7 @@ export default {
       dataSets: state => state.dataOverlay.dataSets,
       network: state => state.interactionPartners.network,
       coords: state => state.interactionPartners.coords,
+      expandNodes: state => state.interactionPartners.expandNodes,
     }),
     ...mapGetters({
       component: 'interactionPartners/component',
@@ -235,9 +236,10 @@ export default {
       componentTypes: 'dataOverlay/componentTypes',
       computedLevels: 'dataOverlay/computedLevels',
       dataOverlayQueryParams: 'dataOverlay/queryParams',
+      expandParams: 'interactionPartners/expandParams',
     }),
     queryParams() {
-      return this.dataOverlayQueryParams;
+      return { ...this.expandParams, ...this.dataOverlayQueryParams };
     },
     filename() {
       return `MetAtlas Interaction Partners for ${this.componentName} ${this.mainNodeID}`;
@@ -274,6 +276,8 @@ export default {
   methods: {
     ...mapActions({
       resetOverlayData: 'dataOverlay/resetOverlayData',
+      setExpansion: 'interactionPartners/setExpansion',
+      resetExpansion: 'interactionPartners/resetExpansion',
     }),
     async setup() {
       this.mainNodeID = this.$route.params.id;
@@ -286,6 +290,8 @@ export default {
       }
     },
     async handleQueryParamsWatch(newQuery) {
+      console.log('HandleQP!');
+      console.log('This is the new query', newQuery);
       if (!newQuery) {
         return;
       }
@@ -314,11 +320,29 @@ export default {
       this.showLoaderMessage = 'Loading network...';
 
       try {
-        const payload = { model: this.model, id: this.mainNodeID };
-        setTimeout(() => {
-          this.showLoaderMessage = 'Loading network... waiting for data to be rendered';
-        }, 4000);
-        await this.$store.dispatch('interactionPartners/getInteractionPartners', payload);
+        console.log('Query', this.$route.query);
+        if (this.$route.query.expandNodes) {
+          console.log('Expanded nodes!', this.$route.query.expandNodes);
+          const provided = this.$route.query.expandNodes.split(',');
+          console.log('Provided', provided);
+          await provided.forEach(id => {
+            this.setExpansion(id);
+          });
+          const payload = { model: this.model, id: this.mainNodeID };
+          setTimeout(() => {
+            this.showLoaderMessage = 'Updating network... waiting for data to be rendered';
+          }, 4000);
+          await this.$store.dispatch('interactionPartners/loadExpansion', payload);
+        } else {
+          console.log('no expandNodes');
+          this.resetExpansion();
+          console.log('reset expansion', this.expandNodes);
+          const payload = { model: this.model, id: this.mainNodeID };
+          setTimeout(() => {
+            this.showLoaderMessage = 'Loading network... waiting for data to be rendered';
+          }, 4000);
+          await this.$store.dispatch('interactionPartners/getInteractionPartners', payload);
+        }
 
         this.componentNotFound = false;
         this.showGraphContextMenu = false;
@@ -351,8 +375,8 @@ export default {
       try {
         this.loading = true;
         this.showLoaderMessage = 'Updating network...';
-        this.expandedNodes.push(this.clickedElmId);
-        const payload = { model: this.model, expanded: this.expandedNodes, id: this.mainNodeID };
+        await this.setExpansion(this.clickedElmId);
+        const payload = { model: this.model, expanded: this.expandNodes, id: this.mainNodeID };
         setTimeout(() => {
           this.showLoaderMessage = 'Updating network... waiting for data to be rendered';
         }, 4000);

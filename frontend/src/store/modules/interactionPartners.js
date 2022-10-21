@@ -7,7 +7,7 @@ import { constructCompartmentStr } from '@/helpers/utils';
 const data = {
   interactionPartners: {},
   tooLargeNetworkGraph: false,
-  expansion: {},
+  expandNodes: [],
   randomComponents: null,
   network: {
     nodes: [],
@@ -28,6 +28,9 @@ const getters = {
   reactions: state => state.interactionPartners.reactions || [],
   reactionsSet: (state, _getters) => new Set(_getters.reactions.map(r => r.id)),
   componentName: (state, _getters) => _getters.component.name || _getters.component.id,
+  expandParams: state => ({
+    expandNodes: state.expandNodes,
+  }),
 };
 
 const formatInteractionPartners = ips => ({
@@ -61,20 +64,32 @@ const actions = {
     commit('setRandomComponents', randomComponents);
   },
 
-  async loadExpansion(args, { model, id, expanded }) {
+  async loadExpansion(args, { model, id }) {
     const { state, commit } = args;
     const _getters = args.getters; // eslint-disable-line no-underscore-dangle
-
-    const payload = { id, version: model.apiVersion, model: model.apiName, expanded };
+    const payload = {
+      id,
+      version: model.apiVersion,
+      model: model.apiName,
+      expanded: state.expandNodes,
+    };
+    console.log('Payload', payload);
     const { result, network } = await interactionPartnersApi.fetchInteractionPartnersExpansion(
       payload
     );
+    console.log();
     commit('setNetwork', network);
     commit('setInteractionPartners', formatInteractionPartners(result));
   },
 
   setCoords({ commit }, coords) {
     commit('setCoords', coords);
+  },
+  setExpansion({ commit }, id) {
+    commit('setExpansion', id);
+  },
+  resetExpansion({ commit }) {
+    commit('resetExpansion');
   },
 };
 
@@ -85,10 +100,10 @@ const mutations = {
   setTooLargeNetworkGraph: (state, tooLargeNetworkGraph) => {
     state.tooLargeNetworkGraph = tooLargeNetworkGraph;
   },
-  setExpansion: (state, expansion) => {
-    // TODO remove?
-    state.expansion = expansion;
-  },
+  //setExpansion: (state, expansion) => {
+  // TODO remove?
+  // state.expansion = expansion;
+  //},
   setRandomComponents: (state, randomComponents) => {
     state.randomComponents = randomComponents;
   },
@@ -97,6 +112,14 @@ const mutations = {
   },
   setCoords: (state, coords) => {
     state.coords = coords;
+  },
+  setExpansion: (state, id) => {
+    state.expandNodes.push(id);
+  },
+  resetExpansion: state => {
+    console.log('reset');
+    state.expandNodes = [];
+    console.log(state.expandNodes);
   },
 };
 
