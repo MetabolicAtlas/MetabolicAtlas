@@ -567,24 +567,15 @@ export default {
       this.controller.toggleLabels();
     },
     zoomIn() {
-      this.zoomBy(50);
+      this.zoomBy(-200);
     },
     zoomOut() {
-      this.zoomBy(-50);
+      this.zoomBy(200);
     },
     zoomBy(amount) {
-      const { lx, ly, lz } = this.coords;
-      let z = lz - amount;
-      // TODO why not 0 as in ThreeDViewer?
-      if (z < 1) {
-        z = 1;
-      } else if (z > 1000) {
-        z = 1000;
-      }
-
-      const payload = { x: lx, y: ly, z };
-      this.controller.setCamera(payload);
-      this.updateURLCoords(payload);
+      const wheelEvt = new Event('wheel', { bubbles: true, cancelable: true });
+      wheelEvt.deltaY = amount;
+      document.querySelector('#viewer3d canvas').dispatchEvent(wheelEvt);
     },
   },
 };
