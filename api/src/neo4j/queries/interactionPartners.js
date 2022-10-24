@@ -101,7 +101,12 @@ RETURN { component: component, reactions: COLLECT(reaction)}
       metabolites.forEach(metabolite => addLink(gene.id, metabolite.id));
     });
   });
-  const network = await populateWithLayout({ nodes, links, dim: 2 });
+  const network = await populateWithLayout({
+    nodes,
+    links,
+    dim: 2,
+    reCenter: true,
+  });
   return { result, network };
 };
 
@@ -158,6 +163,7 @@ const getInteractionPartnersExpansion = async ({
   const newNetwork = await populateWithLayout({
     ...network,
     dim: 2,
+    reCenter: true,
   });
   return { result, network: newNetwork };
 };
