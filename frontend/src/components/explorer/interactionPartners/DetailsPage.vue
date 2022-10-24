@@ -88,24 +88,20 @@
                   </div>
                 </div>
                 <div
-                  v-if="
-                    Object.keys(compartments).length !== 0 || Object.keys(subsystems).length != 0
-                  "
                   class="card mb-5"
+                  :title="'Highlightning is currently being reimplemented and will be re-enabled in a future version of Metabolic Atlas'"
                 >
-                  <!--header class="card-header">
-                    <p class="card-header-title">Highlight</p>
+                  <header class="has-text-grey-light card-header">
+                    <p class="has-text-grey-light card-header-title">Highlight</p>
                   </header>
                   <div class="card-content py-2 p-3">
                     <div class="select is-fullwidth">
                       <select
                         v-model="compartmentHL"
-                        :disabled="disableCompartmentHL || null"
+                        disabled
                         @change.prevent="highlightCompartment"
                       >
-                        <option v-if="!disableCompartmentHL" value="" disabled>
-                          Select a compartment
-                        </option>
+                        <option value="" disabled>Select a compartment</option>
                         <option
                           v-for="compartment in Object.keys(compartments)"
                           :key="compartment"
@@ -115,9 +111,9 @@
                         </option>
                       </select>
                     </div>
-                    <div v-show="Object.keys(subsystems).length !== 0">
+                    <div>
                       <div class="select is-fullwidth mt-5">
-                        <select v-model="subsystemHL" @change.prevent="highlightSubsystem">
+                        <select v-model="subsystemHL" disabled @change.prevent="highlightSubsystem">
                           <option value="" disabled>Select a subsystem</option>
                           <option v-for="sub in Object.keys(subsystems)" :key="sub" :value="sub">
                             {{ sub }}
@@ -125,7 +121,7 @@
                         </select>
                       </div>
                     </div>
-                  </div-->
+                  </div>
                 </div>
               </template>
             </div>
