@@ -193,7 +193,6 @@ export default {
       errorMessage: '',
       showNetworkGraph: false,
       mainNodeID: '',
-      expandedNodes: [],
       clickedElmId: '',
       clickedElm: null,
       highlight: [],
