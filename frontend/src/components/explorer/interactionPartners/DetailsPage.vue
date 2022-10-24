@@ -606,13 +606,6 @@ export default {
     color: #a15786;
   }
 
-  #cy {
-    margin: auto;
-    width: 100%;
-    height: 100%;
-    position: relative;
-  }
-
   #sidebar {
     max-height: 620px;
     overflow-y: auto;
@@ -633,80 +626,6 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-  }
-
-  #errorExpBar {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    z-index: 11;
-  }
-
-  #graphOption {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    height: 30px;
-    z-index: 10;
-
-    span {
-      display: inline-block;
-      margin-right: 5px;
-    }
-
-    select {
-      padding: 3px;
-    }
-  }
-
-  #contextGraphLegend {
-    position: absolute;
-    background: white;
-    top: 44px;
-    left: 12px;
-    width: auto;
-    height: auto;
-    padding: 15px;
-    border: 1px solid black;
-    border-radius: 2px;
-    z-index: 30;
-
-    span,
-    div.select,
-    compact-picker {
-      display: inline-block;
-      margin-right: 20px;
-      margin-bottom: 10px;
-    }
-
-    div.comp {
-      margin-left: 20px;
-      display: block;
-    }
-
-    span.label {
-      display: block;
-      margin-left: 0;
-    }
-
-    .delete {
-      position: absolute;
-      right: 10px;
-      top: 10px;
-    }
-
-    span.color-span {
-      height: 20px;
-      width: 25px;
-      border: 1px solid black;
-      vertical-align: middle;
-      margin-right: 15px;
-      margin-bottom: 5px;
-    }
-  }
-
-  #enz-select {
-    min-width: 240px;
   }
 
   #viewer-container {
