@@ -10,7 +10,13 @@ const createLayout = require('ngraph.forcelayout');
 const SCALE = 5;
 const MAX_ITERATIONS = 1000;
 
-module.exports = ({ nodes, links, dim = 3, mainNodeID = null, reCenter = false }) => {
+module.exports = ({
+  nodes,
+  links,
+  dim = 3,
+  mainNodeID = null,
+  reCenter = false,
+}) => {
   const g = createGraph();
 
   for (let node of nodes) {
