@@ -408,7 +408,7 @@
               reactions.
             </p>
             <p class="mt-5">
-              Clicking/selecting a node (shown as red coloured node) shows links on the right
+              Clicking/selecting a node (shown as a red coloured node) shows links on the right
               sidebar. There are two options; to reload the
               <i>Interaction Partners</i>
               for that node, or to navigate to the corresponding
@@ -444,20 +444,20 @@
             can not be shared through the url.
           </p>
 
-          <h5 id="interaction-partners-export" class="is-size-5">Export graph</h5>
+          <h5 id="interaction-partners-export" class="is-size-5">Export the graph</h5>
           The graph of
           <i>Interaction Partners</i>
           can be exported by clicking the top-right button
-          <i>Export</i>. There are two options of graph exporting: GraphML or PNG. GraphML is a
+          <i>Export</i>. There are two options for graph exporting: GraphML or PNG. GraphML is a
           Cytoscape compatible format. Currently, color format is not supported for the GraphML
           option, but you may color the graph by editing the exported GraphML image in Cytoscape.
 
           <h5 id="interaction-partners-reactions" class="is-size-5">Reactions table</h5>
           <p>
-            Information of the reactions are listed in
+            Information about the reactions of the network is show in the
             <i>Reactions</i>
-            table which is located on the lower part of the page. The search bar above the table can
-            be used to filter out rows to find a given component. This table can be exported by
+            table, which is located on the lower part of the page. The search bar above the table
+            can be used to filter out rows to find a given component. This table can be exported by
             clicking the button
             <i>Export to TSV</i>.
           </p>
