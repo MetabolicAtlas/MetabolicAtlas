@@ -400,7 +400,7 @@
               <figcaption>Example of the Interaction Partners tool</figcaption>
             </figure>
             <p>
-              For a given metabolite or gene, this tool renders a connected graph of the other
+              For a given metabolite or gene, this tool (shown in the figure to the right) renders a connected graph of the other
               metabolites and genes with which it interacts via shared reaction(s). The metabolite
               or gene of interest is centered on the graph. Connectivity is determined based on the
               reactions with which this metabolite or gene is associated, i.e. an edge between two
@@ -416,7 +416,9 @@
             </p>
             <p>
               The top-left buttons on the graph allow one to (from left to right): zoom in, zoom out
-              and hide node labels.
+              and hide node labels. You may also use your mouse to pan the
+              graph by holding the left mouse button and dragging, and zoom by
+              scrolling the mouse wheel.
               <!-- add these:
             reset the display, reload the graph (remove
             expanded interaction partners), and remove any highlighting.-->
@@ -429,24 +431,25 @@
             for the clicked node to the graph.
           </p>
           <p>
-            Expression levels from the
-            <a href="https://www.proteinatlas.org/">Human Protein Atlas</a>
-            can be enabled and applied on the
-            <i>Interaction Partners</i>
-            graph with the panel on the right, by selecting one of the tissues in the drop down
-            list. The action will update the color of gene's nodes according to the legend. Some
-            genes may not have RNA levels available in Human Protein Atlas, and in such case their
-            color corresponds to the n/a color.
+          Similar to the <a href="#map-viewer">Map Viewer</a>, one can also
+          perform <a href="#data-overlay">Data Overlay</a> to the
+          <i>Interaction Partners</i> network to color the nodes based on the
+          data you provided. Currently, only the transcriptomics data type is
+          supported, but we are aiming to support more data types as to the
+          <i>Map Viewer</i>.
           </p>
-          <p>Graphs with overlay and extended nodes can be shared by copying the url.</p>
+          <p>Graphs with overlay and extended nodes can be shared by the url in
+          the address bar, that is, you will get the same graph with overlaied
+          data when opening the shared url in another computer.
+          However, if user uploaded data has been overlaied, it can not be shared through the url.</p>
 
           <h5 id="interaction-partners-export" class="is-size-5">Export graph</h5>
           The graph of
           <i>Interaction Partners</i>
-          can be exported by clicking the button
-          <i>Export graph</i>. There are two options of graph exporting: GraphML or PNG. GraphML is
+          can be exported by clicking the top-right button
+          <i>Export</i>. There are two options of graph exporting: GraphML or PNG. GraphML is
           a Cytoscape compatible format. Currently, color format is not supported for the GraphML
-          option.
+          option, but you may color the graph by editing the exported GraphML image in Cytoscape.
 
           <h5 id="interaction-partners-reactions" class="is-size-5">Reactions table</h5>
           <p>
