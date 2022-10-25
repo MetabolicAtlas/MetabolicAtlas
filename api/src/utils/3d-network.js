@@ -65,24 +65,12 @@ module.exports = ({ nodes, links, dim = 3, mainNodeID = null, reCenter = false }
     }
   });
 
-  const centerPos = {
-    x: 0,
-    y: 0,
-  };
-
-  if (mainNode !== undefined) {
-    const shift = {
-      x: mainNode.pos[0] - centerPos.x,
-      y: mainNode.pos[1] - centerPos.y,
-    };
-
-    if (reCenter) {
-      // re-center all of the nodes based on the main node
-      nodesWithPos.forEach(node => {
-        node.pos[0] -= shift.x;
-        node.pos[1] -= shift.y;
-      });
-    }
+  if (mainNode !== undefined && reCenter) {
+    // re-center all of the nodes based on the main node
+    nodesWithPos.forEach(node => {
+      node.pos[0] -= mainNode.pos[0];
+      node.pos[1] -= mainNode.pos[1];
+    });
   }
 
   return {
