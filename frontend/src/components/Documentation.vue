@@ -417,7 +417,7 @@
             </p>
             <p>
               The top-left buttons on the graph allow one to (from left to right): zoom in, zoom out
-              and hide node labels. You may also use your mouse to pan the graph by holding the left
+              and hide node labels. One may also use the mouse to pan the graph by holding the left
               mouse button and dragging, and zoom by scrolling the mouse wheel.
               <!-- add these:
             reset the display, reload the graph (remove
@@ -433,15 +433,15 @@
           <p>
             Similar to the <a href="#map-viewer">Map Viewer</a>, one can also perform
             <a href="#data-overlay">Data Overlay</a> to the <i>Interaction Partners</i> network to
-            color the nodes based on the data you provided. Currently, only the transcriptomics data
-            type is supported, but we are aiming to support more data types as to the
-            <i>Map Viewer</i>.
+            color the nodes based on the expression data selected. Currently, only the
+            transcriptomics data type is supported, but we are aiming to support more data types as
+            to the <i>Map Viewer</i>.
           </p>
           <p>
             Graphs with overlay and extended nodes can be shared by the url in the address bar, that
-            is, you will get the same graph with overlaied data when opening the shared url in
-            another computer. However, if user uploaded data has been overlaied, it can not be
-            shared through the url.
+            is, one will get the same graph with overlayed data when opening the shared url at
+            another computer. However, if custom data has been uploaded and used for the overlay, it
+            can not be shared through the url.
           </p>
 
           <h5 id="interaction-partners-export" class="is-size-5">Export graph</h5>
