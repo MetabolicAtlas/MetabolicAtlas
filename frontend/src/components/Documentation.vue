@@ -439,7 +439,7 @@
           </p>
           <p>
             Graphs with overlay and extended nodes can be shared by the url in the address bar, that
-            is, one will get the same graph with overlayed data when opening the shared url at
+            is, one will get the same graph with overlaid data when opening the shared url at
             another computer. However, if custom data has been uploaded and used for the overlay, it
             can not be shared through the url.
           </p>
