@@ -105,6 +105,7 @@ RETURN { component: component, reactions: COLLECT(reaction)}
     nodes,
     links,
     dim: 2,
+    mainNodeID: id,
     reCenter: true,
   });
   return { result, network };
@@ -163,6 +164,7 @@ const getInteractionPartnersExpansion = async ({
   const newNetwork = await populateWithLayout({
     ...network,
     dim: 2,
+    mainNodeID: id,
     reCenter: true,
   });
   return { result, network: newNetwork };

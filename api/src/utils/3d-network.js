@@ -10,8 +10,9 @@ const createLayout = require('ngraph.forcelayout');
 const SCALE = 5;
 const MAX_ITERATIONS = 1000;
 
-module.exports = ({ nodes, links, dim = 3, reCenter = false }) => {
+module.exports = ({ nodes, links, dim = 3, mainNodeID, reCenter = false }) => {
   const g = createGraph();
+
 
   for (let node of nodes) {
     const { id, ...data } = node;
@@ -68,23 +69,35 @@ module.exports = ({ nodes, links, dim = 3, reCenter = false }) => {
       }
     }
 
-    nodesWithPos.push({
+    const nodeWithPos = {
       id: node.id,
       pos,
       ...node.data,
-    });
+    }
+    nodesWithPos.push(nodeWithPos);
+
+    if (node.id === mainNodeID) {
+      mainNode = nodeWithPos;
+    }
   });
 
   const centerPos = {
-    x: (boundaries.min.x + boundaries.max.x) / 2,
-    y: (boundaries.min.y + boundaries.max.y) / 2,
+    x: 0,
+    y: 0,
   };
+
+
+  const shift = {
+    x: mainNode.pos[0] - centerPos.x,
+    y: mainNode.pos[1] - centerPos.y,
+  }
+
 
   if (reCenter) {
     // re-center all of the nodes based on the boundaries
     nodesWithPos.forEach(node => {
-      node.pos[0] -= centerPos.x;
-      node.pos[1] -= centerPos.y;
+      node.pos[0] -= shift.x;
+      node.pos[1] -= shift.y;
     });
   }
 
