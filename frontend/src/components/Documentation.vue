@@ -395,14 +395,10 @@
             Interaction Partners
           </h4>
           <div id="interaction-partners-intro">
-            <!-- TODO replace (with pic?)
-            <figure id="interaction-partners-video">
-              <video poster="@/assets/interPart-cover.jpg" playsinline controls muted loop>
-                <source src="@/assets/interPart.mp4" type="video/mp4" />
-              </video>
-              <figcaption>Demo of the interaction partners tool</figcaption>
+            <figure id="interaction-partners-figure">
+              <img src="@/assets/interPart.jpg" alt="interaction partners example" />
+              <figcaption>Example of the Interaction Partners tool</figcaption>
             </figure>
-            -->
             <p>
               For a given metabolite or gene, this tool renders a connected graph of the other
               metabolites and genes with which it interacts via shared reaction(s). The metabolite
@@ -728,7 +724,7 @@ export default {
   flex-direction: column-reverse;
 }
 
-#interaction-partners-video {
+#interaction-partners-figure {
   margin: 1rem 0;
 
   figcaption {
@@ -743,7 +739,7 @@ export default {
     display: block;
   }
 
-  #interaction-partners-video {
+  #interaction-partners-figure {
     float: right;
     width: 50%;
     margin: 0 0 1rem 1.5rem;
