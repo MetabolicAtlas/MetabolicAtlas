@@ -1,7 +1,7 @@
 // This file uses `require` and `module.exports` as opposed to
 // the import/export instances that are used elsewhere.
 // The reason for this is that it intended to be used in a worker
-// thread (`/api/src/workers/3d-network.js`) so it needs to used
+// thread (`/api/src/workers/3d-network.js`) so it needs to use
 // the syntax that is default to node.js
 
 const createGraph = require('ngraph.graph');
@@ -10,7 +10,7 @@ const createLayout = require('ngraph.forcelayout');
 const SCALE = 5;
 const MAX_ITERATIONS = 1000;
 
-module.exports = ({ nodes, links, dim = 3, reCenter = false }) => {
+module.exports = ({ nodes, links, dim = 3, mainNodeID, reCenter = false }) => {
   const g = createGraph();
 
   for (let node of nodes) {
@@ -43,7 +43,6 @@ module.exports = ({ nodes, links, dim = 3, reCenter = false }) => {
   }
 
   const nodesWithPos = [];
-  const boundaries = { min: { x: 0, y: 0 }, max: { x: 0, y: 0 } };
 
   g.forEachNode(node => {
     const { x, y, z } = layout.getNodePosition(node.id);
@@ -53,38 +52,33 @@ module.exports = ({ nodes, links, dim = 3, reCenter = false }) => {
       Math.round(z * SCALE),
     ];
 
-    if (reCenter) {
-      if (pos[0] < boundaries.min.x) {
-        boundaries.min.x = pos[0];
-      }
-      if (pos[1] < boundaries.min.y) {
-        boundaries.min.y = pos[1];
-      }
-      if (pos[0] > boundaries.max.x) {
-        boundaries.max.x = pos[0];
-      }
-      if (pos[1] > boundaries.max.y) {
-        boundaries.max.y = pos[1];
-      }
-    }
-
-    nodesWithPos.push({
+    const nodeWithPos = {
       id: node.id,
       pos,
       ...node.data,
-    });
+    };
+    nodesWithPos.push(nodeWithPos);
+
+    if (node.id === mainNodeID) {
+      mainNode = nodeWithPos;
+    }
   });
 
   const centerPos = {
-    x: (boundaries.min.x + boundaries.max.x) / 2,
-    y: (boundaries.min.y + boundaries.max.y) / 2,
+    x: 0,
+    y: 0,
+  };
+
+  const shift = {
+    x: mainNode.pos[0] - centerPos.x,
+    y: mainNode.pos[1] - centerPos.y,
   };
 
   if (reCenter) {
-    // re-center all of the nodes based on the boundaries
+    // re-center all of the nodes based on the main node
     nodesWithPos.forEach(node => {
-      node.pos[0] -= centerPos.x;
-      node.pos[1] -= centerPos.y;
+      node.pos[0] -= shift.x;
+      node.pos[1] -= shift.y;
     });
   }
 
