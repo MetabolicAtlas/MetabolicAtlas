@@ -43,7 +43,7 @@
         </div>
       </div>
     </div>
-    <Modal v-model:showModal="showModal" id="modalWrapper" size="small">
+    <Modal id="modalWrapper" v-model:showModal="showModal" size="small">
       <div class="control">
         <p>Select data type</p>
         <div v-if="dataTypes.length" class="select is-fullwidth m-1">
