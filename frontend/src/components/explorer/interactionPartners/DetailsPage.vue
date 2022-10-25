@@ -89,7 +89,7 @@
                 </div>
                 <div
                   class="card mb-5"
-                  :title="'Highlightning is currently being reimplemented and will be re-enabled in a future version of Metabolic Atlas'"
+                  :title="'Highlighting is currently being reimplemented and will be re-enabled in a future version of Metabolic Atlas'"
                 >
                   <header class="has-text-grey-light card-header">
                     <p class="has-text-grey-light card-header-title">Highlight</p>
