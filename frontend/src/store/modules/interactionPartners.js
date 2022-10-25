@@ -7,7 +7,7 @@ import { constructCompartmentStr } from '@/helpers/utils';
 const data = {
   interactionPartners: {},
   tooLargeNetworkGraph: false,
-  expandNodes: [],
+  expandedNodes: {},
   randomComponents: null,
   network: {
     nodes: [],
@@ -25,12 +25,11 @@ const data = {
 
 const getters = {
   component: state => state.interactionPartners.component || {},
+  expandedIds: state => Object.keys(state.expandedNodes),
+  expandedNames: state => Object.values(state.expandedNodes),
   reactions: state => state.interactionPartners.reactions || [],
   reactionsSet: (state, _getters) => new Set(_getters.reactions.map(r => r.id)),
   componentName: (state, _getters) => _getters.component.name || _getters.component.id,
-  expandParams: state => ({
-    expandNodes: state.expandNodes,
-  }),
 };
 
 const formatInteractionPartners = ips => ({
@@ -64,29 +63,28 @@ const actions = {
     commit('setRandomComponents', randomComponents);
   },
 
-  async loadExpansion(args, { model, id }) {
-    const { state, commit } = args;
-    const _getters = args.getters; // eslint-disable-line no-underscore-dangle
+  async loadExpansion({ commit }, { model, id, expanded }) {
     const payload = {
       id,
       version: model.apiVersion,
       model: model.apiName,
-      expanded: state.expandNodes,
+      expanded,
     };
-    console.log('Payload', payload);
-    const { result, network } = await interactionPartnersApi.fetchInteractionPartnersExpansion(
-      payload
-    );
-    console.log();
+    const { result, network, expandedNodes } =
+      await interactionPartnersApi.fetchInteractionPartnersExpansion(payload);
     commit('setNetwork', network);
     commit('setInteractionPartners', formatInteractionPartners(result));
+    // eslint-disable-next-line no-restricted-syntax, no-shadow
+    for (const [id, name] of Object.entries(expandedNodes)) {
+      commit('setExpansion', { id, name });
+    }
   },
 
   setCoords({ commit }, coords) {
     commit('setCoords', coords);
   },
-  setExpansion({ commit }, id) {
-    commit('setExpansion', id);
+  setExpansion({ commit }, node) {
+    commit('setExpansion', node);
   },
   resetExpansion({ commit }) {
     commit('resetExpansion');
@@ -100,10 +98,6 @@ const mutations = {
   setTooLargeNetworkGraph: (state, tooLargeNetworkGraph) => {
     state.tooLargeNetworkGraph = tooLargeNetworkGraph;
   },
-  //setExpansion: (state, expansion) => {
-  // TODO remove?
-  // state.expansion = expansion;
-  //},
   setRandomComponents: (state, randomComponents) => {
     state.randomComponents = randomComponents;
   },
@@ -113,13 +107,13 @@ const mutations = {
   setCoords: (state, coords) => {
     state.coords = coords;
   },
-  setExpansion: (state, id) => {
-    state.expandNodes.push(id);
+  setExpansion: (state, node) => {
+    // copy the object to trigger change detection
+    const temp = { ...state.expandedNodes, [node.id]: node.name };
+    state.expandedNodes = temp;
   },
   resetExpansion: state => {
-    console.log('reset');
-    state.expandNodes = [];
-    console.log(state.expandNodes);
+    state.expandedNodes = {};
   },
 };
 

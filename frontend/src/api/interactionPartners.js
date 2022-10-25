@@ -9,7 +9,7 @@ const fetchInteractionPartners = async ({ id, model, version }) => {
 const fetchInteractionPartnersExpansion = async ({ id, model, version, expanded }) => {
   const params = { model, version, expanded };
   const { data } = await axios.get(`/interaction-partners-expansion/${id}`, { params });
-  return { result: data.result, network: data.network };
+  return { result: data.result, network: data.network, expandedNodes: data.expandedNodes };
 };
 
 export default { fetchInteractionPartners, fetchInteractionPartnersExpansion };

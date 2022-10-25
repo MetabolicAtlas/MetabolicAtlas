@@ -122,6 +122,7 @@ const getInteractionPartnersExpansion = async ({
     version,
   });
   let unique = new Set();
+  let expandedNodes = {};
   // loop through all expanded nodes and add them to the network
   for (const nodeId of expanded) {
     // eslint-disable-next-line no-await-in-loop
@@ -130,7 +131,7 @@ const getInteractionPartnersExpansion = async ({
       model,
       version,
     });
-
+    expandedNodes[nodeId] = expandedNetwork.result.component.name;
     const addLink = (s, t) => {
       const link = `${s}-${t}`;
       const inverseLink = `${t}-${s}`;
@@ -157,7 +158,6 @@ const getInteractionPartnersExpansion = async ({
       ...result.reactions,
       ...expandedNetwork.result.reactions,
     ];
-    console.log('added', ix, 'nodes');
   }
 
   const newNetwork = await populateWithLayout({
@@ -165,7 +165,8 @@ const getInteractionPartnersExpansion = async ({
     dim: 2,
     reCenter: true,
   });
-  return { result, network: newNetwork };
+
+  return { result, network: newNetwork, expandedNodes };
 };
 
 export { getInteractionPartners, getInteractionPartnersExpansion };
