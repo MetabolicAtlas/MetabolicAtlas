@@ -682,8 +682,8 @@ export default {
           icon: 'fa-connectdevelop',
           link: '#interaction-partners',
           subsections: [
-            { name: 'Export graph', link: '#interaction-partners-export' },
-            { name: 'Highlights', link: '#interaction-partners-highlights' },
+            { name: 'Expand and color the graph', link: '#interaction-partners-expand' },
+            { name: 'Export the graph', link: '#interaction-partners-export' },
             { name: 'Reactions table', link: '#interaction-partners-reactions' },
           ],
         },
