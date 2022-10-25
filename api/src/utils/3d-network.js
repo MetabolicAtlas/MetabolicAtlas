@@ -13,7 +13,6 @@ const MAX_ITERATIONS = 1000;
 module.exports = ({ nodes, links, dim = 3, mainNodeID, reCenter = false }) => {
   const g = createGraph();
 
-
   for (let node of nodes) {
     const { id, ...data } = node;
     g.addNode(id, data);
@@ -73,7 +72,7 @@ module.exports = ({ nodes, links, dim = 3, mainNodeID, reCenter = false }) => {
       id: node.id,
       pos,
       ...node.data,
-    }
+    };
     nodesWithPos.push(nodeWithPos);
 
     if (node.id === mainNodeID) {
@@ -86,12 +85,10 @@ module.exports = ({ nodes, links, dim = 3, mainNodeID, reCenter = false }) => {
     y: 0,
   };
 
-
   const shift = {
     x: mainNode.pos[0] - centerPos.x,
     y: mainNode.pos[1] - centerPos.y,
-  }
-
+  };
 
   if (reCenter) {
     // re-center all of the nodes based on the boundaries
