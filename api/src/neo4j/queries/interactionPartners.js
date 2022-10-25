@@ -164,9 +164,10 @@ const getInteractionPartnersExpansion = async ({
   const newNetwork = await populateWithLayout({
     ...network,
     dim: 2,
-    mainNodeID: id,
+    mainNodeID: expanded[expanded.length - 1],
     reCenter: true,
   });
+
   return { result, network: newNetwork };
 };
 
