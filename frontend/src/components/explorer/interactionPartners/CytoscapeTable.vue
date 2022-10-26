@@ -60,7 +60,7 @@
                     <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
                     <span
                       class="tag is-rounded is-medium"
-                      :title="s.field !== 'genes' ? `${el.id} - ${el.compartment_str}` : el.id"
+                      :title="el.id"
                       :class="[{ hl: isSelected(el.id) }, '']"
                       @click="highlight(el.id)"
                     >
