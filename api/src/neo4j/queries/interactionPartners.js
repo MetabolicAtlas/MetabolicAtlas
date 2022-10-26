@@ -135,7 +135,7 @@ const getInteractionPartnersExpansion = async ({
     )
   );
 
-  for (const i in expandedNetworks) {
+  for (let i = 0; i < expandedNetworks.length; i++) {
     const expandedNetwork = expandedNetworks[i];
     const nodeId = expanded[i];
 
