@@ -477,6 +477,11 @@ export default {
       this.showGraphContextMenu = true;
     },
     async renderNetwork(customizedNetwork) {
+      const canvasWrapper = document.getElementById('viewer3d');
+      if (!canvasWrapper) {
+        return;
+      }
+
       this.resetNetwork();
       this.controller = MetAtlasViewer('viewer3d');
 
