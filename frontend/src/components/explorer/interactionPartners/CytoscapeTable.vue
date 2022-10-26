@@ -16,73 +16,69 @@
         <ExportTSV :filename="`${filename}.tsv`" :format-function="formatToTSV" />
       </div>
     </div>
-    <div class="columns">
-      <div class="column">
-        <div class="field">
-          <span class="tag"># Reaction(s): {{ reactions.length }}</span>
-          &nbsp;
-          <span class="tag"># Unique Metabolite(s): {{ metaboliteCount }}</span>
-          &nbsp;
-          <span v-show="geneCount" class="tag"># Unique Gene(s): {{ geneCount }}</span>
-          <!--span v-show="isGraphVisible">
+    <div class="field">
+      <span class="tag"># Reaction(s): {{ reactions.length }}</span>
+      &nbsp;
+      <span class="tag"># Unique Metabolite(s): {{ metaboliteCount }}</span>
+      &nbsp;
+      <span v-show="geneCount" class="tag"># Unique Gene(s): {{ geneCount }}</span>
+      <!--span v-show="isGraphVisible">
             &nbsp; Click on a
             <span class="tag is-rounded"><span class="is-size-6">label</span></span>
             to highlight the corresponding element on the graph
           </span-->
-        </div>
-        <div class="table-container">
-          <table id="cytoTable" ref="table" class="table is-bordered is-narrow is-fullwidth">
-            <thead>
-              <tr style="background: #f8f4f4">
-                <th
-                  v-for="s in columns"
-                  :key="s.field"
-                  class="is-unselectable is-clickable"
-                  @click="sortBy(s.field)"
-                >
-                  {{ s.display }}
-                </th>
-              </tr>
-            </thead>
-            <template v-for="tb in tableBodies" :key="tb.id">
-              <tbody :id="tb.id" :ref="tb.id">
-                <tr v-for="r in tb.reactions" :key="r.id">
-                  <td v-for="s in columns" :key="s.field">
-                    <template v-if="s.field === 'id'">
-                      <span
-                        class="tag is-rounded is-clickable"
-                        :class="[{ hl: isSelected(r.id) }, '']"
-                        @click="HLreaction(r.id)"
-                      >
-                        <span class="is-size-6">{{ r.id }}</span>
-                      </span>
-                    </template>
-                    <template v-else-if="['reactants', 'products', 'genes'].includes(s.field)">
-                      <template v-for="el in r[s.field]">
-                        <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
-                        <span
-                          class="tag is-rounded is-clickable is-medium"
-                          :title="s.field !== 'genes' ? `${el.id} - ${el.compartment_str}` : el.id"
-                          :class="[{ hl: isSelected(el.id) }, '']"
-                          @click="highlight(el.id)"
-                        >
-                          <span class="">{{ el.name || el.id }}</span>
-                        </span>
-                      </template>
-                    </template>
-                    <template v-else>
-                      <compartment-links
-                        :compartment-string="r.compartment"
-                        :is-reversible="r.reversible"
-                      />
-                    </template>
-                  </td>
-                </tr>
-              </tbody>
-            </template>
-          </table>
-        </div>
-      </div>
+    </div>
+    <div class="table-container">
+      <table id="cytoTable" ref="table" class="table is-bordered is-narrow is-fullwidth">
+        <thead>
+          <tr style="background: #f8f4f4">
+            <th
+              v-for="s in columns"
+              :key="s.field"
+              class="is-unselectable is-clickable"
+              @click="sortBy(s.field)"
+            >
+              {{ s.display }}
+            </th>
+          </tr>
+        </thead>
+        <template v-for="tb in tableBodies" :key="tb.id">
+          <tbody :id="tb.id" :ref="tb.id">
+            <tr v-for="r in tb.reactions" :key="r.id">
+              <td v-for="s in columns" :key="s.field">
+                <template v-if="s.field === 'id'">
+                  <span
+                    class="tag is-rounded"
+                    :class="[{ hl: isSelected(r.id) }, '']"
+                    @click="HLreaction(r.id)"
+                  >
+                    <span class="is-size-6">{{ r.id }}</span>
+                  </span>
+                </template>
+                <template v-else-if="['reactants', 'products', 'genes'].includes(s.field)">
+                  <template v-for="el in r[s.field]">
+                    <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
+                    <span
+                      class="tag is-rounded is-medium"
+                      :title="s.field !== 'genes' ? `${el.id} - ${el.compartment_str}` : el.id"
+                      :class="[{ hl: isSelected(el.id) }, '']"
+                      @click="highlight(el.id)"
+                    >
+                      <span class="">{{ el.name || el.id }}</span>
+                    </span>
+                  </template>
+                </template>
+                <template v-else>
+                  <compartment-links
+                    :compartment-string="r.compartment"
+                    :is-reversible="r.reversible"
+                  />
+                </template>
+              </td>
+            </tr>
+          </tbody>
+        </template>
+      </table>
     </div>
   </div>
 </template>
