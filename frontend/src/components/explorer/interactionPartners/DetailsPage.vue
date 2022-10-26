@@ -295,7 +295,6 @@ export default {
       if (!newQuery) {
         return;
       }
-      // TODO overkill???
       const queryString = Object.entries(newQuery)
         .map(e => e.join('='))
         .join('&');
