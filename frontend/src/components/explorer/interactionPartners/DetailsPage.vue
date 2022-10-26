@@ -28,7 +28,11 @@
               </h5>
             </div>
           </div>
-          <context-menu ref="contextMenu" :show="showGraphContextMenu" :expand="loadExpansion" />
+          <context-menu
+            ref="contextMenu"
+            :show="showGraphContextMenu && clickedElmId !== mainNodeID"
+            :expand="loadExpansion"
+          />
           <div id="mapWrapper" class="container is-fullhd columns is-multiline">
             <div class="column is-8-desktop is-fullwidth-tablet">
               <div id="viewer-container">
