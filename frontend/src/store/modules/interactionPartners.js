@@ -109,7 +109,7 @@ const mutations = {
   },
   setExpansion: (state, node) => {
     // copy the object to trigger change detection
-    const temp = { ...state.expandedNodes, [node.id]: node.name };
+    const temp = { ...state.expandedNodes, [node.id]: node.name || node.id };
     state.expandedNodes = temp;
   },
   resetExpansion: state => {
