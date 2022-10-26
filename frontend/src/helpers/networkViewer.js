@@ -3,4 +3,3 @@ export const NODE_TEXTURES = [
   { group: 'r', sprite: '/sprite_square.png' },
   { group: 'm', sprite: '/sprite_triangle.png' },
 ];
-
