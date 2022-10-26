@@ -1,5 +1,5 @@
 <template>
-  <div class="container is-fullhd cytoscape-table">
+  <div class="container is-fullhd reaction-table">
     <div class="columns">
       <div class="column is-half is-8-tablet">
         <input
@@ -29,7 +29,7 @@
           </span-->
     </div>
     <div class="table-container">
-      <table id="cytoTable" ref="table" class="table is-bordered is-narrow is-fullwidth">
+      <table ref="table" class="table is-bordered is-narrow is-fullwidth">
         <thead>
           <tr style="background: #f8f4f4">
             <th
@@ -89,7 +89,7 @@ import ExportTSV from '@/components/shared/ExportTSV.vue';
 import { default as compare } from '@/helpers/compare';
 
 export default {
-  name: 'CytoscapeTable',
+  name: 'ReactionTable',
   components: {
     CompartmentLinks,
     ExportTSV,
@@ -256,7 +256,7 @@ export default {
 </script>
 
 <style lang="scss">
-.cytoscape-table {
+.reaction-table {
   #unmatchingTableBody {
     opacity: 0.3;
   }

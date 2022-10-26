@@ -133,7 +133,7 @@
               </template>
             </div>
           </div>
-          <cytoscape-table
+          <reaction-table
             :reactions="reactions"
             :selected-elm-id="clickedElmId"
             :selected-reaction-id="reactionHL"
@@ -141,7 +141,7 @@
             :filename="filename"
             @highlight="highlightNode($event)"
             @h-l-reaction="highlightReaction($event)"
-          ></cytoscape-table>
+          />
         </template>
       </div>
     </div>
@@ -156,7 +156,7 @@ import '@metabolicatlas/3d-network-viewer';
 
 import Sidebar from '@/components/explorer/interactionPartners/Sidebar.vue';
 import ContextMenu from '@/components/explorer/interactionPartners/ContextMenu.vue';
-import CytoscapeTable from '@/components/explorer/interactionPartners/CytoscapeTable.vue';
+import ReactionTable from '@/components/explorer/interactionPartners/ReactionTable.vue';
 import Loader from '@/components/Loader.vue';
 import NotFound from '@/components/NotFound.vue';
 import DataOverlay from '@/components/explorer/mapViewer/DataOverlay.vue';
@@ -183,7 +183,7 @@ export default {
     NotFound,
     Sidebar,
     ContextMenu,
-    CytoscapeTable,
+    ReactionTable,
     Loader,
     DataOverlay,
     MapControls,
