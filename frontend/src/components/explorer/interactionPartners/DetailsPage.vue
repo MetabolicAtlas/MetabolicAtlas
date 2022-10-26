@@ -166,14 +166,9 @@ import { default as convertGraphML } from '@/helpers/graph-ml-converter';
 
 import { default as colorToRGBArray } from '@/helpers/colors';
 import { DEFAULT_GENE_COLOR, DEFAULT_METABOLITE_COLOR } from '@/helpers/dataOverlay';
+import { NODE_TEXTURES } from '@/helpers/networkViewer';
 
 import { default as messages } from '@/content/messages';
-
-const NODE_TEXTURES = [
-  { group: 'e', sprite: '/sprite_round.png' },
-  { group: 'r', sprite: '/sprite_square.png' },
-  { group: 'm', sprite: '/sprite_triangle.png' },
-];
 
 const { MetAtlasViewer } = window.MetAtlasViewer;
 

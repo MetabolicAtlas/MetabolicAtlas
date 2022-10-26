@@ -40,14 +40,9 @@ import MapSearch from '@/components/explorer/mapViewer/MapSearch.vue';
 import { default as messages } from '@/content/messages';
 import { default as colorToRGBArray } from '@/helpers/colors';
 import { DEFAULT_GENE_COLOR, DEFAULT_METABOLITE_COLOR } from '@/helpers/dataOverlay';
+import { NODE_TEXTURES } from '@/helpers/networkViewer';
 
 const { MetAtlasViewer } = window.MetAtlasViewer;
-
-const NODE_TEXTURES = [
-  { group: 'e', sprite: '/sprite_round.png' },
-  { group: 'r', sprite: '/sprite_square.png' },
-  { group: 'm', sprite: '/sprite_triangle.png' },
-];
 
 export default {
   name: 'ThreeDViewer',
