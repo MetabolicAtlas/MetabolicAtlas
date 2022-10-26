@@ -36,6 +36,7 @@ export default function (network) {
     let edgesString = '';
     edges.forEach(function (ele) {
       edgesString += `\n\t\t<edge source="${ele.s}" target="${ele.t}">`;
+      edgesString += `\n\t\t\t<data key="name">${ele.s}_${ele.t}</data>`;
       edgesString += `\n\t\t</edge>`;
     });
     return edgesString;
