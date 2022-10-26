@@ -152,7 +152,7 @@
 import { mapGetters, mapActions, mapState } from 'vuex';
 import { default as FileSaver } from 'file-saver';
 
-import '@metabolicatlas/3d-network-viewer';
+import { MetAtlasViewer } from '@metabolicatlas/3d-network-viewer';
 
 import Sidebar from '@/components/explorer/interactionPartners/Sidebar.vue';
 import ContextMenu from '@/components/explorer/interactionPartners/ContextMenu.vue';
@@ -169,8 +169,6 @@ import { DEFAULT_GENE_COLOR, DEFAULT_METABOLITE_COLOR } from '@/helpers/dataOver
 import { NODE_TEXTURES } from '@/helpers/networkViewer';
 
 import { default as messages } from '@/content/messages';
-
-const { MetAtlasViewer } = window.MetAtlasViewer;
 
 export default {
   name: 'IPDetailsPage',
