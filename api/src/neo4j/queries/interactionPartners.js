@@ -160,7 +160,10 @@ const getInteractionPartnersExpansion = async ({
       }
     });
 
-    result.reactions = [...result.reactions, ...expandedNetwork.result.reactions];
+    result.reactions = [
+      ...result.reactions,
+      ...expandedNetwork.result.reactions,
+    ];
   }
 
   const newNetwork = await populateWithLayout({
