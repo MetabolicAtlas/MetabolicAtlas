@@ -74,7 +74,7 @@
                   :toggle-full-screen="toggleFullscreen"
                   :style="{ 'z-index': network.nodes.length + 1 }"
                 />
-                <div id="viewer3d"></div>
+                <div id="viewer3d" class="card" />
               </div>
             </div>
             <div class="column">
@@ -495,7 +495,7 @@ export default {
 
       this.controller.setNodeSelectCallback(this.selectElement);
       this.controller.setNodeSecondaryClickCallback(this.showContextMenu);
-      this.controller.setBackgroundColor('#ececec');
+      this.controller.setBackgroundColor('#fff');
       this.controller.setUpdateCameraCallback(this.updateURLCoords);
       this.controller.setCameraOptions({
         noRotate: true, // mouse drag now pans instead of rotating
