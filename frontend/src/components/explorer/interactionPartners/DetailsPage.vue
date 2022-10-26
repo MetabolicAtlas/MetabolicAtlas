@@ -217,7 +217,6 @@ export default {
     ...mapState({
       model: state => state.models.model,
       tooLargeNetworkGraph: state => state.interactionPartners.tooLargeNetworkGraph,
-      expansion: state => state.interactionPartners.expansion, // TODO remove?
       currentDataTypes: state => state.dataOverlay.currentDataTypes,
       currentDataSources: state => state.dataOverlay.currentDataSources,
       dataSets: state => state.dataOverlay.dataSets,
