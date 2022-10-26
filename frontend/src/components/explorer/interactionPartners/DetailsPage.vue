@@ -166,7 +166,7 @@ import { default as convertGraphML } from '@/helpers/graph-ml-converter';
 
 import { default as colorToRGBArray } from '@/helpers/colors';
 import { DEFAULT_GENE_COLOR, DEFAULT_METABOLITE_COLOR } from '@/helpers/dataOverlay';
-import { NODE_TEXTURES } from '@/helpers/networkViewer';
+import { default as NODE_TEXTURES } from '@/helpers/networkViewer';
 
 import { default as messages } from '@/content/messages';
 
