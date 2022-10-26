@@ -229,67 +229,68 @@ export default {
   },
   async created() {
     await this.getDataSourcesIndex(this.model.short_name);
-
-    const queryParamTypes = this.validDataTypeInQuery();
-    const dataTypes = queryParamTypes.length
-      ? queryParamTypes
-      : [Object.keys(this.filteredDataSourcesIndex)[0]];
-    dataTypes.forEach((type, index) => {
-      this.setCurrentDataType({
-        model: this.model.short_name,
-        type,
-        propagate: false,
-        index,
-      });
-    });
-    let defaultCustomDataType;
-    // If users have uploaded custom data previously, use this
-    if (Object.keys(this.customData).length) {
-      [defaultCustomDataType] = Object.keys(this.customData);
-      // eslint-disable-next-line
-      for (const [dataType, files] of Object.entries(this.customData)) {
-        // eslint-disable-next-line
-        for (const [fileName, dataSource] of Object.entries(files)) {
-          const payload = {
-            dataSource,
-            fileName,
-            dataType,
-          };
-          this.addCustomDataSourceToIndex(payload);
-        }
-      }
-    } else {
-      [defaultCustomDataType] = Object.keys(this.filteredDataSourcesIndex);
-    }
-    this.customDataType = defaultCustomDataType;
-
-    const queryParamSources = this.validDataSourceInQuery();
-    const dataSources = queryParamSources.length
-      ? queryParamSources
-      : [this.filteredDataSourcesIndex[this.dataTypes[0].name][0].filename];
-    const queryDataSets = this.$route.query.dataSets ? this.$route.query.dataSets.split(',') : [];
-    dataSources.forEach(async (source, index) => {
-      await this.getDataSource({
-        model: this.model.short_name,
-        type: dataTypes[index],
-        filename: source,
-        propagate: false,
-        index,
-      });
-
-      const dataSet = queryDataSets[index];
-      if (this.dataSources[index].dataSets.includes(dataSet)) {
-        await this.getDataSet({
+    if (this.modelHasOverlayData()) {
+      const queryParamTypes = this.validDataTypeInQuery();
+      const dataTypes = queryParamTypes.length
+        ? queryParamTypes
+        : [Object.keys(this.filteredDataSourcesIndex)[0]];
+      dataTypes.forEach((type, index) => {
+        this.setCurrentDataType({
           model: this.model.short_name,
-          type: dataTypes[index],
-          filename: dataSources[index],
-          dataSet,
+          type,
+          propagate: false,
           index,
         });
+      });
+      let defaultCustomDataType;
+      // If users have uploaded custom data previously, use this
+      if (Object.keys(this.customData).length) {
+        [defaultCustomDataType] = Object.keys(this.customData);
+        // eslint-disable-next-line
+        for (const [dataType, files] of Object.entries(this.customData)) {
+          // eslint-disable-next-line
+          for (const [fileName, dataSource] of Object.entries(files)) {
+            const payload = {
+              dataSource,
+              fileName,
+              dataType,
+            };
+            this.addCustomDataSourceToIndex(payload);
+          }
+        }
       } else {
-        this.setDataSet({ index, dataSet: 'None' });
+        [defaultCustomDataType] = Object.keys(this.filteredDataSourcesIndex);
       }
-    });
+      this.customDataType = defaultCustomDataType;
+
+      const queryParamSources = this.validDataSourceInQuery();
+      const dataSources = queryParamSources.length
+        ? queryParamSources
+        : [this.filteredDataSourcesIndex[this.dataTypes[0].name][0].filename];
+      const queryDataSets = this.$route.query.dataSets ? this.$route.query.dataSets.split(',') : [];
+      dataSources.forEach(async (source, index) => {
+        await this.getDataSource({
+          model: this.model.short_name,
+          type: dataTypes[index],
+          filename: source,
+          propagate: false,
+          index,
+        });
+
+        const dataSet = queryDataSets[index];
+        if (this.dataSources[index].dataSets.includes(dataSet)) {
+          await this.getDataSet({
+            model: this.model.short_name,
+            type: dataTypes[index],
+            filename: dataSources[index],
+            dataSet,
+            index,
+          });
+        } else {
+          this.setDataSet({ index, dataSet: 'None' });
+        }
+      });
+    }
   },
   methods: {
     ...mapActions({
