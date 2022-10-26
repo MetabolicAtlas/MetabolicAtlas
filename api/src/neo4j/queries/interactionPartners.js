@@ -136,10 +136,10 @@ const getInteractionPartnersExpansion = async ({
   );
 
   for (const i in expandedNetworks) {
-    const { network, result } = expandedNetworks[i];
+    const expandedNetwork = expandedNetworks[i];
     const nodeId = expanded[i];
 
-    expandedNodes[nodeId] = result.component.name;
+    expandedNodes[nodeId] = expandedNetwork.result.component.name;
     const addLink = (s, t) => {
       const link = `${s}-${t}`;
       const inverseLink = `${t}-${s}`;
@@ -149,8 +149,8 @@ const getInteractionPartnersExpansion = async ({
       }
     };
 
-    network.links.forEach(link => addLink(link.s, link.t));
-    network.nodes.forEach(node => {
+    expandedNetwork.network.links.forEach(link => addLink(link.s, link.t));
+    expandedNetwork.network.nodes.forEach(node => {
       if (!network.nodes.map(n => n.id).includes(node.id)) {
         network.nodes.push({
           g: node.g,
@@ -160,7 +160,7 @@ const getInteractionPartnersExpansion = async ({
       }
     });
 
-    result.reactions = [...result.reactions, ...result.reactions];
+    result.reactions = [...result.reactions, ...expandedNetwork.result.reactions];
   }
 
   const newNetwork = await populateWithLayout({
