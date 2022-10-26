@@ -50,158 +50,14 @@
 
       <h3 id="citation" class="title is-3 pt-6">Citation</h3>
       <p>
-        If you use Metabolic Atlas in your work, or any of the animal models, please cite our latest
-        publication. In addition, if you use Human-GEM, please also cite the
-        <a href="#citation-v1">corresponding publication</a>.
-      </p>
-      <h4 id="citation-v3" class="title is-5 pt-6">Version 3</h4>
-      <p>Article under consideration.</p>
-
-      <h4 id="citation-v2" class="title is-5 pt-6">Please cite: Version 2</h4>
-      <p>
-        Version 2.0 of the <i>Metabolic Atlas</i> was published in 2021 together with a PNAS
-        publication. To cite this version, or any of the animal GEMs, please use the publication
-        below:
+        If you use Metabolic Atlas in your work, please cite our latest publication. In addition, if
+        you use any of the GEMs, please also cite the corresponding publication.
       </p>
 
-      <div class="columns is-mobile">
-        <div class="column is-2">
-          <a
-            href="https://www.pnas.org/content/118/30#BiologicalSciences"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img src="../../assets/journals/pnas-cover.jpg" />
-          </a>
-        </div>
-        <div class="column is-mobile">
-          <p>
-            Wang H, Robinson JL, Kocabas P, Gustafsson J, Anton M, Cholley PE, Huang S, Gobom J,
-            Svensson T, Uhlén M, Zetterberg H, Nielsen J.
-          </p>
-          <p>
-            <b>
-              Genome-scale metabolic network reconstruction of model animals as a platform for
-              translational research.
-            </b>
-            <span class="is-block">
-              <i>PNAS 118 (2021): e2102344118</i>
-            </span>
-          </p>
-          <p>
-            PubMed:
-            <a
-              href="https://pubmed.ncbi.nlm.nih.gov/32209698/"
-              target="_blank"
-              rel="noopener noreferrer"
-              >34282017</a
-            >
-            DOI:
-            <a
-              href="https://doi.org/10.1073/pnas.2102344118"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              10.1073/pnas.2102344118
-            </a>
-          </p>
-          <citation-widget doi="10.1073/pnas.2102344118" />
-        </div>
-      </div>
+      <template v-for="citation in citations" :key="citation.id">
+        <citation :entry="citation" />
+      </template>
 
-      <h4 id="citation-v1" class="title is-5 pt-6">Version 1</h4>
-      <p>
-        After its re-launch,
-        <i>Metabolic Atlas</i>
-        was first made publicly available in 2019. Its strong ties with
-        <i>Human-GEM</i>
-        constituted the basis for the associated publication in
-        <i>Science Signaling</i>. If you use
-        <i>Human-GEM</i>
-        in your work, or want to refer to
-        <i>Metabolic Atlas</i> version 1, please cite:
-      </p>
-      <div class="columns is-mobile">
-        <div class="column is-2">
-          <a
-            href="https://www.science.org/toc/signaling/13/624"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img src="../../assets/journals/scisig-cover.gif" />
-          </a>
-        </div>
-        <div class="column">
-          <p>
-            Robinson JL, Kocabas P, Wang H, Cholley PE, Cook D, Nilsson A, Anton M, Ferreira R,
-            Domenzain I, Billa V, Limeta A, Hedin A, Gustafsson J, Kerkhoven EJ, Svensson LT,
-            Palsson BO, Mardinoglu A, Hansson L, Uhlén M, Nielsen J.
-          </p>
-          <p>
-            <b>An atlas of human metabolism.</b>
-            <span class="is-block"><i>Sci. Signal. 13.624 (2020): eaaz1482</i></span>
-          </p>
-          <p>
-            PubMed:
-            <a
-              href="https://pubmed.ncbi.nlm.nih.gov/32209698/"
-              target="_blank"
-              rel="noopener noreferrer"
-              >32209698</a
-            >
-            DOI:
-            <a
-              href="https://doi.org/10.1126/scisignal.aaz1482"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              10.1126/scisignal.aaz1482
-            </a>
-          </p>
-          <citation-widget doi="10.1126/scisignal.aaz1482" />
-        </div>
-      </div>
-      <h4 id="citation-launch" class="title is-5 pt-6">First launch</h4>
-      <p>
-        Initially called
-        <i>Human Metabolic Atlas</i>, the first publication that was cited for this project dates
-        from 2015:
-      </p>
-      <div class="columns is-mobile">
-        <div class="column is-2">
-          <a
-            href="https://academic.oup.com/database/issue/volume/2015"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img src="../../assets/journals/database-cover.gif" />
-          </a>
-        </div>
-        <div class="column">
-          <p>Pornputtapong N, Nookaew I, Nielsen J.</p>
-          <p>
-            <b>Human metabolic atlas: an online resource for human metabolism.</b>
-            <span class="is-block"><i>Database (2015): bav068</i></span>
-          </p>
-          <p>
-            PubMed:
-            <a
-              href="https://pubmed.ncbi.nlm.nih.gov/26209309/"
-              target="_blank"
-              rel="noopener noreferrer"
-              >26209309</a
-            >
-            DOI:
-            <a
-              href="https://doi.org/10.1093/database/bav068"
-              target="_blank"
-              rel="noopener noreferrer"
-              >10.1093/database/bav068
-            </a>
-          </p>
-          <citation-widget doi="10.1093/database/bav068" />
-        </div>
-      </div>
       <h4 class="title is-4 pt-6">Research-driven features</h4>
       <p>
         In 2022, reaction presence data was added to <i>Metabolic Atlas</i> and can be used as data
@@ -389,14 +245,14 @@
 </template>
 <script>
 import AboutLayout from '@/layouts/AboutLayout.vue';
-import CitationWidget from '@/components/about/CitationWidget.vue';
+import Citation from '@/components/about/Citation.vue';
 import { getImageUrl } from '@/helpers/utils';
 
 export default {
   name: 'Introduction',
   components: {
     AboutLayout,
-    CitationWidget,
+    Citation,
   },
   beforeCreate() {
     const addScript = (type, src) => {
@@ -542,6 +398,60 @@ export default {
               img: getImageUrl('pics/placeholder', 'png'),
             },
           ],
+        },
+      ],
+      citations: [
+        {
+          id: 'citation-v3',
+          header: 'Please cite: Version 3',
+          text: 'The third major version of <i>Metabolic Atlas</i> introduces GotEnzymes, a database for predicted enzyme parameters. To cite this version, or the latest version of Metabolic Atlas, please use:',
+          authors: 'Li F, Chen Y, Anton M, Nielsen J.',
+          title: 'GotEnzymes: an extensive database of enzyme parameter predictions.',
+          journal: 'NAR (2022) gkac831',
+          journalLink:
+            'https://academic.oup.com/nar/search-results?f_TocHeadingTitle=Database+Issue&sort=Date+%e2%80%93+Newest+First',
+          pmid: '36169223',
+          doi: '10.1093/nar/gkac831',
+          img: getImageUrl('journals/nar-cover', 'gif'),
+        },
+        {
+          id: 'citation-v2',
+          header: 'Version 2',
+          text: 'Version 2.0 of the <i>Metabolic Atlas</i> was published in 2021 together with a PNAS publication. To cite this version, or any of the animal GEMs, please use the publication below:',
+          authors:
+            'Wang H, Robinson JL, Kocabas P, Gustafsson J, Anton M, Cholley PE, Huang S, Gobom J, Svensson T, Uhlén M, Zetterberg H, Nielsen J.',
+          title:
+            'Genome-scale metabolic network reconstruction of model animals as a platform for translational research.',
+          journal: 'PNAS 118 (2021): e2102344118',
+          journalLink: 'https://www.pnas.org/content/118/30#BiologicalSciences',
+          pmid: '34282017',
+          doi: '10.1073/pnas.2102344118',
+          img: getImageUrl('journals/pnas-cover'),
+        },
+        {
+          id: 'citation-v1',
+          header: 'Version 1',
+          text: 'After its re-launch, <i>Metabolic Atlas</i> was first made publicly available in 2019. Its strong ties with <i>Human-GEM</i> constituted the basis for the associated publication in <i>Science Signaling</i>. If you use <i>Human-GEM</i> in your work, or want to refer to <i>Metabolic Atlas</i> version 1, please cite:',
+          authors:
+            'Robinson JL, Kocabas P, Wang H, Cholley PE, Cook D, Nilsson A, Anton M, Ferreira R, Domenzain I, Billa V, Limeta A, Hedin A, Gustafsson J, Kerkhoven EJ, Svensson LT, Palsson BO, Mardinoglu A, Hansson L, Uhlén M, Nielsen J.',
+          title: 'An atlas of human metabolism.',
+          journal: 'Sci. Signal. 13.624 (2020): eaaz1482',
+          journalLink: 'https://www.science.org/toc/signaling/13/624',
+          pmid: '32209698',
+          doi: '10.1126/scisignal.aaz1482',
+          img: getImageUrl('journals/scisig-cover', 'gif'),
+        },
+        {
+          id: 'citation-launch',
+          header: 'First launch',
+          text: 'Initially called <i>Human Metabolic Atlas</i>, the first publication that was cited for this project dates from 2015:',
+          authors: 'Pornputtapong N, Nookaew I, Nielsen J.',
+          title: 'Human metabolic atlas: an online resource for human metabolism.',
+          journal: 'PNAS 118 (2021): e2102344118',
+          journalLink: 'https://academic.oup.com/database/issue/volume/2015',
+          pmid: '26209309',
+          doi: '10.1093/database/bav068',
+          img: getImageUrl('journals/database-cover', 'gif'),
         },
       ],
     };

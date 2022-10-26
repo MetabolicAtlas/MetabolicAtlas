@@ -7,12 +7,26 @@ import { constructCompartmentStr } from '@/helpers/utils';
 const data = {
   interactionPartners: {},
   tooLargeNetworkGraph: false,
-  expansion: {},
+  expandedNodes: {},
   randomComponents: null,
+  network: {
+    nodes: [],
+    links: [],
+  },
+  coords: {
+    x: 0,
+    y: 0,
+    z: 1,
+    lx: 0,
+    ly: 0,
+    lz: 100,
+  },
 };
 
 const getters = {
   component: state => state.interactionPartners.component || {},
+  expandedIds: state => Object.keys(state.expandedNodes),
+  expandedNames: state => Object.values(state.expandedNodes),
   reactions: state => state.interactionPartners.reactions || [],
   reactionsSet: (state, _getters) => new Set(_getters.reactions.map(r => r.id)),
   componentName: (state, _getters) => _getters.component.name || _getters.component.id,
@@ -31,10 +45,11 @@ const formatInteractionPartners = ips => ({
 const actions = {
   async getInteractionPartners({ commit }, { model, id }) {
     const payload = { id, version: model.apiVersion, model: model.apiName };
-    const interactionPartners = await interactionPartnersApi.fetchInteractionPartners(payload);
+    const { result, network } = await interactionPartnersApi.fetchInteractionPartners(payload);
+    commit('setNetwork', network);
 
-    commit('setTooLargeNetworkGraph', !interactionPartners.reactions);
-    commit('setInteractionPartners', formatInteractionPartners(interactionPartners));
+    commit('setTooLargeNetworkGraph', !result.reactions);
+    commit('setInteractionPartners', formatInteractionPartners(result));
   },
 
   async getRandomComponents({ commit }, model) {
@@ -48,24 +63,31 @@ const actions = {
     commit('setRandomComponents', randomComponents);
   },
 
-  async loadExpansion(args, { model, id }) {
-    const { state, commit } = args;
-    const _getters = args.getters; // eslint-disable-line no-underscore-dangle
-
-    const payload = { id, version: model.apiVersion, model: model.apiName };
-    let expansion = await interactionPartnersApi.fetchInteractionPartners(payload);
-    expansion = formatInteractionPartners(expansion);
-
-    commit('setTooLargeNetworkGraph', !expansion.reactions);
-    commit('setExpansion', expansion);
-
-    const newReactions = expansion.reactions.filter(r => !_getters.reactionsSet.has(r.id));
-    const updatedInteractionPartners = {
-      ...state.interactionPartners,
-      reactions: [..._getters.reactions, ...newReactions],
+  async loadExpansion({ commit }, { model, id, expanded }) {
+    const payload = {
+      id,
+      version: model.apiVersion,
+      model: model.apiName,
+      expanded,
     };
+    const { result, network, expandedNodes } =
+      await interactionPartnersApi.fetchInteractionPartnersExpansion(payload);
+    commit('setNetwork', network);
+    commit('setInteractionPartners', formatInteractionPartners(result));
+    // eslint-disable-next-line no-restricted-syntax, no-shadow
+    for (const [id, name] of Object.entries(expandedNodes)) {
+      commit('setExpansion', { id, name });
+    }
+  },
 
-    commit('setInteractionPartners', updatedInteractionPartners);
+  setCoords({ commit }, coords) {
+    commit('setCoords', coords);
+  },
+  setExpansion({ commit }, node) {
+    commit('setExpansion', node);
+  },
+  resetExpansion({ commit }) {
+    commit('resetExpansion');
   },
 };
 
@@ -76,11 +98,22 @@ const mutations = {
   setTooLargeNetworkGraph: (state, tooLargeNetworkGraph) => {
     state.tooLargeNetworkGraph = tooLargeNetworkGraph;
   },
-  setExpansion: (state, expansion) => {
-    state.expansion = expansion;
-  },
   setRandomComponents: (state, randomComponents) => {
     state.randomComponents = randomComponents;
+  },
+  setNetwork: (state, network) => {
+    state.network = network;
+  },
+  setCoords: (state, coords) => {
+    state.coords = coords;
+  },
+  setExpansion: (state, node) => {
+    // copy the object to trigger change detection
+    const temp = { ...state.expandedNodes, [node.id]: node.name || node.id };
+    state.expandedNodes = temp;
+  },
+  resetExpansion: state => {
+    state.expandedNodes = {};
   },
 };
 

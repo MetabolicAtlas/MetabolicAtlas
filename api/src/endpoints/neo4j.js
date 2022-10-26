@@ -15,6 +15,7 @@ import {
   getRelatedMetabolites,
   getRandomComponents,
   getInteractionPartners,
+  getInteractionPartnersExpansion,
   getMapsListing,
   mapSearch,
   search,
@@ -36,6 +37,7 @@ const fetchWith = async (req, res, queryHandler) => {
     searchTerm,
     componentTypes,
     isForAllCompartments,
+    expanded,
   } = req.query;
 
   try {
@@ -46,6 +48,7 @@ const fetchWith = async (req, res, queryHandler) => {
       limit,
       full,
       searchTerm,
+      expanded,
     };
 
     if (componentTypes) {
@@ -115,6 +118,9 @@ neo4jRoutes.get('/random-components', async (req, res) =>
 neo4jRoutes.get('/interaction-partners/:id', async (req, res) =>
   fetchWith(req, res, getInteractionPartners)
 );
+neo4jRoutes.get('/interaction-partners-expansion/:id', async (req, res) => {
+  fetchWith(req, res, getInteractionPartnersExpansion);
+});
 
 neo4jRoutes.get('/maps/listing', async (req, res) =>
   fetchWith(req, res, getMapsListing)

@@ -1,5 +1,5 @@
 ﻿/* eslint-disable */
-export default function (cyNetwork) {
+export default function (network) {
   let graph =
     '<?xml version="1.0" encoding="UTF-8"?>\n' +
     '<graphml xmlns="http://graphml.graphdrawing.org/xmlns">' +
@@ -9,29 +9,34 @@ export default function (cyNetwork) {
     '\n\t<key attr.name="ypos" attr.type="int" for="node" id="ypos"/>' +
     '\n\t<key attr.name="name" attr.type="string" for="edge" id="name"/>';
   graph += '\n\t<graph id="G">';
-  graph += appendNodes(cyNetwork.nodes());
-  graph += appendEdges(cyNetwork.edges());
+  graph += appendNodes(network.nodes);
+  graph += appendEdges(network.links);
   graph += '\n\t</graph>\n</graphml>';
   return graph;
 
-  function appendNodes(cyNodes) {
+  function translateTypes(nodeType) {
+    return nodeType == 'e' ? 'gene' : 'metabolite';
+  }
+
+  function appendNodes(nodes) {
     let nodesString = '';
-    cyNodes.forEach(function (ele) {
-      nodesString += `\n\t\t<node id="${ele.data().id}">`;
-      nodesString += `\n\t\t\t<data key="name">${ele.data().name}</data>`;
-      nodesString += `\n\t\t\t<data key="type">${ele.data().type}</data>`;
-      nodesString += `\n\t\t\t<data key="xpos">${toInt(ele.position().x)}</data>`;
-      nodesString += `\n\t\t\t<data key="ypos">${toInt(ele.position().y)}</data>`;
+    console.log('nodes', nodes);
+    nodes.forEach(function (ele) {
+      nodesString += `\n\t\t<node id="${ele.id}">`;
+      nodesString += `\n\t\t\t<data key="name">${ele.n}</data>`;
+      nodesString += `\n\t\t\t<data key="type">${translateTypes(ele.g)}</data>`; //maybe expand g -> gene
+      nodesString += `\n\t\t\t<data key="xpos">${toInt(ele.pos[0])}</data>`; // or other way around?
+      nodesString += `\n\t\t\t<data key="ypos">${toInt(ele.pos[1])}</data>`;
       nodesString += `\n\t\t</node>`;
     });
     return nodesString;
   }
 
-  function appendEdges(cyEdges) {
+  function appendEdges(edges) {
     let edgesString = '';
-    cyEdges.forEach(function (ele) {
-      edgesString += `\n\t\t<edge source="${ele.data().source}" target="${ele.data().target}">`;
-      edgesString += `\n\t\t\t<data key="name">${ele.data().id}</data>`;
+    edges.forEach(function (ele) {
+      edgesString += `\n\t\t<edge source="${ele.s}" target="${ele.t}">`;
+      edgesString += `\n\t\t\t<data key="name">${ele.s}_${ele.t}</data>`;
       edgesString += `\n\t\t</edge>`;
     });
     return edgesString;

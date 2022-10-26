@@ -43,7 +43,7 @@
         </div>
       </div>
     </div>
-    <Modal v-model:showModal="showModal" size="small">
+    <Modal id="modalWrapper" v-model:showModal="showModal" size="small">
       <div class="control">
         <p>Select data type</p>
         <div v-if="dataTypes.length" class="select is-fullwidth m-1">
@@ -216,7 +216,7 @@ export default {
         : components;
     },
     filteredDataSourcesIndex() {
-      if (this.$route.name === 'interaction') {
+      if (this.$route.name === 'interaction-details') {
         // do not include fluxomics data for the interaction partners page
         const { fluxomics, ...dataSourcesIndex } = this.dataSourcesIndex;
         return dataSourcesIndex;
@@ -226,7 +226,7 @@ export default {
     filteredDataTypes() {
       // Do not show fluxomics data for the interaction partners page
       // The data type may still be selected, but not shown
-      if (this.$route.name === 'interaction') {
+      if (this.$route.name === 'interaction-details') {
         const dataTypes = this.dataTypes.filter(elem => elem.name !== 'fluxomics');
         return dataTypes;
       }
@@ -235,67 +235,68 @@ export default {
   },
   async created() {
     await this.getDataSourcesIndex(this.model.short_name);
-
-    const queryParamTypes = this.validDataTypeInQuery();
-    const dataTypes = queryParamTypes.length
-      ? queryParamTypes
-      : [Object.keys(this.filteredDataSourcesIndex)[0]];
-    dataTypes.forEach((type, index) => {
-      this.setCurrentDataType({
-        model: this.model.short_name,
-        type,
-        propagate: false,
-        index,
-      });
-    });
-    let defaultCustomDataType;
-    // If users have uploaded custom data previously, use this
-    if (Object.keys(this.customData).length) {
-      [defaultCustomDataType] = Object.keys(this.customData);
-      // eslint-disable-next-line
-      for (const [dataType, files] of Object.entries(this.customData)) {
-        // eslint-disable-next-line
-        for (const [fileName, dataSource] of Object.entries(files)) {
-          const payload = {
-            dataSource,
-            fileName,
-            dataType,
-          };
-          this.addCustomDataSourceToIndex(payload);
-        }
-      }
-    } else {
-      [defaultCustomDataType] = Object.keys(this.filteredDataSourcesIndex);
-    }
-    this.customDataType = defaultCustomDataType;
-
-    const queryParamSources = this.validDataSourceInQuery();
-    const dataSources = queryParamSources.length
-      ? queryParamSources
-      : [this.filteredDataSourcesIndex[this.dataTypes[0].name][0].filename];
-    const queryDataSets = this.$route.query.dataSets ? this.$route.query.dataSets.split(',') : [];
-    dataSources.forEach(async (source, index) => {
-      await this.getDataSource({
-        model: this.model.short_name,
-        type: dataTypes[index],
-        filename: source,
-        propagate: false,
-        index,
-      });
-
-      const dataSet = queryDataSets[index];
-      if (this.dataSources[index].dataSets.includes(dataSet)) {
-        await this.getDataSet({
+    if (this.modelHasOverlayData()) {
+      const queryParamTypes = this.validDataTypeInQuery();
+      const dataTypes = queryParamTypes.length
+        ? queryParamTypes
+        : [Object.keys(this.filteredDataSourcesIndex)[0]];
+      dataTypes.forEach((type, index) => {
+        this.setCurrentDataType({
           model: this.model.short_name,
-          type: dataTypes[index],
-          filename: dataSources[index],
-          dataSet,
+          type,
+          propagate: false,
           index,
         });
+      });
+      let defaultCustomDataType;
+      // If users have uploaded custom data previously, use this
+      if (Object.keys(this.customData).length) {
+        [defaultCustomDataType] = Object.keys(this.customData);
+        // eslint-disable-next-line
+        for (const [dataType, files] of Object.entries(this.customData)) {
+          // eslint-disable-next-line
+          for (const [fileName, dataSource] of Object.entries(files)) {
+            const payload = {
+              dataSource,
+              fileName,
+              dataType,
+            };
+            this.addCustomDataSourceToIndex(payload);
+          }
+        }
       } else {
-        this.setDataSet({ index, dataSet: 'None' });
+        [defaultCustomDataType] = Object.keys(this.filteredDataSourcesIndex);
       }
-    });
+      this.customDataType = defaultCustomDataType;
+
+      const queryParamSources = this.validDataSourceInQuery();
+      const dataSources = queryParamSources.length
+        ? queryParamSources
+        : [this.filteredDataSourcesIndex[this.dataTypes[0].name][0].filename];
+      const queryDataSets = this.$route.query.dataSets ? this.$route.query.dataSets.split(',') : [];
+      dataSources.forEach(async (source, index) => {
+        await this.getDataSource({
+          model: this.model.short_name,
+          type: dataTypes[index],
+          filename: source,
+          propagate: false,
+          index,
+        });
+
+        const dataSet = queryDataSets[index];
+        if (this.dataSources[index].dataSets.includes(dataSet)) {
+          await this.getDataSet({
+            model: this.model.short_name,
+            type: dataTypes[index],
+            filename: dataSources[index],
+            dataSet,
+            index,
+          });
+        } else {
+          this.setDataSet({ index, dataSet: 'None' });
+        }
+      });
+    }
   },
   methods: {
     ...mapActions({
@@ -456,5 +457,10 @@ export default {
   position: absolute;
   top: 3px;
   right: 3px;
+  z-index: 10;
+}
+
+#modalWrapper {
+  z-index: 300;
 }
 </style>

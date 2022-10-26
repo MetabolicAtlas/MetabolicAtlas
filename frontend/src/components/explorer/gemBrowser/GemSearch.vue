@@ -75,7 +75,7 @@
                   </span>
                   <span
                     class="has-text-icon-interaction-partner is-clickable"
-                    @mousedown="handleClickResult('interaction', r)"
+                    @mousedown="handleClickResult('interaction-details', r)"
                   >
                     <span class="icon is-medium is-left" title="Interaction Partners">
                       <i class="fa fa-connectdevelop" />
