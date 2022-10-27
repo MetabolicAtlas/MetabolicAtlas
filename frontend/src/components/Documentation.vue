@@ -431,9 +431,7 @@
           <p>
             Similar to the <a href="#map-viewer">Map Viewer</a>, one can also add a
             <a href="#data-overlay">Data Overlay</a> to the <i>Interaction Partners</i> network to
-            color the nodes based on the expression data selected. Currently, only the
-            transcriptomics data type is supported, but we are aiming to support more data types as
-            to the <i>Map Viewer</i>.
+            color the nodes based on the expression data selected.
           </p>
           <p>
             Graphs with overlay and extended nodes can be shared by the url in the address bar, that
