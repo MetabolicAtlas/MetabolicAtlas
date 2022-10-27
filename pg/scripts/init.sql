@@ -11,7 +11,6 @@ create table enzymes (
     gene text not null,
     organism text not null,
     domain text,
-    ko text,
     reaction_id text,
     ec_number text not null,
     compound text,

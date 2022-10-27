@@ -401,11 +401,9 @@
             </figure>
             <p>
               For a given metabolite or gene, this tool (shown in the figure to the right) renders a
-              connected graph of the other metabolites and genes with which it interacts via shared
-              reaction(s). The metabolite or gene of interest is centered on the graph. Connectivity
-              is determined based on the reactions with which this metabolite or gene is associated,
-              i.e. an edge between two nodes may represent a connections that occurs in multiple
-              reactions.
+              connected graph of the other metabolites and genes that it interacts with via shared
+              reaction(s). The metabolite or gene of interest is centered on the graph. An edge
+              between two nodes represent a connection that occurs via one or multiple reactions.
             </p>
             <p class="mt-5">
               Clicking/selecting a node (shown as a red coloured node) shows links on the right
@@ -431,11 +429,9 @@
             for the clicked node to the graph.
           </p>
           <p>
-            Similar to the <a href="#map-viewer">Map Viewer</a>, one can also perform
+            Similar to the <a href="#map-viewer">Map Viewer</a>, one can also add a
             <a href="#data-overlay">Data Overlay</a> to the <i>Interaction Partners</i> network to
-            color the nodes based on the expression data selected. Currently, only the
-            transcriptomics data type is supported, but we are aiming to support more data types as
-            to the <i>Map Viewer</i>.
+            color the nodes based on the expression data selected.
           </p>
           <p>
             Graphs with overlay and extended nodes can be shared by the url in the address bar, that
