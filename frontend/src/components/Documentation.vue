@@ -402,7 +402,7 @@
             <p>
               For a given metabolite or gene, this tool (shown in the figure to the right) renders a
               connected graph of the other metabolites and genes that it interacts with via shared
-              reaction(s). The metabolite or gene of interest is centered on the graph. An edge 
+              reaction(s). The metabolite or gene of interest is centered on the graph. An edge
               between two nodes represent a connection that occurs via one or multiple reactions.
             </p>
             <p class="mt-5">
