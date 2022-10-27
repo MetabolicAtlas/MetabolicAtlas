@@ -55,7 +55,7 @@
               :value="type"
               class="is-clickable is-capitalized"
             >
-               {{ DATA_TYPES_COMPONENTS[type].description }}
+              {{ DATA_TYPES_COMPONENTS[type].description }}
             </option>
           </select>
         </div>
@@ -241,7 +241,7 @@ export default {
           type,
           propagate: false,
           index,
-          ... DATA_TYPES_COMPONENTS[type],
+          ...DATA_TYPES_COMPONENTS[type],
         });
       });
       let defaultCustomDataType;
