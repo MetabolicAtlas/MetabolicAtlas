@@ -401,11 +401,9 @@
             </figure>
             <p>
               For a given metabolite or gene, this tool (shown in the figure to the right) renders a
-              connected graph of the other metabolites and genes with which it interacts via shared
-              reaction(s). The metabolite or gene of interest is centered on the graph. Connectivity
-              is determined based on the reactions with which this metabolite or gene is associated,
-              i.e. an edge between two nodes may represent a connections that occurs in multiple
-              reactions.
+              connected graph of the other metabolites and genes that it interacts with via shared
+              reaction(s). The metabolite or gene of interest is centered on the graph. An edge 
+              between two nodes represent a connection that occurs via one or multiple reactions.
             </p>
             <p class="mt-5">
               Clicking/selecting a node (shown as a red coloured node) shows links on the right
