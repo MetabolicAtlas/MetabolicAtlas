@@ -248,27 +248,6 @@ export default {
           index,
         });
       });
-      let defaultCustomDataType;
-      // If users have uploaded custom data previously, use this
-      if (Object.keys(this.customData).length) {
-        [defaultCustomDataType] = Object.keys(this.customData);
-        // eslint-disable-next-line
-        for (const [dataType, files] of Object.entries(this.customData)) {
-          // eslint-disable-next-line
-          for (const [fileName, dataSource] of Object.entries(files)) {
-            const payload = {
-              dataSource,
-              fileName,
-              dataType,
-            };
-            this.addCustomDataSourceToIndex(payload);
-          }
-        }
-      } else {
-        [defaultCustomDataType] = Object.keys(this.filteredDataSourcesIndex);
-      }
-      this.customDataType = defaultCustomDataType;
-
       const queryParamSources = this.validDataSourceInQuery();
       const dataSources = queryParamSources.length
         ? queryParamSources
@@ -296,6 +275,31 @@ export default {
           this.setDataSet({ index, dataSet: 'None' });
         }
       });
+    }
+    // If users have uploaded custom data previously, use this
+    if (Object.keys(this.customData).length) {
+      const [defaultCustomDataType] = Object.keys(this.customData);
+      // eslint-disable-next-line
+      for (const [dataType, files] of Object.entries(this.customData)) {
+        // eslint-disable-next-line
+        for (const [fileName, dataSource] of Object.entries(files)) {
+          const payload = {
+            dataSource,
+            fileName,
+            dataType,
+          };
+          this.addCustomDataSourceToIndex(payload);
+        }
+      }
+      this.customDataType = defaultCustomDataType;
+      if (!this.dataTypes.length) {
+        await this.setCurrentDataType({
+          model: this.model.short_name,
+          type: this.customDataType,
+          propagate: true,
+          index: 0,
+        });
+      }
     } else if (this.filteredDataTypesComponents.length) {
       // eslint-disable-next-line
       this.customDataType = this.filteredDataTypesComponents[0];
@@ -429,7 +433,12 @@ export default {
       };
       await this.addCustomDataSourceToIndex(payload);
       if (!this.dataTypes.length) {
-        this.addOverlayCard();
+        await this.setCurrentDataType({
+          model: this.model.short_name,
+          type: this.customDataType,
+          propagate: true,
+          index: 0,
+        });
       }
       this.showModal = false;
     },
