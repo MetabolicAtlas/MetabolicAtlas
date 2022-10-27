@@ -241,7 +241,6 @@ export default {
           type,
           propagate: false,
           index,
-          ...DATA_TYPES_COMPONENTS[type],
         });
       });
       let defaultCustomDataType;
