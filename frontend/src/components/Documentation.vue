@@ -429,7 +429,7 @@
             for the clicked node to the graph.
           </p>
           <p>
-            Similar to the <a href="#map-viewer">Map Viewer</a>, one can also perform
+            Similar to the <a href="#map-viewer">Map Viewer</a>, one can also add a
             <a href="#data-overlay">Data Overlay</a> to the <i>Interaction Partners</i> network to
             color the nodes based on the expression data selected. Currently, only the
             transcriptomics data type is supported, but we are aiming to support more data types as
