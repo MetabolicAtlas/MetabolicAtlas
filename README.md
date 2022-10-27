@@ -104,6 +104,7 @@ For remote servers, the init script is configured to run automatically if the da
   - Run API data validation tests: `ma-exec api yarn test`
   - Use [prettier](CONTRIBUTING.md#prettier) to format frontend (also works for `api`) files: `ma-exec frontend yarn format`
   - Run [eslint](CONTRIBUTING.md#eslint) for frontend (also works for `api`): `ma-exec frontend yarn lint`
+  - Create production build and `stats.html` : `ma-exec frontend yarn build`
 
 - To clean the project (delete containers and volumes): `clean-stack`
 - To display real-time logs: `logs [container-name: frontend/api/nginx/neo4j/ftp]`
