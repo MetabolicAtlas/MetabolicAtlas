@@ -3,17 +3,20 @@ const DEFAULT_METABOLITE_COLOR = '#9df';
 const DEFAULT_REACTION_COLOR = '#fff';
 
 const DATA_TYPES_COMPONENTS = {
-  transcriptomics: {
+  gene: {
+    description: 'gene (e.g., transcriptomics, proteomics, etc.)',
     componentType: 'gene',
     className: 'enz',
     defaultColor: DEFAULT_GENE_COLOR,
   },
-  metabolomics: {
+  metabolite: {
+    description: 'metabolite (e.g., metabolomics, etc.)',
     componentType: 'metabolite',
     className: 'met',
     defaultColor: DEFAULT_METABOLITE_COLOR,
   },
-  fluxomics: {
+  reaction: {
+    description: 'reaction (e.g., reaction presence, fluxomics, kcat, etc.)',
     componentType: 'reaction',
     className: 'rea',
     defaultColor: DEFAULT_REACTION_COLOR,

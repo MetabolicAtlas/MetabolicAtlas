@@ -55,7 +55,7 @@
               :value="type"
               class="is-clickable is-capitalized"
             >
-              {{ type }}
+               {{ DATA_TYPES_COMPONENTS[type].description }}
             </option>
           </select>
         </div>
@@ -93,7 +93,7 @@
                     :disabled="disable(type, index)"
                     class="is-clickable is-capitalized"
                   >
-                    {{ type }}
+                    {{ DATA_TYPES_COMPONENTS[type].description }}
                   </option>
                 </select>
               </div>
@@ -163,7 +163,7 @@
 import { mapGetters, mapActions, mapState } from 'vuex';
 import DataOverlayValidation from '@/components/explorer/mapViewer/DataOverlayValidation.vue';
 import RNALegend from '@/components/explorer/mapViewer/RNALegend.vue';
-import { parseFile } from '@/helpers/dataOverlay';
+import { parseFile, DATA_TYPES_COMPONENTS } from '@/helpers/dataOverlay';
 import Modal from '@/components/shared/Modal.vue';
 
 export default {
@@ -211,17 +211,17 @@ export default {
     }),
     filteredDataSourcesIndex() {
       if (this.$route.name === 'interaction-details') {
-        // do not include fluxomics data for the interaction partners page
-        const { fluxomics, ...dataSourcesIndex } = this.dataSourcesIndex;
+        // do not include reactionType data for the interaction partners page
+        const { reactionType, ...dataSourcesIndex } = this.dataSourcesIndex;
         return dataSourcesIndex;
       }
       return this.dataSourcesIndex;
     },
     filteredDataTypes() {
-      // Do not show fluxomics data for the interaction partners page
+      // Do not show reactionType data for the interaction partners page
       // The data type may still be selected, but not shown
       if (this.$route.name === 'interaction-details') {
-        const dataTypes = this.dataTypes.filter(elem => elem.name !== 'fluxomics');
+        const dataTypes = this.dataTypes.filter(elem => elem.name !== 'reactionType');
         return dataTypes;
       }
       return this.dataTypes;
@@ -229,6 +229,7 @@ export default {
   },
   async created() {
     await this.getDataSourcesIndex(this.model.short_name);
+    this.DATA_TYPES_COMPONENTS = DATA_TYPES_COMPONENTS;
     if (this.modelHasOverlayData()) {
       const queryParamTypes = this.validDataTypeInQuery();
       const dataTypes = queryParamTypes.length
@@ -240,6 +241,7 @@ export default {
           type,
           propagate: false,
           index,
+          ... DATA_TYPES_COMPONENTS[type],
         });
       });
       let defaultCustomDataType;
