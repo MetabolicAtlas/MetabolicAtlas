@@ -1,5 +1,6 @@
 import querySingleResult from 'neo4j/queryHandlers/single';
 import parseParams from 'neo4j/shared/helper';
+import populateWithLayout from 'workers/3d-network';
 
 const getInteractionPartners = async ({ id, model, version }) => {
   const [m, v] = parseParams(model, version);
@@ -49,7 +50,130 @@ WITH apoc.map.mergeList(apoc.coll.flatten(
 )) as reaction, component
 RETURN { component: component, reactions: COLLECT(reaction)}
 `;
-  return querySingleResult(statement);
+  const result = await querySingleResult(statement);
+  let links = [];
+  let nodes = [];
+  let unique = new Set();
+
+  const addLink = (s, t) => {
+    const link = `${s}-${t}`;
+    const inverseLink = `${t}-${s}`;
+    if (!unique.has(link) && !unique.has(inverseLink)) {
+      links.push({ s, t });
+      unique.add(link);
+    }
+  };
+
+  result.reactions.forEach(reaction => {
+    const { genes, metabolites } = reaction;
+
+    // loop through metabolites, add them to nodes
+    // and add links to the main node
+    metabolites.forEach(metabolite => {
+      if (!unique.has(metabolite.id)) {
+        nodes.push({
+          g: 'm',
+          id: metabolite.id,
+          n: metabolite.name || metabolite.name,
+        });
+        unique.add(metabolite.id);
+
+        if (id !== metabolite.id) {
+          addLink(id, metabolite.id);
+        }
+      }
+    });
+
+    // loop through genes, add them to nodes
+    // and add links to the main node
+    genes.forEach(gene => {
+      if (!unique.has(gene.id)) {
+        nodes.push({ g: 'e', id: gene.id, n: gene.name || gene.id });
+        unique.add(gene.id);
+
+        if (id !== gene.id) {
+          addLink(id, gene.id);
+        }
+      }
+
+      // loop through metabolites for each gene
+      // and add links to the gene
+      metabolites.forEach(metabolite => addLink(gene.id, metabolite.id));
+    });
+  });
+  const network = await populateWithLayout({
+    nodes,
+    links,
+    dim: 2,
+    mainNodeID: id,
+    reCenter: true,
+  });
+  return { result, network };
 };
 
-export default getInteractionPartners;
+const getInteractionPartnersExpansion = async ({
+  id,
+  model,
+  version,
+  expanded,
+}) => {
+  const { network, result } = await getInteractionPartners({
+    id,
+    model,
+    version,
+  });
+  let unique = new Set();
+  let expandedNodes = {};
+
+  const expandedNetworks = await Promise.all(
+    expanded.map(nodeId =>
+      getInteractionPartners({
+        id: nodeId,
+        model,
+        version,
+      })
+    )
+  );
+
+  for (let i = 0; i < expandedNetworks.length; i++) {
+    const expandedNetwork = expandedNetworks[i];
+    const nodeId = expanded[i];
+
+    expandedNodes[nodeId] = expandedNetwork.result.component.name;
+    const addLink = (s, t) => {
+      const link = `${s}-${t}`;
+      const inverseLink = `${t}-${s}`;
+      if (!unique.has(link) && !unique.has(inverseLink)) {
+        network.links.push({ s, t });
+        unique.add(link);
+      }
+    };
+
+    expandedNetwork.network.links.forEach(link => addLink(link.s, link.t));
+    expandedNetwork.network.nodes.forEach(node => {
+      if (!network.nodes.map(n => n.id).includes(node.id)) {
+        network.nodes.push({
+          g: node.g,
+          id: node.id,
+          n: node.n,
+        });
+      }
+    });
+
+    result.reactions = [
+      ...result.reactions,
+      ...expandedNetwork.result.reactions,
+    ];
+  }
+
+  const newNetwork = await populateWithLayout({
+    ...network,
+    dim: 2,
+    mainNodeID: expanded[expanded.length - 1],
+    reCenter: true,
+  });
+
+  return { result, network: newNetwork, expandedNodes };
+};
+
+export { getInteractionPartners, getInteractionPartnersExpansion };

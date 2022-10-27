@@ -395,98 +395,66 @@
             Interaction Partners
           </h4>
           <div id="interaction-partners-intro">
-            <figure id="interaction-partners-video">
-              <video poster="@/assets/interPart-cover.jpg" playsinline controls muted loop>
-                <source src="@/assets/interPart.mp4" type="video/mp4" />
-              </video>
-              <figcaption>Demo of the interaction partners tool</figcaption>
+            <figure id="interaction-partners-figure">
+              <img src="@/assets/interPart.jpg" alt="interaction partners example" />
+              <figcaption>Example of the Interaction Partners tool</figcaption>
             </figure>
-            <div>
-              <p>
-                For a given metabolite or gene, this tool (shown in the demo video) renders a
-                connected graph of the other metabolites and genes with which it interacts via
-                shared reaction(s). The metabolite or gene of interest is centered on the graph.
-                Connectivity is determined based on the reactions with which this metabolite or gene
-                is associated, i.e. an edge between two nodes may represent a connections that
-                occurs in multiple reactions. For medium-sized networks of interaction partners,
-                there is a prompt before generating the graph. For very large networks (e.g. for H
-                <sub>2</sub>
-                O) the graph will not be generated. One can left-click a node to display a context
-                menu with 3 options:
-              </p>
-              <ul>
-                <li>
-                  Load interaction partners: reload the interaction partners graph with the clicked
-                  node as the new central node.
-                </li>
-                <li>
-                  Expand interaction partners: add additional interaction partner nodes for the
-                  clicked node to the graph. Expanded interactions are represented with dashed
-                  lines.
-                </li>
-                <li>
-                  Highlight reaction: some nodes may be involved in many different reactions. Select
-                  a reaction from the list to show the other interaction partners associated with
-                  the selected reaction (other interaction partners will be grayed-out). The
-                  directionality of each edge is indicated as a triangle, or diamonds in case of
-                  reversible reactions. To remove the highlight, click on the
-                  <span><i class="fa fa-eraser"></i></span>
-                  eraser button at the top of the graph.
-                </li>
-              </ul>
-            </div>
+            <p>
+              For a given metabolite or gene, this tool (shown in the figure to the right) renders a
+              connected graph of the other metabolites and genes that it interacts with via shared
+              reaction(s). The metabolite or gene of interest is centered on the graph. An edge
+              between two nodes represent a connection that occurs via one or multiple reactions.
+            </p>
+            <p class="mt-5">
+              Clicking/selecting a node (shown as a red coloured node) shows links on the right
+              sidebar. There are two options; to reload the
+              <i>Interaction Partners</i>
+              for that node, or to navigate to the corresponding
+              <a href="#gem-browser">GEM Browser</a>
+              page and to expand the graph.
+            </p>
+            <p>
+              The top-left buttons on the graph allow one to (from left to right): zoom in, zoom out
+              and hide node labels. One may also use the mouse to pan the graph by holding the left
+              mouse button and dragging, and zoom by scrolling the mouse wheel.
+              <!-- add these:
+            reset the display, reload the graph (remove
+            expanded interaction partners), and remove any highlighting.-->
+            </p>
           </div>
-          <p class="mt-5">
-            Clicking/selecting a node (shown as black coloured node) also shows links on the right
-            sidebar to quickly reset the
-            <i>Interaction Partners</i>
-            for that node or navigate to the corresponding
-            <a href="#gem-browser">GEM Browser</a>
-            page.
+          <h5 id="interaction-partners-expand" class="is-size-5">Expand and color the graph</h5>
+          <p>
+            One can right-click a node to display a context menu with the option
+            <i>Expand interaction partners</i>. This will add additional interaction partner nodes
+            for the clicked node to the graph.
           </p>
           <p>
-            The top-left buttons on the graph allow one to (from left to right): customize the graph
-            node's shape and colors, zoom in, zoom out, reset the display, reload the graph (remove
-            expanded interaction partners), and remove any highlighting. The nodes can also be moved
-            around the graph after selection.
+            Similar to the <a href="#map-viewer">Map Viewer</a>, one can also add a
+            <a href="#data-overlay">Data Overlay</a> to the <i>Interaction Partners</i> network to
+            color the nodes based on the expression data selected.
           </p>
           <p>
-            If available, expression levels from the
-            <a href="https://www.proteinatlas.org/">Human Protein Atlas</a>
-            can be enabled and applied on the
-            <i>Interaction Partners</i>
-            graph with the panel on the top right, by selecting one of the tissues in the drop down
-            list. The action will update the color of gene's nodes according to the legend. Some
-            genes may not have RNA levels available in Human Protein Atlas, and in such case their
-            color corresponds to the n/a color.
+            Graphs with overlay and extended nodes can be shared by the url in the address bar, that
+            is, one will get the same graph with overlaid data when opening the shared url at
+            another computer. However, if custom data has been uploaded and used for the overlay, it
+            can not be shared through the url.
           </p>
 
-          <h5 id="interaction-partners-export" class="is-size-5">Export graph</h5>
+          <h5 id="interaction-partners-export" class="is-size-5">Export the graph</h5>
           The graph of
           <i>Interaction Partners</i>
-          can be exported by clicking the button
-          <i>Export graph</i>. There are two options of graph exporting: GraphML
-          Interaction-Partners PNGhML is a Cytoscape compatible format. Currently, color format is
-          not supported for the GraphML option.
-
-          <h5 id="interaction-partners-highlights" class="is-size-5">Highlights</h5>
-          <p>
-            Nodes may belong to multiple compartments and/or subsystems. The filter box enables
-            highlighting (red label color) the nodes belonging to a given subsystem or compartment.
-            The two filters are additive. Enzymes may catalyse reactions in different compartments /
-            subsystems; label of genes that encode such enzymes are highlighted in orange on the
-            graph.
-          </p>
+          can be exported by clicking the top-right button
+          <i>Export</i>. There are two options for graph exporting: GraphML or PNG. GraphML is a
+          Cytoscape compatible format. Currently, color format is not supported for the GraphML
+          option, but you may color the graph by editing the exported GraphML image in Cytoscape.
 
           <h5 id="interaction-partners-reactions" class="is-size-5">Reactions table</h5>
           <p>
-            Information of the reactions are listed in
+            Information about the reactions of the network is show in the
             <i>Reactions</i>
-            table which is located on the lower part of the page. Selecting a label of metabolite or
-            gene in the table will select the corresponding node on the graph, and vice versa.
-            Selecting a reaction ID label highlight the reaction on the graph. The search bar above
-            the table can be used to filter out rows to find a given component. This table can be
-            exported by clicking the button
+            table, which is located on the lower part of the page. The search bar above the table
+            can be used to filter out rows to find a given component. This table can be exported by
+            clicking the button
             <i>Export to TSV</i>.
           </p>
 
@@ -710,8 +678,8 @@ export default {
           icon: 'fa-connectdevelop',
           link: '#interaction-partners',
           subsections: [
-            { name: 'Export graph', link: '#interaction-partners-export' },
-            { name: 'Highlights', link: '#interaction-partners-highlights' },
+            { name: 'Expand and color the graph', link: '#interaction-partners-expand' },
+            { name: 'Export the graph', link: '#interaction-partners-export' },
             { name: 'Reactions table', link: '#interaction-partners-reactions' },
           ],
         },
@@ -756,7 +724,7 @@ export default {
   flex-direction: column-reverse;
 }
 
-#interaction-partners-video {
+#interaction-partners-figure {
   margin: 1rem 0;
 
   figcaption {
@@ -771,7 +739,7 @@ export default {
     display: block;
   }
 
-  #interaction-partners-video {
+  #interaction-partners-figure {
     float: right;
     width: 50%;
     margin: 0 0 1rem 1.5rem;

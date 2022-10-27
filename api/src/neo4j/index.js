@@ -18,7 +18,10 @@ import {
 } from 'neo4j/queries/relatedReactions';
 import getRelatedMetabolites from 'neo4j/queries/relatedMetabolites';
 import getRandomComponents from 'neo4j/queries/randomComponents';
-import getInteractionPartners from 'neo4j/queries/interactionPartners';
+import {
+  getInteractionPartners,
+  getInteractionPartnersExpansion,
+} from 'neo4j/queries/interactionPartners';
 import { getMapsListing, mapSearch } from 'neo4j/queries/map';
 import get3dNetwork from 'neo4j/queries/3d-network';
 import {
@@ -46,6 +49,7 @@ export {
   getRelatedMetabolites,
   getRandomComponents,
   getInteractionPartners,
+  getInteractionPartnersExpansion,
   getMapsListing,
   mapSearch,
   search,

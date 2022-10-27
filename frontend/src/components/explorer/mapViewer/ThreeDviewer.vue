@@ -33,21 +33,14 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import '@metabolicatlas/3d-network-viewer';
+import { MetAtlasViewer } from '@metabolicatlas/3d-network-viewer';
 import MapControls from '@/components/explorer/mapViewer/MapControls.vue';
 import MapLoader from '@/components/explorer/mapViewer/MapLoader.vue';
 import MapSearch from '@/components/explorer/mapViewer/MapSearch.vue';
 import { default as messages } from '@/content/messages';
 import { default as colorToRGBArray } from '@/helpers/colors';
 import { DEFAULT_GENE_COLOR, DEFAULT_METABOLITE_COLOR } from '@/helpers/dataOverlay';
-
-const { MetAtlasViewer } = window.MetAtlasViewer;
-
-const NODE_TEXTURES = [
-  { group: 'e', sprite: '/sprite_round.png' },
-  { group: 'r', sprite: '/sprite_square.png' },
-  { group: 'm', sprite: '/sprite_triangle.png' },
-];
+import { default as NODE_TEXTURES } from '@/helpers/networkViewer';
 
 export default {
   name: 'ThreeDViewer',

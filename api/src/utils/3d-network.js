@@ -1,7 +1,7 @@
 // This file uses `require` and `module.exports` as opposed to
 // the import/export instances that are used elsewhere.
 // The reason for this is that it intended to be used in a worker
-// thread (`/api/src/workers/3d-network.js`) so it needs to used
+// thread (`/api/src/workers/3d-network.js`) so it needs to use
 // the syntax that is default to node.js
 
 const createGraph = require('ngraph.graph');
@@ -10,7 +10,13 @@ const createLayout = require('ngraph.forcelayout');
 const SCALE = 5;
 const MAX_ITERATIONS = 1000;
 
-module.exports = ({ nodes, links }) => {
+module.exports = ({
+  nodes,
+  links,
+  dim = 3,
+  mainNodeID = null,
+  reCenter = false,
+}) => {
   const g = createGraph();
 
   for (let node of nodes) {
@@ -24,7 +30,7 @@ module.exports = ({ nodes, links }) => {
   }
 
   const startTime = Date.now();
-  const layout = createLayout(g, { dimensions: 3 });
+  const layout = createLayout(g, { dimensions: dim });
 
   let iterations = MAX_ITERATIONS;
   const elementsCount = nodes.length + links.length;
@@ -43,6 +49,7 @@ module.exports = ({ nodes, links }) => {
   }
 
   const nodesWithPos = [];
+  let mainNode;
 
   g.forEachNode(node => {
     const { x, y, z } = layout.getNodePosition(node.id);
@@ -52,12 +59,25 @@ module.exports = ({ nodes, links }) => {
       Math.round(z * SCALE),
     ];
 
-    nodesWithPos.push({
+    const nodeWithPos = {
       id: node.id,
       pos,
       ...node.data,
-    });
+    };
+    nodesWithPos.push(nodeWithPos);
+
+    if (node.id === mainNodeID) {
+      mainNode = nodeWithPos;
+    }
   });
+
+  if (mainNode !== undefined && reCenter) {
+    // re-center all of the nodes based on the main node
+    nodesWithPos.forEach(node => {
+      node.pos[0] -= mainNode.pos[0];
+      node.pos[1] -= mainNode.pos[1];
+    });
+  }
 
   return {
     nodes: nodesWithPos,
