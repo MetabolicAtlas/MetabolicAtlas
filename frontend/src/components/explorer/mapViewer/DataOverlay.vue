@@ -427,7 +427,10 @@ export default {
         fileName: this.customFile.name,
         dataType: this.customDataType,
       };
-      this.addCustomDataSourceToIndex(payload);
+      await this.addCustomDataSourceToIndex(payload);
+      if (!this.dataTypes.length) {
+        this.addOverlayCard();
+      }
       this.showModal = false;
     },
     handleCustomDataTypeSelect(e) {
