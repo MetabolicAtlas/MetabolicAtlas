@@ -255,7 +255,6 @@ const mutations = {
     if (!state.index[dataType]) {
       state.index[dataType] = [];
     }
-
     state.index[dataType].push({ filename: fileName, lastUpdated: '', link: '', name: fileName });
     if (!state.customData[dataType]) {
       state.customData[dataType] = {};
