@@ -396,7 +396,7 @@
           </h4>
           <div id="interaction-partners-intro">
             <figure id="interaction-partners-figure">
-              <img src="@/assets/interPart.jpg" alt="interaction partners example" />
+              <img src="/assets/interPart.jpg" alt="interaction partners example" />
               <figcaption>Example of the Interaction Partners tool</figcaption>
             </figure>
             <p>
