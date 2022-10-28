@@ -230,5 +230,4 @@ export const combineWords = ({ items, itemType }) => {
   return [combined, pluralizedType];
 };
 
-export const getImageUrl = (name, extension = 'jpg') =>
-  `/assets/${name}.${extension}`;
+export const getImageUrl = (name, extension = 'jpg') => `/assets/${name}.${extension}`;
