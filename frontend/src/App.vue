@@ -293,8 +293,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import "./node_modules/bulma/bulma.sass";
-@import "./node_modules/bulma-timeline/dist/css/bulma-timeline.sass";
+@import './node_modules/bulma/bulma.sass';
+@import './node_modules/bulma-timeline/dist/css/bulma-timeline.sass';
 
 html {
   @include mobile {
