@@ -627,16 +627,29 @@
           </p>
           <h5 id="registry-links" class="is-size-5">Registry links</h5>
           <p>
-            Metabolic Atlas is associated with other widely used registry services such as 
+            Metabolic Atlas is associated with other widely used registry services such as
             <a target="_blank" rel="noopener noreferrer" href="https://identifiers.org">
-            Identifiers.org</a> and
+              Identifiers.org</a
+            >
+            and
             <a target="_blank" rel="noopener noreferrer" href="https://bioregistry.io">
-            Bioregistry</a>. For example, when visiting the Identifiers.org url
-            <a target="_blank" rel="noopener noreferrer" href="https://identifiers.org/metatlas:MAR11760">
-            https://identifiers.org/metatlas:MAR11760</a> or the Bioregistry url
-            <a target="_blank" rel="noopener noreferrer" href="https://bioregistry.io/metatlas:MAR11760">
-            https://bioregistry.io/metatlas:MAR11760</a>, you will be directed
-            to the same dedicated page at Metabolic Atlas.
+              Bioregistry</a
+            >. For example, when visiting the Identifiers.org url
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://identifiers.org/metatlas:MAR11760"
+            >
+              https://identifiers.org/metatlas:MAR11760</a
+            >
+            or the Bioregistry url
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://bioregistry.io/metatlas:MAR11760"
+            >
+              https://bioregistry.io/metatlas:MAR11760</a
+            >, you will be directed to the same dedicated page at Metabolic Atlas.
           </p>
           <h5 id="related-resources" class="is-size-5">Related resources</h5>
           <p>
