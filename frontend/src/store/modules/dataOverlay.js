@@ -181,7 +181,7 @@ const actions = {
 
     const model = rootState.models.model.short_name;
 
-    // If there is a fallback option for the type, use this. Else remove the data type entirerly
+    // If there is a fallback option for the type, use this. Else remove the data type entirely
     if (currentDataSourceIndex !== -1) {
       const type = customDataSource.dataType;
       let fallbackDataSource;
