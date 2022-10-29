@@ -13,7 +13,7 @@
           for more details.
         </span>
         <span v-if="isMAID" class="is-block">
-          Visit
+          Visiting
           <a :href="urlIdentifiers" target="_blank" rel="noopener noreferrer">{{
             urlIdentifiers
           }}</a>
@@ -21,11 +21,11 @@
           <a :href="urlBioregistry" target="_blank" rel="noopener noreferrer">{{
             urlBioregistry
           }}</a>
-          will also direct to this page.
+          will redirect to this page.
         </span>
         This database identifier is
         <template v-if="components.length > 0">
-          associate with the following Metabolic Atlas
+          associated with the following Metabolic Atlas
           {{ components.length === 1 ? 'component' : 'components' }}:
         </template>
         <template v-else> not used by any of the integrated models. </template>
