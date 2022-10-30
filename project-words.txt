@@ -45,6 +45,7 @@ Domenzain
 donut
 Dviewer
 eaaz
+ECCB
 eccode
 elems
 Elems
@@ -85,6 +86,7 @@ Hotjar
 Hotjar's
 hoverable
 Hyltander
+ICSB
 inchi
 Intawat
 jaccard
@@ -200,6 +202,7 @@ selhl
 sergiu
 Sergiu
 shan
+Sitges
 ssvg
 ssvgs
 startnode
