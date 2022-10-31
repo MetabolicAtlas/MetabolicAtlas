@@ -7,7 +7,7 @@
     }"
     class="column has-background-lightgray"
   >
-    <div class="title is-size-4 has-text-centered" @click="addCards">Expression data</div>
+    <div class="title is-size-4 has-text-centered" @click="addCards">Data Overlay</div>
     <div
       class="has-text-centered"
       title="Load a TSV file with IDs and scaled values.
@@ -45,7 +45,7 @@
     </div>
     <Modal id="modalWrapper" v-model:showModal="showModal" size="small">
       <div class="control">
-        <p>Select data type</p>
+        <p>These data are for:</p>
         <div v-if="dataTypes.length" class="select is-fullwidth m-1">
           <select :disabled="disableSelect()" @change="handleCustomDataTypeSelect($event)">
             <option
@@ -55,10 +55,11 @@
               :value="type"
               class="is-clickable is-capitalized"
             >
-              {{ DATA_TYPES_COMPONENTS[type].description }}
+              {{ type }}s
             </option>
           </select>
         </div>
+        <p>e.g., {{ DATA_TYPES_COMPONENTS[customDataType].description }}, etc.</p>
       </div>
       <div v-if="errorCustomFileMsg" id="customFileError" class="card my-4">
         <div
@@ -82,7 +83,7 @@
           </a>
           <div v-if="modelHasOverlayData()">
             <div class="control">
-              <p>Select data type</p>
+            <p>These data are for:</p>
               <div v-if="filteredDataTypes.length" class="select is-fullwidth">
                 <select @change="handleDataTypeSelect($event, index)">
                   <option
@@ -93,10 +94,11 @@
                     :disabled="disable(type, index)"
                     class="is-clickable is-capitalized"
                   >
-                    {{ DATA_TYPES_COMPONENTS[type].description }}
+                    {{ type }}s
                   </option>
                 </select>
               </div>
+              <p>e.g., {{ dataTypes[0].description }}, etc.</p><br>
             </div>
             <div class="control">
               <p>Select data source</p>
