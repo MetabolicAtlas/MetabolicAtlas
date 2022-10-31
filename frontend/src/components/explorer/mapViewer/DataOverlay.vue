@@ -214,17 +214,17 @@ export default {
     }),
     filteredDataSourcesIndex() {
       if (this.$route.name === 'interaction-details') {
-        // do not include reactionType data for the interaction partners page
-        const { reactionType, ...dataSourcesIndex } = this.dataSourcesIndex;
+        // do not include 'reaction' data for the interaction partners page
+        const { reaction, ...dataSourcesIndex } = this.dataSourcesIndex;
         return dataSourcesIndex;
       }
       return this.dataSourcesIndex;
     },
     filteredDataTypes() {
-      // Do not show reactionType data for the interaction partners page
+      // Do not show 'reaction' data for the interaction partners page
       // The data type may still be selected, but not shown
       if (this.$route.name === 'interaction-details') {
-        const dataTypes = this.dataTypes.filter(elem => elem.name !== 'reactionType');
+        const dataTypes = this.dataTypes.filter(elem => elem.name !== 'reaction');
         return dataTypes;
       }
       return this.dataTypes;
