@@ -195,6 +195,7 @@ export default {
       customFile: null,
       customDataType: null,
       showModal: false,
+      DATA_TYPES_COMPONENTS,
     };
   },
   computed: {
@@ -232,7 +233,6 @@ export default {
   },
   async created() {
     await this.getDataSourcesIndex(this.model.short_name);
-    this.DATA_TYPES_COMPONENTS = DATA_TYPES_COMPONENTS;
     if (this.modelHasOverlayData()) {
       const queryParamTypes = this.validDataTypeInQuery();
       const dataTypes = queryParamTypes.length
