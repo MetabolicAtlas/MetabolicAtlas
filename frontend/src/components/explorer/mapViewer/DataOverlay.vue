@@ -83,7 +83,7 @@
           </a>
           <div v-if="modelHasOverlayData()">
             <div class="control">
-            <p>These data are for:</p>
+              <p>These data are for:</p>
               <div v-if="filteredDataTypes.length" class="select is-fullwidth">
                 <select @change="handleDataTypeSelect($event, index)">
                   <option
@@ -98,7 +98,8 @@
                   </option>
                 </select>
               </div>
-              <p>e.g., {{ dataTypes[0].description }}, etc.</p><br>
+              <p>e.g., {{ dataTypes[0].description }}, etc.</p>
+              <br />
             </div>
             <div class="control">
               <p>Select data source</p>
