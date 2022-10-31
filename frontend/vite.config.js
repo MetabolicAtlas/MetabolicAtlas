@@ -6,20 +6,19 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   build: {
-   raw: {
-       extenstions : ['html', 'txt'],
-       glob: ['**.html'] // or glob
-   }
-},
+    raw: {
+       extensions : ['html', 'txt'],
+       glob: ['**.html'], // or glob
+    },
+    modulePreload: false,
+  },
   css: {
     preprocessorOptions: { 
       scss: {
         additionalData: `
           @import "./src/style/vars.scss";
-          @import "./node_modules/bulma/bulma.sass";
-          @import "./node_modules/bulma-timeline/dist/css/bulma-timeline.sass";
         `,
-      }
+      },
     },
   },
   resolve: {
