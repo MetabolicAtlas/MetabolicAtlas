@@ -137,11 +137,13 @@
             </span>
           </p>
         </div>
-        <DataOverlay
-          v-if="currentMap !== null && dataOverlayPanelVisible"
-          class="om-3 fixed-height-desktop scrollable"
-          :map-name="currentMap.name"
-        />
+        <KeepAlive>
+          <DataOverlay
+            v-if="currentMap !== null && dataOverlayPanelVisible"
+            class="om-3 fixed-height-desktop scrollable"
+            :map-name="currentMap.name"
+          />
+        </KeepAlive>
       </template>
     </div>
   </div>
