@@ -376,7 +376,7 @@ export default {
       return this.errorCustomFileMsg.map(m => `<p>${m}</p>`).join('');
     },
     validDataTypeInQuery() {
-      let validTypes = [];
+      const validTypes = [];
       if (this.$route.query.dataTypes) {
         const types = this.$route.query.dataTypes.split(',');
         types.forEach((type, i) => {
@@ -393,7 +393,7 @@ export default {
     // dataType=bad,good&dataSource=good,good
     validDataSourceInQuery() {
       const sources = this.$route.query.dataSources ? this.$route.query.dataSources.split(',') : [];
-      let validSources = [];
+      const validSources = [];
       let invalidCounter = 0;
       sources.forEach((source, index) => {
         if (this.invalidDataTypeIndexes.includes(index)) {
