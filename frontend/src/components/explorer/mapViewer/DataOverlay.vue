@@ -192,6 +192,7 @@ export default {
       customFile: null,
       customDataType: null,
       showModal: false,
+      invalidDataTypeIndexes: [],
     };
   },
   computed: {
@@ -252,7 +253,11 @@ export default {
       const dataSources = queryParamSources.length
         ? queryParamSources
         : [this.filteredDataSourcesIndex[this.dataTypes[0].name][0].filename];
-      const queryDataSets = this.$route.query.dataSets ? this.$route.query.dataSets.split(',') : [];
+      const queryDataSets = this.$route.query.dataSets
+        ? this.$route.query.dataSets
+            .split(',')
+            .filter((_, i) => !this.invalidDataTypeIndexes.includes(i))
+        : [];
       dataSources.forEach(async (source, index) => {
         await this.getDataSource({
           model: this.model.short_name,
@@ -371,23 +376,38 @@ export default {
       return this.errorCustomFileMsg.map(m => `<p>${m}</p>`).join('');
     },
     validDataTypeInQuery() {
-      const validTypes = this.$route.query.dataTypes
-        ? this.$route.query.dataTypes
-            .split(',')
-            .filter(type => Object.keys(this.filteredDataSourcesIndex).indexOf(type) > -1)
-        : [];
+      let validTypes = [];
+      if (this.$route.query.dataTypes) {
+        const types = this.$route.query.dataTypes.split(',');
+        types.forEach((type, i) => {
+          if (Object.keys(this.filteredDataSourcesIndex).includes(type)) {
+            validTypes.push(type);
+          } else {
+            this.invalidDataTypeIndexes = [...this.invalidDataTypeIndexes, i];
+          }
+        });
+      }
       // each type allowed only once
       return [...new Set(validTypes)];
     },
     // dataType=bad,good&dataSource=good,good
     validDataSourceInQuery() {
       const sources = this.$route.query.dataSources ? this.$route.query.dataSources.split(',') : [];
-      const validSources = sources.map((source, index) => {
-        const type = this.dataTypes.length > index && this.dataTypes[index].name;
+      let validSources = [];
+      let invalidCounter = 0;
+      sources.forEach((source, index) => {
+        if (this.invalidDataTypeIndexes.includes(index)) {
+          invalidCounter += 1;
+          return;
+        }
+
+        const paddedIndex = index - invalidCounter;
+        const type = this.dataTypes.length > paddedIndex && this.dataTypes[paddedIndex].name;
         const typeSources = type ? this.filteredDataSourcesIndex[type] : [];
-        return typeSources.some(s => s.filename === source)
+        const validSource = typeSources.some(s => s.filename === source)
           ? source
           : this.dataSourcesIndex[type][0].filename;
+        validSources.push(validSource);
       });
       return validSources;
     },
