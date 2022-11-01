@@ -20,21 +20,17 @@ services:
     restart: unless-stopped
     deploy:
       resources:
-        reservations:
-          memory: 0.5G
         limits:
-          memory: 1G
+          memory: 1.5G
 
   api:
     command: yarn start
     restart: unless-stopped
     deploy:
       resources:
-        reservations:
-          memory: 0.5G
         limits:
-          cpus: "0.30"
-          memory: 1G
+          cpus: "0.40"
+          memory: 1.5G
 
   neo4j:
     environment:
@@ -44,11 +40,9 @@ services:
     restart: unless-stopped
     deploy:
       resources:
-        reservations:
-          memory: 9G
         limits:
-          cpus: "0.95"
-          memory: 10G
+          cpus: "1.40"
+          memory: 13G
     ulimits:
       nofile:
         soft: 80000
@@ -81,8 +75,8 @@ services:
         reservations:
           memory: 3G
         limits:
-          cpus: "0.50"
-          memory: 3G
+          cpus: "0.70"
+          memory: 5G
 
 volumes:
   letsencrypt:
