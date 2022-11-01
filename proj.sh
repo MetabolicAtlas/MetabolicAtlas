@@ -49,6 +49,7 @@ function ma-exec {
 }
 
 function deploy-stack {
+  trap-context-reset
   CHOSEN_ENV="env-${1:-$LOCALENV}.env"
   generate-data
   docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-remote.yml --project-name metabolicatlas up --detach --build --force-recreate --remove-orphans --renew-anon-volumes
@@ -60,6 +61,15 @@ function deploy-stack {
 function import-db {
   generate-data --reset-db
   docker exec -it neo4j bash -c "cypher-shell -u ${NEO4J_USERNAME} -p ${NEO4J_PASSWORD} --format plain --file import/import.cypher"
+}
+
+function trap-context-reset {
+  if [ "$ZSH_VERSION" ]
+  then
+    trap 'unset DOCKER_CONTEXT' INT TERM     # zsh specific
+  else
+    trap 'unset DOCKER_CONTEXT' RETURN     # POSIX
+  fi
 }
 
 echo -e "Available commands:
