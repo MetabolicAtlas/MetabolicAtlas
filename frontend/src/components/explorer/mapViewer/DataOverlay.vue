@@ -83,7 +83,10 @@
           </a>
           <div v-if="modelHasOverlayData()">
             <div class="control">
-              <p>These data are for:</p>
+              <p>
+                Apply data for:
+                <span class="icon" :title="dataTypeInfo()"><i class="fa fa-info-circle"></i></span>
+              </p>
               <div v-if="filteredDataTypes.length" class="select is-fullwidth">
                 <select @change="handleDataTypeSelect($event, index)">
                   <option
@@ -98,7 +101,6 @@
                   </option>
                 </select>
               </div>
-              <p>e.g., {{ dataTypes[0].description }}, etc.</p>
               <br />
             </div>
             <div class="control">
@@ -427,6 +429,13 @@ export default {
     },
     handleCustomDataTypeSelect(e) {
       this.customDataType = e.target.value;
+    },
+    dataTypeInfo() {
+      return Object.keys(this.filteredDataSourcesIndex).reduce(
+        (previous, type) =>
+          `${previous}${type.toString()}s: ${DATA_TYPES_COMPONENTS[type].description} etc.\n`,
+        ''
+      );
     },
   },
 };
