@@ -85,7 +85,7 @@
             <div class="control">
               <p>
                 Apply data for:
-                <span class="icon" :title="dataTypeInfo()"><i class="fa fa-info-circle"></i></span>
+                <span class="icon" :title="dataTypeInfo"><i class="fa fa-info-circle"></i></span>
               </p>
               <div v-if="filteredDataTypes.length" class="select is-fullwidth">
                 <select @change="handleDataTypeSelect($event, index)">
@@ -231,6 +231,13 @@ export default {
         return dataTypes;
       }
       return this.dataTypes;
+    },
+    dataTypeInfo() {
+      return Object.keys(this.filteredDataSourcesIndex).reduce(
+        (previous, type) =>
+          `${previous}${type.toString()}s: ${DATA_TYPES_COMPONENTS[type].description} etc.\n`,
+        ''
+      );
     },
   },
   async created() {
@@ -429,13 +436,6 @@ export default {
     },
     handleCustomDataTypeSelect(e) {
       this.customDataType = e.target.value;
-    },
-    dataTypeInfo() {
-      return Object.keys(this.filteredDataSourcesIndex).reduce(
-        (previous, type) =>
-          `${previous}${type.toString()}s: ${DATA_TYPES_COMPONENTS[type].description} etc.\n`,
-        ''
-      );
     },
   },
 };
