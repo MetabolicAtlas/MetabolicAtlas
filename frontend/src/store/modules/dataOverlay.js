@@ -202,6 +202,7 @@ const actions = {
         });
       } else {
         await commit('removeDataType', currentDataSourceIndex);
+        await commit('setDataSet', { currentDataSourceIndex, dataSet: 'None' });
       }
     }
 
