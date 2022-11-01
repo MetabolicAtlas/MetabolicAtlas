@@ -53,7 +53,7 @@
               :key="type"
               :selected="type === customDataType"
               :value="type"
-              class="is-clickable is-capitalized"
+              class="is-clickable"
             >
               {{ type }}
             </option>
@@ -91,7 +91,7 @@
                     :selected="type === chosenType.name"
                     :value="type"
                     :disabled="disable(type, index)"
-                    class="is-clickable is-capitalized"
+                    class="is-clickable"
                   >
                     {{ type }}
                   </option>
@@ -107,7 +107,7 @@
                     :key="s.filename"
                     :selected="dataSources[index] && s.filename === dataSources[index].filename"
                     :value="s.filename"
-                    class="is-clickable is-capitalized"
+                    class="is-clickable"
                   >
                     {{ s.name }}
                   </option>
@@ -132,7 +132,7 @@
                       v-for="t in dataSources[index].dataSets"
                       :key="t"
                       :selected="t === dataSets[index]"
-                      class="is-clickable is-capitalized"
+                      class="is-clickable"
                     >
                       {{ t }}
                     </option>
