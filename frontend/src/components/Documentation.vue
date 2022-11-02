@@ -280,6 +280,10 @@
             <div class="column pl-0 is-8 content">
               <p>
                 The
+                <i>Data overlay</i> feature enables overlay of scaled values onto genes, reactions,
+                and metabolites. These values can come from different sources, such as
+                transcriptomics analyses, or can be entirely computed, such as the reaction
+                presence. The
                 <i>Data overlay</i>
                 panel is by default hidden in the
                 <i>Map Viewer</i>. By clicking the
