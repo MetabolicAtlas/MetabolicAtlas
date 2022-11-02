@@ -46,14 +46,14 @@
     <Modal id="modalWrapper" v-model:showModal="showModal" size="small">
       <div class="control">
         <p>These data are for:</p>
-        <div v-if="dataTypes.length" class="select is-fullwidth m-1">
+        <div v-if="filteredDataTypesComponents.length" class="select is-fullwidth m-1">
           <select :disabled="disableSelect()" @change="handleCustomDataTypeSelect($event)">
             <option
-              v-for="type in Object.keys(filteredDataSourcesIndex)"
+              v-for="type in filteredDataTypesComponents"
               :key="type"
               :selected="type === customDataType"
               :value="type"
-              class="is-clickable is-capitalized"
+              class="is-clickable"
             >
               {{ type }}s
             </option>
@@ -92,7 +92,7 @@
                     :selected="type === chosenType.name"
                     :value="type"
                     :disabled="disable(type, index)"
-                    class="is-clickable is-capitalized"
+                    class="is-clickable"
                   >
                     {{ type }}s
                   </option>
@@ -109,7 +109,7 @@
                     :key="s.filename"
                     :selected="dataSources[index] && s.filename === dataSources[index].filename"
                     :value="s.filename"
-                    class="is-clickable is-capitalized"
+                    class="is-clickable"
                   >
                     {{ s.name }}
                   </option>
@@ -134,7 +134,7 @@
                       v-for="t in dataSources[index].dataSets"
                       :key="t"
                       :selected="t === dataSets[index]"
-                      class="is-clickable is-capitalized"
+                      class="is-clickable"
                     >
                       {{ t }}
                     </option>
@@ -194,6 +194,7 @@ export default {
       customFile: null,
       customDataType: null,
       showModal: false,
+      invalidDataTypeIndexes: [],
       DATA_TYPES_COMPONENTS,
     };
   },
@@ -212,6 +213,12 @@ export default {
     ...mapGetters({
       queryParams: 'dataOverlay/queryParams',
     }),
+    filteredDataTypesComponents() {
+      const components = Object.keys(DATA_TYPES_COMPONENTS);
+      return this.$route.name === 'interaction-details'
+        ? components.filter(c => c !== 'fluxomics')
+        : components;
+    },
     filteredDataSourcesIndex() {
       if (this.$route.name === 'interaction-details') {
         // do not include 'reaction' data for the interaction partners page
@@ -245,32 +252,15 @@ export default {
           index,
         });
       });
-      let defaultCustomDataType;
-      // If users have uploaded custom data previously, use this
-      if (Object.keys(this.customData).length) {
-        [defaultCustomDataType] = Object.keys(this.customData);
-        // eslint-disable-next-line
-        for (const [dataType, files] of Object.entries(this.customData)) {
-          // eslint-disable-next-line
-          for (const [fileName, dataSource] of Object.entries(files)) {
-            const payload = {
-              dataSource,
-              fileName,
-              dataType,
-            };
-            this.addCustomDataSourceToIndex(payload);
-          }
-        }
-      } else {
-        [defaultCustomDataType] = Object.keys(this.filteredDataSourcesIndex);
-      }
-      this.customDataType = defaultCustomDataType;
-
       const queryParamSources = this.validDataSourceInQuery();
       const dataSources = queryParamSources.length
         ? queryParamSources
         : [this.filteredDataSourcesIndex[this.dataTypes[0].name][0].filename];
-      const queryDataSets = this.$route.query.dataSets ? this.$route.query.dataSets.split(',') : [];
+      const queryDataSets = this.$route.query.dataSets
+        ? this.$route.query.dataSets
+            .split(',')
+            .filter((_, i) => !this.invalidDataTypeIndexes.includes(i))
+        : [];
       dataSources.forEach(async (source, index) => {
         await this.getDataSource({
           model: this.model.short_name,
@@ -293,6 +283,34 @@ export default {
           this.setDataSet({ index, dataSet: 'None' });
         }
       });
+    }
+    // If users have uploaded custom data previously, use this
+    if (Object.keys(this.customData).length) {
+      const [defaultCustomDataType] = Object.keys(this.customData);
+      // eslint-disable-next-line
+      for (const [dataType, files] of Object.entries(this.customData)) {
+        // eslint-disable-next-line
+        for (const [fileName, dataSource] of Object.entries(files)) {
+          const payload = {
+            dataSource,
+            fileName,
+            dataType,
+          };
+          this.addCustomDataSourceToIndex(payload);
+        }
+      }
+      this.customDataType = defaultCustomDataType;
+      if (!this.dataTypes.length) {
+        await this.setCurrentDataType({
+          model: this.model.short_name,
+          type: this.customDataType,
+          propagate: true,
+          index: 0,
+        });
+      }
+    } else if (this.filteredDataTypesComponents.length) {
+      // eslint-disable-next-line
+      this.customDataType = this.filteredDataTypesComponents[0];
     }
   },
   methods: {
@@ -361,17 +379,27 @@ export default {
       return this.errorCustomFileMsg.map(m => `<p>${m}</p>`).join('');
     },
     validDataTypeInQuery() {
-      const validTypes = this.$route.query.dataTypes
-        ? this.$route.query.dataTypes
-            .split(',')
-            .filter(type => Object.keys(this.filteredDataSourcesIndex).indexOf(type) > -1)
-        : [];
+      const validTypes = [];
+      if (this.$route.query.dataTypes) {
+        const types = this.$route.query.dataTypes.split(',');
+        types.forEach((type, i) => {
+          if (Object.keys(this.filteredDataSourcesIndex).includes(type)) {
+            validTypes.push(type);
+          } else {
+            this.invalidDataTypeIndexes = [...this.invalidDataTypeIndexes, i];
+          }
+        });
+      }
       // each type allowed only once
       return [...new Set(validTypes)];
     },
     // dataType=bad,good&dataSource=good,good
     validDataSourceInQuery() {
-      const sources = this.$route.query.dataSources ? this.$route.query.dataSources.split(',') : [];
+      const sources = this.$route.query.dataSources
+        ? this.$route.query.dataSources
+            .split(',')
+            .filter((_, i) => !this.invalidDataTypeIndexes.includes(i))
+        : [];
       const validSources = sources.map((source, index) => {
         const type = this.dataTypes.length > index && this.dataTypes[index].name;
         const typeSources = type ? this.filteredDataSourcesIndex[type] : [];
@@ -421,7 +449,15 @@ export default {
         fileName: this.customFile.name,
         dataType: this.customDataType,
       };
-      this.addCustomDataSourceToIndex(payload);
+      await this.addCustomDataSourceToIndex(payload);
+      if (!this.dataTypes.length) {
+        await this.setCurrentDataType({
+          model: this.model.short_name,
+          type: this.customDataType,
+          propagate: true,
+          index: 0,
+        });
+      }
       this.showModal = false;
     },
     handleCustomDataTypeSelect(e) {

@@ -85,9 +85,9 @@ const actions = {
   },
   removeDataType({ commit }, index) {
     commit('setDataSet', { index, dataSet: 'None' });
-    setTimeout(() => {
-      commit('removeDataType', index);
-    }, 0);
+    commit('removeDataType', index);
+    commit('removeDataSource', index);
+    commit('removeDataSet', index);
   },
   // Resets all overlay data except for uploaded custom data
   resetOverlayData({ commit }) {
@@ -179,54 +179,85 @@ const actions = {
       dataSource => dataSource.filename === customDataSource.fileName
     );
 
+    const model = rootState.models.model.short_name;
+
+    // If there is a fallback option for the type, use this. Else remove the data type entirely
     if (currentDataSourceIndex !== -1) {
-      const type = state.currentDataTypes[currentDataSourceIndex].name;
-      const fallbackDataSource = state.index[type][0];
-      await dispatch('getDataSource', {
-        model: rootState.models.model.short_name,
-        type,
-        filename: fallbackDataSource.filename,
-        propagate: true,
-        index: currentDataSourceIndex,
-      });
+      const type = customDataSource.dataType;
+      let fallbackDataSource;
+      // eslint-disable-next-line no-restricted-syntax
+      for (const source of state.index[type]) {
+        if (source.filename !== customDataSource.fileName) {
+          fallbackDataSource = source.filename;
+          break;
+        }
+      }
+      if (fallbackDataSource) {
+        await dispatch('getDataSource', {
+          model,
+          type,
+          filename: fallbackDataSource,
+          propagate: true,
+          index: currentDataSourceIndex,
+        });
+      } else {
+        await commit('removeDataType', currentDataSourceIndex);
+        await commit('setDataSet', { currentDataSourceIndex, dataSet: 'None' });
+      }
     }
 
-    commit('removeCustomDataSourceFromIndex', customDataSource);
+    await commit('removeCustomDataSourceFromIndex', customDataSource);
+
+    // If the current data types is of length 0 but there are more data types in the index, use the first available data type in the index
+    if (state.currentDataTypes.length === 0 && Object.keys(state.index).length) {
+      const newDefaultType = Object.keys(state.index)[0];
+      await dispatch('setCurrentDataType', {
+        model,
+        type: newDefaultType,
+        propagate: true,
+        index: 0,
+      });
+    }
   },
 };
 
+// For all parts of the code below where 'tempList' is used, this is to
+// to trigger reactive change detection
 const mutations = {
   setIndex: (state, index) => {
     state.index = index;
   },
   setCurrentDataType: (state, currentDataType) => {
-    // copy and replace the array to trigger reactive array change detection
     const tempList = [...state.currentDataTypes];
     tempList[currentDataType.index] = currentDataType;
     state.currentDataTypes = tempList;
   },
   removeDataType: (state, index) => {
-    state.currentDataTypes = state.currentDataTypes.filter((dataType, i) => i !== index);
-    setTimeout(() => {
-      state.currentDataSources = state.currentDataSources.filter((dataSource, i) => i !== index);
-    }, 0);
-    setTimeout(() => {
-      state.dataSets = state.dataSets.filter((dataSet, i) => i !== index);
-    }, 0);
+    const tempList = [...state.currentDataTypes];
+    state.currentDataTypes = tempList.filter((dataType, i) => i !== index);
+  },
+  removeDataSource: (state, index) => {
+    const tempList = [...state.currentDataSources];
+    state.currentDataSources = tempList.filter((dataSource, i) => i !== index);
+  },
+  removeDataSet: (state, index) => {
+    const tempList = [...state.dataSets];
+    state.dataSets = tempList.filter((dataSet, i) => i !== index);
   },
   setCurrentDataSource: (state, currentDataSource) => {
-    // copy and replace the array to trigger reactive array change detection
     const tempList = [...state.currentDataSources];
     tempList[currentDataSource.index] = currentDataSource;
     state.currentDataSources = tempList;
   },
   setDataSet: (state, { index, dataSet }) => {
-    // copy and replace the array to trigger reactive array change detection
     const tempList = [...state.dataSets];
     tempList[index] = dataSet;
     state.dataSets = tempList;
   },
   addCustomDataSourceToIndex: (state, { dataSource, fileName, dataType }) => {
+    if (!state.index[dataType]) {
+      state.index[dataType] = [];
+    }
     state.index[dataType].push({ filename: fileName, lastUpdated: '', link: '', name: fileName });
     if (!state.customData[dataType]) {
       state.customData[dataType] = {};
@@ -241,6 +272,24 @@ const mutations = {
       }
       return acc;
     }, {});
+
+    if (state.index[dataType].length === 0) {
+      // remove from customData
+      state.customData = Object.keys(state.customData).reduce((acc, key) => {
+        if (key !== dataType) {
+          acc[key] = state.customData[key];
+        }
+        return acc;
+      }, {});
+
+      // remove from index
+      state.index = Object.keys(state.index).reduce((acc, key) => {
+        if (key !== dataType) {
+          acc[key] = state.index[key];
+        }
+        return acc;
+      }, {});
+    }
   },
   resetOverlayData: state => {
     state.index = {};

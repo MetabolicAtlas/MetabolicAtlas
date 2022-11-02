@@ -521,7 +521,16 @@ export default {
         }
 
         if (node.g === 'm') {
-          color = colorToRGBArray(this.defaultMetaboliteColor);
+          if (
+            this.componentTypes.includes('metabolite') &&
+            Object.keys(this.computedLevels).length > 0
+          ) {
+            const partialID = node.id.split('-')[0];
+            const key = this.computedLevels[partialID] !== undefined ? partialID : 'n/a';
+            color = colorToRGBArray(this.computedLevels[key][0]);
+          } else {
+            color = colorToRGBArray(this.defaultMetaboliteColor);
+          }
         }
 
         return {
