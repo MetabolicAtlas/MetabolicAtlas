@@ -12,9 +12,20 @@
           }}</a>
           for more details.
         </span>
+        <span v-if="isMAID" class="is-block">
+          Visiting
+          <a :href="urlIdentifiers" target="_blank" rel="noopener noreferrer">{{
+            urlIdentifiers
+          }}</a>
+          or
+          <a :href="urlBioregistry" target="_blank" rel="noopener noreferrer">{{
+            urlBioregistry
+          }}</a>
+          will redirect to this page.
+        </span>
         This database identifier is
         <template v-if="components.length > 0">
-          associate with the following Metabolic Atlas
+          associated with the following Metabolic Atlas
           {{ components.length === 1 ? 'component' : 'components' }}:
         </template>
         <template v-else> not used by any of the integrated models. </template>
@@ -89,6 +100,15 @@ export default {
     },
     dbNameToDisplay() {
       return this.externalDb.dbName.replace('MetabolicAtlas', 'Metabolic Atlas');
+    },
+    isMAID() {
+      return this.externalDb.dbName === 'MetabolicAtlas';
+    },
+    urlIdentifiers() {
+      return `https://identifiers.org/metatlas:${this.externalDb.externalId}`;
+    },
+    urlBioregistry() {
+      return `https://bioregistry.io/metatlas:${this.externalDb.externalId}`;
     },
   },
   async beforeMount() {

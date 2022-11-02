@@ -128,7 +128,7 @@
                       <img
                         class="image is-16x16 is-inline mr-2"
                         alt="orcid"
-                        src="../../assets/logos/orcid.gif"
+                        src="/assets/logos/orcid.gif"
                       />
                     </a>
                     <a
@@ -188,7 +188,7 @@
                         <img
                           class="image is-16x16 is-inline mr-2"
                           alt="orcid"
-                          src="../../assets/logos/orcid.gif"
+                          src="/assets/logos/orcid.gif"
                         />
                       </a>
                       <a

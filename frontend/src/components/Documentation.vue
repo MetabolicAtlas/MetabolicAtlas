@@ -280,6 +280,10 @@
             <div class="column pl-0 is-8 content">
               <p>
                 The
+                <i>Data overlay</i> feature enables overlay of scaled values onto genes, reactions,
+                and metabolites. These values can come from different sources, such as
+                transcriptomics analyses, or can be entirely computed, such as the reaction
+                presence. The
                 <i>Data overlay</i>
                 panel is by default hidden in the
                 <i>Map Viewer</i>. By clicking the
@@ -396,7 +400,7 @@
           </h4>
           <div id="interaction-partners-intro">
             <figure id="interaction-partners-figure">
-              <img src="@/assets/interPart.jpg" alt="interaction partners example" />
+              <img src="/assets/interPart.jpg" alt="interaction partners example" />
               <figcaption>Example of the Interaction Partners tool</figcaption>
             </figure>
             <p>
@@ -625,6 +629,32 @@
             undergoing development; while it covers the entire content of the models, it might
             change without prior notice.
           </p>
+          <h5 id="registry-links" class="is-size-5">Registry links</h5>
+          <p>
+            Metabolic Atlas is associated with other widely used registry services such as
+            <a target="_blank" rel="noopener noreferrer" href="https://identifiers.org">
+              Identifiers.org</a
+            >
+            and
+            <a target="_blank" rel="noopener noreferrer" href="https://bioregistry.io">
+              Bioregistry</a
+            >. For example, when visiting the Identifiers.org url
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://identifiers.org/metatlas:MAR11760"
+            >
+              https://identifiers.org/metatlas:MAR11760</a
+            >
+            or the Bioregistry url
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://bioregistry.io/metatlas:MAR11760"
+            >
+              https://bioregistry.io/metatlas:MAR11760</a
+            >, you will be directed to the same dedicated page at Metabolic Atlas.
+          </p>
           <h5 id="related-resources" class="is-size-5">Related resources</h5>
           <p>
             Metabolic Atlas is associated with other software tools, algorithms, and databases
@@ -709,6 +739,7 @@ export default {
           link: '#resources',
           subsections: [
             { name: 'API', link: '#api' },
+            { name: 'Registry links', link: '#registry-links' },
             { name: 'Related resources', link: '#related-resources' },
           ],
         },

@@ -7,7 +7,7 @@
     }"
     class="column has-background-lightgray"
   >
-    <div class="title is-size-4 has-text-centered" @click="addCards">Expression data</div>
+    <div class="title is-size-4 has-text-centered" @click="addCards">Data Overlay</div>
     <div
       class="has-text-centered"
       title="Load a TSV file with IDs and scaled values.
@@ -45,7 +45,7 @@
     </div>
     <Modal id="modalWrapper" v-model:showModal="showModal" size="small">
       <div class="control">
-        <p>Select data type</p>
+        <p>These data are for:</p>
         <div v-if="filteredDataTypesComponents.length" class="select is-fullwidth m-1">
           <select :disabled="disableSelect()" @change="handleCustomDataTypeSelect($event)">
             <option
@@ -55,10 +55,11 @@
               :value="type"
               class="is-clickable"
             >
-              {{ type }}
+              {{ type }}s
             </option>
           </select>
         </div>
+        <p>e.g., {{ DATA_TYPES_COMPONENTS[customDataType].description }}, etc.</p>
       </div>
       <div v-if="errorCustomFileMsg" id="customFileError" class="card my-4">
         <div
@@ -82,7 +83,7 @@
           </a>
           <div v-if="modelHasOverlayData()">
             <div class="control">
-              <p>Select data type</p>
+              <p>Apply data for:</p>
               <div v-if="filteredDataTypes.length" class="select is-fullwidth">
                 <select @change="handleDataTypeSelect($event, index)">
                   <option
@@ -93,10 +94,11 @@
                     :disabled="disable(type, index)"
                     class="is-clickable"
                   >
-                    {{ type }}
+                    {{ type }}s
                   </option>
                 </select>
               </div>
+              <br />
             </div>
             <div class="control">
               <p>Select data source</p>
@@ -163,7 +165,7 @@
 import { mapGetters, mapActions, mapState } from 'vuex';
 import DataOverlayValidation from '@/components/explorer/mapViewer/DataOverlayValidation.vue';
 import RNALegend from '@/components/explorer/mapViewer/RNALegend.vue';
-import { DATA_TYPES_COMPONENTS, parseFile } from '@/helpers/dataOverlay';
+import { parseFile, DATA_TYPES_COMPONENTS } from '@/helpers/dataOverlay';
 import Modal from '@/components/shared/Modal.vue';
 
 export default {
@@ -193,6 +195,7 @@ export default {
       customDataType: null,
       showModal: false,
       invalidDataTypeIndexes: [],
+      DATA_TYPES_COMPONENTS,
     };
   },
   computed: {
@@ -218,17 +221,17 @@ export default {
     },
     filteredDataSourcesIndex() {
       if (this.$route.name === 'interaction-details') {
-        // do not include fluxomics data for the interaction partners page
-        const { fluxomics, ...dataSourcesIndex } = this.dataSourcesIndex;
+        // do not include 'reaction' data for the interaction partners page
+        const { reaction, ...dataSourcesIndex } = this.dataSourcesIndex;
         return dataSourcesIndex;
       }
       return this.dataSourcesIndex;
     },
     filteredDataTypes() {
-      // Do not show fluxomics data for the interaction partners page
+      // Do not show 'reaction' data for the interaction partners page
       // The data type may still be selected, but not shown
       if (this.$route.name === 'interaction-details') {
-        const dataTypes = this.dataTypes.filter(elem => elem.name !== 'fluxomics');
+        const dataTypes = this.dataTypes.filter(elem => elem.name !== 'reaction');
         return dataTypes;
       }
       return this.dataTypes;

@@ -10,7 +10,7 @@ function generate-data {
   source $CHOSEN_ENV && yarn --cwd $DATA_GENERATOR_PATH start $DATA_FILES_PATH "$@"
   /bin/cp -rf $DATA_GENERATOR_PATH/neo4j/* neo4j/import
   /bin/cp -rf $DATA_GENERATOR_PATH/dataOverlay api/
-  /bin/cp -rf $DATA_GENERATOR_PATH/gemRepository/* frontend/src/assets/gemRepository/
+  /bin/cp -rf $DATA_GENERATOR_PATH/gemRepository/* frontend/public/assets/gemRepository/
   /bin/cp  -f $DATA_FILES_PATH/integrated-models/integratedModels.json api/src/data/
   /bin/cp  -f $DATA_FILES_PATH/gemsRepository.json api/src/data/
   /bin/cp -rf $DATA_FILES_PATH/svg api/
