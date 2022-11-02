@@ -392,22 +392,17 @@ export default {
     },
     // dataType=bad,good&dataSource=good,good
     validDataSourceInQuery() {
-      const sources = this.$route.query.dataSources ? this.$route.query.dataSources.split(',') : [];
-      const validSources = [];
-      let invalidCounter = 0;
-      sources.forEach((source, index) => {
-        if (this.invalidDataTypeIndexes.includes(index)) {
-          invalidCounter += 1;
-          return;
-        }
-
-        const paddedIndex = index - invalidCounter;
-        const type = this.dataTypes.length > paddedIndex && this.dataTypes[paddedIndex].name;
+      const sources = this.$route.query.dataSources
+        ? this.$route.query.dataSources
+            .split(',')
+            .filter((_, i) => !this.invalidDataTypeIndexes.includes(i))
+        : [];
+      const validSources = sources.map((source, index) => {
+        const type = this.dataTypes.length > index && this.dataTypes[index].name;
         const typeSources = type ? this.filteredDataSourcesIndex[type] : [];
-        const validSource = typeSources.some(s => s.filename === source)
+        return typeSources.some(s => s.filename === source)
           ? source
           : this.dataSourcesIndex[type][0].filename;
-        validSources.push(validSource);
       });
       return validSources;
     },
