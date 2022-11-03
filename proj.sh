@@ -33,7 +33,7 @@ function start-stack {
 }
 
 function stop-stack {
-  docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-local.yml kill
+  docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-local.yml stop
 }
 
 function clean-stack {
