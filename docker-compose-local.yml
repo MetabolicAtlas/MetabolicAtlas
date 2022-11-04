@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 
 services:
   nginx:
@@ -15,9 +15,6 @@ services:
     container_name: frontend
     build: frontend
     command: yarn serve
-    environment:
-      - VITE_VUE_APP_MATOMOID=${VITE_VUE_APP_MATOMOID}
-      - VITE_VUE_APP_HOTJAR=${VITE_VUE_APP_HOTJAR}
     volumes:
       - ./frontend/src:/project/src
       - ./frontend/public:/project/public
