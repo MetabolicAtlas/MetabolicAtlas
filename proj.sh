@@ -49,17 +49,23 @@ function ma-exec {
 }
 
 function deploy-stack {
+# If this function is interrupted (ctrl+c), uset the DOCKER_CONTEXT so that the dev context won't be kept
+# We use TERM instead of RETURN, as RETURN does not work on zsh.
+# As a potential side effect, the trap might be called also later when interrupting functions from this script.
+  trap 'unset DOCKER_CONTEXT; trap - INT' INT TERM
   CHOSEN_ENV="env-${1:-$LOCALENV}.env"
   generate-data
   docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-remote.yml --project-name metabolicatlas up --detach --build --force-recreate --remove-orphans --renew-anon-volumes
   docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-remote.yml exec -d pg psql -U postgres -c "alter user postgres with password '${POSTGRES_PASSWORD}';"
   CHOSEN_ENV=$METATLAS_DEFAULT_ENV
+  export DOCKER_CONTEXT=default
 }
 
 function import-db {
   generate-data --reset-db
   docker exec -it neo4j bash -c "cypher-shell -u ${NEO4J_USERNAME} -p ${NEO4J_PASSWORD} --format plain --file import/import.cypher"
 }
+
 
 echo -e "Available commands:
 \tbuild-stack
