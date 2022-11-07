@@ -94,7 +94,9 @@ export default {
       window.dispatchEvent(new Event('resize'));
     },
     async dataSets() {
-      await this.applyColorsAndRenderNetwork();
+      if (this.controller) {
+        await this.applyColors();
+      }
     },
   },
   async mounted() {
