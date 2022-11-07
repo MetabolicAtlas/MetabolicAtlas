@@ -196,15 +196,10 @@ export default {
         this.$store.dispatch('maps/setLoadingElement', false);
       }
     },
-    async applyColorsAndRenderNetwork() {
-      // if (this.currentLevels === levels
-      //     || (this.currentLevels === {} && Object.keys(levels).length > 0)
-      // ) {
-      //   return;
-      // }
-      // this.currentLevels = levels;
-
-      const nodes = this.network.nodes.map(node => {
+    async applyColors() {
+      const colors = {};
+      const centerId = this.queryParams.sel;
+      this.network.nodes.forEach(node => {
         let color = colorToRGBArray(this.defaultMetaboliteColor);
 
         if (node.g === 'r') {
@@ -244,17 +239,24 @@ export default {
             color = colorToRGBArray(this.defaultMetaboliteColor);
           }
         }
-
-        return {
-          ...node,
-          color,
-        };
+        if (node.id === centerId) {
+          color = colorToRGBArray('#ff0000');
+        }
+        colors[node.id] = color;
       });
+      this.controller.updateNodeColors(colors);
+    },
+    async applyColorsAndRenderNetwork() {
+      // if (this.currentLevels === levels
+      //     || (this.currentLevels === {} && Object.keys(levels).length > 0)
+      // ) {
+      //   return;
+      // }
+      // this.currentLevels = levels;
 
-      await this.renderNetwork({
-        nodes,
-        links: this.network.links,
-      });
+      await this.renderNetwork();
+      // colors cannot be applied until network has been rendered
+      await this.applyColors();
     },
     updateURLCoords({ x, y, z }) {
       const payload = {
