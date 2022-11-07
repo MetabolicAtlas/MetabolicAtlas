@@ -243,14 +243,14 @@ export default {
     '$route.params': 'setup',
     async dataSets(newDS, oldDS) {
       if (JSON.stringify(newDS) !== JSON.stringify(oldDS)) {
-        await this.applyColorsAndRenderNetwork();
+        await this.applyColors();
       }
     },
     async queryParams(newQuery, oldQuery) {
       await this.handleQueryParamsWatch(newQuery, oldQuery);
     },
     async highlight() {
-      await this.applyColorsAndRenderNetwork();
+      await this.applyColors();
     },
   },
   async beforeMount() {
@@ -502,8 +502,9 @@ export default {
       // map appears "flat".
       this.controller.setCamera({ x: 0, y: 0, z: lz });
     },
-    async applyColorsAndRenderNetwork() {
-      const nodes = this.network.nodes.map(node => {
+    async applyColors() {
+      const colors = {};
+      this.network.nodes.forEach(node => {
         let color = colorToRGBArray(this.defaultMetaboliteColor);
 
         // TODO: use this when implementing compartment and subsystem highlight
@@ -532,17 +533,13 @@ export default {
             color = colorToRGBArray(this.defaultMetaboliteColor);
           }
         }
-
-        return {
-          ...node,
-          color,
-        };
+        colors[node.id] = color;
       });
-
-      await this.renderNetwork({
-        nodes,
-        links: this.network.links,
-      });
+      this.controller.updateNodeColors(colors);
+    },
+    async applyColorsAndRenderNetwork() {
+      await this.renderNetwork();
+      await this.applyColors();
     },
     updateURLCoords({ x, y, z }) {
       const payload = {
