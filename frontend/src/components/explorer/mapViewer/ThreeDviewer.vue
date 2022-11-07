@@ -153,10 +153,10 @@ export default {
         nodeSize: 10,
       });
 
-      this.processURLQuery();
+      this.processURLQuery(false);
     },
 
-    processURLQuery() {
+    processURLQuery(center = true) {
       const { lx, ly, lz } = this.coords;
       this.controller.setCamera({ x: lx, y: ly, z: lz });
 
@@ -167,7 +167,7 @@ export default {
         this.$refs.mapsearch.search(this.searchTerm, id);
       } else {
         // highlight the selected node
-        this.searchIDsOnMap([id]);
+        this.searchIDsOnMap([id], null, center);
       }
     },
     async selectElement(element) {
@@ -303,7 +303,7 @@ export default {
       this.$store.dispatch('maps/toggleBackgroundColor');
       this.controller.setBackgroundColor(this.backgroundColor);
     },
-    async searchIDsOnMap(ids, centerId) {
+    async searchIDsOnMap(ids, centerId, center = true) {
       this.searchedNodesOnMap = [];
 
       if (ids && ids.length > 0) {
@@ -321,12 +321,14 @@ export default {
           : this.searchedNodesOnMap;
 
         if (matches.length > 0) {
-          await this.centerElement(matches[0]);
+          await this.centerElement(matches[0], center);
         }
       }
     },
-    async centerElement(elem) {
-      this.controller.selectBy({ id: elem.id });
+    async centerElement(elem, center = true) {
+      if (center) {
+        this.controller.selectBy({ id: elem.id });
+      }
       await this.selectElement(elem);
     },
     unHighlight() {
