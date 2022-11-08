@@ -243,14 +243,14 @@ export default {
     '$route.params': 'setup',
     async dataSets(newDS, oldDS) {
       if (JSON.stringify(newDS) !== JSON.stringify(oldDS)) {
-        await this.applyColorsAndRenderNetwork();
+        await this.applyColors();
       }
     },
     async queryParams(newQuery, oldQuery) {
       await this.handleQueryParamsWatch(newQuery, oldQuery);
     },
     async highlight() {
-      await this.applyColorsAndRenderNetwork();
+      await this.applyColors();
     },
   },
   async beforeMount() {
@@ -502,47 +502,49 @@ export default {
       // map appears "flat".
       this.controller.setCamera({ x: 0, y: 0, z: lz });
     },
+    async applyColors() {
+      if (this.controller) {
+        const colors = {};
+        this.network.nodes.forEach(node => {
+          let color = colorToRGBArray(this.defaultMetaboliteColor);
+
+          // TODO: use this when implementing compartment and subsystem highlight
+          /* if (this.highlight.includes(node.id)) {
+          } */
+
+          if (node.g === 'e') {
+            if (
+              this.componentTypes.includes('gene') &&
+              Object.keys(this.computedLevels).length > 0
+            ) {
+              const partialID = node.id.split('-')[0];
+              const key = this.computedLevels[partialID] !== undefined ? partialID : 'n/a';
+              color = colorToRGBArray(this.computedLevels[key][0]);
+            } else {
+              color = colorToRGBArray(this.defaultGeneColor);
+            }
+          }
+
+          if (node.g === 'm') {
+            if (
+              this.componentTypes.includes('metabolite') &&
+              Object.keys(this.computedLevels).length > 0
+            ) {
+              const partialID = node.id.split('-')[0];
+              const key = this.computedLevels[partialID] !== undefined ? partialID : 'n/a';
+              color = colorToRGBArray(this.computedLevels[key][0]);
+            } else {
+              color = colorToRGBArray(this.defaultMetaboliteColor);
+            }
+          }
+          colors[node.id] = color;
+        });
+        this.controller.updateNodeColors(colors);
+      }
+    },
     async applyColorsAndRenderNetwork() {
-      const nodes = this.network.nodes.map(node => {
-        let color = colorToRGBArray(this.defaultMetaboliteColor);
-
-        // TODO: use this when implementing compartment and subsystem highlight
-        /* if (this.highlight.includes(node.id)) {
-        } */
-
-        if (node.g === 'e') {
-          if (this.componentTypes.includes('gene') && Object.keys(this.computedLevels).length > 0) {
-            const partialID = node.id.split('-')[0];
-            const key = this.computedLevels[partialID] !== undefined ? partialID : 'n/a';
-            color = colorToRGBArray(this.computedLevels[key][0]);
-          } else {
-            color = colorToRGBArray(this.defaultGeneColor);
-          }
-        }
-
-        if (node.g === 'm') {
-          if (
-            this.componentTypes.includes('metabolite') &&
-            Object.keys(this.computedLevels).length > 0
-          ) {
-            const partialID = node.id.split('-')[0];
-            const key = this.computedLevels[partialID] !== undefined ? partialID : 'n/a';
-            color = colorToRGBArray(this.computedLevels[key][0]);
-          } else {
-            color = colorToRGBArray(this.defaultMetaboliteColor);
-          }
-        }
-
-        return {
-          ...node,
-          color,
-        };
-      });
-
-      await this.renderNetwork({
-        nodes,
-        links: this.network.links,
-      });
+      await this.renderNetwork();
+      await this.applyColors();
     },
     updateURLCoords({ x, y, z }) {
       const payload = {

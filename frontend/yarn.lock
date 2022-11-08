@@ -1333,10 +1333,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@metabolicatlas/3d-network-viewer@^0.1.28":
-  version "0.1.28"
-  resolved "https://registry.yarnpkg.com/@metabolicatlas/3d-network-viewer/-/3d-network-viewer-0.1.28.tgz#9c2285079fc047b0a00f60daf2e7aed31361d5fd"
-  integrity sha512-3c6OeTknmhnicHtfGP0f04MrLSd1wDsPy76DFZYvraE2P5YfYfs89rubSHiFJCpDBpORvFGmYhGoyPnfQ7lE1Q==
+"@metabolicatlas/3d-network-viewer@^0.1.29":
+  version "0.1.29"
+  resolved "https://registry.yarnpkg.com/@metabolicatlas/3d-network-viewer/-/3d-network-viewer-0.1.29.tgz#ac3ad20f8907be6b6795a142f9ac6ed1a84a8a9a"
+  integrity sha512-w7kIdLin1zQLH0BDuW5W8s7X78tPHDuQWnnSL40pnLODZZ7oRvR89t/rj6flxsVyoF+R6FdUUfjvB37w2tudCA==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"

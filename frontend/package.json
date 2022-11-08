@@ -14,7 +14,7 @@
     "format": "prettier --write src"
   },
   "dependencies": {
-    "@metabolicatlas/3d-network-viewer": "^0.1.28",
+    "@metabolicatlas/3d-network-viewer": "^0.1.29",
     "@panzoom/panzoom": "^4.4.3",
     "@vueuse/head": "^0.7.9",
     "axios": "^0.24.0",

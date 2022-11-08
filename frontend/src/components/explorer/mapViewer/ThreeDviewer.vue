@@ -94,7 +94,9 @@ export default {
       window.dispatchEvent(new Event('resize'));
     },
     async dataSets() {
-      await this.applyColorsAndRenderNetwork();
+      if (this.controller) {
+        await this.applyColors();
+      }
     },
   },
   async mounted() {
@@ -151,10 +153,10 @@ export default {
         nodeSize: 10,
       });
 
-      this.processURLQuery();
+      this.processURLQuery(false);
     },
 
-    processURLQuery() {
+    processURLQuery(center = true) {
       const { lx, ly, lz } = this.coords;
       this.controller.setCamera({ x: lx, y: ly, z: lz });
 
@@ -165,7 +167,7 @@ export default {
         this.$refs.mapsearch.search(this.searchTerm, id);
       } else {
         // highlight the selected node
-        this.searchIDsOnMap([id]);
+        this.searchIDsOnMap([id], null, center);
       }
     },
     async selectElement(element) {
@@ -194,15 +196,10 @@ export default {
         this.$store.dispatch('maps/setLoadingElement', false);
       }
     },
-    async applyColorsAndRenderNetwork() {
-      // if (this.currentLevels === levels
-      //     || (this.currentLevels === {} && Object.keys(levels).length > 0)
-      // ) {
-      //   return;
-      // }
-      // this.currentLevels = levels;
-
-      const nodes = this.network.nodes.map(node => {
+    async applyColors() {
+      const colors = {};
+      const centerId = this.queryParams.sel;
+      this.network.nodes.forEach(node => {
         let color = colorToRGBArray(this.defaultMetaboliteColor);
 
         if (node.g === 'r') {
@@ -242,17 +239,24 @@ export default {
             color = colorToRGBArray(this.defaultMetaboliteColor);
           }
         }
-
-        return {
-          ...node,
-          color,
-        };
+        if (node.id === centerId) {
+          color = colorToRGBArray('#ff0000');
+        }
+        colors[node.id] = color;
       });
+      this.controller.updateNodeColors(colors);
+    },
+    async applyColorsAndRenderNetwork() {
+      // if (this.currentLevels === levels
+      //     || (this.currentLevels === {} && Object.keys(levels).length > 0)
+      // ) {
+      //   return;
+      // }
+      // this.currentLevels = levels;
 
-      await this.renderNetwork({
-        nodes,
-        links: this.network.links,
-      });
+      await this.renderNetwork();
+      // colors cannot be applied until network has been rendered
+      await this.applyColors();
     },
     updateURLCoords({ x, y, z }) {
       const payload = {
@@ -301,7 +305,7 @@ export default {
       this.$store.dispatch('maps/toggleBackgroundColor');
       this.controller.setBackgroundColor(this.backgroundColor);
     },
-    async searchIDsOnMap(ids, centerId) {
+    async searchIDsOnMap(ids, centerId, center = true) {
       this.searchedNodesOnMap = [];
 
       if (ids && ids.length > 0) {
@@ -319,12 +323,14 @@ export default {
           : this.searchedNodesOnMap;
 
         if (matches.length > 0) {
-          await this.centerElement(matches[0]);
+          await this.centerElement(matches[0], center);
         }
       }
     },
-    async centerElement(elem) {
-      this.controller.selectBy({ id: elem.id });
+    async centerElement(elem, center = true) {
+      if (center) {
+        this.controller.selectBy({ id: elem.id });
+      }
       await this.selectElement(elem);
     },
     unHighlight() {
