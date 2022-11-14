@@ -328,40 +328,35 @@ LIMIT ${limit}
     groupedByComponents[c].push(id);
   }
 
-  const [
-    metabolites,
-    genes,
-    reactions,
-    subsystems,
-    compartments,
-  ] = await Promise.all([
-    fetchCompartmentalizedMetabolites({
-      ids: groupedByComponents['CompartmentalizedMetabolite'] || [],
-      metaboliteIds: groupedByComponents['Metabolite'] || [],
-      model,
-      version: v,
-      limit,
-    }),
-    fetchGenes({ ids: groupedByComponents['Gene'], model, version: v }),
-    fetchReactions({
-      ids: groupedByComponents['Reaction'],
-      model,
-      version: v,
-      includeMetabolites: !!limit,
-    }),
-    fetchSubsystems({
-      ids: groupedByComponents['Subsystem'],
-      model,
-      version: v,
-      includeCounts: true,
-    }),
-    fetchCompartments({
-      ids: groupedByComponents['Compartment'],
-      model,
-      version: v,
-      includeCounts: true,
-    }),
-  ]);
+  const [metabolites, genes, reactions, subsystems, compartments] =
+    await Promise.all([
+      fetchCompartmentalizedMetabolites({
+        ids: groupedByComponents['CompartmentalizedMetabolite'] || [],
+        metaboliteIds: groupedByComponents['Metabolite'] || [],
+        model,
+        version: v,
+        limit,
+      }),
+      fetchGenes({ ids: groupedByComponents['Gene'], model, version: v }),
+      fetchReactions({
+        ids: groupedByComponents['Reaction'],
+        model,
+        version: v,
+        includeMetabolites: !!limit,
+      }),
+      fetchSubsystems({
+        ids: groupedByComponents['Subsystem'],
+        model,
+        version: v,
+        includeCounts: true,
+      }),
+      fetchCompartments({
+        ids: groupedByComponents['Compartment'],
+        model,
+        version: v,
+        includeCounts: true,
+      }),
+    ]);
 
   const resObj = {
     metabolites,
