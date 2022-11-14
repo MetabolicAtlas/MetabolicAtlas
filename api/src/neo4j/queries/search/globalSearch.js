@@ -9,42 +9,31 @@ import {
 
 const fetchCompartmentalizedMetabolites = async ({
   ids,
+  metaboliteIds,
   model,
   version,
   limit,
-  viaMetabolites,
 }) => {
-  if (!ids) {
-    return null;
-  }
+  // create a neo4j mapping of the ids to null (null representing a metaboliteId)
+  // regex replacement needed for neo4j to accept the object
+  const mappedIds = JSON.stringify(
+    ids.map(x => ({ mid: null, cmid: x }))
+  ).replace(/"([^"]+)":/g, '$1:');
 
-  let statement = ``;
-
-  if (viaMetabolites) {
-    statement += `
-WITH ${JSON.stringify(ids)} as mids
+  let statement = `
+WITH ${JSON.stringify(metaboliteIds)} as mids
 UNWIND
   CASE
       WHEN mids = [] THEN [null]
       ELSE mids
   END AS mid
-MATCH (:Metabolite:${model} {id:mid})-[${version}]-(cm:CompartmentalizedMetabolite)
-WITH DISTINCT(cm.id) as cmid, mid
-`;
-  } else {
-    statement += `
-WITH ${JSON.stringify(ids)} as cmids, null as mid
-UNWIND
-  CASE
-      WHEN cmids = [] THEN [null]
-      ELSE cmids
-  END AS cmid
-`;
-  }
+OPTIONAL MATCH (:Metabolite:${model} {id:mid})-[${version}]-(cm:CompartmentalizedMetabolite)
+WITH cm.id as cmid1, mid
+WITH ${mappedIds} as cmids2, cmid1, mid
+WITH cmids2+collect({mid: mid, cmid: cmid1}) as cmids
 
-  statement += `
-WITH collect({mid: mid, cmid: cmid}) as cmids
 UNWIND cmids as cmid
+
 CALL apoc.cypher.run('
   MATCH (ms:MetaboliteState)-[${version}]-(:Metabolite)-[${version}]-(:CompartmentalizedMetabolite:${model} {id: $cmid.cmid})
   RETURN ms { id: $cmid.cmid, mid: $cmid.mid, .* } as data
@@ -340,8 +329,6 @@ LIMIT ${limit}
   }
 
   const [
-    // is this the correct order?
-    compartmentalizedMetabolites,
     metabolites,
     genes,
     reactions,
@@ -349,17 +336,11 @@ LIMIT ${limit}
     compartments,
   ] = await Promise.all([
     fetchCompartmentalizedMetabolites({
-      ids: groupedByComponents['CompartmentalizedMetabolite'],
+      ids: groupedByComponents['CompartmentalizedMetabolite'] || [],
+      metaboliteIds: groupedByComponents['Metabolite'] || [],
       model,
       version: v,
       limit,
-    }),
-    fetchCompartmentalizedMetabolites({
-      ids: groupedByComponents['Metabolite'],
-      model,
-      version: v,
-      limit,
-      viaMetabolites: true,
     }),
     fetchGenes({ ids: groupedByComponents['Gene'], model, version: v }),
     fetchReactions({
@@ -383,7 +364,6 @@ LIMIT ${limit}
   ]);
 
   const resObj = {
-    compartmentalizedMetabolites,
     metabolites,
     genes,
     reactions,
@@ -404,10 +384,7 @@ LIMIT ${limit}
   }
 
   return {
-    metabolite: [
-      // ...resWithScore.compartmentalizedMetabolites,
-      ...resWithScore.metabolites,
-    ],
+    metabolite: resWithScore.metabolites,
     gene: resWithScore.genes,
     reaction: resWithScore.reactions,
     subsystem: resWithScore.subsystems,
