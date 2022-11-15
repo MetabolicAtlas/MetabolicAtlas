@@ -14,6 +14,10 @@ const fetchCompartmentalizedMetabolites = async ({
   version,
   limit,
 }) => {
+  if (ids.length === 0 && metaboliteIds.length === 0) {
+    return null;
+  }
+
   // create a neo4j mapping of the ids to null (null representing a metaboliteId)
   // regex replacement needed for neo4j to accept the object
   const mappedIds = JSON.stringify(
