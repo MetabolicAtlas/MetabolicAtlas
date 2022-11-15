@@ -53,4 +53,17 @@ describe('search', () => {
     expect(scoreSet.size).toEqual(1);
     expect(scoreSet.has(9.693942070007324)).toEqual(true);
   });
+
+  test('search should not return duplicate metabolites', async () => {
+    const data = await search({
+      searchTerm: 'retinol',
+    });
+
+    const { metabolite } = data['Human-GEM'];
+    const cytosolRetinols = metabolite.filter(
+      m => m.compartment.letterCode === 'c' && m.name === 'retinol'
+    );
+
+    expect(cytosolRetinols.length).toEqual(1);
+  });
 });
