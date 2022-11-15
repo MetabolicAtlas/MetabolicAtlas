@@ -28,7 +28,6 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.40"
           memory: 1.5G
 
   neo4j:
@@ -40,7 +39,6 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "1.40"
           memory: 13G
     ulimits:
       nofile:
@@ -59,7 +57,6 @@ services:
         reservations:
           memory: 150M
         limits:
-          cpus: "0.10"
           memory: 200M
 
   pg:
@@ -74,7 +71,6 @@ services:
         reservations:
           memory: 3G
         limits:
-          cpus: "0.70"
           memory: 5G
 
 volumes:
