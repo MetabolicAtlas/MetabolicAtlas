@@ -2,7 +2,7 @@ const chemicalFormula = (formula, charge) => {
   if (formula === null || formula === undefined) {
     return '';
   }
-  if (/-\w/g.test(formula)) {
+  if (/-\w/g.test(formula) || /,\w/g.test(formula) || /\btrans|cis|am|apoa|g\d+/g.test(formula.toLowerCase()) || /\b[^o]\d+\b/g.test(formula.toLowerCase()) ||formula.toLowerCase() === formula) {
     // avoid bad formatting of metabolite names
     return formula;
   }
