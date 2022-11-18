@@ -26,11 +26,8 @@ const chemicalFormula = (formula, charge) => {
 };
 
 const chemicalEquation = formula => {
-  let equation = formula.replace('<=>', '⇔');
-  equation = equation.replace('=>', '⇒');
-  equation = equation.replaceAll(/(\S)\+/g, '$1<sup>+</sup>');
-  equation = equation.replaceAll(/(\S)-\s/g, '$1<sup>-</sup> ');
-  equation = equation.replaceAll(/([A-Za-z])(\d+)/g, '$1<sub>$2</sub>');
+  let equation = formula.split(' ').map(x => chemicalFormula(x, null)).join(' ');
+  equation = equation.replace('<=>', '⇔').replace('=>', '⇒').replace('<=', '⇐');
   return equation;
 };
 
