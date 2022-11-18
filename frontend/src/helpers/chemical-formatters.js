@@ -5,7 +5,7 @@ const chemicalFormula = (formula, charge) => {
   if (
     /-\w/g.test(formula) ||
     /,\w/g.test(formula) ||
-    /\b(trans|cis|am|apoa|g)\d+/g.test(formula.toLowerCase()) ||
+    /\b(trans|cis|am|apoa|g|gm|gd)\d+(alpha|beta)*/g.test(formula.toLowerCase()) ||
     /\b[^o]\d+(alpha|beta)*\b/g.test(formula.toLowerCase()) ||
     formula.toLowerCase() === formula
   ) {
