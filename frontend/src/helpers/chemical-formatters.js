@@ -5,8 +5,8 @@ const chemicalFormula = (formula, charge) => {
   if (
     /-\w/g.test(formula) ||
     /,\w/g.test(formula) ||
-    /\btrans|cis|am|apoa|g\d+/g.test(formula.toLowerCase()) ||
-    /\b[^o]\d+\b/g.test(formula.toLowerCase()) ||
+    /\b(trans|cis|am|apoa|g)\d+/g.test(formula.toLowerCase()) ||
+    /\b[^o]\d+(alpha|beta)*\b/g.test(formula.toLowerCase()) ||
     formula.toLowerCase() === formula
   ) {
     // avoid bad formatting of metabolite names
