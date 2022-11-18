@@ -26,7 +26,10 @@ const chemicalFormula = (formula, charge) => {
 };
 
 const chemicalEquation = formula => {
-  let equation = formula.split(' ').map(x => chemicalFormula(x, null)).join(' ');
+  let equation = formula
+    .split(' ')
+    .map(x => chemicalFormula(x, null))
+    .join(' ');
   equation = equation.replace('<=>', '⇔').replace('=>', '⇒').replace('<=', '⇐');
   return equation;
 };
