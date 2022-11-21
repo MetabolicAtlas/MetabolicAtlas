@@ -7,7 +7,7 @@ describe('gotEnzymes', () => {
       async searchTerm => {
         const [res_lower, res_upper] = await Promise.all([
           fetch(`${API_BASE}/gotenzymes/search/${searchTerm}`),
-          fetch(`${API_BASE}/gotenzymes/search/${searchTerm.toUpperCase()}`)
+          fetch(`${API_BASE}/gotenzymes/search/${searchTerm.toUpperCase()}`),
         ]);
 
         expect(res_lower.status).toBe(200);
@@ -15,7 +15,7 @@ describe('gotEnzymes', () => {
 
         const [body_lower, body_upper] = await Promise.all([
           res_lower.json(),
-          res_upper.json()
+          res_upper.json(),
         ]);
 
         expect(body_upper).toEqual(body_lower);
