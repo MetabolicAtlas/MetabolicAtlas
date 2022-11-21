@@ -2,19 +2,22 @@ import fetch from 'node-fetch';
 
 describe('gotEnzymes', () => {
   describe('search', () => {
-    it.each(['r08948', 'zurr', 'bacteria', 'hsa', 'nad'])(
+    it.each(['aspmetasp', 'dioxat', 'glnasngln', 'vacuole', 'zurr'])(
       'should return same results matches for %p no matter case',
       async searchTerm => {
-        const res_lower = await fetch(
-          `${API_BASE}/gotenzymes/search/${searchTerm}`
-        );
-        const res_upper = await fetch(
-          `${API_BASE}/gotenzymes/search/${searchTerm.toUpperCase()}`
-        );
+        const [res_lower, res_upper] = await Promise.all([
+          fetch(`${API_BASE}/gotenzymes/search/${searchTerm}`),
+          fetch(`${API_BASE}/gotenzymes/search/${searchTerm.toUpperCase()}`)
+        ]);
+
         expect(res_lower.status).toBe(200);
         expect(res_upper.status).toBe(200);
-        const body_lower = await res_lower.json();
-        const body_upper = await res_upper.json();
+
+        const [body_lower, body_upper] = await Promise.all([
+          res_lower.json(),
+          res_upper.json()
+        ]);
+
         expect(body_upper).toEqual(body_lower);
       }
     );
