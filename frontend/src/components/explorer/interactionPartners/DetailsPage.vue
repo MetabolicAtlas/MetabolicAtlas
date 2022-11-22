@@ -284,7 +284,7 @@ export default {
         await this.load();
       }
 
-      setTimeout(this.setFixedViewerHeight, 0);
+      setTimeout(this.setFixedViewerHeight, 100);
       window.addEventListener('resize', this.handleWindowResize);
     },
     beforeDestroy() {
