@@ -209,6 +209,7 @@ export default {
       showMenuExport: false,
       showGraphContextMenu: false,
       messages,
+      resizeTimer: null,
     };
   },
   computed: {
@@ -283,11 +284,34 @@ export default {
         await this.load();
       }
 
-      // set fixed viewer height after initial page load
-      setTimeout(() => {
-        const viewerHeight = this.$refs.viewer3d.clientHeight;
-        this.$refs.viewer3d.style.height = `${viewerHeight}px`;
-      }, 0);
+      setTimeout(this.setFixedViewerHeight, 0);
+      window.addEventListener('resize', this.handleWindowResize);
+    },
+    beforeDestroy() {
+      window.removeEventListener('resize', this.handleWindowResize);
+    },
+    setFixedViewerHeight() {
+      // This prevents the network from being resized
+      // when the sidebar height changes
+      const viewerHeight = this.$refs.viewer3d.clientHeight;
+      this.$refs.viewer3d.style.height = `${viewerHeight}px`;
+    },
+    handleWindowResize(event) {
+      clearTimeout(this.resizeTimer);
+
+      this.resizeTimer = setTimeout(async () => {
+        // handleQueryParamsWatch emits a window resize event with cancelable
+        // set to true (default is false). This is to prevent handleQueryParamsWatch
+        // from triggering the height fix.
+        if (event.cancelable) {
+          return;
+        }
+
+        // This temoporarily disables the effect of `setFixedViewerHeight`
+        this.$refs.viewer3d.style.height = '100%';
+        await this.applyColorsAndRenderNetwork();
+        this.setFixedViewerHeight();
+      }, 100);
     },
     async handleQueryParamsWatch(newQuery) {
       if (!newQuery) {
@@ -300,7 +324,7 @@ export default {
       history.replaceState(history.state, '', url); // eslint-disable-line no-restricted-globals
       // resize the window and delay for 10 milliseconds to ensure the rotation axis is perpendicular to the screen and the canvas size is equal to the container.
       setTimeout(() => {
-        window.dispatchEvent(new Event('resize'));
+        window.dispatchEvent(new Event('resize', { cancelable: true }));
       }, 10);
     },
     navigate() {
@@ -630,7 +654,6 @@ export default {
   #viewer-container {
     width: 100%;
     height: 100%;
-    max-height: 775px; // default sidebar height
     position: relative;
   }
 
@@ -641,6 +664,8 @@ export default {
   #viewer3d {
     width: 100%;
     height: 100%;
+    min-height: 500px;
+    max-height: 775px; // default sidebar height
     // @media screen and (max-width: $tablet) {
     //  height: $viewer-height;
     // }
