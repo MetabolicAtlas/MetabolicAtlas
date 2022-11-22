@@ -74,7 +74,7 @@
                   :toggle-full-screen="toggleFullscreen"
                   :style="{ 'z-index': network.nodes.length + 1 }"
                 />
-                <div id="viewer3d" class="card" />
+                <div id="viewer3d" class="card" ref="viewer3d" />
               </div>
             </div>
             <div class="column">
@@ -282,6 +282,12 @@ export default {
       if (this.mainNodeID) {
         await this.load();
       }
+
+      // set fixed viewer height after initial page load
+      setTimeout(() => {
+        const viewerHeight = this.$refs.viewer3d.clientHeight;
+        this.$refs.viewer3d.style.height = `${viewerHeight}px`;
+      }, 0);
     },
     async handleQueryParamsWatch(newQuery) {
       if (!newQuery) {
@@ -624,6 +630,7 @@ export default {
   #viewer-container {
     width: 100%;
     height: 100%;
+    max-height: 775px; // default sidebar height
     position: relative;
   }
 
