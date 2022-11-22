@@ -307,7 +307,7 @@ export default {
           return;
         }
 
-        // This temoporarily disables the effect of `setFixedViewerHeight`
+        // This temporarily disables the effect of `setFixedViewerHeight`
         this.$refs.viewer3d.style.height = '100%';
         await this.applyColorsAndRenderNetwork();
         this.setFixedViewerHeight();
