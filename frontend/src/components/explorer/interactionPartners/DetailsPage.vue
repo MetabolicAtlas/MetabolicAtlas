@@ -74,7 +74,7 @@
                   :toggle-full-screen="toggleFullscreen"
                   :style="{ 'z-index': network.nodes.length + 1 }"
                 />
-                <div id="viewer3d" class="card" />
+                <div id="viewer3d" ref="viewer3d" class="card" />
               </div>
             </div>
             <div class="column">
@@ -165,7 +165,11 @@ import MapControls from '@/components/explorer/mapViewer/MapControls.vue';
 import { default as convertGraphML } from '@/helpers/graph-ml-converter';
 
 import { default as colorToRGBArray } from '@/helpers/colors';
-import { DEFAULT_GENE_COLOR, DEFAULT_METABOLITE_COLOR } from '@/helpers/dataOverlay';
+import {
+  DEFAULT_GENE_COLOR,
+  DEFAULT_METABOLITE_COLOR,
+  NODE_SELECT_COLOR,
+} from '@/helpers/dataOverlay';
 import { default as NODE_TEXTURES } from '@/helpers/networkViewer';
 
 import { default as messages } from '@/content/messages';
@@ -209,6 +213,7 @@ export default {
       showMenuExport: false,
       showGraphContextMenu: false,
       messages,
+      resizeTimer: null,
     };
   },
   computed: {
@@ -282,6 +287,35 @@ export default {
       if (this.mainNodeID) {
         await this.load();
       }
+
+      setTimeout(this.setFixedViewerHeight, 100);
+      window.addEventListener('resize', this.handleWindowResize);
+    },
+    beforeDestroy() {
+      window.removeEventListener('resize', this.handleWindowResize);
+    },
+    setFixedViewerHeight() {
+      // This prevents the network from being resized
+      // when the sidebar height changes
+      const viewerHeight = this.$refs.viewer3d.clientHeight;
+      this.$refs.viewer3d.style.height = `${viewerHeight}px`;
+    },
+    handleWindowResize(event) {
+      clearTimeout(this.resizeTimer);
+
+      this.resizeTimer = setTimeout(async () => {
+        // handleQueryParamsWatch emits a window resize event with cancelable
+        // set to true (default is false). This is to prevent handleQueryParamsWatch
+        // from triggering the height fix.
+        if (event.cancelable) {
+          return;
+        }
+
+        // This temporarily disables the effect of `setFixedViewerHeight`
+        this.$refs.viewer3d.style.height = '100%';
+        await this.applyColorsAndRenderNetwork();
+        this.setFixedViewerHeight();
+      }, 100);
     },
     async handleQueryParamsWatch(newQuery) {
       if (!newQuery) {
@@ -294,7 +328,7 @@ export default {
       history.replaceState(history.state, '', url); // eslint-disable-line no-restricted-globals
       // resize the window and delay for 10 milliseconds to ensure the rotation axis is perpendicular to the screen and the canvas size is equal to the container.
       setTimeout(() => {
-        window.dispatchEvent(new Event('resize'));
+        window.dispatchEvent(new Event('resize', { cancelable: true }));
       }, 10);
     },
     navigate() {
@@ -537,7 +571,11 @@ export default {
               color = colorToRGBArray(this.defaultMetaboliteColor);
             }
           }
-          colors[node.id] = color;
+          if (node.id === this.clickedElmId) {
+            colors[node.id] = colorToRGBArray(NODE_SELECT_COLOR);
+          } else {
+            colors[node.id] = color;
+          }
         });
         this.controller.updateNodeColors(colors);
       }
@@ -634,6 +672,8 @@ export default {
   #viewer3d {
     width: 100%;
     height: 100%;
+    min-height: 500px;
+    max-height: 775px; // default sidebar height
     // @media screen and (max-width: $tablet) {
     //  height: $viewer-height;
     // }
