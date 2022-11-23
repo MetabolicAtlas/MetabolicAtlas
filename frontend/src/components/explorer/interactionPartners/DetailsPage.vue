@@ -74,7 +74,7 @@
                   :toggle-full-screen="toggleFullscreen"
                   :style="{ 'z-index': network.nodes.length + 1 }"
                 />
-                <div id="viewer3d" class="card" ref="viewer3d" />
+                <div id="viewer3d" ref="viewer3d" class="card" />
               </div>
             </div>
             <div class="column">
