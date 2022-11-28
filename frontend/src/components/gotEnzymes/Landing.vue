@@ -152,10 +152,11 @@
 
               <hr class="mt-6" />
               <h4 id="citation" class="is-info is-size-4">Citation</h4>
+              <template v-for="citation in citations" :key="citation.id">
+                <citation :entry="citation" />
+              </template>
               <p>
-                <i>Manuscript under consideration</i>. For more information about the k<sub
-                  >cat</sub
-                >
+                For more information about the k<sub>cat</sub>
                 prediction methods, please have a look at
                 <i
                   >Deep learning-based k<sub>cat</sub> prediction enables improved
@@ -179,12 +180,15 @@ import { debounce } from 'vue-debounce';
 import SearchHighlighter from '@/components/shared/SearchHighlighter.vue';
 import TableOfContents from '@/components/shared/TableOfContents.vue';
 import { default as messages } from '@/content/messages';
+import Citation from '@/components/about/Citation.vue';
+import { getImageUrl } from '@/helpers/utils';
 
 export default {
   name: 'EnzymeLanding',
   components: {
     SearchHighlighter,
     TableOfContents,
+    Citation,
   },
   data() {
     return {
@@ -211,11 +215,38 @@ export default {
           link: '#citation',
         },
       ],
+      citations: [
+        {
+          id: 'citation-v3',
+          header: '',
+          text: 'To cite this resource, please use:',
+          authors: 'Li F, Chen Y, Anton M, Nielsen J.',
+          title: 'GotEnzymes: an extensive database of enzyme parameter predictions.',
+          journal: 'NAR (2022) gkac831',
+          journalLink:
+            'https://academic.oup.com/nar/search-results?f_TocHeadingTitle=Database+Issue&sort=Date+%e2%80%93+Newest+First',
+          pmid: '36169223',
+          doi: '10.1093/nar/gkac831',
+          img: getImageUrl('journals/nar-cover', 'gif'),
+        },
+      ],
       messages,
     };
   },
   created() {
     this.search = debounce(this.search, 200);
+  },
+  beforeCreate() {
+    const addScript = (type, src) => {
+      const script = document.createElement('script');
+      script.type = type;
+      script.src = src;
+      document.body.appendChild(script);
+    };
+    addScript('text/javascript', '//cdn.plu.mx/widget-popup.js');
+    addScript('text/javascript', 'https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js');
+    addScript('application/javascript', 'https://cdn.scite.ai/badge/scite-badge-latest.min.js');
+    addScript('application/javascript', 'https://badge.dimensions.ai/badge.js');
   },
   beforeUnmount() {
     this.$store.dispatch('gotEnzymes/resetSearch');
