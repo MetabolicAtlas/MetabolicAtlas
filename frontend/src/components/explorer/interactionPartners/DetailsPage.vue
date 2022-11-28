@@ -660,6 +660,7 @@ export default {
   }
 
   #viewer-container {
+    z-index: 0;
     width: 100%;
     height: 100%;
     position: relative;
@@ -670,6 +671,7 @@ export default {
   }
 
   #viewer3d {
+    z-index: 0;
     width: 100%;
     height: 100%;
     min-height: 500px;
