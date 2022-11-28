@@ -182,6 +182,7 @@ import TableOfContents from '@/components/shared/TableOfContents.vue';
 import { default as messages } from '@/content/messages';
 import Citation from '@/components/about/Citation.vue';
 import { getImageUrl } from '@/helpers/utils';
+import { default as addCitationScripts } from '@/helpers/citation';
 
 export default {
   name: 'EnzymeLanding',
@@ -237,16 +238,7 @@ export default {
     this.search = debounce(this.search, 200);
   },
   beforeCreate() {
-    const addScript = (type, src) => {
-      const script = document.createElement('script');
-      script.type = type;
-      script.src = src;
-      document.body.appendChild(script);
-    };
-    addScript('text/javascript', '//cdn.plu.mx/widget-popup.js');
-    addScript('text/javascript', 'https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js');
-    addScript('application/javascript', 'https://cdn.scite.ai/badge/scite-badge-latest.min.js');
-    addScript('application/javascript', 'https://badge.dimensions.ai/badge.js');
+    addCitationScripts();
   },
   beforeUnmount() {
     this.$store.dispatch('gotEnzymes/resetSearch');
