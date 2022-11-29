@@ -189,8 +189,8 @@ export default {
       if (this.tableSearch === '') {
         this.matchingReactions = Array.prototype.slice.call(this.sortedReactions);
         this.unmatchingReactions = [];
-        if (this.$refs.matchingTableBody.style) {
-          this.$refs.matchingTableBody.style.display = '';
+        if (this.$refs.matchingTableBody[0].style) {
+          this.$refs.matchingTableBody[0].style.display = '';
         }
       } else {
         this.matchingReactions = [];
@@ -207,7 +207,7 @@ export default {
                   if (k === 'id') {
                     match = el[k].toLowerCase() === t;
                   } else {
-                    match = el[k].toLowerCase().includes(t);
+                    match = typeof el[k] === 'string' && el[k].toLowerCase().includes(t);
                   }
                   if (match) {
                     matches = match;
@@ -230,9 +230,9 @@ export default {
 
         // fix disappearing row/cell borders
         if (this.matchingReactions.length === 0) {
-          this.$refs.matchingTableBody.style.display = 'none';
+          this.$refs.matchingTableBody[0].style.display = 'none';
         } else {
-          this.$refs.matchingTableBody.style.display = '';
+          this.$refs.matchingTableBody[0].style.display = '';
         }
       }
     },
