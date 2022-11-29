@@ -4,11 +4,21 @@
     <span class="button" title="Zoom out" @click="zoomOut()">
       <i class="fa fa-search-minus"></i>
     </span>
-    <span v-if="toggleGenes" class="button p-2" title="Show/Hide genes" @click="toggleGenes()">
-      <i class="fa fa-eye-slash">&thinsp;G</i>
+    <span
+      v-if="toggleGenes"
+      class="button p-2"
+      :title="`${showGenes ? 'Hide' : 'Show'} genes`"
+      @click="handleToggleGenes()"
+    >
+      <i class="fa" :class="[showGenes ? 'fa-eye-slash' : 'fa-eye']">&thinsp;G</i>
     </span>
-    <span v-if="toggleLabels" class="button p-2" title="Show/Hide labels" @click="toggleLabels()">
-      <i class="fa fa-eye-slash">&thinsp;L</i>
+    <span
+      v-if="toggleLabels"
+      class="button p-2"
+      :title="`${showLabels ? 'Hide' : 'Show'} labels`"
+      @click="handleToggleLabels()"
+    >
+      <i class="fa" :class="[showLabels ? 'fa-eye-slash' : 'fa-eye']">&thinsp;L</i>
     </span>
     <span
       v-if="toggleSubsystems"
@@ -85,6 +95,12 @@ export default {
       type: Boolean,
     },
   },
+  data() {
+    return {
+      showGenes: true,
+      showLabels: true,
+    };
+  },
   computed: {
     isFullscreenDisabled() {
       if (
@@ -99,6 +115,14 @@ export default {
     },
   },
   methods: {
+    handleToggleGenes() {
+      this.showGenes = !this.showGenes;
+      this.toggleGenes();
+    },
+    handleToggleLabels() {
+      this.showLabels = !this.showLabels;
+      this.toggleLabels();
+    },
     handleToggleFullScreen() {
       if (this.isFullscreenDisabled) {
         return;
