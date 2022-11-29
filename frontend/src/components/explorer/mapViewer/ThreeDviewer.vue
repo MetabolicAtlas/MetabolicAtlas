@@ -298,6 +298,7 @@ export default {
     },
     async toggleGenes() {
       await this.controller.toggleNodeType('e');
+      this.applyColors();
     },
     toggleLabels() {
       this.controller.toggleLabels();
