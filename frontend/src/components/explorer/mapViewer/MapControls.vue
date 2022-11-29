@@ -23,10 +23,10 @@
     <span
       v-if="toggleSubsystems"
       class="button p-2"
-      title="Show/Hide subsystem"
-      @click="toggleSubsystems()"
+      :title="`${showLabels ? 'Hide' : 'Show'} subsystems`"
+      @click="handleToggleSubsystems()"
     >
-      <i class="fa fa-eye-slash">&thinsp;S</i>
+      <i class="fa" :class="[showSubsystems ? 'fa-eye-slash' : 'fa-eye']">&thinsp;S</i>
     </span>
     <span
       v-if="toggleBackgroundColor"
@@ -99,6 +99,7 @@ export default {
     return {
       showGenes: true,
       showLabels: true,
+      showSubsystems: true,
     };
   },
   computed: {
@@ -122,6 +123,10 @@ export default {
     handleToggleLabels() {
       this.showLabels = !this.showLabels;
       this.toggleLabels();
+    },
+    handleToggleSubsystems() {
+      this.showSubsystems = !this.showSubsystems;
+      this.toggleSubsystems();
     },
     handleToggleFullScreen() {
       if (this.isFullscreenDisabled) {
