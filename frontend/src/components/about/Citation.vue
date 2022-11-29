@@ -24,7 +24,7 @@
             {{ entry.doi }}
           </a>
         </p>
-        <div class="is-flex is-justify-content-flex-start">
+        <div v-if="!entry.noWidgets" class="is-flex is-justify-content-flex-start">
           <a
             :href="plumxref()"
             data-popup="right"

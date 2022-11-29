@@ -155,7 +155,7 @@
               <template v-for="citation in citations" :key="citation.id">
                 <citation :entry="citation" />
               </template>
-              <p>
+              <p class="mt-3">
                 For more information about the k<sub>cat</sub>
                 prediction methods, please have a look at
                 <i
@@ -228,6 +228,7 @@ export default {
           pmid: '36169223',
           doi: '10.1093/nar/gkac831',
           img: getImageUrl('journals/nar-cover', 'gif'),
+          noWidgets: true,
         },
       ],
       messages,
@@ -235,18 +236,6 @@ export default {
   },
   created() {
     this.search = debounce(this.search, 200);
-  },
-  beforeCreate() {
-    const addScript = (type, src) => {
-      const script = document.createElement('script');
-      script.type = type;
-      script.src = src;
-      document.body.appendChild(script);
-    };
-    addScript('text/javascript', '//cdn.plu.mx/widget-popup.js');
-    addScript('text/javascript', 'https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js');
-    addScript('application/javascript', 'https://cdn.scite.ai/badge/scite-badge-latest.min.js');
-    addScript('application/javascript', 'https://badge.dimensions.ai/badge.js');
   },
   beforeUnmount() {
     this.$store.dispatch('gotEnzymes/resetSearch');
