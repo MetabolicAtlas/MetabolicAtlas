@@ -304,6 +304,7 @@ export default {
     toggleBackgroundColor() {
       this.$store.dispatch('maps/toggleBackgroundColor');
       this.controller.setBackgroundColor(this.backgroundColor);
+      window.dispatchEvent(new Event('resize')); // this triggers a redraw of the network
     },
     async searchIDsOnMap(ids, centerId, center = true) {
       this.searchedNodesOnMap = [];

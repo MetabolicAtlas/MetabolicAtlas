@@ -4,19 +4,29 @@
     <span class="button" title="Zoom out" @click="zoomOut()">
       <i class="fa fa-search-minus"></i>
     </span>
-    <span v-if="toggleGenes" class="button p-2" title="Show/Hide genes" @click="toggleGenes()">
-      <i class="fa fa-eye-slash">&thinsp;G</i>
+    <span
+      v-if="toggleGenes"
+      class="button p-2"
+      :title="`${showGenes ? 'Hide' : 'Show'} genes`"
+      @click="handleToggleGenes()"
+    >
+      <i class="fa" :class="[showGenes ? 'fa-eye-slash' : 'fa-eye']">&thinsp;G</i>
     </span>
-    <span v-if="toggleLabels" class="button p-2" title="Show/Hide labels" @click="toggleLabels()">
-      <i class="fa fa-eye-slash">&thinsp;L</i>
+    <span
+      v-if="toggleLabels"
+      class="button p-2"
+      :title="`${showLabels ? 'Hide' : 'Show'} labels`"
+      @click="handleToggleLabels()"
+    >
+      <i class="fa" :class="[showLabels ? 'fa-eye-slash' : 'fa-eye']">&thinsp;L</i>
     </span>
     <span
       v-if="toggleSubsystems"
       class="button p-2"
-      title="Show/Hide subsystem"
-      @click="toggleSubsystems()"
+      :title="`${showLabels ? 'Hide' : 'Show'} subsystems`"
+      @click="handleToggleSubsystems()"
     >
-      <i class="fa fa-eye-slash">&thinsp;S</i>
+      <i class="fa" :class="[showSubsystems ? 'fa-eye-slash' : 'fa-eye']">&thinsp;S</i>
     </span>
     <span
       v-if="toggleBackgroundColor"
@@ -85,6 +95,13 @@ export default {
       type: Boolean,
     },
   },
+  data() {
+    return {
+      showGenes: true,
+      showLabels: true,
+      showSubsystems: true,
+    };
+  },
   computed: {
     isFullscreenDisabled() {
       if (
@@ -99,6 +116,18 @@ export default {
     },
   },
   methods: {
+    handleToggleGenes() {
+      this.showGenes = !this.showGenes;
+      this.toggleGenes();
+    },
+    handleToggleLabels() {
+      this.showLabels = !this.showLabels;
+      this.toggleLabels();
+    },
+    handleToggleSubsystems() {
+      this.showSubsystems = !this.showSubsystems;
+      this.toggleSubsystems();
+    },
     handleToggleFullScreen() {
       if (this.isFullscreenDisabled) {
         return;
