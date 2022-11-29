@@ -189,6 +189,7 @@ export default {
         this.$emit('updatePanelSelectionData', selectionData);
         this.$emit('endSelection', true);
         this.$store.dispatch('maps/setLoadingElement', false);
+        this.applyColors();
       } catch {
         this.$emit('updatePanelSelectionData', selectionData);
         selectionData.error = true;

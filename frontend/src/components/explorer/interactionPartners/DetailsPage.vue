@@ -597,6 +597,7 @@ export default {
       const [id, type] = this.getElementIdAndType(element);
       this.clickedElmId = id;
       this.clickedElm = { id, type, n: element.n };
+      this.applyColors();
     },
     getElementIdAndType(element) {
       let type = 'metabolite';
