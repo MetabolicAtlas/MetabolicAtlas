@@ -247,7 +247,6 @@
 import AboutLayout from '@/layouts/AboutLayout.vue';
 import Citation from '@/components/about/Citation.vue';
 import { getImageUrl } from '@/helpers/utils';
-import { default as addCitationScripts } from '@/helpers/citation';
 
 export default {
   name: 'Introduction',
@@ -256,7 +255,16 @@ export default {
     Citation,
   },
   beforeCreate() {
-    addCitationScripts();
+    const addScript = (type, src) => {
+      const script = document.createElement('script');
+      script.type = type;
+      script.src = src;
+      document.body.appendChild(script);
+    };
+    addScript('text/javascript', '//cdn.plu.mx/widget-popup.js');
+    addScript('text/javascript', 'https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js');
+    addScript('application/javascript', 'https://cdn.scite.ai/badge/scite-badge-latest.min.js');
+    addScript('application/javascript', 'https://badge.dimensions.ai/badge.js');
   },
   data() {
     return {
