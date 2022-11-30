@@ -268,12 +268,12 @@ export default {
         return;
       }
 
-      const queryString = Object.entries(newQuery)
-        .map(e => e.join('='))
-        .join('&');
-
       if (newQuery.dim === this.$route.query.dim || (newQuery.dim && !this.$route.query.dim)) {
         // if Map viewer (2D or 3D) is not changed, keep the url path
+        const queryString = Object.entries(newQuery)
+          .map(e => e.join('='))
+          .join('&');
+
         const url = `${this.$route.path}?${queryString}`;
         history.replaceState(history.state, '', url); // eslint-disable-line no-restricted-globals
       } else {
@@ -290,6 +290,11 @@ export default {
             urlPath = urlPath.replace(new RegExp(this.$route.params.map_id), this.currentMap.id);
           }
         }
+        const queryString = Object.entries(newQuery)
+          .filter(([key]) => key !== 'coords')
+          .map(e => e.join('='))
+          .join('&');
+
         const url = `${urlPath}?${queryString}`;
         await this.$router.push(url);
         history.replaceState(history.state, ''); // eslint-disable-line no-restricted-globals
