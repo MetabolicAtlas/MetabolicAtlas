@@ -536,10 +536,13 @@ export default {
       // map appears "flat".
       this.controller.setCamera({ x: 0, y: 0, z: lz });
     },
-    async applyColors() {
+    async applyColors({ deselect } = { deselect: false }) {
       if (this.controller) {
         const colors = {};
-        this.network.nodes.forEach(node => {
+        const nodes = deselect
+          ? this.network.nodes.filter(n => n.id === this.clickedElmId)
+          : this.network.nodes;
+        nodes.forEach(node => {
           let color = colorToRGBArray(this.defaultMetaboliteColor);
 
           // TODO: use this when implementing compartment and subsystem highlight
@@ -571,7 +574,7 @@ export default {
               color = colorToRGBArray(this.defaultMetaboliteColor);
             }
           }
-          if (node.id === this.clickedElmId) {
+          if (node.id === this.clickedElmId && !deselect) {
             colors[node.id] = colorToRGBArray(NODE_SELECT_COLOR);
           } else {
             colors[node.id] = color;
@@ -594,6 +597,7 @@ export default {
       this.$store.dispatch('interactionPartners/setCoords', payload);
     },
     async selectElement(element) {
+      await this.applyColors({ deselect: true });
       const [id, type] = this.getElementIdAndType(element);
       this.clickedElmId = id;
       this.clickedElm = { id, type, n: element.n };
