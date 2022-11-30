@@ -183,13 +183,13 @@ export default {
           type,
           id,
         };
+        await this.applyColors({ deselect: true });
         await this.$store.dispatch('maps/getSelectedElement', payload);
         const data = this.selectedElement;
         selectionData.data = data;
         this.$emit('updatePanelSelectionData', selectionData);
         this.$emit('endSelection', true);
         this.$store.dispatch('maps/setLoadingElement', false);
-        this.applyColors();
       } catch {
         this.$emit('updatePanelSelectionData', selectionData);
         selectionData.error = true;
@@ -197,10 +197,13 @@ export default {
         this.$store.dispatch('maps/setLoadingElement', false);
       }
     },
-    async applyColors() {
+    async applyColors({ deselect } = { deselect: false }) {
       const colors = {};
       const centerId = this.queryParams.sel;
-      this.network.nodes.forEach(node => {
+      const nodes = deselect
+        ? this.network.nodes.filter(n => n.id === this.selectedElementId)
+        : this.network.nodes;
+      nodes.forEach(node => {
         let color = colorToRGBArray(this.defaultMetaboliteColor);
 
         if (node.g === 'r') {
@@ -240,7 +243,7 @@ export default {
             color = colorToRGBArray(this.defaultMetaboliteColor);
           }
         }
-        if (node.id === centerId) {
+        if (node.id === centerId && !deselect) {
           color = colorToRGBArray('#ff0000');
         }
         colors[node.id] = color;
