@@ -152,10 +152,11 @@
 
               <hr class="mt-6" />
               <h4 id="citation" class="is-info is-size-4">Citation</h4>
-              <p>
-                <i>Manuscript under consideration</i>. For more information about the k<sub
-                  >cat</sub
-                >
+              <template v-for="citation in citations" :key="citation.id">
+                <citation :entry="citation" />
+              </template>
+              <p class="mt-3">
+                For more information about the k<sub>cat</sub>
                 prediction methods, please have a look at
                 <i
                   >Deep learning-based k<sub>cat</sub> prediction enables improved
@@ -179,12 +180,15 @@ import { debounce } from 'vue-debounce';
 import SearchHighlighter from '@/components/shared/SearchHighlighter.vue';
 import TableOfContents from '@/components/shared/TableOfContents.vue';
 import { default as messages } from '@/content/messages';
+import Citation from '@/components/about/Citation.vue';
+import { getImageUrl } from '@/helpers/utils';
 
 export default {
   name: 'EnzymeLanding',
   components: {
     SearchHighlighter,
     TableOfContents,
+    Citation,
   },
   data() {
     return {
@@ -209,6 +213,22 @@ export default {
           name: 'Citation',
           icon: 'fa-quote-left',
           link: '#citation',
+        },
+      ],
+      citations: [
+        {
+          id: 'citation-v3',
+          header: '',
+          text: 'To cite this resource, please use:',
+          authors: 'Li F, Chen Y, Anton M, Nielsen J.',
+          title: 'GotEnzymes: an extensive database of enzyme parameter predictions.',
+          journal: 'NAR (2022) gkac831',
+          journalLink:
+            'https://academic.oup.com/nar/search-results?f_TocHeadingTitle=Database+Issue&sort=Date+%e2%80%93+Newest+First',
+          pmid: '36169223',
+          doi: '10.1093/nar/gkac831',
+          img: getImageUrl('journals/nar-cover', 'gif'),
+          noWidgets: true,
         },
       ],
       messages,

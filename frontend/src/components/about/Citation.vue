@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4 :id="entry.id" class="title is-5 pt-6">{{ entry.header }}</h4>
+    <h4 v-if="entry.header" :id="entry.id" class="title is-5 pt-6">{{ entry.header }}</h4>
     <p v-html="entry.text"></p>
     <div class="columns is-mobile">
       <div class="column is-2">
@@ -24,7 +24,7 @@
             {{ entry.doi }}
           </a>
         </p>
-        <div class="is-flex is-justify-content-flex-start">
+        <div v-if="!entry.noWidgets" class="is-flex is-justify-content-flex-start">
           <a
             :href="plumxref()"
             data-popup="right"
