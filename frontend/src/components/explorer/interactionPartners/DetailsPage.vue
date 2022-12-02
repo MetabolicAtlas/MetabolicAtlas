@@ -10,7 +10,7 @@
       <div v-else class="interaction-partners">
         <template v-if="componentNotFound">
           <div class="columns is-centered">
-            <notFound type="Interaction Partners" :component-id="mainNodeID"></notFound>
+            <notFound type="Interaction Partners" :component-id="componentNotFound"></notFound>
           </div>
         </template>
         <template v-if="loading">
@@ -382,7 +382,11 @@ export default {
       } catch (error) {
         switch (error.response.status) {
           case 404:
-            this.componentNotFound = true;
+            if (error.response.data.startsWith('Invalid id')) {
+              this.componentNotFound = error.response.data.split(/:(.*)/)[1] || this.mainNodeID;
+            } else {
+              this.componentNotFound = this.mainNodeID;
+            }
             break;
           default:
             this.errorMessage = messages.unknownError;

@@ -50,7 +50,14 @@ WITH apoc.map.mergeList(apoc.coll.flatten(
 )) as reaction, component
 RETURN { component: component, reactions: COLLECT(reaction)}
 `;
-  const result = await querySingleResult(statement);
+  let result;
+  try {
+    result = await querySingleResult(statement);
+  } catch (e) {
+    const error = new Error(`Invalid id: ${id}`);
+    throw error;
+  }
+
   let links = [];
   let nodes = [];
   let unique = new Set();
@@ -126,13 +133,15 @@ const getInteractionPartnersExpansion = async ({
   let expandedNodes = {};
 
   const expandedNetworks = await Promise.all(
-    expanded.map(nodeId =>
-      getInteractionPartners({
-        id: nodeId,
-        model,
-        version,
-      })
-    )
+    expanded
+      .filter(n => n.trim())
+      .map(nodeId =>
+        getInteractionPartners({
+          id: nodeId,
+          model,
+          version,
+        })
+      )
   );
 
   for (let i = 0; i < expandedNetworks.length; i++) {

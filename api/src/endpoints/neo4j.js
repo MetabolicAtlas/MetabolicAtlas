@@ -62,6 +62,9 @@ const fetchWith = async (req, res, queryHandler) => {
     const result = await queryHandler(payload);
     res.json(result);
   } catch (e) {
+    if (e.message.startsWith('Invalid id')) {
+      return res.status(404).send(e.message);
+    }
     if (e.message === '404') {
       return res.sendStatus(404);
     }
