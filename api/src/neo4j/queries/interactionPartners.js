@@ -133,13 +133,15 @@ const getInteractionPartnersExpansion = async ({
   let expandedNodes = {};
 
   const expandedNetworks = await Promise.all(
-    expanded.map(nodeId =>
-      getInteractionPartners({
-        id: nodeId,
-        model,
-        version,
-      })
-    )
+    expanded
+      .filter(n => n.trim())
+      .map(nodeId =>
+        getInteractionPartners({
+          id: nodeId,
+          model,
+          version,
+        })
+      )
   );
 
   for (let i = 0; i < expandedNetworks.length; i++) {

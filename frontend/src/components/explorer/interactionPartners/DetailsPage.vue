@@ -383,7 +383,7 @@ export default {
         switch (error.response.status) {
           case 404:
             if (error.response.data.startsWith('Invalid id')) {
-              this.componentNotFound = error.response.data.split(':')[1] || this.mainNodeID;
+              this.componentNotFound = error.response.data.split(/:(.*)/)[1] || this.mainNodeID;
             } else {
               this.componentNotFound = this.mainNodeID;
             }
