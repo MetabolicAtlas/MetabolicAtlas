@@ -45,34 +45,43 @@
         <template v-for="tb in tableBodies" :key="tb.id">
           <tbody :id="tb.id" :ref="tb.id">
             <tr v-for="r in tb.reactions" :key="r.id">
-              <td v-for="s in columns" :key="s.field">
+              <td v-for="(s, index) in columns" :key="s.field" :data-label="columns[index].field">
                 <template v-if="s.field === 'id'">
-                  <span
-                    class="tag is-rounded"
-                    :class="[{ hl: isSelected(r.id) }, '']"
-                    @click="HLreaction(r.id)"
-                  >
-                    <span class="is-size-6">{{ r.id }}</span>
-                  </span>
+                  <div class="td-content">
+                    <span
+                      class="tag is-rounded"
+                      :class="[{ hl: isSelected(r.id) }, '']"
+                      @click="HLreaction(r.id)"
+                    >
+                      <span class="is-size-6">{{ r.id }}</span>
+                    </span>
+                  </div>
                 </template>
                 <template v-else-if="['reactants', 'products', 'genes'].includes(s.field)">
-                  <template v-for="el in r[s.field]">
-                    <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
-                    <span
-                      class="tag is-rounded is-medium"
-                      :title="el.id"
-                      :class="[{ hl: isSelected(el.id) }, '']"
-                      @click="highlight(el.id)"
-                    >
-                      <span class="">{{ el.name || el.id }}</span>
-                    </span>
-                  </template>
+                  <div class="td-content">
+                    <!--span v-if="r[s.field].length"-->
+                    <template v-for="el in r[s.field]">
+                      <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
+                      <span
+                        class="tag is-rounded is-medium"
+                        :title="el.id"
+                        :class="[{ hl: isSelected(el.id) }, '']"
+                        @click="highlight(el.id)"
+                      >
+                        <span class="tagtext">{{ el.name || el.id }}</span>
+                      </span>
+                    </template>
+                    <!--/span>
+                    <span v-else>-</span-->
+                  </div>
                 </template>
                 <template v-else>
-                  <compartment-links
-                    :compartment-string="r.compartment"
-                    :is-reversible="r.reversible"
-                  />
+                  <div class="td-content">
+                    <compartment-links
+                      :compartment-string="r.compartment"
+                      :is-reversible="r.reversible"
+                    />
+                  </div>
                 </template>
               </td>
             </tr>
@@ -268,6 +277,70 @@ export default {
     &.top {
       vertical-align: top;
     }
+  }
+}
+table td {
+  text-align: inherit;
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+    // max-width: 83%;
+    // TODO see http://localhost/explore/Human-GEM/interaction-partners/ENSG00000071462?expandedIds=&dataTypes=gene&dataSources=hpaRna.tsv&dataSets=None
+    table-layout: fixed;
+    overflow-wrap: break-word;
+  }
+
+  table caption {
+    font-size: 1.3em;
+  }
+
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: 0.625em;
+  }
+
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 0.8em;
+    min-height: 2.4em;
+  }
+
+  table td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-left: 1px;
+  }
+
+  table td:last-child {
+    border-bottom: 0;
+  }
+  table td .td-content {
+    text-align: right;
+  }
+  .tag,
+  .tagtext {
+    max-width: 100%;
+  }
+
+  .tagtext {
+    overflow: hidden;
   }
 }
 </style>
