@@ -79,6 +79,9 @@ export default {
       ],
     };
   },
+  mounted() {
+    setTimeout(() => document.getElementById('title-ELIXIR').scrollIntoView(), 50);
+  },
 };
 </script>
 
