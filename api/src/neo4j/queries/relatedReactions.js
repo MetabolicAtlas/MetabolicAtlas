@@ -64,7 +64,7 @@ MATCH (:Compartment${m} {id: '${id}'})-[${v}]-(:CompartmentalizedMetabolite)-[${
   }
 
   statement += `
-WITH r.id as rid
+WITH collect (r) as reaction
 `;
 
   if (limit) {
@@ -74,45 +74,40 @@ LIMIT ${limit}
   }
 
   statement += `
-CALL apoc.cypher.run("
-  MATCH (rs:ReactionState)-[${v}]-(:Reaction${m} {id: $rid})
-  RETURN rs { id: $rid, .* } as data
- 
-  UNION
- 
-  MATCH (:Reaction${m} {id: $rid})-[${v}]-(cm:CompartmentalizedMetabolite)
-  WITH DISTINCT cm
+CALL apoc.cypher.mapParallel2("
+  WITH (_) as reaction
+  MATCH (rs:ReactionState)-[${v}]-(:Reaction${m} {id: reaction.id})
+  WITH rs, reaction
+
+  OPTIONAL MATCH (:Reaction${m} {id: reaction.id})-[${v}]-(cm:CompartmentalizedMetabolite)
+  WITH DISTINCT cm, rs, reaction
   MATCH (cm)-[${v}]-(c:Compartment)-[${v}]-(cs:CompartmentState)
   USING JOIN on c
-  RETURN { id: $rid, compartments: COLLECT(DISTINCT(cs {id: c.id, .*})) } as data
- 
-  UNION
- 
-  MATCH (:Reaction${m} {id: $rid})-[${v}]-(s:Subsystem)
-  WITH DISTINCT s
+  WITH rs, reaction, COLLECT(DISTINCT(cs {id: c.id, .*})) as compres
+
+  OPTIONAL MATCH (:Reaction${m} {id: reaction.id})-[${v}]-(s:Subsystem)
+  WITH DISTINCT s, rs, reaction, compres
   MATCH(s)-[${v}]-(ss:SubsystemState)
-  RETURN { id: $rid, subsystems: COLLECT(DISTINCT(ss {id: s.id, .*})) } as data
- 
-  UNION
- 
-  MATCH (:Reaction${m} {id: $rid})-[${v}]-(g:Gene)
-  WITH DISTINCT (g)
-  MATCH (g)-[${v}]-(gs:GeneState)
-  RETURN { id: $rid, genes: COLLECT(DISTINCT(gs {id: g.id, .*})) } as data
- 
-  UNION
- 
-  MATCH (:Reaction${m} {id: $rid})-[cmE${v}]-(cm:CompartmentalizedMetabolite)
-  WITH DISTINCT cm, cmE
-  MATCH (cm)-[${v}]-(c:Compartment)-[${v}]-(cs:CompartmentState)
+  WITH rs, reaction, compres, COLLECT(DISTINCT(ss {id: s.id, .*})) as subres
+
+  OPTIONAL MATCH (:Reaction${m} {id: reaction.id})-[${v}]-(g:Gene)
+  WITH DISTINCT (g), rs, reaction, compres, subres
+  OPTIONAL MATCH (g)-[${v}]-(gs:GeneState)
+  WITH rs, reaction, compres, subres, COLLECT(DISTINCT(gs {id: g.id, .*})) as genres
+
+  OPTIONAL MATCH (:Reaction${m} {id: reaction.id})-[cmE${v}]-(cm:CompartmentalizedMetabolite)
+  WITH DISTINCT cm, cmE, rs, reaction, compres, subres, genres
+  OPTIONAL MATCH (cm)-[${v}]-(c:Compartment)-[${v}]-(cs:CompartmentState)
   USING JOIN on c
+  WITH cm, cmE, c, cs, rs, reaction, compres, subres, genres
   OPTIONAL MATCH (cm)-[${v}]-(:Metabolite)-[${v}]-(ms:MetaboliteState)
-  RETURN { id: $rid, metabolites: COLLECT(DISTINCT(ms {id: cm.id, fullName: COALESCE(ms.name, '') + ' [' + COALESCE(cs.letterCode, '') + ']',  compartmentId: c.id, stoichiometry: cmE.stoichiometry, outgoing: startnode(cmE)=cm, .*})) } as data
-", {rid:rid}) yield value
-RETURN apoc.map.mergeList(apoc.coll.flatten(
-    apoc.map.values(apoc.map.groupByMulti(COLLECT(value.data), "id"), [value.data.id])
+  WITH rs, reaction, compres, subres, genres, COLLECT(DISTINCT(ms {id: cm.id, fullName: COALESCE(ms.name, '') + ' [' + COALESCE(cs.letterCode, '') + ']',  compartmentId: c.id, stoichiometry: cmE.stoichiometry, outgoing: startnode(cmE)=cm, .*})) as metres
+
+  RETURN  rs { id: reaction.id, .*,  compartments: compres, subsystems: subres, genes:genres, metabolites: metres } as data
+",{}, reaction, 50, 60) YIELD value
+RETURN apoc.map.mergeList(apoc.coll.flatten(apoc.map.values(apoc.map.groupByMulti(COLLECT(value.data), "id"), [value.data.id])
 )) as reactions
-  ORDER BY reactions.id
+ORDER BY reactions.id
 `;
 
   return queryListResult(statement);
