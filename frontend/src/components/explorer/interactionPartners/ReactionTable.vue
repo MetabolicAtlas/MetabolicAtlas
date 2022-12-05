@@ -68,7 +68,7 @@
                         :class="[{ hl: isSelected(el.id) }, '']"
                         @click="highlight(el.id)"
                       >
-                        <span class="tagtext">{{ el.name || el.id }}</span>
+                        <span class="tag-text">{{ el.name || el.id }}</span>
                       </span>
                     </template>
                     <!--/span>
@@ -335,11 +335,11 @@ table td {
     text-align: right;
   }
   .tag,
-  .tagtext {
+  .tag-text {
     max-width: 100%;
   }
 
-  .tagtext {
+  .tag-text {
     overflow: hidden;
   }
 }
