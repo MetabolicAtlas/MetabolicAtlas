@@ -284,7 +284,7 @@ table td {
 }
 
 @media screen and (max-width: $tablet) {
-  table {
+  .reaction-table table {
     border: 0;
     // max-width: 83%;
     // TODO see http://localhost/explore/Human-GEM/interaction-partners/ENSG00000071462?expandedIds=&dataTypes=gene&dataSources=hpaRna.tsv&dataSets=None
@@ -292,11 +292,11 @@ table td {
     overflow-wrap: break-word;
   }
 
-  table caption {
+  .reaction-table table caption {
     font-size: 1.3em;
   }
 
-  table thead {
+  .reaction-table table thead {
     border: none;
     clip: rect(0 0 0 0);
     height: 1px;
@@ -307,20 +307,20 @@ table td {
     width: 1px;
   }
 
-  table tr {
+  .reaction-table table tr {
     border-bottom: 3px solid #ddd;
     display: block;
     margin-bottom: 0.625em;
   }
 
-  table td {
+  .reaction-table table td {
     border-bottom: 1px solid #ddd;
     display: block;
     font-size: 0.8em;
     min-height: 2.4em;
   }
 
-  table td::before {
+  .reaction-table table td::before {
     content: attr(data-label);
     float: left;
     font-weight: bold;
@@ -328,10 +328,10 @@ table td {
     padding-left: 1px;
   }
 
-  table td:last-child {
+  .reaction-table table td:last-child {
     border-bottom: 0;
   }
-  table td .td-content {
+  .reaction-table table td .td-content {
     text-align: right;
   }
   .tag,
