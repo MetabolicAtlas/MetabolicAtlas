@@ -47,8 +47,5 @@ export default {
       news,
     };
   },
-  mounted() {
-    document.getElementById('title-News').scrollIntoView();
-  },
 };
 </script>
