@@ -30,8 +30,8 @@
     </div>
     <div class="table-container">
       <table ref="table" class="table is-bordered is-narrow is-fullwidth">
-        <thead class="reaction-thead">
-          <tr class="reaction-tr" style="background: #f8f4f4">
+        <thead>
+          <tr style="background: #f8f4f4">
             <th
               v-for="s in columns"
               :key="s.field"
@@ -45,12 +45,7 @@
         <template v-for="tb in tableBodies" :key="tb.id">
           <tbody :id="tb.id" :ref="tb.id">
             <tr v-for="r in tb.reactions" :key="r.id" class="reaction-tr">
-              <td
-                v-for="(s, index) in columns"
-                :key="s.field"
-                class="reaction-td"
-                :data-label="columns[index].field"
-              >
+              <td v-for="(s, index) in columns" :key="s.field" :data-label="columns[index].field">
                 <template v-if="s.field === 'id'">
                   <div class="td-content">
                     <span
@@ -283,14 +278,12 @@ export default {
 }
 
 @media screen and (max-width: $tablet) {
-  .reaction-table {
-    table {
-      border: 0;
-      table-layout: fixed;
-      overflow-wrap: break-word;
-    }
+  .reaction-table table {
+    border: 0;
+    table-layout: fixed;
+    overflow-wrap: break-word;
 
-    .reaction-thead {
+    thead {
       border: none;
       clip: rect(0 0 0 0);
       height: 1px;
@@ -301,40 +294,42 @@ export default {
       width: 1px;
     }
 
-    .reaction-tr {
+    tr {
       border-bottom: 3px solid #ddd;
       display: block;
       margin-bottom: 0.625em;
-    }
 
-    .reaction-td {
-      border-bottom: 1px solid #ddd;
-      display: block;
-      font-size: 0.8em;
-      min-height: 2.4em;
-    }
+      td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: 0.8em;
+        min-height: 2.4em;
 
-    .reaction-td::before {
-      content: attr(data-label);
-      float: left;
-      font-weight: bold;
-      text-transform: uppercase;
-      padding-left: 1px;
-    }
+        &::before {
+          content: attr(data-label);
+          float: left;
+          font-weight: bold;
+          text-transform: uppercase;
+          padding-left: 1px;
+        }
 
-    .reaction-td:last-child {
-      border-bottom: 0;
-    }
-    .td-content {
-      text-align: right;
-    }
-    .tag,
-    .tag-text {
-      max-width: 100%;
-    }
+        &:last-child {
+          border-bottom: 0;
+        }
 
-    .tag-text {
-      overflow: hidden;
+        .td-content {
+          text-align: right;
+        }
+
+        .tag,
+        .tag-text {
+          max-width: 100%;
+        }
+
+        .tag-text {
+          overflow: hidden;
+        }
+      }
     }
   }
 }
