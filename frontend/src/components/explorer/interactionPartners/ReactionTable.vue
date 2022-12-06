@@ -30,8 +30,8 @@
     </div>
     <div class="table-container">
       <table ref="table" class="table is-bordered is-narrow is-fullwidth">
-        <thead>
-          <tr style="background: #f8f4f4">
+        <thead class="reaction-thead">
+          <tr class="reaction-tr" style="background: #f8f4f4">
             <th
               v-for="s in columns"
               :key="s.field"
@@ -44,8 +44,13 @@
         </thead>
         <template v-for="tb in tableBodies" :key="tb.id">
           <tbody :id="tb.id" :ref="tb.id">
-            <tr v-for="r in tb.reactions" :key="r.id">
-              <td v-for="(s, index) in columns" :key="s.field" :data-label="columns[index].field">
+            <tr v-for="r in tb.reactions" :key="r.id" class="reaction-tr">
+              <td
+                v-for="(s, index) in columns"
+                :key="s.field"
+                class="reaction-td"
+                :data-label="columns[index].field"
+              >
                 <template v-if="s.field === 'id'">
                   <div class="td-content">
                     <span
@@ -59,7 +64,6 @@
                 </template>
                 <template v-else-if="['reactants', 'products', 'genes'].includes(s.field)">
                   <div class="td-content">
-                    <!--span v-if="r[s.field].length"-->
                     <template v-for="el in r[s.field]">
                       <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
                       <span
@@ -71,8 +75,6 @@
                         <span class="tag-text">{{ el.name || el.id }}</span>
                       </span>
                     </template>
-                    <!--/span>
-                    <span v-else>-</span-->
                   </div>
                 </template>
                 <template v-else>
@@ -264,7 +266,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .reaction-table {
   #unmatchingTableBody {
     opacity: 0.3;
@@ -279,68 +281,61 @@ export default {
     }
   }
 }
-table td {
-  text-align: inherit;
-}
 
 @media screen and (max-width: $tablet) {
-  .reaction-table table {
-    border: 0;
-    // max-width: 83%;
-    // TODO see http://localhost/explore/Human-GEM/interaction-partners/ENSG00000071462?expandedIds=&dataTypes=gene&dataSources=hpaRna.tsv&dataSets=None
-    table-layout: fixed;
-    overflow-wrap: break-word;
-  }
+  .reaction-table {
+    table {
+      border: 0;
+      table-layout: fixed;
+      overflow-wrap: break-word;
+    }
 
-  .reaction-table table caption {
-    font-size: 1.3em;
-  }
+    .reaction-thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
 
-  .reaction-table table thead {
-    border: none;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-  }
+    .reaction-tr {
+      border-bottom: 3px solid #ddd;
+      display: block;
+      margin-bottom: 0.625em;
+    }
 
-  .reaction-table table tr {
-    border-bottom: 3px solid #ddd;
-    display: block;
-    margin-bottom: 0.625em;
-  }
+    .reaction-td {
+      border-bottom: 1px solid #ddd;
+      display: block;
+      font-size: 0.8em;
+      min-height: 2.4em;
+    }
 
-  .reaction-table table td {
-    border-bottom: 1px solid #ddd;
-    display: block;
-    font-size: 0.8em;
-    min-height: 2.4em;
-  }
+    .reaction-td::before {
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+      text-transform: uppercase;
+      padding-left: 1px;
+    }
 
-  .reaction-table table td::before {
-    content: attr(data-label);
-    float: left;
-    font-weight: bold;
-    text-transform: uppercase;
-    padding-left: 1px;
-  }
+    .reaction-td:last-child {
+      border-bottom: 0;
+    }
+    .td-content {
+      text-align: right;
+    }
+    .tag,
+    .tag-text {
+      max-width: 100%;
+    }
 
-  .reaction-table table td:last-child {
-    border-bottom: 0;
-  }
-  .reaction-table table td .td-content {
-    text-align: right;
-  }
-  .tag,
-  .tag-text {
-    max-width: 100%;
-  }
-
-  .tag-text {
-    overflow: hidden;
+    .tag-text {
+      overflow: hidden;
+    }
   }
 }
 </style>
