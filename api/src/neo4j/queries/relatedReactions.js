@@ -63,13 +63,13 @@ MATCH (:Compartment${m} {id: '${id}'})-[${v}]-(:CompartmentalizedMetabolite)-[${
       throw new Error(`Unrecognized node type: ${nodeType}`);
   }
 
-  statement += `
-WITH collect (r) as reaction
-`;
-
   if (limit) {
     statement += `
-LIMIT ${limit}
+WITH collect (r)[..${limit}] as reaction
+`;
+  } else {
+    statement += `
+WITH collect (r) as reaction
 `;
   }
 
