@@ -47,7 +47,6 @@ export default {
       news,
     };
   },
-  // Implemented since this section does not have a subsection anchor to use in MetabolicAtlas/frontend/src/content/about.js
   mounted() {
     document.getElementById('title-News').scrollIntoView();
   },

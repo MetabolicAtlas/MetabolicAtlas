@@ -79,7 +79,6 @@ export default {
       ],
     };
   },
-  // Implemented since this section does not have a subsection anchor to use in MetabolicAtlas/frontend/src/content/about.js
   mounted() {
     setTimeout(() => document.getElementById('title-ELIXIR').scrollIntoView(), 50);
   },
