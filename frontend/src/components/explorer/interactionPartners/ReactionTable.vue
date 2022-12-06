@@ -283,7 +283,7 @@ table td {
   text-align: inherit;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: $tablet) {
   table {
     border: 0;
     // max-width: 83%;
