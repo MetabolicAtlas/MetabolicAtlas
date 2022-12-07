@@ -295,12 +295,11 @@ export default {
     }
 
     tr {
-      border-bottom: 3px solid #ddd;
       display: block;
       margin-bottom: 0.625em;
 
       td {
-        border-bottom: 1px solid #ddd;
+        border-bottom-width: 0;
         display: block;
         font-size: 0.8em;
         min-height: 2.4em;
@@ -314,7 +313,7 @@ export default {
         }
 
         &:last-child {
-          border-bottom: 0;
+          border-bottom-width: 1px;
         }
 
         .td-content {
