@@ -86,8 +86,10 @@ export default {
     }),
   },
   watch: {
-    async currentMap() {
-      await this.loadNetwork();
+    async currentMap(newM, oldM) {
+      if (newM.id !== oldM.id) {
+        await this.loadNetwork();
+      }
     },
     dataOverlayPanelVisible() {
       // this is needed by the 3D viewer to update its size
