@@ -113,21 +113,32 @@ const routes = [
   { path: '/:pathMatch(.*)*', name: 'fourOfour', component: FourOFour },
 ];
 
+const mobile = () => window.innerWidth < 660;
+
+const firstSection = id => getComputedStyle(document.getElementById(id)).marginTop === '0px';
+
+const scrollAnchor = to => {
+  if (firstSection(to.hash.split('#')[1]) && to.name !== 'gotenzymes') {
+    return { el: to.hash, top: mobile() ? 10 : 40 };
+  }
+  return { el: to.hash };
+};
+
 const scrollTop = to => {
-  if (window.innerWidth < 660 && to.name !== 'gotenzymes') {
+  if (mobile() && to.name !== 'gotenzymes') {
     const toc = document.getElementById('table-of-contents');
     if (toc) {
-      return toc.getBoundingClientRect().bottom + document.documentElement.scrollTop;
+      return { top: toc.getBoundingClientRect().bottom + document.documentElement.scrollTop };
     }
   }
-  return 0;
+  return { top: 0 };
 };
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
   scrollBehavior(to) {
-    return to.hash ? { el: to.hash } : { top: scrollTop(to) };
+    return to.hash ? scrollAnchor(to) : scrollTop(to);
   },
 });
 
