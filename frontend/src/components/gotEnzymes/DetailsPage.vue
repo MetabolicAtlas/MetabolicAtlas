@@ -1,7 +1,25 @@
 <template>
   <div class="section extended-section">
     <div class="container is-fullhd">
-      <div>
+      <div v-if="notFound" class="columns is-centered">
+        <div
+          class="column has-text-centered is-three-fifths-desktop is-three-quarters-tablet is-fullwidth-mobile"
+        >
+          <div class="box has-background-light content">
+            <p class="title is-size-5">
+              <span class="is-capitalized">{{ componentType }}</span>
+              <code class="code">{{ componentId }}</code>
+              not found.
+            </p>
+            <p>
+              <span class="is-block">
+                Probably there is a typo in the {{ type }} identifier in the URL.
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div v-else>
         <h3 class="title is-3">{{ componentType }} {{ componentId }}</h3>
         <loader v-if="showLoaderMessage" :message="showLoaderMessage" class="columns" />
         <template v-else-if="!notFound">
