@@ -304,7 +304,7 @@ export default {
       }
       td {
         &:last-child {
-          border-bottom-width: 1px;
+          border-bottom-width: 3px;
         }
         border-bottom-width: 0;
         display: block;
