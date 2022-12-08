@@ -86,8 +86,10 @@ export default {
     }),
   },
   watch: {
-    async currentMap() {
-      await this.loadNetwork();
+    async currentMap(newM, oldM) {
+      if (newM.id !== oldM.id) {
+        await this.loadNetwork();
+      }
     },
     dataOverlayPanelVisible() {
       // this is needed by the 3D viewer to update its size
@@ -116,8 +118,8 @@ export default {
         id: this.currentMap.id,
       };
       await this.$store.dispatch('maps/get3DMapNetwork', payload);
-      this.$store.dispatch('maps/setLoading', false);
       await this.applyColorsAndRenderNetwork({});
+      this.$store.dispatch('maps/setLoading', false);
       // controller.filterBy({group: 'm'});
       // controller.filterBy({id: [1, 2, 3, 4]});
       // Subscribe to node selection events
