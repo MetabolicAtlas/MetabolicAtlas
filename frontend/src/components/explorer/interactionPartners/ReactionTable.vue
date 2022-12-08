@@ -298,7 +298,14 @@ export default {
       display: block;
       margin-bottom: 0.625em;
 
+      /* override bulma's is-bordered */
+      &:last-child td {
+        border-bottom-width: 0;
+      }
       td {
+        &:last-child {
+          border-bottom-width: 1px;
+        }
         border-bottom-width: 0;
         display: block;
         font-size: 0.8em;
@@ -310,10 +317,6 @@ export default {
           font-weight: bold;
           text-transform: uppercase;
           padding-left: 1px;
-        }
-
-        &:last-child {
-          border-bottom-width: 1px;
         }
 
         .td-content {
