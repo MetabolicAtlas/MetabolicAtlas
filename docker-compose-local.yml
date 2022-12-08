@@ -27,6 +27,7 @@ services:
       - ./frontend/package.json:/project/package.json
       - ./frontend/index.html:/project/index.html
       - ./frontend/stats.html:/project/stats.html
+      - ./frontend/yarn.lock:/project/yarn.lock
     networks:
       - nginx-network
 
