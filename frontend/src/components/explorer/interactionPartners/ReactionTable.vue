@@ -44,35 +44,41 @@
         </thead>
         <template v-for="tb in tableBodies" :key="tb.id">
           <tbody :id="tb.id" :ref="tb.id">
-            <tr v-for="r in tb.reactions" :key="r.id">
-              <td v-for="s in columns" :key="s.field">
+            <tr v-for="r in tb.reactions" :key="r.id" class="reaction-tr">
+              <td v-for="(s, index) in columns" :key="s.field" :data-label="columns[index].field">
                 <template v-if="s.field === 'id'">
-                  <span
-                    class="tag is-rounded"
-                    :class="[{ hl: isSelected(r.id) }, '']"
-                    @click="HLreaction(r.id)"
-                  >
-                    <span class="is-size-6">{{ r.id }}</span>
-                  </span>
+                  <div class="td-content">
+                    <span
+                      class="tag is-rounded"
+                      :class="[{ hl: isSelected(r.id) }, '']"
+                      @click="HLreaction(r.id)"
+                    >
+                      <span class="is-size-6">{{ r.id }}</span>
+                    </span>
+                  </div>
                 </template>
                 <template v-else-if="['reactants', 'products', 'genes'].includes(s.field)">
-                  <template v-for="el in r[s.field]">
-                    <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
-                    <span
-                      class="tag is-rounded is-medium"
-                      :title="el.id"
-                      :class="[{ hl: isSelected(el.id) }, '']"
-                      @click="highlight(el.id)"
-                    >
-                      <span class="">{{ el.name || el.id }}</span>
-                    </span>
-                  </template>
+                  <div class="td-content">
+                    <template v-for="el in r[s.field]">
+                      <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
+                      <span
+                        class="tag is-rounded is-medium"
+                        :title="el.id"
+                        :class="[{ hl: isSelected(el.id) }, '']"
+                        @click="highlight(el.id)"
+                      >
+                        <span class="tag-text">{{ el.name || el.id }}</span>
+                      </span>
+                    </template>
+                  </div>
                 </template>
                 <template v-else>
-                  <compartment-links
-                    :compartment-string="r.compartment"
-                    :is-reversible="r.reversible"
-                  />
+                  <div class="td-content">
+                    <compartment-links
+                      :compartment-string="r.compartment"
+                      :is-reversible="r.reversible"
+                    />
+                  </div>
                 </template>
               </td>
             </tr>
@@ -255,7 +261,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .reaction-table {
   #unmatchingTableBody {
     opacity: 0.3;
@@ -267,6 +273,65 @@ export default {
 
     &.top {
       vertical-align: top;
+    }
+  }
+}
+
+@media screen and (max-width: $tablet) {
+  .reaction-table table {
+    border: 0;
+    table-layout: fixed;
+    overflow-wrap: break-word;
+
+    thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+
+    tr {
+      display: block;
+      margin-bottom: 0.625em;
+
+      /* override bulma's is-bordered */
+      &:last-child td {
+        border-bottom-width: 0;
+      }
+      td {
+        &:last-child {
+          border-bottom-width: 3px;
+        }
+        border-bottom-width: 0;
+        display: block;
+        font-size: 0.8em;
+        min-height: 2.4em;
+
+        &::before {
+          content: attr(data-label);
+          float: left;
+          font-weight: bold;
+          text-transform: uppercase;
+          padding-left: 1px;
+        }
+
+        .td-content {
+          text-align: right;
+        }
+
+        .tag,
+        .tag-text {
+          max-width: 100%;
+        }
+
+        .tag-text {
+          overflow: hidden;
+        }
+      }
     }
   }
 }
