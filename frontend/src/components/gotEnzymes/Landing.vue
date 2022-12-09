@@ -218,7 +218,7 @@ export default {
       citations: [
         {
           ...allCitations.filter(x => x.id === 'citation-v3')[0],
-          header: '',
+          version: '',
           text: 'To cite this resource, please use:',
           noWidgets: true,
         },

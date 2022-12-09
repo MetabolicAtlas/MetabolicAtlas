@@ -54,7 +54,7 @@
         you use any of the GEMs, please also cite the corresponding publication.
       </p>
 
-      <template v-for="citation in citations" :key="citation.id">
+      <template v-for="citation in updatedCitations()" :key="citation.id">
         <citation :entry="citation" />
       </template>
 
@@ -403,6 +403,12 @@ export default {
       ],
       citations,
     };
+  },
+  methods: {
+    updatedCitations() {
+      this.citations[0].intro = 'Please cite: ';
+      return this.citations;
+    },
   },
 };
 </script>

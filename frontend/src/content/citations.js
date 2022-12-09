@@ -3,7 +3,7 @@ import { getImageUrl } from '@/helpers/utils';
 export default [
   {
     id: 'citation-v3',
-    header: 'Please cite: Version 3',
+    version: 'Version 3',
     text: 'The third major version of <i>Metabolic Atlas</i> introduces GotEnzymes, a database for predicted enzyme parameters. To cite this version, or the latest version of Metabolic Atlas, please use:',
     authors: 'Li F, Chen Y, Anton M, Nielsen J.',
     title: 'GotEnzymes: an extensive database of enzyme parameter predictions.',
@@ -16,7 +16,7 @@ export default [
   },
   {
     id: 'citation-v2',
-    header: 'Version 2',
+    version: 'Version 2',
     text: 'Version 2.0 of the <i>Metabolic Atlas</i> was published in 2021 together with a PNAS publication. To cite this version, or any of the animal GEMs, please use the publication below:',
     authors:
       'Wang H, Robinson JL, Kocabas P, Gustafsson J, Anton M, Cholley PE, Huang S, Gobom J, Svensson T, Uhlén M, Zetterberg H, Nielsen J.',
@@ -30,7 +30,7 @@ export default [
   },
   {
     id: 'citation-v1',
-    header: 'Version 1',
+    version: 'Version 1',
     text: 'After its re-launch, <i>Metabolic Atlas</i> was first made publicly available in 2019. Its strong ties with <i>Human-GEM</i> constituted the basis for the associated publication in <i>Science Signaling</i>. If you use <i>Human-GEM</i> in your work, or want to refer to <i>Metabolic Atlas</i> version 1, please cite:',
     authors:
       'Robinson JL, Kocabas P, Wang H, Cholley PE, Cook D, Nilsson A, Anton M, Ferreira R, Domenzain I, Billa V, Limeta A, Hedin A, Gustafsson J, Kerkhoven EJ, Svensson LT, Palsson BO, Mardinoglu A, Hansson L, Uhlén M, Nielsen J.',
@@ -43,7 +43,7 @@ export default [
   },
   {
     id: 'citation-launch',
-    header: 'First launch',
+    version: 'First launch',
     text: 'Initially called <i>Human Metabolic Atlas</i>, the first publication that was cited for this project dates from 2015:',
     authors: 'Pornputtapong N, Nookaew I, Nielsen J.',
     title: 'Human metabolic atlas: an online resource for human metabolism.',

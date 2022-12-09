@@ -58,9 +58,9 @@
                 <b>Metabolic Atlas</b>
                 are associated with scientific articles as follows.
               </p>
-              <div v-for="c in citations" :key="c.version" class="box">
+              <div v-for="c in citations" :key="c.lowerVersion" class="box">
                 <p>
-                  From version {{ c.version }}:
+                  From {{ c.lowerVersion }}:
                   <a :href="c.link" target="_blank" rel="noopener noreferrer">
                     {{ c.shortAuthor }}, et al, {{ c.year }}.
                     <i>{{ c.title }}</i>
@@ -196,15 +196,15 @@ export default {
         icon: 'newspaper-o',
       },
       citations: citations
-        .filter(({ header }) => header.includes('Version'))
-        .map(({ header, authors, title, journal, doi }) => {
-          const version = header.match(/Version (\d+)/)[1];
+        .filter(({ version }) => version.startsWith('Version'))
+        .map(({ version, authors, title, journal, doi }) => {
+          const lowerVersion = version.toLowerCase();
           const shortAuthor = authors.match(/^(\w+ \w)\w?,/)[1];
           const [, publication, year, id] = journal.match(/^(.+) \((\d+)\):? (\w+)$/);
           const link = doiref(doi);
 
           return {
-            version,
+            lowerVersion,
             shortAuthor,
             year,
             title,
