@@ -15,7 +15,7 @@
         <p>
           <b>{{ entry.title }}</b>
           <span class="is-block"
-            ><i>{{ entry.journal }}</i></span
+            ><i>{{ entry.journal }} ({{ entry.year }}): {{ entry.journalId }} </i></span
           >
         </p>
         <p>

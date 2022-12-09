@@ -64,7 +64,7 @@
                   <a :href="c.link" target="_blank" rel="noopener noreferrer">
                     {{ c.shortAuthor }}, et al, {{ c.year }}.
                     <i>{{ c.title }}</i>
-                    {{ c.publication }}, {{ c.id }}
+                    {{ c.journal }}, {{ c.journalId }}
                   </a>
                 </p>
               </div>
@@ -197,10 +197,9 @@ export default {
       },
       citations: citations
         .filter(({ version }) => version.startsWith('Version'))
-        .map(({ version, authors, title, journal, doi }) => {
+        .map(({ version, authors, title, journal, journalId, doi, year }) => {
           const lowerVersion = version.toLowerCase();
           const shortAuthor = authors.match(/^(\w+ \w)\w?,/)[1];
-          const [, publication, year, id] = journal.match(/^(.+) \((\d+)\):? (\w+)$/);
           const link = doiref(doi);
 
           return {
@@ -208,8 +207,8 @@ export default {
             shortAuthor,
             year,
             title,
-            publication,
-            id,
+            journal,
+            journalId,
             link,
           };
         }),
