@@ -182,7 +182,7 @@
 import { default as citations } from '@/content/citations';
 import { default as messages } from '@/content/messages';
 import { default as newsItems } from '@/content/news';
-import { getImageUrl } from '@/helpers/utils';
+import { getImageUrl, doiref } from '@/helpers/utils';
 
 export default {
   name: 'Home',
@@ -201,7 +201,7 @@ export default {
           const version = header.match(/Version (\d+)/)[1];
           const shortAuthor = authors.match(/^(\w+ \w)\w?,/)[1];
           const [, publication, year, id] = journal.match(/^(.+) \((\d+)\):? (\w+)$/);
-          const link = `https://doi.org/${doi}`;
+          const link = doiref(doi);
 
           return {
             version,

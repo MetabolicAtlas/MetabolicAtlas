@@ -20,7 +20,7 @@
           PubMed:
           <a :href="pmidref()" target="_blank" rel="noopener noreferrer">{{ entry.pmid }}</a>
           DOI:
-          <a :href="doiref()" target="_blank" rel="noopener noreferrer">
+          <a :href="doiref(entry.doi)" target="_blank" rel="noopener noreferrer">
             {{ entry.doi }}
           </a>
         </p>
@@ -59,8 +59,15 @@
 </template>
 
 <script>
+import { doiref } from '@/helpers/utils';
+
 export default {
   name: 'Citation',
+  data() {
+    return {
+      doiref,
+    };
+  },
   props: {
     entry: {
       type: Object,
@@ -69,9 +76,6 @@ export default {
   methods: {
     plumxref() {
       return `https://plu.mx/plum/a/?doi=${encodeURI(this.entry.doi)}`;
-    },
-    doiref() {
-      return `https://doi.org/${encodeURI(this.entry.doi)}`;
     },
     pmidref() {
       return `https://pubmed.ncbi.nlm.nih.gov/${encodeURI(this.entry.pmid)}`;
