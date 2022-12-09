@@ -114,8 +114,10 @@ export default {
     }),
   },
   watch: {
-    async mapData() {
-      await this.init();
+    async mapData(newM, oldM) {
+      if (newM.id !== oldM.id) {
+        await this.init();
+      }
     },
     componentClassName() {
       this.setupHoverEventHandlers();
