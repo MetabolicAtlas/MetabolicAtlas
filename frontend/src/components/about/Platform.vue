@@ -48,7 +48,7 @@
         >.
       </p>
 
-      <h3 id="citation" class="title is-3 pt-6">Citation</h3>
+      <h3 id="citation" class="title is-3 mt-6">Citation</h3>
       <p>
         If you use Metabolic Atlas in your work, please cite our latest publication. In addition, if
         you use any of the GEMs, please also cite the corresponding publication.
@@ -58,7 +58,7 @@
         <citation :entry="citation" />
       </template>
 
-      <h4 class="title is-4 pt-6">Research-driven features</h4>
+      <h4 class="title is-4 mt-6">Research-driven features</h4>
       <p>
         In 2022, reaction presence data was added to <i>Metabolic Atlas</i> and can be used as data
         overlay in the <i>Map Viewer</i>. The work is based on this publication:
@@ -100,7 +100,7 @@
         </a>
       </p>
 
-      <h3 id="advisory-board" class="title is-3 pt-6">Advisory board</h3>
+      <h3 id="advisory-board" class="title is-3 mt-6">Advisory board</h3>
 
       <div class="columns is-multiline has-text-left">
         <div
@@ -158,7 +158,7 @@
         </div>
       </div>
 
-      <h3 id="development" class="title is-3 pt-6">Development team</h3>
+      <h3 id="development" class="title is-3 mt-6">Development team</h3>
 
       <div v-for="group in team" :key="group.name">
         <h3 class="title is-4">{{ group.name }}</h3>
@@ -229,7 +229,7 @@
         >.
       </p>
 
-      <h3 id="contact-us" class="title is-3 pt-6">Contact us</h3>
+      <h3 id="contact-us" class="title is-3 mt-6">Contact us</h3>
 
       <p>
         For any questions, comments or suggestions, or if you find any bugs or vulnerabilities
