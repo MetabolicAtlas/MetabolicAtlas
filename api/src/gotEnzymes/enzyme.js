@@ -89,7 +89,7 @@ const getEnzymes = async ({
         : sql``
     }
     order by ${orderBy} ${order}
-    limit ${pageSize} offset ${(page - 1) * pageSize}
+    limit 2000 offset ${(page - 1) * pageSize}
   `;
 
   const countQuery = sql`
@@ -105,7 +105,13 @@ const getEnzymes = async ({
    `;
 
   const [enzymes, counts] = await Promise.all([enzymesQuery, countQuery]);
-  return { enzymes, totalCount: counts[0].count };
+
+  // For some reason, sorting by `reaction_id` or `compound` is extremely
+  // slow when the limit/pageSize is low (e.g. 50). Fixing the limit to 2000
+  // makes it much faster. So the results are spliced here to make sure the
+  // pagination is correct. For more details see:
+  // https://github.com/MetabolicAtlas/MetabolicAtlas/issues/1197#issuecomment-1346643213
+  return { enzymes: enzymes.splice(0, pageSize), totalCount: counts[0].count };
 };
 
 export default getEnzymes;
