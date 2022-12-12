@@ -89,7 +89,7 @@ const getEnzymes = async ({
         : sql``
     }
     order by ${orderBy} ${order}
-    limit 2000 offset ${(page - 1) * pageSize}
+    limit ${pageSize > 2000 ? pageSize : 2000} offset ${(page - 1) * pageSize}
   `;
 
   const countQuery = sql`
