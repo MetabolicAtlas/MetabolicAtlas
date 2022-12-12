@@ -1,5 +1,6 @@
 <template>
   <div id="enzymes-table">
+    <ErrorPanel :message="errorMessage" :hide-error-panel="hideErrorMessage" />
     <div class="field columns">
       <div class="column"></div>
       <div class="column is-narrow">
@@ -69,6 +70,8 @@ import { VueGoodTable } from 'vue-good-table-next';
 import Loader from '@/components/Loader.vue';
 import ExportTSV from '@/components/shared/ExportTSV.vue';
 import RangeFilter from '@/components/shared/RangeFilter.vue';
+import ErrorPanel from '@/components/shared/ErrorPanel.vue';
+import { default as messages } from '@/content/messages';
 
 export default {
   name: 'EnzymesTable',
@@ -77,6 +80,7 @@ export default {
     ExportTSV,
     RangeFilter,
     Loader,
+    ErrorPanel,
   },
   props: {
     initialFilter: { type: Object, default: () => {} },
@@ -85,6 +89,7 @@ export default {
   },
   data() {
     return {
+      errorMessage: '',
       linkableFields: ['compound', 'domain', 'ec_number', 'gene', 'organism', 'reaction_id'],
       showEnzymesLoader: true,
       columns: [
@@ -174,7 +179,11 @@ export default {
         },
       };
 
-      await this.$store.dispatch('gotEnzymes/getEnzymes', this.serverPaginationOptions);
+      try {
+        await this.$store.dispatch('gotEnzymes/getEnzymes', this.serverPaginationOptions);
+      } catch {
+        this.errorMessage = messages.unknownError;
+      }
       this.showEnzymesLoader = false;
     },
     async onPageChange({ currentPage }) {
@@ -187,7 +196,11 @@ export default {
         },
       };
 
-      await this.$store.dispatch('gotEnzymes/getEnzymes', this.serverPaginationOptions);
+      try {
+        await this.$store.dispatch('gotEnzymes/getEnzymes', this.serverPaginationOptions);
+      } catch {
+        this.errorMessage = messages.unknownError;
+      }
       this.showEnzymesLoader = false;
     },
     async onSortChange([{ field, type }]) {
@@ -201,7 +214,11 @@ export default {
         },
       };
 
-      await this.$store.dispatch('gotEnzymes/getEnzymes', this.serverPaginationOptions);
+      try {
+        await this.$store.dispatch('gotEnzymes/getEnzymes', this.serverPaginationOptions);
+      } catch {
+        this.errorMessage = messages.unknownError;
+      }
       this.showEnzymesLoader = false;
     },
     async onColumnFilter({ columnFilters }) {
@@ -214,7 +231,11 @@ export default {
         },
       };
 
-      await this.$store.dispatch('gotEnzymes/getEnzymes', this.serverPaginationOptions);
+      try {
+        await this.$store.dispatch('gotEnzymes/getEnzymes', this.serverPaginationOptions);
+      } catch {
+        this.errorMessage = messages.unknownError;
+      }
       this.showEnzymesLoader = false;
     },
     formatToTSV() {
@@ -229,6 +250,9 @@ export default {
         })
         .join('\n');
       return tsvContent;
+    },
+    hideErrorMessage() {
+      this.errorMessage = '';
     },
     async handleRangeFilterUpdate({ field, remove, ...payload }) {
       // payload can look like { min: 0, max: 1 }
