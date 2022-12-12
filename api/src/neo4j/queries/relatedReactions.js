@@ -63,15 +63,7 @@ MATCH (:Compartment${m} {id: '${id}'})-[${v}]-(:CompartmentalizedMetabolite)-[${
       throw new Error(`Unrecognized node type: ${nodeType}`);
   }
 
-  if (limit) {
-    statement += `
-WITH collect (r)[..${limit}] as reaction
-`;
-  } else {
-    statement += `
-WITH collect (r) as reaction
-`;
-  }
+  statement += `WITH collect (r) as reaction`;
 
   statement += `
 CALL apoc.cypher.mapParallel2("
@@ -109,6 +101,10 @@ RETURN apoc.map.mergeList(apoc.coll.flatten(apoc.map.values(apoc.map.groupByMult
 )) as reactions
 ORDER BY reactions.id
 `;
+
+  if (limit) {
+    statement += `LIMIT ${limit}`;
+  }
 
   return queryListResult(statement);
 };
