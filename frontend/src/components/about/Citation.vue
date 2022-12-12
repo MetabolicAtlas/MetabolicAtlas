@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h4 v-if="entry.header" :id="entry.id" class="title is-5 pt-6">{{ entry.header }}</h4>
+    <h4 v-if="entry.version" :id="entry.id" class="title is-5 pt-6">
+      {{ entry.intro }}{{ entry.version }}
+    </h4>
     <p v-html="entry.text"></p>
     <div class="columns is-mobile">
       <div class="column is-2">
@@ -13,14 +15,14 @@
         <p>
           <b>{{ entry.title }}</b>
           <span class="is-block"
-            ><i>{{ entry.journal }}</i></span
+            ><i>{{ entry.journal }} ({{ entry.year }}): {{ entry.journalId }} </i></span
           >
         </p>
         <p>
           PubMed:
           <a :href="pmidref()" target="_blank" rel="noopener noreferrer">{{ entry.pmid }}</a>
           DOI:
-          <a :href="doiref()" target="_blank" rel="noopener noreferrer">
+          <a :href="doiref(entry.doi)" target="_blank" rel="noopener noreferrer">
             {{ entry.doi }}
           </a>
         </p>
@@ -59,8 +61,15 @@
 </template>
 
 <script>
+import { doiref } from '@/helpers/utils';
+
 export default {
   name: 'Citation',
+  data() {
+    return {
+      doiref,
+    };
+  },
   props: {
     entry: {
       type: Object,
@@ -69,9 +78,6 @@ export default {
   methods: {
     plumxref() {
       return `https://plu.mx/plum/a/?doi=${encodeURI(this.entry.doi)}`;
-    },
-    doiref() {
-      return `https://doi.org/${encodeURI(this.entry.doi)}`;
     },
     pmidref() {
       return `https://pubmed.ncbi.nlm.nih.gov/${encodeURI(this.entry.pmid)}`;

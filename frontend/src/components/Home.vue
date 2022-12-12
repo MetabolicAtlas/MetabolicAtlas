@@ -58,46 +58,13 @@
                 <b>Metabolic Atlas</b>
                 are associated with scientific articles as follows.
               </p>
-              <div class="box">
+              <div v-for="c in citations" :key="c.lowerVersion" class="box">
                 <p>
-                  From version 3:
-                  <a
-                    href="https://doi.org/10.1093/nar/gkac831"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Li, F., et al, 2022.
-                    <i>GotEnzymes: an extensive database of enzyme parameter predictions</i>
-                    . NAR, gkac831
-                  </a>
-                </p>
-              </div>
-              <div class="box">
-                <p>
-                  From version 2:
-                  <a
-                    href="https://doi.org/10.1073/pnas.2102344118"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Wang, H., et al, 2021.
-                    <i>
-                      Genome-scale metabolic network reconstruction of model animals as a platform
-                      for translational research</i
-                    >. PNAS 118, e2102344118
-                  </a>
-                </p>
-              </div>
-              <div class="box">
-                <p>
-                  From version 1:
-                  <a
-                    href="https://doi.org/10.1126/scisignal.aaz1482"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Robinson, J., et al, 2020.
-                    <i>An atlas of human metabolism</i>. Sci. Signal. 13, eaaz1482
+                  From {{ c.lowerVersion }}:
+                  <a :href="c.link" target="_blank" rel="noopener noreferrer">
+                    {{ c.shortAuthor }}, et al, {{ c.year }}.
+                    <i>{{ c.title }}</i>
+                    {{ c.journal }}, {{ c.journalId }}
                   </a>
                 </p>
               </div>
@@ -212,9 +179,10 @@
 </template>
 
 <script>
+import { default as citations } from '@/content/citations';
 import { default as messages } from '@/content/messages';
 import { default as newsItems } from '@/content/news';
-import { getImageUrl } from '@/helpers/utils';
+import { getImageUrl, doiref } from '@/helpers/utils';
 
 export default {
   name: 'Home',
@@ -227,6 +195,23 @@ export default {
         route: { name: 'about-news', hash: '#News' },
         icon: 'newspaper-o',
       },
+      citations: citations
+        .filter(({ version }) => version.startsWith('Version'))
+        .map(({ version, authors, title, journal, journalId, doi, year }) => {
+          const lowerVersion = version.toLowerCase();
+          const shortAuthor = authors.match(/^(\w+ \w)\w?,/)[1];
+          const link = doiref(doi);
+
+          return {
+            lowerVersion,
+            shortAuthor,
+            year,
+            title,
+            journal,
+            journalId,
+            link,
+          };
+        }),
       tools: [
         {
           title: messages.gemBrowserName,

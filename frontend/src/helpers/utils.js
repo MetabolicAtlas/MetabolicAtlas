@@ -231,3 +231,5 @@ export const combineWords = ({ items, itemType }) => {
 };
 
 export const getImageUrl = (name, extension = 'jpg') => `/assets/${name}.${extension}`;
+
+export const doiref = doi => `https://doi.org/${encodeURI(doi)}`;

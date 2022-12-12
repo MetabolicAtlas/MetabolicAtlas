@@ -182,7 +182,7 @@ import SearchHighlighter from '@/components/shared/SearchHighlighter.vue';
 import TableOfContents from '@/components/shared/TableOfContents.vue';
 import { default as messages } from '@/content/messages';
 import Citation from '@/components/about/Citation.vue';
-import { getImageUrl } from '@/helpers/utils';
+import { default as allCitations } from '@/content/citations';
 import ErrorPanel from '@/components/shared/ErrorPanel.vue';
 
 export default {
@@ -221,17 +221,9 @@ export default {
       ],
       citations: [
         {
-          id: 'citation-v3',
-          header: '',
+          ...allCitations.filter(x => x.id === 'citation-v3')[0],
+          version: '',
           text: 'To cite this resource, please use:',
-          authors: 'Li F, Chen Y, Anton M, Nielsen J.',
-          title: 'GotEnzymes: an extensive database of enzyme parameter predictions.',
-          journal: 'NAR (2022) gkac831',
-          journalLink:
-            'https://academic.oup.com/nar/search-results?f_TocHeadingTitle=Database+Issue&sort=Date+%e2%80%93+Newest+First',
-          pmid: '36169223',
-          doi: '10.1093/nar/gkac831',
-          img: getImageUrl('journals/nar-cover', 'gif'),
           noWidgets: true,
         },
       ],
