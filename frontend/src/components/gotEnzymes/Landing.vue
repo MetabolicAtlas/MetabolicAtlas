@@ -6,6 +6,7 @@
         <p class="is-size-5">We've got the enzymes you need</p>
       </div>
     </section>
+    <ErrorPanel :message="errorMessage" :hide-error-panel="hideErrorMessage" />
     <div class="section container is-fullhd">
       <div class="columns is-centered pt-6">
         <div
@@ -182,6 +183,7 @@ import TableOfContents from '@/components/shared/TableOfContents.vue';
 import { default as messages } from '@/content/messages';
 import Citation from '@/components/about/Citation.vue';
 import { default as allCitations } from '@/content/citations';
+import ErrorPanel from '@/components/shared/ErrorPanel.vue';
 
 export default {
   name: 'EnzymeLanding',
@@ -189,9 +191,11 @@ export default {
     SearchHighlighter,
     TableOfContents,
     Citation,
+    ErrorPanel,
   },
   data() {
     return {
+      errorMessage: '',
       searchTerm: '',
       searching: false,
       tocLinks: [
@@ -241,13 +245,20 @@ export default {
     async search() {
       this.$store.dispatch('gotEnzymes/resetSearch');
 
-      await this.$store.dispatch('gotEnzymes/search', this.searchTerm);
+      try {
+        await this.$store.dispatch('gotEnzymes/search', this.searchTerm);
+      } catch {
+        this.errorMessage = messages.unknownError;
+      }
 
       this.searching = false;
     },
     async handleInputUpdate() {
       this.searching = true;
       await this.search();
+    },
+    hideErrorMessage() {
+      this.errorMessage = '';
     },
   },
 };
