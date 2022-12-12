@@ -1,6 +1,6 @@
 <template>
   <div v-show="loading" class="map-loader loading">
-    <a class="button is-loading"></a>
+    <a class="button is-warning is-loading"></a>
   </div>
 </template>
 
@@ -17,11 +17,11 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .map-loader {
   z-index: 10;
   position: absolute;
-  background: black;
+  background: white;
   top: 0;
   left: 0;
   width: 100%;
@@ -34,7 +34,7 @@ export default {
     font-weight: 1000;
     display: table-cell;
     vertical-align: middle;
-    background: black;
+    background: white;
     border: 0;
   }
 }
