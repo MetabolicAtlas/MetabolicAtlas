@@ -99,6 +99,7 @@ const getEnzymes = async ({
           : sql``
       }
       order by ${orderBy} ${order}
+      offset ${(page - 1) * pageSize}
     )
   `;
 
@@ -109,7 +110,6 @@ const getEnzymes = async ({
     select ${sql(columns)} 
     from ${sql(randomTableName)}
     limit ${pageSize}
-    offset ${(page - 1) * pageSize}
   `;
 
   const countQuery = sql`
