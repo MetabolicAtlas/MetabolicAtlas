@@ -78,17 +78,37 @@ const getEnzymes = async ({
   const orderBy = CASED_FIELDS.includes(column)
     ? sql`lower(${sql(column)})`
     : sql(column);
+
+  const randomTableName = `temp_table_${(Math.random() + 1)
+    .toString(36)
+    .substring(3)}`;
+
+  // For some reason, sorting by `reaction_id` or `compound` is extremely
+  // slow when there is a limit/pageSize. Removing the limit makes it much faster.
+  // So a temp table is created to store the results without the limit.
+  const enzymesPrepQuery = sql`
+    create table ${sql(randomTableName)} as (
+      select ${sql(columns)} 
+      from enzymes
+      ${
+        filtersQueries.length > 0
+          ? sql`where ${filtersQueries.reduce(
+              (qs, q) => sql`${qs} and ${q}`,
+              sql`true`
+            )}`
+          : sql``
+      }
+      order by ${orderBy} ${order}
+    )
+  `;
+
+  // Then the temp table is used to get the results with the limit.
+  // For more details see:
+  // https://github.com/MetabolicAtlas/MetabolicAtlas/pull/1267
   const enzymesQuery = sql`
-    select ${sql(columns)} from enzymes
-    ${
-      filtersQueries.length > 0
-        ? sql`where ${filtersQueries.reduce(
-            (qs, q) => sql`${qs} and ${q}`,
-            sql`true`
-          )}`
-        : sql``
-    }
-    order by ${orderBy} ${order}
+    select ${sql(columns)} 
+    from ${sql(randomTableName)}
+    limit ${pageSize}
     offset ${(page - 1) * pageSize}
   `;
 
@@ -104,14 +124,17 @@ const getEnzymes = async ({
      }
    `;
 
-  const [enzymes, counts] = await Promise.all([enzymesQuery, countQuery]);
+  const [enzymes, counts] = await Promise.all([
+    await sql.begin(async sql => {
+      await enzymesPrepQuery;
+      const result = await enzymesQuery;
+      await sql`drop table ${sql(randomTableName)};`;
+      return result;
+    }),
+    countQuery,
+  ]);
 
-  // For some reason, sorting by `reaction_id` or `compound` is extremely
-  // slow when there is a limit/pageSize. Removing the limit makes it much faster.
-  // So the results are spliced here to make sure the pagination is correct.
-  // For more details see:
-  // https://github.com/MetabolicAtlas/MetabolicAtlas/pull/1267
-  return { enzymes: enzymes.splice(0, pageSize), totalCount: counts[0].count };
+  return { enzymes, totalCount: counts[0].count };
 };
 
 export default getEnzymes;
