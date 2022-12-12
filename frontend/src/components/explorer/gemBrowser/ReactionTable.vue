@@ -211,6 +211,15 @@ export default {
       this.$store.dispatch('reactions/clearRelatedReactions');
       this.errorMessage = '';
       try {
+        if (!this.model || this.model.short_name !== this.$route.params.model) {
+          const modelSelectionSuccessful = await this.$store.dispatch(
+            'models/selectModel',
+            this.$route.params.model
+          );
+          if (!modelSelectionSuccessful) {
+            this.modelNotFound = true;
+          }
+        }
         const payload = {
           model: this.model,
           id: this.sourceName,
