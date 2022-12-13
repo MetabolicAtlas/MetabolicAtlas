@@ -79,27 +79,41 @@ const getEnzymes = async ({
     ? sql`lower(${sql(column)})`
     : sql(column);
 
-  // A with query is needed to be able to help plan the query.
+  // A with query may be needed to be able to help plan the query.
   // Otherwise, the query planner may not use the optimal strategy.
   // For more info, see:
   // https://www.postgresql.org/docs/current/queries-with.html#id-1.5.6.12.7
+  //
+  // With query is slower when sorting by any column on a domain page.
+  // With query is faster when sorting by `reaction_id` or `compound`
+  // on a reaction or ec page.
+  // With query is faster when sorting by `gene`, `reaction_id` or `compound`
+  // on other pages (except for domain page).
+  const needsWith =
+    !filters.hasOwnProperty('domain') &&
+    (filters.hasOwnProperty('reaction_id') ||
+    filters.hasOwnProperty('ec_number')
+      ? ['reaction_id', 'compound'].includes(column)
+      : ['gene', 'compound', 'reaction_id'].includes(column));
+
   const enzymesQuery = sql`
-    with sub_query as materialized (
-      select ${sql(columns)} 
-      from enzymes
-      ${
-        filtersQueries.length > 0
-          ? sql`where ${filtersQueries.reduce(
-              (qs, q) => sql`${qs} and ${q}`,
-              sql`true`
-            )}`
-          : sql``
-      }
-      order by ${orderBy} ${order}
-      offset ${(page - 1) * pageSize}
-    )
-    select ${sql(columns)}
-    from sub_query
+    ${needsWith ? sql`with sub_query as materialized (` : sql``}
+
+    select ${sql(columns)} 
+    from enzymes
+    ${
+      filtersQueries.length > 0
+        ? sql`where ${filtersQueries.reduce(
+            (qs, q) => sql`${qs} and ${q}`,
+            sql`true`
+          )}`
+        : sql``
+    }
+    order by ${orderBy} ${order}
+    offset ${(page - 1) * pageSize}
+
+    ${needsWith ? sql`) select ${sql(columns)} from sub_query` : sql``}
+
     limit ${pageSize}
   `;
 
