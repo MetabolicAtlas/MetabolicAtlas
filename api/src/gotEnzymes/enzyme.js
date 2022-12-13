@@ -79,6 +79,10 @@ const getEnzymes = async ({
     ? sql`lower(${sql(column)})`
     : sql(column);
 
+  // A with query is needed to be able to help plan the query.
+  // Otherwise, the query planner may not use the optimal strategy.
+  // For more info, see:
+  // https://www.postgresql.org/docs/current/queries-with.html#id-1.5.6.12.7
   const enzymesQuery = sql`
     with sub_query as materialized (
       select ${sql(columns)} 
@@ -112,7 +116,6 @@ const getEnzymes = async ({
    `;
 
   const [enzymes, counts] = await Promise.all([enzymesQuery, countQuery]);
-
   return { enzymes, totalCount: counts[0].count };
 };
 
