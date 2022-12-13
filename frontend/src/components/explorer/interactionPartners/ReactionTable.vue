@@ -267,6 +267,20 @@ export default {
     opacity: 0.3;
   }
 
+  table {
+    table-layout: fixed;
+
+    .tag,
+    .tag-text {
+      max-width: 100%;
+    }
+
+    .td-content,
+    .tag-text {
+      overflow: hidden;
+    }
+  }
+
   sup {
     vertical-align: bottom;
     font-size: 0.7em;
@@ -321,15 +335,6 @@ export default {
 
         .td-content {
           text-align: right;
-        }
-
-        .tag,
-        .tag-text {
-          max-width: 100%;
-        }
-
-        .tag-text {
-          overflow: hidden;
         }
       }
     }
