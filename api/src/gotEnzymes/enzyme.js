@@ -79,15 +79,8 @@ const getEnzymes = async ({
     ? sql`lower(${sql(column)})`
     : sql(column);
 
-  const randomTableName = `temp_table_${(Math.random() + 1)
-    .toString(36)
-    .substring(3)}`;
-
-  // For some reason, sorting by `reaction_id` or `compound` is extremely
-  // slow when there is a limit/pageSize. Removing the limit makes it much faster.
-  // So a temp table is created to store the results without the limit.
-  const enzymesPrepQuery = sql`
-    create table ${sql(randomTableName)} as (
+  const enzymesQuery = sql`
+    with sub_query as materialized (
       select ${sql(columns)} 
       from enzymes
       ${
@@ -101,14 +94,8 @@ const getEnzymes = async ({
       order by ${orderBy} ${order}
       offset ${(page - 1) * pageSize}
     )
-  `;
-
-  // Then the temp table is used to get the results with the limit.
-  // For more details see:
-  // https://github.com/MetabolicAtlas/MetabolicAtlas/pull/1267
-  const enzymesQuery = sql`
-    select ${sql(columns)} 
-    from ${sql(randomTableName)}
+    select ${sql(columns)}
+    from sub_query
     limit ${pageSize}
   `;
 
@@ -125,12 +112,7 @@ const getEnzymes = async ({
    `;
 
   const [enzymes, counts] = await Promise.all([
-    await sql.begin(async sql => {
-      await enzymesPrepQuery;
-      const result = await enzymesQuery;
-      await sql`drop table ${sql(randomTableName)};`;
-      return result;
-    }),
+    enzymesQuery,
     countQuery,
   ]);
 

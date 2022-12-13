@@ -279,9 +279,6 @@ describe('gotEnzymes', () => {
     });
   });
 
-  /* Commented out after the changes in 2676c76ac3962f8c3f32108a6be4e63254102a40
-   * The tests take too long to run atm and is not feasible to run them on every
-   * commit. Consider adding a test database with a subset of the data.
   describe('search enzymes', () => {
     describe('pagination', () => {
       it('should use 50 as default page size', async () => {
@@ -484,5 +481,4 @@ describe('gotEnzymes', () => {
       });
     });
   });
-  */
 });
