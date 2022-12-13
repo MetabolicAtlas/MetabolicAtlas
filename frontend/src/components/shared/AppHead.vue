@@ -20,6 +20,8 @@
     <meta name="msapplication-TileImage" content="mstile-144x144.png" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Also configured in Cloudflare, see why in https://github.com/MetabolicAtlas/MetabolicAtlas/pull/1260#issue-1486972681-->
+    <meta v-if="devServer()" name="robots" content="noindex, noarchive, nosnippet, noimageindex" />
     <component :is="'script'" v-if="hotjarTag" type="text/javascript" v-html="hotjarTag" />
   </Head>
 </template>
@@ -39,6 +41,11 @@ export default {
       appleIconSizes: [57, 72, 114, 144, 152].map(s => `${s}x${s}`),
       faviconSizes: [16, 32].map(s => `${s}x${s}`),
     };
+  },
+  methods: {
+    devServer() {
+      return window.location.host.search(/dev/i) !== -1;
+    },
   },
 };
 </script>
