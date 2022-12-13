@@ -65,11 +65,11 @@ MATCH (:Compartment${m} {id: '${id}'})-[${v}]-(:CompartmentalizedMetabolite)-[${
 
   if (limit) {
     statement += `
-WITH collect (r)[..${limit}] as reaction
+WITH collect (DISTINCT r)[..${limit}] as reaction
 `;
   } else {
     statement += `
-WITH collect (r) as reaction
+WITH collect (DISTINCT r) as reaction
 `;
   }
 

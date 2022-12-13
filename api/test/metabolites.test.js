@@ -32,4 +32,21 @@ describe('metabolites', () => {
     const data = await res.json();
     expect(data.length).toBe(2);
   });
+
+  test('a compartmentalized metabolite should have <= related reactions than the corresponding metabolite', async () => {
+    const [compartmentalized, allCompartments] = await Promise.all([
+      fetch(
+        `${API_BASE}/metabolites/MAM02040c/related-reactions?model=HumanGem&version=${HUMAN_GEM_VERSION}&isForAllCompartments=false&limit=1000`
+      ),
+      fetch(
+        `${API_BASE}/metabolites/MAM02040c/related-reactions?model=HumanGem&version=${HUMAN_GEM_VERSION}&isForAllCompartments=true&limit=1000`
+      ),
+    ]);
+
+    const [compResult, allResult] = await Promise.all([
+      compartmentalized.json(),
+      allCompartments.json(),
+    ]);
+    expect(compResult.length).toBeLessThanOrEqual(allResult.length);
+  });
 });
