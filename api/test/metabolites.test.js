@@ -43,10 +43,10 @@ describe('metabolites', () => {
       ),
     ]);
 
-    const [compRelust, allResult] = await Promise.all([
+    const [compResult, allResult] = await Promise.all([
       compartmentalized.json(),
       allCompartments.json(),
     ]);
-    expect(compRelust.length).toBeLessThanOrEqual(allResult.length);
+    expect(compResult.length).toBeLessThanOrEqual(allResult.length);
   });
 });
