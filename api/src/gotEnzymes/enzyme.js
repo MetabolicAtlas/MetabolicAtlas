@@ -86,15 +86,16 @@ const getEnzymes = async ({
   //
   // With query is slower when sorting by any column on a domain page.
   // With query is faster when sorting by `reaction_id` or `compound`
-  // on a reaction or ec page.
-  // With query is faster when sorting by `gene`, `reaction_id` or `compound`
+  // on an ec page.
+  // With query is faster when sorting by `gene`, `organism`, `domain`, `reaction_id` or `compound`
   // on other pages (except for domain page).
   const needsWith =
     !Object.prototype.hasOwnProperty.call(filters, 'domain') &&
-    (Object.prototype.hasOwnProperty.call(filters, 'reaction_id') ||
-    Object.prototype.hasOwnProperty.call(filters, 'ec_number')
+    (Object.prototype.hasOwnProperty.call(filters, 'ec_number')
       ? ['reaction_id', 'compound'].includes(column)
-      : ['gene', 'compound', 'reaction_id'].includes(column));
+      : ['gene', 'organism', 'domain', 'compound', 'reaction_id'].includes(
+          column
+        ));
 
   const enzymesQuery = sql`
     ${needsWith ? sql`with sub_query as materialized (` : sql``}
