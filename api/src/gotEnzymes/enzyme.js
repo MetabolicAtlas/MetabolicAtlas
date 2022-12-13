@@ -111,10 +111,7 @@ const getEnzymes = async ({
      }
    `;
 
-  const [enzymes, counts] = await Promise.all([
-    enzymesQuery,
-    countQuery,
-  ]);
+  const [enzymes, counts] = await Promise.all([enzymesQuery, countQuery]);
 
   return { enzymes, totalCount: counts[0].count };
 };
