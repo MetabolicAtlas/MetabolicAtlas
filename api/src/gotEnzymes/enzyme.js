@@ -90,9 +90,9 @@ const getEnzymes = async ({
   // With query is faster when sorting by `gene`, `reaction_id` or `compound`
   // on other pages (except for domain page).
   const needsWith =
-    !filters.hasOwnProperty('domain') &&
-    (filters.hasOwnProperty('reaction_id') ||
-    filters.hasOwnProperty('ec_number')
+    !Object.prototype.hasOwnProperty.call(filters, 'domain') &&
+    (Object.prototype.hasOwnProperty.call(filters, 'reaction_id') ||
+    Object.prototype.hasOwnProperty.call(filters, 'ec_number')
       ? ['reaction_id', 'compound'].includes(column)
       : ['gene', 'compound', 'reaction_id'].includes(column));
 
