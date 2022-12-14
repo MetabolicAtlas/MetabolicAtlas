@@ -60,12 +60,12 @@ services:
           memory: 200M
 
   pg:
+    profiles: ["gotenzymes"]
     build:
       context: pg
+      dockerfile: prod.Dockerfile
     restart: always
     command: postgres -c stats_temp_directory=/tmp
-    volumes:
-      - /var/lib/docker-volumes/pg/postgres-data:/var/lib/postgresql/data
     deploy:
       resources:
         reservations:

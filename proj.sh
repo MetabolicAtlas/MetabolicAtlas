@@ -60,9 +60,32 @@ function deploy-stack {
   CHOSEN_ENV="env-${1:-$LOCALENV}.env"
   generate-data
   docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-remote.yml --project-name metabolicatlas up --detach --build --force-recreate --remove-orphans --renew-anon-volumes
-  docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-remote.yml exec -d pg psql -U postgres -c "alter user postgres with password '${POSTGRES_PASSWORD}';"
+  # update pg password
+  docker compose --profile gotenzymes --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-remote.yml exec -d pg psql -U postgres -c "alter user postgres with password '${POSTGRES_PASSWORD}';"
   CHOSEN_ENV=$METATLAS_DEFAULT_ENV
   export DOCKER_CONTEXT=default
+}
+
+function deploy-gotenzymes {
+# Will deploy gotenzymes only
+  trap 'unset DOCKER_CONTEXT; trap - INT' INT TERM
+  CHOSEN_ENV="env-${1:-$LOCALENV}.env"
+  #echo "env is" $CHOSEN_ENV
+  pushd pg
+  rm enzymes-deploy.zip
+  zip -rq enzymes-deploy.zip input_data/enzymes input_data/supplementary
+  popd
+  docker compose --profile gotenzymes --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-remote.yml --project-name metabolicatlas build pg --no-cache
+  docker compose --profile gotenzymes --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-remote.yml --project-name metabolicatlas up pg --detach  --remove-orphans --renew-anon-volumes
+  docker compose --profile gotenzymes --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-remote.yml exec -d pg psql -U postgres -c "alter user postgres with password '${POSTGRES_PASSWORD}';"
+  CHOSEN_ENV=$METATLAS_DEFAULT_ENV
+  export DOCKER_CONTEXT=default
+}
+
+
+function import-gotenzymes {
+# this is supposed to be locally, when re-reading the data
+  docker compose --profile gotenzymes --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-local.yml build --no-cache pg
 }
 
 function import-db {
