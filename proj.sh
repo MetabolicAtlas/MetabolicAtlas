@@ -23,6 +23,10 @@ function build-stack {
   docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-local.yml build
 }
 
+function build-specific {
+  docker compose --env-file env-local.env -f docker-compose.yml -f docker-compose-local.yml up -d --no-deps --build $@
+}
+
 function start-stack {
   # create empty file if it does noot exist to avoid error
   touch frontend/stats.html 
@@ -69,6 +73,7 @@ function import-db {
 
 echo -e "Available commands:
 \tbuild-stack
+\tbuild-specific [container(s)]
 \tstart-stack
 \tstop-stack
 \tclean-stack
