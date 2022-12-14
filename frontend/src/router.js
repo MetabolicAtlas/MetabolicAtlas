@@ -113,11 +113,21 @@ const routes = [
   { path: '/:pathMatch(.*)*', name: 'fourOfour', component: FourOFour },
 ];
 
+const scrollTop = to => {
+  if (window.innerWidth < 660 && to.name !== 'gotenzymes') {
+    const toc = document.getElementById('table-of-contents');
+    if (toc) {
+      return toc.getBoundingClientRect().bottom + document.documentElement.scrollTop;
+    }
+  }
+  return 0;
+};
+
 const router = createRouter({
   history: createWebHistory(),
   routes,
   scrollBehavior(to) {
-    return to.hash ? { el: to.hash } : {};
+    return to.hash ? { el: to.hash } : { top: scrollTop(to) };
   },
 });
 
