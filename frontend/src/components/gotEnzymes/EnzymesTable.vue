@@ -211,6 +211,7 @@ export default {
           ...this.serverPaginationOptions.pagination,
           column: field,
           isAscending: type === 'asc',
+          page: 1,
         },
       };
 
@@ -228,6 +229,10 @@ export default {
         filters: {
           ...this.serverPaginationOptions.filters,
           ...columnFilters,
+        },
+        pagination: {
+          ...this.serverPaginationOptions.pagination,
+          page: 1,
         },
       };
 
