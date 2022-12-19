@@ -136,18 +136,6 @@ export default {
           filterOptions: { customFilter: true },
         },
       ].filter(col => col.label !== this.componentType),
-      tablePaginationOptions: {
-        enabled: true,
-        mode: 'pages',
-        perPage: 50,
-        position: 'bottom',
-        setCurrentPage: 1,
-        nextLabel: 'next',
-        prevLabel: 'prev',
-        rowsPerPageLabel: 'Rows per page',
-        ofLabel: 'of',
-        perPageDropdownEnabled: false,
-      },
       serverPaginationOptions: {
         filters: {},
         pagination: {
@@ -164,6 +152,20 @@ export default {
       enzymes: state => state.gotEnzymes.enzymes,
       totalRows: state => state.gotEnzymes.totalEnzymes,
     }),
+    tablePaginationOptions() {
+      return {
+        enabled: !!this.enzymes.length,
+        mode: 'pages',
+        perPage: 50,
+        position: 'bottom',
+        setCurrentPage: 1,
+        nextLabel: 'next',
+        prevLabel: 'prev',
+        rowsPerPageLabel: 'Rows per page',
+        ofLabel: 'of',
+        perPageDropdownEnabled: false,
+      };
+    },
   },
   async beforeMount() {
     await this.setup();
