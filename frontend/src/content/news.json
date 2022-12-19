@@ -1,9 +1,14 @@
 {
   "2022": [
     {
+      "date": "2022-12-20",
+      "title": "Release 3.3 improves user experience with bug fixing and better performance",
+      "text": "<b>Metabolic Atlas 3.3</b> is out. In this minor release, multiple visual bugs has been fixed, both for desktop and mobile users. In addition, the response time has been improved by rewriting database queries. Finally, the software stack has been improved through dependency updates, refactoring and build scripts.<br> More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/3.3' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/badge/latestdoi/53664497' target='_blank'>on Zenodo</a>."
+    },
+    {
       "date": "2022-12-02",
       "title": "Release 3.2 improves user experience with bug fixing",
-      "text": "<b>Metabolic Atlas 3.2</b> is out. In this minor release, a number of visual bugs for the <i>Interaction Partners</i> and <i>3D Map Viewer</i> have been fixed. Moreover, incorrectly formatted metabolite names and chemicals in reaction equations are now revised. Apart from that, the global search functionality is improved by removing duplicated hits and finally, the overall performance of the server is improved with a setup reconfiguration so that the users will not experience unexpected timeout. <br> More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/3.2' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/badge/latestdoi/53664497' target='_blank'>on Zenodo</a>."
+      "text": "<b>Metabolic Atlas 3.2</b> is out. In this minor release, a number of visual bugs for the <i>Interaction Partners</i> and <i>3D Map Viewer</i> have been fixed. Moreover, incorrectly formatted metabolite names and chemicals in reaction equations are now revised. Apart from that, the global search functionality is improved by removing duplicated hits and finally, the overall performance of the server is improved with a setup reconfiguration so that the users will not experience unexpected timeout. <br> More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/3.2' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/record/7405878' target='_blank'>on Zenodo</a>."
     },
     {
       "date": "2022-10-31",
