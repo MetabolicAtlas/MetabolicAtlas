@@ -373,17 +373,15 @@ LIMIT ${limit}
   const resWithScore = {};
   for (const [component, result] of Object.entries(resObj)) {
     if (result) {
-      resWithScore[component] = [];
-
-      for (const node of result) {
-        if (Object.keys(node).length === 0) {
-          continue;
+      resWithScore[component] = result.reduce((list, node) => {
+        if (Object.keys(node).length) {
+          list.push({
+            ...node,
+            score: getScore(node, uniqueIds),
+          });
         }
-        resWithScore[component].push({
-          ...node,
-          score: getScore(node, uniqueIds),
-        });
-      }
+        return list;
+      }, []);
     } else {
       resWithScore[component] = [];
     }
