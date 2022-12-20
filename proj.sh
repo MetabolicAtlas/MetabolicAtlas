@@ -35,7 +35,8 @@ function build-specific {
 
 function start-stack {
   # create empty file if it does noot exist to avoid error
-  touch frontend/stats.html 
+  touch frontend/stats.html
+  mkdir -p pg/postgres-data
 
   docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-local.yml up --detach
   docker cp frontend:/project/yarn.lock frontend/yarn.lock
@@ -72,6 +73,18 @@ function deploy-stack {
   export DOCKER_CONTEXT=default
 }
 
+function update-gotenzymes {
+  trap 'unset DOCKER_CONTEXT; trap - INT' INT TERM
+  CHOSEN_ENV="env-${1:-$LOCALENV}.env"
+  eval `grep DOCKER_CONTEXT $CHOSEN_ENV`
+  if [ "$DOCKER_CONTEXT" == "default" ];then
+      composefile=docker-compose-local.yml
+  else
+      composefile=docker-compose-remote.yml
+  fi
+  docker compose --env-file "$CHOSEN_ENV"  -f docker-compose.yml -f $composefile exec pg psql -f /docker-entrypoint-initdb.d//init.sql -U postgres
+}
+
 function import-db {
   generate-data --reset-db
   docker exec -it neo4j bash -c "cypher-shell -u ${NEO4J_USERNAME} -p ${NEO4J_PASSWORD} --format plain --file import/import.cypher"
@@ -86,5 +99,6 @@ echo -e "Available commands:
 \tclean-stack
 \tdeploy-stack <CONTEXT>
 \timport-db
+\tupdate-gotenzymes <CONTEXT>
 \tma-exec [container command(s)]
 \tlogs [container]"
