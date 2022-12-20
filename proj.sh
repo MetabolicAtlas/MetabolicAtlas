@@ -18,6 +18,12 @@ function generate-data {
   /bin/cp -rf $DATA_FILES_PATH/repository api/
 }
 
+function upload-gotenzymes-input-data {
+    remote_host_with_user=`docker context inspect $DOCKER_CONTEXT | grep Host | awk -F\/ '{print $NF}' | awk -F\" '{print $1}'`
+    rsync -auzqO --chmod=ugo=rwX pg/input_data/ $remote_host_with_user:/var/lib/docker-volumes/pg/input_data/
+
+}
+
 function build-stack {
   generate-data
   docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-local.yml build
@@ -59,6 +65,7 @@ function deploy-stack {
   trap 'unset DOCKER_CONTEXT; trap - INT' INT TERM
   CHOSEN_ENV="env-${1:-$LOCALENV}.env"
   generate-data
+  upload-gotenzymes-input-data
   docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-remote.yml --project-name metabolicatlas up --detach --build --force-recreate --remove-orphans --renew-anon-volumes
   docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-remote.yml exec -d pg psql -U postgres -c "alter user postgres with password '${POSTGRES_PASSWORD}';"
   CHOSEN_ENV=$METATLAS_DEFAULT_ENV
