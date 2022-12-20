@@ -39,6 +39,7 @@ function start-stack {
   mkdir -p pg/postgres-data
 
   docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-local.yml up --detach
+  docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-local.yml exec -d pg psql -U postgres -c "alter user postgres with password '${POSTGRES_PASSWORD}';"
   docker cp frontend:/project/yarn.lock frontend/yarn.lock
   docker cp api:/project/yarn.lock api/yarn.lock
 }
