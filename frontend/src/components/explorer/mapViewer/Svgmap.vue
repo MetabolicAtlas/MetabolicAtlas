@@ -38,7 +38,6 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import $ from 'jquery';
 import Panzoom from '@panzoom/panzoom';
 import { default as FileSaver } from 'file-saver';
 import { debounce } from 'vue-debounce';
@@ -131,21 +130,17 @@ export default {
     this.updateURLCoord = debounce(this.updateURLCoord, 150);
   },
   async mounted() {
-    const self = this;
-    ['.met', '.enz', '.rea', '.subsystem'].forEach(aClass => {
-      $('#svg-wrapper').on('click', aClass, async function f() {
-        await self.selectElement($(this));
-      });
-    });
-    $('.svgbox').on(
-      'webkitfullscreenchange mozfullscreenchange fullscreenchange mozFullScreen MSFullscreenChange',
-      e => {
-        $('.svgbox').first().toggleClass('fullscreen');
-        self.isFullscreen = $('.svgbox').first().hasClass('fullscreen');
-        e.stopPropagation();
-      }
-    );
     await this.init();
+
+    window.addEventListener('fullscreenchange', () => {
+      // toggle class for svgbox
+      const svgbox = document.querySelector('.svgbox');
+      if (document.fullscreenElement) {
+        svgbox.classList.add('fullscreen');
+      } else {
+        svgbox.classList.remove('fullscreen');
+      }
+    });
   },
   methods: {
     async init() {
@@ -162,31 +157,43 @@ export default {
       await this.$store.dispatch('maps/getSvgMap', payload);
       this.bindKeyboardShortcuts();
       this.applyLevelsOnMap();
+      this.setupClickEventHandlers();
       this.setupHoverEventHandlers();
     },
-    setupHoverEventHandlers() {
-      // construct list of classes to be selected with jquery $(".class1,.class2,.class3,...")
-      $('#svg-wrapper').off('mouseover');
-      $('#svg-wrapper').off('mouseout');
+    setupClickEventHandlers() {
       const self = this;
+      ['.met', '.enz', '.rea', '.subsystem'].forEach(aClass => {
+        const elems = document.querySelectorAll(aClass);
+        elems.forEach(elem => elem.addEventListener('click', () => self.selectElement(elem)));
+      });
+    },
+    setupHoverEventHandlers() {
+      const self = this;
+
       if (this.componentClassName.length) {
         const classNameList = this.componentClassName.join(',.');
-        $('#svg-wrapper').on('mouseover', `.${classNameList}`, function f(e) {
-          const id = $(this).attr('id') || $(this).attr('class').split(' ')[1].trim();
-          if (id in self.computedLevels) {
-            self.$refs.tooltip.innerHTML = self.computedLevels[id][1]; // eslint-disable-line prefer-destructuring
-          } else if (Object.keys(self.computedLevels).length !== 0) {
-            self.$refs.tooltip.innerHTML = self.computedLevels['n/a'][1]; // eslint-disable-line prefer-destructuring
-          } else {
-            return;
-          }
-          self.$refs.tooltip.style.top = `${e.pageY - $('.svgbox').first().offset().top + 15}px`;
-          self.$refs.tooltip.style.left = `${e.pageX - $('.svgbox').first().offset().left + 15}px`;
-          self.$refs.tooltip.style.display = 'block';
-        });
-        $('#svg-wrapper').on('mouseout', `.${classNameList}`, () => {
-          self.$refs.tooltip.innerHTML = '';
-          self.$refs.tooltip.style.display = 'none';
+        const elems = document.querySelectorAll(`.${classNameList}`);
+        elems.forEach(elem => {
+          elem.addEventListener('mouseover', e => {
+            const id = elem.id || elem.classList.item(1).trim();
+            if (id in self.computedLevels) {
+              self.$refs.tooltip.innerHTML = self.computedLevels[id][1]; // eslint-disable-line prefer-destructuring
+            } else if (Object.keys(self.computedLevels).length !== 0) {
+              self.$refs.tooltip.innerHTML = self.computedLevels['n/a'][1]; // eslint-disable-line prefer-destructuring
+            } else {
+              return;
+            }
+            const svgBoxRect = document.querySelector('.svgbox').getBoundingClientRect();
+            self.$refs.tooltip.style.top = `${e.pageY - svgBoxRect.top + 15}px`;
+            self.$refs.tooltip.style.left = `${e.pageX - svgBoxRect.left + 15}px`;
+            self.$refs.tooltip.style.display = 'block';
+          });
+
+          const svgWrapper = document.querySelector('#svg-wrapper');
+          svgWrapper.addEventListener('mouseout', () => {
+            self.$refs.tooltip.innerHTML = '';
+            self.$refs.tooltip.style.display = 'none';
+          });
         });
       }
     },
@@ -221,17 +228,27 @@ export default {
       this.panzoom.pan(x, y, { relative: true });
     },
     toggleGenes() {
-      if ($('.enz, .ee').first().attr('visibility') === 'hidden') {
-        $('.enz, .ee').attr('visibility', 'visible');
+      const elements = document.querySelectorAll('.enz, .ee');
+      if (elements[0].getAttribute('visibility') === 'hidden') {
+        elements.forEach(element => {
+          element.setAttribute('visibility', 'visible');
+        });
       } else {
-        $('.enz, .ee').attr('visibility', 'hidden');
+        elements.forEach(element => {
+          element.setAttribute('visibility', 'hidden');
+        });
       }
     },
     toggleSubsystems() {
-      if ($('.subsystem').first().attr('visibility') === 'hidden') {
-        $('.subsystem').attr('visibility', 'visible');
+      const elements = document.querySelectorAll('.subsystem');
+      if (elements[0].getAttribute('visibility') === 'hidden') {
+        elements.forEach(element => {
+          element.setAttribute('visibility', 'visible');
+        });
       } else {
-        $('.subsystem').attr('visibility', 'hidden');
+        elements.forEach(element => {
+          element.setAttribute('visibility', 'hidden');
+        });
       }
     },
     toggleFullscreen() {
@@ -361,11 +378,15 @@ export default {
         })
         .map(dataType => ({ name: dataType, ...DATA_TYPES_COMPONENTS[dataType] }));
       inactiveDataTypes.forEach(dataType => {
-        $(`#svg-wrapper .${dataType.className} .shape`).attr('fill', dataType.defaultColor);
+        const svgWrapper = document.getElementById('svg-wrapper');
+        const elements = svgWrapper.querySelectorAll(`.${dataType.className} .shape`);
+        elements.forEach(element => {
+          element.setAttribute('fill', dataType.defaultColor);
+        });
       });
       let allComponents = [];
       this.componentClassName.forEach(x => {
-        allComponents = [...allComponents, ...$(`#svg-wrapper .${x}`)];
+        allComponents = [...allComponents, ...document.querySelectorAll(`#svg-wrapper .${x}`)];
       });
       Object.values(allComponents).forEach(node => {
         try {
@@ -406,21 +427,24 @@ export default {
       const elmsOnMap = [];
       for (let i = 0; i < IDs.length; i += 1) {
         const id = IDs[i].trim();
-        const reaSelector = `#svg-wrapper .rea[id="${id}"]`;
-        if ($(reaSelector).length) {
-          elmsOnMap.push($(reaSelector).first());
+        const reaElement = document.querySelector(`#svg-wrapper .rea[id="${id}"]`);
+        if (reaElement) {
+          elmsOnMap.push(reaElement);
         }
-        const metEnzSelector = `#svg-wrapper .met[class*=" ${id} "], #svg-wrapper .enz[class*=" ${id} "]`;
-        if ($(metEnzSelector).length) {
-          // eslint-disable-next-line no-unused-vars
-          $(metEnzSelector).each((k, v) => {
-            elmsOnMap.push($(v));
+
+        const metEnzElements = document.querySelectorAll(
+          `#svg-wrapper .met[class*=" ${id} "], #svg-wrapper .enz[class*=" ${id} "]`
+        );
+        if (metEnzElements.length) {
+          metEnzElements.forEach(element => {
+            elmsOnMap.push(element);
           });
         }
-        const subSelector = `#svg-wrapper .subsystem[id="${id}"]`;
-        if ($(subSelector).length) {
-          const firstText = $(subSelector).first().find('text')[0];
-          elmsOnMap.push($(firstText));
+
+        const subElement = document.querySelector(`#svg-wrapper .subsystem[id="${id}"]`);
+        if (subElement) {
+          const firstText = subElement.querySelector('text');
+          elmsOnMap.push(firstText);
         }
       }
       return elmsOnMap;
@@ -430,20 +454,18 @@ export default {
         return;
       }
 
-      // eslint-disable-next-line max-len
       const coords =
         this.getSvgElemCoordinates(element) ||
-        this.getSvgElemCoordinates($(element).find('.shape')[0]);
+        this.getSvgElemCoordinates(element.querySelector('.shape'));
       if (!coords) {
         return;
       }
-      // const zoom = element.is('text') ? 0.8 : 1; zoom out a bit when centering a subsystem label
+
       this.panToCoords({ panX: -coords[4], panY: -coords[5], zoom: 1, center: true });
     },
-    getSvgElemCoordinates(el) {
+    getSvgElemCoordinates(node) {
       // read and parse the transform attribute
-      const node = $(el);
-      let transform = node.attr('transform');
+      let transform = node.getAttribute('transform');
       if (transform) {
         transform = transform.substring(0, transform.length - 1);
         transform = transform.substring(7, transform.length);
@@ -455,16 +477,14 @@ export default {
       const elmsSelected = [];
       // eslint-disable-next-line no-restricted-syntax
       for (const el of nodes) {
-        if (!el.is('text')) {
-          // do not HL subsystem texts
-          $(el).addClass(className);
+        if (!el.matches('text')) {
+          el.classList.add(className);
           elmsSelected.push(el);
-          if (el.hasClass('rea') && className === 'selhl') {
-            const selectors = `#svg-wrapper .met.${el.attr('id')}`;
-            const elms = $(selectors);
+          if (el.classList.contains('rea') && className === 'selhl') {
+            const elms = document.querySelectorAll(`#svg-wrapper .met.${el.getAttribute('id')}`);
             // eslint-disable-next-line no-restricted-syntax
             for (const con of elms) {
-              $(con).addClass(className);
+              con.classList.add(className);
               elmsSelected.push(con);
             }
           }
@@ -476,21 +496,21 @@ export default {
       // un-highlight elements
       if (elements.length !== 0) {
         for (let i = 0; i < elements.length; i += 1) {
-          $(elements[i]).removeClass(className);
+          elements[i].classList.remove(className);
         }
       }
     },
     getElementIdAndType(element) {
-      if (element.hasClass('rea')) {
-        return [element.attr('id'), 'reaction'];
+      if (element.classList.contains('rea')) {
+        return [element.getAttribute('id'), 'reaction'];
       }
-      if (element.hasClass('enz')) {
-        return [element.attr('class').split(' ')[1], 'gene'];
+      if (element.classList.contains('enz')) {
+        return [element.getAttribute('class').split(' ')[1], 'gene'];
       }
-      if (element.hasClass('met')) {
-        return [element.attr('class').split(' ')[1], 'metabolite'];
+      if (element.classList.contains('met')) {
+        return [element.getAttribute('class').split(' ')[1], 'metabolite'];
       }
-      return [element.attr('id'), 'subsystem'];
+      return [element.getAttribute('id'), 'subsystem'];
     },
     async selectElement(element, routeSelect = false) {
       if (!element) {
@@ -506,7 +526,7 @@ export default {
 
       const selectionData = { type, data: null, error: false };
       this.unHighlight(this.selectedElemsHL, 'selhl');
-      if (!element.hasClass('subsystem')) {
+      if (!element.classList.contains('subsystem')) {
         // HL all nodes type but subsystems
         this.selectedElemsHL = this.highlight(this.findElementsOnSVG([id]), 'selhl');
       }
@@ -572,7 +592,8 @@ export default {
     panToCoords({ panX, panY, zoom, center }) {
       this.panzoom.zoom(zoom);
       if (center) {
-        this.panzoom.pan(panX + $('.svgbox').width() / 2, panY + $('.svgbox').height() / 2);
+        const svgBox = document.querySelector('.svgbox');
+        this.panzoom.pan(panX + svgBox.offsetWidth / 2, panY + svgBox.offsetHeight / 2);
       } else {
         this.panzoom.pan(panX, panY);
       }

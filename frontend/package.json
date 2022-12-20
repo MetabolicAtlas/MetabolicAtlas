@@ -22,7 +22,6 @@
     "bulma-timeline": "^3.0.5",
     "eslint-config-prettier": "^8.5.0",
     "file-saver": "^2.0.2",
-    "jquery": "3.6.0",
     "nprogress": "0.2.0",
     "vue": "^3.2.0",
     "@ckpack/vue-color": "1.2.0",

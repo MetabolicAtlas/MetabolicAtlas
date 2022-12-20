@@ -315,7 +315,6 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex';
-import $ from 'jquery';
 import 'vue-good-table-next/dist/vue-good-table-next.css';
 import { VueGoodTable } from 'vue-good-table-next';
 import Loader from '@/components/Loader.vue';
@@ -633,7 +632,7 @@ export default {
     next();
   },
   updated() {
-    $('#search').focus();
+    document.getElementById('search').focus();
   },
   methods: {
     fillFilterFields() {
