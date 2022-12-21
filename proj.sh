@@ -20,7 +20,9 @@ function generate-data {
 
 function upload-gotenzymes-input-data {
     remote_host_with_user=`docker context inspect $DOCKER_CONTEXT | grep Host | awk -F\/ '{print $NF}' | awk -F\" '{print $1}'`
-    rsync -auzqO --chmod=ugo=rwX pg/input_data/ $remote_host_with_user:/var/lib/docker-volumes/pg/input_data/
+    if [ "$remote_host_with_user" != "" ]; then
+        rsync -auzqO --chmod=ugo=rwX pg/input_data/ $remote_host_with_user:/var/lib/docker-volumes/pg/input_data/
+    fi
 
 }
 
@@ -65,6 +67,11 @@ function deploy-stack {
 # We use TERM instead of RETURN, as RETURN does not work on zsh.
 # As a potential side effect, the trap might be called also later when interrupting functions from this script.
   trap 'unset DOCKER_CONTEXT; trap - INT' INT TERM
+  if [ "$1" == "" ];then
+      echo "CONTEXT is missing!"
+      echo "Usage: deploy-stack <CONTEXT>"
+      return
+  fi
   CHOSEN_ENV="env-${1:-$LOCALENV}.env"
   generate-data
   upload-gotenzymes-input-data
@@ -84,7 +91,7 @@ function update-gotenzymes {
       composefile=docker-compose-remote.yml
       upload-gotenzymes-input-data
   fi
-  docker compose --env-file "$CHOSEN_ENV"  -f docker-compose.yml -f $composefile exec pg psql -f /docker-entrypoint-initdb.d//init.sql -U postgres
+  docker compose --env-file "$CHOSEN_ENV"  -f docker-compose.yml -f $composefile exec pg psql -f /docker-entrypoint-initdb.d/init.sql -U postgres
 }
 
 function import-db {
@@ -101,6 +108,6 @@ echo -e "Available commands:
 \tclean-stack
 \tdeploy-stack <CONTEXT>
 \timport-db
-\tupdate-gotenzymes <CONTEXT>
+\tupdate-gotenzymes [CONTEXT]
 \tma-exec [container command(s)]
 \tlogs [container]"
