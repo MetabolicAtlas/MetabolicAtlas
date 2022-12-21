@@ -73,7 +73,7 @@ Finally, start the Docker containers with
 start-stack
 ```
 
-Given successful deployment, the frontend should be accessible at: `http://localhost/`. If you encounter any problems try looking at the logs `logs api` / `logs frontend`.
+Given successful deployment, the frontend should be accessible at: `http://localhost/`. It may take a while before the GotEnzymes database is ready if it has not been built before. If you encounter any problems try looking at the logs `logs api` / `logs frontend`.
 
 To deploy the stack to a remote server, create another `ENV` file, e.g. `env-dev.env`, and modify it accordingly:
 
@@ -92,7 +92,7 @@ deploy-stack dev
 To reconstruct the database for GotEnzymes on the local (development) machine. Run the following. This should take ~10 minutes.
 
 ```bash
- ma-exec pg psql -f scripts/init.sql -U postgres
+update-gotenzymes
 ```
 
 For remote servers, the init script is configured to run automatically if the database has not been initialized. To reconstruct the database, delete the mounted volume for the database on the remote server (located at `/var/lib/docker-volumes/pg/postgres-data`) and deploy again.
@@ -112,7 +112,9 @@ For remote servers, the init script is configured to run automatically if the da
 
 - To clean the project (delete containers and volumes): `clean-stack`
 - To display real-time logs: `logs [container-name: frontend/api/nginx/neo4j/ftp]`
-- To deploy the project: `deploy-stack`
+- To deploy the project to the remote server: `deploy-stack` `<CONTEXT>`
+- To update the GotEnzymes database: `update-gotenzymes [CONTEXT]`
+  - If `CONTEXT` is not provided, the local GotEnzymes database will be reconstructed.
 - To (re-)import the Neo4j database: `import-db`
 
 ### A note to Unix/Linux users
