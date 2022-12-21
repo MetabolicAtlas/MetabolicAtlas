@@ -89,13 +89,17 @@ deploy-stack dev
 
 ### GotEnzymes
 
-To reconstruct the database for GotEnzymes on the local (development) machine. Run the following. This should take ~10 minutes.
+To reconstruct the database for GotEnzymes on the local (development) machine. Run the following command. This should take ~10 minutes.
+>For Mac M1 users, please select `VirtioFS` for file sharing in Docker configuration in order to speed up the postgresql database building process.
 
 ```bash
 update-gotenzymes
 ```
 
-For remote servers, the init script is configured to run automatically if the database has not been initialized. To reconstruct the database, delete the mounted volume for the database on the remote server (located at `/var/lib/docker-volumes/pg/postgres-data`) and deploy again.
+For remote servers, run the following command
+```bash
+update-gotenzymes <CONTEXT>
+```
 
 ## Description of helper commands
 **Note that the following commands should be run in a bash shell** (the current shell can be replaced using: `exec bash`)
