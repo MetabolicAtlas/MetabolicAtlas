@@ -82,6 +82,7 @@ function update-gotenzymes {
       composefile=docker-compose-local.yml
   else
       composefile=docker-compose-remote.yml
+      upload-gotenzymes-input-data
   fi
   docker compose --env-file "$CHOSEN_ENV"  -f docker-compose.yml -f $composefile exec pg psql -f /docker-entrypoint-initdb.d//init.sql -U postgres
 }
