@@ -98,7 +98,7 @@ update-gotenzymes
 For remote servers, the init script is configured to run automatically if the database has not been initialized. To reconstruct the database, delete the mounted volume for the database on the remote server (located at `/var/lib/docker-volumes/pg/postgres-data`) and deploy again.
 
 ## Description of helper commands
-**Note that the following commands should be run in a bash shell**
+**Note that the following commands should be run in a bash shell** (the current shell can be replaced using: `exec bash`)
 - To bootstrap the project: `build-stack`
 - To run the project: `start-stack`
 - To stop the project: `stop-stack`
