@@ -66,4 +66,14 @@ describe('search', () => {
 
     expect(cytosolRetinols.length).toEqual(1);
   });
+
+  test('search should not include results with score 0', async () => {
+    const data = await search({
+      searchTerm: 'Herc1',
+    });
+
+    const { metabolite } = data['Human-GEM'];
+    const emptyMetabolites = metabolite.filter(m => m.score === 0);
+    expect(emptyMetabolites.length).toEqual(0);
+  });
 });

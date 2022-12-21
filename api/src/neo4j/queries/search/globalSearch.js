@@ -74,15 +74,12 @@ const fetchGenes = async ({ ids, model, version }) => {
     return null;
   }
 
+  // The following unions need to have the gs.name line last or
+  // else the results can randomly drop subsystems or compartments
   const statement = `
 WITH ${JSON.stringify(ids)} as gids
 UNWIND gids as gid
 CALL apoc.cypher.run("
-  MATCH (gs:GeneState)-[${version}]-(:Gene:${model} {id: $gid})
-  RETURN { id: $gid, name: gs.name } as data
-  
-  UNION
-  
   MATCH (:Gene:${model} {id: $gid})-[${version}]-(r:Reaction)
   WITH DISTINCT r
   MATCH (r)-[${version}]-(s:Subsystem)
@@ -97,6 +94,11 @@ CALL apoc.cypher.run("
   MATCH (cm)-[${version}]-(c:Compartment)-[${version}]-(cs:CompartmentState)
   USING JOIN on c
   RETURN { id: $gid, compartment: COLLECT(DISTINCT({ id: c.id, name: cs.name })) } as data
+  
+  UNION
+
+  MATCH (gs:GeneState)-[${version}]-(:Gene:${model} {id: $gid})
+  RETURN { id: $gid, name: gs.name } as data
 ", {gid:gid}) yield value
 RETURN apoc.map.mergeList(apoc.coll.flatten(
 	apoc.map.values(apoc.map.groupByMulti(COLLECT(value.data), "id"), [value.data.id])
@@ -373,10 +375,15 @@ LIMIT ${limit}
   const resWithScore = {};
   for (const [component, result] of Object.entries(resObj)) {
     if (result) {
-      resWithScore[component] = result.map(obj => ({
-        ...obj,
-        score: getScore(obj, uniqueIds),
-      }));
+      resWithScore[component] = result.reduce((list, node) => {
+        if (Object.keys(node).length) {
+          list.push({
+            ...node,
+            score: getScore(node, uniqueIds),
+          });
+        }
+        return list;
+      }, []);
     } else {
       resWithScore[component] = [];
     }
