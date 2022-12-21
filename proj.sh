@@ -19,11 +19,10 @@ function generate-data {
 }
 
 function upload-gotenzymes-input-data {
-    remote_host_with_user=`docker context inspect $DOCKER_CONTEXT | grep Host | awk -F\/ '{print $NF}' | awk -F\" '{print $1}'`
-    if [ "$remote_host_with_user" != "" ]; then
-        rsync -auzqO --chmod=ugo=rwX pg/input_data/ $remote_host_with_user:/var/lib/docker-volumes/pg/input_data/
-    fi
-
+  remote_host_with_user=`docker context inspect $DOCKER_CONTEXT | grep Host | awk -F\/ '{print $NF}' | awk -F\" '{print $1}'`
+  if [ "$remote_host_with_user" != "" ]; then
+    rsync -auzqO --chmod=ugo=rwX pg/input_data/ $remote_host_with_user:/var/lib/docker-volumes/pg/input_data/
+  fi
 }
 
 function build-stack {
@@ -75,6 +74,8 @@ function deploy-stack {
   CHOSEN_ENV="env-${1:-$LOCALENV}.env"
   generate-data
   upload-gotenzymes-input-data
+  remote_host_with_user=`docker context inspect $DOCKER_CONTEXT | grep Host | awk -F\/ '{print $NF}' | awk -F\" '{print $1}'`
+  ssh $remote_host_with_user docker system prune --all --force
   docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-remote.yml --project-name metabolicatlas up --detach --build --force-recreate --remove-orphans --renew-anon-volumes
   docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-remote.yml exec -d pg psql -U postgres -c "alter user postgres with password '${POSTGRES_PASSWORD}';"
   CHOSEN_ENV=$METATLAS_DEFAULT_ENV
