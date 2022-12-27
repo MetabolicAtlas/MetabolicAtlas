@@ -74,11 +74,11 @@ install-check () (
     select yesno in Yes No; do
       case $yesno in
         Yes)
-	  git -C ../data-files pull
-	  git -C ../data-files lfs pull
-	  git -C ../data-generation pull
-	  break
-	  ;;
+          git -C ../data-files pull
+          git -C ../data-files lfs pull
+          git -C ../data-generation pull
+          break
+          ;;
         No) break
       esac
     done
@@ -96,7 +96,7 @@ install-check () (
     version=$( "$1" --version )
     if ! printf '%s\n' "$2" "$version" | sort -V -c 2>/dev/null
     then
-      printf 'Require at least verison %s of %s, got version %s\n' \
+      printf 'Require at least version %s of %s, got version %s\n' \
         "$2" "$1" "$version" >&2
       return 1
     fi
@@ -188,9 +188,14 @@ deploy-stack () (
   ma-exec -T pg \
     psql --username=postgres \
       --variable=passwd="$POSTGRES_PASSWORD"
+     
+  remote_host_with_user=`docker context inspect "$DOCKER_CONTEXT" -f '{{ .Endpoints.docker.Host }}' | awk -F/ '{print $NF}'`
+
+  rsync -ulrztqO pg/input_data/ $remote_host_with_user:/var/lib/docker-volumes/pg/input_data/
+
 )
 
-import-db () (
+import-neo4j-db () (
   set -e
 
   _setup-environment
@@ -205,6 +210,19 @@ import-db () (
       --file /opt/neo4j-import/import.cypher
 )
 
+import-pg-db () (
+  set -e
+
+  _setup-environment
+
+  echo "Update GotEnzymes database for docker context '$DOCKER_CONTEXT'"
+
+  ma-exec pg \
+    psql \
+      -f /docker-entrypoint-initdb.d/init.sql \
+      -U postgres
+)
+
 deactivate () {
   # Uninstalls the installed shell functions.
 
@@ -217,7 +235,8 @@ deactivate () {
     deactivate \
     deploy-stack \
     generate-data \
-    import-db \
+    import-neo4j-db \
+    import-pg-db \
     install-check \
     logs \
     ma-exec \
@@ -235,7 +254,8 @@ Available commands:
 	stop-stack
 	clean-stack
 	deploy-stack <CONTEXT>
-	import-db
+	import-neo4j-db
+	import-pg-db
 	ma-exec [container command(s)]
 	logs [container]
 
