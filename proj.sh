@@ -23,7 +23,7 @@ function upload-gotenzymes-input-data {
     remote_host_with_user=`docker context inspect $DOCKER_CONTEXT | grep Host | awk -F\/ '{print $NF}' | awk -F\" '{print $1}'`
     echo "Upload GotEnzymes input data to server '${remote_host_with_user/*@/}'"
     if [ "$remote_host_with_user" != "" ]; then
-      rsync -auzqO --chmod=ugo=rwX pg/input_data/ $remote_host_with_user:/var/lib/docker-volumes/pg/input_data/
+      rsync -ulrztqO --chmod=ugo=rwX pg/input_data/ $remote_host_with_user:/var/lib/docker-volumes/pg/input_data/
     fi
   fi
 }
