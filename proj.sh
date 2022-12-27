@@ -18,6 +18,16 @@ function generate-data {
   /bin/cp -rf $DATA_FILES_PATH/repository api/
 }
 
+function upload-gotenzymes-input-data {
+  if [ "$DOCKER_CONTEXT" != "" -a "$DOCKER_CONTEXT" != "default" ]; then
+    remote_host_with_user=`docker context inspect $DOCKER_CONTEXT | grep Host | awk -F\/ '{print $NF}' | awk -F\" '{print $1}'`
+    echo "Upload GotEnzymes input data to server '${remote_host_with_user/*@/}'"
+    if [ "$remote_host_with_user" != "" ]; then
+      rsync -ulrztqO --chmod=ugo=rwX pg/input_data/ $remote_host_with_user:/var/lib/docker-volumes/pg/input_data/
+    fi
+  fi
+}
+
 function build-stack {
   generate-data
   docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-local.yml build
@@ -29,9 +39,11 @@ function build-specific {
 
 function start-stack {
   # create empty file if it does noot exist to avoid error
-  touch frontend/stats.html 
+  touch frontend/stats.html
+  mkdir -p pg/postgres-data
 
   docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-local.yml up --detach
+  docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-local.yml exec -d pg psql -U postgres -c "alter user postgres with password '${POSTGRES_PASSWORD}';"
   docker cp frontend:/project/yarn.lock frontend/yarn.lock
   docker cp api:/project/yarn.lock api/yarn.lock
 }
@@ -57,12 +69,34 @@ function deploy-stack {
 # We use TERM instead of RETURN, as RETURN does not work on zsh.
 # As a potential side effect, the trap might be called also later when interrupting functions from this script.
   trap 'unset DOCKER_CONTEXT; trap - INT' INT TERM
+  if [ "$1" == "" ];then
+      echo "CONTEXT is missing!"
+      echo "Usage: deploy-stack <CONTEXT>"
+      return
+  fi
   CHOSEN_ENV="env-${1:-$LOCALENV}.env"
   generate-data
+  upload-gotenzymes-input-data
+  remote_host_with_user=`docker context inspect $DOCKER_CONTEXT | grep Host | awk -F\/ '{print $NF}' | awk -F\" '{print $1}'`
+  ssh $remote_host_with_user docker system prune --all --force
   docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-remote.yml --project-name metabolicatlas up --detach --build --force-recreate --remove-orphans --renew-anon-volumes
   docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-remote.yml exec -d pg psql -U postgres -c "alter user postgres with password '${POSTGRES_PASSWORD}';"
   CHOSEN_ENV=$METATLAS_DEFAULT_ENV
   export DOCKER_CONTEXT=default
+}
+
+function update-gotenzymes {
+  trap 'unset DOCKER_CONTEXT; trap - INT' INT TERM
+  CHOSEN_ENV="env-${1:-$LOCALENV}.env"
+  eval `grep DOCKER_CONTEXT $CHOSEN_ENV`
+  if [ "$DOCKER_CONTEXT" == "default" ];then
+      composefile=docker-compose-local.yml
+  else
+      composefile=docker-compose-remote.yml
+      upload-gotenzymes-input-data
+  fi
+  echo "Update GotEnzymes database for docker context '$DOCKER_CONTEXT'"
+  docker compose --env-file "$CHOSEN_ENV"  -f docker-compose.yml -f $composefile exec pg psql -f /docker-entrypoint-initdb.d/init.sql -U postgres
 }
 
 function import-db {
@@ -79,5 +113,6 @@ echo -e "Available commands:
 \tclean-stack
 \tdeploy-stack <CONTEXT>
 \timport-db
+\tupdate-gotenzymes [CONTEXT]
 \tma-exec [container command(s)]
 \tlogs [container]"
