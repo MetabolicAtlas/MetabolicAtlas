@@ -1,6 +1,7 @@
 [![DOI](https://zenodo.org/badge/53664497.svg)](https://zenodo.org/badge/latestdoi/53664497)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4276/badge)](https://bestpractices.coreinfrastructure.org/projects/4276)
-![Code analysis](https://github.com/MetabolicAtlas/MetabolicAtlas/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)
+[![Code 
+analysis](https://github.com/MetabolicAtlas/MetabolicAtlas/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/MetabolicAtlas/MetabolicAtlas/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)
 
 Welcome to the codebase for the Metabolic Atlas project.  
 If you use _Metabolic Atlas_ in your scientific work, please cite:
