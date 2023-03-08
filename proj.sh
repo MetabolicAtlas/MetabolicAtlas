@@ -51,12 +51,12 @@ install-check () (
   #   sufficiently up to date.
   # * Ensures that other tools used by these functions are available.
 
-  if [ ! -d ../data-generation ]; then
-    echo 'Directory ../data-generation not found' >&2
+  if [ ! -d ../data-generation/.git ]; then
+    echo 'Git repository ../data-generation not found' >&2
     return 1
   fi
-  if [ ! -d ../data-files ]; then
-    echo 'Directory ../data-files not found' >&2
+  if [ ! -d ../data-files/.git ]; then
+    echo 'Git repository ../data-files not found' >&2
     return 1
   fi
 
