@@ -65,4 +65,20 @@ routes.get(
   }
 );
 
+// Currently used to serve these two files:
+// - /api/v2/data-overlay/Human-GEM/reaction/HPA_single-cell_reactions.tsv/raw-data-sets
+// - /api/v2/data-overlay/Human-GEM/gene/hpaRna.tsv/raw-data-sets
+routes.get('/:model/:dataType/:filename/raw-data-sets', async (req, res) => {
+  const { model, dataType, filename } = req.params;
+  try {
+    const dataSourceFile = await getDataSourceFile(model, dataType, filename);
+    res.set('Content-Type', 'text/tab-separated-values');
+    res.set('Content-Disposition', `attachment; filename="${filename}"`);
+    res.send(dataSourceFile);
+  } catch (e) {
+    console.error(e.message);
+    res.sendStatus(404);
+  }
+});
+
 export default routes;
