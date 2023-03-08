@@ -7,11 +7,20 @@ _setup-environment () {
   # be living in /usr/local/bin).
   PATH=$PATH:/usr/local/bin
 
-  # Bail out if docker or docker-compose are not found.
-  if ! { command -v docker && command -v docker-compose; } >/dev/null
+  # Bail out if docker is not found.
+  if ! command -v docker >/dev/null
   then
     echo 'Missing essential Docker components' >&2
     return 1
+  fi
+
+  # Use docker with its compose sub-command if it's available, otherwise
+  # use docker-compose.
+  if docker help compose >/dev/null 2>&1
+  then
+    compose=( docker compose )
+  else
+    compose=( docker-compose )
   fi
 
   LOCALENV=local
@@ -27,7 +36,7 @@ _docker-compose () (
   # Helper function to reduce clutter and repetition.
   _setup-environment
 
-  DOCKER_BUILDKIT=1 docker-compose --env-file "$CHOSEN_ENV" \
+  DOCKER_BUILDKIT=1 "${compose[@]}" --env-file "$CHOSEN_ENV" \
     -f docker-compose.yml \
     -f docker-compose-local.yml \
     "$@"
