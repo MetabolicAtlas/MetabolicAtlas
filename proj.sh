@@ -46,7 +46,7 @@ install-check () (
   # Performs a number of tests:
   #
   # * Ensures that the data-files and data-generation repositories are
-  #   available and optionally up to date.
+  #   available and optionally up to date (unless invoked with -q).
   # * Ensures that the yarn and node executables are available and
   #   sufficiently up to date.
   # * Ensures that other tools used by these functions are available.
@@ -60,18 +60,20 @@ install-check () (
     return 1
   fi
 
-  echo 'Update data-generation and data-file?' >&2
-  select yesno in Yes No; do
-    case $yesno in
-      Yes)
-	git -C ../data-files pull
-	git -C ../data-files lfs pull
-	git -C ../data-generation pull
-	break
-	;;
-      No) break
-    esac
-  done
+  if [ "$1" != -q ]; then
+    echo 'Update data-generation and data-file?' >&2
+    select yesno in Yes No; do
+      case $yesno in
+        Yes)
+	  git -C ../data-files pull
+	  git -C ../data-files lfs pull
+	  git -C ../data-generation pull
+	  break
+	  ;;
+        No) break
+      esac
+    done
+  fi  
 
   for cmd in yarn node docker rsync; do
     if ! command -v "$cmd" >/dev/null; then
@@ -99,6 +101,8 @@ generate-data () (
   set -e
 
   _setup-environment
+
+  install-check -q
 
   # Call generate-data with the option --reset-db to force overwriting
   # existing data files.  See ../data-generation/index.js
