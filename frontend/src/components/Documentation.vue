@@ -377,6 +377,12 @@
                 >
                 Human-GEM reaction data
                   </a>
+                  to use in
+                  <a
+                  href="/explore/Human-GEM/map-viewer/?dim=2d"
+                >
+                  this map
+                  </a>
                 </li>
                  <li>
                   <a
@@ -385,8 +391,14 @@
                   href="/api/v2/data-overlay/Human-GEM/gene/hpaRna.tsv/raw-data-sets"
                   >
                   Human-GEM gene data
-                  </a
-                ></li>
+                 </a>
+                 to use in
+                  <a
+                  href="/explore/Human-GEM/map-viewer/?dim=2d"
+                  >
+                  this map
+                  </a>
+                </li>
             </ul>
               </p>
             </div>
