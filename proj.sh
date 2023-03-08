@@ -42,6 +42,59 @@ _docker-compose () (
     "$@"
 )
 
+install-check () (
+  # Performs a number of tests:
+  #
+  # * Ensures that the data-files and data-generation repositories are
+  #   available and optionally up to date.
+  # * Ensures that the yarn and node executables are available and
+  #   sufficiently up to date.
+  # * Ensures that other tools used by these functions are available.
+
+  if [ ! -d ../data-generation ]; then
+    echo 'Directory ../data-generation not found' >&2
+    return 1
+  fi
+  if [ ! -d ../data-files ]; then
+    echo 'Directory ../data-files not found' >&2
+    return 1
+  fi
+
+  echo 'Update data-generation and data-file?' >&2
+  select yesno in Yes No; do
+    case $yesno in
+      Yes)
+	git -C ../data-files pull
+	git -C ../data-files lfs pull
+	git -C ../data-generation pull
+	break
+	;;
+      No) break
+    esac
+  done
+
+  for cmd in yarn node docker rsync; do
+    if ! command -v "$cmd" >/dev/null; then
+      printf 'Essential tool "%s" not found\n' "$cmd" >&2
+      return 1
+    fi
+  done
+
+  set -- yarn 1.22 node v12
+  while [ "$#" -gt 0 ]; do
+    version=$( "$1" --version )
+    if ! printf '%s\n' "$2" "$version" | sort -V -c 2>/dev/null
+    then
+      printf 'Require at least verison %s of %s, got version %s\n' \
+        "$2" "$1" "$version" >&2
+      return 1
+    fi
+    shift 2
+  done
+
+  echo 'Everything seems to be in order'
+)
+
 generate-data () (
   set -e
 
