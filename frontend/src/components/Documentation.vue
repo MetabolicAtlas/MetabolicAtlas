@@ -367,7 +367,27 @@
                 >
                   here</a
                 >. The headers of these data series will be shown automatically in the dropdown
-                options for the uploaded data. The values are expected in TPM.
+                options for the uploaded data. The values are expected in TPM. Examples of such data for the Human-GEM model can be found here:
+                <ul>
+                  <li>
+                    <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="/api/v2/data-overlay/Human-GEM/reaction/HPA_single-cell_reactions.tsv/raw-data-sets"
+                >
+                Human-GEM reaction data
+                  </a>
+                </li>
+                 <li>
+                  <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="/api/v2/data-overlay/Human-GEM/gene/hpaRna.tsv/raw-data-sets"
+                  >
+                  Human-GEM gene data
+                  </a
+                ></li>
+            </ul>
               </p>
             </div>
             <div class="column">
