@@ -1,83 +1,163 @@
-# To make sure docker-compose is in the path
-export PATH=$PATH:/usr/local/bin
-LOCALENV="local"
-METATLAS_DEFAULT_ENV="env-${LOCALENV}.env"
-CHOSEN_ENV=$METATLAS_DEFAULT_ENV
+_setup-environment () {
+  # Helper function that initializes the needed environment variables.
+  "${got_environment:-false}" && return
+  got_environment=true
+  
+  # Ensure that both docker and docker-compose is in $PATH (assumed to
+  # be living in /usr/local/bin), and that /bin is first.
+  PATH=/bin:$PATH:/usr/local/bin
 
-function generate-data {
-  # enable flag "-q" to force overwritting existing data files
-  echo "Using $CHOSEN_ENV"
-  source $CHOSEN_ENV && yarn --cwd $DATA_GENERATOR_PATH start $DATA_FILES_PATH "$@"
-  /bin/cp -rf $DATA_GENERATOR_PATH/neo4j/* neo4j/import
-  /bin/cp -rf $DATA_GENERATOR_PATH/dataOverlay api/
-  /bin/cp -rf $DATA_GENERATOR_PATH/gemRepository/* frontend/public/assets/gemRepository/
-  /bin/cp  -f $DATA_FILES_PATH/integrated-models/integratedModels.json api/src/data/
-  /bin/cp  -f $DATA_FILES_PATH/gemsRepository.json api/src/data/
-  /bin/cp -rf $DATA_FILES_PATH/svg api/
-  /bin/cp -rf $DATA_FILES_PATH/repository ftp/
-  /bin/cp -rf $DATA_FILES_PATH/repository api/
+  # Bail out if docker or docker-compose are not found.
+  if ! { command -v docker && command -v docker-compose; } >/dev/null
+  then
+    echo 'Missing essential Docker components' >&2
+    return 1
+  fi
+
+  LOCALENV=local
+  CHOSEN_ENV=./env-$LOCALENV.env
+
+  printf 'Using %s\n' "$CHOSEN_ENV"
+  . "$CHOSEN_ENV" || return
 }
 
-function build-stack {
+_docker-compose () (
+  set -e
+
+  # Helper function to reduce clutter and repetition.
+  _setup-environment
+
+  DOCKER_BUILDKIT=1 docker-compose --env-file "$CHOSEN_ENV" \
+    -f docker-compose.yml \
+    -f docker-compose-local.yml \
+    "$@"
+)
+
+generate-data () (
+  set -e
+
+  _setup-environment
+
+  # Call generate-data with the option --reset-db to force overwriting
+  # existing data files.  See ../data-generation/index.js
+  yarn --cwd "$DATA_GENERATOR_PATH" start "$DATA_FILES_PATH" "$@"
+
+  command cp -rf "$DATA_GENERATOR_PATH"/neo4j/* neo4j/import
+  command cp -rf "$DATA_GENERATOR_PATH"/dataOverlay api/
+  command cp -rf "$DATA_GENERATOR_PATH"/gemRepository/* frontend/public/assets/gemRepository/
+  command cp  -f "$DATA_FILES_PATH"/integrated-models/integratedModels.json api/src/data/
+  command cp  -f "$DATA_FILES_PATH"/gemsRepository.json api/src/data/
+  command cp -rf "$DATA_FILES_PATH"/svg api/
+  command cp -rf "$DATA_FILES_PATH"/repository ftp/
+  command cp -rf "$DATA_FILES_PATH"/repository api/
+)
+
+build-stack () (
+  set -e
+
+  _setup-environment
+
   generate-data
-  docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-local.yml build
-}
+  _docker-compose build
+)
 
-function build-specific {
-  docker compose --env-file env-local.env -f docker-compose.yml -f docker-compose-local.yml up -d --no-deps --build $@
-}
+build-specific () (
+  _docker-compose up --detach --no-deps --build "$@"
+)
 
-function start-stack {
-  # create empty file if it does noot exist to avoid error
+start-stack () (
+  set -e
+
+  # Create empty file if it doesn't exist, to avoid error.
   touch frontend/stats.html 
 
-  docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-local.yml up --detach
+  _docker-compose up --detach
+
   docker cp frontend:/project/yarn.lock frontend/yarn.lock
   docker cp api:/project/yarn.lock api/yarn.lock
-}
+)
 
-function stop-stack {
-  docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-local.yml stop
-}
+stop-stack () (
+  _docker-compose stop
+)
 
-function clean-stack {
-  docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-local.yml down --rmi all --remove-orphans -v
-}
+clean-stack () (
+  _docker-compose down --rmi all --remove-orphans --volumes
+)
 
-function logs {
-  docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-local.yml logs -f $@
-}
+logs () (
+  _docker-compose logs --follow "$@"
+)
 
-function ma-exec {
-  docker compose --env-file "$CHOSEN_ENV"  -f docker-compose.yml -f docker-compose-local.yml exec "$@"
-}
+ma-exec () (
+  _docker-compose exec "$@"
+)
 
-function deploy-stack {
-# If this function is interrupted (ctrl+c), uset the DOCKER_CONTEXT so that the dev context won't be kept
-# We use TERM instead of RETURN, as RETURN does not work on zsh.
-# As a potential side effect, the trap might be called also later when interrupting functions from this script.
-  trap 'unset DOCKER_CONTEXT; trap - INT' INT TERM
-  CHOSEN_ENV="env-${1:-$LOCALENV}.env"
+deploy-stack () (
+  set -e
+
+  _setup-environment
+
+  CHOSEN_ENV=./env-${1:-$LOCALENV}.env
+
   generate-data
-  docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-remote.yml --project-name metabolicatlas up --detach --build --force-recreate --remove-orphans --renew-anon-volumes
-  docker compose --env-file $CHOSEN_ENV -f docker-compose.yml -f docker-compose-remote.yml exec -d pg psql -U postgres -c "alter user postgres with password '${POSTGRES_PASSWORD}';"
-  CHOSEN_ENV=$METATLAS_DEFAULT_ENV
-  export DOCKER_CONTEXT=default
-}
 
-function import-db {
+  _docker-compose \
+    --project-name metabolicatlas \
+    up --detach --build --force-recreate --remove-orphans --renew-anon-volumes
+
+  echo "ALTER USER postgres WITH PASSWORD :'passwd'" |
+  ma-exec -T pg \
+    psql --username=postgres \
+      --variable=passwd="$POSTGRES_PASSWORD"
+)
+
+import-db () (
+  set -e
+
+  _setup-environment
+
   generate-data --reset-db
-  docker exec -it neo4j bash -c "cypher-shell -u ${NEO4J_USERNAME} -p ${NEO4J_PASSWORD} --format plain --file import/import.cypher"
+
+  ma-exec neo4j \
+    cypher-shell \
+      --username "$NEO4J_USERNAME" \
+      --password "$NEO4J_PASSWORD" \
+      --format plain \
+      --file import/import.cypher
+)
+
+deactivate () {
+  # Uninstalls the installed shell functions.
+
+  set -- \
+    _docker-compose \
+    _setup-environment \
+    build-specific \
+    build-stack \
+    clean-stack \
+    deactivate \
+    deploy-stack \
+    generate-data \
+    import-db \
+    logs \
+    ma-exec \
+    start-stack \
+    stop-stack
+
+  unset -f "$@"
 }
 
-
-echo -e "Available commands:
-\tbuild-stack
-\tbuild-specific [container(s)]
-\tstart-stack
-\tstop-stack
-\tclean-stack
-\tdeploy-stack <CONTEXT>
-\timport-db
-\tma-exec [container command(s)]
-\tlogs [container]"
+cat <<'END_INFO'
+Available commands: 
+	build-stack
+	build-specific [container(s)]
+	start-stack
+	stop-stack
+	clean-stack
+	deploy-stack <CONTEXT>
+	import-db
+	ma-exec [container command(s)]
+	logs [container]
+	deactivate
+END_INFO
