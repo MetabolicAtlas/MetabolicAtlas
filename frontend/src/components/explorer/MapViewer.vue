@@ -256,7 +256,7 @@ export default {
     dimensionalState(showing2D) {
       return showing2D ? '2d' : '3d';
     },
-    // eslint-disable-next-line no-unused-vars
+    // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
     async handleQueryParamsWatch(newQuery, oldQuery) {
       if (!newQuery) {
         return;
