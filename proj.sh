@@ -4,8 +4,8 @@ _setup-environment () {
   got_environment=true
   
   # Ensure that both docker and docker-compose is in $PATH (assumed to
-  # be living in /usr/local/bin), and that /bin is first.
-  PATH=/bin:$PATH:/usr/local/bin
+  # be living in /usr/local/bin).
+  PATH=$PATH:/usr/local/bin
 
   # Bail out if docker or docker-compose are not found.
   if ! { command -v docker && command -v docker-compose; } >/dev/null
@@ -42,14 +42,14 @@ generate-data () (
   # existing data files.  See ../data-generation/index.js
   yarn --cwd "$DATA_GENERATOR_PATH" start "$DATA_FILES_PATH" "$@"
 
-  command cp -rf "$DATA_GENERATOR_PATH"/neo4j/* neo4j/import
-  command cp -rf "$DATA_GENERATOR_PATH"/dataOverlay api/
-  command cp -rf "$DATA_GENERATOR_PATH"/gemRepository/* frontend/public/assets/gemRepository/
-  command cp  -f "$DATA_FILES_PATH"/integrated-models/integratedModels.json api/src/data/
-  command cp  -f "$DATA_FILES_PATH"/gemsRepository.json api/src/data/
-  command cp -rf "$DATA_FILES_PATH"/svg api/
-  command cp -rf "$DATA_FILES_PATH"/repository ftp/
-  command cp -rf "$DATA_FILES_PATH"/repository api/
+  rsync -a "$DATA_GENERATOR_PATH"/neo4j/ neo4j/import/
+  rsync -a "$DATA_GENERATOR_PATH"/dataOverlay api/
+  rsync -a "$DATA_GENERATOR_PATH"/gemRepository frontend/public/assets/
+  rsync -a "$DATA_FILES_PATH"/integrated-models/integratedModels.json api/src/data/
+  rsync -a "$DATA_FILES_PATH"/gemsRepository.json api/src/data/
+  rsync -a "$DATA_FILES_PATH"/svg api/
+  rsync -a "$DATA_FILES_PATH"/repository ftp/
+  rsync -a "$DATA_FILES_PATH"/repository api/
 )
 
 build-stack () (
