@@ -206,6 +206,7 @@ deactivate () {
     deploy-stack \
     generate-data \
     import-db \
+    install-check \
     logs \
     ma-exec \
     start-stack \
@@ -225,5 +226,7 @@ Available commands:
 	import-db
 	ma-exec [container command(s)]
 	logs [container]
+
+	install-check [-q]
 	deactivate
 END_INFO
