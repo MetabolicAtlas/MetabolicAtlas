@@ -65,16 +65,35 @@ routes.get(
   }
 );
 
-// Currently used to serve these two files:
-// - /api/v2/data-overlay/Human-GEM/reaction/HPA_single-cell_reactions.tsv/raw-data-sets
-// - /api/v2/data-overlay/Human-GEM/gene/hpaRna.tsv/raw-data-sets
-routes.get('/:model/:dataType/:filename/raw-data-sets', async (req, res) => {
-  const { model, dataType, filename } = req.params;
+routes.get('/:dataType/example', async (req, res) => {
+  const { dataType } = req.params;
   try {
-    const dataSourceFile = await getDataSourceFile(model, dataType, filename);
+    let exampleFile = '';
+    switch (dataType) {
+      case 'genes':
+        exampleFile =
+          'id\theart\tliver\n' +
+          'ENSG00000177666\t0.484\t0.349\n' +
+          'ENSG00000175535\t0.564\t0\n' +
+          'ENSG00000187021\t0.114\t0';
+        break;
+      case 'reactions':
+        exampleFile =
+          'id\tadipose\ttissue_t-cells_9\n' +
+          'MAR03905\t0.484\t0.349\n' +
+          'MAR03907\t0.564\t0\n' +
+          'MAR04097\t0.114\t0';
+        break;
+      default:
+        res.sendStatus(404);
+    }
+
     res.set('Content-Type', 'text/tab-separated-values');
-    res.set('Content-Disposition', `attachment; filename="${filename}"`);
-    res.send(dataSourceFile);
+    res.set(
+      'Content-Disposition',
+      `attachment; filename=${dataType}-example.tsv`
+    );
+    res.send(exampleFile);
   } catch (e) {
     console.error(e.message);
     res.sendStatus(404);
