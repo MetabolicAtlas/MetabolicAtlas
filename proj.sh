@@ -98,7 +98,7 @@ install-check () (
 )
 
 generate-data () (
-  set -xe
+  set -e
 
   _setup-environment
 
