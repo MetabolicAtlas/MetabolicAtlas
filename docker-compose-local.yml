@@ -38,7 +38,7 @@ services:
       - NEO4J_apoc_import_file_use__neo4j__config=true
     volumes:
       - ./neo4j/plugins:/plugins
-      - ./neo4j/import:/var/lib/neo4j/import
+      - ./neo4j/import:/opt/neo4j-import
     ports:
       - "127.0.0.1:${PORT_NEO4J_1:-7474}:7474"
       - "127.0.0.1:${PORT_NEO4J_2:-7687}:7687"
