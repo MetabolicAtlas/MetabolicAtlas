@@ -1,3 +1,75 @@
+<script setup lang="ts">
+import { defineEmits } from 'vue';
+import { default as messages } from '../../../content/messages';
+
+const emit = defineEmits<{
+  (e: 'errorCustomFile', errors: string[], fileName: string): void;
+  (e: 'getFileName', fileName: string): void;
+}>();
+
+const validateFile = (e: any) => {
+  if (e.target.files.length !== 0) {
+    if (e.target.files[0].type !== 'text/tab-separated-values') {
+      emit('errorCustomFile', [`Error: ${messages.noTSVfile}`], e.target.files[0].name);
+      return;
+    }
+    const errors: string[] = [];
+    const reader = new FileReader();
+    reader.onloadend = (evt: ProgressEvent<FileReader>) => {
+      // The readAsText method set the result as a string
+      const result = evt.target?.result as string;
+      const lines = result.split(/\r?\n/);
+      const header = lines[0].split('\t');
+      if (header[0] !== 'id') {
+        errors.push(`Error: ${messages.noIDColumn}. First column should not be ${header[0]}`);
+      }
+      const colTitles: string[] = [];
+      header.forEach(colTitle => {
+        if (colTitles.indexOf(colTitle) > -1) {
+          errors.push(`Error: ${messages.duplicateColName} ${colTitle}`);
+        } else {
+          colTitles.push(colTitle);
+        }
+      });
+      // No further checks if invalid TSV format
+      if (header.length !== 1 && lines.length > 2) {
+        header.forEach(name => {
+          if (name.length > 20) {
+            errors.push(`Error: ${messages.columnNameLength}, ${name} has ${name.length}`);
+          }
+        });
+        lines.slice(1).forEach((line, pos) => {
+          if (line.length > 0) {
+            const columnValues = line.split('\t');
+            if (columnValues.length !== header.length) {
+              errors.push(`Error: ${messages.numOfValues} line ${pos}`);
+            }
+            if (columnValues[0].length > 20) {
+              errors.push(
+                `Error: ${messages.idNameLength}, ${columnValues[0]} has ${columnValues[0].length}`
+              );
+            }
+            columnValues.slice(1).forEach((value: string) => {
+              if (Number.isNaN(Number(value)) || Number(value) < 0 || Number(value) > 1) {
+                errors.push(`Error: ${value} ${messages.levelsRange}`);
+              }
+            });
+          }
+        });
+      } else {
+        errors.push(`Error: ${messages.invalidTSV}`);
+      }
+      if (errors.length > 0) {
+        emit('errorCustomFile', errors, e.target.files[0].name);
+      } else {
+        emit('getFileName', e.target.files[0]);
+      }
+    };
+    reader.readAsText(e.target.files[0]);
+  }
+};
+</script>
+
 <template>
   <div class="file is-centered mb-2">
     <label class="file-label">
@@ -16,73 +88,3 @@
     </label>
   </div>
 </template>
-
-<script>
-import { default as messages } from '@/content/messages';
-
-export default {
-  name: 'DataOverlayValidation',
-  emits: ['errorCustomFile', 'getFileName'],
-  methods: {
-    validateFile(e) {
-      if (e.target.files.length !== 0) {
-        if (e.target.files[0].type !== 'text/tab-separated-values') {
-          this.$emit('errorCustomFile', [`Error: ${messages.noTSVfile}`], e.target.files[0].name);
-          return;
-        }
-        const errors = [];
-        const reader = new FileReader();
-        reader.onloadend = evt => {
-          const lines = evt.target.result.split(/\r?\n/);
-          const header = lines[0].split('\t');
-          if (header[0] !== 'id') {
-            errors.push(`Error: ${messages.noIDColumn}. First column should not be ${header[0]}`);
-          }
-          const colTitles = [];
-          header.forEach(colTitle => {
-            if (colTitles.indexOf(colTitle) > -1) {
-              errors.push(`Error: ${messages.duplicateColName} ${colTitle}`);
-            } else {
-              colTitles.push(colTitle);
-            }
-          });
-          // No further checks if invalid TSV format
-          if (header.length !== 1 && lines.length > 2) {
-            header.forEach(name => {
-              if (name.length > 20) {
-                errors.push(`Error: ${messages.columnNameLength}, ${name} has ${name.length}`);
-              }
-            });
-            lines.slice(1).forEach((line, pos) => {
-              if (line.length > 0) {
-                const columnValues = line.split('\t');
-                if (columnValues.length !== header.length) {
-                  errors.push(`Error: ${messages.numOfValues} line ${pos}`);
-                }
-                if (columnValues[0].length > 20) {
-                  errors.push(
-                    `Error: ${messages.idNameLength}, ${columnValues[0]} has ${columnValues[0].length}`
-                  );
-                }
-                columnValues.slice(1).forEach(value => {
-                  if (Number.isNaN(Number(value)) || value < 0 || value > 1) {
-                    errors.push(`Error: ${value} ${messages.levelsRange}`);
-                  }
-                });
-              }
-            });
-          } else {
-            errors.push(`Error: ${messages.invalidTSV}`);
-          }
-          if (errors.length > 0) {
-            this.$emit('errorCustomFile', errors, e.target.files[0].name);
-          } else {
-            this.$emit('getFileName', e.target.files[0]);
-          }
-        };
-        reader.readAsText(e.target.files[0]);
-      }
-    },
-  },
-};
-</script>

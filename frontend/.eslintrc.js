@@ -3,7 +3,7 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: ['plugin:vue/vue3-recommended', '@vue/airbnb', 'prettier'],
+  extends: ['@vue/typescript/recommended', '@vue/airbnb', 'prettier'],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
@@ -26,16 +26,16 @@ module.exports = {
     'vuejs-accessibility/mouse-events-have-key-events': 'off',
     'vue/no-reserved-component-names': 'off',
     'vue/no-v-text-v-html-on-component': 'off',
+    'no-undef': 'warn',
+    'no-unused-vars': 'warn',
+    '@typescript-eslint/no-empty-function': 'warn',
+    '@typescript-eslint/no-this-alias': 'warn',
   },
-  parserOptions: {
-    parser: '@babel/eslint-parser',
-  },
+  parserOptions: {},
   settings: {
     'import/resolver': {
       alias: {
-        map: [
-          ['@', './src'],
-        ],
+        map: [['@', './src']],
       },
     },
   },
