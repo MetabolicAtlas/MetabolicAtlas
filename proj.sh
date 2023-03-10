@@ -98,7 +98,7 @@ install-check () (
 )
 
 generate-data () (
-  set -e
+  set -xe
 
   _setup-environment
 
@@ -112,7 +112,8 @@ generate-data () (
   rsync -a "$DATA_GENERATOR_PATH"/dataOverlay api/
   rsync -a "$DATA_GENERATOR_PATH"/gemRepository frontend/public/assets/
   rsync -a "$DATA_FILES_PATH"/integrated-models/integratedModels.json api/src/data/
-  rsync -a "$DATA_FILES_PATH"/gemsRepository.json api/src/data/
+  rsync -a "$DATA_FILES_PATH"/gemsRepository.json \
+           "$DATA_GENERATOR_PATH"/identifiers.js api/src/data/
   rsync -a "$DATA_FILES_PATH"/svg api/
   rsync -a "$DATA_FILES_PATH"/repository ftp/
   rsync -a "$DATA_FILES_PATH"/repository api/
