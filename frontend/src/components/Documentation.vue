@@ -367,37 +367,25 @@
                 >
                   here</a
                 >. The headers of these data series will be shown automatically in the dropdown
-                options for the uploaded data. The values are expected in TPM. Examples of such data for the Human-GEM model can be found here:
+                options for the uploaded data. The values are expected in TPM. Examples of correctly formatted data available for download can be found here:
                 <ul>
                   <li>
                     <a
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="/api/v2/data-overlay/Human-GEM/reaction/HPA_single-cell_reactions.tsv/raw-data-sets"
+                  href="/api/v2/data-overlay/reactions/example"
                 >
-                Human-GEM reaction data
-                  </a>
-                  to use in
-                  <a
-                  href="/explore/Human-GEM/map-viewer/?dim=2d"
-                >
-                  this map
-                  </a>
-                </li>
-                 <li>
-                  <a
+                Reaction data
+                    </a>
+                  </li>
+                  <li>
+                    <a
                   target="_blank"
                   rel="noopener noreferrer"
-                  href="/api/v2/data-overlay/Human-GEM/gene/hpaRna.tsv/raw-data-sets"
+                  href="/api/v2/data-overlay/genes/example"
                   >
-                  Human-GEM gene data
+                Gene data
                  </a>
-                 to use in
-                  <a
-                  href="/explore/Human-GEM/map-viewer/?dim=2d"
-                  >
-                  this map
-                  </a>
                 </li>
             </ul>
               </p>
