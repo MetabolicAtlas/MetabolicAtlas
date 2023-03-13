@@ -1,5 +1,5 @@
 {
-  "baseUrl": "http://localhost",
+  "baseUrl": "http://127.0.0.1",
   "viewportWidth": 1200,
   "viewportHeight": 800,
   "video": false
