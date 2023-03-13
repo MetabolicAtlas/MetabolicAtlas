@@ -11,7 +11,7 @@ jobs:
       - name: "/frontend: Prettify code"
         uses: creyD/prettier_action@v4.3
         with:
-          prettier_options: "--write frontend/src --config frontend/.prettierrc.json --ignore-path frontend/.prettierignore "
+          prettier_options: "--write frontend/src --config frontend/.prettierrc.json --ignore-path frontend/.prettierignore"
           # working_directory: frontend/
           only_changed: False
           dry: False
