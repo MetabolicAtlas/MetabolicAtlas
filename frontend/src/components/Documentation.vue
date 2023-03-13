@@ -367,27 +367,30 @@
                 >
                   here</a
                 >. The headers of these data series will be shown automatically in the dropdown
-                options for the uploaded data. The values are expected in TPM. Examples of correctly formatted data available for download can be found here:
-                <ul>
-                  <li>
-                    <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="/api/v2/data-overlay/reactions/example"
-                >
-                Reaction data
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href="/api/v2/data-overlay/genes/example"
+                options for the uploaded data. The values are expected in TPM. Examples of correctly
+                formatted data available for download can be found here:
+              </p>
+
+              <ul>
+                <li>
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="/api/v2/data-overlay/reactions/example"
                   >
-                Gene data
-                 </a>
+                    Reaction data
+                  </a>
                 </li>
-            </ul>
+                <li>
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="/api/v2/data-overlay/genes/example"
+                  >
+                    Gene data
+                  </a>
+                </li>
+              </ul>
             </div>
             <div class="column">
               <RNALegend></RNALegend>
