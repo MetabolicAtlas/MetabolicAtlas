@@ -388,7 +388,6 @@
                  </a>
                 </li>
             </ul>
-              </p>
             </div>
             <div class="column">
               <RNALegend></RNALegend>
