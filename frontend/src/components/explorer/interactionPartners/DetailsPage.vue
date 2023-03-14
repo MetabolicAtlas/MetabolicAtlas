@@ -374,7 +374,7 @@ export default {
         console.log(query);
         const expandedQuery = { ...query };
         if (query.expandedIds && !query.expandedIds?.includes(newId)) {
-          expandedQuery.expandedIds = [...query.expandedIds.split(","), newId].join(",");
+          expandedQuery.expandedIds = [...query.expandedIds.split(','), newId].join(',');
         } else {
           expandedQuery.expandedIds = newId;
         }
