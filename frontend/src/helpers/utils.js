@@ -28,14 +28,6 @@ export const convertCamelCase = str =>
 export function reformatTableKey(value) {
   return replaceUnderscores(capitalize(value));
 }
-
-export function reformatStringToLink(value, link) {
-  if (link) {
-    return `<a href="${link}" target="_blank">${value}</a>`;
-  }
-  return `<a href="${value}" target="_blank">${value}</a>`;
-}
-
 export function equationSign(isReversible) {
   return isReversible ? '⇔' : '⇒';
 }
@@ -127,46 +119,6 @@ export function reformatChemicalReactionHTML({
 export function sortResultsScore(a, b) {
   return b.score - a.score;
 }
-
-export function sortResultsSearchTerm(a, b, searchTermString) {
-  let matchSizeDiffA = 100;
-  let matchedStringA = '';
-  Object.values(a).forEach(v => {
-    if (
-      v &&
-      (typeof v === 'string' || v instanceof String) &&
-      v.toLowerCase().includes(searchTermString.toLowerCase())
-    ) {
-      const diff = v.length - searchTermString.length;
-      if (diff < matchSizeDiffA) {
-        matchSizeDiffA = diff;
-        matchedStringA = v;
-      }
-    }
-  });
-
-  let matchSizeDiffB = 100;
-  let matchedStringB = '';
-
-  Object.values(b).forEach(v => {
-    if (
-      v &&
-      (typeof v === 'string' || v instanceof String) &&
-      v.toLowerCase().includes(searchTermString.toLowerCase())
-    ) {
-      const diff = v.length - searchTermString.length;
-      if (diff < matchSizeDiffB) {
-        matchSizeDiffB = diff;
-        matchedStringB = v;
-      }
-    }
-  });
-  if (matchSizeDiffA === matchSizeDiffB) {
-    return matchedStringA.localeCompare(matchedStringB);
-  }
-  return matchSizeDiffA < matchSizeDiffB ? -1 : 1;
-}
-
 export const constructCompartmentStr = reaction => {
   const compartments = reaction.compartments.reduce(
     (obj, { id, ...cs }) => ({

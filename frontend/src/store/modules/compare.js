@@ -35,9 +35,6 @@ const actions = {
   resetComparisons({ commit }) {
     commit('setComparisons', []);
   },
-  resetComparisonDetails({ commit }) {
-    commit('setComparisonDetails', null);
-  },
   setSelectedCell({ commit }, cell) {
     commit('setSelectedCell', cell);
   },

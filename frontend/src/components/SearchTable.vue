@@ -814,7 +814,6 @@ export default {
       this.showSearchCharAlert = false;
       this.$store.dispatch('search/clearGlobalSearchResults');
       this.showTabType = '';
-      this.searchResultsFiltered = {};
       if (this.searchTerm.length > 1) {
         await this.search();
       } else if (this.searchTerm.length === 1) {
