@@ -435,8 +435,6 @@ export default {
       this.showGraphContextMenu = false;
       this.showNetworkGraph = true;
 
-      // TODO: use this when implementing compartment and subsystem highlight
-      // this.prepareHighlight();
       this.applyColorsAndRenderNetwork();
     },
     exportGraphml: function exportGraphml() {
