@@ -33,6 +33,8 @@ services:
 
   neo4j:
     environment:
+      - NEO4J_dbms_transaction_timeout=40s
+      - NEO4J_dbms_lock_acquisition_timeout=40s
       - NEO4J_apoc_export_file_enabled=true
       - NEO4J_apoc_import_file_enabled=true
       - NEO4J_apoc_import_file_use__neo4j__config=true
