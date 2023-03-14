@@ -352,6 +352,12 @@ export default {
       );
       this.missingReactionList = Array.from(missingReactionIdSet);
     },
+    showMessage(errorMessage) {
+      this.loadMapErrorMessage = errorMessage;
+      if (!this.loadMapErrorMessage) {
+        this.loadMapErrorMessage = messages.unknownError;
+      }
+    },
     unSelect() {
       this.selectionData.error = false;
       this.selectionData.data = null;

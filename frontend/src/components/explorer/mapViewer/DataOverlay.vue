@@ -203,6 +203,7 @@ export default {
       model: state => state.models.model,
       showing2D: state => state.maps.showing2D,
       dataOverlayPanelVisible: state => state.maps.dataOverlayPanelVisible,
+      mapLoaded: state => !state.maps.loading,
       dataSourcesIndex: state => state.dataOverlay.index,
       dataTypes: state => state.dataOverlay.currentDataTypes,
       dataSources: state => state.dataOverlay.currentDataSources,
