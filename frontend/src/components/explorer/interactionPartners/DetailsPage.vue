@@ -361,7 +361,6 @@ export default {
       }
     },
     navigateToExpansion() {
-
       function createExpandedQuery(query, newId) {
         const expandedQuery = { ...query };
         if (query.expandedIds && !query.expandedIds?.includes(newId)) {
