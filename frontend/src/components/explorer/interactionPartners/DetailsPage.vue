@@ -296,7 +296,7 @@ export default {
       const viewerHeight = this.$refs.viewer3d.clientHeight;
       this.$refs.viewer3d.style.height = `${viewerHeight}px`;
     },
-    handleWindowResize(event) {
+    handleWindowResize() {
       clearTimeout(this.resizeTimer);
 
       this.resizeTimer = setTimeout(async () => {
