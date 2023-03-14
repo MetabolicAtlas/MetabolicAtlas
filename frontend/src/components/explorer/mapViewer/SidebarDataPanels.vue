@@ -224,7 +224,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { capitalize, reformatChemicalReactionHTML } from '@/helpers/utils';
+import { capitalize, reformatStringToLink, reformatChemicalReactionHTML } from '@/helpers/utils';
 import { chemicalFormula } from '@/helpers/chemical-formatters';
 import { default as messages } from '@/content/messages';
 
@@ -281,6 +281,7 @@ export default {
       return true;
     },
     capitalize,
+    reformatStringToLink,
     chemicalFormula,
     reformatChemicalReactionHTML,
     toggleSelectionCardContent() {
