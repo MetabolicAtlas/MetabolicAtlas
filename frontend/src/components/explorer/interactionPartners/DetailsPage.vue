@@ -300,13 +300,6 @@ export default {
       clearTimeout(this.resizeTimer);
 
       this.resizeTimer = setTimeout(async () => {
-        // handleQueryParamsWatch emits a window resize event with cancelable
-        // set to true (default is false). This is to prevent handleQueryParamsWatch
-        // from triggering the height fix.
-        if (event.cancelable) {
-          return;
-        }
-
         // This temporarily disables the effect of `setFixedViewerHeight`
         this.$refs.viewer3d.style.height = '100%';
         await this.applyColorsAndRenderNetwork();
