@@ -31,7 +31,7 @@
           <context-menu
             ref="contextMenu"
             :show="showGraphContextMenu && clickedElmId !== mainNodeID"
-            :expand="loadExpansion"
+            :expand="navigateToExpansion"
           />
           <div id="mapWrapper" class="container is-fullhd columns is-multiline">
             <div class="column is-8-desktop is-fullwidth-tablet">
@@ -251,9 +251,6 @@ export default {
         await this.applyColors();
       }
     },
-    async queryParams(newQuery, oldQuery) {
-      await this.handleQueryParamsWatch(newQuery, oldQuery);
-    },
     async highlight() {
       await this.applyColors();
     },
@@ -316,21 +313,8 @@ export default {
         this.setFixedViewerHeight();
       }, 100);
     },
-    async handleQueryParamsWatch(newQuery) {
-      if (!newQuery) {
-        return;
-      }
-      const queryString = Object.entries(newQuery)
-        .map(e => e.join('='))
-        .join('&');
-      const url = `${this.$route.path}?${queryString}`;
-      history.replaceState(history.state, '', url); // eslint-disable-line no-restricted-globals
-      // resize the window and delay for 10 milliseconds to ensure the rotation axis is perpendicular to the screen and the canvas size is equal to the container.
-      setTimeout(() => {
-        window.dispatchEvent(new Event('resize', { cancelable: true }));
-      }, 10);
-    },
     async load() {
+      this.resetExpansion();
       this.loading = true;
       this.showLoaderMessage = 'Loading network...';
 
@@ -346,7 +330,6 @@ export default {
           }, 4000);
           await this.$store.dispatch('interactionPartners/loadExpansion', payload);
         } else {
-          this.resetExpansion();
           const payload = { model: this.model, id: this.mainNodeID };
           setTimeout(() => {
             this.showLoaderMessage = 'Loading network... waiting for data to be rendered';
@@ -384,34 +367,23 @@ export default {
         this.loading = false;
       }
     },
-    async loadExpansion() {
-      try {
-        this.loading = true;
-        this.showLoaderMessage = 'Updating network...';
-        await this.setExpansion({ id: this.clickedElmId, name: '' });
-        const payload = { model: this.model, expanded: this.expandedIds, id: this.mainNodeID };
-        setTimeout(() => {
-          this.showLoaderMessage = 'Updating network... waiting for data to be rendered';
-        }, 4000);
-        await this.$store.dispatch('interactionPartners/loadExpansion', payload);
+    navigateToExpansion() {
+      console.log('Navigate to expansion');
 
-        // The set time out wrapper enforces this happens last.
-        setTimeout(() => {
-          this.constructGraph();
-        }, 0);
-      } catch (error) {
-        console.log('error', error); // eslint-disable-line no-console
-        switch (error.response.status) {
-          case 404:
-            this.errorMessage = messages.notFoundError;
-            break;
-          default:
-            this.errorMessage = messages.unknownError;
+      function createExpandedQuery(query, newId) {
+        console.log(query);
+        const expandedQuery = { ...query };
+        if (query.expandedIds && !query.expandedIds?.includes(newId)) {
+          expandedQuery.expandedIds = [...query.expandedIds.split(","), newId].join(",");
+        } else {
+          expandedQuery.expandedIds = newId;
         }
-      } finally {
-        this.showLoaderMessage = '';
-        this.loading = false;
+        return expandedQuery;
       }
+      this.$router.push({
+        path: this.$route.path,
+        query: createExpandedQuery(this.$route.query, this.clickedElmId),
+      });
     },
     // TODO
     highlightReaction() {},
