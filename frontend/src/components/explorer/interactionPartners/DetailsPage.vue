@@ -361,10 +361,8 @@ export default {
       }
     },
     navigateToExpansion() {
-      console.log('Navigate to expansion');
 
       function createExpandedQuery(query, newId) {
-        console.log(query);
         const expandedQuery = { ...query };
         if (query.expandedIds && !query.expandedIds?.includes(newId)) {
           expandedQuery.expandedIds = [...query.expandedIds.split(','), newId].join(',');
