@@ -190,7 +190,7 @@ import-db () (
       --username "$NEO4J_USERNAME" \
       --password "$NEO4J_PASSWORD" \
       --format plain \
-      --file import/import.cypher
+      --file /opt/neo4j-import/import.cypher
 )
 
 deactivate () {
