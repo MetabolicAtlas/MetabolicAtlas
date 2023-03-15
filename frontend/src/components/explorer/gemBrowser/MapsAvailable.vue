@@ -7,43 +7,51 @@
         <span>{{ messages.mapViewerName }}</span>
       </p>
     </header>
-    <div v-if="mapsAvailable.length !== 0" class="card-content p-2">
-      <table class="table maps-table">
-        <tbody class="has-text-left">
-          <tr v-for="component in mapsAvailable" :key="component.id">
-            <td class="break-word">{{ component.customName }}</td>
-            <td v-if="component.svgMaps.length === 0"></td>
-            <td v-else-if="component.svgMaps.length === 1">
-              <button
-                type="button"
-                class="button is-outlined is-small link-button"
-                @click="routeSVGmap(component.svgMaps[0].id, '2d')"
-              >
-                <span class="has-text-link">2D</span>
-              </button>
-            </td>
-            <td v-else>
-              <div class="select is-small">
-                <select class="has-text-link" @change="e => routeSVGmap(e.target.value, '2d')">
-                  <option selected disabled>2D</option>
-                  <option v-for="map in component.svgMaps" :key="map.id" :value="map.id">
-                    {{ map.customName }}
-                  </option>
-                </select>
-              </div>
-            </td>
-            <td>
-              <button
-                type="button"
-                class="button is-outlined is-small link-button"
-                @click="routeSVGmap(component.id, '3d')"
-              >
-                <span class="has-text-link">3D</span>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div
+      class="more-content-view"
+      :class="{
+        'more-content-forward': moreContentForward,
+        'more-content-backward': moreContentBackward,
+      }"
+    >
+      <div v-if="mapsAvailable.length !== 0" ref="scrollContainer" class="card-content p-2">
+        <table class="table maps-table">
+          <tbody class="has-text-left">
+            <tr v-for="component in mapsAvailable" :key="component.id">
+              <td class="break-word">{{ component.customName }}</td>
+              <td v-if="component.svgMaps.length === 0"></td>
+              <td v-else-if="component.svgMaps.length === 1">
+                <button
+                  type="button"
+                  class="button is-outlined is-small link-button"
+                  @click="routeSVGmap(component.svgMaps[0].id, '2d')"
+                >
+                  <span class="has-text-link">2D</span>
+                </button>
+              </td>
+              <td v-else>
+                <div class="select is-small">
+                  <select class="has-text-link" @change="e => routeSVGmap(e.target.value, '2d')">
+                    <option selected disabled>2D</option>
+                    <option v-for="map in component.svgMaps" :key="map.id" :value="map.id">
+                      {{ map.customName }}
+                    </option>
+                  </select>
+                </div>
+              </td>
+              <td>
+                <button
+                  type="button"
+                  class="button is-outlined is-small link-button"
+                  @click="routeSVGmap(component.id, '3d')"
+                >
+                  <span class="has-text-link">3D</span>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -68,6 +76,8 @@ export default {
         '3d': false,
       },
       limited3DMaps: false,
+      moreContentForward: false,
+      moreContentBackward: false,
     };
   },
   computed: {
@@ -75,6 +85,17 @@ export default {
       model: state => state.models.model,
       mapsAvailable: state => state.maps.availableMaps,
     }),
+  },
+  mounted() {
+    this.updateScroll();
+    document.addEventListener('resize', this.updateScroll);
+    this.$refs.scrollContainer.addEventListener('scroll', this.updateScroll);
+  },
+  unmounted() {
+    document.removeEventListener('resize', this.updateScroll);
+    if (this.$refs.scrollContainer) {
+      this.$refs.scrollContainer.removeEventListener('scroll', this.updateScroll);
+    }
   },
   methods: {
     routeSVGmap(svgId, dimension) {
@@ -85,6 +106,23 @@ export default {
         query.sel = this.viewerSelectedID;
       }
       this.$router.push({ name: 'viewer', params, query });
+    },
+
+    updateScroll() {
+      const element = this.$refs.scrollContainer;
+      if (element) {
+        const scrollPosition = element.scrollTop;
+        const scrollSize = element.scrollHeight - element.offsetHeight;
+
+        if (scrollSize > 0) {
+          const scrollRatio = scrollPosition / scrollSize;
+          this.moreContentForward = scrollRatio < 1;
+          this.moreContentBackward = scrollRatio > 0;
+        } else {
+          this.moreContentForward = false;
+          this.moreContentBackward = false;
+        }
+      }
     },
   },
 };
@@ -100,5 +138,37 @@ export default {
 }
 .table {
   width: 100%;
+}
+
+.more-content-view {
+  position: relative;
+}
+.more-content-view::after,
+.more-content-view::before {
+  display: block;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2rem;
+  opacity: 0;
+  transition: opacity 0.5s;
+  pointer-events: none;
+}
+.more-content-view.more-content-forward::after {
+  bottom: 0;
+  opacity: 1;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.125) 0%, rgba(0, 0, 0, 0) 100%);
+}
+.more-content-view.more-content-backward::before {
+  top: 0;
+  opacity: 1;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.125) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+@media screen and (min-width: $tablet) {
+  .more-content-view::after,
+  .more-content-view::before {
+    height: 1rem;
+  }
 }
 </style>
