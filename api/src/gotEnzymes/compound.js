@@ -1,5 +1,5 @@
 import sql from 'gotEnzymes/db';
-import crossReferencesMapping from 'gotEnzymes/crossReferencesMapping';
+import { crossReferencesDict } from 'data/identifiers';
 
 const getCompound = async id => {
   const compounds = await sql`
@@ -24,7 +24,7 @@ const getCompound = async id => {
     Object.entries(rawCrossReferences)
       .filter(([_, v]) => v)
       .map(([k, v]) => {
-        const { db, dbPrefix, compoundSuffix } = crossReferencesMapping[k];
+        const { db, dbPrefix, compoundSuffix } = crossReferencesDict[k];
         return [
           db,
           v.split(';').map(id => ({
