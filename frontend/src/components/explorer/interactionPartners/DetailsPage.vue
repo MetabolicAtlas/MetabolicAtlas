@@ -31,7 +31,7 @@
           <context-menu
             ref="contextMenu"
             :show="showGraphContextMenu && clickedElmId !== mainNodeID"
-            :expand="loadExpansion"
+            :expand="navigateToExpansion"
           />
           <div id="mapWrapper" class="container is-fullhd columns is-multiline">
             <div class="column is-8-desktop is-fullwidth-tablet">
@@ -251,9 +251,6 @@ export default {
         await this.applyColors();
       }
     },
-    async queryParams(newQuery, oldQuery) {
-      await this.handleQueryParamsWatch(newQuery, oldQuery);
-    },
     async highlight() {
       await this.applyColors();
     },
@@ -300,47 +297,18 @@ export default {
       const viewerHeight = this.$refs.viewer3d.clientHeight;
       this.$refs.viewer3d.style.height = `${viewerHeight}px`;
     },
-    handleWindowResize(event) {
+    handleWindowResize() {
       clearTimeout(this.resizeTimer);
 
       this.resizeTimer = setTimeout(async () => {
-        // handleQueryParamsWatch emits a window resize event with cancelable
-        // set to true (default is false). This is to prevent handleQueryParamsWatch
-        // from triggering the height fix.
-        if (event.cancelable) {
-          return;
-        }
-
         // This temporarily disables the effect of `setFixedViewerHeight`
         this.$refs.viewer3d.style.height = '100%';
         await this.applyColorsAndRenderNetwork();
         this.setFixedViewerHeight();
       }, 100);
     },
-    async handleQueryParamsWatch(newQuery) {
-      if (!newQuery) {
-        return;
-      }
-      const queryString = Object.entries(newQuery)
-        .map(e => e.join('='))
-        .join('&');
-      const url = `${this.$route.path}?${queryString}`;
-      history.replaceState(history.state, '', url); // eslint-disable-line no-restricted-globals
-      // resize the window and delay for 10 milliseconds to ensure the rotation axis is perpendicular to the screen and the canvas size is equal to the container.
-      setTimeout(() => {
-        window.dispatchEvent(new Event('resize', { cancelable: true }));
-      }, 10);
-    },
-    navigate() {
-      this.reactionHL = null;
-      this.compartmentHL = '';
-      this.subsystemHL = '';
-      this.$router.push({
-        name: 'interaction',
-        params: { model: this.model.short_name, id: this.clickedElmId },
-      });
-    },
     async load() {
+      this.resetExpansion();
       this.loading = true;
       this.showLoaderMessage = 'Loading network...';
 
@@ -356,7 +324,6 @@ export default {
           }, 4000);
           await this.$store.dispatch('interactionPartners/loadExpansion', payload);
         } else {
-          this.resetExpansion();
           const payload = { model: this.model, id: this.mainNodeID };
           setTimeout(() => {
             this.showLoaderMessage = 'Loading network... waiting for data to be rendered';
@@ -395,34 +362,20 @@ export default {
         this.loading = false;
       }
     },
-    async loadExpansion() {
-      try {
-        this.loading = true;
-        this.showLoaderMessage = 'Updating network...';
-        await this.setExpansion({ id: this.clickedElmId, name: '' });
-        const payload = { model: this.model, expanded: this.expandedIds, id: this.mainNodeID };
-        setTimeout(() => {
-          this.showLoaderMessage = 'Updating network... waiting for data to be rendered';
-        }, 4000);
-        await this.$store.dispatch('interactionPartners/loadExpansion', payload);
-
-        // The set time out wrapper enforces this happens last.
-        setTimeout(() => {
-          this.constructGraph();
-        }, 0);
-      } catch (error) {
-        console.log('error', error); // eslint-disable-line no-console
-        switch (error.response.status) {
-          case 404:
-            this.errorMessage = messages.notFoundError;
-            break;
-          default:
-            this.errorMessage = messages.unknownError;
+    navigateToExpansion() {
+      function createExpandedQuery(query, newId) {
+        const expandedQuery = { ...query };
+        if (query.expandedIds && !query.expandedIds?.includes(newId)) {
+          expandedQuery.expandedIds = [...query.expandedIds.split(','), newId].join(',');
+        } else {
+          expandedQuery.expandedIds = newId;
         }
-      } finally {
-        this.showLoaderMessage = '';
-        this.loading = false;
+        return expandedQuery;
       }
+      this.$router.push({
+        path: this.$route.path,
+        query: createExpandedQuery(this.$route.query, this.clickedElmId),
+      });
     },
     // TODO
     isCompartmentSubsystemHLDisabled() {
