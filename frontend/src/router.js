@@ -20,6 +20,7 @@ import IdInModels from '@/components/IdInModels.vue';
 import AboutTerms from '@/components/about/Terms.vue';
 import AboutPlatform from '@/components/about/Platform.vue';
 import AboutResources from '@/components/about/Resources.vue';
+// import Impact from '@/components/about/Impact.vue';
 import News from '@/components/about/News.vue';
 import Elixir from '@/components/about/Elixir.vue';
 import EnzymeReaction from '@/components/gotEnzymes/Reaction.vue';

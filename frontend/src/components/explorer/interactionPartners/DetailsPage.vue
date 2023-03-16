@@ -277,6 +277,7 @@ export default {
     }),
     async setup() {
       this.mainNodeID = this.$route.params.id;
+      this.mainNode = null;
       this.reactionHL = null;
       this.compartmentHL = '';
       this.subsystemHL = '';
@@ -337,6 +338,7 @@ export default {
           this.showNetworkGraph = false;
           return;
         }
+        this.largeNetworkGraph = false;
         this.showNetworkGraph = true;
         this.errorMessage = '';
 
@@ -376,6 +378,13 @@ export default {
       });
     },
     // TODO
+    isCompartmentSubsystemHLDisabled() {
+      return (
+        (this.compartmentHL === '' && this.subsystemHL === '') ||
+        (this.compartmentList.length < 2 && this.subsystemList.length === 0)
+      );
+    },
+    // TODO
     highlightReaction() {},
     // TODO
     highlightCompartment(e) {
@@ -385,6 +394,10 @@ export default {
     highlightSubsystem(e) {
       this.highlight = this.subsystems[e.target.value];
     },
+    // TODO
+    resetHighlight() {
+      this.highlight = [];
+    },
     resetNetwork() {
       if (this.controller) {
         this.controller.dispose();
@@ -393,10 +406,46 @@ export default {
     },
     // TODO
     highlightNode() {},
+
+    // TODO
+    prepareHighlight() {
+      const compartments = {};
+      const subsystems = {};
+      this.reactions.forEach(r => {
+        r.metabolites.forEach(m => {
+          if (!compartments[m.compartmentId]) {
+            compartments[m.compartmentId] = [];
+          }
+          compartments[m.compartmentId].push(m.id);
+          if (r.subsystem) {
+            if (!subsystems[[...r.subsystem]]) {
+              subsystems[[...r.subsystem]] = [];
+            }
+            subsystems[[...r.subsystem]].push(m.id);
+          }
+        });
+        // This is an attempt to follow the logic in the old IP https://github.com/MetabolicAtlas/MetabolicAtlas/blob/9382c2419771d7b6e1aad2cf61fcd643438860e7/frontend/src/data-mappers/hmr-closest-interaction-partners.js#L60
+        r.genes.forEach(g => {
+          if (Object.keys(compartments).size === 1) {
+            compartments[Object.keys(compartments)[0]].push(g.id);
+          }
+          if (r.subsystem) {
+            if (!subsystems[[...r.subsystem]]) {
+              subsystems[[...r.subsystem]] = [];
+            }
+            subsystems[[...r.subsystem]].push(g.id);
+          }
+        });
+      });
+      this.compartments = compartments;
+      this.subsystems = subsystems;
+    },
     constructGraph: function constructGraph() {
       this.showGraphContextMenu = false;
       this.showNetworkGraph = true;
 
+      // TODO: use this when implementing compartment and subsystem highlight
+      // this.prepareHighlight();
       this.applyColorsAndRenderNetwork();
     },
     exportGraphml: function exportGraphml() {
