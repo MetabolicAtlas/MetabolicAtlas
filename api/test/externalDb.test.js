@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 
 describe('externalDb', () => {
   test('an external db should have components sorted by model name', async () => {
-    const res = await fetch(`${API_BASE}/external-db/BiGG/PPNCL3`).then(r =>
+    const res = await fetch(`${API_BASE}/identifier/BiGG/PPNCL3`).then(r =>
       r.json()
     );
     const models = res.components.map(c => c.model);

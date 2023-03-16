@@ -105,7 +105,7 @@ export default {
   },
   async beforeMount() {
     try {
-      await this.$store.dispatch('externalDb/getComponentsForExternalDb', {
+      await this.$store.dispatch('externalDb/getComponentsForIdentifier', {
         dbName: this.$route.params.dbName,
         externalId: this.$route.params.identifierId,
         referenceType: this.$route.query.referenceType,

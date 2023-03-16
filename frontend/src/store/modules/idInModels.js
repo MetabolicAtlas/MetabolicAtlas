@@ -6,8 +6,8 @@ const data = {
 };
 
 const actions = {
-  async getComponentsForExternalDb({ commit }, { dbName, externalId, referenceType }) {
-    const { components, externalDb } = await idInModelsApi.fetchComponentsForExternalDb({
+  async getComponentsForIdentifier({ commit }, { dbName, externalId, referenceType }) {
+    const { components, externalDb } = await idInModelsApi.fetchComponentsForIdentifier({
       dbName,
       externalId,
       referenceType,
