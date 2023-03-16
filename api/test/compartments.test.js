@@ -30,4 +30,24 @@ describe('compartments', () => {
     const data = await res.json();
     expect(data.length).toBe(NUCLEUS_INFO.reactionsCount);
   });
+
+  // TODO: is this what we want? (is failing now, gives 200 and empty list)
+  // TODO: make parameterized with different paths
+  // TODO: update openAPI docs as well
+  test('return 404 if no compartment with that id exists', async () => {
+    const res = await fetch(
+      `${API_BASE}/compartments/non-existing/related-reactions?model=HumanGem&version=${HUMAN_GEM_VERSION}`
+    );
+
+    expect(res.status).toBe(404);
+  });
+
+  test('return 200 and empty list if compartment exists but there are no reactions for model', async () => {
+    const res = await fetch(
+      `${API_BASE}/compartments/nucleus/related-reactions?model=non-existent&version=${HUMAN_GEM_VERSION}`
+    );
+
+    const data = await res.json();
+    expect(res.status).toBe(200);
+  });
 });
