@@ -5,7 +5,7 @@
  *   'genesCount' in referenceComponent
  */
 
-const validateComponent = (component, referenceComponent) => {
+export const validateComponent = (component, referenceComponent) => {
   for (let [k, v] of Object.entries(referenceComponent)) {
     if (k.endsWith('Count') && !Object.keys(component).includes(k)) {
       const key = k.replace('Count', '');
@@ -16,4 +16,8 @@ const validateComponent = (component, referenceComponent) => {
   }
 };
 
-export { validateComponent };
+export async function expectEmptyResponse(res) {
+  expect(res.status).toBe(200);
+  const data = await res.json();
+  expect(data).toEqual([]);
+}
