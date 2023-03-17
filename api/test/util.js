@@ -16,8 +16,14 @@ export const validateComponent = (component, referenceComponent) => {
   }
 };
 
-export async function expectEmptyResponse(res) {
+export async function expectSuccessfulResponse(res, expectedData) {
   expect(res.status).toBe(200);
   const data = await res.json();
-  expect(data).toEqual([]);
+  if (expectedData) {
+    expect(data).toEqual(expectedData);
+  }
+}
+
+export async function expectEmptyResponse(res) {
+  return expectSuccessfulResponse(res, []);
 }
