@@ -36,9 +36,20 @@ _docker-compose () (
   # Helper function to reduce clutter and repetition.
   _setup-environment
 
+  # Use specific compose file for overrides.
+  # If 1st arg is "remote", use remote compose file (and remove arg).
+  # If 1st arg is "local", use local compose file (and remove arg).
+  # If 1st arg is anything else, use local compose file (and keep arg).
+  case $1 in
+    remote) shift; set -- -f docker-compose-remote.yml "$@" ;;
+    local)  shift; set -- -f docker-compose-local.yml  "$@" ;;
+    *)
+      # No shift, otherwise the same as above
+      set -- -f docker-compose-local.yml "$@"
+  esac
+
   DOCKER_BUILDKIT=1 "${compose_cmd[@]}" --env-file "$CHOSEN_ENV" \
     -f docker-compose.yml \
-    -f docker-compose-local.yml \
     "$@"
 )
 
@@ -169,7 +180,7 @@ deploy-stack () (
 
   generate-data
 
-  _docker-compose \
+  _docker-compose remote \
     --project-name metabolicatlas \
     up --detach --build --force-recreate --remove-orphans --renew-anon-volumes
 
