@@ -23,8 +23,7 @@ _setup-environment () {
     compose_cmd=( docker-compose )
   fi
 
-  LOCALENV=local
-  CHOSEN_ENV=./env-$LOCALENV.env
+  CHOSEN_ENV=${CHOSEN_ENV:-./env-local.env}
 
   printf 'Using %s\n' "$CHOSEN_ENV"
   . "$CHOSEN_ENV" || return
@@ -33,7 +32,6 @@ _setup-environment () {
 _docker-compose () (
   set -e
 
-  # Helper function to reduce clutter and repetition.
   _setup-environment
 
   # Use specific compose file for overrides.
@@ -133,8 +131,6 @@ generate-data () (
 build-stack () (
   set -e
 
-  _setup-environment
-
   generate-data
   _docker-compose build
 )
@@ -174,9 +170,8 @@ ma-exec () (
 deploy-stack () (
   set -e
 
-  _setup-environment
-
-  CHOSEN_ENV=./env-${1:-$LOCALENV}.env
+  # Use a different environment file if given an argument.
+  CHOSEN_ENV=./env-${1:-local}.env
 
   generate-data
 
@@ -192,8 +187,6 @@ deploy-stack () (
 
 import-db () (
   set -e
-
-  _setup-environment
 
   generate-data --reset-db
 
