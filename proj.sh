@@ -18,9 +18,9 @@ _setup-environment () {
   # use docker-compose.
   if docker help compose >/dev/null 2>&1
   then
-    compose=( docker compose )
+    compose_cmd=( docker compose )
   else
-    compose=( docker-compose )
+    compose_cmd=( docker-compose )
   fi
 
   LOCALENV=local
@@ -36,7 +36,7 @@ _docker-compose () (
   # Helper function to reduce clutter and repetition.
   _setup-environment
 
-  DOCKER_BUILDKIT=1 "${compose[@]}" --env-file "$CHOSEN_ENV" \
+  DOCKER_BUILDKIT=1 "${compose_cmd[@]}" --env-file "$CHOSEN_ENV" \
     -f docker-compose.yml \
     -f docker-compose-local.yml \
     "$@"
