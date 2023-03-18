@@ -131,7 +131,10 @@ generate-data () (
 build-stack () (
   set -e
 
+  _setup-environment
+
   generate-data
+
   _docker-compose build
 )
 
@@ -173,6 +176,8 @@ deploy-stack () (
   # Use a different environment file if given an argument.
   CHOSEN_ENV=./env-${1:-local}.env
 
+  _setup-environment
+
   generate-data
 
   _docker-compose remote \
@@ -187,6 +192,8 @@ deploy-stack () (
 
 import-db () (
   set -e
+
+  _setup-environment
 
   generate-data --reset-db
 
