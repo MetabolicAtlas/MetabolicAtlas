@@ -22,7 +22,7 @@ import {
   get3dNetwork,
   getComparisonOverview,
   getComparisonDetails,
-  getComponentsForExternalDb,
+  getComponentsForIdentifier,
 } from 'neo4j/index';
 
 const neo4jRoutes = express.Router();
@@ -191,7 +191,7 @@ neo4jRoutes.get('/identifier/:dbName/:externalId', async (req, res) => {
   const { referenceType } = req.query;
 
   try {
-    const result = await getComponentsForExternalDb({
+    const result = await getComponentsForIdentifier({
       dbName,
       externalId,
       referenceType,

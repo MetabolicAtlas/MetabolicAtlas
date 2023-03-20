@@ -1,30 +1,30 @@
 import querySingleResult from 'neo4j/queryHandlers/single';
 import { crossReferencesDict } from 'data/identifiers';
 
-const getComponentsForExternalDb = async ({
+const getComponentsForIdentifier = async ({
   dbName,
   externalId,
   referenceType,
 }) => {
   let statement = `
 MATCH (db:ExternalDb {dbName: '${dbName}', externalId: '${externalId}'})-[v]-(c)
-RETURN { externalDb: properties(db), components: COLLECT({ component: c, version: type(v) }) }
+RETURN { identifier: properties(db), components: COLLECT({ component: c, version: type(v) }) }
 `;
   if (dbName === 'MetabolicAtlas') {
     statement = `
 MATCH (r:Reaction {id: '${externalId}'})-[v]-()
-RETURN { externalDb: properties(r), components: COLLECT(DISTINCT({component: r, version: type(v)}))}
+RETURN { identifier: properties(r), components: COLLECT(DISTINCT({component: r, version: type(v)}))}
 
 UNION
 
 MATCH (r:CompartmentalizedMetabolite {id: '${externalId}'})-[v]-()
-RETURN { externalDb: properties(r), components: COLLECT(DISTINCT({component: r, version: type(v)}))}
+RETURN { identifier: properties(r), components: COLLECT(DISTINCT({component: r, version: type(v)}))}
 
 `;
   }
 
   try {
-    let { externalDb, components } = await querySingleResult(statement);
+    let { identifier, components } = await querySingleResult(statement);
 
     components = components
       .map(({ component, version }) => {
@@ -44,11 +44,11 @@ RETURN { externalDb: properties(r), components: COLLECT(DISTINCT({component: r, 
       .sort((a, b) => a.model.localeCompare(b.model));
 
     if (dbName === 'MetabolicAtlas') {
-      externalDb.dbName = dbName;
-      externalDb.externalId = externalDb.id;
+      identifier.dbName = dbName;
+      identifier.externalId = identifier.id;
     }
 
-    return { components, externalDb };
+    return { components, identifier };
   } catch (e) {
     const VALID_REFERENCE_TYPES = ['compound', 'reaction', 'gene'];
     if (!VALID_REFERENCE_TYPES.includes(referenceType)) {
@@ -68,7 +68,7 @@ RETURN { externalDb: properties(r), components: COLLECT(DISTINCT({component: r, 
     }
 
     return {
-      externalDb: {
+      identifier: {
         dbName,
         externalId,
         url: `https://identifiers.org/${dbPrefix}${dbSuffix}:${externalId}`,
@@ -78,4 +78,4 @@ RETURN { externalDb: properties(r), components: COLLECT(DISTINCT({component: r, 
   }
 };
 
-export default getComponentsForExternalDb;
+export default getComponentsForIdentifier;
