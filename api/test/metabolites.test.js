@@ -76,7 +76,6 @@ describe('metabolites', () => {
       expect(relatedMetabolites).toEqual(orderedMetabolites);
     });
 
-    // This is inconsistent
     // eslint-disable-next-line jest/expect-expect
     test('returns 200 and empty list if no metabolite with that id exists', async () => {
       const res = await fetch(
@@ -85,7 +84,6 @@ describe('metabolites', () => {
       await expectEmptyResponse(res);
     });
 
-    // This is inconsistent
     // eslint-disable-next-line jest/expect-expect
     test('returns 200 and empty list if model does not exist', async () => {
       const res = await fetch(
@@ -96,7 +94,6 @@ describe('metabolites', () => {
   });
 
   describe('get related metabolites', () => {
-    // This is inconsistent
     // eslint-disable-next-line jest/expect-expect
     test('returns 200 and empty list if no metabolite with that id exists', async () => {
       const res = await fetch(
@@ -105,7 +102,6 @@ describe('metabolites', () => {
       await expectEmptyResponse(res);
     });
 
-    // This is inconsistent
     // eslint-disable-next-line jest/expect-expect
     test('returns 200 and empty list if model does not exist', async () => {
       const res = await fetch(

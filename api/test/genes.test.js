@@ -49,7 +49,6 @@ describe('genes', () => {
       expect(data.length).toBe(9);
     });
 
-    // This is inconsistent
     // eslint-disable-next-line jest/expect-expect
     test('returns 200 and empty list if no gene with that id exists', async () => {
       const res = await fetch(
@@ -58,7 +57,6 @@ describe('genes', () => {
       await expectEmptyResponse(res);
     });
 
-    // This is inconsistent
     // eslint-disable-next-line jest/expect-expect
     test('returns 200 and empty list if model does not exist', async () => {
       const res = await fetch(

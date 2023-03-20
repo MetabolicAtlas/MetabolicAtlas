@@ -45,7 +45,6 @@ describe('reactions', () => {
   });
 
   describe('get related reactions', () => {
-    // This is inconsistent
     // eslint-disable-next-line jest/expect-expect
     test('returns 200 and empty list if no reaction with that id exists', async () => {
       const res = await fetch(
@@ -54,7 +53,6 @@ describe('reactions', () => {
       await expectEmptyResponse(res);
     });
 
-    // This is inconsistent
     // eslint-disable-next-line jest/expect-expect
     test('returns 200 and empty list if model does not exist', async () => {
       const res = await fetch(

@@ -47,7 +47,6 @@ describe('compartments', () => {
       expect(data.length).toBe(NUCLEUS_INFO.reactionsCount);
     });
 
-    // This is inconsistent
     // eslint-disable-next-line jest/expect-expect
     test('returns 200 and empty list if no compartment with that id exists', async () => {
       const res = await fetch(
@@ -56,7 +55,6 @@ describe('compartments', () => {
       await expectEmptyResponse(res);
     });
 
-    // This is inconsistent
     // eslint-disable-next-line jest/expect-expect
     test('returns 200 and empty list if model does not exist', async () => {
       const res = await fetch(
