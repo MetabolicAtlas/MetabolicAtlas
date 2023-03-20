@@ -99,13 +99,17 @@ const routes = [
   {
     path: '/explore/gem-browser/human1:pathMatch(.*)*',
     redirect: to => ({
-      path: `/explore/Human-GEM/gem-browser${to.params.pathMatch.join('/')}`,
+      path: `/explore/Human-GEM/gem-browser${
+        Array.isArray(to.params.pathMatch) ? to.params.pathMatch.join('/') : ''
+      }`,
     }),
   },
   {
-    path: '/explore/map-viewer/human1:pathMatch(.*)*',
+    path: '/explore/map-viewer/:sub(human1/compartment|human1/subsystem|human1)/:pathMatch(.*)*',
     redirect: to => ({
-      path: `/explore/Human-GEM/map-viewer${to.params.pathMatch.join('/')}`,
+      path: `/explore/Human-GEM/map-viewer/${
+        Array.isArray(to.params.pathMatch) ? to.params.pathMatch.join('/') : ''
+      }`,
     }),
   },
 

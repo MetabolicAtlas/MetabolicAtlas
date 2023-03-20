@@ -1,5 +1,5 @@
 import querySingleResult from 'neo4j/queryHandlers/single';
-import crossReferencesMapping from 'gotEnzymes/crossReferencesMapping';
+import { crossReferencesDict } from 'data/identifiers';
 
 const getComponentsForExternalDb = async ({
   dbName,
@@ -26,20 +26,22 @@ RETURN { externalDb: properties(r), components: COLLECT(DISTINCT({component: r, 
   try {
     let { externalDb, components } = await querySingleResult(statement);
 
-    components = components.map(({ component, version }) => {
-      const { labels, properties } = component;
-      const model = labels
-        .find(l => l.indexOf('Gem') > -1)
-        .replace('Gem', '-GEM');
-      const componentType = labels.find(l => l.indexOf('Gem') === -1);
+    components = components
+      .map(({ component, version }) => {
+        const { labels, properties } = component;
+        const model = labels
+          .find(l => l.indexOf('Gem') > -1)
+          .replace('Gem', '-GEM');
+        const componentType = labels.find(l => l.indexOf('Gem') === -1);
 
-      return {
-        id: properties.id,
-        model,
-        componentType,
-        version: version.replace('V', '').replace(/_/g, '.'),
-      };
-    });
+        return {
+          id: properties.id,
+          model,
+          componentType,
+          version: version.replace('V', '').replace(/_/g, '.'),
+        };
+      })
+      .sort((a, b) => a.model.localeCompare(b.model));
 
     if (dbName === 'MetabolicAtlas') {
       externalDb.dbName = dbName;
@@ -52,7 +54,7 @@ RETURN { externalDb: properties(r), components: COLLECT(DISTINCT({component: r, 
     if (!VALID_REFERENCE_TYPES.includes(referenceType)) {
       throw e;
     }
-    const dbMapping = Object.values(crossReferencesMapping).find(
+    const dbMapping = Object.values(crossReferencesDict).find(
       x => x.db === dbName
     );
     if (!dbMapping) {
