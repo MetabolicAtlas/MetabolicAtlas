@@ -31,10 +31,7 @@ const actions = {
   async getModels({ commit, state }) {
     if (state.modelList.length === 0) {
       const models = await modelsApi.fetchModels();
-      commit(
-        'setModelList',
-        models.sort((a, b) => (a.short_name.toLowerCase() < b.short_name.toLowerCase() ? -1 : 1))
-      );
+      commit('setModelList', models);
     }
   },
   /* eslint-disable no-shadow */

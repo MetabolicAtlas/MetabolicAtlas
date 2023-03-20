@@ -1,5 +1,5 @@
 import sql from 'gotEnzymes/db';
-import crossReferencesMapping from 'gotEnzymes/crossReferencesMapping';
+import { crossReferencesDict } from 'data/identifiers';
 
 const getGene = async value => {
   const genes = await sql`
@@ -22,7 +22,7 @@ const getGene = async value => {
     Object.entries(rawCrossReferences)
       .filter(([_, v]) => v)
       .map(([k, v]) => {
-        const { db, dbPrefix } = crossReferencesMapping[k];
+        const { db, dbPrefix } = crossReferencesDict[k];
         return [
           db,
           v.split(';').map(id => ({

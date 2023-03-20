@@ -32,7 +32,7 @@ routes.get('/:model/:dataType/:filename/data-sets', async (req, res) => {
     const dataSourceFile = await getDataSourceFile(model, dataType, filename);
     const [, ...dataSets] = dataSourceFile.split(/\r?\n/)[0].split('\t');
 
-    res.json(dataSets);
+    res.json(dataSets.sort((a, b) => a.localeCompare(b)));
   } catch (e) {
     console.error(e.message);
     res.sendStatus(404);

@@ -1,5 +1,5 @@
 import querySingleResult from 'neo4j/queryHandlers/single';
-import crossReferencesMapping from 'gotEnzymes/crossReferencesMapping';
+import { crossReferencesDict } from 'data/identifiers';
 
 const getComponentsForExternalDb = async ({
   dbName,
@@ -54,7 +54,7 @@ RETURN { externalDb: properties(r), components: COLLECT(DISTINCT({component: r, 
     if (!VALID_REFERENCE_TYPES.includes(referenceType)) {
       throw e;
     }
-    const dbMapping = Object.values(crossReferencesMapping).find(
+    const dbMapping = Object.values(crossReferencesDict).find(
       x => x.db === dbName
     );
     if (!dbMapping) {
