@@ -1,5 +1,5 @@
 global.beforeAll(() => {
-  global.API_BASE = 'http://127.0.0.1:80/api/v2';
+  global.API_BASE = 'http://localhost:8081/api/v2';
   let model = readModelInfo();
   global.FRUITFLY_GEM_VERSION = model['Fruitfly-GEM'];
   global.HUMAN_GEM_VERSION = model['Human-GEM'];
