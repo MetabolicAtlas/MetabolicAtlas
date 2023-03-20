@@ -78,20 +78,12 @@ export default {
       externalDb: state => state.externalDb.externalDb,
     }),
     compGroupedByModel() {
-      const result = this.components.reduce((r, a) => {
+      return this.components.reduce((r, a) => {
         // eslint-disable-next-line
         r[a.model] = r[a.model] || [];
         r[a.model].push(a);
         return r;
       }, {});
-      const orderedRst = Object.keys(result)
-        .sort()
-        .reduce((obj, key) => {
-          // eslint-disable-next-line
-          obj[key] = result[key];
-          return obj;
-        }, {});
-      return orderedRst;
     },
     componentType() {
       return this.components.length > 0

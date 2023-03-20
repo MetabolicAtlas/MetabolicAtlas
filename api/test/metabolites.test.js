@@ -114,4 +114,14 @@ describe('metabolites', () => {
       await expectEmptyResponse(res);
     });
   });
+
+  test('should return an ordered list of related metabolites', async () => {
+    const res = await fetch(
+      `${API_BASE}/metabolites/MAM02319e/related-metabolites?model=ZebrafishGem&version=${ZEBRAFISH_GEM_VERSION}`
+    );
+
+    const relatedMetabolites = (await res.json()).map(m => m.id);
+    const orderedMetabolites = ['MAM02319c', 'MAM02319m'];
+    expect(relatedMetabolites).toEqual(orderedMetabolites);
+  });
 });

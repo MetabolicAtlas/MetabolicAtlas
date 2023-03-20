@@ -358,6 +358,22 @@ export default {
     }
   },
   methods: {
+    async getIntegratedModels() {
+      try {
+        const urlId = this.$route.params.model_id;
+        if (urlId) {
+          const urlIntegrateModel = this.integratedModels.find(m => m.short_name === urlId);
+          if (urlIntegrateModel) {
+            this.showIntegratedModelData(urlIntegrateModel);
+          } else {
+            // concurrence getModels api query
+            this.getModelData(urlId);
+          }
+        }
+      } catch {
+        this.errorMessage = messages.unknownError;
+      }
+    },
     getModelData() {
       const urlId = this.$route.params.model_id;
       this.showModelId = '';
