@@ -8,9 +8,9 @@ const fetchComponentsForIdentifier = async ({ dbName, externalId, referenceType 
   }
 
   const { data } = await axios.get(url);
-  const { externalDb, components } = data;
+  const { identifier, components } = data;
   return {
-    externalDb,
+    identifier,
     components: components.map(c => ({
       ...c,
       componentType: c.componentType.replace('Compartmentalized', ''),
