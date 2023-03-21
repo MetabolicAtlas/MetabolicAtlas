@@ -12,7 +12,7 @@ describe('cross reference', () => {
     const res = await fetch(`${API_BASE}/identifier/Recon3D/RE3335C`);
 
     const {
-      externalDb: { url },
+      identifier: { url },
     } = await res.json();
     expect(url.length).toBeGreaterThan(1);
   });
