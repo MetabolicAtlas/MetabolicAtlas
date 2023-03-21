@@ -69,7 +69,7 @@
         you use any of the GEMs, please also cite the corresponding publication.
       </p>
 
-      <template v-for="citation in updatedCitations()" :key="citation.id">
+      <template v-for="citation in updatedCitations" :key="citation.id">
         <citation :entry="citation" />
       </template>
 
@@ -296,7 +296,7 @@ export default {
           linkedin: 'https://www.linkedin.com/in/jens-nielsen-57a207181/',
           content: `<a href="https://bii.dk/team/jens-nielsen" target="_blank" rel="noopener
             noreferrer">CEO at BioInnovation Institute</a> and <a
-            href="https://www.sysbio.se/labs/nielsen/" target="_blank rel="noopener noreferrer">Prof. of Systems and Synthetic Biology at Chalmers University of Technology</a>`,
+            href="https://www.sysbio.se/labs/nielsen/" target="_blank" rel="noopener noreferrer">Prof. of Systems and Synthetic Biology at Chalmers University of Technology</a>`,
         },
         {
           name: 'Dr. Rui Benfeitas',
@@ -423,10 +423,17 @@ export default {
       citations,
     };
   },
-  methods: {
+  computed: {
     updatedCitations() {
-      this.citations[0].intro = 'Please cite: ';
-      return this.citations;
+      return this.citations.length > 0
+        ? [
+            {
+              ...this.citations[0],
+              intro: 'Please cite: ',
+            },
+            ...this.citations.slice(1),
+          ]
+        : [];
     },
   },
 };
