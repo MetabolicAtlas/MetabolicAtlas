@@ -74,8 +74,8 @@ export default {
   },
   computed: {
     ...mapState({
-      components: state => state.externalDb.components,
-      externalDb: state => state.externalDb.externalDb,
+      components: state => state.identifier.components,
+      externalDb: state => state.identifier.identifier,
     }),
     compGroupedByModel() {
       return this.components.reduce((r, a) => {
@@ -105,7 +105,7 @@ export default {
   },
   async beforeMount() {
     try {
-      await this.$store.dispatch('externalDb/getComponentsForIdentifier', {
+      await this.$store.dispatch('identifier/getComponentsForIdentifier', {
         dbName: this.$route.params.dbName,
         externalId: this.$route.params.identifierId,
         referenceType: this.$route.query.referenceType,

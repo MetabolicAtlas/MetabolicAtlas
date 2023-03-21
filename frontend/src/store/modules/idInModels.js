@@ -13,7 +13,7 @@ const actions = {
       referenceType,
     });
     commit('setComponents', components);
-    commit('setExternalDb', identifier);
+    commit('setIdentifier', identifier);
   },
 };
 
@@ -21,8 +21,8 @@ const mutations = {
   setComponents: (state, components) => {
     state.components = components;
   },
-  setExternalDb: (state, identifier) => {
-    state.externalDb = identifier;
+  setIdentifier: (state, identifier) => {
+    state.identifier = identifier;
   },
 };
 
