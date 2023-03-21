@@ -1,14 +1,14 @@
 <template>
   <section class="section extended-section">
-    <div v-if="externalDb" class="container is-fullhd">
+    <div v-if="identifier" class="container is-fullhd">
       <h3 class="title is-3 mb-2">
-        {{ dbNameToDisplay }} {{ componentType }} {{ externalDb.externalId }}
+        {{ dbNameToDisplay }} {{ componentType }} {{ identifier.externalId }}
       </h3>
       <p class="my-3">
-        <span v-if="externalDb.url" class="is-block">
+        <span v-if="identifier.url" class="is-block">
           Visit
-          <a :href="externalDb.url" target="_blank" rel="noopener noreferrer">{{
-            externalDb.url
+          <a :href="identifier.url" target="_blank" rel="noopener noreferrer">{{
+            identifier.url
           }}</a>
           for more details.
         </span>
@@ -75,7 +75,7 @@ export default {
   computed: {
     ...mapState({
       components: state => state.identifier.components,
-      externalDb: state => state.identifier.identifier,
+      identifier: state => state.identifier.identifier,
     }),
     compGroupedByModel() {
       return this.components.reduce((r, a) => {
@@ -91,16 +91,16 @@ export default {
         : this.$route.query.referenceType;
     },
     dbNameToDisplay() {
-      return this.externalDb.dbName.replace('MetabolicAtlas', 'Metabolic Atlas');
+      return this.identifier.dbName.replace('MetabolicAtlas', 'Metabolic Atlas');
     },
     isMAID() {
-      return this.externalDb.dbName === 'MetabolicAtlas';
+      return this.identifier.dbName === 'MetabolicAtlas';
     },
     urlIdentifiers() {
-      return `https://identifiers.org/metatlas:${this.externalDb.externalId}`;
+      return `https://identifiers.org/metatlas:${this.identifier.externalId}`;
     },
     urlBioregistry() {
-      return `https://bioregistry.io/metatlas:${this.externalDb.externalId}`;
+      return `https://bioregistry.io/metatlas:${this.identifier.externalId}`;
     },
   },
   async beforeMount() {
@@ -114,7 +114,7 @@ export default {
       if (this.$route.params.dbName === 'MetabolicAtlas') {
         const regex = /^MA[MR]/;
         const found = this.$route.params.identifierId.match(regex);
-        if (this.externalDb == null && found != null) {
+        if (this.identifier == null && found != null) {
           this.errorMessage = messages.maIDNotFound;
         }
       }
