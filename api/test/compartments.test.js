@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { validateComponent } from './util';
+import { expectEmptyResponse, validateComponent } from './util';
 
 const NUCLEUS_INFO = {
   id: 'nucleus',
@@ -12,22 +12,55 @@ const NUCLEUS_INFO = {
 };
 
 describe('compartments', () => {
-  test('a compartment should have correct data', async () => {
-    const res = await fetch(
-      `${API_BASE}/compartments/nucleus?model=HumanGem&version=${HUMAN_GEM_VERSION}`
-    );
+  describe('get by id', () => {
+    test('a compartment should have correct data', async () => {
+      const res = await fetch(
+        `${API_BASE}/compartments/nucleus?model=HumanGem&version=${HUMAN_GEM_VERSION}`
+      );
+      const { info, subsystems } = await res.json();
+      validateComponent(info, NUCLEUS_INFO);
+      expect(info.subsystemCount).toBe(subsystems.length);
+    });
 
-    const { info, subsystems } = await res.json();
-    validateComponent(info, NUCLEUS_INFO);
-    expect(info.subsystemCount).toBe(subsystems.length);
+    test('returns 404 if no compartment with that id exists', async () => {
+      const res = await fetch(
+        `${API_BASE}/compartments/nonexisting?model=HumanGem&version=${HUMAN_GEM_VERSION}`
+      );
+      expect(res.status).toBe(404);
+    });
+
+    test('returns 404 if model does not exist', async () => {
+      const res = await fetch(
+        `${API_BASE}/compartments/nucleus?model=nonexisting&version=${HUMAN_GEM_VERSION}`
+      );
+      expect(res.status).toBe(404);
+    });
   });
 
-  test('a compartment should have related reactions', async () => {
-    const res = await fetch(
-      `${API_BASE}/compartments/nucleus/related-reactions?model=HumanGem&version=${HUMAN_GEM_VERSION}`
-    );
+  describe('get related reactions', () => {
+    test('a compartment should have related reactions', async () => {
+      const res = await fetch(
+        `${API_BASE}/compartments/nucleus/related-reactions?model=HumanGem&version=${HUMAN_GEM_VERSION}`
+      );
 
-    const data = await res.json();
-    expect(data.length).toBe(NUCLEUS_INFO.reactionsCount);
+      const data = await res.json();
+      expect(data.length).toBe(NUCLEUS_INFO.reactionsCount);
+    });
+
+    // eslint-disable-next-line jest/expect-expect
+    test('returns 200 and empty list if no compartment with that id exists', async () => {
+      const res = await fetch(
+        `${API_BASE}/compartments/nonexisting/related-reactions?model=HumanGem&version=${HUMAN_GEM_VERSION}`
+      );
+      await expectEmptyResponse(res);
+    });
+
+    // eslint-disable-next-line jest/expect-expect
+    test('returns 200 and empty list if model does not exist', async () => {
+      const res = await fetch(
+        `${API_BASE}/compartments/nucleus/related-reactions?model=nonexisting&version=${HUMAN_GEM_VERSION}`
+      );
+      await expectEmptyResponse(res);
+    });
   });
 });
