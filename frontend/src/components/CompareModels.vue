@@ -38,15 +38,24 @@
       <div>
         <b>Human-GEM</b> was created by unifying several model lineages, including
         <b
-          ><a href="https://europepmc.org/article/PMC/2013923"
+          ><a
+            href="https://europepmc.org/article/PMC/2013923"
+            target="_blank"
+            rel="noopener noreferrer"
             >Human Metabolic Reaction series (HMR)</a
           ></b
         >
-        and <b><a href="https://vmh.life/#home">Recon</a></b
+        and
+        <b><a href="https://vmh.life/#home" target="_blank" rel="noopener noreferrer">Recon</a></b
         >. Since then, Human-GEM has been extensively curated and new versions are continuously
         published. The tables below give an overview of how version 1.0.2 of Human-GEM relates to
         HMR and Recon. More information can be found in
-        <a href="https://europepmc.org/article/MED/32209698">this publication</a>.
+        <a
+          href="https://europepmc.org/article/MED/32209698"
+          target="_blank"
+          rel="noopener noreferrer"
+          >this publication</a
+        >.
       </div>
       <div v-for="(c, id) in comparison" :key="id" class="mb-6">
         <h4 class="title is-size-4">{{ c.models.A.modelId }} vs. {{ c.models.B.modelId }}</h4>

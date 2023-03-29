@@ -612,7 +612,9 @@
             Genome-Scale Metabolic model files can be downloaded from
             <a :href="`ftp://${ftpUrl}/`">ftp://{{ ftpUrl }}</a>
             or by connecting to the FTP using your favourite FTP client (e.g.
-            <a href="https://filezilla-project.org/">FileZilla</a>
+            <a href="https://filezilla-project.org/" target="_blank" rel="noopener noreferrer"
+              >FileZilla</a
+            >
             ).
           </p>
           <span class="is-block">
@@ -640,10 +642,9 @@
           <h5 id="api" class="is-size-5">API</h5>
           <p>
             Metabolic Atlas has a
-            <a href="/api" target="_blank" rel="noopener noreferrer">
-              dedicated interface to facilitate the use of the API</a
-            >, with output provided in JSON format. The API lets you retrieve data from the
-            integrated models of Metabolic Atlas (eg. genes, metabolites, maps...) as well as the
+            <a href="/api"> dedicated interface to facilitate the use of the API</a>, with output
+            provided in JSON format. The API lets you retrieve data from the integrated models of
+            Metabolic Atlas (eg. genes, metabolites, maps...) as well as the
             <a href="/gotenzymes">GotEnzymes database</a>.
           </p>
           <p>

@@ -111,26 +111,51 @@
         <div v-show="!showCompactFooter()" class="column is-full">
           <div class="content has-text-centered">
             <p>
-              <a href="https://www.sysbio.se" title="SysBio">
+              <a
+                href="https://www.sysbio.se"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="SysBio"
+              >
                 <img class="my-0 mx-2" src="/img/sysbio-logo.png" />
               </a>
-              <a href="http://www.chalmers.se" title="Chalmers University of Technology">
+              <a
+                href="http://www.chalmers.se"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Chalmers University of Technology"
+              >
                 <img class="my-0 mx-2" src="/img/chalmers.png" />
               </a>
-              <a href="https://kaw.wallenberg.org/" title="Knut and Alice Wallenberg Foundation">
+              <a
+                href="https://kaw.wallenberg.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Knut and Alice Wallenberg Foundation"
+              >
                 <img class="my-0 mx-2" src="/img/wallenberg.gif" />
               </a>
-              <a href="https://www.kth.se/wcpr" title="CBH | KTH Royal Institute of Technology">
+              <a
+                href="https://www.kth.se/wcpr"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="CBH | KTH Royal Institute of Technology"
+              >
                 <img class="my-0 mx-2" src="/img/wpcr.jpg" />
               </a>
-              <a href="https://nbis.se/">
+              <a href="https://nbis.se/" target="_blank" rel="noopener noreferrer">
                 <img
                   class="my-0 mx-2"
                   src="/img/nbislogo-green.png"
                   title="National Bioinformatics Infrastructure Sweden"
                 />
               </a>
-              <a href="https://www.scilifelab.se" title="Science for Life Laboratory (SciLifeLab)">
+              <a
+                href="https://www.scilifelab.se"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Science for Life Laboratory (SciLifeLab)"
+              >
                 <img class="my-0 mx-2" src="/img/scilifelab.png" />
               </a>
             </p>
