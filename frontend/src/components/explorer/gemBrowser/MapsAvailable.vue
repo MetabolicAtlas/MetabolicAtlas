@@ -52,6 +52,8 @@
           </tbody>
         </table>
       </div>
+      <span className="forward-content" />
+      <span className="backward-content" />
     </div>
   </div>
 </template>
@@ -143,24 +145,50 @@ export default {
 .more-content-view {
   position: relative;
 }
-.more-content-view::after,
-.more-content-view::before {
+
+.forward-content::before,
+.backward-content::before {
   display: block;
+  position: absolute;
+  right: 50%;
+  bottom: 0.75rem;
   content: '';
+  width: 1rem;
+  height: 1rem;
+  border-bottom: solid 0.2rem #333;
+  border-right: solid 0.2rem #333;
+  transform: translateX(50%) rotate(45deg);
+}
+
+.backward-content::before {
+  transform: translateX(50%) rotate(-135deg);
+  top: 0.75rem;
+}
+
+.more-content-view > .forward-content,
+.more-content-view > .backward-content {
+  display: block;
   position: absolute;
   width: 100%;
   height: 2rem;
   opacity: 0;
-  transition: opacity 0.5s;
+  transition: opacity 0.2s;
   pointer-events: none;
 }
-.more-content-view.more-content-forward::after {
+
+.more-content-view > .forward-content {
   bottom: 0;
+}
+
+.more-content-view > .backward-content {
+  top: 0;
+}
+
+.more-content-view.more-content-forward > .forward-content {
   opacity: 1;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.125) 0%, rgba(0, 0, 0, 0) 100%);
 }
-.more-content-view.more-content-backward::before {
-  top: 0;
+.more-content-view.more-content-backward > .backward-content {
   opacity: 1;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.125) 0%, rgba(0, 0, 0, 0) 100%);
 }
