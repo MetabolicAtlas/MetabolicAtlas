@@ -3,11 +3,21 @@
     <template v-slot:contents>
       <p>
         This project is licensed under the terms of the
-        <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU General Public License v3.0.</a>
+        <a
+          href="https://www.gnu.org/licenses/gpl-3.0.en.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          >GNU General Public License v3.0.</a
+        >
       </p>
       <p>
         The maps are licensed under
-        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-SA 4.0</a>.
+        <a
+          href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >CC BY-SA 4.0</a
+        >.
       </p>
       <p>
         We do not guarantee the accuracy of any provided data, generated database, software or

@@ -99,3 +99,6 @@ frontend/stats.html
 
 # timeline SVG
 frontend/public/assets/gemRepository/integratedModelsTimeline.svg
+
+# e2e tests
+frontend/cypress/screenshots
