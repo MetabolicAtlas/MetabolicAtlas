@@ -20,20 +20,22 @@
         </p>
         <p>
           PubMed:
-          <a :href="pmidref()" target="_blank" rel="noopener noreferrer">{{ entry.pmid }}</a>
+          <a :href="pmidref" target="_blank" rel="noopener noreferrer">{{ entry.pmid }}</a>
           DOI:
-          <a :href="doiref(entry.doi)" target="_blank" rel="noopener noreferrer">
+          <a :href="doiref" target="_blank" rel="noopener noreferrer">
             {{ entry.doi }}
           </a>
         </p>
         <div v-if="!entry.noWidgets" class="is-flex is-justify-content-flex-start">
           <a
-            :href="plumxref()"
+            :href="plumxref"
             data-popup="right"
             data-size="medium"
             class="plumx-plum-print-popup"
             data-site="plum"
             data-hide-when-empty="true"
+            target="_blank"
+            rel="noopener noreferrer"
           ></a>
           <div
             data-badge-popover="right"
@@ -65,22 +67,20 @@ import { doiref } from '@/helpers/utils';
 
 export default {
   name: 'Citation',
-  data() {
-    return {
-      doiref,
-    };
-  },
   props: {
     entry: {
       type: Object,
     },
   },
-  methods: {
+  computed: {
     plumxref() {
       return `https://plu.mx/plum/a/?doi=${encodeURI(this.entry.doi)}`;
     },
     pmidref() {
       return `https://pubmed.ncbi.nlm.nih.gov/${encodeURI(this.entry.pmid)}`;
+    },
+    doiref() {
+      return doiref(this.entry.doi);
     },
   },
 };

@@ -32,7 +32,7 @@ routes.get('/:model/:dataType/:filename/data-sets', async (req, res) => {
     const dataSourceFile = await getDataSourceFile(model, dataType, filename);
     const [, ...dataSets] = dataSourceFile.split(/\r?\n/)[0].split('\t');
 
-    res.json(dataSets);
+    res.json(dataSets.sort((a, b) => a.localeCompare(b)));
   } catch (e) {
     console.error(e.message);
     res.sendStatus(404);
@@ -64,5 +64,40 @@ routes.get(
     }
   }
 );
+
+routes.get('/:dataType/example', async (req, res) => {
+  const { dataType } = req.params;
+  try {
+    let exampleFile = '';
+    switch (dataType) {
+      case 'genes':
+        exampleFile =
+          'id\theart\tliver\n' +
+          'ENSG00000177666\t0.484\t0.349\n' +
+          'ENSG00000175535\t0.564\t0\n' +
+          'ENSG00000187021\t0.114\t0';
+        break;
+      case 'reactions':
+        exampleFile =
+          'id\tadipose\ttissue_t-cells_9\n' +
+          'MAR03905\t0.484\t0.349\n' +
+          'MAR03907\t0.564\t0\n' +
+          'MAR04097\t0.114\t0';
+        break;
+      default:
+        res.sendStatus(404);
+    }
+
+    res.set('Content-Type', 'text/tab-separated-values');
+    res.set(
+      'Content-Disposition',
+      `attachment; filename=${dataType}-example.tsv`
+    );
+    res.send(exampleFile);
+  } catch (e) {
+    console.error(e.message);
+    res.sendStatus(404);
+  }
+});
 
 export default routes;

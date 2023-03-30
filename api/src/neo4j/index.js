@@ -28,7 +28,7 @@ import {
   getComparisonOverview,
   getComparisonDetails,
 } from 'neo4j/queries/compare';
-import getComponentsForExternalDb from 'neo4j/queries/idInModels';
+import getComponentsForIdentifier from 'neo4j/queries/idInModels';
 
 export {
   getCompartment,
@@ -56,5 +56,5 @@ export {
   get3dNetwork,
   getComparisonOverview,
   getComparisonDetails,
-  getComponentsForExternalDb,
+  getComponentsForIdentifier,
 };

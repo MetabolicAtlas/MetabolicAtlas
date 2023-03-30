@@ -15,7 +15,8 @@ RETURN {
     id: c.id, 
     .*
   }
-} as metabolites`;
+} as metabolites
+ORDER BY metabolites.id`;
 
   return queryListResult(statement);
 };

@@ -12,7 +12,7 @@ import interactionPartners from './modules/interactionPartners';
 import search from './modules/search';
 import europepmc from './modules/europepmc';
 import compare from './modules/compare';
-import externalDb from './modules/idInModels';
+import identifier from './modules/idInModels';
 import dataOverlay from './modules/dataOverlay';
 import gotEnzymes from './modules/gotEnzymes';
 
@@ -31,7 +31,7 @@ const store = createStore({
     search,
     europepmc,
     compare,
-    externalDb,
+    identifier,
     dataOverlay,
     gotEnzymes,
   },

@@ -367,8 +367,30 @@
                 >
                   here</a
                 >. The headers of these data series will be shown automatically in the dropdown
-                options for the uploaded data. The values are expected in TPM.
+                options for the uploaded data. The values are expected in TPM. Examples of correctly
+                formatted data available for download can be found here:
               </p>
+
+              <ul>
+                <li>
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="/api/v2/data-overlay/reactions/example"
+                  >
+                    Reaction data
+                  </a>
+                </li>
+                <li>
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="/api/v2/data-overlay/genes/example"
+                  >
+                    Gene data
+                  </a>
+                </li>
+              </ul>
             </div>
             <div class="column">
               <RNALegend></RNALegend>
@@ -590,7 +612,9 @@
             Genome-Scale Metabolic model files can be downloaded from
             <a :href="`ftp://${ftpUrl}/`">ftp://{{ ftpUrl }}</a>
             or by connecting to the FTP using your favourite FTP client (e.g.
-            <a href="https://filezilla-project.org/">FileZilla</a>
+            <a href="https://filezilla-project.org/" target="_blank" rel="noopener noreferrer"
+              >FileZilla</a
+            >
             ).
           </p>
           <span class="is-block">
@@ -618,10 +642,9 @@
           <h5 id="api" class="is-size-5">API</h5>
           <p>
             Metabolic Atlas has a
-            <a href="/api" target="_blank" rel="noopener noreferrer">
-              dedicated interface to facilitate the use of the API</a
-            >, with output provided in JSON format. The API lets you retrieve data from the
-            integrated models of Metabolic Atlas (eg. genes, metabolites, maps...) as well as the
+            <a href="/api"> dedicated interface to facilitate the use of the API</a>, with output
+            provided in JSON format. The API lets you retrieve data from the integrated models of
+            Metabolic Atlas (eg. genes, metabolites, maps...) as well as the
             <a href="/gotenzymes">GotEnzymes database</a>.
           </p>
           <p>
