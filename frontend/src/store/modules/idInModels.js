@@ -2,18 +2,18 @@ import idInModelsApi from '@/api/idInModels';
 
 const data = {
   components: [],
-  externalDb: null,
+  identifier: null,
 };
 
 const actions = {
-  async getComponentsForExternalDb({ commit }, { dbName, externalId, referenceType }) {
-    const { components, externalDb } = await idInModelsApi.fetchComponentsForExternalDb({
+  async getComponentsForIdentifier({ commit }, { dbName, externalId, referenceType }) {
+    const { components, identifier } = await idInModelsApi.fetchComponentsForIdentifier({
       dbName,
       externalId,
       referenceType,
     });
     commit('setComponents', components);
-    commit('setExternalDb', externalDb);
+    commit('setIdentifier', identifier);
   },
 };
 
@@ -21,8 +21,8 @@ const mutations = {
   setComponents: (state, components) => {
     state.components = components;
   },
-  setExternalDb: (state, externalDb) => {
-    state.externalDb = externalDb;
+  setIdentifier: (state, identifier) => {
+    state.identifier = identifier;
   },
 };
 
