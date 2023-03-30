@@ -19,16 +19,14 @@
 
       <p>
         Metabolic Atlas is freely available and the detailed information about the GEMs is
-        open-source. Moreover, the GEMs themselves are open-source as well, as described in
-        the pre-print
+        open-source. Moreover, the GEMs themselves are open-source as well, as described in the
+        pre-print
         <a
           href="https://www.biorxiv.org/content/10.1101/2023.03.21.512712"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <i>
-            standard-GEM: standardization of open-source genome-scale metabolic models
-          </i>
+          <i> standard-GEM: standardization of open-source genome-scale metabolic models </i>
         </a>
         (doi:10.1101/2023.03.21.512712). Specifically, the two reference models
         <router-link :to="{ name: 'explorer', params: { model: 'Human-GEM' } }">
@@ -38,8 +36,8 @@
         <router-link :to="{ name: 'explorer', params: { model: 'Yeast-GEM' } }">
           Yeast-GEM
         </router-link>
-        contain all possible reactions that could occur in human, and yeast, respectively.
-        Later, 5 more models have been added:
+        contain all possible reactions that could occur in human, and yeast, respectively. Later, 5
+        more models have been added:
         <router-link :to="{ name: 'explorer', params: { model: 'Fruitfly-GEM' } }">
           Fruitfly-GEM
         </router-link>
@@ -57,8 +55,8 @@
         </router-link>
         and
         <router-link :to="{ name: 'explorer', params: { model: 'Zebrafish-GEM' } }">
-          Zebrafish-GEM
-        </router-link>.
+          Zebrafish-GEM </router-link
+        >.
       </p>
 
       <p>
@@ -102,10 +100,7 @@
         </b>
         <i>PNAS (2023)</i>
         DOI:
-        <a
-          href="https://doi.org/10.1073/pnas.2217868120"
-          target="_blank"
-          rel="noopener noreferrer"
+        <a href="https://doi.org/10.1073/pnas.2217868120" target="_blank" rel="noopener noreferrer"
           >10.1073/pnas.2217868120</a
         >
       </p>
