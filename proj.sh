@@ -18,13 +18,12 @@ _setup-environment () {
   # use docker-compose.
   if docker help compose >/dev/null 2>&1
   then
-    compose=( docker compose )
+    compose_cmd=( docker compose )
   else
-    compose=( docker-compose )
+    compose_cmd=( docker-compose )
   fi
 
-  LOCALENV=local
-  CHOSEN_ENV=./env-$LOCALENV.env
+  CHOSEN_ENV=${CHOSEN_ENV:-./env-local.env}
 
   printf 'Using %s\n' "$CHOSEN_ENV"
   . "$CHOSEN_ENV" || return
@@ -33,12 +32,22 @@ _setup-environment () {
 _docker-compose () (
   set -e
 
-  # Helper function to reduce clutter and repetition.
   _setup-environment
 
-  DOCKER_BUILDKIT=1 "${compose[@]}" --env-file "$CHOSEN_ENV" \
+  # Use specific compose file for overrides.
+  # If 1st arg is "remote", use remote compose file (and remove arg).
+  # If 1st arg is "local", use local compose file (and remove arg).
+  # If 1st arg is anything else, use local compose file (and keep arg).
+  case $1 in
+    remote) shift; set -- -f docker-compose-remote.yml "$@" ;;
+    local)  shift; set -- -f docker-compose-local.yml  "$@" ;;
+    *)
+      # No shift, otherwise the same as above
+      set -- -f docker-compose-local.yml "$@"
+  esac
+
+  DOCKER_BUILDKIT=1 "${compose_cmd[@]}" --env-file "$CHOSEN_ENV" \
     -f docker-compose.yml \
-    -f docker-compose-local.yml \
     "$@"
 )
 
@@ -125,6 +134,7 @@ build-stack () (
   _setup-environment
 
   generate-data
+
   _docker-compose build
 )
 
@@ -163,13 +173,14 @@ ma-exec () (
 deploy-stack () (
   set -e
 
-  _setup-environment
+  # Use a different environment file if given an argument.
+  CHOSEN_ENV=./env-${1:-local}.env
 
-  CHOSEN_ENV=./env-${1:-$LOCALENV}.env
+  _setup-environment
 
   generate-data
 
-  _docker-compose \
+  _docker-compose remote \
     --project-name metabolicatlas \
     up --detach --build --force-recreate --remove-orphans --renew-anon-volumes
 
