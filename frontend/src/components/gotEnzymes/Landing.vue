@@ -143,6 +143,8 @@
                 such as <i>DLKcat</i> for k<sub>cat</sub> prediction published in
                 <i>Nature Catalysis</i> in 2022 (<a
                   href="https://doi.org/10.1038/s41929-022-00798-z"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   >doi:10.1038/s41929-022-00798-z</a
                 >). Our vision for GotEnzymes is to facilitate computational applications, such as
                 flux simulations, and to improve the Design-Build-Test-Learn cycle in metabolic
@@ -163,7 +165,10 @@
                   >Deep learning-based k<sub>cat</sub> prediction enables improved
                   enzyme-constrained model reconstruction</i
                 >
-                (<a href="https://doi.org/10.1038/s41929-022-00798-z"
+                (<a
+                  href="https://doi.org/10.1038/s41929-022-00798-z"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   >doi:10.1038/s41929-022-00798-z</a
                 >).
               </p>

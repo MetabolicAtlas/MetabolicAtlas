@@ -7,7 +7,7 @@ export default {
   mapNotFound:
     '<p>Sorry, it seems that the selected 2D map is not available because the SVG is missing.</p><p>If you think this is an accident, drop us a line at <a href="mailto:contact@metabolicatlas.org?subject=SVG error&body=There was an error when choosing to see the 2D map for ..">contact@metabolicatlas.org</a>.</p>',
   maIDNotFound:
-    'The identifier you are looking for cannot be found. It might be that this identifier is no longer part of any of the models integrated into our website. For more details about deprecated identifiers please look <a href="https://github.com/SysBioChalmers/Human-GEM/tree/main/data/deprecatedIdentifiers">here</a>.',
+    'The identifier you are looking for cannot be found. It might be that this identifier is no longer part of any of the models integrated into our website. For more details about deprecated identifiers please look <a href="https://github.com/SysBioChalmers/Human-GEM/tree/main/data/deprecatedIdentifiers" target="_blank" rel="noopener noreferrer">here</a>.',
   notFoundError: 'No matching record(s) found, please check the parameters and try again.',
   unknownError:
     'Something went wrong, please try again later or contact us at <a href="mailto:contact@metabolicatlas.org">contact@metabolicatlas.org</a>.',

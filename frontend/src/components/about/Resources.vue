@@ -203,7 +203,7 @@ export default {
         APIs: [
           {
             name: 'Metabolic Atlas API',
-            link: '/api',
+            link: 'https://metabolicatlas.org/api',
             img: '/img/logo.png',
             title: 'Access Metabolic Atlas programmatically',
             description:
