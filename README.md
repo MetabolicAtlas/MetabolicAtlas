@@ -7,7 +7,7 @@ analysis](https://github.com/MetabolicAtlas/MetabolicAtlas/actions/workflows/cod
 
 ## About Metabolic Atlas
 
-Metabolic Atlas is a web platform integrating open-source genome scale metabolic models (GEMs) for easy browsing and analysis. The goal is to collect many curated GEMs, and to bring these models closer to [FAIR principles](https://en.wikipedia.org/wiki/FAIR_data). The website provides visualisations and comparisons of the GEMs, and links to resources, algorithms, other databases, and more general software applications. In short, the vision is to create a one-stop-shop for everything metabolism related.
+Metabolic Atlas is a web platform integrating open-source genome scale metabolic models (GEMs) for easy browsing and analysis. The goal is to collect many curated GEMs, and to bring these models closer to [FAIR principles](https://en.wikipedia.org/wiki/FAIR_data). The website provides visualisations and comparisons of the GEMs, and links to resources, algorithms, other databases, and more general software applications. In short, the vision is to create a one-stop-shop for everything metabolism related. Read more about the project [on the About page](https://metabolicatlas.org/about).
 
 ## Cite us
 
