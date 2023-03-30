@@ -597,8 +597,8 @@ paths:
     get:
       tags:
         - 'Identifier'
-      summary: 'Get cross references and MetIDs'
-      description: 'This query retrieves the Metabolic Atlas components that a database identifier is associated with.'
+      summary: 'Get model components for a given database identifier'
+      description: 'This query retrieves the Metabolic Atlas components that a database identifier is associated with, across all integrated models.'
       operationId: 'identifier'
       produces:
         - 'application/json'
