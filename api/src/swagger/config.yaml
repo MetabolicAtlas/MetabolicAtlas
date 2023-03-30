@@ -12,15 +12,15 @@ info:
 basePath: '/api/v2'
 tags:
   - name: 'Integrated models'
-  - name: 'Compartments'
+  - name: 'Identifier'
   - name: 'Genes'
   - name: 'Metabolites'
   - name: 'Reactions'
   - name: 'Subsystems'
+  - name: 'Compartments'
   - name: 'Interaction Partners'
-  - name: 'Miscellaneous'
   - name: 'GotEnzymes'
-  - name: 'Identifier'
+  - name: 'Miscellaneous'
 paths:
   /repository/integrated_models:
     get:
