@@ -246,6 +246,11 @@
 
       <h3 id="contact-us" class="title is-3 mt-6">Contact us</h3>
 
+      <iframe
+        title="Contact Form"
+        src="https://docs.google.com/forms/d/e/1FAIpQLScnVFKd5OK9zIM9jR4qnnOr0QsZKZnhFql6saZuJaQYYsMs5g/viewform?embedded=true"
+        width="640" height="750" frameborder="0" marginheight="0" marginwidth="0">Loading…
+      </iframe>
       <p>
         For any questions, comments or suggestions, or if you find any bugs or vulnerabilities
         regarding Metabolic Atlas, please email us at
