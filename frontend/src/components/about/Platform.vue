@@ -252,17 +252,14 @@
           >contact [at] metabolicatlas [dot] org</a
         >, or use the contact form below.
       </p>
-
-      <iframe
-        title="Contact Form"
-        src="https://docs.google.com/forms/d/e/1FAIpQLScnVFKd5OK9zIM9jR4qnnOr0QsZKZnhFql6saZuJaQYYsMs5g/viewform?embedded=true"
-        width="640"
-        height="750"
-        frameborder="0"
-        marginheight="0"
-        marginwidth="0"
-        >Loading…
-      </iframe>
+      <div class="contact-form-wrapper">
+        <iframe
+          class="contact-form-iframe"
+          title="Contact Form"
+          src="https://docs.google.com/forms/d/e/1FAIpQLScnVFKd5OK9zIM9jR4qnnOr0QsZKZnhFql6saZuJaQYYsMs5g/viewform?embedded=true"
+          >Loading…
+        </iframe>
+      </div>
       <p>
         For any management related issues, such as collaborations or funding, please email us at
         <a href="mailto:management@metabolicatlas.org" target="_blank" rel="noopener noreferrer"
@@ -448,3 +445,22 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+.contact-form-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding-top: 100%; /* 1:1 Aspect Ratio */
+}
+
+.contact-form-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+</style>
