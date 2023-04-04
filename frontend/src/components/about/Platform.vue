@@ -249,13 +249,19 @@
         For any questions, comments or suggestions, or if you find any bugs or vulnerabilities
         regarding Metabolic Atlas, please email us at
         <a href="mailto:contact@metabolicatlas.org" target="_blank" rel="noopener noreferrer"
-        >contact [at] metabolicatlas [dot] org</a>, or use the contact form below.
+          >contact [at] metabolicatlas [dot] org</a
+        >, or use the contact form below.
       </p>
 
       <iframe
         title="Contact Form"
         src="https://docs.google.com/forms/d/e/1FAIpQLScnVFKd5OK9zIM9jR4qnnOr0QsZKZnhFql6saZuJaQYYsMs5g/viewform?embedded=true"
-        width="640" height="750" frameborder="0" marginheight="0" marginwidth="0">Loading…
+        width="640"
+        height="750"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        >Loading…
       </iframe>
       <p>
         For any management related issues, such as collaborations or funding, please email us at
