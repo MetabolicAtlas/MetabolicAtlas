@@ -87,6 +87,27 @@
       </template>
 
       <h4 class="title is-4 mt-6">Research-driven features</h4>
+
+      <p>
+        A data overlay labeling predicted metabolic engineering targets was added in 2023, and is
+        based on this publication:
+      </p>
+      <p>
+        Domenzain I, Lu Y, Shi J, Lu H, Nielsen J.
+        <b>
+          Computational biology predicts metabolic engineering targets for increased production of
+          102 valuable chemicals in yeast
+        </b>
+        <i>bioRxiv (2023)</i>
+        DOI:
+        <a
+          href="https://doi.org/10.1101/2023.01.31.526512"
+          target="_blank"
+          rel="noopener noreferrer"
+          >10.1101/2023.01.31.526512</a
+        >
+      </p>
+
       <p>
         In 2022, reaction presence data was added to <i>Metabolic Atlas</i> and can be used as data
         overlay in the <i>Map Viewer</i>. The work is based on this publication:
