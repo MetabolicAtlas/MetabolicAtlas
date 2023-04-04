@@ -167,9 +167,16 @@
           <p>
             {{ currentYear }} ©
             <span class="is-hidden-touch">
-              &nbsp;Department of Biology and Biological Engineering |
+              &nbsp;Department of Life Sciences |
             </span>
             &nbsp;Chalmers University of Technology
+          </p>
+          <p>
+            <router-link 
+              :to="{ name: 'about-platform', hash: '#contact-us' }"
+            >
+              Contact Us
+            </router-link>
           </p>
         </div>
         <div v-show="showCompactFooter()" class="column has-text-centered-mobile">
