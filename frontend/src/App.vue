@@ -171,7 +171,7 @@
           </p>
           <p>
             <router-link :to="{ name: 'about-platform', hash: '#contact-us' }">
-              Contact Us
+              Contact us
             </router-link>
           </p>
         </div>
