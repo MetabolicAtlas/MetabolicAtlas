@@ -8,7 +8,7 @@
         <span>Report an issue</span>
       </a>
       <!-- </div> -->
-      <div v-if="isExpanded" class="message-body has-text-justified">
+      <div v-if="isExpanded" class="message-body has-text-left">
         Get in touch with the authors of {{ model.short_name }} to tell them what is wrong with this
         {{ type }}
         <a :href="`mailto:${model.email}?subject=Issue on ${type} ${id}`">via email</a>
