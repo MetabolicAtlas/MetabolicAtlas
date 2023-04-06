@@ -1,6 +1,12 @@
 <template>
   <div v-if="model" id="gem-search-wrapper">
     <div class="field has-addons m-0">
+      <a href="/search" id="globalSearchButton" class="button is-rounded is-outlined is-success" title="Global GEM search">
+        <span>Global</span>
+        <span class="icon">
+          <i class="fa fa-search"></i>
+        </span>
+      </a>
       <p class="control">
         <span class="select">
           <select
