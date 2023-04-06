@@ -19,7 +19,16 @@
 
       <p>
         Metabolic Atlas is freely available and the detailed information about the GEMs is
-        open-source. Specifically, the two reference models
+        open-source. Moreover, the GEMs themselves are open-source as well, as described in the
+        pre-print
+        <a
+          href="https://www.biorxiv.org/content/10.1101/2023.03.21.512712"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i> standard-GEM: standardization of open-source genome-scale metabolic models </i>
+        </a>
+        (doi:10.1101/2023.03.21.512712). Specifically, the two reference models
         <router-link :to="{ name: 'explorer', params: { model: 'Human-GEM' } }">
           Human-GEM
         </router-link>
@@ -27,7 +36,27 @@
         <router-link :to="{ name: 'explorer', params: { model: 'Yeast-GEM' } }">
           Yeast-GEM
         </router-link>
-        contain all possible reactions that could occur in human, and yeast, respectively.
+        contain all possible reactions that could occur in human, and yeast, respectively. Later, 5
+        more models have been added:
+        <router-link :to="{ name: 'explorer', params: { model: 'Fruitfly-GEM' } }">
+          Fruitfly-GEM
+        </router-link>
+        ,
+        <router-link :to="{ name: 'explorer', params: { model: 'Mouse-GEM' } }">
+          Mouse-GEM
+        </router-link>
+        ,
+        <router-link :to="{ name: 'explorer', params: { model: 'Rat-GEM' } }">
+          Rat-GEM
+        </router-link>
+        ,
+        <router-link :to="{ name: 'explorer', params: { model: 'Worm-GEM' } }">
+          Worm-GEM
+        </router-link>
+        and
+        <router-link :to="{ name: 'explorer', params: { model: 'Zebrafish-GEM' } }">
+          Zebrafish-GEM </router-link
+        >.
       </p>
 
       <p>
@@ -44,23 +73,7 @@
         <a href="https://nbis.se" target="_blank" rel="noopener noreferrer"
           >National Bioinformatics Infrastructure Sweden</a
         >
-        and
-        <a
-          href="https://www.chalmers.se/en/researchinfrastructure/csb/Pages/default.aspx"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Computational Systems Biology Infrastructure
-        </a>
-        at Chalmers University of Technology. The research focus of the content of this website is
-        <b>metabolism in a systems biology context</b>, starting with
-        <a
-          href="https://www.sysbio.se/labs/nielsen/#publications"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          the publications of the Nielsen lab</a
-        >.
+        with a research focus on metabolism in a systems biology context.
       </p>
 
       <h3 id="citation" class="title is-3 mt-6">Citation</h3>
@@ -79,19 +92,16 @@
         overlay in the <i>Map Viewer</i>. The work is based on this publication:
       </p>
 
-      <p>
+      <p class="pl-6">
         Gustafsson J, Robinson JL, Roshanzamir F, Jörnsten R, Kerkhoven EJ, Nielsen J.
         <b>
           Generation and analysis of context-specific genome-scale metabolic models derived from
           single-cell RNA-Seq data.
         </b>
-        <i>bioRxiv (2022)</i>
+        <i>PNAS (2023)</i>
         DOI:
-        <a
-          href="https://doi.org/10.1101/2022.04.25.489379"
-          target="_blank"
-          rel="noopener noreferrer"
-          >10.1101/2022.04.25.489379</a
+        <a href="https://doi.org/10.1073/pnas.2217868120" target="_blank" rel="noopener noreferrer"
+          >10.1073/pnas.2217868120</a
         >
       </p>
 
@@ -100,7 +110,7 @@
         <i>Protein secretion pathway</i> in your work, please cite this work:
       </p>
 
-      <p>
+      <p class="pl-6">
         Saghaleyni, R.
         <b>
           Systems Biology of Protein Secretion in Human Cells: Multi-omics Analysis and Modeling of

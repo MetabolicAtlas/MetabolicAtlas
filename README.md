@@ -1,18 +1,21 @@
 [![DOI](https://zenodo.org/badge/53664497.svg)](https://zenodo.org/badge/latestdoi/53664497)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4276/badge)](https://bestpractices.coreinfrastructure.org/projects/4276)
+[![Code 
+analysis](https://github.com/MetabolicAtlas/MetabolicAtlas/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/MetabolicAtlas/MetabolicAtlas/actions/workflows/codeql-analysis.yml)
 
-Welcome to the codebase for the Metabolic Atlas project.  
-If you use _Metabolic Atlas_ in your scientific work, please cite:
-
-> Version 3.0: Li, F., et al, 2022. _GotEnzymes: an extensive database of enzyme parameter predictions_. NAR, gkac831 [doi:10.1093/nar/gkac831](https://doi.org/10.1093/nar/gkac831)
->
-> Version 2.0: Wang, H., et al, 2021. _Genome-scale metabolic network reconstruction of model animals as a platform for translational research_. PNAS 118 [doi:10.1073/pnas.2102344118](https://doi.org/10.1073/pnas.2102344118)
->
-> Version 1.0: Robinson, J., et al, 2020. _An atlas of human metabolism_. Science Signaling 13 [doi:10.1126/scisignal.aaz1482 ](https://doi.org/10.1126/scisignal.aaz1482)
+<img src="./frontend/public/apple-touch-icon-152x152.png" width="76px">
 
 ## About Metabolic Atlas
 
-Metabolic Atlas is a web platform integrating open-source genome scale metabolic models (GEMs) for easy browsing and analysis. The goal is to collect many curated GEMs, and to bring these models closer to [FAIR principles](https://en.wikipedia.org/wiki/FAIR_data). The website provides visualisations and comparisons of the GEMs, and links to resources, algorithms, other databases, and more general software applications. In short, the vision is to create a one-stop-shop for everything metabolism related.
+Metabolic Atlas is a web platform integrating open-source genome scale metabolic models (GEMs) for easy browsing and analysis. The goal is to collect many curated GEMs, and to bring these models closer to [FAIR principles](https://en.wikipedia.org/wiki/FAIR_data). The website provides visualisations and comparisons of the GEMs, and links to resources, algorithms, other databases, and more general software applications. In short, the vision is to create a one-stop-shop for everything metabolism related. Read more about the project [on the About page](https://metabolicatlas.org/about).
+
+## Cite us
+
+If you use _Metabolic Atlas_ in your scientific work, please cite:
+
+> Version 3.0: Li, F., et al, 2022. _GotEnzymes: an extensive database of enzyme parameter predictions_. NAR, gkac831 [doi:10.1093/nar/gkac831](https://doi.org/10.1093/nar/gkac831)
+
+To cite previous versions or other adjacent work, see the [Citation page on the website](https://metabolicatlas.org/about/platform#citation).
 
 ## Contributing
 
