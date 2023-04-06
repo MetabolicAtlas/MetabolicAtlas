@@ -300,6 +300,10 @@ export default {
 </script>
 
 <style lang="scss">
+#globalSearchButton {
+  margin-right: 0.5rem;
+}
+
 #gem-search-wrapper {
   position: absolute;
   width: 100%;

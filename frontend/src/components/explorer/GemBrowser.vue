@@ -139,7 +139,4 @@ export default {
 #randomButton {
   vertical-align: inherit;
 }
-#globalSearchButton {
-  margin-right: 0.5rem;
-}
 </style>
