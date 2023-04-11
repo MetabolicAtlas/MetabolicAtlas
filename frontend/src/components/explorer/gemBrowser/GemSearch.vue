@@ -43,18 +43,18 @@
         </span>
       </p>
     </div>
-      <button
-        id="globalSearchButton"
-        type="button"
-        class="button is-rounded is-outlined is-success"
-        title="Global GEM search"
-        @click="globalSearch"
-      >
-        <span>Global</span>
-        <span class="icon">
-          <i class="fa fa-search"></i>
-        </span>
-      </button>
+    <button
+      id="globalSearchButton"
+      type="button"
+      class="button is-rounded is-outlined is-success"
+      title="Global GEM search"
+      @click="globalSearch"
+    >
+      <span>Global</span>
+      <span class="icon">
+        <i class="fa fa-search"></i>
+      </span>
+    </button>
     <div v-show="showResults && searchTermString.length > 1" id="searchResults" ref="searchResults">
       <div
         v-show="!noResult && !showLoader"
