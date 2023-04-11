@@ -15,7 +15,12 @@
           <a :href="createMailLink(model.email, type, id)">
             <i class="fa fa-envelope-o fa-lg" />
           </a>
-          <a  v-if="model.chat_link" :href="model.chat_link" target="_blank" rel="noopener noreferrer">
+          <a
+            v-if="model.chat_link"
+            :href="model.chat_link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <i class="fa fa-comment-o fa-lg" />
           </a>
           <a :href="model.link" target="_blank" rel="noopener noreferrer">
@@ -34,12 +39,12 @@ export default {
   name: 'GemContact',
   methods: {
     getPageURL() {
-      return `${window.location?.href}`
+      return `${window.location?.href}`;
     },
     createMailLink(email, type, id) {
-      const body = `I have spotted an issue on the following page: ${this.getPageURL()}`
-      return `mailto:${email}?subject=Issue on ${type} ${id}&body=${body}`
-    }
+      const body = `I have spotted an issue on the following page: ${this.getPageURL()}`;
+      return `mailto:${email}?subject=Issue on ${type} ${id}&body=${body}`;
+    },
   },
   props: {
     type: {
