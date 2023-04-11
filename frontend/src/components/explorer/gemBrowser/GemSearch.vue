@@ -1,18 +1,6 @@
 <template>
   <div v-if="model" id="gem-search-wrapper" role="search">
     <div class="field has-addons m-0">
-      <button
-        id="globalSearchButton"
-        type="button"
-        class="button is-rounded is-outlined is-success"
-        title="Global GEM search"
-        @click="globalSearch"
-      >
-        <span>Global</span>
-        <span class="icon">
-          <i class="fa fa-search"></i>
-        </span>
-      </button>
       <p class="control">
         <span class="select">
           <select
@@ -25,7 +13,6 @@
             <option v-for="m in models" :key="m.short_name">
               {{ m.short_name }}
             </option>
-            <option>Global Search</option>
           </select>
         </span>
       </p>
@@ -56,13 +43,25 @@
         </span>
       </p>
     </div>
+      <button
+        id="globalSearchButton"
+        type="button"
+        class="button is-rounded is-outlined is-success"
+        title="Global GEM search"
+        @click="globalSearch"
+      >
+        <span>Global</span>
+        <span class="icon">
+          <i class="fa fa-search"></i>
+        </span>
+      </button>
     <div v-show="showResults && searchTermString.length > 1" id="searchResults" ref="searchResults">
       <div
         v-show="!noResult && !showLoader"
         class="notification is-large is-unselectable has-text-centered is-clickable py-1 mb-1"
         @mousedown="globalSearch()"
       >
-        Limited to 10 results per type. Click here to search all integrated GEMs
+        Limited to 10 results per type. Use global search to explore all integrated GEMs
       </div>
       <div v-show="!showLoader" v-if="searchResults.length !== 0" class="resList">
         <template v-for="type in componentTypeOrder">
@@ -308,7 +307,7 @@ export default {
 
 <style lang="scss">
 #globalSearchButton {
-  margin-right: 0.5rem;
+  margin-left: 0.5rem;
 }
 
 #gem-search-wrapper {
