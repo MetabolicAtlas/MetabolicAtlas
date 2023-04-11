@@ -26,6 +26,7 @@
           data-hj-whitelist
           type="text"
           class="input"
+          placeholder="ATP"
           @keyup.esc="handleClear()"
           @focus="showResults = true"
           @blur="blur()"
