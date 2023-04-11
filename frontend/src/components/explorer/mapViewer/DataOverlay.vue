@@ -15,7 +15,7 @@
     >
       <span class="has-nowrap">
         Load custom data
-        <router-link :to="{ name: 'documentation', hash: '#data-overlay' }">
+        <router-link class="helpCircleButton" :to="{ name: 'documentation', hash: '#data-overlay' }">
           <span class="icon"><i class="fa fa-info-circle"></i></span>
         </router-link>
       </span>
@@ -468,6 +468,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.helpCircleButton {
+  border: none;
+  text-decoration: none;
+  color: inherit;
+}
 .fileNameBox {
   display: flex;
   flex-wrap: nowrap;

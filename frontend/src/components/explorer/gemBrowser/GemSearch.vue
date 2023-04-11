@@ -44,6 +44,11 @@
         </span>
       </p>
     </div>
+    <button type="button" class="helpCircleButton" @click="quickSearchDocs()">
+      <span class="icon">
+        <i class="fa fa-info-circle"></i>
+      </span>
+    </button>
     <button
       id="globalSearchButton"
       type="button"
@@ -255,6 +260,10 @@ export default {
       this.handleClear();
       this.$router.push({ name: 'search', query: { term: this.searchTermString } });
     },
+    quickSearchDocs() {
+      this.handleClear();
+      this.$router.push({ name: 'documentation', hash: "#quick-search"});
+    },
     formatSearchResultLabel(type, element, searchTerm) {
       const re = new RegExp(`(${sanitizeSearchString(searchTerm)})`, 'ig');
       let s = '';
@@ -301,6 +310,11 @@ export default {
 </script>
 
 <style lang="scss">
+.helpCircleButton {
+  border: none;
+  text-decoration: none;
+  color: inherit;
+}
 #globalSearchButton {
   margin-left: 0.5rem;
 }
