@@ -59,7 +59,6 @@
       <div
         v-show="!noResult && !showLoader"
         class="notification is-large is-unselectable has-text-centered is-clickable py-1 mb-1"
-        @mousedown="globalSearch()"
       >
         Limited to 10 results per type. Use global search to explore all integrated GEMs
       </div>
