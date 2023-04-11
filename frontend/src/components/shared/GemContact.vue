@@ -12,12 +12,15 @@
         Get in touch with the authors of {{ model.short_name }} to tell them what is wrong with this
         {{ type }}
         <div class="contact">
-
-        <a :href="`mailto:${model.email}?subject=Issue on ${type} ${id}`"><i class="fa fa-envelope"/></a>
+          <a :href="`mailto:${model.email}?subject=Issue on ${type} ${id}`"
+            ><i class="fa fa-envelope"
+          /></a>
           <a :href="model.chat_link" target="_blank" rel="noopener noreferrer">
-            <i class="fa-thin fa-messages"/> </a>
-        <a :href="model.chat_link" target="_blank" rel="noopener noreferrer">
-          <i class="fa fa-github"/> </a>
+            <i class="fa-thin fa-messages" />
+          </a>
+          <a :href="model.chat_link" target="_blank" rel="noopener noreferrer">
+            <i class="fa fa-github" />
+          </a>
         </div>
       </div>
     </article>
@@ -25,30 +28,30 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 
 export default {
-  name: "GemContact",
+  name: 'GemContact',
   props: {
     type: {
       type: String,
-      required: true
+      required: true,
     },
     id: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      isExpanded: false
+      isExpanded: false,
     };
   },
   computed: {
     ...mapState({
-      model: state => state.models.model
-    })
-  }
+      model: state => state.models.model,
+    }),
+  },
 };
 </script>
 
