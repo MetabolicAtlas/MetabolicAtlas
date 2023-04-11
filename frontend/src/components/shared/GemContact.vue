@@ -12,13 +12,24 @@
         Get in touch with the authors of {{ model.short_name }} to tell them what is wrong with this
         {{ type }}
         <div class="contact mt-3">
-          <a :href="createMailLink(model.email, type, id)">
+          <a title="Report issue by email" :href="createMailLink(model.email, type, id)">
             <i class="fa fa-envelope-o fa-lg" />
           </a>
-          <a  v-if="model.chat_link" :href="model.chat_link" target="_blank" rel="noopener noreferrer">
+          <a
+            v-if="model.chat_link"
+            title="Report in public chat"
+            :href="model.chat_link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <i class="fa fa-comment-o fa-lg" />
           </a>
-          <a :href="model.link" target="_blank" rel="noopener noreferrer">
+          <a
+            title="Report issue on GitHub"
+            :href="createGitHubIssueLink(model.link)"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <i class="fa fa-github fa-lg" />
           </a>
         </div>
@@ -34,12 +45,15 @@ export default {
   name: 'GemContact',
   methods: {
     getPageURL() {
-      return `${window.location?.href}`
+      return `${window.location?.href}`;
     },
     createMailLink(email, type, id) {
-      const body = `I have spotted an issue on the following page: ${this.getPageURL()}`
-      return `mailto:${email}?subject=Issue on ${type} ${id}&body=${body}`
-    }
+      const body = `I have spotted an issue on the following page: ${this.getPageURL()}`;
+      return `mailto:${email}?subject=Issue on ${type} ${id}&body=${body}`;
+    },
+    createGitHubIssueLink(repoLink) {
+      return new URL('issues/new', repoLink.endsWith('/') ? repoLink : `${repoLink}/`);
+    },
   },
   props: {
     type: {
