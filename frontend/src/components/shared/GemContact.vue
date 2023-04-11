@@ -12,9 +12,8 @@
         Get in touch with the authors of {{ model.short_name }} to tell them what is wrong with this
         {{ type }}
         <div class="contact">
-
         <a :href="`mailto:${model.email}?subject=Issue on ${type} ${id}`"><i class="fa fa-envelope"/></a>
-          <a :href="model.chat_link" target="_blank" rel="noopener noreferrer">
+          <a v-if="model.chat_link" :href="model.chat_link" target="_blank" rel="noopener noreferrer">
             <i class="fa-thin fa-messages"/> </a>
         <a :href="model.chat_link" target="_blank" rel="noopener noreferrer">
           <i class="fa fa-github"/> </a>
