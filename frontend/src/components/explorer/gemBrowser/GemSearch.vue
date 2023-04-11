@@ -197,13 +197,8 @@ export default {
     async handleModelChange(e) {
       e.preventDefault();
       const modelKey = e.target.value;
-
-      if (modelKey === 'Global Search') {
-        this.globalSearch();
-      } else {
-        this.searchModel = this.models[modelKey];
-        await this.searchDebounce(this.searchTermString);
-      }
+      this.searchModel = this.models[modelKey];
+      await this.searchDebounce(this.searchTermString);
     },
     async searchDebounce(searchTerm) {
       this.$store.dispatch('search/setSearchTermString', searchTerm);
