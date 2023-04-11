@@ -13,10 +13,11 @@
         <div
           class="column is-three-fifths-desktop is-three-quarters-tablet is-fullwidth-mobile control"
         >
-          <div>
-            <p class="control has-icons-right has-icons-left">
+          <div class="searchWrapper">
+            <p class="control has-icons-right has-icons-left searchInput">
               <input
                 id="search"
+                role="searchbox"
                 v-model="searchTerm"
                 data-hj-whitelist
                 class="input"
@@ -35,6 +36,11 @@
                 <i class="fa fa-search is-primary"></i>
               </span>
             </p>
+            <router-link :to="{ name: 'documentation', hash: '#global-search' }">
+              <span class="icon">
+                <i class="fa fa-info-circle"></i>
+              </span>
+            </router-link>
           </div>
         </div>
       </div>
@@ -880,6 +886,15 @@ export default {
 </script>
 
 <style lang="scss">
+.searchWrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+.searchInput {
+  flex: 1;
+}
 #search-table {
   .tabs li.is-disabled {
     cursor: not-allowed;
