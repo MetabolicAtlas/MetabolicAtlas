@@ -24,30 +24,30 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 
 export default {
-  name: "GemContact",
+  name: 'GemContact',
   props: {
     type: {
       type: String,
-      required: true
+      required: true,
     },
     id: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      isExpanded: false
+      isExpanded: false,
     };
   },
   computed: {
     ...mapState({
-      model: state => state.models.model
-    })
-  }
+      model: state => state.models.model,
+    }),
+  },
 };
 </script>
 
