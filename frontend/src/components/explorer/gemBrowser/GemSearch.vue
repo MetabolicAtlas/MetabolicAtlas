@@ -1,17 +1,18 @@
 <template>
-  <div v-if="model" id="gem-search-wrapper">
+  <div v-if="model" id="gem-search-wrapper" role="search">
     <div class="field has-addons m-0">
-      <a
-        href="/search"
+      <button
         id="globalSearchButton"
+        type="button"
         class="button is-rounded is-outlined is-success"
         title="Global GEM search"
+        @click="globalSearch"
       >
         <span>Global</span>
         <span class="icon">
           <i class="fa fa-search"></i>
         </span>
-      </a>
+      </button>
       <p class="control">
         <span class="select">
           <select
@@ -34,6 +35,7 @@
           id="search"
           ref="searchInput"
           v-debounce:700="searchDebounce"
+          role="searchbox"
           data-hj-whitelist
           type="text"
           class="input"
