@@ -1,5 +1,5 @@
 <template>
-  <div v-if="model" id="gem-search-wrapper">
+  <div v-if="model" id="gem-search-wrapper" role="search">
     <div class="field has-addons m-0">
       <p class="control">
         <span class="select">
@@ -13,7 +13,6 @@
             <option v-for="m in models" :key="m.short_name">
               {{ m.short_name }}
             </option>
-            <option>Global Search</option>
           </select>
         </span>
       </p>
@@ -23,9 +22,11 @@
           id="search"
           ref="searchInput"
           v-debounce:700="searchDebounce"
+          role="searchbox"
           data-hj-whitelist
           type="text"
           class="input"
+          placeholder="ATP"
           @keyup.esc="handleClear()"
           @focus="showResults = true"
           @blur="blur()"
@@ -43,13 +44,24 @@
         </span>
       </p>
     </div>
+    <button
+      id="globalSearchButton"
+      type="button"
+      class="button is-rounded is-outlined is-success"
+      title="Global GEM search"
+      @click="globalSearch"
+    >
+      <span>Global</span>
+      <span class="icon">
+        <i class="fa fa-search"></i>
+      </span>
+    </button>
     <div v-show="showResults && searchTermString.length > 1" id="searchResults" ref="searchResults">
       <div
         v-show="!noResult && !showLoader"
         class="notification is-large is-unselectable has-text-centered is-clickable py-1 mb-1"
-        @mousedown="globalSearch()"
       >
-        Limited to 10 results per type. Click here to search all integrated GEMs
+        Limited to 10 results per type. Use global search to explore all integrated GEMs
       </div>
       <div v-show="!showLoader" v-if="searchResults.length !== 0" class="resList">
         <template v-for="type in componentTypeOrder">
@@ -186,13 +198,8 @@ export default {
     async handleModelChange(e) {
       e.preventDefault();
       const modelKey = e.target.value;
-
-      if (modelKey === 'Global Search') {
-        this.globalSearch();
-      } else {
-        this.searchModel = this.models[modelKey];
-        await this.searchDebounce(this.searchTermString);
-      }
+      this.searchModel = this.models[modelKey];
+      await this.searchDebounce(this.searchTermString);
     },
     async searchDebounce(searchTerm) {
       this.$store.dispatch('search/setSearchTermString', searchTerm);
@@ -294,6 +301,10 @@ export default {
 </script>
 
 <style lang="scss">
+#globalSearchButton {
+  margin-left: 0.5rem;
+}
+
 #gem-search-wrapper {
   position: absolute;
   width: 100%;

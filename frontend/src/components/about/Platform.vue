@@ -276,14 +276,21 @@
       </p>
 
       <h3 id="contact-us" class="title is-3 mt-6">Contact us</h3>
-
       <p>
         For any questions, comments or suggestions, or if you find any bugs or vulnerabilities
         regarding Metabolic Atlas, please email us at
         <a href="mailto:contact@metabolicatlas.org" target="_blank" rel="noopener noreferrer"
           >contact [at] metabolicatlas [dot] org</a
-        >.
+        >, or use the contact form below.
       </p>
+      <div class="contact-form-wrapper">
+        <iframe
+          class="contact-form-iframe"
+          title="Contact Form"
+          src="https://docs.google.com/forms/d/e/1FAIpQLScnVFKd5OK9zIM9jR4qnnOr0QsZKZnhFql6saZuJaQYYsMs5g/viewform?embedded=true"
+          >Loading…
+        </iframe>
+      </div>
       <p>
         For any management related issues, such as collaborations or funding, please email us at
         <a href="mailto:management@metabolicatlas.org" target="_blank" rel="noopener noreferrer"
@@ -469,3 +476,22 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+.contact-form-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding-top: 100%; /* 1:1 Aspect Ratio */
+}
+
+.contact-form-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+</style>
