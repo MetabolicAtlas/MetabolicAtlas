@@ -17,8 +17,8 @@
             <p class="control has-icons-right has-icons-left searchInput">
               <input
                 id="search"
-                role="searchbox"
                 v-model="searchTerm"
+                role="searchbox"
                 data-hj-whitelist
                 class="input"
                 type="text"

@@ -21,8 +21,8 @@
         <input
           id="search"
           ref="searchInput"
-          role="searchbox"
           v-debounce:700="searchDebounce"
+          role="searchbox"
           data-hj-whitelist
           type="text"
           class="input"
