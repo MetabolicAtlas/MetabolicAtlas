@@ -591,7 +591,7 @@
             an MetaNetX ID will return results for the metabolites and/or reactions matching the ID
             even though the MetaNetX column is not in the table. The search algorithm matches
             partial names of components:
-            <a href="/search?term=cholesterol">searching for 'cholesterol'</a> will output all
+            <router-link to="/search?term=cholesterol">searching for 'cholesterol'</router-link> will output all
             metabolites containing the substring 'cholesterol'. When the name of a metabolite is
             provided, all metabolites matching or partially matching this name be returned, in
             addition to a the list of all reactions that involve these matching metabolites.
@@ -695,7 +695,7 @@
             <a href="/api"> dedicated interface to facilitate the use of the API</a>, with output
             provided in JSON format. The API lets you retrieve data from the integrated models of
             Metabolic Atlas (eg. genes, metabolites, maps...) as well as the
-            <a href="/gotenzymes">GotEnzymes database</a>.
+            <router-link to="/gotenzymes">GotEnzymes database</router-link>.
           </p>
           <p>
             When using this service, kindly use a limit of 10 requests per second. The API is still
@@ -732,7 +732,7 @@
           <p>
             Metabolic Atlas is associated with other software tools, algorithms, and databases
             published by the SysBio group. Visit the
-            <a href="/about/resources/"> about page section</a> to browse the lists.
+            <router-link to="/about/resources/"> about page section</router-link> to browse the lists.
           </p>
         </div>
       </div>
