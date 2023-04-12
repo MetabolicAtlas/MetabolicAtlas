@@ -309,11 +309,5 @@ export default {
   .card {
     max-width: 500px;
   }
-  .stripe:nth-child(2n) {
-    background: whitesmoke;
-    .columns {
-      flex-direction: row-reverse;
-    }
-  }
 }
 </style>
