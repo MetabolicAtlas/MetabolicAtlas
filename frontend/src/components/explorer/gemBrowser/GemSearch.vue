@@ -45,9 +45,9 @@
       </p>
     </div>
     <HelpButton
-      redirectPagePath="documentation"
-      redirectPageHash="quick-search"
-      @handleClick="handleClear"
+      redirect-page-path="documentation"
+      redirect-page-hash="quick-search"
+      @handle-click="handleClear()"
     ></HelpButton>
     <button
       id="globalSearchButton"
