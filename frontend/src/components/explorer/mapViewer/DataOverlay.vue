@@ -15,7 +15,10 @@
     >
       <span class="has-nowrap">
         Load custom data
-        <HelpButton redirect-page-path="documentation" redirect-page-hash="data-overlay"></HelpButton>
+        <HelpButton
+          redirect-page-path="documentation"
+          redirect-page-hash="data-overlay"
+        ></HelpButton>
       </span>
     </div>
     <DataOverlayValidation
