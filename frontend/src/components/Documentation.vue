@@ -541,10 +541,11 @@
             found. The search text is not restricted to the visible columns; for example, searching
             an MetaNetX ID will return results for the metabolites and/or reactions matching the ID
             even though the MetaNetX column is not in the table. The search algorithm matches
-            partial names of components: <a href="/search?term=cholesterol">searching for 'cholesterol'</a> will output all metabolites
-            containing the substring 'cholesterol'. When the name of a metabolite is provided, all
-            metabolites matching or partially matching this name be returned, in addition to a the
-            list of all reactions that involve these matching metabolites.
+            partial names of components:
+            <a href="/search?term=cholesterol">searching for 'cholesterol'</a> will output all
+            metabolites containing the substring 'cholesterol'. When the name of a metabolite is
+            provided, all metabolites matching or partially matching this name be returned, in
+            addition to a the list of all reactions that involve these matching metabolites.
           </p>
 
           <hr class="mt-6" />
