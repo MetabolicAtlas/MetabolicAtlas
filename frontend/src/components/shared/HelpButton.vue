@@ -1,5 +1,5 @@
 <template>
-  <button type="button" class="helpCircleButton" @click="redirectoToPage()">
+  <button type="button" class="helpCircleButton" @click="redirecToPage()">
     <span class="icon">
       <i class="fa fa-info-circle"></i>
     </span>
@@ -15,7 +15,7 @@ export default {
   },
   emits: ['handleClick'],
   methods: {
-    redirectoToPage() {
+    redirecToPage() {
       this.$emit('handleClick');
       this.$router.push({ name: this.redirectPagePath, hash: `#${this.redirectPageHash}` });
     },
