@@ -439,9 +439,6 @@ export default {
     .om-3 {
       order: 3;
     }
-    .om-4 {
-      order: 4;
-    }
   }
 }
 
