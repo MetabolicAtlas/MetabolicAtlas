@@ -8,17 +8,31 @@
         <span>Report an issue</span>
       </a>
       <!-- </div> -->
-      <div v-if="isExpanded" class="message-body has-text-justified">
+      <div v-if="isExpanded" class="message-body has-text-left content">
         Get in touch with the authors of {{ model.short_name }} to tell them what is wrong with this
         {{ type }}
-        <a :href="`mailto:${model.email}?subject=Issue on ${type} ${id}`">via email</a>
-        <template v-if="model.chat_link">
-          or
-          <a :href="model.chat_link" target="_blank" rel="noopener noreferrer"
-            >via public chat (faster)</a
+        <div class="contact mt-3">
+          <a title="Report issue by email" :href="createMailLink(model.email, type, id)">
+            <i class="fa fa-envelope-o fa-lg" />
+          </a>
+          <a
+            v-if="model.chat_link"
+            title="Report in public chat"
+            :href="model.chat_link"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-        </template>
-        .
+            <i class="fa fa-comment-o fa-lg" />
+          </a>
+          <a
+            title="Report issue on GitHub"
+            :href="createGitHubIssueLink(model.link)"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i class="fa fa-github fa-lg" />
+          </a>
+        </div>
       </div>
     </article>
   </div>
@@ -29,6 +43,18 @@ import { mapState } from 'vuex';
 
 export default {
   name: 'GemContact',
+  methods: {
+    getPageURL() {
+      return `${window.location?.href}`;
+    },
+    createMailLink(email, type, id) {
+      const body = `I have spotted an issue on the following page: ${this.getPageURL()}`;
+      return `mailto:${email}?subject=Issue on ${type} ${id}&body=${body}`;
+    },
+    createGitHubIssueLink(repoLink) {
+      return new URL('issues/new', repoLink.endsWith('/') ? repoLink : `${repoLink}/`);
+    },
+  },
   props: {
     type: {
       type: String,
@@ -52,4 +78,9 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.contact {
+  display: flex;
+  justify-content: space-evenly;
+}
+</style>
