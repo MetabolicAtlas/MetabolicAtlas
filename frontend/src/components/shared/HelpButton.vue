@@ -12,13 +12,11 @@ export default {
   props: {
     redirectPagePath: String,
     redirectPageHash: String,
-    handleClear: Function,
   },
+  emits: ['handleClick'],
   methods: {
     redirectoToPage() {
-      if (this.handleClear) {
-        this.$emit('handleClear');
-      }
+      this.$emit('handleClick');
       this.$router.push({ name: this.redirectPagePath, hash: `#${this.redirectPageHash}` });
     },
   },

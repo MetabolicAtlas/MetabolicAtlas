@@ -39,7 +39,6 @@
             <HelpButton
               redirectPagePath="documentation"
               redirectPageHash="global-search"
-              @handleClear="handleClear"
             ></HelpButton>
           </div>
         </div>

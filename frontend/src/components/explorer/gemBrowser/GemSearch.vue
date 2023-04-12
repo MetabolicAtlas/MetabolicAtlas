@@ -47,7 +47,7 @@
     <HelpButton
       redirectPagePath="documentation"
       redirectPageHash="quick-search"
-      @handleClear="handleClear"
+      @handleClick="handleClear"
     ></HelpButton>
     <button
       id="globalSearchButton"
