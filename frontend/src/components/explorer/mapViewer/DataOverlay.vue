@@ -59,7 +59,7 @@
             </option>
           </select>
         </div>
-        <p>e.g., {{ DATA_TYPES_COMPONENTS[customDataType].description }}, etc.</p>
+        <p>e.g., {{ dataTypesComponents[customDataType].description }}, etc.</p>
       </div>
       <div v-if="errorCustomFileMsg" id="customFileError" class="card my-4">
         <div
@@ -195,7 +195,7 @@ export default {
       customDataType: null,
       showModal: false,
       invalidDataTypeIndexes: [],
-      DATA_TYPES_COMPONENTS,
+      dataTypesComponents: DATA_TYPES_COMPONENTS,
     };
   },
   computed: {
@@ -214,7 +214,7 @@ export default {
       queryParams: 'dataOverlay/queryParams',
     }),
     filteredDataTypesComponents() {
-      const components = Object.keys(DATA_TYPES_COMPONENTS);
+      const components = Object.keys(this.dataTypesComponents);
       return this.$route.name === 'interaction-details'
         ? components.filter(c => c !== 'fluxomics')
         : components;
