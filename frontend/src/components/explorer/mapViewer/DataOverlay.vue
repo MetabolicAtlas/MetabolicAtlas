@@ -15,7 +15,10 @@
     >
       <span class="has-nowrap">
         Load custom data
-        <HelpButton redirectPagePath="documentation" redirectPageHash="data-overlay"></HelpButton>
+        <HelpButton
+          redirect-page-path="documentation"
+          redirect-page-hash="data-overlay"
+        ></HelpButton>
       </span>
     </div>
     <DataOverlayValidation
@@ -468,11 +471,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.helpCircleButton {
-  border: none;
-  text-decoration: none;
-  color: inherit;
-}
 .fileNameBox {
   display: flex;
   flex-wrap: nowrap;

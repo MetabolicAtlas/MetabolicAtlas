@@ -887,11 +887,6 @@ export default {
 </script>
 
 <style lang="scss">
-.helpCircleButton {
-  border: none;
-  text-decoration: none;
-  color: inherit;
-}
 .searchWrapper {
   display: flex;
   align-items: center;
