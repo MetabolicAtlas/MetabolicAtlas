@@ -15,9 +15,10 @@
     >
       <span class="has-nowrap">
         Load custom data
-        <router-link class="helpCircleButton" :to="{ name: 'documentation', hash: '#data-overlay' }">
-          <span class="icon"><i class="fa fa-info-circle"></i></span>
-        </router-link>
+        <HelpButton
+          redirectPagePath="documentation"
+          redirectPageHash="data-overlay"
+        ></HelpButton>
       </span>
     </div>
     <DataOverlayValidation
@@ -167,6 +168,7 @@ import DataOverlayValidation from '@/components/explorer/mapViewer/DataOverlayVa
 import RNALegend from '@/components/explorer/mapViewer/RNALegend.vue';
 import { parseFile, DATA_TYPES_COMPONENTS } from '@/helpers/dataOverlay';
 import Modal from '@/components/shared/Modal.vue';
+import HelpButton from '@/components/shared/HelpButton.vue';
 
 export default {
   name: 'DataOverlay',
@@ -174,6 +176,7 @@ export default {
     DataOverlayValidation,
     RNALegend,
     Modal,
+    HelpButton,
   },
   props: {
     mapType: String,

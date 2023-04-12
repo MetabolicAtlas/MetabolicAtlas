@@ -44,11 +44,11 @@
         </span>
       </p>
     </div>
-    <button type="button" class="helpCircleButton" @click="quickSearchDocs()">
-      <span class="icon">
-        <i class="fa fa-info-circle"></i>
-      </span>
-    </button>
+    <HelpButton
+      redirectPagePath="documentation"
+      redirectPageHash="quick-search"
+      @handleClear="handleClear"
+    ></HelpButton>
     <button
       id="globalSearchButton"
       type="button"
@@ -143,6 +143,7 @@
 import { mapGetters, mapState } from 'vuex';
 import { default as messages } from '@/content/messages';
 import { sanitizeSearchString } from '@/helpers/utils';
+import HelpButton from '@/components/shared/HelpButton.vue';
 
 export default {
   name: 'GemSearch',
@@ -210,9 +211,7 @@ export default {
       this.$store.dispatch('search/setSearchTermString', searchTerm);
       this.noResult = false;
       this.showSearchCharAlert = searchTerm.length === 1;
-
       const canSearch = searchTerm.length > 1;
-
       this.showLoader = canSearch;
       this.showResults = canSearch;
       if (canSearch) {
@@ -226,13 +225,11 @@ export default {
       if (sanitizeSearchString(this.searchTermString, false).length < 2) {
         return;
       }
-
       try {
         const payload = {
           model: this.searchModel,
         };
         await this.$store.dispatch('search/search', payload);
-
         this.noResult = true;
         const keyList = Object.keys(this.searchResults);
         for (let i = 0; i < keyList.length; i += 1) {
@@ -262,7 +259,7 @@ export default {
     },
     quickSearchDocs() {
       this.handleClear();
-      this.$router.push({ name: 'documentation', hash: "#quick-search"});
+      this.$router.push({ name: 'documentation', hash: '#quick-search' });
     },
     formatSearchResultLabel(type, element, searchTerm) {
       const re = new RegExp(`(${sanitizeSearchString(searchTerm)})`, 'ig');
@@ -306,6 +303,7 @@ export default {
       }, 100);
     },
   },
+  components: { HelpButton },
 };
 </script>
 

@@ -36,11 +36,11 @@
                 <i class="fa fa-search is-primary"></i>
               </span>
             </p>
-            <router-link class="helpCircleButton" :to="{ name: 'documentation', hash: '#global-search' }">
-              <span class="icon">
-                <i class="fa fa-info-circle"></i>
-              </span>
-            </router-link>
+            <HelpButton
+              redirectPagePath="documentation"
+              redirectPageHash="global-search"
+              @handleClear="handleClear"
+            ></HelpButton>
           </div>
         </div>
       </div>
@@ -328,6 +328,7 @@ import ExportTSV from '@/components/shared/ExportTSV.vue';
 import { chemicalFormula } from '@/helpers/chemical-formatters';
 import { sortResultsScore } from '@/helpers/utils';
 import { default as messages } from '@/content/messages';
+import HelpButton from '@/components/shared/HelpButton.vue';
 
 export default {
   name: 'SearchTable',
@@ -335,6 +336,7 @@ export default {
     Loader,
     ExportTSV,
     VueGoodTable,
+    HelpButton,
   },
   data() {
     return {
