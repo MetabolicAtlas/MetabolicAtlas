@@ -337,6 +337,55 @@
                   >this manuscript</a
                 >.
               </p>
+
+              <p>
+                For yeast-GEM, the gene targets from the study
+                <a
+                  href="https://www.researchsquare.com/article/rs-2557470/v1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Computational biology predicts metabolic engineering targets for increased
+                  production of 102 valuable chemicals in yeast</a
+                >
+                can be loaded by selecting one of the target chemical products in the drop down
+                list. Once selected, the metabolic engineering strategy for increasing production of
+                the chosen chemical will be displayed on the corresponding map, according to the
+                color legend. Modified gene expression is represented using 4 discrete values:
+              </p>
+
+              <ul>
+                <li>NA for genes with unmodified expression, color grey</li>
+                <li>0 for genes to be deleted, or Knocked-out, color white</li>
+                <li>0.4 for genes predicted to be modulated, knocked-down, color orange</li>
+                <li>1 for gene targets for overexpression, color red).</li>
+              </ul>
+
+              <p>
+                To clear the levels, select the None option in the drop down list or alternatively
+                remove the corresponding card if levels from multiple data types are applied. Levels
+                are available for both 2D and 3D Map Viewer. Gene engineering predictions were based
+                on the
+                <a
+                  href="https://github.com/SysBioChalmers/ecFactory"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >ecFactory method</a
+                >
+                and
+                <a
+                  href="https://github.com/SysBioChalmers/ecModels"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >ecYeastGEM</a
+                >. For more information regarding formulation of the method read the aforementioned
+                <a
+                  href="https://www.researchsquare.com/article/rs-2557470/v1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >preprint article</a
+                >.
+              </p>
+
               <p>
                 The
                 <i>Data overlay</i>
