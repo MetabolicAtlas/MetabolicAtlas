@@ -21,8 +21,8 @@
         <input
           id="search"
           ref="searchInput"
-          v-debounce:700="searchDebounce"
           role="searchbox"
+          v-debounce:700="searchDebounce"
           data-hj-whitelist
           type="text"
           class="input"
@@ -45,9 +45,9 @@
       </p>
     </div>
     <HelpButton
-      redirectPagePath="documentation"
-      redirectPageHash="quick-search"
-      @handleClick="handleClear"
+      redirect-page-path="documentation"
+      redirect-page-hash="quick-search"
+      @handle-click="handleClear"
     ></HelpButton>
     <button
       id="globalSearchButton"

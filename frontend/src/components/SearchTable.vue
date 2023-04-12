@@ -37,8 +37,8 @@
               </span>
             </p>
             <HelpButton
-              redirectPagePath="documentation"
-              redirectPageHash="global-search"
+              redirect-page-path="documentation"
+              redirect-page-hash="global-search"
             ></HelpButton>
           </div>
         </div>
