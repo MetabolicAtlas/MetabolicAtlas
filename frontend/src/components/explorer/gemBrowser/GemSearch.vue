@@ -308,11 +308,6 @@ export default {
 </script>
 
 <style lang="scss">
-.helpCircleButton {
-  border: none;
-  text-decoration: none;
-  color: inherit;
-}
 #globalSearchButton {
   margin-left: 0.5rem;
 }

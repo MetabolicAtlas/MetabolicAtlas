@@ -471,11 +471,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.helpCircleButton {
-  border: none;
-  text-decoration: none;
-  color: inherit;
-}
 .fileNameBox {
   display: flex;
   flex-wrap: nowrap;
