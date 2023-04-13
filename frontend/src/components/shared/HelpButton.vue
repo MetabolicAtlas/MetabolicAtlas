@@ -4,7 +4,7 @@
     type="button"
     title="Go to documentation"
     class="helpCircleButton"
-    @click="redirecToPage()"
+    @click="redirectToPage()"
   >
     <span class="icon">
       <i class="fa fa-info-circle"></i>
@@ -21,7 +21,7 @@ export default {
   },
   emits: ['handleClick'],
   methods: {
-    redirecToPage() {
+    redirectToPage() {
       this.$emit('handleClick');
       this.$router.push({ name: this.redirectPagePath, hash: `#${this.redirectPageHash}` });
     },
