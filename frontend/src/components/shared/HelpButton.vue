@@ -1,5 +1,11 @@
 <template>
-  <button type="button" class="helpCircleButton" @click="redirecToPage()">
+  <button
+    aria-label="info button"
+    type="button"
+    title="Go to documentation"
+    class="helpCircleButton"
+    @click="redirecToPage()"
+  >
     <span class="icon">
       <i class="fa fa-info-circle"></i>
     </span>
@@ -25,6 +31,8 @@ export default {
 
 <style lang="scss">
 .helpCircleButton {
+  font-size: 1.2rem;
+  cursor: pointer;
   background: none;
   border: none;
   text-decoration: none;
