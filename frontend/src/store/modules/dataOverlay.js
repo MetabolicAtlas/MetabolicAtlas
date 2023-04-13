@@ -62,6 +62,14 @@ const getters = {
     });
     return componentTypes;
   },
+  indicators: (state, results) =>
+    results.componentTypes
+      .map(type => ({
+        groupId: 'Overlays',
+        id: type,
+        status: 'On',
+      }))
+      .sort((a, b) => a.id.localeCompare(b.id)),
 };
 
 const actions = {
@@ -202,7 +210,7 @@ const actions = {
         });
       } else {
         await commit('removeDataType', currentDataSourceIndex);
-        await commit('setDataSet', { currentDataSourceIndex, dataSet: 'None' });
+        await commit('setDataSet', { index: currentDataSourceIndex, dataSet: 'None' });
       }
     }
 
