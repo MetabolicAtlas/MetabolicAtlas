@@ -96,6 +96,7 @@
             @un-select="unSelect"
             @update-panel-selection-data="updatePanelSelectionData"
           />
+          <IndicatorPanel class="map-indicators" :indicators="dataOverlayIndicators" />
           <ErrorPanel
             :message="loadMapErrorMessage"
             :hide-error-panel="(loadMapErrorMessage = '')"
@@ -160,6 +161,7 @@ import NotFound from '@/components/NotFound.vue';
 import SidebarDataPanels from '@/components/explorer/mapViewer/SidebarDataPanels.vue';
 import Svgmap from '@/components/explorer/mapViewer/Svgmap.vue';
 import ThreeDViewer from '@/components/explorer/mapViewer/ThreeDviewer.vue';
+import IndicatorPanel from '@/components/explorer/mapViewer/IndicatorPanel.vue';
 import { default as messages } from '@/content/messages';
 
 export default {
@@ -173,6 +175,7 @@ export default {
     Svgmap,
     ThreeDViewer,
     MissingReactionModal,
+    IndicatorPanel,
   },
   data() {
     return {
@@ -204,6 +207,7 @@ export default {
     ...mapGetters({
       mapQueryParams: 'maps/queryParams',
       dataOverlayQueryParams: 'dataOverlay/queryParams',
+      dataOverlayIndicators: 'dataOverlay/indicators',
     }),
     queryParams() {
       return { ...this.mapQueryParams, ...this.dataOverlayQueryParams };
@@ -470,5 +474,11 @@ export default {
   @media (max-width: $tablet) {
     display: none;
   }
+}
+
+.map-indicators {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
 }
 </style>
