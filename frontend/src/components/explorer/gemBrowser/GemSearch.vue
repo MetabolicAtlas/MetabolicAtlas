@@ -9,6 +9,7 @@
             @change="handleModelChange"
             @keyup.esc="handleClear()"
             @blur="blur()"
+            aria-label='select model'
           >
             <option v-for="m in models" :key="m.short_name">
               {{ m.short_name }}
@@ -30,6 +31,7 @@
           @keyup.esc="handleClear()"
           @focus="showResults = true"
           @blur="blur()"
+          aria-label='search box'
         />
         <span class="icon is-medium is-left"><i class="fa fa-search" /></span>
         <span v-show="showSearchCharAlert" class="has-text-info icon is-right" style="width: 270px">
