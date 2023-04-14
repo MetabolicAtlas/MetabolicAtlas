@@ -24,7 +24,7 @@
                 type="text"
                 placeholder="uracil, SULT1A3, Acyl-CoA hydrolysis"
                 @keyup.enter="updateSearch()"
-                aria-label='search box'
+                aria-label="search box"
               />
               <span
                 v-show="showSearchCharAlert"
