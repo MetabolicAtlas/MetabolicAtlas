@@ -51,7 +51,7 @@
               </router-link>
             </div>
             <div class="navbar-end has-background-primary-lighter">
-              <a class="navbar-item" @click.stop.prevent="showGemSearch = true">
+              <a id="searchToggle" class="navbar-item" @click.stop.prevent="showGemSearch = true">
                 <span class="icon is-large px-2 py-3">
                   <i id="search-icon" class="fa fa-search" />
                 </span>

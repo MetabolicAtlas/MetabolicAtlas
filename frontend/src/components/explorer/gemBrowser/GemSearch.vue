@@ -5,6 +5,7 @@
         <span class="select">
           <select
             id="model-select"
+            aria-label="select model"
             :value="searchModel.short_name"
             @change="handleModelChange"
             @keyup.esc="handleClear()"
@@ -27,6 +28,7 @@
           type="text"
           class="input"
           placeholder="ATP"
+          aria-label="search box"
           @keyup.esc="handleClear()"
           @focus="showResults = true"
           @blur="blur()"
@@ -44,6 +46,11 @@
         </span>
       </p>
     </div>
+    <HelpButton
+      redirect-page-path="documentation"
+      redirect-page-hash="quick-search"
+      @handle-click="handleClear()"
+    ></HelpButton>
     <button
       id="globalSearchButton"
       type="button"
@@ -138,6 +145,7 @@
 import { mapGetters, mapState } from 'vuex';
 import { default as messages } from '@/content/messages';
 import { sanitizeSearchString } from '@/helpers/utils';
+import HelpButton from '@/components/shared/HelpButton.vue';
 
 export default {
   name: 'GemSearch',
@@ -205,9 +213,7 @@ export default {
       this.$store.dispatch('search/setSearchTermString', searchTerm);
       this.noResult = false;
       this.showSearchCharAlert = searchTerm.length === 1;
-
       const canSearch = searchTerm.length > 1;
-
       this.showLoader = canSearch;
       this.showResults = canSearch;
       if (canSearch) {
@@ -221,13 +227,11 @@ export default {
       if (sanitizeSearchString(this.searchTermString, false).length < 2) {
         return;
       }
-
       try {
         const payload = {
           model: this.searchModel,
         };
         await this.$store.dispatch('search/search', payload);
-
         this.noResult = true;
         const keyList = Object.keys(this.searchResults);
         for (let i = 0; i < keyList.length; i += 1) {
@@ -254,6 +258,10 @@ export default {
     globalSearch() {
       this.handleClear();
       this.$router.push({ name: 'search', query: { term: this.searchTermString } });
+    },
+    quickSearchDocs() {
+      this.handleClear();
+      this.$router.push({ name: 'documentation', hash: '#quick-search' });
     },
     formatSearchResultLabel(type, element, searchTerm) {
       const re = new RegExp(`(${sanitizeSearchString(searchTerm)})`, 'ig');
@@ -297,6 +305,7 @@ export default {
       }, 100);
     },
   },
+  components: { HelpButton },
 };
 </script>
 

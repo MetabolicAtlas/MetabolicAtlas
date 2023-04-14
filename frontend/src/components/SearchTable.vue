@@ -13,15 +13,17 @@
         <div
           class="column is-three-fifths-desktop is-three-quarters-tablet is-fullwidth-mobile control"
         >
-          <div>
-            <p class="control has-icons-right has-icons-left">
+          <div class="searchWrapper">
+            <p class="control has-icons-right has-icons-left searchInput">
               <input
                 id="search"
                 v-model="searchTerm"
+                role="searchbox"
                 data-hj-whitelist
                 class="input"
                 type="text"
                 placeholder="uracil, SULT1A3, Acyl-CoA hydrolysis"
+                aria-label="search box"
                 @keyup.enter="updateSearch()"
               />
               <span
@@ -35,6 +37,10 @@
                 <i class="fa fa-search is-primary"></i>
               </span>
             </p>
+            <HelpButton
+              redirect-page-path="documentation"
+              redirect-page-hash="global-search"
+            ></HelpButton>
           </div>
         </div>
       </div>
@@ -322,6 +328,7 @@ import ExportTSV from '@/components/shared/ExportTSV.vue';
 import { chemicalFormula } from '@/helpers/chemical-formatters';
 import { sortResultsScore } from '@/helpers/utils';
 import { default as messages } from '@/content/messages';
+import HelpButton from '@/components/shared/HelpButton.vue';
 
 export default {
   name: 'SearchTable',
@@ -329,6 +336,7 @@ export default {
     Loader,
     ExportTSV,
     VueGoodTable,
+    HelpButton,
   },
   data() {
     return {
@@ -880,6 +888,15 @@ export default {
 </script>
 
 <style lang="scss">
+.searchWrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+.searchInput {
+  flex: 1;
+}
 #search-table {
   .tabs li.is-disabled {
     cursor: not-allowed;
