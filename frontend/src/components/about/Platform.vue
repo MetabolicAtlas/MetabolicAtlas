@@ -10,8 +10,8 @@
         <a href="https://en.wikipedia.org/wiki/FAIR_data" target="_blank" rel="noopener noreferrer"
           >FAIR principles</a
         >. The website provides visualisations and comparisons of the GEMs, and links to
-        <router-link :to="{ name: 'about-resources', hash: '#Resources' }">resources</router-link>,
-        algorithms, other databases, and more general software applications. Metabolic Atlas is
+        <router-link :to="{ name: 'about-resources', hash: '#Resources' }">resources</router-link>
+        , algorithms, other databases, and more general software applications. Metabolic Atlas is
         intended to be used for applications in metabolomics, clinical chemistry, biomarker
         discovery and general education. In short, the vision is to create a one-stop-shop for
         everything metabolism related.
@@ -55,8 +55,9 @@
         </router-link>
         and
         <router-link :to="{ name: 'explorer', params: { model: 'Zebrafish-GEM' } }">
-          Zebrafish-GEM </router-link
-        >.
+          Zebrafish-GEM
+        </router-link>
+        .
       </p>
 
       <p>
@@ -150,7 +151,7 @@
 
       <div class="columns is-multiline has-text-left">
         <div
-          v-for="member in members"
+          v-for="member in advisoryBoard"
           :key="member.name"
           class="column is-full is-half-desktop is-one-third-widescreen"
         >
@@ -205,65 +206,120 @@
       </div>
 
       <h3 id="development" class="title is-3 mt-6">Development team</h3>
-
-      <div v-for="group in team" :key="group.name">
-        <h3 class="title is-4">{{ group.name }}</h3>
-        <div class="pb-6 columns is-multiline has-text-left">
-          <div
-            v-for="member in group.members"
-            :key="member.name"
-            class="column is-full is-half-desktop is-one-third-widescreen"
-          >
-            <div class="card card-fullheight">
-              <div class="card-content">
-                <div class="media">
-                  <div class="media-left">
-                    <figure class="image is-96x96 m-0">
-                      <img :alt="member.name" :src="member.img" />
-                    </figure>
-                  </div>
-                  <div class="media-content">
-                    <p class="title is-5">{{ member.name }}</p>
-                    <p class="subtitle is-6 pt-2">
-                      <a
-                        v-if="member.orcid"
-                        :href="member.orcid"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <img
-                          class="image is-16x16 is-inline mr-2"
-                          alt="orcid"
-                          src="/assets/logos/orcid.gif"
-                        />
-                      </a>
-                      <a
-                        v-if="member.linkedin"
-                        :href="member.linkedin"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <span class="icon mr-2"><i class="fa fa-linkedin-square fa-lg"></i></span>
-                      </a>
-                      <a
-                        v-if="member.github"
-                        :href="member.github"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <span class="icon has-text-black-bis">
-                          <i class="fa fa-lg fa-github"></i>
-                        </span>
-                      </a>
-                    </p>
-                  </div>
+      <div class="pb-6 columns is-multiline has-text-left">
+        <div
+          v-for="member in team"
+          :key="member.name"
+          class="column is-full is-half-desktop is-one-third-widescreen"
+        >
+          <div class="card card-fullheight">
+            <div class="card-content">
+              <div class="media">
+                <div class="media-left">
+                  <figure class="image is-96x96 m-0">
+                    <img :alt="member.name" :src="member.img" />
+                  </figure>
                 </div>
-                <div class="content" v-html="member.content"></div>
+                <div class="media-content">
+                  <p class="title is-5">{{ member.name }}</p>
+                  <p class="subtitle is-6 pt-2">
+                    <a
+                      v-if="member.orcid"
+                      :href="member.orcid"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img
+                        class="image is-16x16 is-inline mr-2"
+                        alt="orcid"
+                        src="/assets/logos/orcid.gif"
+                      />
+                    </a>
+                    <a
+                      v-if="member.linkedin"
+                      :href="member.linkedin"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span class="icon mr-2"><i class="fa fa-linkedin-square fa-lg"></i></span>
+                    </a>
+                    <a
+                      v-if="member.github"
+                      :href="member.github"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span class="icon has-text-black-bis">
+                        <i class="fa fa-lg fa-github"></i>
+                      </span>
+                    </a>
+                  </p>
+                </div>
               </div>
+              <div class="content" v-html="member.content"></div>
             </div>
           </div>
         </div>
       </div>
+
+      <h3 id="development" class="title is-3 mt-6">Previous contributors</h3>
+      <div class="pb-6 columns is-multiline has-text-left">
+        <div
+          v-for="member in previousContributors"
+          :key="member.name"
+          class="column is-full is-half-tablet is-one-third-desktop is-one-quarter-widescreen"
+        >
+          <div class="card card-fullheight">
+            <div class="card-content">
+              <div class="media is-flex-wrap-wrap">
+                <div class="media-left">
+                  <figure class="image is-64x64 m-0">
+                    <img :alt="member.name" :src="member.img" />
+                  </figure>
+                </div>
+                <div class="media-content previous-contributor">
+                  <p class="title is-size-5 is-size-6-tablet is-size-6-desktop is-size-6-widescreen">{{ member.name }}</p>
+                  <p class="subtitle is-7 pt-2">
+                    <!-- TODO: check icon sizes -->
+                    <a
+                      v-if="member.orcid"
+                      :href="member.orcid"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img
+                        class="image is-16x16 is-inline mr-2"
+                        alt="orcid"
+                        src="/assets/logos/orcid.gif"
+                      />
+                    </a>
+                    <a
+                      v-if="member.linkedin"
+                      :href="member.linkedin"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span class="icon mr-2"><i class="fa fa-linkedin-square fa-lg"></i></span>
+                    </a>
+                    <a
+                      v-if="member.github"
+                      :href="member.github"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span class="icon has-text-black-bis">
+                        <i class="fa fa-lg fa-github"></i>
+                      </span>
+                    </a>
+                  </p>
+                </div>
+              </div>
+              <div class="content" v-html="member.content"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <p>
         For more detailed information about the contributions to Metabolic Atlas, please see our
         <a
@@ -326,7 +382,7 @@ export default {
   },
   data() {
     return {
-      members: [
+      advisoryBoard: [
         {
           name: 'Prof. Jens Nielsen',
           img: getImageUrl('pics/jens'),
@@ -366,96 +422,88 @@ export default {
       ],
       team: [
         {
-          name: '',
-          members: [
-            {
-              name: 'Mihail Anton',
-              img: getImageUrl('pics/mihail'),
-              github: 'https://github.com/mihai-sysbio',
-              linkedin: 'https://www.linkedin.com/in/mihail-anton/',
-              content:
-                '<a href="https://nbis.se/about/staff/mihail-anton/" target="_blank" rel="noopener noreferrer">NBIS expert and Project Manager for Metabolic Atlas</a>',
-            },
-            {
-              name: 'Shan Huang',
-              img: getImageUrl('pics/shan'),
-              github: 'https://github.com/e0',
-              linkedin: 'https://www.linkedin.com/in/shan-h-5b986383/',
-              content:
-                '<a href="https://www.linkedin.com/in/shan-h-5b986383/" target="_blank" rel="noopener noreferrer">Freelance Web Developer </a>',
-            },
-            {
-              name: 'Ingrid Hyltander',
-              img: getImageUrl('pics/ingrid'),
-              github: 'https://github.com/inghylt',
-              linkedin: 'https://www.linkedin.com/in/ingrid-hyltander-82128213a/',
-              content:
-                '<a href="https://nbis.se/about/staff/ingrid-hyltander/" target="_blank" rel="noopener noreferrer">System Developer at NBIS</a>',
-            },
-            {
-              name: 'Malin Klang',
-              img: getImageUrl('pics/malin'),
-              github: 'https://github.com/MalinAhlberg',
-              linkedin: 'https://www.linkedin.com/in/malin-klang-7105562a/',
-              content:
-                '<a href="https://nbis.se/about/staff/malin-klang/" target="_blank" rel="noopener noreferrer">System Developer at NBIS</a>',
-            },
-            {
-              name: 'Nanjiang Shu',
-              img: getImageUrl('pics/nanjiang'),
-              github: 'https://github.com/nanjiangshu',
-              linkedin: 'https://www.linkedin.com/in/nanjiang-shu-95a49713/',
-              content:
-                '<a href="https://nbis.se/about/staff/nanjiang-shu/" target="_blank" rel="noopener noreferrer"> Deputy Head of System Development at NBIS </a>',
-            },
-          ],
+          name: 'Mihail Anton',
+          img: getImageUrl('pics/mihail'),
+          github: 'https://github.com/mihai-sysbio',
+          linkedin: 'https://www.linkedin.com/in/mihail-anton/',
+          content:
+            '<a href="https://nbis.se/about/staff/mihail-anton/" target="_blank" rel="noopener noreferrer">NBIS expert and Project Manager for Metabolic Atlas</a>',
         },
         {
-          name: 'Previous Contributors',
-          members: [
-            {
-              name: 'Per Johnsson',
-              img: getImageUrl('pics/per'),
-              github: 'https://github.com/perjo',
-              content:
-                '<a href="https://nbis.se/about/staff/per-johnsson/" target="_blank" rel="noopener noreferrer">System Developer at NBIS </a>',
-            },
-            {
-              name: 'Sergiu Netotea',
-              img: getImageUrl('pics/sergiu'),
-              linkedin: 'https://se.linkedin.com/in/sergiu-netotea-753068182',
-              content:
-                '<a href="https://nbis.se/about/staff/sergiu-netotea/" target="_blank" rel="noopener noreferrer">Researcher at NBIS </a>',
-            },
-            {
-              name: 'Martin Norling',
-              img: getImageUrl('pics/martin'),
-              github: 'https://github.com/norling',
-              content:
-                '<a href="https://nbis.se/about/staff/martin-norling/" target="_blank" rel="noopener noreferrer">System Developer at NBIS </a>',
-            },
-            {
-              name: 'Natapol Pornputtapong',
-              img: getImageUrl('pics/natapol', 'jpeg'),
-              github: 'https://github.com/natapol',
-              linkedin: 'https://www.linkedin.com/in/natapol-pornputtapong-316a9347/',
-              orcid: 'https://orcid.org/0000-0002-3833-0537',
-              content:
-                '<a href="https://www.linkedin.com/in/natapol-pornputtapong-316a9347/" target="_blank" rel="noopener noreferrer">Head of Biochemistry and Microbiology Department, Chulalongkorn University </a>',
-            },
-            {
-              name: 'Pierre-Etienne C.',
-              img: getImageUrl('pics/placeholder', 'png'),
-            },
-            {
-              name: 'Jorrit B.',
-              img: getImageUrl('pics/placeholder', 'png'),
-            },
-            {
-              name: 'Lena H.',
-              img: getImageUrl('pics/placeholder', 'png'),
-            },
-          ],
+          name: 'Shan Huang',
+          img: getImageUrl('pics/shan'),
+          github: 'https://github.com/e0',
+          linkedin: 'https://www.linkedin.com/in/shan-h-5b986383/',
+          content:
+            '<a href="https://www.linkedin.com/in/shan-h-5b986383/" target="_blank" rel="noopener noreferrer">Freelance Web Developer </a>',
+        },
+        {
+          name: 'Ingrid Hyltander',
+          img: getImageUrl('pics/ingrid'),
+          github: 'https://github.com/inghylt',
+          linkedin: 'https://www.linkedin.com/in/ingrid-hyltander-82128213a/',
+          content:
+            '<a href="https://nbis.se/about/staff/ingrid-hyltander/" target="_blank" rel="noopener noreferrer">System Developer at NBIS</a>',
+        },
+        {
+          name: 'Malin Klang',
+          img: getImageUrl('pics/malin'),
+          github: 'https://github.com/MalinAhlberg',
+          linkedin: 'https://www.linkedin.com/in/malin-klang-7105562a/',
+          content:
+            '<a href="https://nbis.se/about/staff/malin-klang/" target="_blank" rel="noopener noreferrer">System Developer at NBIS</a>',
+        },
+        {
+          name: 'Nanjiang Shu',
+          img: getImageUrl('pics/nanjiang'),
+          github: 'https://github.com/nanjiangshu',
+          linkedin: 'https://www.linkedin.com/in/nanjiang-shu-95a49713/',
+          content:
+            '<a href="https://nbis.se/about/staff/nanjiang-shu/" target="_blank" rel="noopener noreferrer"> Deputy Head of System Development at NBIS </a>',
+        },
+      ],
+      previousContributors: [
+        {
+          name: 'Per Johnsson',
+          img: getImageUrl('pics/per'),
+          github: 'https://github.com/perjo',
+          content:
+            '<a href="https://nbis.se/about/staff/per-johnsson/" target="_blank" rel="noopener noreferrer">System Developer at NBIS </a>',
+        },
+        {
+          name: 'Sergiu Netotea',
+          img: getImageUrl('pics/sergiu'),
+          linkedin: 'https://se.linkedin.com/in/sergiu-netotea-753068182',
+          content:
+            '<a href="https://nbis.se/about/staff/sergiu-netotea/" target="_blank" rel="noopener noreferrer">Researcher at NBIS </a>',
+        },
+        {
+          name: 'Martin Norling',
+          img: getImageUrl('pics/martin'),
+          github: 'https://github.com/norling',
+          content:
+            '<a href="https://nbis.se/about/staff/martin-norling/" target="_blank" rel="noopener noreferrer">System Developer at NBIS </a>',
+        },
+        {
+          name: 'Natapol Pornputtapong',
+          img: getImageUrl('pics/natapol', 'jpeg'),
+          github: 'https://github.com/natapol',
+          linkedin: 'https://www.linkedin.com/in/natapol-pornputtapong-316a9347/',
+          orcid: 'https://orcid.org/0000-0002-3833-0537',
+          content:
+            '<a href="https://www.linkedin.com/in/natapol-pornputtapong-316a9347/" target="_blank" rel="noopener noreferrer">Head of Biochemistry and Microbiology Department, Chulalongkorn University </a>',
+        },
+        {
+          name: 'Pierre-Etienne C.',
+          img: getImageUrl('pics/placeholder', 'png'),
+        },
+        {
+          name: 'Jorrit B.',
+          img: getImageUrl('pics/placeholder', 'png'),
+        },
+        {
+          name: 'Lena H.',
+          img: getImageUrl('pics/placeholder', 'png'),
         },
       ],
       citations,
@@ -494,4 +542,8 @@ export default {
   height: 100%;
   border: none;
 }
+.previous-contributor {
+  max-width: 60%;
+}
+
 </style>
