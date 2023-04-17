@@ -14,6 +14,7 @@ import europepmc from './modules/europepmc';
 import compare from './modules/compare';
 import identifier from './modules/idInModels';
 import dataOverlay from './modules/dataOverlay';
+import dataOverlayRework from './modules/dataOverlayRework';
 import gotEnzymes from './modules/gotEnzymes';
 
 const store = createStore({
@@ -33,6 +34,7 @@ const store = createStore({
     compare,
     identifier,
     dataOverlay,
+    dataOverlayRework,
     gotEnzymes,
   },
 });
