@@ -430,6 +430,38 @@ export default {
             '<a href="https://nbis.se/about/staff/mihail-anton/" target="_blank" rel="noopener noreferrer">NBIS expert and Project Manager for Metabolic Atlas</a>',
         },
         {
+          name: 'Katarina Lejonlid',
+          img: getImageUrl('pics/placeholder', 'png'),
+          content:
+            '<a href="https://nbis.se/about/staff/katarina-lejonlid/" target="_blank" rel="noopener noreferrer">System Developer at NBIS</a>',
+        },
+        {
+          name: 'Jon Ander Novella',
+          img: getImageUrl('pics/placeholder', 'png'),
+          content:
+            '<a href="https://nbis.se/about/staff/jon-ander-novella/" target="_blank" rel="noopener noreferrer">System Developer at NBIS</a>',
+        },
+        {
+          name: 'Mattias Nyberg',
+          img: getImageUrl('pics/placeholder', 'png'),
+          content:
+            '<a href="https://nbis.se/about/staff/mattias-nyberg/" target="_blank" rel="noopener noreferrer">System Developer at NBIS</a>',
+        },
+        {
+          name: 'Jessica Sandler',
+          img: getImageUrl('pics/placeholder', 'png'),
+          content:
+            '<a href="https://nbis.se/about/staff/jessica-sandler/" target="_blank" rel="noopener noreferrer">System Developer at NBIS</a>',
+        },
+        {
+          name: 'Henrike Wiemker',
+          img: getImageUrl('pics/placeholder', 'png'),
+          content:
+            '<a href="https://nbis.se/about/staff/henrike-wiemker/" target="_blank" rel="noopener noreferrer">System Developer at NBIS</a>',
+        },
+      ],
+      previousContributors: [
+        {
           name: 'Shan Huang',
           img: getImageUrl('pics/shan'),
           github: 'https://github.com/e0',
@@ -446,29 +478,19 @@ export default {
             '<a href="https://nbis.se/about/staff/ingrid-hyltander/" target="_blank" rel="noopener noreferrer">System Developer at NBIS</a>',
         },
         {
+          name: 'Per Johnsson',
+          img: getImageUrl('pics/per'),
+          github: 'https://github.com/perjo',
+          content:
+            '<a href="https://nbis.se/about/staff/per-johnsson/" target="_blank" rel="noopener noreferrer">System Developer at NBIS </a>',
+        },
+        {
           name: 'Malin Klang',
           img: getImageUrl('pics/malin'),
           github: 'https://github.com/MalinAhlberg',
           linkedin: 'https://www.linkedin.com/in/malin-klang-7105562a/',
           content:
             '<a href="https://nbis.se/about/staff/malin-klang/" target="_blank" rel="noopener noreferrer">System Developer at NBIS</a>',
-        },
-        {
-          name: 'Nanjiang Shu',
-          img: getImageUrl('pics/nanjiang'),
-          github: 'https://github.com/nanjiangshu',
-          linkedin: 'https://www.linkedin.com/in/nanjiang-shu-95a49713/',
-          content:
-            '<a href="https://nbis.se/about/staff/nanjiang-shu/" target="_blank" rel="noopener noreferrer"> Deputy Head of System Development at NBIS </a>',
-        },
-      ],
-      previousContributors: [
-        {
-          name: 'Per Johnsson',
-          img: getImageUrl('pics/per'),
-          github: 'https://github.com/perjo',
-          content:
-            '<a href="https://nbis.se/about/staff/per-johnsson/" target="_blank" rel="noopener noreferrer">System Developer at NBIS </a>',
         },
         {
           name: 'Sergiu Netotea',
@@ -492,6 +514,14 @@ export default {
           orcid: 'https://orcid.org/0000-0002-3833-0537',
           content:
             '<a href="https://www.linkedin.com/in/natapol-pornputtapong-316a9347/" target="_blank" rel="noopener noreferrer">Head of Biochemistry and Microbiology Department, Chulalongkorn University </a>',
+        },
+        {
+          name: 'Nanjiang Shu',
+          img: getImageUrl('pics/nanjiang'),
+          github: 'https://github.com/nanjiangshu',
+          linkedin: 'https://www.linkedin.com/in/nanjiang-shu-95a49713/',
+          content:
+            '<a href="https://nbis.se/about/staff/nanjiang-shu/" target="_blank" rel="noopener noreferrer"> Deputy Head of System Development at NBIS </a>',
         },
         {
           name: 'Pierre-Etienne C.',
