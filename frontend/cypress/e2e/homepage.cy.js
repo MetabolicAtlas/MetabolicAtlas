@@ -37,4 +37,22 @@ context('Homepage', () => {
     })
   })
 
+  describe('DataOverlay', () => {
+    const targets = [
+      {
+        url: '/explore/Human-GEM/map-viewer/acyl_coa_hydrolysis?dim=2d&panel=1&sel=&search=&coords=-3034.36,-3215.63,0.25,0,0,500&dataTypes=gene&dataSources=hpaRna.tsv&dataSets=adipose%20tissue',
+        indicator: 'gene'
+      },
+      {
+        url: '/explore/Human-GEM/map-viewer/acyl_coa_hydrolysis?dim=2d&panel=1&sel=&search=&coords=-3034.36,-3215.63,0.25,0,0,500&dataTypes=reaction&dataSources=HPA_single-cell_reactions.tsv&dataSets=adipose%20tissue_adipocytes_11',
+        indicator: 'reaction'
+      }
+    ]
+    for (const {url, indicator} of targets) {
+      it(`It has the ${indicator} indicator`, () => {
+        cy.visit(url)
+        cy.get('.map-indicators .indicator-id').contains(indicator)
+      })
+    }
+  })
 })
