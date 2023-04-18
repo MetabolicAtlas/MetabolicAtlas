@@ -1,6 +1,7 @@
 Agren
 Albornoz
 Altmetric
+Ander
 apoa
 apoc
 arrowless
@@ -83,6 +84,7 @@ Hansson
 hcsd
 HCSD
 Hedin
+Henrike
 Hermansson
 hmdb
 HMDB
@@ -110,6 +112,7 @@ Kwanjeera
 Lahtvee
 layoutready
 layoutstop
+Lejonlid
 lightgray
 Limeta
 linebreak
@@ -158,6 +161,7 @@ noopener
 noreferrer
 Norling
 nprogress
+Nyberg
 Ofour
 Omics
 Omix
@@ -243,6 +247,7 @@ vueuse
 vuex
 Wallenberg
 Wanichthanarak
+Wiemker
 wpcr
 yseq
 Yseq
