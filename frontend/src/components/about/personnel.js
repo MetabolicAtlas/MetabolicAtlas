@@ -66,7 +66,8 @@ const jon = {
 };
 const mattias = {
   name: 'Mattias Nyberg',
-  img: getImageUrl('pics/placeholder', 'png'),
+  img: getImageUrl('pics/mattias', 'jpg'),
+  github: 'https://github.com/pdmnyberg',
   content:
     '<a href="https://nbis.se/about/staff/mattias-nyberg/" target="_blank" rel="noopener noreferrer">System Developer at NBIS</a>',
 };
