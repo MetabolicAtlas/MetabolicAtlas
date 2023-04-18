@@ -100,6 +100,7 @@ Jaccard
 Johnsson
 Jörnsten
 Jorrit
+kattis
 kcat
 kegg
 Keratan
@@ -109,6 +110,7 @@ Knut
 Kocabas
 Kosalai
 Kwanjeera
+Kähäri
 Lahtvee
 layoutready
 layoutstop
@@ -173,6 +175,7 @@ panzoomchange
 panzoomzoom
 Papini
 PARP
+pelle
 Petranovic
 pharmacogenomic
 playsinline
