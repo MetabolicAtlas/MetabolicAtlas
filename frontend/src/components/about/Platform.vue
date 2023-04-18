@@ -271,16 +271,19 @@
         >
           <div class="card card-fullheight">
             <div class="card-content">
-              <div class="media is-flex-wrap-wrap">
+              <div class="media previous-contributors">
                 <div class="media-left">
                   <figure class="image is-64x64 m-0">
                     <img :alt="member.name" :src="member.img" />
                   </figure>
                 </div>
                 <div class="media-content previous-contributor">
-                  <p class="title is-size-5 is-size-6-tablet is-size-6-desktop is-size-6-widescreen">{{ member.name }}</p>
-                  <p class="subtitle is-7 pt-2">
-                    <!-- TODO: check icon sizes -->
+                  <p
+                    class="title is-size-5 is-size-6-tablet is-size-6-desktop is-size-6-widescreen"
+                  >
+                    {{ member.name }}
+                  </p>
+                  <p class="subtitle is-7 links">
                     <a
                       v-if="member.orcid"
                       :href="member.orcid"
@@ -572,8 +575,19 @@ export default {
   height: 100%;
   border: none;
 }
-.previous-contributor {
-  max-width: 60%;
-}
 
+.previous-contributors {
+  flex-wrap: wrap;
+  row-gap: 1rem;
+
+  .previous-contributor {
+    flex-basis: 60%;
+
+    .links {
+      display: flex;
+      align-items: flex-end;
+      padding-top: 0.5rem;
+    }
+  }
+}
 </style>
