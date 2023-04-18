@@ -363,7 +363,7 @@
 import AboutLayout from '@/layouts/AboutLayout.vue';
 import Citation from '@/components/about/Citation.vue';
 import { default as citations } from '@/content/citations';
-import { advisoryBoard, previousContributors, team } from "@/components/about/personnel";
+import { advisoryBoard, previousContributors, team } from '@/components/about/personnel';
 
 export default {
   name: 'Introduction',
