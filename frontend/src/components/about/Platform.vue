@@ -218,12 +218,12 @@
   </about-layout>
 </template>
 <script>
-import AboutLayout from "@/layouts/AboutLayout.vue";
-import Citation from "@/components/about/Citation.vue";
-import { default as citations } from "@/content/citations";
-import { advisoryBoard, previousContributors, team } from "@/components/about/personnel";
-import LargeCard from "@/components/about/LargeCard.vue";
-import SmallCard from "@/components/about/SmallCard.vue";
+import AboutLayout from '@/layouts/AboutLayout.vue';
+import Citation from '@/components/about/Citation.vue';
+import { default as citations } from '@/content/citations';
+import { advisoryBoard, previousContributors, team } from '@/components/about/personnel';
+import LargeCard from '@/components/about/LargeCard.vue';
+import SmallCard from '@/components/about/SmallCard.vue';
 
 export default {
   name: 'Introduction',
@@ -286,5 +286,4 @@ export default {
   height: 100%;
   border: none;
 }
-
 </style>
