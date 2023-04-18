@@ -144,6 +144,12 @@ const nanjiang = {
   content:
     '<a href="https://nbis.se/about/staff/nanjiang-shu/" target="_blank" rel="noopener noreferrer"> Deputy Head of System Development at NBIS </a>',
 };
+const andreas = {
+  name: 'Andreas Kähäri',
+  img: getImageUrl('pics/placeholder', 'png'),
+  content:
+    '<a href="https://nbis.se/about/staff/andreas-kahari/" target="_blank" rel="noopener noreferrer">System Developer at NBIS</a>',
+};
 const pierreEtienne = {
   name: 'Pierre-Etienne C.',
   img: getImageUrl('pics/placeholder', 'png'),
@@ -164,6 +170,7 @@ export const previousContributors = [
   ingrid,
   pelle,
   malin,
+  andreas,
   sergiu,
   martin,
   natapol,
