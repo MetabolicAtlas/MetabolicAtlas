@@ -278,7 +278,11 @@
                   </figure>
                 </div>
                 <div class="media-content previous-contributor">
-                  <p class="title is-size-5 is-size-6-tablet is-size-6-desktop is-size-6-widescreen">{{ member.name }}</p>
+                  <p
+                    class="title is-size-5 is-size-6-tablet is-size-6-desktop is-size-6-widescreen"
+                  >
+                    {{ member.name }}
+                  </p>
                   <p class="subtitle is-7 pt-2">
                     <!-- TODO: check icon sizes -->
                     <a
@@ -575,5 +579,4 @@ export default {
 .previous-contributor {
   max-width: 60%;
 }
-
 </style>
