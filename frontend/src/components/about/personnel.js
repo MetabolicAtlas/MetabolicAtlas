@@ -73,7 +73,9 @@ const mattias = {
 };
 const jessica = {
   name: 'Jessica Sandler',
-  img: getImageUrl('pics/placeholder', 'png'),
+  img: getImageUrl('pics/jessica-sandler', 'jpg'),
+  github: 'https://github.com/Jessica-Sandler',
+  linkedin: 'https://www.linkedin.com/in/jessica-sandler',
   content:
     '<a href="https://nbis.se/about/staff/jessica-sandler/" target="_blank" rel="noopener noreferrer">System Developer at NBIS</a>',
 };
