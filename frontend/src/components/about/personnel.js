@@ -32,9 +32,9 @@ const hao = {
   img: getImageUrl('pics/hao'),
   orcid: 'https://orcid.org/0000-0001-7475-0136',
   linkedin: 'https://www.linkedin.com/in/hao-wang-9a66ba30',
-  github: 'https://github.com/Hao-Chalmers',
+  github: 'https://github.com/haowang-bioinfo',
   content:
-    '<a href="https://github.com/Hao-Chalmers" target="_blank" rel="noopener noreferrer">Researcher at Chalmers University of Technology</a>',
+    '<a href="https://github.com/haowang-bioinfo" target="_blank" rel="noopener noreferrer">Researcher at Chalmers University of Technology</a>',
 };
 const thomas = {
   name: 'Thomas Svensson',
@@ -54,7 +54,9 @@ const mihail = {
 };
 const kattis = {
   name: 'Katarina Lejonlid',
-  img: getImageUrl('pics/placeholder', 'png'),
+  img: getImageUrl('pics/kattis', 'jpg'),
+  github: 'https://github.com/KattisLej',
+  linkedin: 'https://www.linkedin.com/in/lejonlidkatarina/',
   content:
     '<a href="https://nbis.se/about/staff/katarina-lejonlid/" target="_blank" rel="noopener noreferrer">System Developer at NBIS</a>',
 };
