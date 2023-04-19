@@ -56,7 +56,7 @@ const kattis = {
   name: 'Katarina Lejonlid',
   img: getImageUrl('pics/kattis', 'jpg'),
   github: 'https://github.com/KattisLej',
-  linkedin:'https://www.linkedin.com/in/lejonlidkatarina/',
+  linkedin: 'https://www.linkedin.com/in/lejonlidkatarina/',
   content:
     '<a href="https://nbis.se/about/staff/katarina-lejonlid/" target="_blank" rel="noopener noreferrer">System Developer at NBIS</a>',
 };
