@@ -35,6 +35,13 @@ describe('compartments', () => {
       );
       expect(res.status).toBe(404);
     });
+
+    test('should return 400 if model contains parenthesis', async () => {
+      const res = await fetch(
+        `${API_BASE}/compartments/golgi_apparatus?model=HumanGem)-%5B%5D-(x&full=true`
+      );
+      expect(res.status).toBe(400);
+    });
   });
 
   describe('get related reactions', () => {
