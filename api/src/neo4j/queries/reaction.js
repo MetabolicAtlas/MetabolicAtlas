@@ -14,7 +14,7 @@ const getReaction = async ({ id, model, version }) => {
 
   const [m, v] = parseParams(model, version);
 
-  console.log('*** M ***', v);
+  console.log('*** M ***', m);
   console.log('*** V ***', v);
 
   const statement = `
@@ -88,7 +88,7 @@ const getReactionCount = async (model, version) => {
 
   const [m, v] = parseParams(model, version);
 
-  console.log('*** M ***', v);
+  console.log('*** M ***', m);
   console.log('*** V ***', v);
 
   const statement = `

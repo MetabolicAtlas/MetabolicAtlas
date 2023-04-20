@@ -9,7 +9,7 @@ const getRelatedMetabolites = async ({ id, model, version }) => {
 
   const [m, v] = parseParams(model, version);
 
-  console.log('*** M ***', v);
+  console.log('*** M ***', m);
   console.log('*** V ***', v);
 
   const statement = `
