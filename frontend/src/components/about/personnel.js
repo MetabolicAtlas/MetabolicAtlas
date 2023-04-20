@@ -75,7 +75,7 @@ const mattias = {
 };
 const jessica = {
   name: 'Jessica Sandler',
-  img: getImageUrl('pics/jessica-sandler', 'jpg'),
+  img: getImageUrl('pics/jessica', 'jpg'),
   github: 'https://github.com/Jessica-Sandler',
   linkedin: 'https://www.linkedin.com/in/jessica-sandler',
   content:
