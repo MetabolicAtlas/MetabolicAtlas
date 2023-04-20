@@ -8,7 +8,15 @@ import parseParams from 'neo4j/shared/helper';
 import { getSmilesForMetabolite } from 'gotEnzymes/compound';
 
 const getMetabolite = async ({ id, model, version }) => {
+  console.log('*** getMetabolite ***');
+  console.log('*** Id ***', id);
+  console.log('*** Model ***', model);
+  console.log('*** Version ***', version);
+
   const [m, v] = parseParams(model, version);
+
+  console.log('*** M ***', v);
+  console.log('*** V ***', v);
 
   const statement = `
 CALL apoc.cypher.run('
@@ -79,7 +87,14 @@ RETURN apoc.map.mergeList(COLLECT(value.data)) as metabolite
 };
 
 const getMetaboliteCount = async (model, version) => {
+  console.log('*** getMetaboliteCount ***');
+  console.log('*** Model ***', model);
+  console.log('*** Version ***', version);
+
   const [m, v] = parseParams(model, version);
+
+  console.log('*** M ***', v);
+  console.log('*** V ***', v);
 
   const statement = `
 MATCH (cm:CompartmentalizedMetabolite${m})-[${v}]-()

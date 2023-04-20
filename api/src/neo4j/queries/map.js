@@ -36,7 +36,14 @@ const mapComponents = async (componentList, modelShortName) =>
   );
 
 const getMapsListing = async ({ model, version }) => {
+  console.log('*** getMapsListing ***');
+  console.log('*** Model ***', model);
+  console.log('*** Version ***', version);
+
   const [m, v] = parseParams(model, version);
+
+  console.log('*** M ***', v);
+  console.log('*** V ***', v);
 
   const componentSvgsQuery = `
 MATCH (:CompartmentState)-[${v}]-(c:Compartment${m})
@@ -114,7 +121,15 @@ RETURN svg { id: svg.id, name: svg.customName, svgs: [svg {.*}]}
 };
 
 const mapSearch = async ({ model, version, searchTerm }) => {
+  console.log('*** mapSearch ***');
+  console.log('*** Model ***', model);
+  console.log('*** Version ***', version);
+  console.log('*** searchTerm ***', searchTerm);
+
   const [m, v] = parseParams(model, version);
+
+  console.log('*** M ***', v);
+  console.log('*** V ***', v);
 
   const statement = `
 CALL db.index.fulltext.queryNodes("fulltext", "${searchTerm}~")

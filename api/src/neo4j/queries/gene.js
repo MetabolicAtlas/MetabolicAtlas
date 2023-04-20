@@ -11,7 +11,15 @@ import integratedGemsRepoJson from 'data/integratedModels.json';
 const BASE_URL = 'https://metabolicatlas.org';
 
 const getGene = async ({ id, model, version }) => {
+  console.log('*** getGene ***');
+  console.log('*** Id ***', id);
+  console.log('*** Model ***', model);
+  console.log('*** Version ***', version);
+
   const [m, v] = parseParams(model, version);
+
+  console.log('*** m ***', model);
+  console.log('*** v ***', version);
 
   const statement = `
 CALL apoc.cypher.run("
@@ -76,6 +84,10 @@ const getHumanLabelAndVersion = () => {
 const getGenesForHPA = async () => {
   const [l, v] = getHumanLabelAndVersion();
 
+  console.log('*** GetGenesForHPA ***', l);
+  console.log('*** L ***', l);
+  console.log('*** V ***', v);
+
   const statement = `
 MATCH (g:Gene${l})-[${v}]-(r:Reaction)-[${v}]-(s:Subsystem)-[${v}]-(ss:SubsystemState)
 USING JOIN ON r
@@ -87,6 +99,11 @@ RETURN DISTINCT [g.id, ss.name, s.id]
 
 const getGeneDetailsForHPA = async ({ id }) => {
   const [l, v] = getHumanLabelAndVersion();
+
+  console.log('*** GetGeneDetailsForHPA ***', l);
+  console.log('*** Id ***', id);
+  console.log('*** L ***', l);
+  console.log('*** V ***', v);
 
   const subsystemsStatement = `
 MATCH (:Gene${l} {id:'${id}'})-[${v}]-(r:Reaction)-[${v}]-(s:Subsystem)-[${v}]-(ss:SubsystemState)
@@ -185,6 +202,10 @@ RETURN DISTINCT({id: c.id, name: cs.name})
 
 const getGeneCount = async (model, version) => {
   const [m, v] = parseParams(model, version);
+
+  console.log('*** GetGeneCount ***');
+  console.log('*** Model ***', model);
+  console.log('*** Version ***', version);
 
   const statement = `
 MATCH (g:Gene${m})-[${v}]-()

@@ -14,6 +14,13 @@ const fetchCompartmentalizedMetabolites = async ({
   version,
   limit,
 }) => {
+  console.log('*** fetchCompartmentalizedMetabolites ***');
+  console.log('*** Ids ***', ids);
+  console.log('*** MetaboliteIds ***', metaboliteIds);
+  console.log('*** Model ***', model);
+  console.log('*** Version ***', version);
+  console.log('*** Limit ***', limit);
+
   if (ids.length === 0 && metaboliteIds.length === 0) {
     return null;
   }
@@ -70,6 +77,11 @@ LIMIT ${limit}
 };
 
 const fetchGenes = async ({ ids, model, version }) => {
+  console.log('*** fetchGenes ***');
+  console.log('*** Ids ***', ids);
+  console.log('*** Model ***', model);
+  console.log('*** Version ***', version);
+
   if (!ids) {
     return null;
   }
@@ -109,6 +121,12 @@ RETURN apoc.map.mergeList(apoc.coll.flatten(
 };
 
 const fetchReactions = async ({ ids, model, version, includeMetabolites }) => {
+  console.log('*** fetchReactions ***');
+  console.log('*** Ids ***', ids);
+  console.log('*** Model ***', model);
+  console.log('*** Version ***', version);
+  console.log('*** includeMetabolites ***', includeMetabolites);
+
   if (!ids) {
     return null;
   }
@@ -156,6 +174,12 @@ RETURN apoc.map.mergeList(apoc.coll.flatten(
 };
 
 const fetchSubsystems = async ({ ids, model, version, includeCounts }) => {
+  console.log('*** fetchReactions ***');
+  console.log('*** Ids ***', ids);
+  console.log('*** Model ***', model);
+  console.log('*** Version ***', version);
+  console.log('*** includeCounts ***', includeCounts);
+
   if (!ids) {
     return null;
   }
@@ -209,6 +233,12 @@ RETURN apoc.map.mergeList(apoc.coll.flatten(
 };
 
 const fetchCompartments = async ({ ids, model, version, includeCounts }) => {
+  console.log('*** fetchCompartments ***');
+  console.log('*** Ids ***', ids);
+  console.log('*** Model ***', model);
+  console.log('*** Version ***', version);
+  console.log('*** includeCounts ***', includeCounts);
+
   if (!ids) {
     return null;
   }
@@ -260,6 +290,11 @@ RETURN apoc.map.mergeList(apoc.coll.flatten(
 };
 
 const globalSearch = async ({ searchTerm, version, limit }) => {
+  console.log('*** globalSearch ***');
+  console.log('*** searchTerm ***', searchTerm);
+  console.log('*** Version ***', version);
+  console.log('*** limit ***', limit);
+
   const results = await Promise.all(
     MODELS.map(m =>
       search({
@@ -287,9 +322,17 @@ const globalSearch = async ({ searchTerm, version, limit }) => {
  * 2. Fetch results for each component type (parallelly) and return result
  */
 const search = async ({ searchTerm, model, version, limit, includeCounts }) => {
+  console.log('*** search ***');
+  console.log('*** searchTerm ***', searchTerm);
+  console.log('*** Version ***', version);
+  console.log('*** limit ***', limit);
+  console.log('*** includeCounts ***', includeCounts);
+
   const v = version ? `:V${version}` : '';
 
   const term = sanitizeSearchString(searchTerm, true);
+
+  console.log('*** term ***', term);
 
   // The search term is used twice, once with exact match and once with
   // fuzzy match. This seems to produce optimal results.

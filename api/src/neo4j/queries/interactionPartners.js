@@ -3,7 +3,15 @@ import parseParams from 'neo4j/shared/helper';
 import populateWithLayout from 'workers/3d-network';
 
 const getInteractionPartners = async ({ id, model, version }) => {
+  console.log('*** getInteractionPartners ***');
+  console.log('*** Id ***', id);
+  console.log('*** Model ***', model);
+  console.log('*** Version ***', version);
+
   const [m, v] = parseParams(model, version);
+
+  console.log('*** M ***', m);
+  console.log('*** V ***', v);
 
   const statement = `
 MATCH (comp${m} {id: "${id}"})
@@ -124,6 +132,12 @@ const getInteractionPartnersExpansion = async ({
   version,
   expanded,
 }) => {
+  console.log('*** getInteractionPartnersExpansion ***');
+  console.log('*** Id ***', id);
+  console.log('*** Model ***', model);
+  console.log('*** Version ***', version);
+  console.log('*** Expanded ***', expanded);
+
   const { network, result } = await getInteractionPartners({
     id,
     model,

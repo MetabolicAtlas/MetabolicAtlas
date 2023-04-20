@@ -3,7 +3,14 @@ import querySingleResult from 'neo4j/queryHandlers/single';
 const COMPONENT_TYPES = ['Reaction', 'CompartmentalizedMetabolite'];
 
 const compareTwo = async ({ type, models }) => {
+  console.log('*** compareTwo ***');
+  console.log('*** Type ***', type);
+  console.log('*** Models ***', models);
+
   const [ma, mb] = models;
+
+  console.log('*** MA ***', ma);
+  console.log('*** MB ***', mb);
 
   const aStatement = `
 MATCH (a:${type}:${ma.model})-[:V${ma.version}]-()
@@ -116,8 +123,17 @@ const compareOverview = async ({ models, type }) => {
 };
 
 const compareDetails = async ({ model, models, type }) => {
+  console.log('*** compareDetails ***');
+  console.log('*** Model ***', model);
+  console.log('*** Models ***', models);
+  console.log('*** Type ***', type);
+
   // models can be of length 1 or 2
   const [ma, mb, mc] = [model, ...models];
+
+  console.log('*** MA ***', ma);
+  console.log('*** MB ***', mb);
+  console.log('*** MC ***', mc);
 
   const selfStatement = `
 MATCH (a:${type}:${ma.model})-[:V${ma.version}]-()
