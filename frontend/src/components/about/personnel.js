@@ -83,7 +83,9 @@ const jessica = {
 };
 const henrike = {
   name: 'Henrike Wiemker',
-  img: getImageUrl('pics/placeholder', 'png'),
+  img: getImageUrl('pics/henrike', 'png'),
+  github: 'https://github.com/HenrikeW',
+  linkedin: 'https://www.linkedin.com/in/henrike-wiemker-39663a161/',
   content:
     '<a href="https://nbis.se/about/staff/henrike-wiemker/" target="_blank" rel="noopener noreferrer">System Developer at NBIS</a>',
 };
