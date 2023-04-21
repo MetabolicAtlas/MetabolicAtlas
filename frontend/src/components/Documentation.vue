@@ -337,6 +337,55 @@
                   >this manuscript</a
                 >.
               </p>
+
+              <p>
+                For yeast-GEM, the gene targets from the study
+                <a
+                  href="https://www.researchsquare.com/article/rs-2557470/v1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Computational biology predicts metabolic engineering targets for increased
+                  production of 102 valuable chemicals in yeast</a
+                >
+                can be loaded by selecting one of the target chemical products in the drop down
+                list. Once selected, the metabolic engineering strategy for increasing production of
+                the chosen chemical will be displayed on the corresponding map, according to the
+                color legend. Modified gene expression is represented using 4 discrete values:
+              </p>
+
+              <ul>
+                <li>NA for genes with unmodified expression, color grey</li>
+                <li>0 for genes to be deleted, or Knocked-out, color white</li>
+                <li>0.4 for genes predicted to be modulated, knocked-down, color orange</li>
+                <li>1 for gene targets for overexpression, color red).</li>
+              </ul>
+
+              <p>
+                To clear the levels, select the None option in the drop down list or alternatively
+                remove the corresponding card if levels from multiple data types are applied. Levels
+                are available for both 2D and 3D Map Viewer. Gene engineering predictions were based
+                on the
+                <a
+                  href="https://github.com/SysBioChalmers/ecFactory"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >ecFactory method</a
+                >
+                and
+                <a
+                  href="https://github.com/SysBioChalmers/ecModels"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >ecYeastGEM</a
+                >. For more information regarding formulation of the method read the aforementioned
+                <a
+                  href="https://www.researchsquare.com/article/rs-2557470/v1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >preprint article</a
+                >.
+              </p>
+
               <p>
                 The
                 <i>Data overlay</i>
@@ -541,10 +590,12 @@
             found. The search text is not restricted to the visible columns; for example, searching
             an MetaNetX ID will return results for the metabolites and/or reactions matching the ID
             even though the MetaNetX column is not in the table. The search algorithm matches
-            partial names of components: searching for 'cholesterol' will output all metabolites
-            containing the substring 'cholesterol'. When the name of a metabolite is provided, all
-            metabolites matching or partially matching this name be returned, in addition to a the
-            list of all reactions that involve these matching metabolites.
+            partial names of components:
+            <router-link to="/search?term=cholesterol">searching for 'cholesterol'</router-link>
+            will output all metabolites containing the substring 'cholesterol'. When the name of a
+            metabolite is provided, all metabolites matching or partially matching this name be
+            returned, in addition to a the list of all reactions that involve these matching
+            metabolites.
           </p>
 
           <hr class="mt-6" />
@@ -612,7 +663,9 @@
             Genome-Scale Metabolic model files can be downloaded from
             <a :href="`ftp://${ftpUrl}/`">ftp://{{ ftpUrl }}</a>
             or by connecting to the FTP using your favourite FTP client (e.g.
-            <a href="https://filezilla-project.org/">FileZilla</a>
+            <a href="https://filezilla-project.org/" target="_blank" rel="noopener noreferrer"
+              >FileZilla</a
+            >
             ).
           </p>
           <span class="is-block">
@@ -640,11 +693,10 @@
           <h5 id="api" class="is-size-5">API</h5>
           <p>
             Metabolic Atlas has a
-            <a href="/api" target="_blank" rel="noopener noreferrer">
-              dedicated interface to facilitate the use of the API</a
-            >, with output provided in JSON format. The API lets you retrieve data from the
-            integrated models of Metabolic Atlas (eg. genes, metabolites, maps...) as well as the
-            <a href="/gotenzymes">GotEnzymes database</a>.
+            <a href="/api"> dedicated interface to facilitate the use of the API</a>, with output
+            provided in JSON format. The API lets you retrieve data from the integrated models of
+            Metabolic Atlas (eg. genes, metabolites, maps...) as well as the
+            <router-link to="/gotenzymes">GotEnzymes database</router-link>.
           </p>
           <p>
             When using this service, kindly use a limit of 10 requests per second. The API is still
@@ -681,7 +733,8 @@
           <p>
             Metabolic Atlas is associated with other software tools, algorithms, and databases
             published by the SysBio group. Visit the
-            <a href="/about/resources/"> about page section</a> to browse the lists.
+            <router-link to="/about/resources/"> about page section</router-link> to browse the
+            lists.
           </p>
         </div>
       </div>

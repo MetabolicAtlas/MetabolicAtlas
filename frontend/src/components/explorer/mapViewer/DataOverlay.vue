@@ -15,9 +15,10 @@
     >
       <span class="has-nowrap">
         Load custom data
-        <router-link :to="{ name: 'documentation', hash: '#data-overlay' }">
-          <span class="icon"><i class="fa fa-info-circle"></i></span>
-        </router-link>
+        <HelpButton
+          redirect-page-path="documentation"
+          redirect-page-hash="data-overlay"
+        ></HelpButton>
       </span>
     </div>
     <DataOverlayValidation
@@ -59,7 +60,7 @@
             </option>
           </select>
         </div>
-        <p>e.g., {{ DATA_TYPES_COMPONENTS[customDataType].description }}, etc.</p>
+        <p>e.g., {{ dataTypesComponents[customDataType].description }}, etc.</p>
       </div>
       <div v-if="errorCustomFileMsg" id="customFileError" class="card my-4">
         <div
@@ -167,6 +168,7 @@ import DataOverlayValidation from '@/components/explorer/mapViewer/DataOverlayVa
 import RNALegend from '@/components/explorer/mapViewer/RNALegend.vue';
 import { parseFile, DATA_TYPES_COMPONENTS } from '@/helpers/dataOverlay';
 import Modal from '@/components/shared/Modal.vue';
+import HelpButton from '@/components/shared/HelpButton.vue';
 
 export default {
   name: 'DataOverlay',
@@ -174,6 +176,7 @@ export default {
     DataOverlayValidation,
     RNALegend,
     Modal,
+    HelpButton,
   },
   props: {
     mapType: String,
@@ -195,7 +198,7 @@ export default {
       customDataType: null,
       showModal: false,
       invalidDataTypeIndexes: [],
-      DATA_TYPES_COMPONENTS,
+      dataTypesComponents: DATA_TYPES_COMPONENTS,
     };
   },
   computed: {
@@ -214,7 +217,7 @@ export default {
       queryParams: 'dataOverlay/queryParams',
     }),
     filteredDataTypesComponents() {
-      const components = Object.keys(DATA_TYPES_COMPONENTS);
+      const components = Object.keys(this.dataTypesComponents);
       return this.$route.name === 'interaction-details'
         ? components.filter(c => c !== 'fluxomics')
         : components;

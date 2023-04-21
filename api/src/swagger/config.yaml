@@ -12,14 +12,15 @@ info:
 basePath: '/api/v2'
 tags:
   - name: 'Integrated models'
-  - name: 'Compartments'
+  - name: 'Identifier'
   - name: 'Genes'
   - name: 'Metabolites'
   - name: 'Reactions'
   - name: 'Subsystems'
+  - name: 'Compartments'
   - name: 'Interaction Partners'
-  - name: 'Miscellaneous'
   - name: 'GotEnzymes'
+  - name: 'Miscellaneous'
 paths:
   /repository/integrated_models:
     get:
@@ -591,4 +592,29 @@ paths:
         '200':
           description: 'Successful query'
         '400':
+          description: 'Invalid input'
+  /identifier/{dbName}/{externalId}:
+    get:
+      tags:
+        - 'Identifier'
+      summary: 'Get model components for a given database identifier'
+      description: 'This query retrieves the Metabolic Atlas components that a database identifier is associated with, across all integrated models.'
+      operationId: 'identifier'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'dbName'
+          in: 'path'
+          required: true
+          type: 'string'
+          description: 'the name of the database, e.g. **Protein Atlas**'
+        - name: 'externalId'
+          in: 'path'
+          required: true
+          type: 'string'
+          description: 'the external ID, e.g. **ENSG00000120915**'
+      responses:
+        '200':
+          description: 'Successful query'
+        '404':
           description: 'Invalid input'

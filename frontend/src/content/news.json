@@ -121,7 +121,7 @@
     {
       "date": "2020-03-23",
       "title": "Metabolic Atlas 1.6",
-      "text": "<b>Metabolic Atlas 1.6</b> is out, in connection with the publication of the research article <a href='https://doi.org/10.1126/scisignal.aaz1482' target=_blank'><i>An atlas of human metabolism</i></a>, and the <a href='https://www.chalmers.se/en/departments/bio/news/Pages/The-next-generation-of-human-metabolic-modelling.aspx' target='_blank'>press release at Chalmers University</a>. This release contains many user interface improvements, documentation updates and correction of typos. More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/1.6' target='_blank'>on GitHub</a>.",
+      "text": "<b>Metabolic Atlas 1.6</b> is out, in connection with the publication of the research article <a href='https://doi.org/10.1126/scisignal.aaz1482' target='_blank'><i>An atlas of human metabolism</i></a>, and the <a href='https://www.chalmers.se/en/departments/bio/news/Pages/The-next-generation-of-human-metabolic-modelling.aspx' target='_blank'>press release at Chalmers University</a>. This release contains many user interface improvements, documentation updates and correction of typos. More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/1.6' target='_blank'>on GitHub</a>.",
       "links": [
         {
           "intro": "<i>Update:</i> For more information on the publication see the ",

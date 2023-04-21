@@ -1,16 +1,16 @@
 import axios from 'axios';
 
-const fetchComponentsForExternalDb = async ({ dbName, externalId, referenceType }) => {
-  let url = `/external-db/${dbName}/${externalId}`;
+const fetchComponentsForIdentifier = async ({ dbName, externalId, referenceType }) => {
+  let url = `/identifier/${dbName}/${externalId}`;
 
   if (referenceType) {
     url += `?referenceType=${referenceType}`;
   }
 
   const { data } = await axios.get(url);
-  const { externalDb, components } = data;
+  const { identifier, components } = data;
   return {
-    externalDb,
+    identifier,
     components: components.map(c => ({
       ...c,
       componentType: c.componentType.replace('Compartmentalized', ''),
@@ -18,4 +18,4 @@ const fetchComponentsForExternalDb = async ({ dbName, externalId, referenceType 
   };
 };
 
-export default { fetchComponentsForExternalDb };
+export default { fetchComponentsForIdentifier };
