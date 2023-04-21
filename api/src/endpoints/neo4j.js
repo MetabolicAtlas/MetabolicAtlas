@@ -51,11 +51,13 @@ const fetchWith = async (req, res, queryHandler) => {
       expanded,
     };
     for (const [key, value] of Object.entries(payload)) {
-      for (malicious_char in MALICIOUS_CHARACTERS) {
-        if (value.includes(malicious_char)) {
-          throw new Error('Mailicious char detected');
+      MALICIOUS_CHARACTERS.forEach(malicious_char => {
+        if (value && value.includes(malicious_char)) {
+          console.log('Value:', value);
+          console.log('Char:', malicious_char);
+          throw new Error('Malicious char detected');
         }
-      }
+      });
     }
 
     if (componentTypes) {
