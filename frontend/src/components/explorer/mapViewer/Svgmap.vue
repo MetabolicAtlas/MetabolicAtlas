@@ -132,15 +132,27 @@ export default {
   async mounted() {
     await this.init();
 
-    window.addEventListener('fullscreenchange', () => {
-      // toggle class for svgbox
+    const toggleFullscreenClassAndProperty = () => {
       const svgbox = document.querySelector('.svgbox');
       if (document.fullscreenElement) {
         svgbox.classList.add('fullscreen');
+        this.isFullscreen = true;
       } else {
         svgbox.classList.remove('fullscreen');
+        this.isFullscreen = false;
       }
-    });
+    }
+
+    /* Standard syntax */
+    window.addEventListener('fullscreenchange', toggleFullscreenClassAndProperty);
+    /* Firefox */
+    window.addEventListener('mozfullscreenchange', toggleFullscreenClassAndProperty);
+    /* Chrome, Safari and Opera */
+    window.addEventListener('webkitfullscreenchange', toggleFullscreenClassAndProperty);
+    /* IE / Edge */
+    window.addEventListener('msfullscreenchange', toggleFullscreenClassAndProperty);
+
+    
   },
   methods: {
     async init() {
