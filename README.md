@@ -105,6 +105,7 @@ For remote servers, the init script is configured to run automatically if the da
 - To run a command inside a docker container: `ma-exec <CONTAINER_NAME> <COMMAND>`. Below is a list of useful container specific commands.
 
   - Run API data validation tests: `ma-exec api yarn test`
+  - To run compartment related tests only: `ma-exec api npx jest --testNamePattern=compartments`
   - Use [prettier](CONTRIBUTING.md#prettier) to format frontend (also works for `api`) files: `ma-exec frontend yarn format`
   - Run [eslint](CONTRIBUTING.md#eslint) for frontend (also works for `api`): `ma-exec frontend yarn lint`
   - Create production build and `stats.html` : `ma-exec frontend yarn build`
