@@ -24,7 +24,7 @@ import {
   getComparisonDetails,
   getComponentsForIdentifier,
 } from 'neo4j/index';
-
+import { MALICIOUS_CHARACTERS } from '../malicious-characters';
 const neo4jRoutes = express.Router();
 
 const fetchWith = async (req, res, queryHandler) => {
@@ -50,6 +50,13 @@ const fetchWith = async (req, res, queryHandler) => {
       searchTerm,
       expanded,
     };
+    for (const [key, value] of Object.entries(payload)) {
+      for (malicious_char in MALICIOUS_CHARACTERS) {
+        if (value.includes(malicious_char)) {
+          throw new Error('Mailicious char detected');
+        }
+      }
+    }
 
     if (componentTypes) {
       payload.componentTypes = JSON.parse(componentTypes);
