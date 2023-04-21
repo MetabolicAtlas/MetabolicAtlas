@@ -1,10 +1,11 @@
 <template>
-  <div v-if="model" id="gem-search-wrapper">
+  <div v-if="model" id="gem-search-wrapper" role="search">
     <div class="field has-addons m-0">
       <p class="control">
         <span class="select">
           <select
             id="model-select"
+            aria-label="select model"
             :value="searchModel.short_name"
             @change="handleModelChange"
             @keyup.esc="handleClear()"
@@ -13,7 +14,6 @@
             <option v-for="m in models" :key="m.short_name">
               {{ m.short_name }}
             </option>
-            <option>Global Search</option>
           </select>
         </span>
       </p>
@@ -23,9 +23,12 @@
           id="search"
           ref="searchInput"
           v-debounce:700="searchDebounce"
+          role="searchbox"
           data-hj-whitelist
           type="text"
           class="input"
+          placeholder="ATP"
+          aria-label="search box"
           @keyup.esc="handleClear()"
           @focus="showResults = true"
           @blur="blur()"
@@ -43,13 +46,29 @@
         </span>
       </p>
     </div>
+    <HelpButton
+      redirect-page-path="documentation"
+      redirect-page-hash="quick-search"
+      @handle-click="handleClear()"
+    ></HelpButton>
+    <button
+      id="globalSearchButton"
+      type="button"
+      class="button is-rounded is-outlined is-success"
+      title="Global GEM search"
+      @click="globalSearch"
+    >
+      <span>Global</span>
+      <span class="icon">
+        <i class="fa fa-search"></i>
+      </span>
+    </button>
     <div v-show="showResults && searchTermString.length > 1" id="searchResults" ref="searchResults">
       <div
         v-show="!noResult && !showLoader"
         class="notification is-large is-unselectable has-text-centered is-clickable py-1 mb-1"
-        @mousedown="globalSearch()"
       >
-        Limited to 10 results per type. Click here to search all integrated GEMs
+        Limited to 10 results per type. Use global search to explore all integrated GEMs
       </div>
       <div v-show="!showLoader" v-if="searchResults.length !== 0" class="resList">
         <template v-for="type in componentTypeOrder">
@@ -126,6 +145,7 @@
 import { mapGetters, mapState } from 'vuex';
 import { default as messages } from '@/content/messages';
 import { sanitizeSearchString } from '@/helpers/utils';
+import HelpButton from '@/components/shared/HelpButton.vue';
 
 export default {
   name: 'GemSearch',
@@ -186,21 +206,14 @@ export default {
     async handleModelChange(e) {
       e.preventDefault();
       const modelKey = e.target.value;
-
-      if (modelKey === 'Global Search') {
-        this.globalSearch();
-      } else {
-        this.searchModel = this.models[modelKey];
-        await this.searchDebounce(this.searchTermString);
-      }
+      this.searchModel = this.models[modelKey];
+      await this.searchDebounce(this.searchTermString);
     },
     async searchDebounce(searchTerm) {
       this.$store.dispatch('search/setSearchTermString', searchTerm);
       this.noResult = false;
       this.showSearchCharAlert = searchTerm.length === 1;
-
       const canSearch = searchTerm.length > 1;
-
       this.showLoader = canSearch;
       this.showResults = canSearch;
       if (canSearch) {
@@ -214,13 +227,11 @@ export default {
       if (sanitizeSearchString(this.searchTermString, false).length < 2) {
         return;
       }
-
       try {
         const payload = {
           model: this.searchModel,
         };
         await this.$store.dispatch('search/search', payload);
-
         this.noResult = true;
         const keyList = Object.keys(this.searchResults);
         for (let i = 0; i < keyList.length; i += 1) {
@@ -247,6 +258,10 @@ export default {
     globalSearch() {
       this.handleClear();
       this.$router.push({ name: 'search', query: { term: this.searchTermString } });
+    },
+    quickSearchDocs() {
+      this.handleClear();
+      this.$router.push({ name: 'documentation', hash: '#quick-search' });
     },
     formatSearchResultLabel(type, element, searchTerm) {
       const re = new RegExp(`(${sanitizeSearchString(searchTerm)})`, 'ig');
@@ -290,10 +305,15 @@ export default {
       }, 100);
     },
   },
+  components: { HelpButton },
 };
 </script>
 
 <style lang="scss">
+#globalSearchButton {
+  margin-left: 0.5rem;
+}
+
 #gem-search-wrapper {
   position: absolute;
   width: 100%;

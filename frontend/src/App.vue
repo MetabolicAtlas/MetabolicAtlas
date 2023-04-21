@@ -51,7 +51,7 @@
               </router-link>
             </div>
             <div class="navbar-end has-background-primary-lighter">
-              <a class="navbar-item" @click.stop.prevent="showGemSearch = true">
+              <a id="searchToggle" class="navbar-item" @click.stop.prevent="showGemSearch = true">
                 <span class="icon is-large px-2 py-3">
                   <i id="search-icon" class="fa fa-search" />
                 </span>
@@ -166,10 +166,13 @@
         <div v-show="!showCompactFooter()" class="column has-text-centered mt-1">
           <p>
             {{ currentYear }} ©
-            <span class="is-hidden-touch">
-              &nbsp;Department of Biology and Biological Engineering |
-            </span>
+            <span class="is-hidden-touch"> &nbsp;Department of Life Sciences | </span>
             &nbsp;Chalmers University of Technology
+          </p>
+          <p>
+            <router-link :to="{ name: 'about-platform', hash: '#contact-us' }">
+              Contact us
+            </router-link>
           </p>
         </div>
         <div v-show="showCompactFooter()" class="column has-text-centered-mobile">
