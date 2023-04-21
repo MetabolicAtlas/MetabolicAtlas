@@ -141,18 +141,12 @@ export default {
         svgbox.classList.remove('fullscreen');
         this.isFullscreen = false;
       }
-    }
+    };
 
-    /* Standard syntax */
     window.addEventListener('fullscreenchange', toggleFullscreenClassAndProperty);
-    /* Firefox */
     window.addEventListener('mozfullscreenchange', toggleFullscreenClassAndProperty);
-    /* Chrome, Safari and Opera */
     window.addEventListener('webkitfullscreenchange', toggleFullscreenClassAndProperty);
-    /* IE / Edge */
     window.addEventListener('msfullscreenchange', toggleFullscreenClassAndProperty);
-
-    
   },
   methods: {
     async init() {
