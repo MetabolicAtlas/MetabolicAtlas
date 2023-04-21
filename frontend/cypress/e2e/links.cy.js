@@ -9,7 +9,7 @@ context('Links on site', () => {
     "/explore/Human-GEM/interaction-partners",
     "/explore/Human-GEM/interaction-partners/MAM01632e",
     "/gems/repository",
-    //"/gems/repository/Fruitfly-GEM",
+    "/gems/repository/Fruitfly-GEM",
     "/documentation",
     "/about/platform",
     "/about/news",

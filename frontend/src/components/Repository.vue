@@ -18,7 +18,7 @@
             <div class="card">
               <header
                 class="card-header is-clickable has-background-primary-lighter"
-                @click="selectModel(model.short_name)"
+                @click="goToModel(model.short_name)"
               >
                 <p class="card-header-title py-2 has-text-primary">
                   {{ model.short_name }} {{ model.version }}
@@ -81,14 +81,14 @@
             :search-options="{ enabled: true, skipDiacritics: true }"
             :sort-options="{ enabled: true }"
             :pagination-options="tablePaginationOpts"
-            @row-click="t => selectModel(t.row.id)"
+            @row-click="t => goToModel(t.row.id)"
           />
         </div>
         <div v-else>
           <span v-if="!showLoader">No models available</span>
         </div>
         <div v-if="showModelId" id="gem-list-modal" class="modal is-active">
-          <div class="modal-background" @click="selectModel(null)"></div>
+          <div class="modal-background" @click="goToModel(null)"></div>
           <div
             class="modal-content p-5 column is-6-fullhd is-8-desktop is-10-tablet is-full-mobile has-background-white"
             tabindex="0"
@@ -185,7 +185,7 @@
               </template>
             </div>
           </div>
-          <button type="button" class="modal-close is-large" @click="selectModel(null)"></button>
+          <button type="button" class="modal-close is-large" @click="goToModel(null)"></button>
         </div>
       </div>
     </div>
@@ -193,7 +193,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapGetters, mapState, mapActions } from 'vuex';
 import 'vue-good-table-next/dist/vue-good-table-next.css';
 import { VueGoodTable } from 'vue-good-table-next';
 import Loader from '@/components/Loader.vue';
@@ -307,11 +307,9 @@ export default {
         { name: 'year', display: 'Year' },
         { name: 'maintained', display: 'Maintained' },
       ],
-      selectedModel: {},
       referenceList: [],
       errorMessage: '',
-      showModelId: '',
-      showLoader: false,
+      numberOfWaiters: 0,
       tablePaginationOpts: {
         enabled: true,
         perPage: 50,
@@ -331,6 +329,7 @@ export default {
     ...mapState({
       gem: state => state.gems.gem,
       gems: state => state.gems.gems,
+      model: state => state.models.model,
     }),
     ...mapGetters({
       integratedModels: 'models/integratedModels',
@@ -338,67 +337,58 @@ export default {
       systemFilterOptions: 'gems/systemFilterOptions',
       conditionFilterOptions: 'gems/conditionFilterOptions',
     }),
+    urlId() {
+      return this.$route.params.model_id;
+    },
+    selectedModel() {
+      return this.gem || this.model;
+    },
+    showModelId() {
+      return this.selectedModel ? this.urlId : null;
+    },
+    showLoader() {
+      return this.numberOfWaiters > 0;
+    },
   },
   watch: {
-    '$route.params': 'getModelData',
+    urlId() {
+      this.useLoader(this.selectModelOrGem(this.urlId));
+    },
   },
-  async beforeMount() {
-    try {
-      this.showLoader = true;
-      await this.$store.dispatch('gems/getGems');
-      this.columns[0].filterOptions.filterDropdownItems = this.setFilterOptions;
-      this.columns[3].filterOptions.filterDropdownItems = this.systemFilterOptions;
-      this.columns[4].filterOptions.filterDropdownItems = this.conditionFilterOptions;
-      this.errorMessage = '';
-      this.showLoader = false;
-      this.getModelData();
-    } catch {
-      this.errorMessage = messages.notFoundError;
-      this.showLoader = false;
-    }
+  async created() {
+    await this.useLoader(Promise.all([this.getGems(), this.selectModelOrGem(this.urlId)]));
+    this.columns[0].filterOptions.filterDropdownItems = this.setFilterOptions;
+    this.columns[3].filterOptions.filterDropdownItems = this.systemFilterOptions;
+    this.columns[4].filterOptions.filterDropdownItems = this.conditionFilterOptions;
   },
   methods: {
-    async getIntegratedModels() {
-      try {
-        const urlId = this.$route.params.model_id;
-        if (urlId) {
-          const urlIntegrateModel = this.integratedModels.find(m => m.short_name === urlId);
-          if (urlIntegrateModel) {
-            this.showIntegratedModelData(urlIntegrateModel);
-          } else {
-            // concurrence getModels api query
-            this.getModelData(urlId);
-          }
-        }
-      } catch {
-        this.errorMessage = messages.unknownError;
+    async selectModelOrGem(modelOrGemId) {
+      if (!modelOrGemId) {
+        this.errorMessage = '';
+      } else if (await this.hasModel(modelOrGemId)) {
+        await this.selectModel(modelOrGemId);
+      } else if (await this.hasGem(modelOrGemId)) {
+        await this.selectGem(modelOrGemId);
+      } else if (modelOrGemId) {
+        this.errorMessage = messages.notFoundError;
       }
     },
-    getModelData() {
-      const urlId = this.$route.params.model_id;
-      this.showModelId = '';
-      this.selectedModel = {};
-      if (urlId) {
-        Object.values(this.integratedModels).forEach(anIntegratedModel => {
-          if (urlId === anIntegratedModel.short_name) {
-            this.selectedModel = anIntegratedModel;
-            this.showModelId = this.selectedModel.short_name;
-          }
-        });
-        if (!this.showModelId) {
-          const urlIdExists = this.$store.dispatch('gems/getGemData', urlId);
-          if (urlIdExists) {
-            this.selectedModel = this.gem;
-            this.showModelId = urlId;
-          } else {
-            this.selectModel(null);
-          }
-        }
-      }
+    async useLoader(promise) {
+      this.numberOfWaiters += 1;
+      const result = await promise;
+      this.numberOfWaiters -= 1;
+      return result;
     },
-    selectModel(id) {
+    goToModel(id) {
       this.$router.push({ params: { model_id: id } });
     },
+    ...mapActions({
+      selectGem: 'gems/selectGem',
+      hasGem: 'gems/hasGem',
+      getGems: 'gems/getGems',
+      selectModel: 'models/selectModel',
+      hasModel: 'models/hasModel',
+    }),
   },
 };
 </script>

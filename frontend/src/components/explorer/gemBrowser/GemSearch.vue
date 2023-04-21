@@ -201,7 +201,7 @@ export default {
         modelKey = this.model.short_name;
         this.$router.replace({ params: { model: modelKey } });
       }
-      this.$store.dispatch('models/selectModel', modelKey);
+      this.$store.dispatch('models/trySelectModel', modelKey);
     },
     async handleModelChange(e) {
       e.preventDefault();
@@ -287,7 +287,7 @@ export default {
     async handleClickResult(type, r) {
       this.showResults = false;
       this.handleClear();
-      await this.$store.dispatch('models/selectModel', this.searchModel.short_name);
+      await this.$store.dispatch('models/trySelectModel', this.searchModel.short_name);
       this.$router.push({ name: type, params: { model: this.searchModel.short_name, id: r.id } });
     },
     blur() {
