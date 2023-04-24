@@ -24,13 +24,12 @@ describe('maps', () => {
       expect(data).toEqual({ compartments: [], customs: [], subsystems: [] });
     });
 
+    // eslint-disable-next-line jest/expect-expect
     test.each(MALICIOUS_CHARACTERS)(
       'should return 400 if model contains %p',
       async character => {
         const res = await fetch(`${API_BASE}/maps/listing?model=${character}`);
-        expect(res.status).toBe(400);
-        const data = await res.text();
-        expect(data).toBe('Malicious char detected');
+        await expectBadReqeustMaliciousCharacter(res);
       }
     );
   });

@@ -7,15 +7,7 @@ import {
 import parseParams from 'neo4j/shared/helper';
 
 const getReaction = async ({ id, model, version }) => {
-  console.log('*** getReaction ***');
-  console.log('*** Id ***', id);
-  console.log('*** Model ***', model);
-  console.log('*** Version ***', version);
-
   const [m, v] = parseParams(model, version);
-
-  console.log('*** M ***', m);
-  console.log('*** V ***', v);
 
   const statement = `
 CALL apoc.cypher.run("
