@@ -146,7 +146,7 @@ export default {
     window.addEventListener('fullscreenchange', toggleFullscreenClassAndProperty);
     window.addEventListener('mozfullscreenchange', toggleFullscreenClassAndProperty);
     window.addEventListener('webkitfullscreenchange', toggleFullscreenClassAndProperty);
-    window.addEventListener('msfullscreenchange', toggleFullscreenClassAndProperty);
+    window.addEventListener('MSFullscreenChange', toggleFullscreenClassAndProperty);
   },
   methods: {
     async init() {
