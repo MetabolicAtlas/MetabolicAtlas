@@ -3,16 +3,7 @@ import parseParams from 'neo4j/shared/helper';
 import populateWithLayout from 'workers/3d-network';
 
 const get3dNetwork = async ({ model, version, type, id }) => {
-  console.log('*** get3dNetwork ***');
-  console.log('*** Model ***', model);
-  console.log('*** Version ***', version);
-  console.log('*** Type ***', type);
-  console.log('*** Id ***', id);
-
   const [m, v] = parseParams(model, version);
-
-  console.log('*** M ***', m);
-  console.log('*** V ***', v);
 
   // compartment fragment
   const cf =

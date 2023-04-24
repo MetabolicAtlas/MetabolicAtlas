@@ -227,12 +227,6 @@ RETURN apoc.map.mergeList(apoc.coll.flatten(
 };
 
 const modelSearch = async ({ searchTerm, model, version, limit }) => {
-  console.log('*** modelSearch ***');
-  console.log('*** searchTerm ***', searchTerm);
-  console.log('*** Model ***', model);
-  console.log('*** Version ***', version);
-  console.log('*** Limit ***', limit);
-
   const match = MODELS.filter(m => m.label == model);
   if (match.length === 0) {
     throw new Error(`Invalid model: ${model}`);
