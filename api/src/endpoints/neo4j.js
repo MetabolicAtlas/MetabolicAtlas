@@ -168,16 +168,27 @@ neo4jRoutes.get('/3d-network', async (req, res) => {
   }
 });
 
+function validateJson(json) {
+  if (typeof json === 'object') {
+    Object.values(json).forEach(val => validateJson(val));
+  } else {
+    validateInput(json);
+  }
+}
+
 neo4jRoutes.get('/compare', async (req, res) => {
   const { models } = req.query;
-  const parsedModels = JSON.parse(models);
-
   try {
+    const parsedModels = JSON.parse(models);
+
+    parsedModels.forEach(model => validatePayload(model));
+
     if (!models || parsedModels.length < 2 || parsedModels.length > 4) {
       throw new Error('At least 2 and at most 4 models need to be provided.');
     }
 
     const result = await getComparisonOverview({ models: parsedModels });
+
     res.json(result);
   } catch (e) {
     res.status(400).send(e.message);
