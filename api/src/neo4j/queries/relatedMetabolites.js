@@ -2,15 +2,7 @@ import queryListResult from 'neo4j/queryHandlers/list';
 import parseParams from 'neo4j/shared/helper';
 
 const getRelatedMetabolites = async ({ id, model, version }) => {
-  console.log('*** getRelatedMetabolites ***');
-  console.log('*** Id ***', id);
-  console.log('*** Model ***', model);
-  console.log('*** Version ***', version);
-
   const [m, v] = parseParams(model, version);
-
-  console.log('*** M ***', m);
-  console.log('*** V ***', v);
 
   const statement = `
 MATCH (cm:CompartmentalizedMetabolite${m})-[${v}]-(m:Metabolite)-[${v}]-(rcm:CompartmentalizedMetabolite)-[${v}]-(c:Compartment)-[${v}]-(cs:CompartmentState)

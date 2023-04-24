@@ -10,9 +10,6 @@ import { getSmilesForMetabolite } from 'gotEnzymes/compound';
 const getMetabolite = async ({ id, model, version }) => {
   const [m, v] = parseParams(model, version);
 
-  console.log('*** M ***', m);
-  console.log('*** V ***', v);
-
   const statement = `
 CALL apoc.cypher.run('
   MATCH (ms:MetaboliteState)-[${v}]-(:Metabolite)-[${v}]-(cm:CompartmentalizedMetabolite${m} {id: "${id}"})
