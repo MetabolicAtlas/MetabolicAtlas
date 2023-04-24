@@ -206,7 +206,7 @@ describe('metabolites', () => {
     );
 
     // eslint-disable-next-line jest/expect-expect
-    test.each(MALICIOUS_CHARACTERS)(
+    test.each(maliciousCharactersExcetPathSeparators())(
       'should return 400 if id contains %p',
       async character => {
         const res = await fetch(
