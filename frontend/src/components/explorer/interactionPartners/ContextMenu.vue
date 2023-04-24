@@ -31,9 +31,7 @@ export default {
 </script>
 
 <style lang="scss">
-#contextMenuGraph,
-#contextMenuExport,
-#contextMenuExpression {
+#contextMenuGraph {
   position: absolute;
   z-index: 20;
 
