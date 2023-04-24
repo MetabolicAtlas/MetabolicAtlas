@@ -2,16 +2,7 @@ import querySingleResult from 'neo4j/queryHandlers/single';
 import parseParams from 'neo4j/shared/helper';
 
 const getCompartment = async ({ id, model, version, full }) => {
-  console.log('*** getCompartment ***');
-  console.log('*** Id ***', id);
-  console.log('*** Model ***', model);
-  console.log('*** Version ***', version);
-  console.log('*** Full ***', full);
-
   const [m, v] = parseParams(model, version);
-
-  console.log('*** M ***', m);
-  console.log('*** V ***', v);
 
   // full is undefined when the param is not present, otherwise a string
   const falsy = ['false', '""', '0', 'null', 'undefined', 'NaN'];

@@ -8,11 +8,6 @@ import parseParams from 'neo4j/shared/helper';
 import { getSmilesForMetabolite } from 'gotEnzymes/compound';
 
 const getMetabolite = async ({ id, model, version }) => {
-  console.log('*** getMetabolite ***');
-  console.log('*** Id ***', id);
-  console.log('*** Model ***', model);
-  console.log('*** Version ***', version);
-
   const [m, v] = parseParams(model, version);
 
   console.log('*** M ***', m);

@@ -11,15 +11,7 @@ import integratedGemsRepoJson from 'data/integratedModels.json';
 const BASE_URL = 'https://metabolicatlas.org';
 
 const getGene = async ({ id, model, version }) => {
-  console.log('*** getGene ***');
-  console.log('*** Id ***', id);
-  console.log('*** Model ***', model);
-  console.log('*** Version ***', version);
-
   const [m, v] = parseParams(model, version);
-
-  console.log('*** m ***', model);
-  console.log('*** v ***', version);
 
   const statement = `
 CALL apoc.cypher.run("
