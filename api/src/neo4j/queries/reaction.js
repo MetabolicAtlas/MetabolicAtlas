@@ -74,14 +74,7 @@ RETURN apoc.map.mergeList(COLLECT(value.data)) as reaction
 };
 
 const getReactionCount = async (model, version) => {
-  console.log('*** getReactionCount ***');
-  console.log('*** Model ***', model);
-  console.log('*** Version ***', version);
-
   const [m, v] = parseParams(model, version);
-
-  console.log('*** M ***', m);
-  console.log('*** V ***', v);
 
   const statement = `
 MATCH (r:Reaction${m})-[${v}]-()

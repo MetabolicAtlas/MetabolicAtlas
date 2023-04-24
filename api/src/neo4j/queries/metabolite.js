@@ -79,14 +79,7 @@ RETURN apoc.map.mergeList(COLLECT(value.data)) as metabolite
 };
 
 const getMetaboliteCount = async (model, version) => {
-  console.log('*** getMetaboliteCount ***');
-  console.log('*** Model ***', model);
-  console.log('*** Version ***', version);
-
   const [m, v] = parseParams(model, version);
-
-  console.log('*** M ***', m);
-  console.log('*** V ***', v);
 
   const statement = `
 MATCH (cm:CompartmentalizedMetabolite${m})-[${v}]-()

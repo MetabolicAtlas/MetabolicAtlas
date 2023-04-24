@@ -124,12 +124,6 @@ const getInteractionPartnersExpansion = async ({
   version,
   expanded,
 }) => {
-  console.log('*** getInteractionPartnersExpansion ***');
-  console.log('*** Id ***', id);
-  console.log('*** Model ***', model);
-  console.log('*** Version ***', version);
-  console.log('*** Expanded ***', expanded);
-
   const { network, result } = await getInteractionPartners({
     id,
     model,
