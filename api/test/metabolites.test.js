@@ -44,7 +44,7 @@ describe('metabolites', () => {
       'should return 400 if model contains %p',
       async character => {
         const res = await fetch(
-          `${API_BASE}/compartments/golgi_apparatus?model=${character}&full=true`
+          `${API_BASE}/metabolites/MAM01199m?model=${character}&full=true`
         );
         expect(res.status).toBe(400);
         const data = await res.text();
