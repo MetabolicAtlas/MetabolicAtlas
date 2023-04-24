@@ -38,6 +38,6 @@ export async function expectBadReqeustMaliciousCharacter(res) {
 
 const PATH_SEPARATORS = ['/', '\\'];
 
-export function maliciousCharactersExcetPathSeparators() {
+export function maliciousCharactersExceptPathSeparators() {
   return MALICIOUS_CHARACTERS.filter(c => !PATH_SEPARATORS.includes(c));
 }

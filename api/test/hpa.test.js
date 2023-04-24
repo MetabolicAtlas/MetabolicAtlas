@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 import { MALICIOUS_CHARACTERS } from '../src/malicious-characters';
 import {
   expectBadReqeustMaliciousCharacter,
-  maliciousCharactersExcetPathSeparators,
+  maliciousCharactersExceptPathSeparators,
 } from './util';
 
 describe('HPA', () => {
@@ -25,7 +25,7 @@ describe('HPA', () => {
   });
 
   // eslint-disable-next-line jest/expect-expect
-  test.each(maliciousCharactersExcetPathSeparators())(
+  test.each(maliciousCharactersExceptPathSeparators())(
     'should return 400 if gene contains %p',
     async character => {
       const res = await fetch(`${API_BASE}/hpa/gene/${character}`);

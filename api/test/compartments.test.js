@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 import {
   expectBadReqeustMaliciousCharacter,
   expectEmptyResponse,
-  maliciousCharactersExcetPathSeparators,
+  maliciousCharactersExceptPathSeparators,
   validateComponent,
 } from './util';
 import { MALICIOUS_CHARACTERS } from '../src/malicious-characters';
@@ -65,7 +65,7 @@ describe('compartments', () => {
     );
 
     // eslint-disable-next-line jest/expect-expect
-    test.each(maliciousCharactersExcetPathSeparators())(
+    test.each(maliciousCharactersExceptPathSeparators())(
       'should return 400 if id contains %p',
       async character => {
         const res = await fetch(
@@ -126,7 +126,7 @@ describe('compartments', () => {
   );
 
   // eslint-disable-next-line jest/expect-expect
-  test.each(maliciousCharactersExcetPathSeparators())(
+  test.each(maliciousCharactersExceptPathSeparators())(
     'should return 400 if id contains %p',
     async character => {
       const res = await fetch(

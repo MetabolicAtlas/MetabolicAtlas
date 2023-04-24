@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import {
   expectBadReqeustMaliciousCharacter,
-  maliciousCharactersExcetPathSeparators,
+  maliciousCharactersExceptPathSeparators,
 } from './util';
 
 describe('identifier', () => {
@@ -16,7 +16,7 @@ describe('identifier', () => {
   });
 
   // eslint-disable-next-line jest/expect-expect
-  test.each(maliciousCharactersExcetPathSeparators())(
+  test.each(maliciousCharactersExceptPathSeparators())(
     'should return 400 if external id contains %p',
     async character => {
       const res = await fetch(`${API_BASE}/identifier/BiGG/${character}`);
@@ -25,7 +25,7 @@ describe('identifier', () => {
   );
 
   // eslint-disable-next-line jest/expect-expect
-  test.each(maliciousCharactersExcetPathSeparators())(
+  test.each(maliciousCharactersExceptPathSeparators())(
     'should return 400 if database name contains %p',
     async character => {
       const res = await fetch(`${API_BASE}/identifier/${character}/PPNCL3`);
