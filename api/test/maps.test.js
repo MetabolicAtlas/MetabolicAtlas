@@ -1,5 +1,6 @@
 import fetch from 'node-fetch';
 import { expectEmptyResponse } from './util';
+import { MALICIOUS_CHARACTERS } from '../src/malicious-characters';
 
 describe('maps', () => {
   test('a maps listing should include lists of compartments and subsystems', async () => {
@@ -21,4 +22,14 @@ describe('maps', () => {
     const data = await res.json();
     expect(data).toEqual({ compartments: [], customs: [], subsystems: [] });
   });
+
+  test.each(MALICIOUS_CHARACTERS)(
+    'should return 400 if model contains %p',
+    async character => {
+      const res = await fetch(`${API_BASE}/maps/listing?model=${character}`);
+      expect(res.status).toBe(400);
+      const data = await res.text();
+      expect(data).toBe('Malicious char detected');
+    }
+  );
 });
