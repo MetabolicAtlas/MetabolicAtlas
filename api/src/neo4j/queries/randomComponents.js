@@ -13,19 +13,11 @@ const getRandomComponents = async ({
     subsystem: true,
   },
 }) => {
-  console.log('*** getRandomComponents ***');
-  console.log('*** Model ***', model);
-  console.log('*** Version ***', version);
-  console.log('*** ComponentTypes ***', JSON.stringify(componentTypes));
-
   if (Object.values(componentTypes).filter(v => v === true).length === 0) {
     throw new Error('At least 1 component type is needed');
   }
 
   const [m, v] = parseParams(model, version);
-
-  console.log('*** M ***', m);
-  console.log('*** V ***', v);
 
   const {
     compartment,

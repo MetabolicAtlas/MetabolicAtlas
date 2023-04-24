@@ -17,18 +17,7 @@ const getRelatedReactions = async ({
   limit,
   isForAllCompartments,
 }) => {
-  console.log('*** getRelatedReactions ***');
-  console.log('*** NodeType ***', nodeType);
-  console.log('*** Id ***', id);
-  console.log('*** Model ***', model);
-  console.log('*** Version ***', version);
-  console.log('*** Limit ***', limit);
-  console.log('*** isForAllCompartments ***', isForAllCompartments);
-
   const [m, v] = parseParams(model, version);
-
-  console.log('*** M ***', m);
-  console.log('*** V ***', v);
 
   let statement;
 

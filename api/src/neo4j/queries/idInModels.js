@@ -7,11 +7,6 @@ const getComponentsForIdentifier = async ({
   externalId,
   referenceType,
 }) => {
-  console.log('*** getComponentsForIdentifier ***');
-  console.log('*** DBName ***', dbName);
-  console.log('*** ExternalId ***', externalId);
-  console.log('*** ReferenceType ***', referenceType);
-
   let statement = `
 MATCH (db:ExternalDb {dbName: '${dbName}', externalId: '${externalId}'})-[v]-(c)
 RETURN { identifier: properties(db), components: COLLECT({ component: c, version: type(v) }) }
