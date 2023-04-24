@@ -28,6 +28,12 @@ import { MALICIOUS_CHARACTERS } from '../malicious-characters';
 
 const neo4jRoutes = express.Router();
 
+function validatePayload(payload) {
+  for (const value of Object.values(payload)) {
+    validateInput(value);
+  }
+}
+
 function validateInput(value) {
   MALICIOUS_CHARACTERS.forEach(malicious_char => {
     if (value && value.includes(malicious_char)) {
@@ -59,9 +65,7 @@ const fetchWith = async (req, res, queryHandler) => {
       searchTerm,
       expanded,
     };
-    for (const [key, value] of Object.entries(payload)) {
-      validateInput(value);
-    }
+    validatePayload(payload);
 
     if (componentTypes) {
       payload.componentTypes = JSON.parse(componentTypes);
@@ -154,6 +158,8 @@ neo4jRoutes.get('/3d-network', async (req, res) => {
     if (type && id) {
       payload = { ...payload, type, id };
     }
+
+    validatePayload(payload);
 
     const network = await get3dNetwork(payload);
     res.json(network);
