@@ -69,7 +69,7 @@ describe('metabolites', () => {
 
     // eslint-disable-next-line jest/expect-expect
     test.each(maliciousCharactersExcetPathSeparators())(
-      'should return 400 or 404 if id contains %p',
+      'should return 400 if id contains %p',
       async character => {
         const res = await fetch(
           `${API_BASE}/metabolites/${character}?model=HumanGem&version=${HUMAN_GEM_VERSION}`
@@ -207,7 +207,7 @@ describe('metabolites', () => {
 
     // eslint-disable-next-line jest/expect-expect
     test.each(MALICIOUS_CHARACTERS)(
-      'should return 400 or 404 if id contains %p',
+      'should return 400 if id contains %p',
       async character => {
         const res = await fetch(
           `${API_BASE}/metabolites/${character}/related-metabolites?model=HumanGem&version=${HUMAN_GEM_VERSION}`

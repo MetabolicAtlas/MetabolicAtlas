@@ -127,7 +127,7 @@ describe('compartments', () => {
 
   // eslint-disable-next-line jest/expect-expect
   test.each(maliciousCharactersExcetPathSeparators())(
-    'should return 400 or 404 if id contains %p',
+    'should return 400 if id contains %p',
     async character => {
       const res = await fetch(
         `${API_BASE}/compartments/${character}/related-reactions?model=HumanGem&version=${HUMAN_GEM_VERSION}`
