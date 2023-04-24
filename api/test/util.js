@@ -5,6 +5,8 @@
  *   'genesCount' in referenceComponent
  */
 
+import { MALICIOUS_CHARACTERS } from '../src/malicious-characters';
+
 export const validateComponent = (component, referenceComponent) => {
   for (let [k, v] of Object.entries(referenceComponent)) {
     if (k.endsWith('Count') && !Object.keys(component).includes(k)) {
@@ -26,4 +28,16 @@ export async function expectSuccessfulResponse(res, expectedData) {
 
 export async function expectEmptyResponse(res) {
   return expectSuccessfulResponse(res, []);
+}
+
+export async function expectBadReqeustMaliciousCharacter(res) {
+  const data = await res.text();
+  expect(res.status).toBe(400);
+  expect(data).toBe('Malicious char detected');
+}
+
+const PATH_SEPARATORS = ['/', '\\'];
+
+export function maliciousCharactersExcetPathSeparators() {
+  return MALICIOUS_CHARACTERS.filter(c => !PATH_SEPARATORS.includes(c));
 }

@@ -1,6 +1,12 @@
 import fetch from 'node-fetch';
-import { expectEmptyResponse, validateComponent } from './util';
+import {
+  expectBadReqeustMaliciousCharacter,
+  expectEmptyResponse,
+  maliciousCharactersExcetPathSeparators,
+  validateComponent,
+} from './util';
 import { MALICIOUS_CHARACTERS } from '../src/malicious-characters';
+import { re } from '@babel/core/lib/vendor/import-meta-resolve';
 
 const NUCLEUS_INFO = {
   id: 'nucleus',
@@ -37,15 +43,14 @@ describe('compartments', () => {
       expect(res.status).toBe(404);
     });
 
+    // eslint-disable-next-line jest/expect-expect
     test.each(MALICIOUS_CHARACTERS)(
       'should return 400 if model contains %p',
       async character => {
         const res = await fetch(
           `${API_BASE}/compartments/golgi_apparatus?model=${character}&full=true`
         );
-        expect(res.status).toBe(400);
-        const data = await res.text();
-        expect(data).toBe('Malicious char detected');
+        await expectBadReqeustMaliciousCharacter(res);
       }
     );
 
@@ -55,20 +60,18 @@ describe('compartments', () => {
         const res = await fetch(
           `${API_BASE}/compartments/golgi_apparatus?model=HumanGem&version=${character}`
         );
-        expect(res.status).toBe(400);
-        const data = await res.text();
-        expect(data).toBe('Malicious char detected');
+        await expectBadReqeustMaliciousCharacter(res);
       }
     );
 
-    test.each(MALICIOUS_CHARACTERS)(
-      'should return 400 or 404 if id contains %p',
+    // eslint-disable-next-line jest/expect-expect
+    test.each(maliciousCharactersExcetPathSeparators())(
+      'should return 400 if id contains %p',
       async character => {
         const res = await fetch(
           `${API_BASE}/compartments/${character}?model=HumanGem&version=${HUMAN_GEM_VERSION}`
         );
-        // Slash or back-slash in path param provoke 404 instead of 400
-        expect([400, 404].includes(res.status)).toBeTruthy();
+        await expectBadReqeustMaliciousCharacter(res);
       }
     );
   });
@@ -100,38 +103,35 @@ describe('compartments', () => {
     });
   });
 
+  // eslint-disable-next-line jest/expect-expect
   test.each(MALICIOUS_CHARACTERS)(
     'should return 400 if model contains %p',
     async character => {
       const res = await fetch(
         `${API_BASE}/compartments/golgi_apparatus/related-reactions?model=${character}&full=true`
       );
-      expect(res.status).toBe(400);
-      const data = await res.text();
-      expect(data).toBe('Malicious char detected');
+      await expectBadReqeustMaliciousCharacter(res);
     }
   );
 
+  // eslint-disable-next-line jest/expect-expect
   test.each(MALICIOUS_CHARACTERS)(
     'should return 400 if version contains %p',
     async character => {
       const res = await fetch(
         `${API_BASE}/compartments/golgi_apparatus/related-reactions?model=HumanGem&version=${character}`
       );
-      expect(res.status).toBe(400);
-      const data = await res.text();
-      expect(data).toBe('Malicious char detected');
+      await expectBadReqeustMaliciousCharacter(res);
     }
   );
 
-  test.each(MALICIOUS_CHARACTERS)(
+  test.each(maliciousCharactersExcetPathSeparators())(
     'should return 400 or 404 if id contains %p',
     async character => {
       const res = await fetch(
         `${API_BASE}/compartments/${character}/related-reactions?model=HumanGem&version=${HUMAN_GEM_VERSION}`
       );
-      // Slash or back-slash in path param provoke 404 instead of 400
-      expect([400, 404].includes(res.status)).toBeTruthy();
+      await expectBadReqeustMaliciousCharacter(res);
     }
   );
 });

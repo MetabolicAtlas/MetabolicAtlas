@@ -25,7 +25,16 @@ import {
   getComponentsForIdentifier,
 } from 'neo4j/index';
 import { MALICIOUS_CHARACTERS } from '../malicious-characters';
+
 const neo4jRoutes = express.Router();
+
+function validateInput(value) {
+  MALICIOUS_CHARACTERS.forEach(malicious_char => {
+    if (value && value.includes(malicious_char)) {
+      throw new Error('Malicious char detected');
+    }
+  });
+}
 
 const fetchWith = async (req, res, queryHandler) => {
   const { id } = req.params;
@@ -51,13 +60,7 @@ const fetchWith = async (req, res, queryHandler) => {
       expanded,
     };
     for (const [key, value] of Object.entries(payload)) {
-      MALICIOUS_CHARACTERS.forEach(malicious_char => {
-        if (value && value.includes(malicious_char)) {
-          console.log('Value:', value);
-          console.log('Char:', malicious_char);
-          throw new Error('Malicious char detected');
-        }
-      });
+      validateInput(value);
     }
 
     if (componentTypes) {
@@ -200,11 +203,16 @@ neo4jRoutes.get('/identifier/:dbName/:externalId', async (req, res) => {
   const { referenceType } = req.query;
 
   try {
+    validateInput(dbName);
+    validateInput(externalId);
+    validateInput(referenceType);
+
     const result = await getComponentsForIdentifier({
       dbName,
       externalId,
       referenceType,
     });
+
     res.json(result);
   } catch (e) {
     if (e.message === '404') {
