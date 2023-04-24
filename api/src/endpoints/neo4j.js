@@ -35,6 +35,9 @@ function validatePayload(payload) {
 }
 
 function validateInput(value) {
+  if (Array.isArray(value)) {
+    throw new Error('Arrays not expected as inputs');
+  }
   MALICIOUS_CHARACTERS.forEach(malicious_char => {
     if (value && value.includes(malicious_char)) {
       throw new Error('Malicious char detected');
