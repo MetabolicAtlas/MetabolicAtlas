@@ -60,6 +60,7 @@ describe('reactions', () => {
       }
     );
 
+    // eslint-disable-next-line jest/expect-expect
     test.each(MALICIOUS_CHARACTERS)(
       'should return 400 if version contains %p',
       async character => {

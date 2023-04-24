@@ -6,7 +6,6 @@ import {
   validateComponent,
 } from './util';
 import { MALICIOUS_CHARACTERS } from '../src/malicious-characters';
-import { re } from '@babel/core/lib/vendor/import-meta-resolve';
 
 const NUCLEUS_INFO = {
   id: 'nucleus',
@@ -54,6 +53,7 @@ describe('compartments', () => {
       }
     );
 
+    // eslint-disable-next-line jest/expect-expect
     test.each(MALICIOUS_CHARACTERS)(
       'should return 400 if version contains %p',
       async character => {
@@ -125,6 +125,7 @@ describe('compartments', () => {
     }
   );
 
+  // eslint-disable-next-line jest/expect-expect
   test.each(maliciousCharactersExcetPathSeparators())(
     'should return 400 or 404 if id contains %p',
     async character => {
