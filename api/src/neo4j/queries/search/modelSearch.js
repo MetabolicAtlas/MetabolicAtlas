@@ -10,12 +10,6 @@ import {
 const searchForIds = async ({ component, term, model, version, limit }) => {
   // The search term is used twice, once with exact match and once with
   // fuzzy match. This seems to produce optimal results.
-  console.log('*** searchForIds ***');
-  console.log('*** Component ***', component);
-  console.log('*** Term ***', term);
-  console.log('*** Model ***', model);
-  console.log('*** Version ***', version);
-  console.log('*** Limit ***', limit);
 
   let statement = `
 CALL db.index.fulltext.queryNodes("fulltext", "${term} ${term}~")
@@ -64,13 +58,6 @@ const fetchCompartmentalizedMetabolites = async ({
   version,
   limit,
 }) => {
-  console.log('*** FetchCompartmentalizedMetabolites ***');
-  console.log('*** Ids ***', ids);
-  console.log('*** Metabolite Ids ***', metaboliteIds);
-  console.log('*** Model ***', model);
-  console.log('*** Version ***', version);
-  console.log('*** Limit ***', limit);
-
   if (!ids) {
     return null;
   }
@@ -119,11 +106,6 @@ LIMIT ${limit}
 };
 
 const fetchGenes = async ({ ids, model, version }) => {
-  console.log('*** FetchGenes ***');
-  console.log('*** Ids ***', ids);
-  console.log('*** Model ***', model);
-  console.log('*** Version ***', version);
-
   if (!ids) {
     return null;
   }
@@ -147,10 +129,6 @@ const fetchReactions = async ({ ids, model, version }) => {
   if (!ids) {
     return null;
   }
-  console.log('*** FetchReactions ***');
-  console.log('*** Ids ***', ids);
-  console.log('*** Model ***', model);
-  console.log('*** Version ***', version);
 
   const statement = `
 WITH ${JSON.stringify(ids)} as rids
@@ -181,10 +159,6 @@ const fetchSubsystems = async ({ ids, model, version }) => {
   if (!ids) {
     return null;
   }
-  console.log('*** FetchSubsystems ***');
-  console.log('*** Ids ***', ids);
-  console.log('*** Model ***', model);
-  console.log('*** Version ***', version);
 
   const statement = `
 WITH ${JSON.stringify(ids)} as sids
@@ -202,11 +176,6 @@ RETURN apoc.map.mergeList(apoc.coll.flatten(
 };
 
 const fetchCompartments = async ({ ids, model, version }) => {
-  console.log('*** FetchCompartments ***');
-  console.log('*** Ids ***', ids);
-  console.log('*** Model ***', model);
-  console.log('*** Version ***', version);
-
   if (!ids) {
     return null;
   }
@@ -255,21 +224,12 @@ const modelSearch = async ({ searchTerm, model, version, limit }) => {
  *    unique IDs obtained in the first step
  */
 const search = async ({ searchTerm, model, version, limit, includeCounts }) => {
-  console.log('*** Search ***');
-  console.log('*** searchTerm ***', searchTerm);
-  console.log('*** Model ***', model);
-  console.log('*** Version ***', version);
-  console.log('*** Limit ***', limit);
-  console.log('*** IncludeCounts ***', includeCounts);
-
   const v = version ? `:V${version}` : '';
 
   const term = sanitizeSearchString(searchTerm, true);
   if (term.length === 0) {
     throw new Error(`Empty searchTerm!`);
   }
-
-  console.log('*** term ***', term);
 
   const idSearchQueries = COMPONENT_TYPES.map(component =>
     searchForIds({ component, term, model, version: v, limit })
