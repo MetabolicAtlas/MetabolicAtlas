@@ -66,7 +66,7 @@
                 <MapControls
                   id="mapControl"
                   wrapper-elem-selector=".viewer-container"
-                  :is-fullscreen="isFullscreen"
+                  :fullscreen="isFullscreen"
                   :toggle-labels="toggleLabels"
                   :zoom-in="zoomIn"
                   :zoom-out="zoomOut"

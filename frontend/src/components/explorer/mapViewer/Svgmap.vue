@@ -16,14 +16,14 @@
     </div>
 
     <MapControls
-      wrapper-elem-selector=".viewer-container"
-      :is-fullscreen="isFullscreen"
+      :fullscreen="isFullscreen"
       :zoom-in="zoomIn"
       :zoom-out="zoomOut"
-      :toggle-full-screen="toggleFullscreen"
       :toggle-genes="toggleGenes"
       :toggle-subsystems="toggleSubsystems"
       :download-canvas="downloadCanvas"
+      @enter-fullscreen="onEnterFullscreen"
+      @exit-fullscreen="onExitFullscreen"
     />
     <MapSearch
       ref="mapsearch"
@@ -132,6 +132,16 @@ export default {
   async mounted() {
     await this.init();
 
+    // TODO: use some other kind of handle probably
+    const elem = document.querySelector(".viewer-container");
+    elem.addEventListener('fullscreenchange', () => {
+      this.updateFullscreenState();
+    });
+    elem.addEventListener('fullscreenerror', () => {
+      this.updateFullscreenState();
+    });
+
+    /*
     window.addEventListener('fullscreenchange', () => {
       // toggle class for svgbox
       const svgbox = document.querySelector('.svgbox');
@@ -141,6 +151,8 @@ export default {
         svgbox.classList.remove('fullscreen');
       }
     });
+
+     */
   },
   methods: {
     async init() {
@@ -251,8 +263,16 @@ export default {
         });
       }
     },
-    toggleFullscreen() {
-      this.isFullscreen = !this.isFullscreen;
+    onEnterFullscreen() {
+      // TODO: use some other kind of handle probably
+      const elem = document.querySelector(".viewer-container");
+      elem.requestFullscreen();
+    },
+    onExitFullscreen() {
+      document.exitFullscreen();
+    },
+    updateFullscreenState() {
+      this.isFullscreen = document.fullscreenElement !== null;
     },
     zoomToValue(v) {
       if (v >= this.panzoomOptions.minScale && v <= this.panzoomOptions.maxScale) {

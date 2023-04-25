@@ -40,10 +40,9 @@
       v-if="!disableFullScreen"
       class="button"
       title="Toggle fullscreen"
-      :disabled="isFullscreenDisabled"
       @click="handleToggleFullScreen()"
     >
-      <i class="fa" :class="{ 'fa-compress': isFullscreen, 'fa-arrows-alt': !isFullscreen }"></i>
+      <i class="fa" :class="{ 'fa-compress': fullscreen, 'fa-arrows-alt': !fullscreen }"></i>
     </span>
     <span v-if="downloadCanvas" class="button" title="Download as SVG" @click="downloadCanvas()">
       <i class="fa fa-download"></i>
@@ -55,11 +54,7 @@
 export default {
   name: 'MapControls',
   props: {
-    wrapperElemSelector: {
-      type: String,
-      required: true,
-    },
-    isFullscreen: {
+    fullscreen: {
       type: Boolean,
       required: true,
     },
@@ -68,10 +63,6 @@ export default {
       required: true,
     },
     zoomOut: {
-      type: Function,
-      required: true,
-    },
-    toggleFullScreen: {
       type: Function,
       required: true,
     },
@@ -102,19 +93,7 @@ export default {
       showSubsystems: true,
     };
   },
-  computed: {
-    isFullscreenDisabled() {
-      if (
-        (document.fullScreenElement !== undefined && document.fullScreenElement === null) ||
-        (document.msFullscreenElement !== undefined && document.msFullscreenElement === null) ||
-        (document.mozFullScreen !== undefined && !document.mozFullScreen) ||
-        (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)
-      ) {
-        return null;
-      }
-      return true;
-    },
-  },
+  emits: ['enterFullscreen', 'exitFullscreen'],
   methods: {
     handleToggleGenes() {
       this.showGenes = !this.showGenes;
@@ -129,36 +108,11 @@ export default {
       this.toggleSubsystems();
     },
     handleToggleFullScreen() {
-      if (this.isFullscreenDisabled) {
-        return;
+      if (this.fullscreen) {
+        this.$emit('exitFullscreen');
+      } else {
+        this.$emit('enterFullscreen');
       }
-
-      const elem = document.querySelector(this.wrapperElemSelector);
-      if (
-        (document.fullScreenElement !== undefined && document.fullScreenElement === null) ||
-        (document.msFullscreenElement !== undefined && document.msFullscreenElement === null) ||
-        (document.mozFullScreen !== undefined && !document.mozFullScreen) ||
-        (document.webkitIsFullScreen !== undefined && !document.webkitIsFullScreen)
-      ) {
-        if (elem.requestFullScreen) {
-          elem.requestFullScreen();
-        } else if (elem.mozRequestFullScreen) {
-          elem.mozRequestFullScreen();
-        } else if (elem.webkitRequestFullScreen) {
-          elem.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
-        } else if (elem.msRequestFullscreen) {
-          elem.msRequestFullscreen();
-        }
-      } else if (document.cancelFullScreen) {
-        document.cancelFullScreen();
-      } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
-      } else if (document.webkitCancelFullScreen) {
-        document.webkitCancelFullScreen();
-      } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
-      }
-      this.toggleFullScreen();
     },
   },
 };

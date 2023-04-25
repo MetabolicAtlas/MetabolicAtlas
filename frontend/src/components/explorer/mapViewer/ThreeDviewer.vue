@@ -9,7 +9,7 @@
     <div v-else id="viewer3d"></div>
     <MapControls
       wrapper-elem-selector=".viewer-container"
-      :is-fullscreen="isFullscreen"
+      :fullscreen="isFullscreen"
       :zoom-in="zoomIn"
       :zoom-out="zoomOut"
       :toggle-full-screen="toggleFullscreen"
