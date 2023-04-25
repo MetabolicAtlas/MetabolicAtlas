@@ -35,7 +35,11 @@
           />
           <div id="mapWrapper" class="container is-fullhd columns is-multiline">
             <div class="column is-8-desktop is-fullwidth-tablet">
-              <div id="viewer-container">
+              <div
+                id="viewer-container"
+                @fullscreenchange="updateFullscreenState"
+                @fullscreenerror="updateFullscreenState"
+              >
                 <div id="dropdownMenuExport" class="dropdown">
                   <div class="dropdown-trigger">
                     <a
@@ -65,14 +69,13 @@
                 </div>
                 <MapControls
                   id="mapControl"
-                  wrapper-elem-selector=".viewer-container"
                   :fullscreen="isFullscreen"
                   :toggle-labels="toggleLabels"
                   :zoom-in="zoomIn"
                   :zoom-out="zoomOut"
-                  :disable-full-screen="true"
-                  :toggle-full-screen="toggleFullscreen"
                   :style="{ 'z-index': network.nodes.length + 1 }"
+                  @enter-fullscreen="onEnterFullscreen"
+                  @exit-fullscreen="onExitFullscreen"
                 />
                 <div id="viewer3d" ref="viewer3d" class="card" />
               </div>
@@ -566,11 +569,25 @@ export default {
       }
       return [element.id, type];
     },
-    toggleFullscreen() {
-      this.isFullscreen = !this.isFullscreen;
-    },
     toggleLabels() {
       this.controller.toggleLabels();
+    },
+    onEnterFullscreen() {
+      const elem = document.querySelector('#viewer-container');
+      elem.requestFullscreen();
+    },
+    onExitFullscreen() {
+      document.exitFullscreen();
+    },
+    updateFullscreenState() {
+      this.isFullscreen = document.fullscreenElement !== null;
+      const svgbox = document.querySelector('#viewer-container');
+      if (this.isFullscreen) {
+        svgbox.classList.add('fullscreen');
+      } else {
+        svgbox.classList.remove('fullscreen');
+      }
+
     },
     zoomIn() {
       this.zoomBy(-200);

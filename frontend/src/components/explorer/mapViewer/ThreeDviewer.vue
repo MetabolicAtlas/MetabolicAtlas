@@ -1,5 +1,9 @@
 <template>
-  <div ref="container" class="viewer-container">
+  <div
+    class="viewer-container"
+    @fullscreenchange="updateFullscreenState"
+    @fullscreenerror="updateFullscreenState"
+  >
     <div v-if="errorMessage" class="columns is-centered">
       <div
         class="column notification is-danger is-half is-offset-one-quarter has-text-centered"
@@ -101,16 +105,6 @@ export default {
       }
     },
   },
-  async mounted() {
-    await this.loadNetwork();
-    this.$refs.container.addEventListener('fullscreenchange', () => {
-      this.updateFullscreenState();
-    });
-    this.$refs.container.addEventListener('fullscreenerror', () => {
-      this.updateFullscreenState();
-    });
-
-  },
   beforeUnmount() {
     this.resetNetwork();
   },
@@ -165,7 +159,8 @@ export default {
       this.processURLQuery(false);
     },
     onEnterFullscreen() {
-      this.$refs.container.requestFullscreen();
+      const elem = document.querySelector('.viewer-container');
+      elem.requestFullscreen();
     },
     onExitFullscreen() {
       document.exitFullscreen();
@@ -312,9 +307,6 @@ export default {
       const payload = { x: lx, y: ly, z };
       this.controller.setCamera(payload);
       this.updateURLCoords(payload);
-    },
-    toggleFullscreen() {
-      this.isFullscreen = !this.isFullscreen;
     },
     async toggleGenes() {
       await this.controller.toggleNodeType('e');

@@ -1,5 +1,9 @@
 <template>
-  <div ref="container" class="viewer-container">
+  <div
+    class="viewer-container"
+    @fullscreenchange="updateFullscreenState"
+    @fullscreenerror="updateFullscreenState"
+  >
     <div class="svgbox p-0 m-0">
       <div v-if="errorMessage" class="columns is-centered">
         <div class="column is-half has-text-centered">
@@ -131,26 +135,6 @@ export default {
   },
   async mounted() {
     await this.init();
-
-    this.$refs.container.addEventListener('fullscreenchange', () => {
-      this.updateFullscreenState();
-    });
-    this.$refs.container.addEventListener('fullscreenerror', () => {
-      this.updateFullscreenState();
-    });
-
-    /*
-    window.addEventListener('fullscreenchange', () => {
-      // toggle class for svgbox
-      const svgbox = document.querySelector('.svgbox');
-      if (document.fullscreenElement) {
-        svgbox.classList.add('fullscreen');
-      } else {
-        svgbox.classList.remove('fullscreen');
-      }
-    });
-
-     */
   },
   methods: {
     async init() {
@@ -262,7 +246,8 @@ export default {
       }
     },
     onEnterFullscreen() {
-      this.$refs.container.requestFullscreen();
+      const elem = document.querySelector('.viewer-container');
+      elem.requestFullscreen();
     },
     onExitFullscreen() {
       document.exitFullscreen();
@@ -270,12 +255,11 @@ export default {
     updateFullscreenState() {
       this.isFullscreen = document.fullscreenElement !== null;
       const svgbox = document.querySelector('.svgbox');
-      if (document.fullscreenElement) {
+      if (this.isFullscreen) {
         svgbox.classList.add('fullscreen');
       } else {
         svgbox.classList.remove('fullscreen');
       }
-
     },
     zoomToValue(v) {
       if (v >= this.panzoomOptions.minScale && v <= this.panzoomOptions.maxScale) {
