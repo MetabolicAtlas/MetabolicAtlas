@@ -12,7 +12,6 @@
       :is-fullscreen="isFullscreen"
       :zoom-in="zoomIn"
       :zoom-out="zoomOut"
-      :toggle-full-screen="toggleFullscreen"
       :toggle-genes="toggleGenes"
       :toggle-labels="toggleLabels"
       :toggle-background-color="toggleBackgroundColor"
@@ -297,9 +296,6 @@ export default {
       const payload = { x: lx, y: ly, z };
       this.controller.setCamera(payload);
       this.updateURLCoords(payload);
-    },
-    toggleFullscreen() {
-      this.isFullscreen = !this.isFullscreen;
     },
     async toggleGenes() {
       await this.controller.toggleNodeType('e');

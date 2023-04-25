@@ -17,10 +17,8 @@
 
     <MapControls
       wrapper-elem-selector=".viewer-container"
-      :is-fullscreen="isFullscreen"
       :zoom-in="zoomIn"
       :zoom-out="zoomOut"
-      :toggle-full-screen="toggleFullscreen"
       :toggle-genes="toggleGenes"
       :toggle-subsystems="toggleSubsystems"
       :download-canvas="downloadCanvas"
@@ -250,9 +248,6 @@ export default {
           element.setAttribute('visibility', 'hidden');
         });
       }
-    },
-    toggleFullscreen() {
-      this.isFullscreen = !this.isFullscreen;
     },
     zoomToValue(v) {
       if (v >= this.panzoomOptions.minScale && v <= this.panzoomOptions.maxScale) {
