@@ -1,10 +1,7 @@
 <template>
   <div id="app" :class="{ 'fade-page': showGemSearch }">
     <AppHead />
-    <link
-      rel="stylesheet"
-      href="/assets/fa.min.css"
-    />
+    <link rel="stylesheet" href="/assets/fa.min.css" />
     <nav
       id="navbar"
       class="navbar has-background-primary-lighter"
