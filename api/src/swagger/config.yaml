@@ -612,7 +612,7 @@ paths:
           in: 'path'
           required: true
           type: 'string'
-          description: 'the external ID, e.g. **ENSG00000120915** or **MAR02279** for *Protien Atlas* and *MetabolicAtlas* respectively'
+          description: 'the external ID, e.g. **ENSG00000120915** or **MAR02279** for *Protein Atlas* and *MetabolicAtlas* respectively'
       responses:
         '200':
           description: 'Successful query'
