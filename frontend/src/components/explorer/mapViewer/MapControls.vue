@@ -116,12 +116,12 @@ export default {
     enterFullscreen(elem) {
       console.log('Enter fullscreen');
       elem.requestFullscreen();
-      console.log('Fullscreen is now', this.fullscreen())
+      console.log('Fullscreen is now', this.fullscreen());
     },
     exitFullscreen() {
       console.log('Exit fullscreen');
       document.exitFullscreen();
-      console.log('Fullscreen is now', this.fullscreen())
+      console.log('Fullscreen is now', this.fullscreen());
     },
 
     handleToggleGenes() {
