@@ -1,5 +1,5 @@
 <template>
-  <div class="viewer-container">
+  <div ref="container" class="viewer-container">
     <div class="svgbox p-0 m-0">
       <div v-if="errorMessage" class="columns is-centered">
         <div class="column is-half has-text-centered">
@@ -132,12 +132,10 @@ export default {
   async mounted() {
     await this.init();
 
-    // TODO: use some other kind of handle probably
-    const elem = document.querySelector(".viewer-container");
-    elem.addEventListener('fullscreenchange', () => {
+    this.$refs.container.addEventListener('fullscreenchange', () => {
       this.updateFullscreenState();
     });
-    elem.addEventListener('fullscreenerror', () => {
+    this.$refs.container.addEventListener('fullscreenerror', () => {
       this.updateFullscreenState();
     });
 
@@ -264,15 +262,20 @@ export default {
       }
     },
     onEnterFullscreen() {
-      // TODO: use some other kind of handle probably
-      const elem = document.querySelector(".viewer-container");
-      elem.requestFullscreen();
+      this.$refs.container.requestFullscreen();
     },
     onExitFullscreen() {
       document.exitFullscreen();
     },
     updateFullscreenState() {
       this.isFullscreen = document.fullscreenElement !== null;
+      const svgbox = document.querySelector('.svgbox');
+      if (document.fullscreenElement) {
+        svgbox.classList.add('fullscreen');
+      } else {
+        svgbox.classList.remove('fullscreen');
+      }
+
     },
     zoomToValue(v) {
       if (v >= this.panzoomOptions.minScale && v <= this.panzoomOptions.maxScale) {

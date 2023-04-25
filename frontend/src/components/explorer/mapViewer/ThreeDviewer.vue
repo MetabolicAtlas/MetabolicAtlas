@@ -1,5 +1,5 @@
 <template>
-  <div class="viewer-container">
+  <div ref="container" class="viewer-container">
     <div v-if="errorMessage" class="columns is-centered">
       <div
         class="column notification is-danger is-half is-offset-one-quarter has-text-centered"
@@ -8,15 +8,15 @@
     </div>
     <div v-else id="viewer3d"></div>
     <MapControls
-      wrapper-elem-selector=".viewer-container"
       :fullscreen="isFullscreen"
       :zoom-in="zoomIn"
       :zoom-out="zoomOut"
-      :toggle-full-screen="toggleFullscreen"
       :toggle-genes="toggleGenes"
       :toggle-labels="toggleLabels"
       :toggle-background-color="toggleBackgroundColor"
       :style="{ 'z-index': network.nodes.length + 1 }"
+      @enter-fullscreen="onEnterFullscreen"
+      @exit-fullscreen="onExitFullscreen"
     />
     <MapSearch
       ref="mapsearch"
@@ -103,6 +103,13 @@ export default {
   },
   async mounted() {
     await this.loadNetwork();
+    this.$refs.container.addEventListener('fullscreenchange', () => {
+      this.updateFullscreenState();
+    });
+    this.$refs.container.addEventListener('fullscreenerror', () => {
+      this.updateFullscreenState();
+    });
+
   },
   beforeUnmount() {
     this.resetNetwork();
@@ -157,7 +164,15 @@ export default {
 
       this.processURLQuery(false);
     },
-
+    onEnterFullscreen() {
+      this.$refs.container.requestFullscreen();
+    },
+    onExitFullscreen() {
+      document.exitFullscreen();
+    },
+    updateFullscreenState() {
+      this.isFullscreen = document.fullscreenElement !== null;
+    },
     processURLQuery(center = true) {
       const { lx, ly, lz } = this.coords;
       this.controller.setCamera({ x: lx, y: ly, z: lz });
