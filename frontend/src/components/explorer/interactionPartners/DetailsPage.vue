@@ -588,7 +588,6 @@ export default {
       } else {
         svgbox.classList.remove('fullscreen');
       }
-
     },
     zoomIn() {
       this.zoomBy(-200);
