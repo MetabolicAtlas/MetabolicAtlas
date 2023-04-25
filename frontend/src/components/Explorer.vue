@@ -32,9 +32,9 @@
               :class="cmodel.short_name === model.short_name ? 'has-text-primary' : ''"
             >
               <span v-if="cmodel.short_name === model.short_name" class="icon">
-                <i class="fa fa-check-square-o"></i>
+                <i class="far fa-check-square"></i>
               </span>
-              <span v-else><i class="fa fa-square-o">&nbsp;</i></span>
+              <span v-else><i class="far fa-square">&nbsp;</i></span>
               &nbsp;{{ cmodel.short_name }} {{ cmodel.version }}
             </p>
             <p class="subtitle is-italic">

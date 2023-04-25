@@ -23,13 +23,13 @@
         </p>
         <p>
           <router-link :to="{ name: 'viewer', params: { model: selectedVersion.model } }">
-            <span class="icon pr-2"><i class="fa fa-map-o"></i></span>
+            <span class="icon pr-2"><i class="far fa-map"></i></span>
             {{ messages.mapViewerName }}
           </router-link>
         </p>
       </div>
       <a :href="selectedVersion.releaseLink" target="_blank" rel="noopener noreferrer">
-        <span class="icon pr-2"><i class="fa fa-github"></i></span>
+        <span class="icon pr-2"><i class="fab fa-github"></i></span>
         Release notes
       </a>
       <div class="pt-2 is-size-7">

@@ -3,7 +3,7 @@
     <AppHead />
     <link
       rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      href="/assets/fa.min.css"
     />
     <nav
       id="navbar"
@@ -51,7 +51,7 @@
               </router-link>
             </div>
             <div class="navbar-end has-background-primary-lighter">
-              <a id="searchToggle" class="navbar-item" @click.stop.prevent="showGemSearch = true">
+              <a class="navbar-item" @click.stop.prevent="showGemSearch = true">
                 <span class="icon is-large px-2 py-3">
                   <i id="search-icon" class="fa fa-search" />
                 </span>
@@ -111,51 +111,26 @@
         <div v-show="!showCompactFooter()" class="column is-full">
           <div class="content has-text-centered">
             <p>
-              <a
-                href="https://www.sysbio.se"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="SysBio"
-              >
+              <a href="https://www.sysbio.se" title="SysBio">
                 <img class="my-0 mx-2" src="/img/sysbio-logo.png" />
               </a>
-              <a
-                href="http://www.chalmers.se"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Chalmers University of Technology"
-              >
+              <a href="http://www.chalmers.se" title="Chalmers University of Technology">
                 <img class="my-0 mx-2" src="/img/chalmers.png" />
               </a>
-              <a
-                href="https://kaw.wallenberg.org/"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Knut and Alice Wallenberg Foundation"
-              >
+              <a href="https://kaw.wallenberg.org/" title="Knut and Alice Wallenberg Foundation">
                 <img class="my-0 mx-2" src="/img/wallenberg.gif" />
               </a>
-              <a
-                href="https://www.kth.se/wcpr"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="CBH | KTH Royal Institute of Technology"
-              >
+              <a href="https://www.kth.se/wcpr" title="CBH | KTH Royal Institute of Technology">
                 <img class="my-0 mx-2" src="/img/wpcr.jpg" />
               </a>
-              <a href="https://nbis.se/" target="_blank" rel="noopener noreferrer">
+              <a href="https://nbis.se/">
                 <img
                   class="my-0 mx-2"
                   src="/img/nbislogo-green.png"
                   title="National Bioinformatics Infrastructure Sweden"
                 />
               </a>
-              <a
-                href="https://www.scilifelab.se"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Science for Life Laboratory (SciLifeLab)"
-              >
+              <a href="https://www.scilifelab.se" title="Science for Life Laboratory (SciLifeLab)">
                 <img class="my-0 mx-2" src="/img/scilifelab.png" />
               </a>
             </p>
@@ -166,13 +141,10 @@
         <div v-show="!showCompactFooter()" class="column has-text-centered mt-1">
           <p>
             {{ currentYear }} ©
-            <span class="is-hidden-touch"> &nbsp;Department of Life Sciences | </span>
+            <span class="is-hidden-touch">
+              &nbsp;Department of Biology and Biological Engineering |
+            </span>
             &nbsp;Chalmers University of Technology
-          </p>
-          <p>
-            <router-link :to="{ name: 'about-platform', hash: '#contact-us' }">
-              Contact us
-            </router-link>
           </p>
         </div>
         <div v-show="showCompactFooter()" class="column has-text-centered-mobile">

@@ -151,7 +151,7 @@
 
           <hr class="mt-6" />
           <h4 id="map-viewer" class="is-size-4">
-            <span class="icon pr-5 is-large has-text-info"><i class="fa fa-map-o"></i></span>
+            <span class="icon pr-5 is-large has-text-info"><i class="far fa-map"></i></span>
             Map Viewer
           </h4>
           <p>
@@ -465,7 +465,7 @@
           <hr class="mt-6" />
           <h4 id="interaction-partners" class="is-size-4">
             <span class="icon pr-5 is-large has-text-info">
-              <i class="fa fa-connectdevelop"></i>
+              <i class="fab fa-connectdevelo"></i>
             </span>
             Interaction Partners
           </h4>
@@ -561,7 +561,7 @@
             page of the component clicked. One can also click the icon
             <span><i class="fa fa-table"></i></span>
             or
-            <span><i class="fa fa-connectdevelop"></i></span>
+            <span><i class="fab fa-connectdevelo"></i></span>
             to the left of each found hit to redirect to the
             <i>Metabolite</i>
             page or
@@ -600,7 +600,7 @@
 
           <hr class="mt-6" />
           <h4 id="gem" class="is-size-4">
-            <span class="icon pr-5 is-large has-text-info"><i class="fa fa-files-o"></i></span>
+            <span class="icon pr-5 is-large has-text-info"><i class="far fa-copy"></i></span>
             GEM
           </h4>
           <p>
@@ -770,7 +770,7 @@ export default {
         },
         {
           name: 'Map Viewer',
-          icon: 'fa-map-o',
+          icon: 'far fa-map',
           link: '#map-viewer',
           subsections: [
             { name: '2D Viewer', link: '#2d-viewer' },
@@ -780,7 +780,7 @@ export default {
         },
         {
           name: 'Interaction Partners',
-          icon: 'fa-connectdevelop',
+          icon: 'fab fa-connectdevelop',
           link: '#interaction-partners',
           subsections: [
             { name: 'Expand and color the graph', link: '#interaction-partners-expand' },
@@ -799,7 +799,7 @@ export default {
         },
         {
           name: 'GEM',
-          icon: 'fa-files-o',
+          icon: 'far fa-copy',
           link: '#gem',
           subsections: [
             { name: 'Integrated models', link: '#integrated-models' },

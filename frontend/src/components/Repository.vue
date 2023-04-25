@@ -34,7 +34,7 @@
                   {{ model.full_name }}, updated {{ model.date || 'n/a' }} from
                   <a :href="model.link" target="_blank" rel="noopener noreferrer">
                     GitHub
-                    <span class="icon"><i class="fa fa-github"></i></span>
+                    <span class="icon"><i class="fab fa-github"></i></span>
                   </a>
                 </p>
               </div>
@@ -50,7 +50,7 @@
                   class="card-footer-item is-info is-outlined"
                   :to="{ name: 'viewer', params: { model: model.short_name } }"
                 >
-                  <span class="icon pr-4"><i class="fa fa-map-o fa-lg"></i></span>
+                  <span class="icon pr-4"><i class="far fa-map fa-lg"></i></span>
                   <span>{{ messages.mapViewerName }}</span>
                 </router-link>
               </footer>

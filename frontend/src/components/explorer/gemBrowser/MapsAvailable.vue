@@ -2,7 +2,7 @@
   <div class="card" title="Click on any of the links to directly load a map">
     <header class="card-header has-text-centered">
       <p class="card-header-title has-text-primary has-text-weight-bold is-size-5">
-        <span class="icon is-medium"><i class="fa fa-map-o"></i></span>
+        <span class="icon is-medium"><i class="far fa-map"></i></span>
         &nbsp;
         <span>{{ messages.mapViewerName }}</span>
       </p>

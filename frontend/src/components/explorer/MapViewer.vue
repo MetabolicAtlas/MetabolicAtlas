@@ -39,7 +39,7 @@
                 :disabled="!avail2D || (currentMap && currentMap.type === 'custom') || null"
               >
                 <span v-if="dim === showing2D" class="icon">
-                  <i class="fa fa-check-square-o"></i>
+                  <i class="far fa-check-square"></i>
                 </span>
                 <span v-if="dim !== showing2D">Switch to&nbsp;</span>
                 <span class="is-uppercase">{{ dimensionalState(dim) }}</span>
