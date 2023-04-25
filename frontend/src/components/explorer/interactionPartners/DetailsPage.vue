@@ -73,6 +73,7 @@
                   :toggle-labels="toggleLabels"
                   :zoom-in="zoomIn"
                   :zoom-out="zoomOut"
+                  :disable-full-screen="true"
                   :style="{ 'z-index': network.nodes.length + 1 }"
                   @enter-fullscreen="onEnterFullscreen"
                   @exit-fullscreen="onExitFullscreen"
