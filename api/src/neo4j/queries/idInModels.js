@@ -1,6 +1,5 @@
 import querySingleResult from 'neo4j/queryHandlers/single';
 import { crossReferencesDict } from 'data/identifiers';
-import db from '../../gotEnzymes/db';
 
 const getComponentsForIdentifier = async ({
   dbName,
