@@ -3,6 +3,8 @@
     class="viewer-container"
     @fullscreenchange="updateFullscreenState"
     @fullscreenerror="updateFullscreenState"
+    @webkitfullscreenchange="updateFullscreenState"
+    @webkitfullscreenerror="updateFullscreenState"
   >
     <div v-if="errorMessage" class="columns is-centered">
       <div
@@ -45,6 +47,11 @@ import { default as messages } from '@/content/messages';
 import { default as colorToRGBArray } from '@/helpers/colors';
 import { DEFAULT_GENE_COLOR, DEFAULT_METABOLITE_COLOR } from '@/helpers/dataOverlay';
 import { default as NODE_TEXTURES } from '@/helpers/networkViewer';
+import {
+  exitFullscreen,
+  isFullscreen,
+  requestFullscreen
+} from "@/components/explorer/shared/fullscreen-util";
 
 export default {
   name: 'ThreeDViewer',
@@ -160,13 +167,13 @@ export default {
     },
     onEnterFullscreen() {
       const elem = document.querySelector('.viewer-container');
-      elem.requestFullscreen();
+      requestFullscreen(elem);
     },
     onExitFullscreen() {
-      document.exitFullscreen();
+      exitFullscreen();
     },
     updateFullscreenState() {
-      this.isFullscreen = document.fullscreenElement !== null;
+      this.isFullscreen = isFullscreen();
     },
     processURLQuery(center = true) {
       const { lx, ly, lz } = this.coords;

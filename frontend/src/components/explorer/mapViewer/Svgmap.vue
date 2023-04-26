@@ -3,6 +3,8 @@
     class="viewer-container"
     @fullscreenchange="updateFullscreenState"
     @fullscreenerror="updateFullscreenState"
+    @webkitfullscreenchange="updateFullscreenState"
+    @webkitfullscreenerror="updateFullscreenState"
   >
     <div class="svgbox p-0 m-0">
       <div v-if="errorMessage" class="columns is-centered">
@@ -51,6 +53,11 @@ import MapSearch from '@/components/explorer/mapViewer/MapSearch.vue';
 import { default as messages } from '@/content/messages';
 import { reformatChemicalReactionHTML } from '@/helpers/utils';
 import { DATA_TYPES_COMPONENTS } from '@/helpers/dataOverlay';
+import {
+  exitFullscreen,
+  isFullscreen,
+  requestFullscreen
+} from "@/components/explorer/shared/fullscreen-util";
 
 export default {
   name: 'Svgmap',
@@ -247,13 +254,13 @@ export default {
     },
     onEnterFullscreen() {
       const elem = document.querySelector('.viewer-container');
-      elem.requestFullscreen();
+      requestFullscreen(elem);
     },
     onExitFullscreen() {
-      document.exitFullscreen();
+      exitFullscreen();
     },
     updateFullscreenState() {
-      this.isFullscreen = document.fullscreenElement !== null;
+      this.isFullscreen = isFullscreen();
       const svgbox = document.querySelector('.svgbox');
       if (this.isFullscreen) {
         svgbox.classList.add('fullscreen');

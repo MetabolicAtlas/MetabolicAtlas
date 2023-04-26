@@ -39,6 +39,8 @@
                 id="viewer-container"
                 @fullscreenchange="updateFullscreenState"
                 @fullscreenerror="updateFullscreenState"
+                @webkitfullscreenchange="updateFullscreenState"
+                @webkitfullscreenerror="updateFullscreenState"
               >
                 <div id="dropdownMenuExport" class="dropdown">
                   <div class="dropdown-trigger">
@@ -177,6 +179,11 @@ import {
 import { default as NODE_TEXTURES } from '@/helpers/networkViewer';
 
 import { default as messages } from '@/content/messages';
+import {
+  exitFullscreen,
+  isFullscreen,
+  requestFullscreen
+} from "@/components/explorer/shared/fullscreen-util";
 
 export default {
   name: 'IPDetailsPage',
@@ -575,13 +582,13 @@ export default {
     },
     onEnterFullscreen() {
       const elem = document.querySelector('#viewer-container');
-      elem.requestFullscreen();
+      requestFullscreen(elem);
     },
     onExitFullscreen() {
-      document.exitFullscreen();
+      exitFullscreen();
     },
     updateFullscreenState() {
-      this.isFullscreen = document.fullscreenElement !== null;
+      this.isFullscreen = isFullscreen();
       const svgbox = document.querySelector('#viewer-container');
       if (this.isFullscreen) {
         svgbox.classList.add('fullscreen');
