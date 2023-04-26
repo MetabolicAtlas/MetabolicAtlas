@@ -10,7 +10,12 @@
         <div class="media-content">
           <p class="title is-5">{{ member.name }}</p>
           <p class="subtitle is-6 pt-2">
-            <a v-if="member.orcid" :href="`https://orcid.org/${member.orcid}`" target="_blank" rel="noopener noreferrer">
+            <a
+              v-if="member.orcid"
+              :href="`https://orcid.org/${member.orcid}`"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img
                 class="image is-16x16 is-inline mr-2"
                 alt="orcid"
