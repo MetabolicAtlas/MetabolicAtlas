@@ -183,7 +183,7 @@
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <span class="icon mr-2"><i class="fa fa-linkedin-square fa-lg"></i></span>
+                      <span class="icon mr-2"><i class="fab fa-linkedin-in fa-lg"></i></span>
                     </a>
                     <a
                       v-if="member.github"
@@ -192,7 +192,7 @@
                       rel="noopener noreferrer"
                     >
                       <span class="icon has-text-black-bis">
-                        <i class="fa fa-lg fa-github"></i>
+                        <i class="fa-lg fab fa-github"></i>
                       </span>
                     </a>
                   </p>
@@ -243,7 +243,7 @@
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <span class="icon mr-2"><i class="fa fa-linkedin-square fa-lg"></i></span>
+                        <span class="icon mr-2"><i class="fab fa-linkedin-in fa-lg"></i></span>
                       </a>
                       <a
                         v-if="member.github"
@@ -252,7 +252,7 @@
                         rel="noopener noreferrer"
                       >
                         <span class="icon has-text-black-bis">
-                          <i class="fa fa-lg fa-github"></i>
+                          <i class="fa-lg fab fa-github"></i>
                         </span>
                       </a>
                     </p>

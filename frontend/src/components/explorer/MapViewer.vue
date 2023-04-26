@@ -39,7 +39,7 @@
                 :disabled="!avail2D || (currentMap && currentMap.type === 'custom') || null"
               >
                 <span v-if="dim === showing2D" class="icon">
-                  <i class="fa fa-check-square-o"></i>
+                  <i class="far fa-check-square"></i>
                 </span>
                 <span v-if="dim !== showing2D">Switch to&nbsp;</span>
                 <span class="is-uppercase">{{ dimensionalState(dim) }}</span>
@@ -112,7 +112,7 @@
           <p class="is-size-5 has-text-centered has-text-weight-bold">
             <span class="icon py-2">
               <i
-                class="fa"
+                class="far"
                 :class="{
                   'fa-arrow-left': !dataOverlayPanelVisible,
                   'fa-arrow-right': dataOverlayPanelVisible,
@@ -129,7 +129,7 @@
             </span>
             <span class="icon">
               <i
-                class="fa"
+                class="far"
                 :class="{
                   'fa-arrow-left': !dataOverlayPanelVisible,
                   'fa-arrow-right': dataOverlayPanelVisible,

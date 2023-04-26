@@ -85,7 +85,7 @@
             }"
           >
             <!-- eslint-disable-line max-len -->
-            <span class="icon is-large"><i class="fa fa-map-o fa-lg"></i></span>
+            <span class="icon is-large"><i class="far fa-map fa-lg"></i></span>
             <span>Load map</span>
           </router-link>
         </footer>

@@ -22,7 +22,7 @@
             target="_blank"
             rel="noopener noreferrer"
           >
-            <i class="fa fa-comment-o fa-lg" />
+            <i class="far fa-envelope fa-lg" />
           </a>
           <a
             title="Report issue on GitHub"
@@ -30,7 +30,7 @@
             target="_blank"
             rel="noopener noreferrer"
           >
-            <i class="fa fa-github fa-lg" />
+            <i class="fab fa-github fa-lg" />
           </a>
         </div>
       </div>

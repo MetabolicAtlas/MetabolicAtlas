@@ -2,7 +2,7 @@ export default [
   // { name: 'Our impact', link: '/about/impact', routeName: 'about-impact' },
   {
     name: 'Platform',
-    icon: 'fa-external-link',
+    icon: 'fa-external-link-alt',
     link: '/about/platform',
     routeName: 'about-platform',
     subsections: [
@@ -13,10 +13,10 @@ export default [
       { name: 'Contact us', link: '/about/platform#contact-us' },
     ],
   },
-  { name: 'News', icon: 'fa-newspaper-o', link: '/about/news', routeName: 'about-news' },
+  { name: 'News', icon: 'fa-newspaper', link: '/about/news', routeName: 'about-news' },
   {
     name: 'Terms of use',
-    icon: 'fa-shield',
+    icon: 'fa-shield-alt',
     link: '/about/terms',
     routeName: 'about-terms',
     subsections: [
@@ -27,7 +27,7 @@ export default [
   { name: 'ELIXIR', icon: 'fa-asterisk', link: '/about/elixir', routeName: 'about-elixir' },
   {
     name: 'Related resources',
-    icon: 'fa-external-link',
+    icon: 'fa-external-link-alt',
     link: '/about/resources',
     routeName: 'about-resources',
     subsections: [

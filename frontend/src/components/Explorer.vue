@@ -32,9 +32,9 @@
               :class="cmodel.short_name === model.short_name ? 'has-text-primary' : ''"
             >
               <span v-if="cmodel.short_name === model.short_name" class="icon">
-                <i class="fa fa-check-square-o"></i>
+                <i class="far fa-check-square"></i>
               </span>
-              <span v-else><i class="fa fa-square-o">&nbsp;</i></span>
+              <span v-else><i class="far fa-square">&nbsp;</i></span>
               &nbsp;{{ cmodel.short_name }} {{ cmodel.version }}
             </p>
             <p class="subtitle is-italic">
@@ -66,7 +66,7 @@
               <header class="card-header">
                 <p class="card-header-title is-block has-text-centered is-size-5">
                   <span class="icon is-medium" style="width: 100%">
-                    <i :class="`fa fa-${tool.icon}`"></i>
+                    <i :class="`${tool.icon}`"></i>
                     &nbsp;&nbsp;{{ tool.name }}
                   </span>
                   <span class="is-visible-desktop has-text-grey-light" style="width: 100%">
@@ -101,19 +101,19 @@ export default {
           name: messages.gemBrowserName,
           img: getImageUrl('gemBrowser'),
           routeName: 'browser',
-          icon: 'table',
+          icon: 'fa fa-table',
         },
         {
           name: messages.mapViewerName,
           img: getImageUrl('mapViewer'),
           routeName: 'viewer',
-          icon: 'map-o',
+          icon: 'far fa-map',
         },
         {
           name: messages.interPartName,
           img: getImageUrl('interaction'),
           routeName: 'interaction',
-          icon: 'share-alt',
+          icon: 'fa fa-share-alt',
         },
       ],
       compartments: {},
