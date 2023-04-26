@@ -56,8 +56,8 @@ import { DATA_TYPES_COMPONENTS } from '@/helpers/dataOverlay';
 import {
   exitFullscreen,
   isFullscreen,
-  requestFullscreen
-} from "@/components/explorer/shared/fullscreen-util";
+  requestFullscreen,
+} from '@/components/explorer/shared/fullscreen-util';
 
 export default {
   name: 'Svgmap',

@@ -181,8 +181,8 @@ import { default as messages } from '@/content/messages';
 import {
   exitFullscreen,
   isFullscreen,
-  requestFullscreen
-} from "@/components/explorer/shared/fullscreen-util";
+  requestFullscreen,
+} from '@/components/explorer/shared/fullscreen-util';
 
 export default {
   name: 'IPDetailsPage',
