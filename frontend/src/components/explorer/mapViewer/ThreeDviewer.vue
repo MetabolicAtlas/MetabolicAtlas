@@ -50,8 +50,8 @@ import { default as NODE_TEXTURES } from '@/helpers/networkViewer';
 import {
   exitFullscreen,
   isFullscreen,
-  requestFullscreen
-} from "@/components/explorer/shared/fullscreen-util";
+  requestFullscreen,
+} from '@/components/explorer/shared/fullscreen-util';
 
 export default {
   name: 'ThreeDViewer',
