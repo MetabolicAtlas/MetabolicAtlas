@@ -193,7 +193,7 @@ export default {
         text: '',
         img: getImageUrl('gemBrowser'),
         route: { name: 'about-news', hash: '#News' },
-        icon: 'newspaper-o',
+        icon: 'far fa-newspaper',
       },
       citations: citations
         .filter(({ version }) => version.startsWith('Version'))
@@ -231,7 +231,7 @@ export default {
             params: { model: 'Human-GEM', type: 'compartment', map_id: 'golgi_apparatus' },
             query: { dim: '2d' },
           },
-          icon: 'map-o',
+          icon: 'far fa-map',
         },
         {
           title: messages.interPartName,
@@ -283,7 +283,7 @@ export default {
         text: '<p>Over 350 GEMs can be downloaded from the <b>GEM Repository</b> or directly from the <b>Metabolic Atlas FTP server</b>. The tabular view enables customized selection.</p><p>Clicking on each of the models brings up more information about the model, including a text description and, if available, references. For support, the original authors should be contacted.</p>',
         img: getImageUrl('gems'),
         route: { name: 'gems' },
-        icon: 'files-o',
+        icon: 'far fa-copy',
       },
       comRes: [
         {

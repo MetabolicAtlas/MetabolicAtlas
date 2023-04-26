@@ -107,7 +107,7 @@ export default {
           name: messages.mapViewerName,
           img: getImageUrl('mapViewer'),
           routeName: 'viewer',
-          icon: 'map-o',
+          icon: 'far fa-map',
         },
         {
           name: messages.interPartName,
