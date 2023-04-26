@@ -465,7 +465,7 @@
           <hr class="mt-6" />
           <h4 id="interaction-partners" class="is-size-4">
             <span class="icon pr-5 is-large has-text-info">
-              <i class="fab fa-connectdevelo"></i>
+              <i class="fab fa-connectdevelop"></i>
             </span>
             Interaction Partners
           </h4>
@@ -561,7 +561,7 @@
             page of the component clicked. One can also click the icon
             <span><i class="fa fa-table"></i></span>
             or
-            <span><i class="fab fa-connectdevelo"></i></span>
+            <span><i class="fab fa-connectdevelop"></i></span>
             to the left of each found hit to redirect to the
             <i>Metabolite</i>
             page or

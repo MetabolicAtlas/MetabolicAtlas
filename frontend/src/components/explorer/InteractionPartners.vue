@@ -16,7 +16,7 @@
             </h3>
             <h5 class="subtitle is-5 has-text-weight-normal">
               use the menu bar search to find the component of interest and click the
-              <span class="icon is-medium is-left"><i class="fab fa-connectdevelo" /></span>
+              <span class="icon is-medium is-left"><i class="fab fa-connectdevelop" /></span>
               icon
             </h5>
           </div>

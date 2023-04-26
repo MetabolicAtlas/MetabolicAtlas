@@ -53,7 +53,7 @@
                 params: { model: model.short_name, id: componentId },
               }"
             >
-              <span class="icon"><i class="fab fa-connectdevelo fa-lg"></i></span>
+              <span class="icon"><i class="fab fa-connectdevelop fa-lg"></i></span>
               &nbsp;
               <span>{{ messages.interPartName }}</span>
             </router-link>

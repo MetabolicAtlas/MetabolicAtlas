@@ -97,7 +97,7 @@
                     @mousedown="handleClickResult('interaction-details', r)"
                   >
                     <span class="icon is-medium is-left" title="Interaction Partners">
-                      <i class="fab fa-connectdevelo" />
+                      <i class="fab fa-connectdevelop" />
                     </span>
                   </span>
                 </span>
