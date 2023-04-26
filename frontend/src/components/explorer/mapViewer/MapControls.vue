@@ -10,7 +10,7 @@
       :title="`${showGenes ? 'Hide' : 'Show'} genes`"
       @click="handleToggleGenes()"
     >
-      <i class="fa" :class="[showGenes ? 'far fa-eye-slash' : 'far fa-eye']">&thinsp;G</i>
+      <i class="far" :class="[showGenes ? 'fa-eye-slash' : 'fa-eye']">&thinsp;G</i>
     </span>
     <span
       v-if="toggleLabels"
@@ -18,7 +18,7 @@
       :title="`${showLabels ? 'Hide' : 'Show'} labels`"
       @click="handleToggleLabels()"
     >
-      <i class="fa" :class="[showLabels ? 'far fa-eye-slash' : 'far fa-eye']">&thinsp;L</i>
+      <i class="far" :class="[showLabels ? 'fa-eye-slash' : 'fa-eye']">&thinsp;L</i>
     </span>
     <span
       v-if="toggleSubsystems"
@@ -26,7 +26,7 @@
       :title="`${showLabels ? 'Hide' : 'Show'} subsystems`"
       @click="handleToggleSubsystems()"
     >
-      <i class="fa" :class="[showSubsystems ? 'far fa-eye-slash' : 'far fa-eye']">&thinsp;S</i>
+      <i class="far" :class="[showSubsystems ? 'fa-eye-slash' : 'fa-eye']">&thinsp;S</i>
     </span>
     <span
       v-if="toggleBackgroundColor"
@@ -44,7 +44,7 @@
       @click="handleToggleFullScreen()"
     >
       <i
-        class="fa"
+        class="far"
         :class="{ 'fa-compress': isFullscreen, 'fas fa-expand-arrows-alt': !isFullscreen }"
       ></i>
     </span>

@@ -112,7 +112,7 @@
           <p class="is-size-5 has-text-centered has-text-weight-bold">
             <span class="icon py-2">
               <i
-                class="fa"
+                class="far"
                 :class="{
                   'fa-arrow-left': !dataOverlayPanelVisible,
                   'fa-arrow-right': dataOverlayPanelVisible,
@@ -129,7 +129,7 @@
             </span>
             <span class="icon">
               <i
-                class="fa"
+                class="far"
                 :class="{
                   'fa-arrow-left': !dataOverlayPanelVisible,
                   'fa-arrow-right': dataOverlayPanelVisible,

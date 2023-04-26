@@ -210,7 +210,7 @@ export default {
         },
         {
           name: 'How to use it',
-          icon: 'fas fa-university',
+          icon: 'fa-university',
           link: '#how-to-use-it',
         },
         {

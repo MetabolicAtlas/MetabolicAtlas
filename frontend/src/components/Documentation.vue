@@ -770,7 +770,7 @@ export default {
         },
         {
           name: 'Map Viewer',
-          icon: 'far fa-map',
+          icon: 'fa-map',
           link: '#map-viewer',
           subsections: [
             { name: '2D Viewer', link: '#2d-viewer' },
@@ -780,7 +780,7 @@ export default {
         },
         {
           name: 'Interaction Partners',
-          icon: 'fab fa-connectdevelop',
+          icon: 'fa-connectdevelop',
           link: '#interaction-partners',
           subsections: [
             { name: 'Expand and color the graph', link: '#interaction-partners-expand' },
@@ -799,7 +799,7 @@ export default {
         },
         {
           name: 'GEM',
-          icon: 'far fa-copy',
+          icon: 'fa-copy',
           link: '#gem',
           subsections: [
             { name: 'Integrated models', link: '#integrated-models' },

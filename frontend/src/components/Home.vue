@@ -46,7 +46,7 @@
           <p class="title is-size-4 has-text-centered pt-4">
             <router-link :to="news.route" class="has-text-primary">
               <span class="icon is-large fa-lg">
-                <i :class="`fa fa-${news.icon}`"></i>
+                <i :class="`far fa-${news.icon}`"></i>
               </span>
               {{ news.title }}
             </router-link>
@@ -102,7 +102,7 @@
               <p class="title is-size-4">
                 <router-link :to="item.route" class="has-text-primary">
                   <span class="icon is-large fa-lg">
-                    <i :class="`fa fa-${item.icon}`"></i>
+                    <i :class="`far fa-${item.icon}`"></i>
                   </span>
                   {{ item.title }}
                 </router-link>
@@ -135,7 +135,7 @@
               <p class="title is-size-4 has-text-centered">
                 <router-link :to="repository.route" class="has-text-primary">
                   <span class="icon is-large fa-lg">
-                    <i :class="`fa fa-${repository.icon}`"></i>
+                    <i :class="`far fa-${repository.icon}`"></i>
                   </span>
                   {{ repository.title }}
                 </router-link>
@@ -164,7 +164,7 @@
               <p class="title is-size-4">
                 <router-link :to="item.route" class="has-text-primary">
                   <span class="icon is-large fa-lg">
-                    <i :class="`fa fa-${item.icon}`"></i>
+                    <i :class="`far fa-${item.icon}`"></i>
                   </span>
                   {{ item.title }}
                 </router-link>
@@ -193,7 +193,7 @@ export default {
         text: '',
         img: getImageUrl('gemBrowser'),
         route: { name: 'about-news', hash: '#News' },
-        icon: 'far fa-newspaper',
+        icon: 'newspaper',
       },
       citations: citations
         .filter(({ version }) => version.startsWith('Version'))
@@ -231,7 +231,7 @@ export default {
             params: { model: 'Human-GEM', type: 'compartment', map_id: 'golgi_apparatus' },
             query: { dim: '2d' },
           },
-          icon: 'far fa-map',
+          icon: 'map',
         },
         {
           title: messages.interPartName,
@@ -283,7 +283,7 @@ export default {
         text: '<p>Over 350 GEMs can be downloaded from the <b>GEM Repository</b> or directly from the <b>Metabolic Atlas FTP server</b>. The tabular view enables customized selection.</p><p>Clicking on each of the models brings up more information about the model, including a text description and, if available, references. For support, the original authors should be contacted.</p>',
         img: getImageUrl('gems'),
         route: { name: 'gems' },
-        icon: 'far fa-copy',
+        icon: 'copy',
       },
       comRes: [
         {
