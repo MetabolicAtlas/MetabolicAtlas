@@ -75,7 +75,6 @@
                   :toggle-labels="toggleLabels"
                   :zoom-in="zoomIn"
                   :zoom-out="zoomOut"
-                  :disable-full-screen="true"
                   :style="{ 'z-index': network.nodes.length + 1 }"
                   @enter-fullscreen="onEnterFullscreen"
                   @exit-fullscreen="onExitFullscreen"
@@ -660,10 +659,6 @@ export default {
     width: 100%;
     height: 100%;
     min-height: 500px;
-    max-height: 775px; // default sidebar height
-    // @media screen and (max-width: $tablet) {
-    //  height: $viewer-height;
-    // }
   }
 }
 </style>
