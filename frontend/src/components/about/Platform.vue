@@ -192,7 +192,7 @@
                       rel="noopener noreferrer"
                     >
                       <span class="icon has-text-black-bis">
-                        <i class="fa fa-lg fab fa-github"></i>
+                        <i class="fa-lg fab fa-github"></i>
                       </span>
                     </a>
                   </p>
@@ -252,7 +252,7 @@
                         rel="noopener noreferrer"
                       >
                         <span class="icon has-text-black-bis">
-                          <i class="fa fa-lg fab fa-github"></i>
+                          <i class="fa-lg fab fa-github"></i>
                         </span>
                       </a>
                     </p>
