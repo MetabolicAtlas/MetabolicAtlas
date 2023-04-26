@@ -3,7 +3,7 @@ import { getImageUrl } from '@/helpers/utils';
 const jens = {
   name: 'Prof. Jens Nielsen',
   img: getImageUrl('pics/jens'),
-  orcid: 'https://orcid.org/0000-0002-9955-6003',
+  orcid: '0000-0002-9955-6003',
   linkedin: 'https://www.linkedin.com/in/jens-nielsen-57a207181/',
   content: `<a href="https://bii.dk/team/jens-nielsen" target="_blank" rel="noopener
         noreferrer">CEO at BioInnovation Institute</a> and <a
@@ -12,7 +12,7 @@ const jens = {
 const rui = {
   name: 'Dr. Rui Benfeitas',
   img: getImageUrl('pics/rui'),
-  orcid: 'https://orcid.org/0000-0001-7972-0083',
+  orcid: '0000-0001-7972-0083',
   linkedin: 'https://www.linkedin.com/in/ruibenfeitas/',
   github: 'https://github.com/Benfeitas',
   content:
@@ -21,7 +21,7 @@ const rui = {
 const jonathan = {
   name: 'Dr. Jonathan Robinson',
   img: getImageUrl('pics/jon'),
-  orcid: 'https://orcid.org/0000-0001-8567-5960',
+  orcid: '0000-0001-8567-5960',
   linkedin: 'https://www.linkedin.com/in/jonathanrob',
   github: 'https://github.com/JonathanRob',
   content:
@@ -30,7 +30,7 @@ const jonathan = {
 const hao = {
   name: 'Dr. Hao Wang',
   img: getImageUrl('pics/hao'),
-  orcid: 'https://orcid.org/0000-0001-7475-0136',
+  orcid: '0000-0001-7475-0136',
   linkedin: 'https://www.linkedin.com/in/hao-wang-9a66ba30',
   github: 'https://github.com/haowang-bioinfo',
   content:
@@ -39,7 +39,7 @@ const hao = {
 const thomas = {
   name: 'Thomas Svensson',
   img: getImageUrl('pics/placeholder', 'png'),
-  orcid: 'https://orcid.org/0000-0002-9190-2979',
+  orcid: '0000-0002-9190-2979',
   linkedin: 'https://www.linkedin.com/in/thomas-svensson-a3710614',
   content:
     '<a href="https://research.chalmers.se/en/person/?cid=thomsve" target="_blank" rel="noopener noreferrer">Head of Bioinformatics Systems Biology Support at NBIS and senior researcher at Chalmers University of Technology</a>',
@@ -139,7 +139,7 @@ const natapol = {
   img: getImageUrl('pics/natapol', 'jpeg'),
   github: 'https://github.com/natapol',
   linkedin: 'https://www.linkedin.com/in/natapol-pornputtapong-316a9347/',
-  orcid: 'https://orcid.org/0000-0002-3833-0537',
+  orcid: '0000-0002-3833-0537',
   content:
     '<a href="https://www.linkedin.com/in/natapol-pornputtapong-316a9347/" target="_blank" rel="noopener noreferrer">Head of Biochemistry and Microbiology Department, Chulalongkorn University </a>',
 };
