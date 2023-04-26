@@ -46,6 +46,7 @@ RETURN { identifier: properties(r), components: COLLECT(DISTINCT({component: r, 
     if (dbName === 'MetabolicAtlas') {
       identifier.dbName = dbName;
       identifier.externalId = identifier.id;
+      identifier.url = `https://identifiers.org/metatlas:${identifier.id}`;
     }
 
     return { components, identifier };
