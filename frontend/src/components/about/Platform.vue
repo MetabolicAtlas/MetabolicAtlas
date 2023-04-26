@@ -155,7 +155,7 @@
           :key="member.name"
           class="column is-full is-half-desktop is-one-third-widescreen"
         >
-          <LargeCard :member="member" />
+          <PersonCard :member="member" size="large" />
         </div>
       </div>
 
@@ -166,7 +166,7 @@
           :key="member.name"
           class="column is-full is-half-desktop is-one-third-widescreen"
         >
-          <LargeCard :member="member" />
+          <PersonCard :member="member" size="large" />
         </div>
       </div>
 
@@ -177,7 +177,7 @@
           :key="member.name"
           class="column is-full is-half-tablet is-one-third-desktop is-one-quarter-widescreen"
         >
-          <SmallCard :member="member" />
+          <PersonCard :member="member" size="small" />
         </div>
       </div>
 
@@ -222,14 +222,12 @@ import AboutLayout from '@/layouts/AboutLayout.vue';
 import Citation from '@/components/about/Citation.vue';
 import { default as citations } from '@/content/citations';
 import { advisoryBoard, previousContributors, team } from '@/components/about/personnel';
-import LargeCard from '@/components/about/LargeCard.vue';
-import SmallCard from '@/components/about/SmallCard.vue';
+import PersonCard from '@/components/about/PersonCard.vue';
 
 export default {
   name: 'Introduction',
   components: {
-    SmallCard,
-    LargeCard,
+    PersonCard,
     AboutLayout,
     Citation,
   },
