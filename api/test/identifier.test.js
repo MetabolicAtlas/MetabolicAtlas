@@ -32,4 +32,26 @@ describe('identifier', () => {
       await expectBadReqeustMaliciousCharacter(res);
     }
   );
+  test('a response identifier must include id, dbName, externalId and url', async () => {
+    const exampleItems = [
+      'BiGG/PPNCL3',
+      'MetabolicAtlas/MAR02279',
+      'Protein%20Atlas/ENSG00000120915',
+    ];
+    const responses = await Promise.all(
+      exampleItems.map(item =>
+        fetch(`${API_BASE}/identifier/${item}`).then(r => r.json())
+      )
+    );
+    for (const res of responses) {
+      expect(res.identifier).toEqual(
+        expect.objectContaining({
+          id: expect.any(String),
+          dbName: expect.any(String),
+          externalId: expect.any(String),
+          url: expect.stringContaining('https://'),
+        })
+      );
+    }
+  });
 });
