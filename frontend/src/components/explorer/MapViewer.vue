@@ -112,10 +112,9 @@
           <p class="is-size-5 has-text-centered has-text-weight-bold">
             <span class="icon py-2">
               <i
-                class="fa"
                 :class="{
-                  'fa-arrow-left': !dataOverlayPanelVisible,
-                  'fa-arrow-right': dataOverlayPanelVisible,
+                  'fa fa-arrow-left': !dataOverlayPanelVisible,
+                  'fa fa-arrow-right': dataOverlayPanelVisible,
                 }"
               ></i>
             </span>
@@ -129,10 +128,9 @@
             </span>
             <span class="icon">
               <i
-                class="fa"
                 :class="{
-                  'fa-arrow-left': !dataOverlayPanelVisible,
-                  'fa-arrow-right': dataOverlayPanelVisible,
+                  'fa fa-arrow-left': !dataOverlayPanelVisible,
+                  'fa fa-arrow-right': dataOverlayPanelVisible,
                 }"
               ></i>
             </span>

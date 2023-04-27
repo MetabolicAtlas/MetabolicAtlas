@@ -11,7 +11,7 @@
             <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
             <div :id="newsItem.date.replace(/ /g, '-')" class="timeline-item is-danger">
               <div class="timeline-marker is-primary" :class="{ 'is-icon': newsItem.icon }">
-                <i v-if="newsItem.icon" :class="`fa fa-${newsItem.icon}`"></i>
+                <i v-if="newsItem.icon" :class="`${newsItem.icon}`"></i>
               </div>
               <div class="timeline-content">
                 <p class="heading">{{ newsItem.date }}</p>

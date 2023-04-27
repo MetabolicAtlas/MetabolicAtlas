@@ -24,7 +24,7 @@ export default [
       { name: 'License and disclaimer', link: '/about/terms#license' },
     ],
   },
-  { name: 'ELIXIR', icon: 'fa-asterisk', link: '/about/elixir', routeName: 'about-elixir' },
+  { name: 'ELIXIR', icon: 'fa fa-asterisk', link: '/about/elixir', routeName: 'about-elixir' },
   {
     name: 'Related resources',
     icon: 'fas fa-external-link-alt',

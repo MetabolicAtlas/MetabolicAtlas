@@ -66,7 +66,7 @@
               <header class="card-header">
                 <p class="card-header-title is-block has-text-centered is-size-5">
                   <span class="icon is-medium" style="width: 100%">
-                    <i :class="`fa fa-${tool.icon}`"></i>
+                    <i :class="`${tool.icon}`"></i>
                     &nbsp;&nbsp;{{ tool.name }}
                   </span>
                   <span class="is-visible-desktop has-text-grey-light" style="width: 100%">
@@ -101,7 +101,7 @@ export default {
           name: messages.gemBrowserName,
           img: getImageUrl('gemBrowser'),
           routeName: 'browser',
-          icon: 'table',
+          icon: 'fa fa-table',
         },
         {
           name: messages.mapViewerName,
@@ -113,7 +113,7 @@ export default {
           name: messages.interPartName,
           img: getImageUrl('interaction'),
           routeName: 'interaction',
-          icon: 'share-alt',
+          icon: 'fa share-alt',
         },
       ],
       compartments: {},

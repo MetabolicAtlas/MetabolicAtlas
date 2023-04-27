@@ -790,7 +790,7 @@ export default {
         },
         {
           name: 'Search',
-          icon: 'fa-search',
+          icon: 'fa fa-search',
           link: '#searching',
           subsections: [
             { name: 'Quick search', link: '#quick-search' },
@@ -810,7 +810,7 @@ export default {
         },
         {
           name: 'Resources',
-          icon: 'fa-cogs',
+          icon: 'fa fa-cogs',
           link: '#resources',
           subsections: [
             { name: 'API', link: '#api' },

@@ -215,12 +215,12 @@ export default {
         },
         {
           name: 'How it was made',
-          icon: 'fa-wrench',
+          icon: 'fa fa-wrench',
           link: '#how-it-was-made',
         },
         {
           name: 'Citation',
-          icon: 'fa-quote-left',
+          icon: 'fa fa-quote-left',
           link: '#citation',
         },
       ],

@@ -13,7 +13,7 @@
             @click="isMobileMenu = false"
           >
             <span class="icon pr-5 has-text-info">
-              <i class="fa" :class="l.icon || 'fa-caret-right'"></i>
+              <i :class="l.icon || 'fa fa-caret-right'"></i>
             </span>
             <b>{{ l.name }}</b>
           </router-link>

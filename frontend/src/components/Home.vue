@@ -46,7 +46,7 @@
           <p class="title is-size-4 has-text-centered pt-4">
             <router-link :to="news.route" class="has-text-primary">
               <span class="icon is-large fa-lg">
-                <i :class="`fa fa-${news.icon}`"></i>
+                <i :class="`${news.icon}`"></i>
               </span>
               {{ news.title }}
             </router-link>
@@ -102,7 +102,7 @@
               <p class="title is-size-4">
                 <router-link :to="item.route" class="has-text-primary">
                   <span class="icon is-large fa-lg">
-                    <i :class="`fa fa-${item.icon}`"></i>
+                    <i :class="`${item.icon}`"></i>
                   </span>
                   {{ item.title }}
                 </router-link>
@@ -135,7 +135,7 @@
               <p class="title is-size-4 has-text-centered">
                 <router-link :to="repository.route" class="has-text-primary">
                   <span class="icon is-large fa-lg">
-                    <i :class="`fa fa-${repository.icon}`"></i>
+                    <i :class="`${repository.icon}`"></i>
                   </span>
                   {{ repository.title }}
                 </router-link>
@@ -164,7 +164,7 @@
               <p class="title is-size-4">
                 <router-link :to="item.route" class="has-text-primary">
                   <span class="icon is-large fa-lg">
-                    <i :class="`fa fa-${item.icon}`"></i>
+                    <i :class="`${item.icon}`"></i>
                   </span>
                   {{ item.title }}
                 </router-link>
@@ -219,7 +219,7 @@ export default {
           img: getImageUrl('gemBrowser'),
           cardLink: 'GEM Browser',
           route: { name: 'browser', params: { model: 'Human-GEM' } },
-          icon: 'table',
+          icon: 'fa fa-table',
         },
         {
           title: messages.mapViewerName,
@@ -239,7 +239,7 @@ export default {
           img: getImageUrl('interaction'),
           cardLink: 'Interaction Partners',
           route: { name: 'interaction', params: { model: 'Human-GEM' } },
-          icon: 'connectdevelop',
+          icon: 'fa fa-connectdevelop',
         },
       ],
       features1: [
@@ -248,7 +248,7 @@ export default {
           text: 'The menu bar contains a shortcut to the <b>Global search</b> function, which enables users to easily search cellular components across all the integrated models available for further filtering.',
           img: getImageUrl('search'),
           route: { name: 'search', query: { term: '' } },
-          icon: 'search',
+          icon: 'fa fa-search',
         },
         {
           title: 'Analyze',
@@ -259,7 +259,7 @@ export default {
             params: { model: 'Human-GEM', type: 'compartment', map_id: 'endoplasmic_reticulum' },
             query: { dim: '2d', panel: '1', coords: '-7222.7,-4501.6,0.97,0,0,0' },
           },
-          icon: 'tasks',
+          icon: 'fa fa-tasks',
         },
       ],
       features2: [
@@ -268,14 +268,14 @@ export default {
           text: 'Most of the data provided on the website is convenient to export, for example via <b>Export to TSV</b> buttons. For the extracting data in JSON format, we have documented our API.',
           img: getImageUrl('export'),
           route: { name: 'search', query: { term: 'glyoxalate' } },
-          icon: 'download',
+          icon: 'fa fa-download',
         },
         {
           title: 'Compare',
           text: 'The integrated models can be compared on-the-fly via the cross references to other models or databases they share. Moreover, a 3-way comparison can be performed as well.',
           img: getImageUrl('comparison'),
           route: { name: 'comparemodels' },
-          icon: 'download',
+          icon: 'fa fa-download',
         },
       ],
       repository: {
@@ -290,13 +290,13 @@ export default {
           title: 'Resources',
           text: '<p>Working with metabolic models requires a set of tools and external databases, which we have collected together for one-click access.</p><p>Additionally, Metabolic Atlas is open to further integrations.</p>',
           route: { name: 'about-resources', hash: '#Resources' },
-          icon: 'gears',
+          icon: 'fa fa-gears',
         },
         {
           title: 'Community',
           text: '<p>We are grateful for the efforts of scientists all over the world in creating the knowledge required to assemble high quality genome scale metabolic models. We are passionate about continuing on this journey of open curation of models.</p><p>We invite you to explore the world of GEMs through Metabolic Atlas, and hope it will enhance your interest in this field. We wish to continuously improve Metabolic Atlas for the community. Email us with any feedback, suggestions, or requests at <a href="mailto:contact@metabolicatlas.org">contact [at] metabolicatlas [dot] org</a>.</p>',
           route: { name: 'about-platform', hash: '#introduction' },
-          icon: 'users',
+          icon: 'fa fa-users',
         },
       ],
       newsItems: Object.values(newsItems).reverse().flat(1).slice(0, 12),
