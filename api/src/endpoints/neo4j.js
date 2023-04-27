@@ -24,8 +24,26 @@ import {
   getComparisonDetails,
   getComponentsForIdentifier,
 } from 'neo4j/index';
+import { MALICIOUS_CHARACTERS } from '../malicious-characters';
 
 const neo4jRoutes = express.Router();
+
+function validatePayload(payload) {
+  for (const value of Object.values(payload)) {
+    validateInput(value);
+  }
+}
+
+function validateInput(value) {
+  if (Array.isArray(value)) {
+    throw new Error('Arrays not expected as inputs');
+  }
+  MALICIOUS_CHARACTERS.forEach(malicious_char => {
+    if (value && value.includes(malicious_char)) {
+      throw new Error('Malicious char detected');
+    }
+  });
+}
 
 const fetchWith = async (req, res, queryHandler) => {
   const { id } = req.params;
@@ -50,6 +68,7 @@ const fetchWith = async (req, res, queryHandler) => {
       searchTerm,
       expanded,
     };
+    validatePayload(payload);
 
     if (componentTypes) {
       payload.componentTypes = JSON.parse(componentTypes);
@@ -143,6 +162,8 @@ neo4jRoutes.get('/3d-network', async (req, res) => {
       payload = { ...payload, type, id };
     }
 
+    validatePayload(payload);
+
     const network = await get3dNetwork(payload);
     res.json(network);
   } catch (e) {
@@ -150,16 +171,27 @@ neo4jRoutes.get('/3d-network', async (req, res) => {
   }
 });
 
+function validateJson(json) {
+  if (typeof json === 'object') {
+    Object.values(json).forEach(val => validateJson(val));
+  } else {
+    validateInput(json);
+  }
+}
+
 neo4jRoutes.get('/compare', async (req, res) => {
   const { models } = req.query;
-  const parsedModels = JSON.parse(models);
-
   try {
+    const parsedModels = JSON.parse(models);
+
+    parsedModels.forEach(model => validatePayload(model));
+
     if (!models || parsedModels.length < 2 || parsedModels.length > 4) {
       throw new Error('At least 2 and at most 4 models need to be provided.');
     }
 
     const result = await getComparisonOverview({ models: parsedModels });
+
     res.json(result);
   } catch (e) {
     res.status(400).send(e.message);
@@ -191,11 +223,16 @@ neo4jRoutes.get('/identifier/:dbName/:externalId', async (req, res) => {
   const { referenceType } = req.query;
 
   try {
+    validateInput(dbName);
+    validateInput(externalId);
+    validateInput(referenceType);
+
     const result = await getComponentsForIdentifier({
       dbName,
       externalId,
       referenceType,
     });
+
     res.json(result);
   } catch (e) {
     if (e.message === '404') {

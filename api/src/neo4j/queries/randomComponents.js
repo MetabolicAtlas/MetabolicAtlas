@@ -18,6 +18,7 @@ const getRandomComponents = async ({
   }
 
   const [m, v] = parseParams(model, version);
+
   const {
     compartment,
     compartmentalizedMetabolite,

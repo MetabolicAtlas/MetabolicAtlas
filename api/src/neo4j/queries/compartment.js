@@ -3,6 +3,7 @@ import parseParams from 'neo4j/shared/helper';
 
 const getCompartment = async ({ id, model, version, full }) => {
   const [m, v] = parseParams(model, version);
+
   // full is undefined when the param is not present, otherwise a string
   const falsy = ['false', '""', '0', 'null', 'undefined', 'NaN'];
   const showFull = !falsy.includes(`${full}`.toLowerCase());

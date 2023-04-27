@@ -1,4 +1,9 @@
 import fetch from 'node-fetch';
+import { MALICIOUS_CHARACTERS } from '../src/malicious-characters';
+import {
+  expectBadReqeustMaliciousCharacter,
+  maliciousCharactersExceptPathSeparators,
+} from './util';
 
 describe('interaction partners', () => {
   test('the interaction partners should include a list of reactions', async () => {
@@ -23,4 +28,37 @@ describe('interaction partners', () => {
     );
     expect(res.status).toBe(404);
   });
+
+  // eslint-disable-next-line jest/expect-expect
+  test.each(MALICIOUS_CHARACTERS)(
+    'should return 400 if model contains %p',
+    async character => {
+      const res = await fetch(
+        `${API_BASE}/interaction-partners/ENSG00000120697?model=${character}`
+      );
+      await expectBadReqeustMaliciousCharacter(res);
+    }
+  );
+
+  // eslint-disable-next-line jest/expect-expect
+  test.each(MALICIOUS_CHARACTERS)(
+    'should return 400 if version contains %p',
+    async character => {
+      const res = await fetch(
+        `${API_BASE}/interaction-partners/ENSG00000120697?model=HumanGem&version=${character}`
+      );
+      await expectBadReqeustMaliciousCharacter(res);
+    }
+  );
+
+  // eslint-disable-next-line jest/expect-expect
+  test.each(maliciousCharactersExceptPathSeparators())(
+    'should return 400 if id contains %p',
+    async character => {
+      const res = await fetch(
+        `${API_BASE}/interaction-partners/${character}?model=HumanGem&version=${HUMAN_GEM_VERSION}`
+      );
+      await expectBadReqeustMaliciousCharacter(res);
+    }
+  );
 });

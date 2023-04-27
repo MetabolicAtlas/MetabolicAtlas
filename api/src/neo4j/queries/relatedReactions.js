@@ -18,6 +18,7 @@ const getRelatedReactions = async ({
   isForAllCompartments,
 }) => {
   const [m, v] = parseParams(model, version);
+
   let statement;
 
   switch (nodeType) {
