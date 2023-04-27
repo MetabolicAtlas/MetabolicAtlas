@@ -1,5 +1,11 @@
 import fetch from 'node-fetch';
-import { expectEmptyResponse, validateComponent } from './util';
+import {
+  expectBadReqeustMaliciousCharacter,
+  expectEmptyResponse,
+  maliciousCharactersExceptPathSeparators,
+  validateComponent,
+} from './util';
+import { MALICIOUS_CHARACTERS } from '../src/malicious-characters';
 
 const LYSINE_METABOLISM = {
   id: 'lysine_metabolism',
@@ -35,6 +41,39 @@ describe('subsystems', () => {
       );
       expect(res.status).toBe(404);
     });
+
+    // eslint-disable-next-line jest/expect-expect
+    test.each(MALICIOUS_CHARACTERS)(
+      'should return 400 if model contains %p',
+      async character => {
+        const res = await fetch(
+          `${API_BASE}/subsystems/lysine_metabolism?model=${character}&full=true`
+        );
+        await expectBadReqeustMaliciousCharacter(res);
+      }
+    );
+
+    // eslint-disable-next-line jest/expect-expect
+    test.each(MALICIOUS_CHARACTERS)(
+      'should return 400 if version contains %p',
+      async character => {
+        const res = await fetch(
+          `${API_BASE}/subsystems/lysine_metabolism?model=HumanGem&version=${character}`
+        );
+        await expectBadReqeustMaliciousCharacter(res);
+      }
+    );
+
+    // eslint-disable-next-line jest/expect-expect
+    test.each(maliciousCharactersExceptPathSeparators())(
+      'should return 400 if id contains %p',
+      async character => {
+        const res = await fetch(
+          `${API_BASE}/subsystems/${character}?model=HumanGem&version=${HUMAN_GEM_VERSION}`
+        );
+        await expectBadReqeustMaliciousCharacter(res);
+      }
+    );
   });
 
   describe('get related reactions', () => {
@@ -62,5 +101,38 @@ describe('subsystems', () => {
       );
       await expectEmptyResponse(res);
     });
+
+    // eslint-disable-next-line jest/expect-expect
+    test.each(MALICIOUS_CHARACTERS)(
+      'should return 400 if model contains %p',
+      async character => {
+        const res = await fetch(
+          `${API_BASE}/subsystems/lysine_metabolism/related-reactions?model=${character}&full=true`
+        );
+        await expectBadReqeustMaliciousCharacter(res);
+      }
+    );
+
+    // eslint-disable-next-line jest/expect-expect
+    test.each(MALICIOUS_CHARACTERS)(
+      'should return 400 if version contains %p',
+      async character => {
+        const res = await fetch(
+          `${API_BASE}/subsystems/lysine_metabolism/related-reactions?model=HumanGem&version=${character}`
+        );
+        await expectBadReqeustMaliciousCharacter(res);
+      }
+    );
+
+    // eslint-disable-next-line jest/expect-expect
+    test.each(maliciousCharactersExceptPathSeparators())(
+      'should return 400 if id contains %p',
+      async character => {
+        const res = await fetch(
+          `${API_BASE}/subsystems/${character}/related-reactions?model=HumanGem&version=${HUMAN_GEM_VERSION}`
+        );
+        await expectBadReqeustMaliciousCharacter(res);
+      }
+    );
   });
 });

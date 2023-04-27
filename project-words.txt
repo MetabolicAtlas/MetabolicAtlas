@@ -1,6 +1,7 @@
 Agren
 Albornoz
 Altmetric
+Ander
 apoa
 apoc
 arrowless
@@ -84,6 +85,7 @@ Hansson
 hcsd
 HCSD
 Hedin
+Henrike
 Hermansson
 hmdb
 HMDB
@@ -99,6 +101,7 @@ Jaccard
 Johnsson
 Jörnsten
 Jorrit
+kattis
 kcat
 kegg
 Keratan
@@ -108,9 +111,11 @@ Knut
 Kocabas
 Kosalai
 Kwanjeera
+Kähäri
 Lahtvee
 layoutready
 layoutstop
+Lejonlid
 lightgray
 Limeta
 linebreak
@@ -159,6 +164,7 @@ noopener
 noreferrer
 Norling
 nprogress
+Nyberg
 Ofour
 Omics
 Omix
@@ -170,6 +176,7 @@ panzoomchange
 panzoomzoom
 Papini
 PARP
+pelle
 Petranovic
 pharmacogenomic
 playsinline
@@ -244,6 +251,7 @@ vueuse
 vuex
 Wallenberg
 Wanichthanarak
+Wiemker
 wpcr
 yseq
 Yseq

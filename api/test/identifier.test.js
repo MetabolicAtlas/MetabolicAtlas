@@ -1,4 +1,8 @@
 import fetch from 'node-fetch';
+import {
+  expectBadReqeustMaliciousCharacter,
+  maliciousCharactersExceptPathSeparators,
+} from './util';
 
 describe('identifier', () => {
   test('an external db should have components sorted by model name', async () => {
@@ -10,6 +14,24 @@ describe('identifier', () => {
 
     expect(models).toEqual(sortedModels);
   });
+
+  // eslint-disable-next-line jest/expect-expect
+  test.each(maliciousCharactersExceptPathSeparators())(
+    'should return 400 if external id contains %p',
+    async character => {
+      const res = await fetch(`${API_BASE}/identifier/BiGG/${character}`);
+      await expectBadReqeustMaliciousCharacter(res);
+    }
+  );
+
+  // eslint-disable-next-line jest/expect-expect
+  test.each(maliciousCharactersExceptPathSeparators())(
+    'should return 400 if database name contains %p',
+    async character => {
+      const res = await fetch(`${API_BASE}/identifier/${character}/PPNCL3`);
+      await expectBadReqeustMaliciousCharacter(res);
+    }
+  );
   test('a response identifier must include id, dbName, externalId and url', async () => {
     const exampleItems = [
       'BiGG/PPNCL3',

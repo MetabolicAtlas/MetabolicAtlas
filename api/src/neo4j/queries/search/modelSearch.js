@@ -10,6 +10,7 @@ import {
 const searchForIds = async ({ component, term, model, version, limit }) => {
   // The search term is used twice, once with exact match and once with
   // fuzzy match. This seems to produce optimal results.
+
   let statement = `
 CALL db.index.fulltext.queryNodes("fulltext", "${term} ${term}~")
 YIELD node, score

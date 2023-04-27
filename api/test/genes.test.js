@@ -1,5 +1,11 @@
 import fetch from 'node-fetch';
-import { expectEmptyResponse, validateComponent } from './util';
+import {
+  expectBadReqeustMaliciousCharacter,
+  expectEmptyResponse,
+  maliciousCharactersExceptPathSeparators,
+  validateComponent,
+} from './util';
+import { MALICIOUS_CHARACTERS } from '../src/malicious-characters';
 
 const AADAT = {
   id: 'ENSG00000109576',
@@ -37,6 +43,39 @@ describe('genes', () => {
       );
       expect(res.status).toBe(404);
     });
+
+    // eslint-disable-next-line jest/expect-expect
+    test.each(MALICIOUS_CHARACTERS)(
+      'should return 400 if model contains %p',
+      async character => {
+        const res = await fetch(
+          `${API_BASE}/genes/ENSG00000109576?model=${character}&version=${HUMAN_GEM_VERSION}`
+        );
+        await expectBadReqeustMaliciousCharacter(res);
+      }
+    );
+
+    // eslint-disable-next-line jest/expect-expect
+    test.each(MALICIOUS_CHARACTERS)(
+      'should return 400 if version contains %p',
+      async character => {
+        const res = await fetch(
+          `${API_BASE}/genes/ENSG00000109576?model=HumanGem&version=${character}`
+        );
+        await expectBadReqeustMaliciousCharacter(res);
+      }
+    );
+
+    // eslint-disable-next-line jest/expect-expect
+    test.each(maliciousCharactersExceptPathSeparators())(
+      'should return 400 if id contains %p',
+      async character => {
+        const res = await fetch(
+          `${API_BASE}/genes/${character}?model=HumanGem&version=${HUMAN_GEM_VERSION}`
+        );
+        await expectBadReqeustMaliciousCharacter(res);
+      }
+    );
   });
 
   describe('get related reactions', () => {
@@ -64,5 +103,38 @@ describe('genes', () => {
       );
       await expectEmptyResponse(res);
     });
+
+    // eslint-disable-next-line jest/expect-expect
+    test.each(MALICIOUS_CHARACTERS)(
+      'should return 400 if model contains %p',
+      async character => {
+        const res = await fetch(
+          `${API_BASE}/genes/ENSG00000109576/related-reactions?model=${character}&version=${HUMAN_GEM_VERSION}`
+        );
+        await expectBadReqeustMaliciousCharacter(res);
+      }
+    );
+
+    // eslint-disable-next-line jest/expect-expect
+    test.each(MALICIOUS_CHARACTERS)(
+      'should return 400 if version contains %p',
+      async character => {
+        const res = await fetch(
+          `${API_BASE}/genes/ENSG00000109576/related-reactions?model=HumanGem&version=${character}`
+        );
+        await expectBadReqeustMaliciousCharacter(res);
+      }
+    );
+
+    // eslint-disable-next-line jest/expect-expect
+    test.each(maliciousCharactersExceptPathSeparators())(
+      'should return 400 if id contains %p',
+      async character => {
+        const res = await fetch(
+          `${API_BASE}/genes/${character}/related-reactions?model=HumanGem&version=${HUMAN_GEM_VERSION}`
+        );
+        await expectBadReqeustMaliciousCharacter(res);
+      }
+    );
   });
 });

@@ -1,5 +1,11 @@
 import fetch from 'node-fetch';
-import { expectEmptyResponse, validateComponent } from './util';
+import {
+  expectBadReqeustMaliciousCharacter,
+  expectEmptyResponse,
+  maliciousCharactersExceptPathSeparators,
+  validateComponent,
+} from './util';
+import { MALICIOUS_CHARACTERS } from '../src/malicious-characters';
 
 const MAM01199m = {
   id: 'MAM01199m',
@@ -38,7 +44,41 @@ describe('metabolites', () => {
       );
       expect(res.status).toBe(404);
     });
+
+    // eslint-disable-next-line jest/expect-expect
+    test.each(MALICIOUS_CHARACTERS)(
+      'should return 400 if model contains %p',
+      async character => {
+        const res = await fetch(
+          `${API_BASE}/metabolites/MAM01199m?model=${character}&full=true`
+        );
+        await expectBadReqeustMaliciousCharacter(res);
+      }
+    );
+
+    // eslint-disable-next-line jest/expect-expect
+    test.each(MALICIOUS_CHARACTERS)(
+      'should return 400 if version contains %p',
+      async character => {
+        const res = await fetch(
+          `${API_BASE}/metabolites/MAM01199m?model=HumanGem&version=${character}`
+        );
+        await expectBadReqeustMaliciousCharacter(res);
+      }
+    );
+
+    // eslint-disable-next-line jest/expect-expect
+    test.each(maliciousCharactersExceptPathSeparators())(
+      'should return 400 if id contains %p',
+      async character => {
+        const res = await fetch(
+          `${API_BASE}/metabolites/${character}?model=HumanGem&version=${HUMAN_GEM_VERSION}`
+        );
+        await expectBadReqeustMaliciousCharacter(res);
+      }
+    );
   });
+
   describe('get related reactions', () => {
     test('a metabolite should have related reactions', async () => {
       const res = await fetch(
@@ -91,6 +131,39 @@ describe('metabolites', () => {
       );
       await expectEmptyResponse(res);
     });
+
+    // eslint-disable-next-line jest/expect-expect
+    test.each(MALICIOUS_CHARACTERS)(
+      'should return 400 if model contains %p',
+      async character => {
+        const res = await fetch(
+          `${API_BASE}/metabolites/MAM02319e/related-reactions?model=${character}&full=true`
+        );
+        await expectBadReqeustMaliciousCharacter(res);
+      }
+    );
+
+    // eslint-disable-next-line jest/expect-expect
+    test.each(MALICIOUS_CHARACTERS)(
+      'should return 400 if version contains %p',
+      async character => {
+        const res = await fetch(
+          `${API_BASE}/metabolites/MAM01199m/related-reactions?model=HumanGem&version=${character}`
+        );
+        await expectBadReqeustMaliciousCharacter(res);
+      }
+    );
+
+    // eslint-disable-next-line jest/expect-expect
+    test.each(maliciousCharactersExceptPathSeparators())(
+      'should return 400 if id contains %p',
+      async character => {
+        const res = await fetch(
+          `${API_BASE}/metabolites/${character}/related-reactions?model=HumanGem&version=${HUMAN_GEM_VERSION}`
+        );
+        await expectBadReqeustMaliciousCharacter(res);
+      }
+    );
   });
 
   describe('get related metabolites', () => {
@@ -109,6 +182,39 @@ describe('metabolites', () => {
       );
       await expectEmptyResponse(res);
     });
+
+    // eslint-disable-next-line jest/expect-expect
+    test.each(MALICIOUS_CHARACTERS)(
+      'should return 400 if model contains %p',
+      async character => {
+        const res = await fetch(
+          `${API_BASE}/metabolites/MAM02319e/related-metabolites?model=${character}&full=true`
+        );
+        await expectBadReqeustMaliciousCharacter(res);
+      }
+    );
+
+    // eslint-disable-next-line jest/expect-expect
+    test.each(MALICIOUS_CHARACTERS)(
+      'should return 400 if version contains %p',
+      async character => {
+        const res = await fetch(
+          `${API_BASE}/metabolites/MAM01199m/related-metabolites?model=HumanGem&version=${character}`
+        );
+        await expectBadReqeustMaliciousCharacter(res);
+      }
+    );
+
+    // eslint-disable-next-line jest/expect-expect
+    test.each(maliciousCharactersExceptPathSeparators())(
+      'should return 400 if id contains %p',
+      async character => {
+        const res = await fetch(
+          `${API_BASE}/metabolites/${character}/related-metabolites?model=HumanGem&version=${HUMAN_GEM_VERSION}`
+        );
+        await expectBadReqeustMaliciousCharacter(res);
+      }
+    );
   });
 
   test('should return an ordered list of related metabolites', async () => {
