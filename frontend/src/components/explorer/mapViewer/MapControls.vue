@@ -1,52 +1,60 @@
 <template>
-  <div class="canvasOption overlay p-2">
-    <span class="button" title="Zoom in" @click="zoomIn()"><i class="fa fa-search-plus"></i></span>
-    <span class="button" title="Zoom out" @click="zoomOut()">
+  <div class="canvasOption overlay p-2 is-flex map-controls">
+    <button class="button" title="Zoom in" type="button" @click="zoomIn()">
+      <i class="fa fa-search-plus"></i>
+    </button>
+    <button class="button" title="Zoom out" type="button" @click="zoomOut()">
       <i class="fa fa-search-minus"></i>
-    </span>
-    <span
+    </button>
+    <button
       v-if="toggleGenes"
       class="button p-2"
+      type="button"
       :title="`${showGenes ? 'Hide' : 'Show'} genes`"
       @click="handleToggleGenes()"
     >
       <i class="fa" :class="[showGenes ? 'fa-eye-slash' : 'fa-eye']">&thinsp;G</i>
-    </span>
-    <span
+    </button>
+    <button
       v-if="toggleLabels"
       class="button p-2"
+      type="button"
       :title="`${showLabels ? 'Hide' : 'Show'} labels`"
       @click="handleToggleLabels()"
     >
       <i class="fa" :class="[showLabels ? 'fa-eye-slash' : 'fa-eye']">&thinsp;L</i>
-    </span>
-    <span
+    </button>
+    <button
       v-if="toggleSubsystems"
       class="button p-2"
+      type="button"
       :title="`${showLabels ? 'Hide' : 'Show'} subsystems`"
       @click="handleToggleSubsystems()"
     >
       <i class="fa" :class="[showSubsystems ? 'fa-eye-slash' : 'fa-eye']">&thinsp;S</i>
-    </span>
-    <span
+    </button>
+    <button
       v-if="toggleBackgroundColor"
       class="button"
       title="Toggle background color"
+      type="button"
       @click="toggleBackgroundColor()"
     >
       <i class="fa fa-adjust"></i>
-    </span>
-    <span
+    </button>
+    <button
       v-if="!disableFullScreen"
+      id="toggle-fullscreen-button"
       class="button"
       title="Toggle fullscreen"
+      type="button"
       @click="handleToggleFullScreen()"
     >
       <i class="fa" :class="{ 'fa-compress': fullscreen, 'fa-arrows-alt': !fullscreen }"></i>
-    </span>
-    <span v-if="downloadCanvas" class="button" title="Download as SVG" @click="downloadCanvas()">
+    </button>
+    <button v-if="downloadCanvas" class="button" type="button" title="Download as SVG" @click="downloadCanvas()">
       <i class="fa fa-download"></i>
-    </span>
+    </button>
   </div>
 </template>
 
@@ -118,4 +126,10 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.map-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+</style>
