@@ -1,4 +1,11 @@
 {
+  "2023": [
+    {
+      "date": "2023-04-27",
+      "title": "Release 3.4 improves accessibility, user experience and fixes several bugs",
+      "text": "<b>Metabolic Atlas 3.4</b> is out. In this minor release, several accessibility improvements have been done. We have also done some security updates and fixed bugs.<br> More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/3.4' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/record/5115437' target='_blank'>on Zenodo</a>."
+    }
+  ],
   "2022": [
     {
       "date": "2022-12-20",
