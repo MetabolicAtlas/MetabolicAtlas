@@ -43,9 +43,7 @@
       :disabled="isFullscreenDisabled"
       @click="handleToggleFullScreen()"
     >
-      <i
-        :class="{ 'fa fa-compress': isFullscreen, 'fas fa-expand-arrows-alt': !isFullscreen }"
-      ></i>
+      <i :class="{ 'fa fa-compress': isFullscreen, 'fas fa-expand-arrows-alt': !isFullscreen }"></i>
     </span>
     <span v-if="downloadCanvas" class="button" title="Download as SVG" @click="downloadCanvas()">
       <i class="fa fa-download"></i>
