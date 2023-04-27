@@ -52,7 +52,13 @@
     >
       <i class="fa" :class="{ 'fa-compress': fullscreen, 'fa-arrows-alt': !fullscreen }"></i>
     </button>
-    <button v-if="downloadCanvas" class="button" type="button" title="Download as SVG" @click="downloadCanvas()">
+    <button
+      v-if="downloadCanvas"
+      class="button"
+      type="button"
+      title="Download as SVG"
+      @click="downloadCanvas()"
+    >
       <i class="fa fa-download"></i>
     </button>
   </div>
