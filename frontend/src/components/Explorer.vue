@@ -113,7 +113,7 @@ export default {
           name: messages.interPartName,
           img: getImageUrl('interaction'),
           routeName: 'interaction',
-          icon: 'fa share-alt',
+          icon: 'fa fa-share-alt',
         },
       ],
       compartments: {},
