@@ -261,6 +261,9 @@ export default {
         await this.applyColors();
       }
     },
+    async queryParams() {
+      await this.adjustSizes();
+    },
     async highlight() {
       await this.applyColors();
     },
@@ -306,6 +309,12 @@ export default {
       // when the sidebar height changes
       const viewerHeight = this.$refs.viewer3d.clientHeight;
       this.$refs.viewer3d.style.height = `${viewerHeight}px`;
+    },
+    async adjustSizes() {
+      // resize the window and delay for 10 milliseconds to ensure the rotation axis is perpendicular to the screen and the canvas size is equal to the container.
+      setTimeout(() => {
+        window.dispatchEvent(new Event('resize', { cancelable: true }));
+      }, 10);
     },
     handleWindowResize() {
       clearTimeout(this.resizeTimer);
