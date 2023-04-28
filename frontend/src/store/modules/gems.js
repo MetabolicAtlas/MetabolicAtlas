@@ -2,7 +2,7 @@ import gemsApi from '@/api/gems';
 
 const data = {
   gem: null,
-  gems: {},
+  gems: [],
 };
 
 const getters = {
@@ -11,41 +11,70 @@ const getters = {
   conditionFilterOptions: state => [...new Set(state.gems.map(g => g.condition))].sort(),
 };
 
+function friendlyNumberString(n) {
+  return n === null ? '-' : n;
+}
+
+function friendlyBoolean(b) {
+  return b ? 'Yes' : 'No';
+}
+
+function parseGem(gemData) {
+  const {
+    gemodelset,
+    ref,
+    condition,
+    description,
+    sample,
+    // eslint-disable-next-line
+    cell_type,
+    reference,
+    maintained,
+    ...gemBase
+  } = gemData;
+  const gem = {
+    ...gemBase,
+    ...sample,
+    description: description || gemodelset.description,
+    set_name: gemodelset.name,
+    tissue: [sample.tissue, sample.cell_type, sample.cell_line].filter(e => e).join(' ‒ ') || '-',
+    stats: [
+      { id: 'reactions', value: friendlyNumberString(gemBase.reaction_count) },
+      { id: 'metabolites', value: friendlyNumberString(gemBase.metabolite_count) },
+      { id: 'genes', value: friendlyNumberString(gemBase.gene_count) },
+    ]
+      .map(({ id, value }) => `<p>${id}:&nbsp;${value}</p>`)
+      .join(''),
+    maintained: friendlyBoolean(maintained),
+    organ_system: sample.organ_system || '-',
+    condition: condition || '-',
+    ref: ref.length > 0 ? ref : gemodelset.reference,
+  };
+
+  return gem;
+}
+
 const actions = {
-  async getGems({ commit }) {
-    const gems = await gemsApi.fetchGems();
-
-    const formattedGems = gems.map(g => {
-      const gem = {
-        ...g,
-        ...g.sample,
-        description: g.description || g.gemodelset.description,
-        set_name: g.gemodelset.name,
-        tissue:
-          [g.sample.tissue, g.sample.cell_type, g.sample.cell_line].filter(e => e).join(' ‒ ') ||
-          '-',
-        stats: `<p>reactions:&nbsp;${
-          g.reaction_count === null ? '-' : g.reaction_count
-        }</p><p>metabolites:&nbsp;${
-          g.metabolite_count === null ? '-' : g.metabolite_count
-        }</p><p>genes:&nbsp;${g.gene_count === null ? '-' : g.gene_count}</p>`,
-        maintained: g.maintained ? 'Yes' : 'No',
-        organ_system: g.sample.organ_system || '-',
-        condition: g.condition || '-',
-        ref: g.ref.length > 0 ? g.ref : g.gemodelset.reference,
-      };
-
-      // eslint-disable-next-line
-      const { gemodelset, sample, cell_type, reference, ...strippedGem } = gem;
-      return strippedGem;
-    });
-
-    commit('setGems', formattedGems);
+  async getGems({ commit, state }) {
+    if (Object.keys(state.gems).length === 0) {
+      const gemData = await gemsApi.fetchGems();
+      const gems = gemData.map(parseGem);
+      commit('setGems', gems);
+    }
   },
-  getGemData({ commit, state }, id) {
+  async selectGem({ commit, dispatch, state }, id) {
+    await dispatch('getGems');
     const gem = state.gems.find(g => g.id === id);
-    if (gem) {
-      commit('setGem', gem);
+    commit('setGem', gem || null);
+  },
+  async hasGem({ dispatch, state }, id) {
+    await dispatch('getGems');
+    return state.gems.some(g => g.id === id);
+  },
+  async trySelectGem({ dispatch }, id) {
+    const hasGem = await dispatch('hasGem', id);
+    if (hasGem) {
+      await dispatch('selectGem', id);
       return true;
     }
     return false;

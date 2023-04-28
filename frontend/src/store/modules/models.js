@@ -5,7 +5,7 @@ const data = {
   modelList: [],
 };
 
-const getters = {
+const moduleGetters = {
   models: state =>
     state.modelList.reduce((models, model) => {
       const modifiedModel = {
@@ -34,12 +34,22 @@ const actions = {
       commit('setModelList', models);
     }
   },
-  /* eslint-disable no-shadow */
   async selectModel({ dispatch, commit, getters }, modelShortName) {
     await dispatch('getModels');
-
     if (modelShortName in getters.models) {
       commit('setModel', getters.models[modelShortName]);
+      return true;
+    }
+    return false;
+  },
+  async hasModel({ dispatch, getters }, modelShortName) {
+    await dispatch('getModels');
+    return getters.models[modelShortName] || null;
+  },
+  async trySelectModel({ dispatch }, modelShortName) {
+    const hasModel = await dispatch('hasModel', modelShortName);
+    if (hasModel) {
+      await dispatch('selectModel', modelShortName);
       return true;
     }
     return false;
@@ -58,7 +68,7 @@ const mutations = {
 export default {
   namespaced: true,
   state: data,
-  getters,
+  getters: moduleGetters,
   actions,
   mutations,
 };

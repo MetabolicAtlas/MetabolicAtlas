@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'References',
@@ -54,11 +54,18 @@ export default {
       formattedRefs: state => state.europepmc.formattedRefs,
     }),
   },
-  async beforeMount() {
-    if (this.referenceList.length > 0) {
-      const queryIds = `(EXT_ID:"${this.referenceList.join('"+OR+EXT_ID:"')}")`;
-      await this.$store.dispatch('europepmc/searchReferences', queryIds);
-    }
+  watch: {
+    async referenceList() {
+      if (this.referenceList.length > 0) {
+        const queryIds = `(EXT_ID:"${this.referenceList.join('"+OR+EXT_ID:"')}")`;
+        await this.searchReferences(queryIds);
+      }
+    },
+  },
+  methods: {
+    ...mapActions({
+      searchReferences: 'europepmc/searchReferences',
+    }),
   },
 };
 </script>

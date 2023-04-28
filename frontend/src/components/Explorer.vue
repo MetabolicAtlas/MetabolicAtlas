@@ -25,7 +25,7 @@
             class="box has-text-centered is-clickable hoverable"
             :class="cmodel.short_name === model.short_name ? 'selectedBox' : ''"
             :title="`Select ${cmodel.short_name} as the model to explore`"
-            @mousedown.prevent="selectModel(cmodel.short_name)"
+            @mousedown.prevent="goToModel(cmodel.short_name)"
           >
             <p
               class="title is-5"
@@ -88,7 +88,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapGetters, mapState, mapActions } from 'vuex';
 import { default as messages } from '@/content/messages';
 import { getImageUrl } from '@/helpers/utils';
 
@@ -127,20 +127,30 @@ export default {
     ...mapState({
       model: state => state.models.model,
     }),
+    modelShortName() {
+      return this.$route.params.model || (this.model ? this.model.short_name : null);
+    },
   },
-  mounted() {
-    const modelShortName = this.$route.params.model;
-    if (modelShortName && this.model) {
-      this.selectModel(modelShortName);
+  watch: {
+    modelShortName() {
+      this.selectModel(this.modelShortName);
+    },
+  },
+  async mounted() {
+    if (await this.hasModel(this.modelShortName)) {
+      this.goToModel(this.modelShortName);
+    } else {
+      this.goToModel(Object.values(this.models)[0].short_name);
     }
   },
   methods: {
-    selectModel(modelShortName) {
+    ...mapActions({
+      selectModel: 'models/selectModel',
+      hasModel: 'models/hasModel',
+    }),
+    goToModel(modelShortName) {
       if (modelShortName !== this.$route.params.model) {
         this.$router.replace({ params: { model: modelShortName } });
-      }
-      if (modelShortName !== this.model.short_name) {
-        this.$store.dispatch('models/selectModel', modelShortName);
       }
     },
   },

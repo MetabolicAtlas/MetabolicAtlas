@@ -136,7 +136,7 @@ export default {
   async created() {
     if (!this.model || this.model.short_name !== this.$route.params.model) {
       const modelSelectionSuccessful = await this.$store.dispatch(
-        'models/selectModel',
+        'models/trySelectModel',
         this.$route.params.model
       );
       if (!modelSelectionSuccessful) {
