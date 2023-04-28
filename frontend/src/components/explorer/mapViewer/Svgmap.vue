@@ -1,5 +1,11 @@
 <template>
-  <div class="viewer-container">
+  <div
+    class="viewer-container"
+    @fullscreenchange="updateFullscreenState"
+    @fullscreenerror="updateFullscreenState"
+    @webkitfullscreenchange="updateFullscreenState"
+    @webkitfullscreenerror="updateFullscreenState"
+  >
     <div class="svgbox p-0 m-0">
       <div v-if="errorMessage" class="columns is-centered">
         <div class="column is-half has-text-centered">
@@ -16,14 +22,14 @@
     </div>
 
     <MapControls
-      wrapper-elem-selector=".viewer-container"
-      :is-fullscreen="isFullscreen"
+      :fullscreen="isFullscreen"
       :zoom-in="zoomIn"
       :zoom-out="zoomOut"
-      :toggle-full-screen="toggleFullscreen"
       :toggle-genes="toggleGenes"
       :toggle-subsystems="toggleSubsystems"
       :download-canvas="downloadCanvas"
+      @enter-fullscreen="onEnterFullscreen"
+      @exit-fullscreen="onExitFullscreen"
     />
     <MapSearch
       ref="mapsearch"
@@ -47,6 +53,11 @@ import MapSearch from '@/components/explorer/mapViewer/MapSearch.vue';
 import { default as messages } from '@/content/messages';
 import { reformatChemicalReactionHTML } from '@/helpers/utils';
 import { DATA_TYPES_COMPONENTS } from '@/helpers/dataOverlay';
+import {
+  exitFullscreen,
+  isFullscreen,
+  requestFullscreen,
+} from '@/components/explorer/shared/fullscreen-util';
 
 export default {
   name: 'Svgmap',
@@ -131,16 +142,6 @@ export default {
   },
   async mounted() {
     await this.init();
-
-    window.addEventListener('fullscreenchange', () => {
-      // toggle class for svgbox
-      const svgbox = document.querySelector('.svgbox');
-      if (document.fullscreenElement) {
-        svgbox.classList.add('fullscreen');
-      } else {
-        svgbox.classList.remove('fullscreen');
-      }
-    });
   },
   methods: {
     async init() {
@@ -251,8 +252,21 @@ export default {
         });
       }
     },
-    toggleFullscreen() {
-      this.isFullscreen = !this.isFullscreen;
+    onEnterFullscreen() {
+      const elem = document.querySelector('.viewer-container');
+      requestFullscreen(elem);
+    },
+    onExitFullscreen() {
+      exitFullscreen();
+    },
+    updateFullscreenState() {
+      this.isFullscreen = isFullscreen();
+      const svgbox = document.querySelector('.svgbox');
+      if (this.isFullscreen) {
+        svgbox.classList.add('fullscreen');
+      } else {
+        svgbox.classList.remove('fullscreen');
+      }
     },
     zoomToValue(v) {
       if (v >= this.panzoomOptions.minScale && v <= this.panzoomOptions.maxScale) {

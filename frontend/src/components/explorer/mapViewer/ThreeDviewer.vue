@@ -1,5 +1,11 @@
 <template>
-  <div class="viewer-container">
+  <div
+    class="viewer-container"
+    @fullscreenchange="updateFullscreenState"
+    @fullscreenerror="updateFullscreenState"
+    @webkitfullscreenchange="updateFullscreenState"
+    @webkitfullscreenerror="updateFullscreenState"
+  >
     <div v-if="errorMessage" class="columns is-centered">
       <div
         class="column notification is-danger is-half is-offset-one-quarter has-text-centered"
@@ -8,15 +14,15 @@
     </div>
     <div v-else id="viewer3d"></div>
     <MapControls
-      wrapper-elem-selector=".viewer-container"
-      :is-fullscreen="isFullscreen"
+      :fullscreen="isFullscreen"
       :zoom-in="zoomIn"
       :zoom-out="zoomOut"
-      :toggle-full-screen="toggleFullscreen"
       :toggle-genes="toggleGenes"
       :toggle-labels="toggleLabels"
       :toggle-background-color="toggleBackgroundColor"
       :style="{ 'z-index': network.nodes.length + 1 }"
+      @enter-fullscreen="onEnterFullscreen"
+      @exit-fullscreen="onExitFullscreen"
     />
     <MapSearch
       ref="mapsearch"
@@ -41,6 +47,11 @@ import { default as messages } from '@/content/messages';
 import { default as colorToRGBArray } from '@/helpers/colors';
 import { DEFAULT_GENE_COLOR, DEFAULT_METABOLITE_COLOR } from '@/helpers/dataOverlay';
 import { default as NODE_TEXTURES } from '@/helpers/networkViewer';
+import {
+  exitFullscreen,
+  isFullscreen,
+  requestFullscreen,
+} from '@/components/explorer/shared/fullscreen-util';
 
 export default {
   name: 'ThreeDViewer',
@@ -101,9 +112,6 @@ export default {
       }
     },
   },
-  async mounted() {
-    await this.loadNetwork();
-  },
   beforeUnmount() {
     this.resetNetwork();
   },
@@ -157,7 +165,16 @@ export default {
 
       this.processURLQuery(false);
     },
-
+    onEnterFullscreen() {
+      const elem = document.querySelector('.viewer-container');
+      requestFullscreen(elem);
+    },
+    onExitFullscreen() {
+      exitFullscreen();
+    },
+    updateFullscreenState() {
+      this.isFullscreen = isFullscreen();
+    },
     processURLQuery(center = true) {
       const { lx, ly, lz } = this.coords;
       this.controller.setCamera({ x: lx, y: ly, z: lz });
@@ -297,9 +314,6 @@ export default {
       const payload = { x: lx, y: ly, z };
       this.controller.setCamera(payload);
       this.updateURLCoords(payload);
-    },
-    toggleFullscreen() {
-      this.isFullscreen = !this.isFullscreen;
     },
     async toggleGenes() {
       await this.controller.toggleNodeType('e');

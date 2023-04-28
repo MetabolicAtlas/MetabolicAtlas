@@ -3,7 +3,7 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: ['plugin:vue/vue3-recommended', '@vue/airbnb', 'prettier'],
+  extends: ['plugin:vue/vue3-recommended', '@vue/airbnb', 'prettier', 'plugin:cypress/recommended'],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
@@ -33,9 +33,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       alias: {
-        map: [
-          ['@', './src'],
-        ],
+        map: [['@', './src']],
       },
     },
   },
