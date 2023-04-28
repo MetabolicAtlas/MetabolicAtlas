@@ -1,4 +1,3 @@
-import { mount } from '@cypress/vue';
 import MapControls from './MapControls.vue';
 
 describe('MapControls', () => {
