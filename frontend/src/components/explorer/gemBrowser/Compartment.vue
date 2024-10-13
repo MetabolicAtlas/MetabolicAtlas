@@ -67,26 +67,26 @@ export default {
 
     const title = computed(
       () => `${compartment.value && compartment.value.name}, Compartment in
-  ${model.value && model.value.short_name}`
+  ${model.value && model.value.short_name}`,
     );
     const description = computed(
       () => `The compartment ${compartment.value && compartment.value.name} in
     ${model.value && model.value.short_name} (version ${
-        model.value && model.value.version
-      }) consists of
+      model.value && model.value.version
+    }) consists of
     ${compartment.value && compartment.value.subsystemCount} subsystems, ${
-        compartment.value && compartment.value.reactionsCount
-      } reactions,
+      compartment.value && compartment.value.reactionsCount
+    } reactions,
     ${compartment.value && compartment.value.metabolitesCount} metabolites, and ${
-        compartment.value && compartment.value.genesCount
-      } genes.`
+      compartment.value && compartment.value.genesCount
+    } genes.`,
     );
 
     const meta = computed(() =>
       generateSocialMetaTags({
         title: title.value,
         description: description.value,
-      })
+      }),
     );
 
     useHead({

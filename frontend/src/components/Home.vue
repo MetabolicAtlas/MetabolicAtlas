@@ -79,8 +79,8 @@
                       <td class="has-nowrap">{{ el.date }}</td>
                       <td class="pl-3">
                         <router-link
-                        :to="{ name: 'about-news', hash: `#${el.date}` }"
-                        v-html="el.title"
+                          :to="{ name: 'about-news', hash: `#${el.date}` }"
+                          v-html="el.title"
                         />
                       </td>
                     </tr>

@@ -210,7 +210,9 @@ export default {
     position: absolute;
     min-width: 175px;
     background-color: hsl(0, 0%, 97%);
-    box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0px 0 0 rgb(10 10 10 / 2%);
+    box-shadow:
+      0 0.5em 1em -0.125em rgb(10 10 10 / 10%),
+      0 0px 0 0 rgb(10 10 10 / 2%);
 
     &:before {
       position: absolute;

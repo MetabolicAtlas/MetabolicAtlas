@@ -41,7 +41,7 @@ const fetchRelatedReactions = async (
   model,
   version,
   limit,
-  isForAllCompartments
+  isForAllCompartments,
 ) => {
   const params = { model, version, limit, isForAllCompartments };
   const { data } = await axios.get(`/${resourceType}s/${id}/related-reactions`, { params });

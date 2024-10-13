@@ -17,7 +17,7 @@ const fetchDataSets = async ({ model, type, filename }) => {
 
 const fetchDataSet = async ({ model, type, filename, dataSet }) => {
   const { data } = await axios.get(
-    `/data-overlay/${model}/${type}/${filename}/data-sets/${dataSet}`
+    `/data-overlay/${model}/${type}/${filename}/data-sets/${dataSet}`,
   );
   return data;
 };

@@ -372,7 +372,7 @@ export default {
   methods: {
     selectedModelIndex(model) {
       return this.selectedModels.findIndex(
-        m => model.apiName === m.apiName && model.version === m.version
+        m => model.apiName === m.apiName && model.version === m.version,
       );
     },
     shouldDisable(model) {

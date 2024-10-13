@@ -98,7 +98,7 @@ export default {
       }
 
       return this.comparisonDetails.models.models.map(m =>
-        this.modelList.find(mo => mo.apiName === m.model)
+        this.modelList.find(mo => mo.apiName === m.model),
       );
     },
   },

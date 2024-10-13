@@ -31,9 +31,9 @@
                   <span class="tag">
                     <!-- eslint-disable-next-line max-len -->
                     <router-link
-                    :to="{ name: 'compartment', params: { model: model.short_name, id: c.id } }"
+                      :to="{ name: 'compartment', params: { model: model.short_name, id: c.id } }"
                     >
-                    {{ c.name }}
+                      {{ c.name }}
                     </router-link>
                   </span>
                 </template>
@@ -45,17 +45,17 @@
             <td>
               <div v-html="metabolitesListHtml"></div>
               <div
-              v-if="!showFullMetabolite && metabolites.length > displayedMetabolite"
-              class="mt-5"
+                v-if="!showFullMetabolite && metabolites.length > displayedMetabolite"
+                class="mt-5"
               >
                 <button type="button" class="is-small button" @click="showFullMetabolite = true">
                   ... and {{ metabolites.length - displayedMetabolite }} more
                 </button>
                 <span
-                v-show="metabolites.length === limitMetabolite"
-                class="tag is-medium is-warning is-pulled-right"
+                  v-show="metabolites.length === limitMetabolite"
+                  class="tag is-medium is-warning is-pulled-right"
                 >
-                The number of metabolites displayed is limited to {{ limitMetabolite }}.
+                  The number of metabolites displayed is limited to {{ limitMetabolite }}.
                 </span>
               </div>
             </td>
@@ -69,10 +69,10 @@
                   ... and {{ genes.length - displayedGene }} more
                 </button>
                 <span
-                v-show="genes.length === limitGene"
-                class="tag is-medium is-warning is-pulled-right"
+                  v-show="genes.length === limitGene"
+                  class="tag is-medium is-warning is-pulled-right"
                 >
-                The number of genes displayed is limited to {{ limitGene }}.
+                  The number of genes displayed is limited to {{ limitGene }}.
                 </span>
               </div>
             </td>
@@ -124,12 +124,12 @@ export default {
         items:
           info.value && info.value.compartments ? info.value.compartments.map(c => c.name) : [],
         itemType: 'compartment',
-      })
+      }),
     ).value;
 
     const title = computed(
       () =>
-        `${info.value && info.value.name}, Subsystem in ${model.value && model.value.short_name}`
+        `${info.value && info.value.name}, Subsystem in ${model.value && model.value.short_name}`,
     );
     const description = computed(
       () => `The subsystem ${info.value && info.value.name} in
@@ -137,14 +137,14 @@ export default {
     ${
       model.value && model.value.version
     }) can be found in the ${compartmentLabel} ${compartments}; and contains
-    ${metabolites.value.length} metabolites and ${genes.value.length} genes.`
+    ${metabolites.value.length} metabolites and ${genes.value.length} genes.`,
     );
 
     const meta = computed(() =>
       generateSocialMetaTags({
         title: title.value,
         description: description.value,
-      })
+      }),
     );
 
     useHead({

@@ -173,16 +173,16 @@ export const constructCompartmentStr = reaction => {
       ...obj,
       [id]: cs,
     }),
-    {}
+    {},
   );
 
   const reactants = reaction.metabolites.filter(m => m.outgoing);
   const products = reaction.metabolites.filter(m => !m.outgoing);
   const reactantsCompartments = new Set(
-    reactants.map(r => compartments[r.compartmentId].name).sort()
+    reactants.map(r => compartments[r.compartmentId].name).sort(),
   );
   const productsCompartments = new Set(
-    products.map(r => compartments[r.compartmentId].name).sort()
+    products.map(r => compartments[r.compartmentId].name).sort(),
   );
 
   const reactantsCompartmentsStr = Array.from(reactantsCompartments).join(' + ');
@@ -192,7 +192,7 @@ export const constructCompartmentStr = reaction => {
 
   const productsCompartmentsStr = Array.from(productsCompartments).join(' + ');
   return `${reactantsCompartmentsStr} ${equationSign(
-    reaction.reversible
+    reaction.reversible,
   )} ${productsCompartmentsStr}`;
 };
 

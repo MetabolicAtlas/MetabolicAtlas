@@ -304,7 +304,7 @@ export default {
             this.errorMessage = messages.unknownError;
           }
           return Promise.reject(error);
-        }
+        },
       );
 
       this.$router.afterEach(() => {

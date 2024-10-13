@@ -68,31 +68,32 @@ export default {
         items:
           gene.value && gene.value.compartments ? gene.value.compartments.map(c => c.name) : [],
         itemType: 'compartment',
-      })
+      }),
     ).value;
 
     const [subsystems, subsystemLabel] = computed(() =>
       combineWords({
         items: gene.value && gene.value.subsystems ? gene.value.subsystems.map(s => s.name) : [],
         itemType: 'subsystem',
-      })
+      }),
     ).value;
 
     const title = computed(
-      () => `${gene.value && gene.value.geneName}, Gene in ${model.value && model.value.short_name}`
+      () =>
+        `${gene.value && gene.value.geneName}, Gene in ${model.value && model.value.short_name}`,
     );
     const description = computed(
       () => `The gene ${gene.value && gene.value.geneName} in ${
         model.value && model.value.short_name
       } (version ${model.value && model.value.version}) can be found in the
-    ${compartmentLabel} ${compartments}; and the ${subsystemLabel} ${subsystems}.`
+    ${compartmentLabel} ${compartments}; and the ${subsystemLabel} ${subsystems}.`,
     );
 
     const meta = computed(() =>
       generateSocialMetaTags({
         title: title.value,
         description: description.value,
-      })
+      }),
     );
 
     const script = computed(() => [

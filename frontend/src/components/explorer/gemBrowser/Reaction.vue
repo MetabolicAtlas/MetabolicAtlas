@@ -133,31 +133,31 @@ export default {
       combineWords({
         items: reaction.value.compartments ? reaction.value.compartments.map(c => c.name) : [],
         itemType: 'compartment',
-      })
+      }),
     ).value;
 
     const [subsystems, subsystemLabel] = computed(() =>
       combineWords({
         items: reaction.value.subsystems ? reaction.value.subsystems.map(s => s.name) : [],
         itemType: 'subsystem',
-      })
+      }),
     ).value;
 
     const title = computed(
-      () => `${reaction.value.id}, Reaction in ${model.value && model.value.short_name}`
+      () => `${reaction.value.id}, Reaction in ${model.value && model.value.short_name}`,
     );
     const description = computed(
       () => `The reaction ${reaction.value.id} in
     ${model.value && model.value.short_name} (version ${
-        model.value && model.value.version
-      }) can be found in the
-    ${compartmentLabel} ${compartments}; and the ${subsystemLabel} ${subsystems}.`
+      model.value && model.value.version
+    }) can be found in the
+    ${compartmentLabel} ${compartments}; and the ${subsystemLabel} ${subsystems}.`,
     );
     const meta = computed(() =>
       generateSocialMetaTags({
         title: title.value,
         description: description.value,
-      })
+      }),
     );
 
     useHead({

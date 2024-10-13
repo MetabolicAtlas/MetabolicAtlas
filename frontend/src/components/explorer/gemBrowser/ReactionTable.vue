@@ -214,7 +214,7 @@ export default {
         if (!this.model || this.model.short_name !== this.$route.params.model) {
           const modelSelectionSuccessful = await this.$store.dispatch(
             'models/selectModel',
-            this.$route.params.model
+            this.$route.params.model,
           );
           if (!modelSelectionSuccessful) {
             this.modelNotFound = true;
@@ -227,7 +227,7 @@ export default {
         };
         await this.$store.dispatch(
           `reactions/getRelatedReactionsFor${this.type[0].toUpperCase()}${this.type.slice(1)}`,
-          payload
+          payload,
         );
         this.showReactionLoader = false;
       } catch {
@@ -281,7 +281,7 @@ export default {
               model: undefined,
               comp: true,
               html: false,
-            })
+            }),
           );
           arr.push(r.genes.map(g => g.name || g.id).join('; '));
           if (this.showCP) {

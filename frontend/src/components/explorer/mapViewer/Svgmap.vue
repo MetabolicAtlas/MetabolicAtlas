@@ -333,7 +333,7 @@ export default {
         // set default zoom
         const minZoomScale = Math.min(
           svgBox.offsetWidth / svg.width,
-          svgBox.offsetHeight / svg.height
+          svgBox.offsetHeight / svg.height,
         );
 
         this.panzoom.zoomToPoint(minZoomScale, {
@@ -433,7 +433,7 @@ export default {
         }
 
         const metEnzElements = document.querySelectorAll(
-          `#svg-wrapper .met[class*=" ${id} "], #svg-wrapper .enz[class*=" ${id} "]`
+          `#svg-wrapper .met[class*=" ${id} "], #svg-wrapper .enz[class*=" ${id} "]`,
         );
         if (metEnzElements.length) {
           metEnzElements.forEach(element => {

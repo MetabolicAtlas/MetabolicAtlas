@@ -39,7 +39,7 @@ const colorOrFallbackColorToRGBA = (color, fallbackColor) => {
     throw new Error(
       `Invalid fallbackColor ${
         fallbackColor != null ? JSON.stringify(fallbackColor) : fallbackColor
-      }`
+      }`,
     );
   }
   return colorToRGBA(color) || fallbackRGBA;
