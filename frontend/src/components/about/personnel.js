@@ -50,7 +50,7 @@ const mihail = {
   github: 'https://github.com/mihai-sysbio',
   linkedin: 'https://www.linkedin.com/in/mihail-anton/',
   content:
-    '<a href="https://nbis.se/about/staff/mihail-anton/" target="_blank" rel="noopener noreferrer">NBIS expert and Project Manager for Metabolic Atlas</a>',
+    '<a href="https://nbis.se/about/staff/mihail-anton/" target="_blank" rel="noopener noreferrer">Project Manager for Metabolic Atlas</a>',
 };
 const kattis = {
   name: 'Katarina Lejonlid',
@@ -171,8 +171,9 @@ const lena = {
 };
 
 export const advisoryBoard = [jens, rui, jonathan, hao, thomas];
-export const team = [mihail, kattis, jon, mattias, jessica, henrike];
+export const team = [mihail, kattis, mattias, jessica, henrike];
 export const previousContributors = [
+  jon,
   shan,
   ingrid,
   pelle,
