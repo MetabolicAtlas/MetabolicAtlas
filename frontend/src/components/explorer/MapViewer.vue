@@ -454,10 +454,10 @@ export default {
 }
 
 .fixed-height-mobile {
+  position: relative;
   @media screen and (max-width: $tablet) {
     height: $viewer-height;
   }
-  position: relative;
 }
 
 #dataOverlayBar {
