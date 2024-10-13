@@ -140,8 +140,8 @@ const getInteractionPartnersExpansion = async ({
           id: nodeId,
           model,
           version,
-        })
-      )
+        }),
+      ),
   );
 
   for (let i = 0; i < expandedNetworks.length; i++) {

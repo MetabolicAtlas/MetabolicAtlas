@@ -10,11 +10,11 @@ export const reformatCompartmentSVGs = component =>
     .sort((a, b) => a.id.localeCompare(b.id))
     .map(c => {
       const compartmentWithSVGs = component.compartmentSVGs.find(
-        ({ compartmentId }) => compartmentId === c.id
+        ({ compartmentId }) => compartmentId === c.id,
       );
       const svgMaps = compartmentWithSVGs
         ? compartmentWithSVGs.compartmentSVGs.sort((a, b) =>
-            a.id.localeCompare(b.id)
+            a.id.localeCompare(b.id),
           )
         : [];
       return {
@@ -29,11 +29,11 @@ export const reformatSubsystemSVGs = component =>
     .sort((a, b) => a.id.localeCompare(b.id))
     .map(s => {
       const subsystemsWithSVGs = component.subsystemSVGs.find(
-        ({ subsystemId }) => subsystemId === s.id
+        ({ subsystemId }) => subsystemId === s.id,
       );
       const svgMaps = subsystemsWithSVGs
         ? subsystemsWithSVGs.subsystemSVGs.sort((a, b) =>
-            a.id.localeCompare(b.id)
+            a.id.localeCompare(b.id),
           )
         : [];
       return {

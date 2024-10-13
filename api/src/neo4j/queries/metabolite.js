@@ -58,7 +58,7 @@ RETURN apoc.map.mergeList(COLLECT(value.data)) as metabolite
           ...acc,
           [curr.dbName]: curr.externalId,
         }),
-        {}
+        {},
       ),
     });
 

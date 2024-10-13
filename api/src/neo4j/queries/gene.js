@@ -63,7 +63,7 @@ RETURN apoc.map.mergeList(COLLECT(value.data)) as gene
 
 const getHumanLabelAndVersion = () => {
   const humanGem = integratedGemsRepoJson.find(
-    g => g.short_name === 'Human-GEM'
+    g => g.short_name === 'Human-GEM',
   );
   const label = `:${humanGem.short_name
     .split('-')
@@ -167,7 +167,7 @@ RETURN DISTINCT({id: c.id, name: cs.name})
       compartment_metabolite_count,
       reaction_count,
       gene_count: genes.length,
-    })
+    }),
   );
 
   const compartments = compartmentsResult.map(({ id, name }) => ({

@@ -51,11 +51,11 @@ RETURN { ${ma.model}: COUNT(DISTINCT(a)), ${mb.model}: COUNT(DISTINCT(b)), ${mc.
     .flat() // remove duplicates
     .filter(
       (v, i, a) =>
-        a.findIndex(r => JSON.stringify(r) === JSON.stringify(v)) === i
+        a.findIndex(r => JSON.stringify(r) === JSON.stringify(v)) === i,
     );
 
   return filteredResults.sort(
-    (a, b) => Object.keys(a).length - Object.keys(b).length
+    (a, b) => Object.keys(a).length - Object.keys(b).length,
   );
 };
 
@@ -85,11 +85,11 @@ RETURN { ${ma.model}: COUNT(DISTINCT(a)), ${mb.model}: COUNT(DISTINCT(b)), ${mc.
     .flat() // remove duplicates
     .filter(
       (v, i, a) =>
-        a.findIndex(r => JSON.stringify(r) === JSON.stringify(v)) === i
+        a.findIndex(r => JSON.stringify(r) === JSON.stringify(v)) === i,
     );
 
   return filteredResults.sort(
-    (a, b) => Object.keys(a).length - Object.keys(b).length
+    (a, b) => Object.keys(a).length - Object.keys(b).length,
   );
 };
 
@@ -98,7 +98,7 @@ const compareOverview = async ({ models, type }) => {
 
   if (models.length < 2 || models.length > max) {
     throw new Error(
-      `At least 2 and at most ${max} models need to be provided for ${type}.`
+      `At least 2 and at most ${max} models need to be provided for ${type}.`,
     );
   }
 
@@ -167,7 +167,7 @@ const getComparisonOverview = async ({ models }) => {
   const results = await Promise.all(
     COMPONENT_TYPES.map(async type => ({
       [type]: await compareOverview({ models, type }),
-    }))
+    })),
   );
 
   return results.reduce((obj, x) => ({ ...obj, ...x }), {});

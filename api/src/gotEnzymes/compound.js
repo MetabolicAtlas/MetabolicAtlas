@@ -9,7 +9,7 @@ const getCompound = async id => {
 
   if (!compounds.length) {
     throw new Error(
-      `Compound with kegg ID ${id} returned ${compounds.length} results.`
+      `Compound with kegg ID ${id} returned ${compounds.length} results.`,
     );
   }
 
@@ -17,7 +17,7 @@ const getCompound = async id => {
   const { name, formula, smiles, ...rawCrossReferences } = compound;
 
   const info = Object.fromEntries(
-    Object.entries({ name, formula, smiles }).filter(([_, v]) => v)
+    Object.entries({ name, formula, smiles }).filter(([_, v]) => v),
   );
 
   const crossReferences = Object.fromEntries(
@@ -32,7 +32,7 @@ const getCompound = async id => {
             url: `https://identifiers.org/${dbPrefix}${compoundSuffix}:${id}`,
           })),
         ];
-      })
+      }),
   );
 
   return {

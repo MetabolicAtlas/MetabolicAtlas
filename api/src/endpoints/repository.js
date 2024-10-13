@@ -38,11 +38,11 @@ routes.get('/integrated_models', async (req, res) => {
         apiVersion: model.version.split('.').join('_'),
       }))
       .sort((a, b) =>
-        a.short_name.toLowerCase() < b.short_name.toLowerCase() ? -1 : 1
+        a.short_name.toLowerCase() < b.short_name.toLowerCase() ? -1 : 1,
       );
 
     const modelsWithCount = await Promise.all(
-      models.map(m => addCountToModel(m))
+      models.map(m => addCountToModel(m)),
     );
     res.json(modelsWithCount);
   } catch (e) {
@@ -55,7 +55,7 @@ routes.get('/integrated_models/:name', async (req, res) => {
 
   try {
     const gem = integratedGemsRepoJson.filter(
-      g => g.short_name.toLowerCase() === name.toLowerCase()
+      g => g.short_name.toLowerCase() === name.toLowerCase(),
     )[0];
     if (!!gem) {
       res.json(gem);

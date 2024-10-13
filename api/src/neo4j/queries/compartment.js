@@ -67,7 +67,7 @@ RETURN apoc.map.mergeList(COLLECT(value.data)) as compartment
         customName: info.name,
         svgMaps: compartmentSVGs[0]
           ? compartmentSVGs[0].compartmentSVGs.sort((a, b) =>
-              a.id.localeCompare(b.id)
+              a.id.localeCompare(b.id),
             )
           : [],
       },

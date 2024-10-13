@@ -19,7 +19,7 @@ describe('gotEnzymes', () => {
         ]);
 
         expect(body_upper).toEqual(body_lower);
-      }
+      },
     );
   });
 
@@ -291,7 +291,7 @@ describe('gotEnzymes', () => {
 
       it('should use requested page size', async () => {
         const res = await fetch(
-          encodeURI(`${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=99`)
+          encodeURI(`${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=99`),
         );
 
         expect(res.status).toBe(200);
@@ -302,7 +302,7 @@ describe('gotEnzymes', () => {
       it('should use 1 as default page', async () => {
         const defaultPage = await fetch(`${API_BASE}/gotenzymes/enzymes`);
         const firstPage = await fetch(
-          `${API_BASE}/gotenzymes/enzymes?pagination[page]=1`
+          `${API_BASE}/gotenzymes/enzymes?pagination[page]=1`,
         );
 
         const defaultPageBody = await defaultPage.json();
@@ -312,15 +312,15 @@ describe('gotEnzymes', () => {
 
       it('should be consistent', async () => {
         const first80 = await fetch(
-          encodeURI(`${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=80`)
+          encodeURI(`${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=80`),
         );
         const first40 = await fetch(
-          encodeURI(`${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=40`)
+          encodeURI(`${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=40`),
         );
         const second40 = await fetch(
           encodeURI(
-            `${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=40&pagination[page]=2`
-          )
+            `${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=40&pagination[page]=2`,
+          ),
         );
         const first80Body = await first80.json();
         const first40Body = await first40.json();
@@ -336,10 +336,10 @@ describe('gotEnzymes', () => {
     describe('sorting', () => {
       it('should be based on gene if no sort column is given', async () => {
         const defaultSorted = await fetch(
-          encodeURI(`${API_BASE}/gotenzymes/enzymes`)
+          encodeURI(`${API_BASE}/gotenzymes/enzymes`),
         );
         const sortedByGene = await fetch(
-          encodeURI(`${API_BASE}/gotenzymes/enzymes?pagination[column]=gene`)
+          encodeURI(`${API_BASE}/gotenzymes/enzymes?pagination[column]=gene`),
         );
         const defaultSortedBody = await defaultSorted.json();
         const sortedByGeneBody = await sortedByGene.json();
@@ -349,12 +349,12 @@ describe('gotEnzymes', () => {
 
       it('should be sorted in ascending order if no isAscending flag is given', async () => {
         const defaultSorted = await fetch(
-          encodeURI(`${API_BASE}/gotenzymes/enzymes`)
+          encodeURI(`${API_BASE}/gotenzymes/enzymes`),
         );
         const sortedByGene = await fetch(
           encodeURI(
-            `${API_BASE}/gotenzymes/enzymes?pagination[isAscending]=true`
-          )
+            `${API_BASE}/gotenzymes/enzymes?pagination[isAscending]=true`,
+          ),
         );
         const defaultSortedBody = await defaultSorted.json();
         const sortedByGeneBody = await sortedByGene.json();
@@ -382,8 +382,8 @@ describe('gotEnzymes', () => {
         async (column, ascending) => {
           const sorted = await fetch(
             encodeURI(
-              `${API_BASE}/gotenzymes/enzymes?pagination[page]=1&pagination[pageSize]=1000&pagination[column]=${column}&pagination[isAscending]=${ascending}`
-            )
+              `${API_BASE}/gotenzymes/enzymes?pagination[page]=1&pagination[pageSize]=1000&pagination[column]=${column}&pagination[isAscending]=${ascending}`,
+            ),
           );
 
           const sortedBody = await sorted.json();
@@ -394,14 +394,14 @@ describe('gotEnzymes', () => {
             .sort((a, b) => (ascending ? a - b : b - a));
 
           expect(values).toEqual(sortedValues);
-        }
+        },
       );
 
       it('should return 400 BAD REQUEST if sort column does not exist', async () => {
         const res = await fetch(
           encodeURI(
-            `${API_BASE}/gotenzymes/enzymes?pagination[column]=non-existing`
-          )
+            `${API_BASE}/gotenzymes/enzymes?pagination[column]=non-existing`,
+          ),
         );
 
         expect(res.status).toBe(400);
@@ -419,13 +419,13 @@ describe('gotEnzymes', () => {
     ])('should filter by %p by equality', async (column, filterData) => {
       const filtered = await fetch(
         encodeURI(
-          `${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=1000&filters[${column}]=${filterData}`
-        )
+          `${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=1000&filters[${column}]=${filterData}`,
+        ),
       );
       const filteredBody = await filtered.json();
 
       filteredBody.enzymes.forEach(enzyme =>
-        expect(enzyme[column]).toBe(filterData)
+        expect(enzyme[column]).toBe(filterData),
       );
     });
 
@@ -440,38 +440,38 @@ describe('gotEnzymes', () => {
       async (column, filterData) => {
         const filtered = await fetch(
           encodeURI(
-            `${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=1000&filters[${column}]=${filterData}`
-          )
+            `${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=1000&filters[${column}]=${filterData}`,
+          ),
         );
         const filteredLower = await fetch(
           encodeURI(
-            `${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=1000&filters[${column}]=${filterData.toLowerCase()}`
-          )
+            `${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=1000&filters[${column}]=${filterData.toLowerCase()}`,
+          ),
         );
         const filteredBody = await filtered.json();
         const filteredBodyLower = await filteredLower.json();
         expect(filteredBody.totalCount).toBe(filteredBodyLower.totalCount);
-      }
+      },
     );
 
     it('should filter by EC number by existence in comma separated string', async () => {
       const filtered = await fetch(
         encodeURI(
-          `${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=1000&filters[ec_number]=4.1.3.42`
-        )
+          `${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=1000&filters[ec_number]=4.1.3.42`,
+        ),
       );
       const filteredBody = await filtered.json();
 
       filteredBody.enzymes.forEach(enzyme =>
-        expect(enzyme.ec_number.split(';')).toContain('4.1.3.42')
+        expect(enzyme.ec_number.split(';')).toContain('4.1.3.42'),
       );
     });
 
     it('should filter by kcat_values by inclusion in range', async () => {
       const filtered = await fetch(
         encodeURI(
-          `${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=1000&filters[kcat_values]={"min":10.4,"max":10.42}`
-        )
+          `${API_BASE}/gotenzymes/enzymes?pagination[pageSize]=1000&filters[kcat_values]={"min":10.4,"max":10.42}`,
+        ),
       );
       const filteredBody = await filtered.json();
 

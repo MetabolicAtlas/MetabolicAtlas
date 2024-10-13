@@ -17,7 +17,7 @@ export default workerData =>
     parentPort.once('message',
       data => parentPort.postMessage(populateWithLayout(data)));
   `,
-      { eval: true }
+      { eval: true },
     );
     worker.on('message', result => resolve(result));
     worker.on('error', reject);

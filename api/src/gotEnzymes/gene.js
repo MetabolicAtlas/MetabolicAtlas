@@ -15,7 +15,7 @@ const getGene = async value => {
   const { kegg, ...rawCrossReferences } = gene;
 
   const info = Object.fromEntries(
-    Object.entries({ kegg }).filter(([_, v]) => v)
+    Object.entries({ kegg }).filter(([_, v]) => v),
   );
 
   const crossReferences = Object.fromEntries(
@@ -30,7 +30,7 @@ const getGene = async value => {
             url: `https://identifiers.org/${dbPrefix}:${id}`,
           })),
         ];
-      })
+      }),
   );
 
   return {

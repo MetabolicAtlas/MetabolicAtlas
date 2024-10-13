@@ -7,7 +7,7 @@ describe('repository', () => {
 
       const models = await res.json();
       const sortedModels = [...models].sort((a, b) =>
-        a.short_name.toLowerCase() < b.short_name.toLowerCase() ? -1 : 1
+        a.short_name.toLowerCase() < b.short_name.toLowerCase() ? -1 : 1,
       );
       expect(models).toEqual(sortedModels);
     });
@@ -24,7 +24,7 @@ describe('repository', () => {
   describe('GET integrated model by name', () => {
     test('should return 200 and model if exists', async () => {
       const res = await fetch(
-        `${API_BASE}/repository/integrated_models/Human-GEM`
+        `${API_BASE}/repository/integrated_models/Human-GEM`,
       );
       expect(res.status).toBe(200);
       const model = await res.json();
@@ -33,7 +33,7 @@ describe('repository', () => {
 
     test('should return 404 if name does not exist', async () => {
       const res = await fetch(
-        `${API_BASE}/repository/integrated_models/non-existing`
+        `${API_BASE}/repository/integrated_models/non-existing`,
       );
       expect(res.status).toBe(404);
     });

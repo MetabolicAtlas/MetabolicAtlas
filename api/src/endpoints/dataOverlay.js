@@ -13,7 +13,7 @@ routes.get('/:model', async (req, res) => {
 
     const indexJson = await readFile(
       `./dataOverlay/${model}/index.json`,
-      'utf8'
+      'utf8',
     );
     res.json(JSON.parse(indexJson));
   } catch (e) {
@@ -62,7 +62,7 @@ routes.get(
       console.error(e.message);
       res.sendStatus(404);
     }
-  }
+  },
 );
 
 routes.get('/:dataType/example', async (req, res) => {
@@ -91,7 +91,7 @@ routes.get('/:dataType/example', async (req, res) => {
     res.set('Content-Type', 'text/tab-separated-values');
     res.set(
       'Content-Disposition',
-      `attachment; filename=${dataType}-example.tsv`
+      `attachment; filename=${dataType}-example.tsv`,
     );
     res.send(exampleFile);
   } catch (e) {

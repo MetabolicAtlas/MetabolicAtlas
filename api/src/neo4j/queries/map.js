@@ -7,7 +7,7 @@ import readline from 'readline';
 const mapReactionIdSet = async (map, modelShortName) => {
   const rl = readline.createInterface({
     input: fs.createReadStream(
-      `/project/svg/${modelShortName}/${map.filename}`
+      `/project/svg/${modelShortName}/${map.filename}`,
     ),
     output: process.stdout,
     terminal: false,
@@ -29,10 +29,10 @@ const mapComponents = async (componentList, modelShortName) =>
   await Promise.all(
     componentList.map(async component => {
       const svgs = await Promise.all(
-        component.svgs.map(map => mapReactionIdSet(map, modelShortName))
+        component.svgs.map(map => mapReactionIdSet(map, modelShortName)),
       );
       return { ...component, svgs };
-    })
+    }),
   );
 
 const getMapsListing = async ({ model, version }) => {
@@ -103,11 +103,11 @@ RETURN svg { id: svg.id, name: svg.customName, svgs: [svg {.*}]}
 
   const compartments = await mapComponents(
     mapListing.compartments,
-    `${model.slice(0, -3)}-GEM`
+    `${model.slice(0, -3)}-GEM`,
   );
   const subsystems = await mapComponents(
     mapListing.subsystems,
-    `${model.slice(0, -3)}-GEM`
+    `${model.slice(0, -3)}-GEM`,
   );
 
   return { ...mapListing, compartments, subsystems };

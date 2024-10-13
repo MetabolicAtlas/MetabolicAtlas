@@ -21,7 +21,7 @@ const fetchCompartmentalizedMetabolites = async ({
   // create a neo4j mapping of the ids to null (null representing a metaboliteId)
   // regex replacement needed for neo4j to accept the object
   const mappedIds = JSON.stringify(
-    ids.map(x => ({ mid: null, cmid: x }))
+    ids.map(x => ({ mid: null, cmid: x })),
   ).replace(/"([^"]+)":/g, '$1:');
 
   let statement = `
@@ -268,8 +268,8 @@ const globalSearch = async ({ searchTerm, version, limit }) => {
         model: m.label,
         limit,
         includeCounts: true,
-      })
-    )
+      }),
+    ),
   );
 
   return MODELS.reduce((obj, m, i) => {
@@ -302,7 +302,7 @@ WHERE node:${model} OR parentNode:${model}
 WITH DISTINCT(
 	CASE
                 WHEN EXISTS(node.id) AND NOT apoc.coll.intersection(${JSON.stringify(
-                  CHILD_LABELS
+                  CHILD_LABELS,
                 )}, LABELS(node))
                 THEN { id: node.id, labels: labelList, score: score }
 		ELSE { id: parentNode.id, labels: LABELS(parentNode), score: score }

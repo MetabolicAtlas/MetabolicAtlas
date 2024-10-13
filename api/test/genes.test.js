@@ -23,7 +23,7 @@ describe('genes', () => {
   describe('get by id', () => {
     test('a gene should have correct data', async () => {
       const res = await fetch(
-        `${API_BASE}/genes/ENSG00000109576?model=HumanGem&version=${HUMAN_GEM_VERSION}`
+        `${API_BASE}/genes/ENSG00000109576?model=HumanGem&version=${HUMAN_GEM_VERSION}`,
       );
 
       const data = await res.json();
@@ -32,14 +32,14 @@ describe('genes', () => {
 
     test('returns 404 if no gene with that id exists', async () => {
       const res = await fetch(
-        `${API_BASE}/genes/nonexisting?model=HumanGem&version=${HUMAN_GEM_VERSION}`
+        `${API_BASE}/genes/nonexisting?model=HumanGem&version=${HUMAN_GEM_VERSION}`,
       );
       expect(res.status).toBe(404);
     });
 
     test('returns 404 if model does not exist', async () => {
       const res = await fetch(
-        `${API_BASE}/genes/ENSG00000109576?model=nonexisting&version=${HUMAN_GEM_VERSION}`
+        `${API_BASE}/genes/ENSG00000109576?model=nonexisting&version=${HUMAN_GEM_VERSION}`,
       );
       expect(res.status).toBe(404);
     });
@@ -49,10 +49,10 @@ describe('genes', () => {
       'should return 400 if model contains %p',
       async character => {
         const res = await fetch(
-          `${API_BASE}/genes/ENSG00000109576?model=${character}&version=${HUMAN_GEM_VERSION}`
+          `${API_BASE}/genes/ENSG00000109576?model=${character}&version=${HUMAN_GEM_VERSION}`,
         );
         await expectBadReqeustMaliciousCharacter(res);
-      }
+      },
     );
 
     // eslint-disable-next-line jest/expect-expect
@@ -60,10 +60,10 @@ describe('genes', () => {
       'should return 400 if version contains %p',
       async character => {
         const res = await fetch(
-          `${API_BASE}/genes/ENSG00000109576?model=HumanGem&version=${character}`
+          `${API_BASE}/genes/ENSG00000109576?model=HumanGem&version=${character}`,
         );
         await expectBadReqeustMaliciousCharacter(res);
-      }
+      },
     );
 
     // eslint-disable-next-line jest/expect-expect
@@ -71,17 +71,17 @@ describe('genes', () => {
       'should return 400 if id contains %p',
       async character => {
         const res = await fetch(
-          `${API_BASE}/genes/${character}?model=HumanGem&version=${HUMAN_GEM_VERSION}`
+          `${API_BASE}/genes/${character}?model=HumanGem&version=${HUMAN_GEM_VERSION}`,
         );
         await expectBadReqeustMaliciousCharacter(res);
-      }
+      },
     );
   });
 
   describe('get related reactions', () => {
     test('a gene should have related reactions', async () => {
       const res = await fetch(
-        `${API_BASE}/genes/ENSG00000109576/related-reactions?model=HumanGem&version=${HUMAN_GEM_VERSION}`
+        `${API_BASE}/genes/ENSG00000109576/related-reactions?model=HumanGem&version=${HUMAN_GEM_VERSION}`,
       );
 
       const data = await res.json();
@@ -91,7 +91,7 @@ describe('genes', () => {
     // eslint-disable-next-line jest/expect-expect
     test('returns 200 and empty list if no gene with that id exists', async () => {
       const res = await fetch(
-        `${API_BASE}/genes/nonexisting/related-reactions?model=HumanGem&version=${HUMAN_GEM_VERSION}`
+        `${API_BASE}/genes/nonexisting/related-reactions?model=HumanGem&version=${HUMAN_GEM_VERSION}`,
       );
       await expectEmptyResponse(res);
     });
@@ -99,7 +99,7 @@ describe('genes', () => {
     // eslint-disable-next-line jest/expect-expect
     test('returns 200 and empty list if model does not exist', async () => {
       const res = await fetch(
-        `${API_BASE}/genes/ENSG00000109576/related-reactions?model=nonexisting&version=${HUMAN_GEM_VERSION}`
+        `${API_BASE}/genes/ENSG00000109576/related-reactions?model=nonexisting&version=${HUMAN_GEM_VERSION}`,
       );
       await expectEmptyResponse(res);
     });
@@ -109,10 +109,10 @@ describe('genes', () => {
       'should return 400 if model contains %p',
       async character => {
         const res = await fetch(
-          `${API_BASE}/genes/ENSG00000109576/related-reactions?model=${character}&version=${HUMAN_GEM_VERSION}`
+          `${API_BASE}/genes/ENSG00000109576/related-reactions?model=${character}&version=${HUMAN_GEM_VERSION}`,
         );
         await expectBadReqeustMaliciousCharacter(res);
-      }
+      },
     );
 
     // eslint-disable-next-line jest/expect-expect
@@ -120,10 +120,10 @@ describe('genes', () => {
       'should return 400 if version contains %p',
       async character => {
         const res = await fetch(
-          `${API_BASE}/genes/ENSG00000109576/related-reactions?model=HumanGem&version=${character}`
+          `${API_BASE}/genes/ENSG00000109576/related-reactions?model=HumanGem&version=${character}`,
         );
         await expectBadReqeustMaliciousCharacter(res);
-      }
+      },
     );
 
     // eslint-disable-next-line jest/expect-expect
@@ -131,10 +131,10 @@ describe('genes', () => {
       'should return 400 if id contains %p',
       async character => {
         const res = await fetch(
-          `${API_BASE}/genes/${character}/related-reactions?model=HumanGem&version=${HUMAN_GEM_VERSION}`
+          `${API_BASE}/genes/${character}/related-reactions?model=HumanGem&version=${HUMAN_GEM_VERSION}`,
         );
         await expectBadReqeustMaliciousCharacter(res);
-      }
+      },
     );
   });
 });

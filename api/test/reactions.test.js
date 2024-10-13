@@ -28,7 +28,7 @@ describe('reactions', () => {
   describe('get by id', () => {
     test('a reaction should have correct data', async () => {
       const res = await fetch(
-        `${API_BASE}/reactions/MAR01166?model=HumanGem&version=${HUMAN_GEM_VERSION}`
+        `${API_BASE}/reactions/MAR01166?model=HumanGem&version=${HUMAN_GEM_VERSION}`,
       );
 
       const data = await res.json();
@@ -37,14 +37,14 @@ describe('reactions', () => {
 
     test('returns 404 if no reaction with that id exists', async () => {
       const res = await fetch(
-        `${API_BASE}/reactions/nonexisting?model=HumanGem&version=${HUMAN_GEM_VERSION}`
+        `${API_BASE}/reactions/nonexisting?model=HumanGem&version=${HUMAN_GEM_VERSION}`,
       );
       expect(res.status).toBe(404);
     });
 
     test('returns 404 if model does not exist', async () => {
       const res = await fetch(
-        `${API_BASE}/reactions/MAR01166?model=nonexisting&version=${HUMAN_GEM_VERSION}`
+        `${API_BASE}/reactions/MAR01166?model=nonexisting&version=${HUMAN_GEM_VERSION}`,
       );
       expect(res.status).toBe(404);
     });
@@ -54,10 +54,10 @@ describe('reactions', () => {
       'should return 400 if model contains %p',
       async character => {
         const res = await fetch(
-          `${API_BASE}/reactions/MAR01166?model=${character}&full=true`
+          `${API_BASE}/reactions/MAR01166?model=${character}&full=true`,
         );
         await expectBadReqeustMaliciousCharacter(res);
-      }
+      },
     );
 
     // eslint-disable-next-line jest/expect-expect
@@ -65,10 +65,10 @@ describe('reactions', () => {
       'should return 400 if version contains %p',
       async character => {
         const res = await fetch(
-          `${API_BASE}/reactions/MAR01166?model=HumanGem&version=${character}`
+          `${API_BASE}/reactions/MAR01166?model=HumanGem&version=${character}`,
         );
         await expectBadReqeustMaliciousCharacter(res);
-      }
+      },
     );
 
     // eslint-disable-next-line jest/expect-expect
@@ -76,10 +76,10 @@ describe('reactions', () => {
       'should return 400 if id contains %p',
       async character => {
         const res = await fetch(
-          `${API_BASE}/reactions/${character}?model=HumanGem&version=${HUMAN_GEM_VERSION}`
+          `${API_BASE}/reactions/${character}?model=HumanGem&version=${HUMAN_GEM_VERSION}`,
         );
         await expectBadReqeustMaliciousCharacter(res);
-      }
+      },
     );
   });
 
@@ -87,7 +87,7 @@ describe('reactions', () => {
     // eslint-disable-next-line jest/expect-expect
     test('returns 200 and empty list if no reaction with that id exists', async () => {
       const res = await fetch(
-        `${API_BASE}/reactions/nonexisting/related-reactions?model=HumanGem&version=${HUMAN_GEM_VERSION}`
+        `${API_BASE}/reactions/nonexisting/related-reactions?model=HumanGem&version=${HUMAN_GEM_VERSION}`,
       );
       await expectEmptyResponse(res);
     });
@@ -95,7 +95,7 @@ describe('reactions', () => {
     // eslint-disable-next-line jest/expect-expect
     test('returns 200 and empty list if model does not exist', async () => {
       const res = await fetch(
-        `${API_BASE}/reactions/MAR01166/related-reactions?model=nonexisting&version=${HUMAN_GEM_VERSION}`
+        `${API_BASE}/reactions/MAR01166/related-reactions?model=nonexisting&version=${HUMAN_GEM_VERSION}`,
       );
       await expectEmptyResponse(res);
     });
@@ -105,10 +105,10 @@ describe('reactions', () => {
       'should return 400 if model contains %p',
       async character => {
         const res = await fetch(
-          `${API_BASE}/reactions/MAR01166/related-reactions?model=${character}&full=true`
+          `${API_BASE}/reactions/MAR01166/related-reactions?model=${character}&full=true`,
         );
         await expectBadReqeustMaliciousCharacter(res);
-      }
+      },
     );
 
     // eslint-disable-next-line jest/expect-expect
@@ -116,10 +116,10 @@ describe('reactions', () => {
       'should return 400 if version contains %p',
       async character => {
         const res = await fetch(
-          `${API_BASE}/reactions/MAR01166/related-reactions?model=HumanGem&version=${character}`
+          `${API_BASE}/reactions/MAR01166/related-reactions?model=HumanGem&version=${character}`,
         );
         await expectBadReqeustMaliciousCharacter(res);
-      }
+      },
     );
 
     // eslint-disable-next-line jest/expect-expect
@@ -127,10 +127,10 @@ describe('reactions', () => {
       'should return 400  if id contains %p',
       async character => {
         const res = await fetch(
-          `${API_BASE}/reactions/${character}/related-reactions?model=HumanGem&version=${HUMAN_GEM_VERSION}`
+          `${API_BASE}/reactions/${character}/related-reactions?model=HumanGem&version=${HUMAN_GEM_VERSION}`,
         );
         await expectBadReqeustMaliciousCharacter(res);
-      }
+      },
     );
   });
 });
