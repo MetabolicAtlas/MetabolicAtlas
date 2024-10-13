@@ -11,7 +11,7 @@ describe('data overlay', () => {
 
   test('should return an ordered list of data set names', async () => {
     const res = await fetch(
-      `${API_BASE}/data-overlay/Human-GEM/reaction/HPA_single-cell_reactions.tsv/data-sets`
+      `${API_BASE}/data-overlay/Human-GEM/reaction/HPA_single-cell_reactions.tsv/data-sets`,
     );
 
     const data = await res.json();

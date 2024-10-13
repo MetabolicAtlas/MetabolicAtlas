@@ -7,7 +7,7 @@ import {
 describe('identifier', () => {
   test('an external db should have components sorted by model name', async () => {
     const res = await fetch(`${API_BASE}/identifier/BiGG/PPNCL3`).then(r =>
-      r.json()
+      r.json(),
     );
     const models = res.components.map(c => c.model);
     const sortedModels = [...models].sort((a, b) => a.localeCompare(b));
@@ -21,7 +21,7 @@ describe('identifier', () => {
     async character => {
       const res = await fetch(`${API_BASE}/identifier/BiGG/${character}`);
       await expectBadReqeustMaliciousCharacter(res);
-    }
+    },
   );
 
   // eslint-disable-next-line jest/expect-expect
@@ -30,7 +30,7 @@ describe('identifier', () => {
     async character => {
       const res = await fetch(`${API_BASE}/identifier/${character}/PPNCL3`);
       await expectBadReqeustMaliciousCharacter(res);
-    }
+    },
   );
   test('a response identifier must include id, dbName, externalId and url', async () => {
     const exampleItems = [
@@ -40,8 +40,8 @@ describe('identifier', () => {
     ];
     const responses = await Promise.all(
       exampleItems.map(item =>
-        fetch(`${API_BASE}/identifier/${item}`).then(r => r.json())
-      )
+        fetch(`${API_BASE}/identifier/${item}`).then(r => r.json()),
+      ),
     );
     for (const res of responses) {
       expect(res.identifier).toEqual(
@@ -50,7 +50,7 @@ describe('identifier', () => {
           dbName: expect.any(String),
           externalId: expect.any(String),
           url: expect.stringContaining('https://'),
-        })
+        }),
       );
     }
   });

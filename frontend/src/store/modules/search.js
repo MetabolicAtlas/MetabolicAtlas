@@ -11,7 +11,7 @@ const data = {
 const categorizeResults = results => {
   const categorizedResults = data.categories.reduce(
     (obj, category) => ({ ...obj, [category]: { topScore: 0, results: [] } }),
-    {}
+    {},
   );
   Object.keys(results).forEach(model => {
     const resultsModel = results[model];
@@ -25,7 +25,7 @@ const categorizeResults = results => {
               categoryScore = e.score;
             }
             return { ...e, model: { id: model, name: resultsModel.name } };
-          })
+          }),
         );
         categorizedResults[resultType].topScore = categoryScore;
       });
@@ -49,12 +49,12 @@ const getters = {
 
   categorizedGlobalResults: (_, _getters) =>
     Object.fromEntries(
-      Object.entries(_getters.categorizedGlobalResultsWithScores).map(([k, v]) => [k, v.results])
+      Object.entries(_getters.categorizedGlobalResultsWithScores).map(([k, v]) => [k, v.results]),
     ),
 
   categorizedGlobalResultsCount: (_, _getters) =>
     Object.fromEntries(
-      Object.entries(_getters.categorizedGlobalResults).map(([k, v]) => [k, v.length])
+      Object.entries(_getters.categorizedGlobalResults).map(([k, v]) => [k, v.length]),
     ),
 
   globalResultsComponentTypeOrder: (_, _getters) =>
@@ -79,7 +79,7 @@ const getters = {
             results: v.results.sort((a, b) => sortResultsScore(a, b, state.searchTermString)),
           };
         })(),
-      ])
+      ]),
     );
   },
   resultsComponentTypeOrder: (_, _getters) =>

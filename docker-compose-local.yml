@@ -1,5 +1,3 @@
-version: "3.7"
-
 services:
   nginx:
     build: nginx
@@ -23,7 +21,7 @@ services:
       - ./frontend/public:/project/public
       - ./frontend/.eslintrc.js:/project/.eslintrc.js
       - ./frontend/.prettierrc.json:/project/.prettierrc.json
-      - ./frontend/vite.config.js:/project/vite.config.js
+      - ./frontend/vite.config.mjs:/project/vite.config.mjs
       - ./frontend/package.json:/project/package.json
       - ./frontend/index.html:/project/index.html
       - ./frontend/stats.html:/project/stats.html

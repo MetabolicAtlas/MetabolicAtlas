@@ -10,33 +10,35 @@
         v-if="compartment && Object.keys(compartment).length != 0"
         class="table main-table is-fullwidth"
       >
-        <tr>
-          <td class="td-key has-background-primary has-text-white-bis">Name</td>
-          <td>{{ compartment.name }}</td>
-        </tr>
-        <tr>
-          <td class="td-key has-background-primary has-text-white-bis">Subsystems</td>
-          <td>
-            <div v-html="subsystemListHtml"></div>
-            <div v-if="!showFullSubsystem && subsystems.length > limitSubsystem" class="mt-5">
-              <button type="button" class="is-small button" @click="showFullSubsystem = true">
-                ... and {{ subsystems.length - limitSubsystem }} more
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="td-key has-background-primary has-text-white-bis">Reactions</td>
-          <td>{{ compartment.reactionsCount }}</td>
-        </tr>
-        <tr>
-          <td class="td-key has-background-primary has-text-white-bis">Metabolites</td>
-          <td>{{ compartment.metabolitesCount }}</td>
-        </tr>
-        <tr>
-          <td class="td-key has-background-primary has-text-white-bis">Genes</td>
-          <td>{{ compartment.genesCount }}</td>
-        </tr>
+        <tbody>
+          <tr>
+            <td class="td-key has-background-primary has-text-white-bis">Name</td>
+            <td>{{ compartment.name }}</td>
+          </tr>
+          <tr>
+            <td class="td-key has-background-primary has-text-white-bis">Subsystems</td>
+            <td>
+              <div v-html="subsystemListHtml"></div>
+              <div v-if="!showFullSubsystem && subsystems.length > limitSubsystem" class="mt-5">
+                <button type="button" class="is-small button" @click="showFullSubsystem = true">
+                  ... and {{ subsystems.length - limitSubsystem }} more
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="td-key has-background-primary has-text-white-bis">Reactions</td>
+            <td>{{ compartment.reactionsCount }}</td>
+          </tr>
+          <tr>
+            <td class="td-key has-background-primary has-text-white-bis">Metabolites</td>
+            <td>{{ compartment.metabolitesCount }}</td>
+          </tr>
+          <tr>
+            <td class="td-key has-background-primary has-text-white-bis">Genes</td>
+            <td>{{ compartment.genesCount }}</td>
+          </tr>
+        </tbody>
       </table>
     </template>
   </component-layout>
@@ -65,26 +67,26 @@ export default {
 
     const title = computed(
       () => `${compartment.value && compartment.value.name}, Compartment in
-  ${model.value && model.value.short_name}`
+  ${model.value && model.value.short_name}`,
     );
     const description = computed(
       () => `The compartment ${compartment.value && compartment.value.name} in
     ${model.value && model.value.short_name} (version ${
-        model.value && model.value.version
-      }) consists of
+      model.value && model.value.version
+    }) consists of
     ${compartment.value && compartment.value.subsystemCount} subsystems, ${
-        compartment.value && compartment.value.reactionsCount
-      } reactions,
+      compartment.value && compartment.value.reactionsCount
+    } reactions,
     ${compartment.value && compartment.value.metabolitesCount} metabolites, and ${
-        compartment.value && compartment.value.genesCount
-      } genes.`
+      compartment.value && compartment.value.genesCount
+    } genes.`,
     );
 
     const meta = computed(() =>
       generateSocialMetaTags({
         title: title.value,
         description: description.value,
-      })
+      }),
     );
 
     useHead({

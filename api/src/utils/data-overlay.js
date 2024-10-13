@@ -27,7 +27,7 @@ const getDataSourceFile = async (model, dataType, filename) => {
 
   const dataSourceFile = await readFile(
     `./dataOverlay/${model}/${dataType}/${filename}`,
-    'utf8'
+    'utf8',
   );
 
   cachedDataSourceFiles[key] = dataSourceFile;

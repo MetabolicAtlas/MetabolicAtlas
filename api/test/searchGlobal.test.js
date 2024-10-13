@@ -32,7 +32,7 @@ describe('search', () => {
       'Zebrafish-GEM',
     ]) {
       const scores = COMPONENTS.map(c =>
-        data[model][c][0] ? data[model][c][0].score : 0
+        data[model][c][0] ? data[model][c][0].score : 0,
       );
       topscore =
         Math.max(...scores) > topscore ? Math.max(...scores) : topscore;
@@ -61,7 +61,7 @@ describe('search', () => {
 
     const { metabolite } = data['Human-GEM'];
     const cytosolRetinols = metabolite.filter(
-      m => m.compartment.letterCode === 'c' && m.name === 'retinol'
+      m => m.compartment.letterCode === 'c' && m.name === 'retinol',
     );
 
     expect(cytosolRetinols.length).toEqual(1);

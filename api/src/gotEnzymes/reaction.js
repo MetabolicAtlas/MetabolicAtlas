@@ -9,7 +9,7 @@ const getReaction = async id => {
 
   if (!reactions.length) {
     throw new Error(
-      `Reaction with kegg ID ${id} returned ${reactions.length} results.`
+      `Reaction with kegg ID ${id} returned ${reactions.length} results.`,
     );
   }
 
@@ -17,7 +17,7 @@ const getReaction = async id => {
   const { name, equation, ...rawCrossReferences } = reaction;
 
   const info = Object.fromEntries(
-    Object.entries({ name, equation }).filter(([_, v]) => v)
+    Object.entries({ name, equation }).filter(([_, v]) => v),
   );
 
   const crossReferences = Object.fromEntries(
@@ -32,7 +32,7 @@ const getReaction = async id => {
             url: `https://identifiers.org/${dbPrefix}${reactionSuffix}:${id}`,
           })),
         ];
-      })
+      }),
   );
 
   return {

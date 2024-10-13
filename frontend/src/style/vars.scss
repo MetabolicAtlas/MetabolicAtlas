@@ -13,7 +13,9 @@ $fullhd: 1576px !default;
 $desktop: 1080px !default;
 $tablet: 660px !default;
 
-$shadow-primary-light: 0 2px 3px $primary, 0 0 0 1px $primary;
+$shadow-primary-light:
+  0 2px 3px $primary,
+  0 0 0 1px $primary;
 $input-focus-border-color: $primary-light;
 $input-focus-box-shadow-size: 0 0 0 0.15em;
 $input-focus-box-shadow-color: rgba($primary-light, 0.5);

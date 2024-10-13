@@ -25,7 +25,7 @@ function getDimension(dimensionString) {
       myDimension > maxDim
     ) {
       throw new Error(
-        `Invalid dimension provided: ${dimensionString}. The width and/or height parameters should be an integer between ${minDim} and ${maxDim}.`
+        `Invalid dimension provided: ${dimensionString}. The width and/or height parameters should be an integer between ${minDim} and ${maxDim}.`,
       );
     }
   }

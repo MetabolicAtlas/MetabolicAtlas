@@ -11,7 +11,7 @@
 }
 .swagger-ui .topbar-wrapper {
   cursor: pointer;
-  content: url('/img/logo.png');
+  content: url('https://metabolicatlas.org/img/logo.png');
   height: 3rem;
 }
 

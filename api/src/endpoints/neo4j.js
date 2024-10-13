@@ -93,62 +93,62 @@ const fetchWith = async (req, res, queryHandler) => {
 };
 
 neo4jRoutes.get('/compartments/:id', async (req, res) =>
-  fetchWith(req, res, getCompartment)
+  fetchWith(req, res, getCompartment),
 );
 neo4jRoutes.get('/compartments/:id/related-reactions', async (req, res) =>
-  fetchWith(req, res, getRelatedReactionsForCompartment)
+  fetchWith(req, res, getRelatedReactionsForCompartment),
 );
 
 neo4jRoutes.get('/genes/:id', async (req, res) => fetchWith(req, res, getGene));
 neo4jRoutes.get('/genes/:id/related-reactions', async (req, res) =>
-  fetchWith(req, res, getRelatedReactionsForGene)
+  fetchWith(req, res, getRelatedReactionsForGene),
 );
 neo4jRoutes.get('/hpa/genes', async (req, res) =>
-  fetchWith(req, res, getGenesForHPA)
+  fetchWith(req, res, getGenesForHPA),
 );
 neo4jRoutes.get('/hpa/gene/:id', async (req, res) =>
-  fetchWith(req, res, getGeneDetailsForHPA)
+  fetchWith(req, res, getGeneDetailsForHPA),
 );
 
 neo4jRoutes.get('/metabolites/:id', async (req, res) =>
-  fetchWith(req, res, getMetabolite)
+  fetchWith(req, res, getMetabolite),
 );
 neo4jRoutes.get('/metabolites/:id/related-reactions', async (req, res) =>
-  fetchWith(req, res, getRelatedReactionsForMetabolite)
+  fetchWith(req, res, getRelatedReactionsForMetabolite),
 );
 neo4jRoutes.get('/metabolites/:id/related-metabolites', async (req, res) =>
-  fetchWith(req, res, getRelatedMetabolites)
+  fetchWith(req, res, getRelatedMetabolites),
 );
 
 neo4jRoutes.get('/reactions/:id', async (req, res) =>
-  fetchWith(req, res, getReaction)
+  fetchWith(req, res, getReaction),
 );
 neo4jRoutes.get('/reactions/:id/related-reactions', async (req, res) =>
-  fetchWith(req, res, getRelatedReactionsForReaction)
+  fetchWith(req, res, getRelatedReactionsForReaction),
 );
 
 neo4jRoutes.get('/subsystems/:id', async (req, res) =>
-  fetchWith(req, res, getSubsystem)
+  fetchWith(req, res, getSubsystem),
 );
 neo4jRoutes.get('/subsystems/:id/related-reactions', async (req, res) =>
-  fetchWith(req, res, getRelatedReactionsForSubsystem)
+  fetchWith(req, res, getRelatedReactionsForSubsystem),
 );
 
 neo4jRoutes.get('/random-components', async (req, res) =>
-  fetchWith(req, res, getRandomComponents)
+  fetchWith(req, res, getRandomComponents),
 );
 neo4jRoutes.get('/interaction-partners/:id', async (req, res) =>
-  fetchWith(req, res, getInteractionPartners)
+  fetchWith(req, res, getInteractionPartners),
 );
 neo4jRoutes.get('/interaction-partners-expansion/:id', async (req, res) => {
   fetchWith(req, res, getInteractionPartnersExpansion);
 });
 
 neo4jRoutes.get('/maps/listing', async (req, res) =>
-  fetchWith(req, res, getMapsListing)
+  fetchWith(req, res, getMapsListing),
 );
 neo4jRoutes.get('/maps/search', async (req, res) =>
-  fetchWith(req, res, mapSearch)
+  fetchWith(req, res, mapSearch),
 );
 neo4jRoutes.get('/search', async (req, res) => fetchWith(req, res, search));
 

@@ -61,7 +61,7 @@ RETURN apoc.map.mergeList(COLLECT(value.data)) as subsystem
         customName: result.name,
         svgMaps: result.subsystemSVGs[0]
           ? result.subsystemSVGs[0].subsystemSVGs.sort((a, b) =>
-              a.id.localeCompare(b.id)
+              a.id.localeCompare(b.id),
             )
           : [],
       },

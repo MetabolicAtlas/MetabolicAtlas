@@ -123,7 +123,7 @@ const actions = {
           acc[ds] = {};
           return acc;
         },
-        { 'n/a': 'n/a' }
+        { 'n/a': 'n/a' },
       );
       const dataSource = {
         levels,
@@ -184,7 +184,7 @@ const actions = {
   },
   async removeCustomDataSourceFromIndex({ commit, dispatch, rootState, state }, customDataSource) {
     const currentDataSourceIndex = state.currentDataSources.findIndex(
-      dataSource => dataSource.filename === customDataSource.fileName
+      dataSource => dataSource.filename === customDataSource.fileName,
     );
 
     const model = rootState.models.model.short_name;

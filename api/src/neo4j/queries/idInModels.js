@@ -56,7 +56,7 @@ RETURN { identifier: properties(r), components: COLLECT(DISTINCT({component: r, 
       throw e;
     }
     const dbMapping = Object.values(crossReferencesDict).find(
-      x => x.db === dbName
+      x => x.db === dbName,
     );
     if (!dbMapping) {
       throw e;

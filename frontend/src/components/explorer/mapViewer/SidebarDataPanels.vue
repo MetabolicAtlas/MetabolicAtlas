@@ -114,7 +114,7 @@
           <div class="content">
             <template
               v-for="item in selectedElementDataKeys[selectionData.type].filter(
-                i => selectionData.data[i.name]
+                i => selectionData.data[i.name],
               )"
             >
               <template v-if="item.name === 'synonyms'">

@@ -71,7 +71,7 @@ describe('integrated models', () => {
 
   test('the Human-GEM should exist', async () => {
     const res = await fetch(
-      `${API_BASE}/repository/integrated_models/Human-GEM`
+      `${API_BASE}/repository/integrated_models/Human-GEM`,
     );
 
     const { short_name, condition } = await res.json();

@@ -6,11 +6,11 @@ jobs:
   frontend:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: "16.x"
+          node-version: "22.x"
 
       - name: "/frontend: Install Node.js dependencies"
         working-directory: frontend
@@ -25,11 +25,11 @@ jobs:
   api:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: "16.x"
+          node-version: "22.x"
 
       - name: "/api: Install dependencies"
         working-directory: api

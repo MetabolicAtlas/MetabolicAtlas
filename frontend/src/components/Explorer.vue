@@ -14,7 +14,7 @@
       <div v-if="model" class="columns is-multiline is-centered is-variable is-4">
         <div
           v-for="cmodel in Object.values(models).sort((a, b) =>
-            a.short_name.toLowerCase() < b.short_name.toLowerCase() ? -1 : 1
+            a.short_name.toLowerCase() < b.short_name.toLowerCase() ? -1 : 1,
           )"
           :key="cmodel.short_name"
           class="column is-4-desktop is-half-tablet"

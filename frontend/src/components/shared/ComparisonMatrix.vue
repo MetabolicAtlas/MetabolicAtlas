@@ -80,7 +80,7 @@ export default {
             [t2]: this.comparisons[t2][i][key],
           };
           return mergedRow;
-        }, {})
+        }, {}),
       );
     },
     types() {
@@ -133,7 +133,7 @@ export default {
             comparison = this.singles.find(x => Object.keys(x)[0] === cn);
           } else if (i < this.columnNames.length && j < this.columnNames.length) {
             comparison = this.doubles.find(
-              x => Object.keys(x).includes(rn) && Object.keys(x).includes(cn)
+              x => Object.keys(x).includes(rn) && Object.keys(x).includes(cn),
             );
           } else if (i === this.rowNames.length - 1) {
             // if last row
@@ -147,12 +147,12 @@ export default {
                 x =>
                   Object.keys(x).includes(k1) &&
                   Object.keys(x).includes(k2) &&
-                  Object.keys(x).includes(cn)
+                  Object.keys(x).includes(cn),
               );
           }
 
           return comparison ? comparison[cn] : '-';
-        })
+        }),
       );
     },
   },

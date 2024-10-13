@@ -21,11 +21,11 @@ const getFiltersQueries = filters => {
     if (value && value.length > 0) {
       if (field === 'ec_number') {
         filtersQueries.push(
-          sql`array[${sql`${value.toString()}`}] <@ ${sql`string_to_array(ec_number, ';')`}`
+          sql`array[${sql`${value.toString()}`}] <@ ${sql`string_to_array(ec_number, ';')`}`,
         );
       } else if (CASED_FIELDS.includes(field)) {
         filtersQueries.push(
-          sql`lower(${sql(field)}) = ${value.toString().toLowerCase()}`
+          sql`lower(${sql(field)}) = ${value.toString().toLowerCase()}`,
         );
       } else {
         filtersQueries.push(sql`${sql(field)} = ${value.toString()}`);
@@ -94,7 +94,7 @@ const getEnzymes = async ({
     (Object.prototype.hasOwnProperty.call(filters, 'ec_number')
       ? ['reaction_id', 'compound'].includes(column)
       : ['gene', 'organism', 'domain', 'compound', 'reaction_id'].includes(
-          column
+          column,
         ));
 
   const enzymesQuery = sql`
@@ -106,7 +106,7 @@ const getEnzymes = async ({
       filtersQueries.length > 0
         ? sql`where ${filtersQueries.reduce(
             (qs, q) => sql`${qs} and ${q}`,
-            sql`true`
+            sql`true`,
           )}`
         : sql``
     }
@@ -124,7 +124,7 @@ const getEnzymes = async ({
        filtersQueries.length > 0
          ? sql`where ${filtersQueries.reduce(
              (qs, q) => sql`${qs} and ${q}`,
-             sql`true`
+             sql`true`,
            )}`
          : sql``
      }

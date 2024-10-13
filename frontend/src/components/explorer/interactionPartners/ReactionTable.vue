@@ -252,7 +252,7 @@ export default {
             d.products.map(e => e.name || e.id).join('; '),
             d.genes.map(e => e.name || e.id).join('; '),
             d.compartment,
-          ].join('\t')
+          ].join('\t'),
         )
         .join('\n');
       return tsvContent;

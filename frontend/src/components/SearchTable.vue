@@ -734,7 +734,7 @@ export default {
               if (field === 'compartments') {
                 el[field]
                   .filter(
-                    compartment => !(compartment.id in filterTypeDropdown[componentType][field])
+                    compartment => !(compartment.id in filterTypeDropdown[componentType][field]),
                   )
                   .forEach(compartment => {
                     filterTypeDropdown[componentType][field][compartment.name] = 1;
@@ -755,18 +755,18 @@ export default {
         Object.keys(filterTypeDropdown[componentType]).forEach(field => {
           if (field === 'model') {
             filterTypeDropdown[componentType][field] = Object.keys(
-              filterTypeDropdown[componentType][field]
+              filterTypeDropdown[componentType][field],
             ).map(
               e => {
                 const d = {};
                 d.value = e;
                 d.text = filterTypeDropdown[componentType][field][e];
                 return d;
-              } // eslint-disable-line
+              }, // eslint-disable-line
             );
           } else {
             filterTypeDropdown[componentType][field] = Object.keys(
-              filterTypeDropdown[componentType][field]
+              filterTypeDropdown[componentType][field],
             )
               .map(e => {
                 let v = e;

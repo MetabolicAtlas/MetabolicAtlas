@@ -30,6 +30,6 @@ describe('HPA', () => {
     async character => {
       const res = await fetch(`${API_BASE}/hpa/gene/${character}`);
       await expectBadReqeustMaliciousCharacter(res);
-    }
+    },
   );
 });

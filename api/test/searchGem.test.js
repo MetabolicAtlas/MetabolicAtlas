@@ -15,7 +15,7 @@ describe('gem search', () => {
 
     expect(Object.keys(data)).toContain('Human-GEM');
     for (const component of Object.keys(data['Human-GEM']).filter(
-      c => c != 'name'
+      c => c != 'name',
     )) {
       const { length } = data['Human-GEM'][component];
       expect(length).toBeGreaterThanOrEqual(0);
@@ -118,7 +118,7 @@ describe('gem search', () => {
     expect(data1['Human-GEM'].metabolite.length).toBeGreaterThan(0);
     expect(data2['Zebrafish-GEM'].metabolite.length).toBeGreaterThan(0);
     expect(data2['Zebrafish-GEM'].metabolite[0].id).toMatch(
-      /MAM00130|MAM00316/
+      /MAM00130|MAM00316/,
     );
   });
 
@@ -262,7 +262,7 @@ describe('gem search', () => {
     const [firstSubsystem1] = data1['Human-GEM'].subsystem;
     const [firstSubsystem2] = data2['Rat-GEM'].subsystem;
     expect(firstSubsystem1.name).toEqual(
-      'Beta oxidation of even-chain fatty acids (peroxisomal)'
+      'Beta oxidation of even-chain fatty acids (peroxisomal)',
     );
     expect(firstSubsystem2.name).toEqual('Alkaloids biosynthesis');
     expect(firstSubsystem1.score).toBeGreaterThan(0);
@@ -309,7 +309,7 @@ describe('gem search', () => {
     });
 
     const scores = COMPONENTS.map(c =>
-      data['Human-GEM'][c][0] ? data['Human-GEM'][c][0].score : 0
+      data['Human-GEM'][c][0] ? data['Human-GEM'][c][0].score : 0,
     );
     const subsystemScore = data['Human-GEM']['subsystem'][0].score;
     expect(subsystemScore).toEqual(Math.max(...scores));

@@ -117,32 +117,32 @@ export default {
       combineWords({
         items: metabolite.value.compartments ? metabolite.value.compartments.map(c => c.name) : [],
         itemType: 'compartment',
-      })
+      }),
     ).value;
 
     const [subsystems, subsystemLabel] = computed(() =>
       combineWords({
         items: metabolite.value.subsystems ? metabolite.value.subsystems.map(s => s.name) : [],
         itemType: 'subsystem',
-      })
+      }),
     ).value;
 
     const title = computed(
       () => `${metabolite.value.name}, Metabolite in
-    ${model.value && model.value.short_name}`
+    ${model.value && model.value.short_name}`,
     );
     const description = computed(
       () => `The metabolite ${metabolite.value.name} in
     ${model.value && model.value.short_name} (version ${
-        model.value && model.value.version
-      }) can be found in the ${compartmentLabel}
-    ${compartments}; and the ${subsystemLabel} ${subsystems}.`
+      model.value && model.value.version
+    }) can be found in the ${compartmentLabel}
+    ${compartments}; and the ${subsystemLabel} ${subsystems}.`,
     );
     const meta = computed(() =>
       generateSocialMetaTags({
         title: title.value,
         description: description.value,
-      })
+      }),
     );
 
     const script = computed(() => [

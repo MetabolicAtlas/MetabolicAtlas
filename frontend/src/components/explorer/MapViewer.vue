@@ -232,7 +232,7 @@ export default {
     if (!this.model || this.model.short_name !== this.$route.params.model) {
       const modelSelectionSuccessful = await this.$store.dispatch(
         'models/selectModel',
-        this.$route.params.model
+        this.$route.params.model,
       );
       if (!modelSelectionSuccessful) {
         this.errorMessage = `Error: ${messages.modelNotFound}`;
@@ -352,7 +352,7 @@ export default {
       const modelReactionIdSet = new Set(this.currentMap.reactionList);
       const mapReactionIdSet = new Set(this.mapReactionList);
       const missingReactionIdSet = new Set(
-        [...modelReactionIdSet].filter(x => !mapReactionIdSet.has(x))
+        [...modelReactionIdSet].filter(x => !mapReactionIdSet.has(x)),
       );
       this.missingReactionList = Array.from(missingReactionIdSet);
     },
@@ -454,10 +454,10 @@ export default {
 }
 
 .fixed-height-mobile {
+  position: relative;
   @media screen and (max-width: $tablet) {
     height: $viewer-height;
   }
-  position: relative;
 }
 
 #dataOverlayBar {
