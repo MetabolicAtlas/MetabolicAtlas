@@ -299,7 +299,7 @@ export default {
           icon: 'users',
         },
       ],
-      newsItems: Object.values(newsItems).reverse().flat(1).slice(0, 12),
+      newsItems: Object.values(newsItems).reverse().flat(1).slice(0, 6),
     };
   },
 };
