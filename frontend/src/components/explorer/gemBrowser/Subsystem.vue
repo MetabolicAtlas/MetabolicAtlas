@@ -7,75 +7,77 @@
   >
     <template v-slot:table>
       <table v-if="info && Object.keys(info).length !== 0" class="table main-table is-fullwidth">
-        <tr v-for="el in mainTableKey" :key="el.name" class="m-row">
-          <template v-if="info[el.name]">
-            <td v-if="el.display" class="td-key has-background-primary has-text-white-bis">
-              {{ el.display }}
-            </td>
-            <td v-else class="td-key has-background-primary has-text-white-bis">
-              {{ reformatKey(el.name) }}
-            </td>
-            <td v-if="info[el.name]">
-              <span v-if="el.modifier" v-html="el.modifier(info[el.name])"></span>
-              <span v-else>{{ info[el.name] }}</span>
-            </td>
-            <td v-else>-</td>
-          </template>
-        </tr>
-        <tr>
-          <td class="td-key has-background-primary has-text-white-bis">Compartments</td>
-          <td>
-            <div class="tags">
-              <template v-for="c in info['compartments']" :key="c.id">
-                <span class="tag">
-                  <!-- eslint-disable-next-line max-len -->
-                  <router-link
+        <tbody>
+          <tr v-for="el in mainTableKey" :key="el.name" class="m-row">
+            <template v-if="info[el.name]">
+              <td v-if="el.display" class="td-key has-background-primary has-text-white-bis">
+                {{ el.display }}
+              </td>
+              <td v-else class="td-key has-background-primary has-text-white-bis">
+                {{ reformatKey(el.name) }}
+              </td>
+              <td v-if="info[el.name]">
+                <span v-if="el.modifier" v-html="el.modifier(info[el.name])"></span>
+                <span v-else>{{ info[el.name] }}</span>
+              </td>
+              <td v-else>-</td>
+            </template>
+          </tr>
+          <tr>
+            <td class="td-key has-background-primary has-text-white-bis">Compartments</td>
+            <td>
+              <div class="tags">
+                <template v-for="c in info['compartments']" :key="c.id">
+                  <span class="tag">
+                    <!-- eslint-disable-next-line max-len -->
+                    <router-link
                     :to="{ name: 'compartment', params: { model: model.short_name, id: c.id } }"
-                  >
+                    >
                     {{ c.name }}
-                  </router-link>
-                </span>
-              </template>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="td-key has-background-primary has-text-white-bis">Metabolites</td>
-          <td>
-            <div v-html="metabolitesListHtml"></div>
-            <div
+                    </router-link>
+                  </span>
+                </template>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="td-key has-background-primary has-text-white-bis">Metabolites</td>
+            <td>
+              <div v-html="metabolitesListHtml"></div>
+              <div
               v-if="!showFullMetabolite && metabolites.length > displayedMetabolite"
               class="mt-5"
-            >
-              <button type="button" class="is-small button" @click="showFullMetabolite = true">
-                ... and {{ metabolites.length - displayedMetabolite }} more
-              </button>
-              <span
+              >
+                <button type="button" class="is-small button" @click="showFullMetabolite = true">
+                  ... and {{ metabolites.length - displayedMetabolite }} more
+                </button>
+                <span
                 v-show="metabolites.length === limitMetabolite"
                 class="tag is-medium is-warning is-pulled-right"
-              >
+                >
                 The number of metabolites displayed is limited to {{ limitMetabolite }}.
-              </span>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="td-key has-background-primary has-text-white-bis">Genes</td>
-          <td>
-            <div v-html="genesListHtml"></div>
-            <div v-if="!showFullGene && genes.length > displayedGene" class="mt-5">
-              <button type="button" class="is-small button" @click="showFullGene = true">
-                ... and {{ genes.length - displayedGene }} more
-              </button>
-              <span
+                </span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="td-key has-background-primary has-text-white-bis">Genes</td>
+            <td>
+              <div v-html="genesListHtml"></div>
+              <div v-if="!showFullGene && genes.length > displayedGene" class="mt-5">
+                <button type="button" class="is-small button" @click="showFullGene = true">
+                  ... and {{ genes.length - displayedGene }} more
+                </button>
+                <span
                 v-show="genes.length === limitGene"
                 class="tag is-medium is-warning is-pulled-right"
-              >
+                >
                 The number of genes displayed is limited to {{ limitGene }}.
-              </span>
-            </div>
-          </td>
-        </tr>
+                </span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </template>
   </component-layout>

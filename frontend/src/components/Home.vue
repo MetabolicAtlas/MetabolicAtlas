@@ -72,22 +72,24 @@
             <div class="column is-6 is-size-5">
               <p v-html="news.text"></p>
               <table>
-                <template v-for="el in newsItems">
-                  <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
-                  <tr v-if="el.date">
-                    <td class="has-nowrap">{{ el.date }}</td>
-                    <td class="pl-3">
-                      <router-link
+                <tbody>
+                  <template v-for="el in newsItems">
+                    <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
+                    <tr v-if="el.date">
+                      <td class="has-nowrap">{{ el.date }}</td>
+                      <td class="pl-3">
+                        <router-link
                         :to="{ name: 'about-news', hash: `#${el.date}` }"
                         v-html="el.title"
-                      />
-                    </td>
-                  </tr>
-                  <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
-                  <tr v-else>
-                    <span v-html="el.text"></span>
-                  </tr>
-                </template>
+                        />
+                      </td>
+                    </tr>
+                    <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key -->
+                    <tr v-else>
+                      <td v-html="el.text"></td>
+                    </tr>
+                  </template>
+                </tbody>
               </table>
             </div>
           </div>
