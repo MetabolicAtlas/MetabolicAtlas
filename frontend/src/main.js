@@ -3,7 +3,7 @@ import { createHead } from '@vueuse/head';
 import VueMatomo from 'vue-matomo';
 import VueCookies from 'vue-cookies';
 import axios from 'axios';
-import { vue3Debounce } from 'vue-debounce';
+import { vueDebounce } from 'vue-debounce';
 import NProgress from 'nprogress';
 import App from '@/App.vue';
 import router from '@/router';
@@ -25,7 +25,7 @@ app.use(head);
 
 app.use(router);
 
-app.directive('debounce', vue3Debounce({ lock: true }));
+app.directive('debounce', vueDebounce({ lock: true }));
 
 if (navigator.doNotTrack !== '1') {
   app.use(VueMatomo, {
