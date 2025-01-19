@@ -20,6 +20,7 @@ tags:
   - name: 'Compartments'
   - name: 'Interaction Partners'
   - name: 'GotEnzymes'
+  - name: 'D2Cell'
   - name: 'Miscellaneous'
 paths:
   /repository/integrated_models:

@@ -31,6 +31,12 @@ import EnzymeOrganism from '@/components/gotEnzymes/Organism.vue';
 import EnzymeDomain from '@/components/gotEnzymes/Domain.vue';
 import EnzymeGene from '@/components/gotEnzymes/Gene.vue';
 
+import D2CellLanding from '@/components/D2Cell/D2CellLanding.vue';
+import DoiPage from '@/components/D2Cell/DoiPage.vue';
+import OrganismPage from '@/components/D2Cell/OrganismPage.vue';
+import GenePage from '@/components/D2Cell/GenePage.vue';
+import ProductPage from '@/components/D2Cell/ProductPage.vue';
+
 const routes = [
   { path: '/', name: 'home', component: Home },
   { path: '/search', name: 'search', component: SearchTable },
@@ -93,6 +99,16 @@ const routes = [
       { path: 'organism/:id', name: 'gotenzymes-organism', component: EnzymeOrganism },
       { path: 'domain/:id', name: 'gotenzymes-domain', component: EnzymeDomain },
     ],
+  },
+  {
+    path:'/d2cell',
+    children: [
+      { path: '', name: 'd2cell', component: D2CellLanding},
+      { path: 'paper/:id', name: 'd2cell-paper', component: DoiPage},
+      { path: 'organism/:name', name: 'd2cell-organism', component: OrganismPage},
+      { path: 'gene/:name', name: 'd2cell-gene', component: GenePage},
+      { path: 'product/:name', name: 'd2cell-product', component: ProductPage}
+    ]
   },
 
   // redirects
