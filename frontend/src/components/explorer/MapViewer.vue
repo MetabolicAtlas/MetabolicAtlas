@@ -25,7 +25,7 @@
               :title="switchTitle"
               @click="
                 (!currentMap || (currentMap && currentMap.type !== 'custom')) &&
-                  $store.dispatch('maps/toggleShowing2D')
+                $store.dispatch('maps/toggleShowing2D')
               "
             >
               <button
@@ -97,10 +97,7 @@
             @update-panel-selection-data="updatePanelSelectionData"
           />
           <IndicatorPanel class="map-indicators" :indicators="dataOverlayIndicators" />
-          <ErrorPanel
-            :message="loadMapErrorMessage"
-            :hide-error-panel="(loadMapErrorMessage = '')"
-          />
+          <ErrorPanel :message="loadMapErrorMessage" :hide-error-panel="loadMapErrorMessage = ''" />
         </div>
         <div
           id="dataOverlayBar"
