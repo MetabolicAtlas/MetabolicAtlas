@@ -89,7 +89,7 @@ deploy-stack dev
 
 ### GotEnzymes
 
-To reconstruct the database for GotEnzymes on the local (development) machine. Run the following. This should take ~10 minutes.
+To reconstruct the database for GotEnzymes on the local (development) machine, run the following (it should take ~10 minutes). The [source data for GotEnzymes is on Zenodo](https://doi.org/10.5281/zenodo.15814635). After downloading, please unzip it in the `pg/input_data` directory.
 
 ```bash
  ma-exec pg psql -f scripts/init.sql -U postgres
