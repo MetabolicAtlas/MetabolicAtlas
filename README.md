@@ -92,12 +92,12 @@ deploy-stack dev
 To reconstruct the database for GotEnzymes on the local (development) machine, run the following (it should take ~10 minutes). The [source data for GotEnzymes is on Zenodo](https://doi.org/10.5281/zenodo.15814635). After downloading, please unzip it in the `pg/input_data` directory.
 
 ```bash
-update-gotenzymes
+import-pg-db
 ```
 
 For remote servers, run the following command
 ```bash
-update-gotenzymes <CONTEXT>
+import-pg-db <CONTEXT>
 ```
 
 ## Description of helper commands
@@ -116,9 +116,9 @@ update-gotenzymes <CONTEXT>
 - To clean the project (delete containers and volumes): `clean-stack`
 - To display real-time logs: `logs [container-name: frontend/api/nginx/neo4j/ftp]`
 - To deploy the project to the remote server: `deploy-stack` `<CONTEXT>`
-- To update the GotEnzymes database: `update-gotenzymes [CONTEXT]`
+- To update the GotEnzymes database: `import-pg-db [CONTEXT]`
   - If `CONTEXT` is not provided, the local GotEnzymes database will be reconstructed.
-- To (re-)import the Neo4j database: `import-db`
+- To (re-)import the Neo4j database: `import-neo4j-db`
 
 ### A note to Unix/Linux users
 
