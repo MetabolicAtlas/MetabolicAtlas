@@ -89,8 +89,7 @@ deploy-stack dev
 
 ### GotEnzymes
 
-To reconstruct the database for GotEnzymes on the local (development) machine. Run the following command. This should take ~10 minutes.
->For Mac M1 users, please select `VirtioFS` for file sharing in Docker configuration in order to speed up the postgresql database building process.
+To reconstruct the database for GotEnzymes on the local (development) machine, run the following (it should take ~10 minutes). The [source data for GotEnzymes is on Zenodo](https://doi.org/10.5281/zenodo.15814635). After downloading, please unzip it in the `pg/input_data` directory.
 
 ```bash
 update-gotenzymes
