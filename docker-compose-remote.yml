@@ -65,6 +65,7 @@ services:
     command: postgres -c stats_temp_directory=/tmp
     volumes:
       - /var/lib/docker-volumes/pg/postgres-data:/var/lib/postgresql/data
+      - /var/lib/docker-volumes/pg/input_data:/input_data
     deploy:
       resources:
         reservations:

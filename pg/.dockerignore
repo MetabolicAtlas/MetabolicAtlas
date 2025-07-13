@@ -1,0 +1,4 @@
+Dockerfile
+*.zip
+input_data
+postgres-data
