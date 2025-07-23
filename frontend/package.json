@@ -18,7 +18,7 @@
     "@metabolicatlas/3d-network-viewer": "^0.1.34",
     "@panzoom/panzoom": "^4.6.0",
     "@vueuse/head": "^2.0.0",
-    "axios": "^1.10.0",
+    "axios": "^1.11.0",
     "bulma": "^0.9.4",
     "bulma-timeline": "^3.0.5",
     "eslint-config-prettier": "^9.1.0",
