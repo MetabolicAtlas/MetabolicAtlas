@@ -19,7 +19,7 @@ const actions = {
       const repos = await Promise.all(
         repoEntries.map(async ({ provider, repoKey }) => {
           try {
-            const i = repoKey.lastIndexOf("/");
+            const i = repoKey.lastIndexOf('/');
             const [organization, repoName] = [repoKey.slice(0, i), repoKey.slice(i + 1)];
             const resultsUrl = `${baseUrl}/results/${repoName}.json`;
             const response = await fetch(resultsUrl);
@@ -34,8 +34,8 @@ const actions = {
             const image = metadata.avatar
               ? `${baseUrl}/avatars/${metadata.avatar}`
               : 'https://placehold.co/48x48';
-            const commits = Number(metadata.commits) || "n/a";
-            const contributors = Number(metadata.contributors) || "n/a";
+            const commits = Number(metadata.commits) || 'n/a';
+            const contributors = Number(metadata.contributors) || 'n/a';
             let version = 'n/a';
             let releaseUrl = null;
             if (Array.isArray(repoData.releases) && repoData.releases.length > 1) {
@@ -69,7 +69,10 @@ const actions = {
               orgUrl,
             };
           } catch {
-            commit('setError', "Could not load data on all GEM repositories. Please try again later.");
+            commit(
+              'setError',
+              'Could not load data on all GEM repositories. Please try again later.',
+            );
             return null;
           }
         }),
@@ -78,7 +81,7 @@ const actions = {
       commit('setCount', repoEntries.length);
       commit('setRepositories', validRepos);
     } catch {
-      commit('setError', "Could not load data on all GEM repositories. Please try again later.");
+      commit('setError', 'Could not load data on all GEM repositories. Please try again later.');
     } finally {
       commit('setLoading', false);
     }

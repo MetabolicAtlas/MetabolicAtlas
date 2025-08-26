@@ -3,19 +3,20 @@
     <div class="container is-fullhd">
       <h3 class="title is-3">Standard GEMs</h3>
       <p>
-        The standard-GEM initiative provides a community-driven, git-based template that streamlines the creation,
-        curation, and long-term maintenance of genome-scale metabolic models (GEMs). By embedding FAIR
-        principles directly into the model development workflow, standard-GEM ensures transparency,
-        provenance tracking, and reproducibility at every stage. It defines a clear repository structure,
-        enforces best practices in documentation, and integrates with automated validation pipelines,
-        lowering the cost of model upkeep while raising quality and openness. Already adopted by multiple
-        high-profile GEMs, standard-GEM transforms models from static research outputs into evolving digital
-        infrastructure, enabling reliable reuse across platforms and fostering collaborative, community-driven
-        systems biology research.
+        The standard-GEM initiative provides a community-driven, git-based template that streamlines
+        the creation, curation, and long-term maintenance of genome-scale metabolic models (GEMs).
+        By embedding FAIR principles directly into the model development workflow, standard-GEM
+        ensures transparency, provenance tracking, and reproducibility at every stage. It defines a
+        clear repository structure, enforces best practices in documentation, and integrates with
+        automated validation pipelines, lowering the cost of model upkeep while raising quality and
+        openness. Already adopted by multiple high-profile GEMs, standard-GEM transforms models from
+        static research outputs into evolving digital infrastructure, enabling reliable reuse across
+        platforms and fostering collaborative, community-driven systems biology research.
       </p>
-      <br>
+      <br />
       <p v-if="count">
-        There are <span class="has-text-weight-bold">{{ count }} standard-GEMs</span> on GitHub and GitLab.
+        There are <span class="has-text-weight-bold">{{ count }} standard-GEMs</span> on GitHub and
+        GitLab.
         <template v-if="count > repositories.length">
           Out of these, only {{ repositories.length }} are shown below.
         </template>
@@ -48,8 +49,9 @@
                 </div>
               </article>
               <div class="content">
-                Updated on <time datetime="2016-1-1">{{ repo.lastUpdated }}</time><br>
-                {{ repo.commits }} commits by  {{ repo.contributors }} contributors
+                Updated on <time datetime="2016-1-1">{{ repo.lastUpdated }}</time
+                ><br />
+                {{ repo.commits }} commits by {{ repo.contributors }} contributors
               </div>
             </div>
             <footer class="card-footer">
