@@ -233,7 +233,7 @@ export default {
           routeName: 'explorer',
         },
         {
-          displayName: 'GEM',
+          displayName: 'GEMs',
           subMenuElems: [
             {
               displayName: 'Repository',
@@ -242,6 +242,10 @@ export default {
             {
               displayName: 'Comparison',
               routeName: 'comparemodels',
+            },
+            {
+              displayName: 'Standard GEMs',
+              routeName: 'standard-gems',
             },
           ],
         },
