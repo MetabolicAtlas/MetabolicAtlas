@@ -7,7 +7,7 @@ WORKDIR /project
 COPY frontend .
 RUN yarn && yarn build
 
-FROM jonasal/nginx-certbot:5.4.0-nginx1.27.2
+FROM jonasal/nginx-certbot:6.0.1-nginx1.29.1
 COPY nginx/redirector.conf /etc/nginx/conf.d/redirector.conf
 COPY nginx/prod.nginx.conf /etc/nginx/templates/default.conf.template
 COPY --from=frontend /project/dist /content
