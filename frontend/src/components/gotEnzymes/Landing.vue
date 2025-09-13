@@ -121,7 +121,7 @@
                 for 7.3 million unique enzyme sequences across 10,765 species. 
                 As a major expansion of its predecessor, GotEnzymes2 now integrates both 
                 catalytic parameters (k<sub>cat</sub>, K<sub>m</sub>, k<sub>cat</sub>/K<sub>m</sub>) 
-                and thermal properties (optimal temperature T<sub>opt</sub>, melting temperature T<sub>m</sub>m), 
+                and thermal properties (optimal temperature T<sub>opt</sub>, melting temperature T<sub>m</sub>), 
                 predicted with systematically benchmarked, state-of-the-art artificial intelligence models. 
                 This makes it the most comprehensive resource for predicted enzyme kinetic and stability data to date. 
                 The data and code are also available for direct download from 
