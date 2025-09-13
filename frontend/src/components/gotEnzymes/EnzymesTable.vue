@@ -135,6 +135,31 @@ export default {
           sortable: true,
           filterOptions: { customFilter: true },
         },
+        {
+          label: 'Km[mM]',
+          field: 'km_values',
+          sortable: true,
+          filterOptions: { customFilter: true },
+        },
+        {
+          label: 'kcat/Km[1/mMs-1]',
+          field: 'kcat_km_values',
+          sortable: true,
+          width: '190px', 
+          filterOptions: { customFilter: true },
+        }, 
+        {
+          label: 'Topt[℃]',
+          field: 'topt',
+          sortable: true,
+          filterOptions: { customFilter: true },
+        },
+        {
+          label: 'Tm[℃]',
+          field: 'tm',
+          sortable: true,
+          filterOptions: { customFilter: true },
+        },         
       ].filter(col => col.label !== this.componentType),
       serverPaginationOptions: {
         filters: {},
