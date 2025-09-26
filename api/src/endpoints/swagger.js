@@ -17,8 +17,8 @@ routes.use('/favicon*', (req, res, next) =>
   express.static(`public/favicon${req.params[0]}`)(req, res, next),
 );
 
-const myconfig = yaml.load(fs.readFileSync('src/swagger/config.yaml', 'utf8'));
+const swaggerConfig = yaml.load(fs.readFileSync('src/swagger/config.yaml', 'utf8'));
 
-routes.use('/api/v2', swaggerUi.serve, swaggerUi.setup(myconfig, options));
+routes.use('/api/v2', swaggerUi.serve, swaggerUi.setup(swaggerConfig, options));
 
 export default routes;
