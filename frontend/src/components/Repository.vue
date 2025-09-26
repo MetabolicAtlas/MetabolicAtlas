@@ -396,7 +396,7 @@ export default {
       }
     },
     selectModel(id) {
-      this.$router.push({ params: { model_id: id } });
+      this.$router.push({ params: { model_id: id || '' } });
     },
   },
 };
