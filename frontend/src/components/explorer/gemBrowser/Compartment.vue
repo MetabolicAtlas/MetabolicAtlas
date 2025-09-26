@@ -7,7 +7,7 @@
   >
     <template v-slot:table>
       <table
-        v-if="compartment && Object.keys(compartment).length != 0"
+        v-if="compartment && Object.keys(compartment).length !== 0"
         class="table main-table is-fullwidth"
       >
         <tbody>

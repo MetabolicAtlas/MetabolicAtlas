@@ -11,7 +11,7 @@
         v-if="dim === '2d' && missingReactionList && missingReactionList.length > 0"
         class="card-content p-4"
       >
-        <template v-if="currentMap.mapReactionIdSet.length == 1">
+        <template v-if="currentMap.mapReactionIdSet.length === 1">
           Please note that {{ missingReactionList.length }} of the reactions in the
           {{ currentMap.type }} are not shown on the map
         </template>
@@ -81,7 +81,7 @@
                 type: selectionData.type,
                 map_id: identify(selectionData.data.id),
               },
-              query: { dim: dim },
+              query: { dim },
             }"
           >
             <!-- eslint-disable-line max-len -->

@@ -77,7 +77,7 @@
               <td>
                 <!-- eslint-disable vue/valid-v-for vue/require-v-for-key max-len -->
                 <template v-for="(m, index) in r.genes">
-                  {{ index == 0 ? '' : ', ' }}
+                  {{ index === 0 ? '' : ', ' }}
                   <a
                     :class="{ cms: sourceName === m.name }"
                     :href="`/explore/${model.short_name}/gem-browser/gene/${m.id}`"
@@ -92,7 +92,7 @@
                 <template v-if="r.subsystem_str">
                   <!-- eslint-disable-next-line vue/valid-v-for vue/require-v-for-key max-len -->
                   <template v-for="(s, index) in r.subsystem_str.split('; ')">
-                    {{ index == 0 ? '' : '; ' }}
+                    {{ index === 0 ? '' : '; ' }}
                     <a
                       :href="`/explore/${model.short_name}/gem-browser/subsystem/${identify(s)}`"
                       @click="handleRouterClick"
