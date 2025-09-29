@@ -13,6 +13,7 @@ import InteractionPartners from '@/components/explorer/InteractionPartners.vue';
 import IPDetailsPage from '@/components/explorer/interactionPartners/DetailsPage.vue';
 import SearchTable from '@/components/SearchTable.vue';
 import Documentation from '@/components/Documentation.vue';
+import StandardGems from '@/components/StandardGems.vue';
 import Repository from '@/components/Repository.vue';
 import CompareModels from '@/components/CompareModels.vue';
 import FourOFour from '@/components/FourOFour.vue';
@@ -78,6 +79,7 @@ const routes = [
     children: [
       { path: 'repository/:model_id?', name: 'gems', component: Repository },
       { path: 'comparison', name: 'comparemodels', component: CompareModels },
+      { path: 'standard-gems', name: 'standard-gems', component: StandardGems },
     ],
   },
   { path: '/documentation', name: 'documentation', component: Documentation },
