@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 import interactionPartnersApi from '@/api/interactionPartners';
 import randomComponentsApi from '@/api/randomComponents';
 import { constructCompartmentStr } from '@/helpers/utils';

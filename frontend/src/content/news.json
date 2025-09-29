@@ -1,16 +1,23 @@
 {
+  "2025": [
+    {
+      "date": "2025-07-13",
+      "title": "Release 3.5 updates all GEMs",
+      "text": "<b>Metabolic Atlas 3.5</b> is out. In this minor release, all GEMS have been updated, and issues have been resolved together with performing security updates.<br> More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/3.5' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/records/5115437' target='_blank'>on Zenodo</a>."
+    }
+  ],
   "2023": [
     {
       "date": "2023-04-27",
       "title": "Release 3.4 improves accessibility, user experience and fixes several bugs",
-      "text": "<b>Metabolic Atlas 3.4</b> is out. In this minor release, several accessibility improvements have been done. We have also done some security updates and fixed bugs.<br> More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/3.4' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/record/5115437' target='_blank'>on Zenodo</a>."
+      "text": "<b>Metabolic Atlas 3.4</b> is out. In this minor release, several accessibility improvements have been done. We have also done some security updates and fixed bugs.<br> More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/3.4' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/records/7871440' target='_blank'>on Zenodo</a>."
     }
   ],
   "2022": [
     {
       "date": "2022-12-20",
       "title": "Release 3.3 improves user experience with bug fixing and better performance",
-      "text": "<b>Metabolic Atlas 3.3</b> is out. In this minor release, multiple visual bugs has been fixed, both for desktop and mobile users. In addition, the response time has been improved by rewriting database queries. Finally, the software stack has been improved through dependency updates, refactoring and build scripts.<br> More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/3.3' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/badge/latestdoi/53664497' target='_blank'>on Zenodo</a>."
+      "text": "<b>Metabolic Atlas 3.3</b> is out. In this minor release, multiple visual bugs has been fixed, both for desktop and mobile users. In addition, the response time has been improved by rewriting database queries. Finally, the software stack has been improved through dependency updates, refactoring and build scripts.<br> More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/3.3' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/records/7468563' target='_blank'>on Zenodo</a>."
     },
     {
       "date": "2022-12-02",

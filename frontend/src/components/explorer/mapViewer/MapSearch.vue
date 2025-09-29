@@ -1,5 +1,5 @@
 <template>
-  <div id="mapSearch" class="overlay m-0 p-2" :class="[{ fullscreen: fullscreen }]">
+  <div id="mapSearch" class="overlay m-0 p-2" :class="[{ fullscreen }]">
     <div class="control" :class="{ 'is-loading': isSearching }">
       <input
         id="searchInput"

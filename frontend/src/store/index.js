@@ -16,6 +16,7 @@ import identifier from './modules/idInModels';
 import dataOverlay from './modules/dataOverlay';
 import gotEnzymes from './modules/gotEnzymes';
 import D2Cell from './modules/D2Cell';
+import standardGems from './modules/standardGems';
 
 const store = createStore({
   modules: {
@@ -36,6 +37,7 @@ const store = createStore({
     dataOverlay,
     gotEnzymes,
     D2Cell,
+    standardGems
   },
 });
 

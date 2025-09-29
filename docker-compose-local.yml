@@ -60,9 +60,12 @@ services:
       - FTP_IP=127.0.0.1
       - FLAGS=-Y 0 -d -d
   pg:
-    image: postgres:14.3-alpine
+    build:
+      context: pg
+    command: postgres -c stats_temp_directory=/tmp
     volumes:
       - ./pg/scripts:/scripts
+      - ./pg/postgres-data:/var/lib/postgresql/data
       - ./pg/input_data:/input_data
     ports:
       - "127.0.0.1:5432:5432"

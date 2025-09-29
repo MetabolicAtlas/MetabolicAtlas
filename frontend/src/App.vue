@@ -105,7 +105,7 @@
       </transition>
     </nav>
     <router-view></router-view>
-    <ErrorPanel :message="errorMessage" :hide-error-panel="(errorMessage = '')" />
+    <ErrorPanel :message="errorMessage" :hide-error-panel="errorMessage = ''" />
     <footer id="footer" class="footer has-background-primary-lighter is-size-6 py-4">
       <div class="columns is-gapless mb-0">
         <div v-show="!showCompactFooter()" class="column is-full">
@@ -226,14 +226,13 @@ export default {
   },
   data() {
     return {
-      /* eslint-disable quote-props */
       menuElems: [
         {
           displayName: 'Explore',
           routeName: 'explorer',
         },
         {
-          displayName: 'GEM',
+          displayName: 'GEMs',
           subMenuElems: [
             {
               displayName: 'Repository',
@@ -242,6 +241,10 @@ export default {
             {
               displayName: 'Comparison',
               routeName: 'comparemodels',
+            },
+            {
+              displayName: 'Standard GEMs',
+              routeName: 'standard-gems',
             },
           ],
         },
@@ -280,7 +283,6 @@ export default {
     }),
   },
   watch: {
-    // eslint-disable-next-line object-shorthand
     $route(to) {
       if (to.meta.reload === true) {
         window.location.reload();

@@ -28,18 +28,14 @@ const addCountToModel = async model => {
 
 routes.get('/integrated_models', async (req, res) => {
   try {
-    const models = integratedGemsRepoJson
-      .map(model => ({
-        ...model,
-        apiName: model.short_name
-          .split('-')
-          .map(s => s[0] + s.slice(1).toLowerCase())
-          .join(''),
-        apiVersion: model.version.split('.').join('_'),
-      }))
-      .sort((a, b) =>
-        a.short_name.toLowerCase() < b.short_name.toLowerCase() ? -1 : 1,
-      );
+    const models = integratedGemsRepoJson.map(model => ({
+      ...model,
+      apiName: model.short_name
+        .split('-')
+        .map(s => s[0] + s.slice(1).toLowerCase())
+        .join(''),
+      apiVersion: model.version.split('.').join('_'),
+    }));
 
     const modelsWithCount = await Promise.all(
       models.map(m => addCountToModel(m)),

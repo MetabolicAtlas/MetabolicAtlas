@@ -5,7 +5,7 @@
       class="modal-content p-5 column is-6-fullhd is-8-desktop is-10-tablet is-full-mobile has-background-white"
     >
       <h4 class="title is-size-4 m-0 mb-2">List of missing and total reactions on the map</h4>
-      <p v-if="currentMap.mapReactionIdSet.length == 1" class="pb-4">
+      <p v-if="currentMap.mapReactionIdSet.length === 1" class="pb-4">
         There are {{ missingReactionList.length }} reactions not shown on the map. Some reactions
         are missing as the {{ currentMap.type }} is being updated much more often than the maps.
         Also, as the maps are manually curated, occasionally some reactions cannot be added. The
@@ -25,7 +25,7 @@
           <tr>
             <td class="td-key has-background-primary has-text-white-bis">
               {{
-                currentMap.mapReactionIdSet.length == 1
+                currentMap.mapReactionIdSet.length === 1
                   ? 'Missing reactions on the map'
                   : `Missing reactions
                     on the combined ${currentMap.name} maps`
@@ -52,7 +52,7 @@
           <tr>
             <td class="td-key has-background-primary has-text-white-bis">
               {{
-                currentMap.mapReactionIdSet.length == 1
+                currentMap.mapReactionIdSet.length === 1
                   ? 'Reactions shown on the map'
                   : `Reactions shown
                     on the combined ${currentMap.name} maps`

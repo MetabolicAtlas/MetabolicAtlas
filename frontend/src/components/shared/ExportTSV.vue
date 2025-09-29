@@ -4,7 +4,7 @@
       <span class="icon is-large"><i class="fa fa-download"></i></span>
       <span>Export to TSV</span>
     </a>
-    <ErrorPanel :message="errorMessage" :hide-error-panel="(errorMessage = '')" />
+    <ErrorPanel :message="errorMessage" :hide-error-panel="errorMessage = ''" />
   </span>
 </template>
 
@@ -44,7 +44,7 @@ export default {
           type: 'text/tsv;charset=utf-8',
         });
         FileSaver.saveAs(blob, this.filename);
-      } catch (error) {
+      } catch {
         this.errorMessage = messages.fileSaveError;
       }
     },

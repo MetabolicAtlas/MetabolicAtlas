@@ -119,7 +119,14 @@
               <p>
                 GotEnzymes provides open access to over 25.7 million predicted k<sub>cat</sub>
                 for +5.8 million unique sequences and 4147 compounds, across 8099 species, predicted
-                with cutting-edge artificial intelligence tools.
+                with cutting-edge artificial intelligence tools. The data is also available for
+                direct download from
+                <a
+                  href="https://doi.org/10.5281/zenodo.15814635"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >doi:10.5281/zenodo.15814635</a
+                >.
               </p>
 
               <hr class="mt-6" />

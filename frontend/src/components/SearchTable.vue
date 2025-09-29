@@ -274,7 +274,7 @@
                     <template v-else-if="['gene', 'subsystem', 'reaction'].includes(header)">
                       <template v-for="(comp, i) in props.formattedRow[props.column.field]">
                         <!-- eslint-disable vue/valid-v-for vue/require-v-for-key -->
-                        <template v-if="i != 0">;</template>
+                        <template v-if="i !== 0">;</template>
                         <router-link
                           :to="{
                             name: 'compartment',
@@ -619,7 +619,7 @@ export default {
   },
   // the following two navigation guards are ignored
   // see: https://router.vuejs.org/guide/migration/index.html#navigation-guards-in-mixins-are-ignored
-  // eslint-disable-next-line no-unused-vars
+
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.query.term) {
@@ -631,7 +631,7 @@ export default {
       next();
     });
   },
-  // eslint-disable-next-line no-unused-vars
+
   async beforeRouteUpdate(to, from, next) {
     if (to.query.term && to.query.term !== this.searchedTerm) {
       this.searchedTerm = to.query.term;
@@ -756,14 +756,12 @@ export default {
           if (field === 'model') {
             filterTypeDropdown[componentType][field] = Object.keys(
               filterTypeDropdown[componentType][field],
-            ).map(
-              e => {
-                const d = {};
-                d.value = e;
-                d.text = filterTypeDropdown[componentType][field][e];
-                return d;
-              }, // eslint-disable-line
-            );
+            ).map(e => {
+              const d = {};
+              d.value = e;
+              d.text = filterTypeDropdown[componentType][field][e];
+              return d;
+            });
           } else {
             filterTypeDropdown[componentType][field] = Object.keys(
               filterTypeDropdown[componentType][field],
