@@ -226,14 +226,13 @@ export default {
   },
   data() {
     return {
-      /* eslint-disable quote-props */
       menuElems: [
         {
           displayName: 'Explore',
           routeName: 'explorer',
         },
         {
-          displayName: 'GEM',
+          displayName: 'GEMs',
           subMenuElems: [
             {
               displayName: 'Repository',
@@ -242,6 +241,10 @@ export default {
             {
               displayName: 'Comparison',
               routeName: 'comparemodels',
+            },
+            {
+              displayName: 'Standard GEMs',
+              routeName: 'standard-gems',
             },
           ],
         },
@@ -276,7 +279,6 @@ export default {
     }),
   },
   watch: {
-    // eslint-disable-next-line object-shorthand
     $route(to) {
       if (to.meta.reload === true) {
         window.location.reload();

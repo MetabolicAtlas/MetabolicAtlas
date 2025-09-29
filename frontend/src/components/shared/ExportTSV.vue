@@ -44,7 +44,7 @@ export default {
           type: 'text/tsv;charset=utf-8',
         });
         FileSaver.saveAs(blob, this.filename);
-      } catch (error) {
+      } catch {
         this.errorMessage = messages.fileSaveError;
       }
     },

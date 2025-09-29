@@ -14,7 +14,6 @@ describe('maps', () => {
       expect(subsystems.length).toBeGreaterThan(0);
     });
 
-    // eslint-disable-next-line jest/expect-expect
     test('returns 200 and empty response if model does not exist', async () => {
       const res = await fetch(
         `${API_BASE}/maps/listing?model=nonexisting&version=${HUMAN_GEM_VERSION}`,

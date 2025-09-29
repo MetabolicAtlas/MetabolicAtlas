@@ -10,7 +10,6 @@ describe('compare', () => {
     expect(res.status).toBe(200);
   });
 
-  // eslint-disable-next-line jest/expect-expect
   test.each(MALICIOUS_CHARACTERS)(
     'should return 400 if model contains %p',
     async character => {
@@ -26,7 +25,7 @@ describe('compare', () => {
       expect(notAllowedCharactedInValue || jsonParseError).toBeTruthy();
     },
   );
-  // eslint-disable-next-line jest/expect-expect
+
   test.each(MALICIOUS_CHARACTERS)(
     'should return 400 if version contains %p',
     async character => {

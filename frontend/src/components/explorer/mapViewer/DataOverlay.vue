@@ -44,7 +44,7 @@
         </div>
       </div>
     </div>
-    <Modal id="modalWrapper" v-model:showModal="showModal" size="small">
+    <Modal id="modalWrapper" v-model:show-modal="showModal" size="small">
       <div class="control">
         <p>These data are for:</p>
         <div v-if="filteredDataTypesComponents.length" class="select is-fullwidth m-1">
@@ -446,7 +446,7 @@ export default {
       return this.errorCustomFileMsg.length > 0;
     },
     async addSourceToIndex() {
-      const dataSource = await parseFile(this.customFile); // eslint-disable-line
+      const dataSource = await parseFile(this.customFile);
       const payload = {
         dataSource,
         fileName: this.customFile.name,
