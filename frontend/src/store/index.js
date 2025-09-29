@@ -15,6 +15,7 @@ import compare from './modules/compare';
 import identifier from './modules/idInModels';
 import dataOverlay from './modules/dataOverlay';
 import gotEnzymes from './modules/gotEnzymes';
+import standardGems from './modules/standardGems';
 
 const store = createStore({
   modules: {
@@ -34,6 +35,7 @@ const store = createStore({
     identifier,
     dataOverlay,
     gotEnzymes,
+    standardGems,
   },
 });
 
