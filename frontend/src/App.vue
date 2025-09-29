@@ -253,6 +253,10 @@ export default {
           routeName: 'gotenzymes',
         },
         {
+          displayName: 'D2Cell',
+          routeName: 'd2cell',
+        },
+        {
           displayName: 'Documentation',
           routeName: 'documentation',
         },
