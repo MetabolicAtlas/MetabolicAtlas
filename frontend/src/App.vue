@@ -226,7 +226,6 @@ export default {
   },
   data() {
     return {
-      /* eslint-disable quote-props */
       menuElems: [
         {
           displayName: 'Explore',
@@ -280,7 +279,6 @@ export default {
     }),
   },
   watch: {
-    // eslint-disable-next-line object-shorthand
     $route(to) {
       if (to.meta.reload === true) {
         window.location.reload();
