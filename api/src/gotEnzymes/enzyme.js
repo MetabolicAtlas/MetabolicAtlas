@@ -10,7 +10,7 @@ const MATCH_FIELDS = [
 ];
 
 const CASED_FIELDS = ['gene', 'organism', 'domain', 'compound', 'reaction_id'];
-const RANGE_FIELDS = ['kcat_values'];
+const RANGE_FIELDS = ['kcat_values','km_values','kcat_km_values','topt','tm'];
 
 const getFiltersQueries = filters => {
   const filtersQueries = [];
@@ -68,6 +68,10 @@ const getEnzymes = async ({
     'ec_number',
     'compound',
     'kcat_values',
+    'km_values',
+    'kcat_km_values',
+    'topt',
+    'tm',
   ];
   const filtersQueries = getFiltersQueries(filters);
   const order = isAscending.toLowerCase() === 'true' ? sql`asc` : sql`desc`;
