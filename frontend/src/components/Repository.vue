@@ -346,6 +346,7 @@ export default {
     try {
       this.showLoader = true;
       await this.$store.dispatch('gems/getGems');
+      await this.$store.dispatch('models/getModels');
       this.columns[0].filterOptions.filterDropdownItems = this.setFilterOptions;
       this.columns[3].filterOptions.filterDropdownItems = this.systemFilterOptions;
       this.columns[4].filterOptions.filterDropdownItems = this.conditionFilterOptions;
@@ -379,13 +380,11 @@ export default {
       this.showModelId = '';
       this.selectedModel = {};
       if (urlId) {
-        Object.values(this.integratedModels).forEach(anIntegratedModel => {
-          if (urlId === anIntegratedModel.short_name) {
-            this.selectedModel = anIntegratedModel;
-            this.showModelId = this.selectedModel.short_name;
-          }
-        });
-        if (!this.showModelId) {
+        const integratedModel = this.integratedModels.find(im => urlId === im.short_name);
+        if (integratedModel) {
+          this.selectedModel = integratedModel;
+          this.showModelId = this.selectedModel.short_name;
+        } else {
           const urlIdExists = this.$store.dispatch('gems/getGemData', urlId);
           if (urlIdExists) {
             this.selectedModel = this.gem;
@@ -397,7 +396,7 @@ export default {
       }
     },
     selectModel(id) {
-      this.$router.push({ params: { model_id: id } });
+      this.$router.push({ params: { model_id: id || '' } });
     },
   },
 };
