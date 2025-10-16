@@ -27,7 +27,7 @@ export default [
     journalId: 'gkac831',
     journalLink:
       'https://academic.oup.com/nar/search-results?sort=Date+%e2%80%93+Newest+First&f_TocHeadingTitleList=Database+Issue&fl_SiteID=5127&rg_ArticleDate=09%2f01%2f2022+TO+09%2f30%2f2022&dateFilterType=single&rg_AllPublicationDates=09%2f01%2f2022+TO+09%2f30%2f2022',
-    pmid: '36169223',mi
+    pmid: '36169223',
     doi: '10.1093/nar/gkac831',
     img: getImageUrl('journals/nar-cover', 'gif'),
   },
