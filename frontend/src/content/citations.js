@@ -5,7 +5,8 @@ export default [
     id: 'citation-v4',
     version: 'Version 4',
     text: 'The fourth major version of <i>Metabolic Atlas</i> introduces GotEnzymes2, a database for predicted enzyme parameters. To cite this version, or the latest version of Metabolic Atlas, please use:',
-    authors: 'Lyu B, Wu K, Huang Y, Anton M, Li X, Viknander S, Anwer D, Yang Y, Lu D, Kerkhoven E, Zelezniak A, Gao D, Chen Y, Li F.',
+    authors:
+      'Lyu B, Wu K, Huang Y, Anton M, Li X, Viknander S, Anwer D, Yang Y, Lu D, Kerkhoven E, Zelezniak A, Gao D, Chen Y, Li F.',
     title: 'GotEnzymes2: Expanding Coverage of Enzyme Kinetics and Thermal Properties.',
     journal: 'NAR',
     year: '2025',

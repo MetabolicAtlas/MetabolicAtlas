@@ -117,32 +117,31 @@
             <TableOfContents :links="tocLinks" />
             <div id="intro" class="column content has-text-justified">
               <p>
-                GotEnzymes2 provides open access to over 59.6 million predicted enzyme parameter entries 
-                for 7.3 million unique enzyme sequences across 10,765 species. 
-                As a major expansion of its predecessor, GotEnzymes2 now integrates both 
-                catalytic parameters (k<sub>cat</sub>, K<sub>m</sub>, k<sub>cat</sub>/K<sub>m</sub>) 
-                and thermal properties (optimal temperature T<sub>opt</sub>, melting temperature T<sub>m</sub>), 
-                predicted with systematically benchmarked, state-of-the-art artificial intelligence models. 
-                This makes it the most comprehensive resource for predicted enzyme kinetic and stability data to date. 
-                The data are also available for direct download from 
+                GotEnzymes2 provides open access to over 59.6 million predicted enzyme parameter
+                entries for 7.3 million unique enzyme sequences across 10,765 species. As a major
+                expansion of its predecessor, GotEnzymes2 now integrates both catalytic parameters
+                (k<sub>cat</sub>, K<sub>m</sub>, k<sub>cat</sub>/K<sub>m</sub>) and thermal
+                properties (optimal temperature T<sub>opt</sub>, melting temperature T<sub>m</sub>),
+                predicted with systematically benchmarked, state-of-the-art artificial intelligence
+                models. This makes it the most comprehensive resource for predicted enzyme kinetic
+                and stability data to date. The data are also available for direct download from
                 <a
                   href="https://doi.org/10.5281/zenodo.17168793"
                   target="_blank"
                   rel="noopener noreferrer"
                   >doi:10.5281/zenodo.17168793</a
-                >.      
+                >.
               </p>
 
               <hr class="mt-6" />
               <h4 id="how-to-use-it" class="is-info is-size-4">How to use it</h4>
               <p>
-                We support searches by reaction, compound, EC number, organism, 
-                and KEGG gene identifiers. All table columns are filterable and sortable, 
-                including the predicted numerical values for k<sub>cat</sub>, K<sub>m</sub>, 
-                k<sub>cat</sub>/K<sub>m</sub>, T<sub>opt</sub>, and T<sub>m</sub>, enabling users 
-                to rapidly identify candidate enzymes with desired catalytic and stability profiles. 
-                Feel free to contact us if you find any issues. To report a technical error 
-                on the webpage, please email
+                We support searches by reaction, compound, EC number, organism, and KEGG gene
+                identifiers. All table columns are filterable and sortable, including the predicted
+                numerical values for k<sub>cat</sub>, K<sub>m</sub>, k<sub>cat</sub>/K<sub>m</sub>,
+                T<sub>opt</sub>, and T<sub>m</sub>, enabling users to rapidly identify candidate
+                enzymes with desired catalytic and stability profiles. Feel free to contact us if
+                you find any issues. To report a technical error on the webpage, please email
                 <a href="mailto:contact@metabolicatlas.org">contact [at] metabolicatlas [dot] org</a
                 >. For questions about the scientific methods, please reach out to
                 <a href="mailto:gotenzymes@metabolicatlas.org"
@@ -153,16 +152,16 @@
               <hr class="mt-6" />
               <h4 id="how-it-was-made" class="is-info is-size-4">How it was made</h4>
               <p>
-                The data in this database are predicted using AI models that have been systematically 
-                benchmarked and optimized for performance. We benchmarked all available models 
-                and possible representation combinations, and identified optimal combinations of 
-                protein representations (e.g., ProtT5), substrate representations (e.g., MolGen), 
-                and machine learning architectures (e.g., ExtraTrees) to ensure the highest accuracy 
-                and generalizability. Our vision for GotEnzymes2 is to facilitate data-driven 
-                applications, such as enzyme discovery and engineering, and to improve the 
-                Design-Build-Test-Learn cycle in metabolic engineering by suggesting candidate 
-                alternative enzymes. To this end, we aim to store a comprehensive set of predicted 
-                parameters for all available enzymes in a single database that is equally easy to 
+                The data in this database are predicted using AI models that have been
+                systematically benchmarked and optimized for performance. We benchmarked all
+                available models and possible representation combinations, and identified optimal
+                combinations of protein representations (e.g., ProtT5), substrate representations
+                (e.g., MolGen), and machine learning architectures (e.g., ExtraTrees) to ensure the
+                highest accuracy and generalizability. Our vision for GotEnzymes2 is to facilitate
+                data-driven applications, such as enzyme discovery and engineering, and to improve
+                the Design-Build-Test-Learn cycle in metabolic engineering by suggesting candidate
+                alternative enzymes. To this end, we aim to store a comprehensive set of predicted
+                parameters for all available enzymes in a single database that is equally easy to
                 use manually and programmatically.
               </p>
 
@@ -249,7 +248,7 @@ export default {
           version: '',
           text: '',
           noWidgets: true,
-        }
+        },
       ],
       messages,
     };
