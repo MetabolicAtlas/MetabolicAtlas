@@ -2,6 +2,21 @@ import { getImageUrl } from '@/helpers/utils';
 
 export default [
   {
+    id: 'citation-v4',
+    version: 'Version 4',
+    text: 'The fourth major version of <i>Metabolic Atlas</i> introduces GotEnzymes2, a database for predicted enzyme parameters. To cite this version, or the latest version of Metabolic Atlas, please use:',
+    authors: 'Lyu B, Wu K, Huang Y, Anton M, Li X, Viknander S, Anwer D, Yang Y, Lu D, Kerkhoven E, Zelezniak A, Gao D, Chen Y, Li F.',
+    title: 'GotEnzymes2: Expanding Coverage of Enzyme Kinetics and Thermal Properties.',
+    journal: 'NAR',
+    year: '2025',
+    journalId: 'gkaf1053',
+    journalLink:
+      'https://academic.oup.com/nar/search-results?f_TocHeadingTitle=Database+Issue&sort=Date+%e2%80%93+Newest+First',
+    pmid: '',
+    doi: '10.1093/nar/gkaf1053',
+    img: getImageUrl('journals/nar-cover', 'gif'),
+  },
+  {
     id: 'citation-v3',
     version: 'Version 3',
     text: 'The third major version of <i>Metabolic Atlas</i> introduces GotEnzymes, a database for predicted enzyme parameters. To cite this version, or the latest version of Metabolic Atlas, please use:',
