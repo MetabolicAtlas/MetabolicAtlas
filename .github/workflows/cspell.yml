@@ -20,7 +20,7 @@ jobs:
 
       - name: "/frontend: spell check"
         working-directory: frontend
-        run: yarn cspell 'src/**/*.{js,vue,txt,md,json}'
+        run: yarn cspell --show-context --show-suggestions 'src/**/*.{js,vue,txt,md,json}'
 
   api:
     runs-on: ubuntu-latest
