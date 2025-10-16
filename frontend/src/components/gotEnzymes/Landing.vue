@@ -124,14 +124,13 @@
                 and thermal properties (optimal temperature T<sub>opt</sub>, melting temperature T<sub>m</sub>), 
                 predicted with systematically benchmarked, state-of-the-art artificial intelligence models. 
                 This makes it the most comprehensive resource for predicted enzyme kinetic and stability data to date. 
-                The data and code are also available for direct download from 
+                The data are also available for direct download from 
                 <a
-                  href="https://github.com/LiLabTsinghua/GotEnzymes2"
+                  href="https://doi.org/10.5281/zenodo.17364581"
                   target="_blank"
                   rel="noopener noreferrer"
-                >
-                  our GitHub repository</a
-                >.         
+                  >doi:10.5281/zenodo.17364581</a
+                >.      
               </p>
 
               <hr class="mt-6" />
