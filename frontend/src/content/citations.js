@@ -19,15 +19,15 @@ export default [
   {
     id: 'citation-v3',
     version: 'Version 3',
-    text: 'The third major version of <i>Metabolic Atlas</i> introduces GotEnzymes, a database for predicted enzyme parameters. To cite this version, or the latest version of Metabolic Atlas, please use:',
+    text: 'The third major version of <i>Metabolic Atlas</i> introduces GotEnzymes, a database for predicted enzyme parameters. To cite this version, or tthe first version of GotEnzymes, please use:',
     authors: 'Li F, Chen Y, Anton M, Nielsen J.',
     title: 'GotEnzymes: an extensive database of enzyme parameter predictions.',
     journal: 'NAR',
     year: '2022',
     journalId: 'gkac831',
     journalLink:
-      'https://academic.oup.com/nar/search-results?f_TocHeadingTitle=Database+Issue&sort=Date+%e2%80%93+Newest+First',
-    pmid: '36169223',
+      'https://academic.oup.com/nar/search-results?sort=Date+%e2%80%93+Newest+First&f_TocHeadingTitleList=Database+Issue&fl_SiteID=5127&rg_ArticleDate=09%2f01%2f2022+TO+09%2f30%2f2022&dateFilterType=single&rg_AllPublicationDates=09%2f01%2f2022+TO+09%2f30%2f2022',
+    pmid: '36169223',mi
     doi: '10.1093/nar/gkac831',
     img: getImageUrl('journals/nar-cover', 'gif'),
   },

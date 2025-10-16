@@ -126,10 +126,10 @@
                 This makes it the most comprehensive resource for predicted enzyme kinetic and stability data to date. 
                 The data are also available for direct download from 
                 <a
-                  href="https://doi.org/10.5281/zenodo.17364581"
+                  href="https://doi.org/10.5281/zenodo.17168793"
                   target="_blank"
                   rel="noopener noreferrer"
-                  >doi:10.5281/zenodo.17364581</a
+                  >doi:10.5281/zenodo.17168793</a
                 >.      
               </p>
 

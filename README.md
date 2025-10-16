@@ -13,7 +13,7 @@ Metabolic Atlas is a web platform integrating open-source genome scale metabolic
 
 If you use _Metabolic Atlas_ in your scientific work, please cite:
 
-> Version 3.0: Li, F., et al, 2022. _GotEnzymes: an extensive database of enzyme parameter predictions_. NAR, gkac831 [doi:10.1093/nar/gkac831](https://doi.org/10.1093/nar/gkac831)
+> Version 4.0: Lyu, B., et al, 2025. _GotEnzymes2: Expanding Coverage of Enzyme Kinetics and Thermal Properties_. NAR, gkaf1053 [doi:10.1093/nar/gkaf1053](https://doi.org/10.1093/nar/gkaf1053)
 
 To cite previous versions or other adjacent work, see the [Citation page on the website](https://metabolicatlas.org/about/platform#citation).
 
@@ -89,7 +89,7 @@ deploy-stack dev
 
 ### GotEnzymes
 
-To reconstruct the database for GotEnzymes on the local (development) machine, run the following (it should take ~10 minutes). The [source data for GotEnzymes is on Zenodo](https://doi.org/10.5281/zenodo.17364581). After downloading, please unzip it in the `pg/input_data` directory.
+To reconstruct the database for GotEnzymes on the local (development) machine, run the following (it should take ~10 minutes). The [source data for GotEnzymes2 is on Zenodo](https://doi.org/10.5281/zenodo.17168793). After downloading, please unzip it in the `pg/input_data` directory.
 
 ```bash
 import-pg-db
