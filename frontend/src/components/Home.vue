@@ -214,7 +214,7 @@ export default {
             link,
           };
         })
-        .slice(0,1),
+        .slice(0, 1),
       tools: [
         {
           title: messages.gemBrowserName,
