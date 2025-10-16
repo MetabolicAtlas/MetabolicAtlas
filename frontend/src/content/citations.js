@@ -5,7 +5,8 @@ export default [
     id: 'citation-v4',
     version: 'Version 4',
     text: 'The fourth major version of <i>Metabolic Atlas</i> introduces GotEnzymes2, a database for predicted enzyme parameters. To cite this version, or the latest version of Metabolic Atlas, please use:',
-    authors: 'Lyu B, Wu K, Huang Y, Anton M, Li X, Viknander S, Anwer D, Yang Y, Lu D, Kerkhoven E, Zelezniak A, Gao D, Chen Y, Li F.',
+    authors:
+      'Lyu B, Wu K, Huang Y, Anton M, Li X, Viknander S, Anwer D, Yang Y, Lu D, Kerkhoven E, Zelezniak A, Gao D, Chen Y, Li F.',
     title: 'GotEnzymes2: Expanding Coverage of Enzyme Kinetics and Thermal Properties.',
     journal: 'NAR',
     year: '2025',
@@ -19,14 +20,14 @@ export default [
   {
     id: 'citation-v3',
     version: 'Version 3',
-    text: 'The third major version of <i>Metabolic Atlas</i> introduces GotEnzymes, a database for predicted enzyme parameters. To cite this version, or the latest version of Metabolic Atlas, please use:',
+    text: 'The third major version of <i>Metabolic Atlas</i> introduces GotEnzymes, a database for predicted enzyme parameters. To cite this version, or the first version of GotEnzymes, please use:',
     authors: 'Li F, Chen Y, Anton M, Nielsen J.',
     title: 'GotEnzymes: an extensive database of enzyme parameter predictions.',
     journal: 'NAR',
     year: '2022',
     journalId: 'gkac831',
     journalLink:
-      'https://academic.oup.com/nar/search-results?f_TocHeadingTitle=Database+Issue&sort=Date+%e2%80%93+Newest+First',
+      'https://academic.oup.com/nar/search-results?sort=Date+%e2%80%93+Newest+First&f_TocHeadingTitleList=Database+Issue&fl_SiteID=5127&rg_ArticleDate=09%2f01%2f2022+TO+09%2f30%2f2022&dateFilterType=single&rg_AllPublicationDates=09%2f01%2f2022+TO+09%2f30%2f2022',
     pmid: '36169223',
     doi: '10.1093/nar/gkac831',
     img: getImageUrl('journals/nar-cover', 'gif'),

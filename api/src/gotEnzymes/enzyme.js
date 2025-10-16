@@ -10,7 +10,13 @@ const MATCH_FIELDS = [
 ];
 
 const CASED_FIELDS = ['gene', 'organism', 'domain', 'compound', 'reaction_id'];
-const RANGE_FIELDS = ['kcat_values','km_values','kcat_km_values','topt','tm'];
+const RANGE_FIELDS = [
+  'kcat_values',
+  'km_values',
+  'kcat_km_values',
+  'topt',
+  'tm',
+];
 
 const getFiltersQueries = filters => {
   const filtersQueries = [];

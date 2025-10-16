@@ -213,7 +213,8 @@ export default {
             journalId,
             link,
           };
-        }),
+        })
+        .slice(0, 1),
       tools: [
         {
           title: messages.gemBrowserName,
@@ -301,7 +302,7 @@ export default {
           icon: 'users',
         },
       ],
-      newsItems: Object.values(newsItems).reverse().flat(1).slice(0, 6),
+      newsItems: Object.values(newsItems).reverse().flat(1).slice(0, 4),
     };
   },
 };
