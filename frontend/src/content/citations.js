@@ -20,7 +20,7 @@ export default [
   {
     id: 'citation-v3',
     version: 'Version 3',
-    text: 'The third major version of <i>Metabolic Atlas</i> introduces GotEnzymes, a database for predicted enzyme parameters. To cite this version, or tthe first version of GotEnzymes, please use:',
+    text: 'The third major version of <i>Metabolic Atlas</i> introduces GotEnzymes, a database for predicted enzyme parameters. To cite this version, or the first version of GotEnzymes, please use:',
     authors: 'Li F, Chen Y, Anton M, Nielsen J.',
     title: 'GotEnzymes: an extensive database of enzyme parameter predictions.',
     journal: 'NAR',
