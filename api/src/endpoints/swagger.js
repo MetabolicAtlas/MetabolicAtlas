@@ -21,6 +21,6 @@ const swaggerConfig = yaml.load(
   fs.readFileSync('src/swagger/config.yaml', 'utf8'),
 );
 
-routes.use('/', swaggerUi.serve, swaggerUi.setup(swaggerConfig, options));
+routes.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerConfig, options));
 
 export default routes;
