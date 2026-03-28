@@ -20,6 +20,7 @@ tags:
   - name: 'Compartments'
   - name: 'Interaction Partners'
   - name: 'GotEnzymes'
+  - name: 'D2Cell'
   - name: 'Miscellaneous'
 paths:
   /repository/integrated_models:
@@ -593,6 +594,83 @@ paths:
           description: 'Successful query'
         '400':
           description: 'Invalid input'
+  /d2cell/genes/{geneId}:
+    get:
+      tags:
+        - 'D2Cell'
+      summary: 'Get D2Cell data for the given gene.'
+      operationId: 'd2CellGeneData'
+      parameters:
+        - name: 'geneId'
+          in: 'path'
+          required: true
+          type: 'string'
+          description: 'the gene id, e.g. **zwf**'
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'Successful query'
+        '404':
+          description: 'Not found'
+  /d2cell/organisms/{organismId}:
+    get:
+      tags:
+        - 'D2Cell'
+      summary: 'Get information and cross references for the given organism.'
+      operationId: 'd2CellOrganismInfo'
+      parameters:
+        - name: 'organismId'
+          in: 'path'
+          required: true
+          type: 'string'
+          description: 'the organism id, e.g. **syw**'
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'Successful query'
+        '404':
+          description: 'Not found'
+  /d2cell/papers/{paperId}:
+    get:
+      tags:
+        - 'D2Cell'
+      summary: 'Get paper information and associated experimental data.'
+      operationId: 'd2cellPaperData'
+      parameters:
+        - name: 'paperId'
+          in: 'path'
+          required: true
+          type: 'string'
+          description: 'the PMID, e.g. **29405609**'
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'Successful query'
+        '404':
+          description: 'Not found'
+
+  /d2cell/products/{productId}:
+    get:
+      tags:
+        - 'D2Cell'
+      summary: 'Get product information and associated experimental data.'
+      operationId: 'd2cellProductData'
+      parameters:
+        - name: 'productId'
+          in: 'path'
+          required: true
+          type: 'string'
+          description: 'the product name, e.g. **Ethanol**'
+      produces:
+        - 'application/json'
+      responses:
+        '200':
+          description: 'Successful query'
+        '404':
+          description: 'Not found'
   /identifier/{dbName}/{externalId}:
     get:
       tags:

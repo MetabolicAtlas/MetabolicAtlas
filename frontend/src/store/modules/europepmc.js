@@ -13,7 +13,7 @@ const actions = {
     // a small subset of fields: `authors`, `formattedString`, `journal`,
     // `link`, `title` and optionally `year`.
     const formattedRefs = refs.reduce((dict, details) => {
-      const { id, title } = details;
+      const { id, title, abstractText } = details;  
       const authors = details.authorList?.author?.map(e => e.fullName);
       const journal = details.journalInfo?.journal?.title;
 
@@ -43,6 +43,9 @@ const actions = {
       const refDetails = { authors, formattedString, journal, link, title };
       if (year) {
         refDetails.year = year;
+      }
+      if (abstractText) {
+        refDetails.abstract = abstractText;
       }
 
       return {
