@@ -17,7 +17,7 @@
       style-class="vgt-table striped"
     >
       <template v-slot:table-row="{ row, column }">
-        <span v-if="column.field === 'pmid' && row[column.field] !='NA' ">
+        <span v-if="column.field === 'pmid' && row[column.field] !== 'NA' ">
           <router-link :to="`/d2cell/paper/${row['paperID']}`">{{ row[column.field] }}</router-link>
         </span>
 
