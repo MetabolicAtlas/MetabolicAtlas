@@ -71,7 +71,7 @@
         <div class="column"></div>
           <div class="column is-narrow">
             <ExportTSV
-              :filename="`Organism for ${orgInfo?.organism}.tsv`"
+              :filename="`Organism for ${this.$route.params.name}.tsv`"
               :format-function="formatToTSV"
               :disabled="!genesData.length"
             >
@@ -79,21 +79,21 @@
         </div>
       </div>
       <div v-if="genesData.length > 0">
-        <gene-table :genes = genesData :columns = columnsData></gene-table>
+        <experiment-table :genes = genesData :columns = columnsData></experiment-table>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import GeneTable from './table.vue';
+import ExperimentTable from './ExperimentTable.vue';
 import ExportTSV from '@/components/shared/ExportTSV.vue';
 import Loader from '@/components/Loader.vue';
 
 export default {
   name: 'OrganismPage',
   components: {
-    'gene-table':GeneTable,
+    'experiment-table':ExperimentTable,
     ExportTSV,
     Loader,
   },
@@ -119,12 +119,9 @@ export default {
     async fetchOrgData() {
       this.showLoaderMessage = `Loading organism data`;
       const encodedOrg = encodeURIComponent(this.$route.params.name); 
-      console.log('Encoded Organism:', encodedOrg);
 
       try {
-        const response = await this.$store.dispatch('D2Cell/getOrganismData', encodedOrg);
-        
-        console.log("Complete response received:", response);
+        const response = await this.$store.dispatch('d2Cell/getOrganismData', encodedOrg);
         this.orgInfo = response.orgInfo; 
         this.genesData = response.data.map(entry => ({
             organism: entry.strain_type,
@@ -149,7 +146,6 @@ export default {
           this.notFound = false;
           this.showLoaderMessage = '';
       } catch(error) {
-        console.error('Error fetching gene data:', error);
         this.notFound = true;
         this.showLoaderMessage = '';
       }

@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const fetchPaper = async paperID => {
-  console.log(paperID)
   const { data } = await axios.get(`/d2cell/paper/${paperID}`);
   return data;
 };

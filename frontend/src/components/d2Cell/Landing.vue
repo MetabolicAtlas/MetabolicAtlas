@@ -3,7 +3,7 @@
     <section class="hero is-primary is-bold py-6">
       <div class="hero-body has-text-centered">
         <p class="is-size-1 title">D2Cell</p>
-        <p class="is-size-5">Deep learning for designing cell factory</p>
+        <p class="is-size-5">Deep learning for designing cell factories</p>
         <p class="is-size-6">Beta version for review only. The full version will be available on MetabolicAtlas once published</p>
       </div>
     </section>
@@ -71,9 +71,7 @@
             <ul>
               <li>
                 paper (e.g.
-                <router-link to="/d2cell/paper/p47">29405609</router-link>
-                or
-                <router-link to="/d2cell/paper/p47">L-Cysteine Production in Escherichia coli Based on Rational Metabolic Engineering and Modular Strategy</router-link>
+                <router-link to="/d2cell/paper/p39">29405609</router-link>
                 )
               </li>
               <li>
@@ -116,7 +114,7 @@ import { default as allCitations } from '@/content/citations';
 import ErrorPanel from '@/components/shared/ErrorPanel.vue';
 
 export default {
-  name: 'D2CellLandingPage',
+  name: 'D2CellLanding',
   components: {
     SearchHighlighter,
     TableOfContents,
@@ -127,9 +125,7 @@ export default {
     return {
       searchTerm: '',
       searching: false,
-      // searchResults: [], 
       errorMessage: '',
-      debouncedTimer: null,
       messages
     };
   },
@@ -137,19 +133,19 @@ export default {
     this.search = debounce(this.search, 200);
   },
   beforeUnmount() {
-    this.$store.dispatch('D2Cell/resetSearch');
+    this.$store.dispatch('d2Cell/resetSearch');
   },
   computed: {
     ...mapState({
-      searchResults: state => state.D2Cell.searchResults,
+      searchResults: state => state.d2Cell.searchResults,
     }),
   },
   methods: {
     async search() {
-      this.$store.dispatch('D2Cell/resetSearch');
+      this.$store.dispatch('d2Cell/resetSearch');
 
       try {
-        await this.$store.dispatch('D2Cell/search', this.searchTerm);
+        await this.$store.dispatch('d2Cell/search', this.searchTerm);
       } catch {
         this.errorMessage = messages.unknownError;
       }

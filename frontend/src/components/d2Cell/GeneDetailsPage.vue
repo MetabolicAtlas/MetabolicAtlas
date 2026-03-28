@@ -43,17 +43,17 @@
       <div class="field columns">
         <div class="column"></div>
           <div class="column is-narrow">
-            <ExportTSV
-              :filename="`Gene for ${geneInfo?.kegg}.tsv`"
-              :format-function="formatToTSV"
-              :disabled="!genesData.length"
-            >
+          <ExportTSV
+            :filename="`Gene for ${geneInfo?.short_name || this.$route.params.name}.tsv`"
+            :format-function="formatToTSV"
+            :disabled="!genesData.length"
+          >
           </ExportTSV>
         </div>
       </div>
 
       <div v-if="genesData.length > 0">
-        <gene-table :genes = genesData :columns = columnsData></gene-table>
+        <experiment-table :genes = genesData :columns = columnsData></experiment-table>
       </div>
 
     </div>
@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import GeneTable from './table.vue';
+import ExperimentTable from './ExperimentTable.vue';
 import ExportTSV from '@/components/shared/ExportTSV.vue';
 import ExtIdTable from '@/components/explorer/gemBrowser/ExtIdTable.vue';
 import Loader from '@/components/Loader.vue';
@@ -69,7 +69,7 @@ import Loader from '@/components/Loader.vue';
 export default {
   name: 'GeneInfoPage',
   components: {
-    'gene-table':GeneTable,
+    'experiment-table':ExperimentTable,
     ExtIdTable,
     Loader,
     ExportTSV,
@@ -98,12 +98,9 @@ export default {
     async fetchGeneData() {
       this.showLoaderMessage = `Loading gene data`;
       const encodedGene = encodeURIComponent(this.$route.params.name);
-      console.log('Encoded Gene:', encodedGene);
 
       try {
-        const response = await this.$store.dispatch('D2Cell/getGeneData', encodedGene);
-
-        console.log("Complete response received:", response);
+        const response = await this.$store.dispatch('d2Cell/getGeneData', encodedGene);
         this.geneInfo = response.geneInfo; 
         this.crossReferences = response.crossReferences;
         this.notFound = false;

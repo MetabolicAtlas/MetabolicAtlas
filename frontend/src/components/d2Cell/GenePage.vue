@@ -7,7 +7,7 @@
   </template>
 
   <script>
-  import GeneDetailsPage from '@/components/D2Cell/GeneDetailsPage.vue';
+  import GeneDetailsPage from '@/components/d2Cell/GeneDetailsPage.vue';
 
   export default {
     name: 'GenePage',

@@ -1,5 +1,6 @@
-import sql from 'D2Cell/db';
+import sql from 'd2Cell/db';
 import { crossReferencesDict } from 'data/identifiers';
+import { fetchDataAndMap } from './paper';
 
 const keyMapping = {
   uniprotkb: 'uniprot',
@@ -22,15 +23,7 @@ const mapCrossReferences = (rawCrossReferences) =>
       })
   );
 
-const mapPmidResults = (pmidResults) => {
-  const doiToPmidMap = {};
-  pmidResults.forEach(row => {
-    doiToPmidMap[row.paper_id] = row.pmid;
-  });
-  return doiToPmidMap;
-};
-
-const fetchMainTableResultsByName = async (name) => {
+  const fetchMainTableResultsByName = async (name) => {
   const dataResults = await sql`
     SELECT DISTINCT main_table.*, products.name AS product_name
     FROM main_table
@@ -41,21 +34,11 @@ const fetchMainTableResultsByName = async (name) => {
       overexpress_gene ILIKE '%' || ${name} || '%' OR
       heterologous_gene ILIKE '%' || ${name} || '%';
   `;
-  const data = fetchDataAndMap(dataResults);
-  return data
+  const data = await fetchDataAndMap(dataResults);
+  return data;
 }
 
 const fetchMainTableResultsByUniprotKB = async (uniprotkb) => {
-  // const dataResults = await sql`
-  //   SELECT main_table.*, products.name AS product_name
-  //   FROM main_table
-  //   LEFT JOIN products 
-  //     ON lower(main_table.product) = lower(products.product)
-  //   WHERE
-  //     knock_out_gene_uniprotkb ILIKE '%' || ${uniprotkb} || '%' OR
-  //     overexpress_gene_uniprotkb ILIKE '%' || ${uniprotkb} || '%' OR
-  //     heterologous_gene_uniprotkb ILIKE '%' || ${uniprotkb} || '%';
-  // `;
   const dataResults = await sql`
   SELECT DISTINCT main_table.*, products.name AS product_name
   FROM main_table
@@ -67,24 +50,9 @@ const fetchMainTableResultsByUniprotKB = async (uniprotkb) => {
     heterologous_gene_uniprotkb ILIKE '%' || ${uniprotkb} || '%';
     `;
 
-  const data = fetchDataAndMap(dataResults);
-  return data
+  const data = await fetchDataAndMap(dataResults);
+  return data;
 }
-
-const fetchDataAndMap = async (dataResults) => {
-  const dois = dataResults.map(row => row.doi);
-
-  const pmidResults = await sql`
-    SELECT pmid, paper_id FROM papers WHERE doi = ANY(${dois})
-  `;
-  const doiToPmidMap = mapPmidResults(pmidResults);
-
-  return dataResults.map(row => ({
-    ...row,
-    pmid: doiToPmidMap[row.paper_id] || row.paper_id,
-    paperID: row.paper_id,
-  }));
-};
 
 const getGeneDataFromDB = async name => {
 
@@ -94,12 +62,11 @@ const getGeneDataFromDB = async name => {
   `;
 
   if (!genes.length) {
-    // throw new Error(`Gene ${uniprotkb} returned ${genes.length} results.`);
     const data = await fetchMainTableResultsByName(name);
     return { geneInfo: {}, data, crossReferences: [] };
   }
   const geneInfo = genes[0];
-  const { doi, short_name, protein, ...rawCrossReferences } = geneInfo;
+  const { pmid, short_name, protein, ...rawCrossReferences } = geneInfo;
 
   const crossReferences = mapCrossReferences(rawCrossReferences);
   const data = await fetchMainTableResultsByUniprotKB(uniprotkb);
@@ -107,4 +74,4 @@ const getGeneDataFromDB = async name => {
   return { geneInfo, data, crossReferences };
 };
 
-export default getGeneDataFromDB;
+export { getGeneDataFromDB };

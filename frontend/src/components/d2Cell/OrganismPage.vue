@@ -7,7 +7,7 @@
   </template>
 
   <script>
-  import OrganismDetailsPage from '@/components/D2Cell/OrganismDetailsPage.vue';
+  import OrganismDetailsPage from '@/components/d2Cell/OrganismDetailsPage.vue';
 
   export default {
     name: 'OrganismPage',

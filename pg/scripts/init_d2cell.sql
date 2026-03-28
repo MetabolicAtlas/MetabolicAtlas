@@ -9,17 +9,11 @@ create extension btree_gist;
 create table papers (
     paper_id text not null,
     doi text not null,
-    doi_frontend text not null,
-    pmid text,
-    title text,
-    authors text,
-    journal text,
-    time text,
-    abstract text
+    pmid text
 );
 
 create table genes (
-    doi text,
+    pmid text,
     short_name text,
     uniprotkb text not null,
     protein text,
@@ -75,26 +69,12 @@ create table main_table (
     heterologous_gene_uniprotkb text
 );
 
+copy papers from '/input_data/d2cell/paper.txt' delimiter E'\t' CSV HEADER;
+copy genes from '/input_data/d2cell/gene.txt' delimiter E'\t' CSV HEADER;
+copy organisms from '/input_data/d2cell/organism.txt' delimiter E'\t' CSV HEADER;
+copy products from '/input_data/d2cell/product.txt' delimiter E'\t' CSV HEADER;
+copy main_table from '/input_data/d2cell/reference_data.txt' delimiter E'\t' CSV HEADER;
 
-COPY papers (paper_id,doi,doi_frontend,pmid,title,authors,journal,time,abstract)
-FROM '/input_data/d2cell/paper.csv'
-DELIMITER ',' CSV HEADER;
-
-COPY genes (doi,short_name,uniprotkb,protein,genbank_id)
-FROM '/input_data/d2cell/gene.csv'
-DELIMITER ',' CSV HEADER;
-
-COPY organisms (keggref,organism,strain_type,entry,taxa)
-FROM '/input_data/d2cell/organism.csv'
-DELIMITER ',' CSV HEADER;
-
-COPY products (product, entry, kegg, name, formula, metanetx, modelseed, bigg, chebi, metacyc, sabio_rk, reactome, smiles)
-FROM '/input_data/d2cell/product.csv'
-DELIMITER ',' CSV HEADER;
-
-COPY main_table (paper_id, doi, strain, strain_type, org_code, product, product_titer, carbon_source, carbon_source_concentration, vessel_and_feed_mode, ph, time, temperature, parent_strain, knock_out_gene, overexpress_gene, heterologous_gene, medium, smiles, knock_out_gene_UniProtKB, overexpress_gene_UniProtKB, heterologous_gene_UniProtKB)
-FROM '/input_data/d2cell/reference_data.csv'
-DELIMITER ',' CSV HEADER;
 
 create index on papers using gist (paper_id);
 create index on papers using gist (pmid);
@@ -106,15 +86,9 @@ create index on products using gist (kegg);
 
 
 create view multi_search as
-select text 'paper' as type, paper_id as id, title as match from papers
-union all
 select text 'paper' as type, paper_id as id, pmid as match from papers
 union all
 select text 'gene' as type, uniprotkb as id, short_name as match from genes
-union all
-select text 'organism' as type, keggref as id, organism as match from organisms
-union all
-select text 'organism' as type, keggref as id, strain_type as match from organisms
 union all
 select text 'organism' as type, keggref as id, keggref as match from organisms
 union all

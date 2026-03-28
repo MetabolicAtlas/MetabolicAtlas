@@ -4,7 +4,7 @@ import repoRoutes from 'endpoints/repository';
 import dataOverlayRoutes from 'endpoints/dataOverlay';
 import svgThumbRoutes from 'endpoints/svgThumbnail';
 import gotEnzymesRoutes from 'endpoints/gotEnzymes';
-import D2CellRoutes from 'endpoints/D2Cell';
+import D2CellRoutes from 'endpoints/d2Cell';
 import swaggerRoutes from 'endpoints/swagger';
 
 const router = express.Router();

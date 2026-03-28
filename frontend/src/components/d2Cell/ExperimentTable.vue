@@ -24,9 +24,9 @@
         <span v-else-if="column.field === 'geneString'">
           <span v-for="geneInfo in row.gene" :key="geneInfo.type" :style="{ color: getGeneColor(geneInfo.type) }" :title="`${geneInfo.type} Gene`">
             <span v-for="(gene, index) in geneInfo.value ? geneInfo.value.split(';') : []" :key="index">
-              <template v-if="gene.trim() !== '-' && getGeneUniProtKB(row.geneString_uniprotkb, index) !== 'NA'">
+              <template v-if="gene.trim() !== '-' && getGeneUniProtKB(row, gene.trim()) !== 'NA'">
                 <router-link 
-                  :to="`/d2cell/gene/${getGeneUniProtKB(row.geneString_uniprotkb, index)}`" 
+                  :to="`/d2cell/gene/${getGeneUniProtKB(row, gene.trim())}`" 
                   target="_blank" 
                   :style="{ color: getGeneColor(geneInfo.type) }">
                   {{ gene.trim() }}
@@ -58,7 +58,6 @@
           <span v-else>
             <router-link :to="`/d2cell/product/${row[column.field]}`">{{ row[column.field] }}</router-link>
           </span>
-
         </span>
         <span v-else-if="column.field === 'organism'">
           <span v-if="row?.organism_code">
@@ -104,8 +103,6 @@ export default {
     this.processedRows = this.genes.map(row => ({
       ...row,
     }));
-    console.log("Mounted - Columns:", this.columns);
-    console.log("Mounted - Genes:", this.genes);
   },
   methods: {
     getGeneColor(type) {
@@ -115,13 +112,22 @@ export default {
 
       return 'black';
     },
-    getGeneUniProtKB(geneString_uniprotkb,index) {
-      return geneString_uniprotkb.split(';')[index]
+
+
+    getGeneUniProtKB(row, gene) {
+      if (!row.geneString_uniprotkb) return 'NA';
+      
+      const geneStringList = row.geneString.split(';');
+      const geneStringUniProtKBList = row.geneString_uniprotkb.split(';');
+      
+      for (let index = 0; index < geneStringList.length; index++) {
+        if (geneStringList[index] === gene) {
+          return geneStringUniProtKBList[index];
+        }
+      }
+      
+      return 'NA'; 
     }
   },
-  updated() {
-    console.log("Updated - Columns:", this.columns);
-    console.log("Updated - Genes:", this.genes);
-  }
 };
 </script>

@@ -7,7 +7,7 @@
   </template>
 
   <script>
-  import ProductDetailsPage from '@/components/D2Cell/ProductDetailsPage.vue';
+  import ProductDetailsPage from '@/components/d2Cell/ProductDetailsPage.vue';
 
   export default {
     name: 'ProductPage',

@@ -32,11 +32,11 @@ import EnzymeOrganism from '@/components/gotEnzymes/Organism.vue';
 import EnzymeDomain from '@/components/gotEnzymes/Domain.vue';
 import EnzymeGene from '@/components/gotEnzymes/Gene.vue';
 
-import D2CellLanding from '@/components/D2Cell/D2CellLanding.vue';
-import DoiPage from '@/components/D2Cell/DoiPage.vue';
-import OrganismPage from '@/components/D2Cell/OrganismPage.vue';
-import GenePage from '@/components/D2Cell/GenePage.vue';
-import ProductPage from '@/components/D2Cell/ProductPage.vue';
+import D2CellLanding from '@/components/d2Cell/Landing.vue';
+import DoiPage from '@/components/d2Cell/DoiPage.vue';
+import OrganismPage from '@/components/d2Cell/OrganismPage.vue';
+import GenePage from '@/components/d2Cell/GenePage.vue';
+import ProductPage from '@/components/d2Cell/ProductPage.vue';
 
 const routes = [
   { path: '/', name: 'home', component: Home },

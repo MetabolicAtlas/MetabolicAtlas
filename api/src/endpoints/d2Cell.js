@@ -5,7 +5,7 @@ import {
     getOrganismDataFromDB,
     getProductDataFromDB,
     search,
-} from 'D2Cell/index';
+} from 'd2Cell/index';
 
 const D2CellRoutes = express.Router();
 

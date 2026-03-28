@@ -56,14 +56,14 @@
         <div class="column"></div>
         <div class="column is-narrow">
           <ExportTSV
-            :filename="`Product for ${productInfo?.product}.tsv`"
+            :filename="`Product for ${this.$route.params.name}.tsv`"
             :format-function="formatToTSV"
             :disabled="!genesData.length"
           ></ExportTSV>
         </div>
       </div>
       <div v-if="genesData.length > 0">
-        <gene-table :genes = genesData :columns = columnsData></gene-table>
+        <experiment-table :genes = genesData :columns = columnsData></experiment-table>
       </div>
     </div>
   </div>
@@ -71,7 +71,7 @@
 
 <script>
 
-import GeneTable from './table.vue';
+import GeneTable from './ExperimentTable.vue';
 import ExportTSV from '@/components/shared/ExportTSV.vue';
 import RDKitImage from '@/components/shared/RDKitImage.vue';
 import ExtIdTable from '@/components/explorer/gemBrowser/ExtIdTable.vue';
@@ -80,7 +80,7 @@ import Loader from '@/components/Loader.vue';
 export default {
 name: 'ProductPage',
 components: {
-  'gene-table':GeneTable,
+  'experiment-table':GeneTable,
   ExtIdTable,
   Loader,
   ExportTSV,
@@ -109,12 +109,9 @@ methods: {
   async fetchProductData() {
     this.showLoaderMessage = `Loading product data`;
     const encodedProduct = encodeURIComponent(this.$route.params.name);
-    console.log('Encoded Product:', encodedProduct);
 
     try {
-      const response = await this.$store.dispatch('D2Cell/getProductData', encodedProduct);
-      
-      console.log("Complete response received:", response);
+      const response = await this.$store.dispatch('d2Cell/getProductData', encodedProduct);
       this.productInfo = response.productInfo; 
       this.crossReferences = response.crossReferences;
       this.notFound = false;
@@ -141,7 +138,6 @@ methods: {
               .join(';')
         }));
     } catch(error) {
-      console.error('Error fetching product data:', error);
       this.notFound = true;
       this.showLoaderMessage = '';
     }
