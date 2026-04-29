@@ -14,7 +14,11 @@ create table enzymes (
     reaction_id text,
     ec_number text not null,
     compound text,
-    kcat_values float(53)
+    kcat_values float(53),
+    km_values float(53),
+    kcat_km_values float(53),
+    topt float(53),
+    tm float(53)
 );
 
 create table compounds (

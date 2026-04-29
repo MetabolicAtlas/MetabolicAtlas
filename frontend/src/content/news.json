@@ -1,9 +1,14 @@
 {
   "2025": [
     {
+      "date": "2025-10-16",
+      "title": "Release 4.0 launches GotEnzymes2",
+      "text": "<b>Metabolic Atlas 4.0</b> is out. In this major release, GotEnzymes was significantly expanded, and key security updates were performed.<br> More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/4.0' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/records/5115437' target='_blank'>on Zenodo</a>."
+    },
+    {
       "date": "2025-07-13",
       "title": "Release 3.5 updates all GEMs",
-      "text": "<b>Metabolic Atlas 3.5</b> is out. In this minor release, all GEMS have been updated, and issues have been resolved together with performing security updates.<br> More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/3.5' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/records/5115437' target='_blank'>on Zenodo</a>."
+      "text": "<b>Metabolic Atlas 3.5</b> is out. In this minor release, all GEMS have been updated, and issues have been resolved together with performing security updates.<br> More details can be found <a href='https://github.com/MetabolicAtlas/MetabolicAtlas/releases/tag/3.5' target='_blank'>on GitHub</a> or <a href='https://zenodo.org/records/15875112' target='_blank'>on Zenodo</a>."
     }
   ],
   "2023": [
