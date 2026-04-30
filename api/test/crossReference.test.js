@@ -1,5 +1,3 @@
-import fetch from 'node-fetch';
-
 describe('cross reference', () => {
   test('should return more than one component', async () => {
     const res = await fetch(`${API_BASE}/identifier/HMR%202.0/HMR_1157`);

@@ -1,5 +1,3 @@
-import fetch from 'node-fetch';
-
 describe('gotEnzymes', () => {
   describe('search', () => {
     it.each(['aspmetasp', 'dioxat', 'glnasngln', 'vacuole', 'zurr'])(

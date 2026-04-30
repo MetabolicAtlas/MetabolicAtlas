@@ -1,5 +1,3 @@
-import fetch from 'node-fetch';
-
 describe('repository', () => {
   describe('GET all integrated models', () => {
     test('should return an ordered list of integrated models', async () => {

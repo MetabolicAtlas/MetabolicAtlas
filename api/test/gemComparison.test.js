@@ -1,5 +1,3 @@
-import fetch from 'node-fetch';
-
 describe('GEM comparison', () => {
   test('the comparison should have reactions data', async () => {
     const res = await fetch(
