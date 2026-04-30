@@ -24,4 +24,22 @@ describe('random components', () => {
       await expectBadReqeustMaliciousCharacter(res);
     },
   );
+
+  test('should return 400 if componentTypes is not a JSON-encoded string', async () => {
+    const res = await fetch(
+      `${API_BASE}/random-components?model=HumanGem&componentTypes=${encodeURIComponent('[object Object]')}`,
+    );
+    expect(res.status).toBe(400);
+  });
+
+  test('returns 200 when componentTypes is a JSON-stringified object', async () => {
+    const componentTypes = JSON.stringify({
+      gene: true,
+      compartmentalizedMetabolite: true,
+    });
+    const res = await fetch(
+      `${API_BASE}/random-components?model=HumanGem&version=${HUMAN_GEM_VERSION}&componentTypes=${encodeURIComponent(componentTypes)}`,
+    );
+    expect(res.status).toBe(200);
+  });
 });
