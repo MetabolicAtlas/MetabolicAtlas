@@ -1,4 +1,3 @@
-import fetch from 'node-fetch';
 
 describe('cross reference', () => {
   test('should return more than one component', async () => {

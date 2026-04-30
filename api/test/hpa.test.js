@@ -1,4 +1,3 @@
-import fetch from 'node-fetch';
 import { MALICIOUS_CHARACTERS } from '../src/malicious-characters';
 import {
   expectBadReqeustMaliciousCharacter,

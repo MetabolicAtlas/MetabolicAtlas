@@ -1,4 +1,3 @@
-import fetch from 'node-fetch';
 
 describe('gotEnzymes', () => {
   describe('search', () => {
