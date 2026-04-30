@@ -1,4 +1,3 @@
-
 describe('gotEnzymes', () => {
   describe('search', () => {
     it.each(['aspmetasp', 'dioxat', 'glnasngln', 'vacuole', 'zurr'])(

@@ -1,4 +1,3 @@
-
 describe('data overlay', () => {
   test('should return at least one data type, that includes at least one data source', async () => {
     const res = await fetch(`${API_BASE}/data-overlay/Human-GEM`);

@@ -1,4 +1,3 @@
-
 describe('GEM comparison', () => {
   test('the comparison should have reactions data', async () => {
     const res = await fetch(

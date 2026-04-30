@@ -1,4 +1,3 @@
-
 // This constant should be updated whenever new data (new versions
 // of existing models, or new models) is added to the project.
 const CORRECT_DATA = {
