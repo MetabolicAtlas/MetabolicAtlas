@@ -603,6 +603,15 @@ export default {
   &:fullscreen {
     background: white;
   }
+  &:-webkit-full-screen {
+    background: white;
+  }
+  &:-moz-full-screen {
+    background: white;
+  }
+  &:-ms-fullscreen {
+    background: white;
+  }
 }
 
 .met,
