@@ -131,16 +131,6 @@ export default {
   },
   async mounted() {
     await this.init();
-
-    window.addEventListener('fullscreenchange', () => {
-      // toggle class for svgbox
-      const svgbox = document.querySelector('.svgbox');
-      if (document.fullscreenElement) {
-        svgbox.classList.add('fullscreen');
-      } else {
-        svgbox.classList.remove('fullscreen');
-      }
-    });
   },
   methods: {
     async init() {
@@ -610,6 +600,9 @@ export default {
   @media screen and (max-width: $tablet) {
     height: $viewer-height;
   }
+  &:fullscreen {
+    background: white;
+  }
 }
 
 .met,
@@ -634,9 +627,6 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
-  &.fullscreen {
-    background: white;
-  }
 
   #svg-wrapper {
     position: relative;
