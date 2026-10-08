@@ -9,7 +9,7 @@ import { MALICIOUS_CHARACTERS } from '../src/malicious-characters';
 
 const MAR01166 = {
   id: 'MAR01166',
-  ec: '1.1.1.35;1.1.1.211',
+  ec: '1.1.1.35; 1.1.1.211',
   geneRule: 'ENSG00000060971 and ENSG00000113790 and ENSG00000133835',
   reversible: false,
   upperBound: 1000,
@@ -18,7 +18,7 @@ const MAR01166 = {
   genesCount: 3,
   metabolitesCount: 5,
   subsystemsCount: 1,
-  externalDbsCount: 5,
+  externalDbsCount: 6,
   pubmedIdsCount: 1,
   compartmentSVGsCount: 1,
   subsystemSVGsCount: 1,

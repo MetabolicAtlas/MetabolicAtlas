@@ -4,10 +4,10 @@ import fetch from 'node-fetch';
 // of existing models, or new models) is added to the project.
 const CORRECT_DATA = {
   'Human-GEM': {
-    version: '1.12.0',
-    gene_count: 3067,
-    reaction_count: 13070,
-    metabolite_count: 8369,
+    version: '2.1.1',
+    gene_count: 2870,
+    reaction_count: 12748,
+    metabolite_count: 8374,
   },
   'Yeast-GEM': {
     version: '8.6.2',
