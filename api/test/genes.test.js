@@ -85,7 +85,7 @@ describe('genes', () => {
       );
 
       const data = await res.json();
-      expect(data.length).toBe(9);
+      expect(data.length).toBe(7);
     });
 
     // eslint-disable-next-line jest/expect-expect

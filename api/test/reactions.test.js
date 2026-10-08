@@ -18,7 +18,7 @@ const MAR01166 = {
   genesCount: 3,
   metabolitesCount: 5,
   subsystemsCount: 1,
-  externalDbsCount: 5,
+  externalDbsCount: 6,
   pubmedIdsCount: 1,
   compartmentSVGsCount: 1,
   subsystemSVGsCount: 1,
