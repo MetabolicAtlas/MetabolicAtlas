@@ -5,6 +5,8 @@ const data = {
   count: 0,
 };
 
+const BRANCH_NAMES = ['main', 'master', 'develop', 'devel'];
+
 const actions = {
   async fetchRepositories({ commit }) {
     commit('setLoading', true);
@@ -38,10 +40,13 @@ const actions = {
             const contributors = Number(metadata.contributors) || 'n/a';
             let version = 'n/a';
             let releaseUrl = null;
-            if (Array.isArray(repoData.releases) && repoData.releases.length > 1) {
-              const first = repoData.releases[1];
-              const [entryVersion] = Object.keys(first);
-              version = entryVersion;
+            // releases are ordered newest first, but the default branch entry
+            // (e.g. 'main') can appear at any position, so skip it explicitly
+            const latestTag = (Array.isArray(repoData.releases) ? repoData.releases : [])
+              .map(release => Object.keys(release)[0])
+              .find(name => name && !BRANCH_NAMES.includes(name));
+            if (latestTag) {
+              version = latestTag;
               releaseUrl =
                 provider === 'gitlab'
                   ? `https://gitlab.com/${repoKey}/-/releases/${version}`
