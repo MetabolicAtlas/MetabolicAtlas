@@ -44,6 +44,7 @@ cxttap
 cypan
 Cytoscape
 cyzoom
+devel
 Dina
 doiref
 Domenzain
