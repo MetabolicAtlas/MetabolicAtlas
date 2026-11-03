@@ -61,4 +61,35 @@ describe('interaction partners', () => {
       await expectBadReqeustMaliciousCharacter(res);
     },
   );
+
+  test('expansion accepts an expanded array without rejecting it as an array input', async () => {
+    const id = 'ENSG00000120697';
+    const params = new URLSearchParams({
+      model: 'HumanGem',
+      version: HUMAN_GEM_VERSION,
+    });
+    params.append('expanded[]', id);
+    params.append('expanded[]', id);
+    const res = await fetch(
+      `${API_BASE}/interaction-partners-expansion/${id}?${params.toString()}`,
+    );
+    const body = await res.text();
+    expect(body).not.toBe('Arrays not expected as inputs');
+  });
+
+  // eslint-disable-next-line jest/expect-expect
+  test.each(MALICIOUS_CHARACTERS)(
+    'expansion should return 400 if an expanded array element contains %p',
+    async character => {
+      const params = new URLSearchParams({
+        model: 'HumanGem',
+        version: HUMAN_GEM_VERSION,
+      });
+      params.append('expanded[]', character);
+      const res = await fetch(
+        `${API_BASE}/interaction-partners-expansion/ENSG00000120697?${params.toString()}`,
+      );
+      await expectBadReqeustMaliciousCharacter(res);
+    },
+  );
 });
