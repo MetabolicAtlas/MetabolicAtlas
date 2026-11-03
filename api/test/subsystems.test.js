@@ -12,8 +12,8 @@ const LYSINE_METABOLISM = {
   name: 'Lysine metabolism',
   externalDbsCount: 0,
   compartmentsCount: 5,
-  genesCount: 52,
-  metabolitesCount: 95,
+  genesCount: 50,
+  metabolitesCount: 97,
   subsystemSVGsCount: 1,
 };
 

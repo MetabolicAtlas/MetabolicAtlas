@@ -11,10 +11,10 @@ const NUCLEUS_INFO = {
   id: 'nucleus',
   letterCode: 'n',
   name: 'Nucleus',
-  genesCount: 400,
-  metabolitesCount: 184,
-  reactionsCount: 243,
-  subsystemCount: 26,
+  genesCount: 289,
+  metabolitesCount: 212,
+  reactionsCount: 253,
+  subsystemCount: 32,
 };
 
 describe('compartments', () => {

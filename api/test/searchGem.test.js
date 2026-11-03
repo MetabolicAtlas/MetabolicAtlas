@@ -216,7 +216,7 @@ describe('gem search', () => {
         version: HUMAN_GEM_VERSION,
       }),
       search({
-        searchTerm: 'MNXR103919',
+        searchTerm: 'MNXR143347',
         model: 'HumanGem',
         version: HUMAN_GEM_VERSION,
       }),

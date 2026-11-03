@@ -18,7 +18,7 @@ context('Links on site', () => {
     "/about/elixir",
     "/about/resources",
     "/gotenzymes",
-    "/gems/comparison?models=FruitflyGem-1.2.0&models=HumanGem-1.12.0"
+    "/gems/comparison?models=FruitflyGem-1.7.0&models=HumanGem-2.1.1"
   ];
   const manualIgnore = '*[data-cy="ignore-links"] a'
   const citationPopupLink = '.altmetric_container a, .altmetric-embed a'
